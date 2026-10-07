@@ -1,0 +1,89 @@
+% !TEX root = ../main.tex
+\section{주장과 증거 지도}
+\label{ch:appendix-claims}
+
+이 부록은 가설(H), 연구 질문(RQ), 그리고 자료로 뒷받침하는 주장(C)을 하나하나 \ref{ch:results}장의 관련 증거와 이어 줘요.
+
+\dissertationSubheading[sec:map-h1]{H1 / RQ1: 순위 갈라짐}
+
+\begin{itemize}
+\item 내용: 같은 코호트(평가하는 지갑 묶음)에서 엔도스랭크(EndorseRank)와 AWP(적응형 가중 페이지랭크)는 지갑을 서로 다르게 줄 세워요.
+\item 증거: \ref{sec:rank-divergence}절; 표~\ref{tab:tie-sensitivity}(마지막 행이 두 방법 사이의 $\tau_b$를 구간과 함께 보여 주고, 각 그래프 밖의 지갑을 외톨이 점(화살표가 하나도 없는 점)으로 남겨 둔 경우도 보여 줘요); 그림~\ref{fig:rank-scatter}과~\ref{fig:score-distributions}.
+\item 해석: 두 순위는 같지 않고, 둘이 맞는 부분은 엔도스랭크가 0점을 주는 지갑들에서 나와요. 목표(O) O1의 기준은 채워졌어요(표~\ref{tab:objectives-achievement}).
+\end{itemize}
+
+\dissertationSubheading[sec:map-h2]{H2 / RQ2: 같은 기간 일치도}
+
+\begin{itemize}
+\item 내용: 같은 기간 안에서, 각 점수는 자기가 걷는 화살표로 만든 점검과 맞아요.
+\item 증거: 모든 점수의 가족 평균(비슷한 지표 묶음에 대한 평균값)과 그 신뢰구간(믿을 만한 범위, 표~\ref{tab:alignment-hybrid}); 그래프 밖의 지갑을 외톨이 점으로 남겨 두었을 때의 같은 기간 계수(표~\ref{tab:tie-sensitivity}).
+\item 참고: 대리 지표(대신 재는 값)가 그래프와 같은 이벤트에서 나오므로, 이 일치는 처음부터 어느 정도 생길 수밖에 없어요. 엔도스랭크의 허락 계수와 송금 계수는 천장(얻을 수 있는 가장 큰 값)이 서로 달라요(\ref{sec:same-window-alignment}절). 그래서 이 주장은 엔도스랭크가 둘 가운데 어느 쪽을 더 가깝게 따르는지에 대해서는 아무것도 말하지 않아요. 그리고 외톨이 점 규칙은 결과를 안 뒤에 시험해 본 것이에요. 이 비교들은 하나도 미리 정해 두지 않았어요. 엔도스랭크와 AWP 사이의 짝지은 차이와 대리 지표별 결과는 부록~\ref{ch:appendix-er-awp}에 있어요.
+\end{itemize}
+
+\dissertationSubheading[sec:map-h3]{H3 / RQ3: 계산 비용}
+
+\begin{itemize}
+\item 내용: $n$이 같을 때, 점수의 계산 시간은 그 그래프의 화살표 수를 따라가요. 그래서 가장 듬성듬성한 그래프를 쓰는 엔도스랭크가 가장 빨리 돌아가요.
+\item 증거: 표~\ref{tab:benchmark-runtime}(실행 시간, 표준편차, 메모리, 반복 수, $|V|$, $|E|$); 표~\ref{tab:benchmark-scaling-incohort}과~\ref{tab:benchmark-scaling}; 그림~\ref{fig:runtime-scaling}.
+\item 참고: 확장 풀 단계는 뽑은 주소를 더하지만, 매칭 코호트 그래프 너머로 화살표는 더하지 않아요. 그래서 풀이 프로그램 그래프의 점(노드)도 더하지 않아요(\ref{sub:runtime-scaling}절). 이 주장은 화살표 수에 대한 것으로만 좁혀져요.
+\end{itemize}
+
+\dissertationSubheading[sec:map-rq4]{RQ4: 시간 홀드아웃}
+
+\begin{itemize}
+\item 내용: 점수를 $t_1$에 고정하면, 그 점수들은 스펜더(spender, 허락을 받아 대신 쓰는 쪽) 코호트($n=1{,}335$)에서 $t_1$ 뒤부터 $t_2$까지 나타나는 새 주인--스펜더 허락과 새 송금자를 예측해요(미리 맞혀요). 점수가 어느 라벨(나중에 채점에 쓰는 정답 값)을 잘 줄 세우는지는 화살표 종류가 정해요. 하지만 어떤 페이지랭크도 자기 화살표 종류의 $t_1$ 원시 차수(화살표를 그냥 센 수)보다 어느 라벨이든 더 잘 예측하지는 못해요.
+\item 증거: 표~\ref{tab:holdout-spenders}과~\ref{tab:holdout-diff}(\ref{sec:holdout-results}절); 6월부터 8월까지의 기간은 표~\ref{tab:fresh-posthoc}; 동결일(점수를 고정한 날) 전에 송금을 받은 적이 있는 스펜더는 표~\ref{tab:holdout-receiving}.
+\item 단서: 두 라벨은 나중 기간에 관찰한 구성개념(점수가 재려고 하는 생각) 그 자체예요(새 허락, 새 송금자). 신용이나 거래 결과가 아니에요. 그리고 둘 다 새로 들어온 것을 센 수예요. RQ4는 연구 계획서에 있던 거래 성공 검증을 대신했어요(\ref{sub:gf-pr}절). C-PR($\lambda=1$)의 증가분(자기 차수보다 나아진 몫)을 빼면, 이 비교들은 하나도 미리 정해 두지 않았어요. 엔도스랭크와 AWP 사이의 차이는 부록~\ref{ch:appendix-er-awp}에 있어요.
+\end{itemize}
+
+\dissertationSubheading[sec:map-rq5]{RQ5: 결합 연산자}
+
+\begin{itemize}
+\item 내용: 9월 14일의 규칙에 따르면, 금액을 그대로 쓴 허락 층과 송금 층을 점마다 볼록 결합(정해진 비율로 더해 섞기)한 것(C-PR)은 한 층만 걷는 두 걷기를 둘 다 이기지는 못해요. 그리고 씨앗을 쓴 빼 보기 실험(한 부분만 바꿔 그 효과를 보는 실험), 곧 S-PR은 송금 걷기를 그대로 다시 만들어 내요. 봄 홀드아웃(나중 기간을 떼어 두고 맞혀 보는 시험)의 탐색적(미리 정하지 않고 살펴본) 비교에서는 C-PR이 송금 걷기만 한 것보다 나았지만, 등록 재현(계획을 먼저 공개해 두고 새 자료로 다시 해 보기)은 이것을 확인해 주지 않아요. F1과 F3은 통과하고, F2는 통과하지 못해요. AWP를 비교 대상으로 삼으면 F2는 더 큰 차이로 통과하지 못해요.
+\item 증거, 9월 14일의 규칙: 주된 부분은 표~\ref{tab:holdout-diff}, 두 번째 부분은 표~\ref{tab:alignment-hybrid}과~\ref{tab:tau-diff-hybrid}(\ref{sec:coupled-results}절).
+\item 증거, 송금 걷기만 한 것과의 비교: 표~\ref{tab:holdout-diff}의 탐색적 봄 대비, 그리고 표~\ref{tab:fresh-contrasts}의 등록한 판정(F1--F3; 그 옆에 F4--F6도 함께 보고; \ref{sub:fresh-results}절).
+\item 증거, AWP와의 비교: 표~\ref{tab:fresh-contrasts}의 등록한 민감도 분석(조건을 바꿔 결과가 얼마나 움직이는지 보기), 그리고 표~\ref{tab:holdout-diff}에 있는, 라벨을 본 뒤에 계산한 봄 대비.
+\item 증거, 비용: 표~\ref{tab:benchmark-runtime}의 실행 시간 행.
+\item 단서: 고정한 $\lambda\in\{0.25,0.5,0.75\}$, 금액을 그대로 쓴 층, 고르게 순간 이동하기, 이동(전이) 단계에서 섞기, 그리고 체인 하나로만 시험했어요. 9월 14일의 규칙과 $\lambda$ 값들은 결합 점수를 하나라도 계산하기 전에 설정 파일에 정해 두었어요(\ref{sec:holdout-protocol}절). 송금 걷기만 한 것과 비교하는 규칙은 2026년 9월 28일에 6월부터 8월까지의 기간을 위해 썼어요. 그리고 추출하기 전인 2026년 10월 1일에 민감도 분석 두 개와 함께 등록했는데, 그중 하나는 AWP를 비교 대상으로 삼아요(\ref{sub:fresh-holdout}절). 등록 문서에서는 한 층만 걷는 두 걷기를 엔도스랭크와 AWP라고 불러요.
+\end{itemize}
+
+\dissertationSubheading[sec:map-c1c4]{주장 C1--C5}
+
+\begin{itemize}
+\item C1: H3/RQ3 아래에 적은 실행 시간 증거예요. 시간 분석 실행(어느 부분에 시간이 드는지 재 본 실행)과 화살표 수 비율은 \ref{sec:benchmark-results}절과 부록~\ref{sec:pr-sparsity}에 있어요. 이 주장은 엔도스랭크에만 맞는 말이에요. C-PR은 적어도 AWP만큼 비용이 들기 때문이에요.
+\item C2: 모든 점수가 같은 기간에 자기 화살표의 점검과 맞는 것이에요(표~\ref{tab:alignment-hybrid}). 이 일치는 처음부터 어느 정도 생길 수밖에 없고, 엔도스랭크의 경우에는 그래프 밖 지갑에 대한 규칙이 정해요(표~\ref{tab:tie-sensitivity}).
+\item C3: H1/RQ1 아래에 적은 순위 갈라짐이에요(표~\ref{tab:tie-sensitivity}, 그림~\ref{fig:rank-scatter}).
+\item C4: 스펜더 홀드아웃에서 모든 페이지랭크를 자기 화살표 종류의 원시 차수와 비교한 것이에요(표~\ref{tab:holdout-spenders}과~\ref{tab:holdout-diff}). 여기에 다루는 범위 점검(표~\ref{tab:holdout-receiving}), 트레이더(거래하는 사람)에 대한 한계를 보여 주는 탐색적 트레이더 실행(표~\ref{tab:holdout-traders}), 그리고 이 결과를 되풀이한 6월부터 8월까지의 기간(표~\ref{tab:fresh-posthoc})이 함께 있어요. 강건성 점검(조건을 바꿔도 결과가 버티는지 보기)과 표본 정의 민감도는 표~\ref{tab:robustness-damping}--\ref{tab:robustness-sample-size}, 표~\ref{tab:endorserank-restarts}, 그림~\ref{fig:damping-sensitivity}에 보고했어요.
+\item C5: 결합은 한 층만 걷는 두 걷기를 이기지 못해요. 이것은 조건이 정해진 부정적인 결과예요. 그리고 등록 재현은 송금 걷기만 한 것보다 낫다는 탐색적 이득을 확인해 주지 않아요(표~\ref{tab:fresh-contrasts}). 위의 RQ5와 \ref{sec:coupled-results}절을 보세요.
+\end{itemize}
+
+\dissertationSubheading[sec:map-nonclaims]{주장하지 않는 것}
+
+이 연구는 다음을 주장하지 \emph{않아요}.
+
+\begin{itemize}
+\item 어느 점수가 평판을 더 잘 잰다거나, AWP가 이제 쓸모없어졌다는 것(부록~\ref{ch:appendix-er-awp}의 엔도스랭크와 AWP 비교는 구성개념을 따라가고, 다루는 범위에 따라 달라져요);
+\item 엔도스랭크가 송금 가족보다 허락 가족과 더 가깝게 맞는다는 것(두 계수는 천장이 서로 달라요);
+\item 이 논문의 어떤 페이지랭크가 자기 구성개념이 앞으로 자라는 것을 $t_1$의 원시 차수보다 더 잘 미리 맞힌다는 것;
+\item 값 매개변수 $b=1$이나 엔도스랭크의 고르게 다시 출발하기가 가장 좋은 선택이라는 것(둘 다 이 연구가 정했고, 재시작은 이 자료에서 두 규칙을 비교한 뒤에 정했어요);
+\item C-PR이 송금만 걷는 것보다 낫다는 것(등록한 규칙이 새 송금자에서 통과하지 못했어요), 또는 AWP보다 낫다는 것(두 기간 모두 새 송금자에서 AWP에 뒤져요);
+\item 두 화살표 종류를 어떻게 섞어도 한 층 방법을 이길 수 없다는 것. 여기서 시험한, $\lambda$를 고정한 점별 볼록 결합이 이기지 못한다는 것만 말해요;
+\item 화살표 수가 코호트 그래프보다 많아질 때 실행 시간이 유리하게 늘어난다는 것;
+\item 다시 해 보지 않고도 결과가 아비트럼 원(Arbitrum One)과 연구 기간 밖으로 넓혀진다는 것;
+\item 온체인(블록체인 위의) 점수가 담보나 법적 신분 확인 제도를 대신한다는 것.
+\end{itemize}
+
+\dissertationSubheading[sec:map-artifacts]{재현용 결과물}
+
+\begin{enumerate}
+\item 엔도스랭크, AWP, C-PR($\lambda\in\{0,0.25,0.5,0.75,1\}$), S-PR의 점수를 하나로 합친 지갑 순위 표.
+\item 스펜더 코호트와 매칭 트레이더에 대한, 컴퓨터가 읽을 수 있는 홀드아웃 요약. 짝지은 대비와 주된 기준의 판정이 들어 있어요(\texttt{data/3-published-results-for-thesis/spring-holdout-2026-03-to-2026-05/} 아래에 커밋됨).
+\item 컴퓨터가 읽을 수 있는 평가 요약: 기준이 되는 같은 기간 숫자, 실행마다 잰 시간, 부트스트랩(다시 뽑기) 절차(\texttt{data/3-published-results-for-thesis/} 아래에 커밋됨).
+\item 등록 재현: 2026년 10월 1일에 커밋한 그대로의 등록 파일과 계획서, 두 파일의 해시(파일 내용으로 만든 지문 같은 값)가 적힌 추출 목록 파일(매니페스트), 모든 계수·대비·판정이 담긴 평가 요약, 그리고 같은 코호트에서 사후에(라벨을 본 뒤에) 매긴 엔도스랭크 점수(\texttt{data/3-published-results-for-thesis/} 안의 \texttt{config-copies/}와 \texttt{registered-replication-2026-06-to-2026-08/} 아래에 커밋됨).
+\item 내보낸 표 조각(\texttt{results/tables/}).
+\item 내보낸 벡터 그림(크게 키워도 깨지지 않는 그림, \texttt{Figures/generated/}).
+\item 꺼낸 로그와 그것으로 만든 표(\texttt{data/1-raw-blockchain-logs/}와 \texttt{data/2-processed-tables-and-evaluations/}). 100\,MiB가 넘는 파일은 빠져 있지만, 한 달 단위 파일로 다시 만들 수 있어요.
+\item 보관해 둔 확장 기준선(비교 기준) 행렬(\texttt{data/4-archived-extended-baselines/}, 선택 사항).
+\end{enumerate}
+
+표와 그림은 이렇게 다시 만들어요. 실제 자료로 강건성 점검 실행까지 포함해 평가 처리 과정을 돌리고, 표를 내보낸 다음, 같은 결과물로 그림을 다시 그려요(부록~\ref{sec:pipeline-stages}).

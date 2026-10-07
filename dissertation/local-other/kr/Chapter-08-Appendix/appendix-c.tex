@@ -1,0 +1,69 @@
+% !TEX root = ../main.tex
+\section{PageRank와 순위 상관의 기초 성질}
+\label{ch:appendix-theory}
+
+본 부록은 제~\ref{ch:literature}--\ref{ch:results}장에서 암묵적으로 사용된 기초 성질을 기록한다. 내용은 표준적\citep{49,40,54,36}이며, 자족적 독서를 위해 포함한다.
+
+\dissertationSubheading[sec:pr-existence]{PageRank의 존재와 유일성}
+
+$P$를 $n$개 노드 위의 행-확률 행렬이라 하고, 식~\eqref{eq:transition}에서와 같이 dangling-node 보정을 거친 경우도 포함한다. $d\in(0,1)$에 대해 Google 행렬
+\[
+G_{\mathrm{PR}}=d P^{\top}+\frac{1-d}{n}\mathbf{1}\mathbf{1}^{\top}
+\]
+은 양행렬이며 열-확률이다(식~\eqref{eq:google-matrix}의 전치 규약까지 고려). 양행렬에 대한 Perron--Frobenius 정리에 의해, $G_{\mathrm{PR}}$는 절댓값이 1인 고유값을 유일하게 가지며, $\sum_i\pi_i=1$로 정규화된 엄밀히 양의 고유벡터 $\boldsymbol{\pi}$를 갖는다. 따라서 감쇠와 dangling-node 규칙이 고정되면 임의의 방향 그래프에 대해 PageRank 점수는 존재하고 유일하다\citep{40}.
+
+이 유일성은 EndorseRank와 AWP 비교의 토대이다. 매개변수가 고정되면 각 방법은 주어진 간선 집합에서 단일 점수 벡터를 유도한다. 따라서 $\mathbf{s}_{\mathrm{ER}}$와 $\mathbf{s}_{\mathrm{AWP}}$의 차이는 솔버의 다중성이 아니라 간선 의미와 가중치에 기인한다.
+
+\dissertationSubheading[sec:pr-continuity]{간선 가중치에 대한 연속성}
+
+고정된 $d\in(0,1)$에 대해 PageRank는 $P$의 성분에 대한 연속 함수이다. 따라서 allowance 또는 transfer 가중치의 작은 섭동은 $\|\cdot\|_1$ 노름에서 점수의 작은 섭동을 유도하며, Lipschitz 상수는 $d$와 $n$에 의존한다\citep{40}. 연속성은 감쇠를 변화시키거나 상위 토큰으로 제한하는 강건성 검사를 정당화한다. 정렬이 칼날처럼 취약하다면, 작은 하이퍼매개변수 변화가 계열별 $\tau$를 뒤섞을 것이다. 경험적으로 EndorseRank의 allowance $\tau$는 $d\in\{0.75,0.85,0.95\}$에 걸쳐 $\approx 0.355$로 유지되며(표~\ref{tab:robustness-damping}), 안정적인 순위 기하와 일치한다.
+
+\dissertationSubheading[sec:pr-sparsity]{희소성과 반복당 비용}
+
+희소 행렬--벡터 곱 $P^{\top}\mathbf{x}$는 비영 간선 $m$개에 대해 $O(m)$ 산술 연산이 든다. 따라서 거듭제곱 반복은 $I$회에 대해 $O(mI)$이다. 매칭 코호트에서 $m_{\mathrm{ER}}=14{,}727$, $m_{\mathrm{AWP}}=137{,}087$이므로, 동일한 $I$에서도 전송 방법은 반복당 대략 $9.3\times$ 더 비싸다. 관측된 반복 횟수($I_{\mathrm{ER}}\approx 37$, $I_{\mathrm{AWP}}\approx 100$)는 격차를 더 벌리며, 측정된 벽시계 시간 비 $\approx 8.9\times$와 일치한다(표~\ref{tab:benchmark-runtime}).
+
+\dissertationSubheading[sec:spearman-properties]{Spearman \texorpdfstring{$\rho$}{rho}의 성질}
+
+Spearman의 $\rho$는 순위에 적용한 Pearson 상관이다. 어느 한쪽 변수의 엄밀히 증가하는 변환에 불변이며 $[-1,1]$에 놓인다. 완벽한 단조 일치는 $\rho=1$, 완벽한 역일치는 $\rho=-1$을 준다. 동점은 중간순위 조정이 필요하며, 평가 파이프라인은 표준적인 동점 인식 구현을 사용한다. 평판 점수와 프록시는 연속적이고 두꺼운 꼬리를 가지므로, 원시 값에 대한 Pearson 상관보다 순위 기반 연관이 더 적절하다\citep{16}.
+
+\dissertationSubheading[sec:kendall-properties]{Kendall \texorpdfstring{$\tau$}{tau}의 성질}
+
+Kendall의 $\tau$는 일치하는 쌍 순서와 불일치하는 쌍 순서의 정규화된 차이와 같다. 확률적 해석이 가능하다. 서로 다른 두 지갑을 무작위로 고를 때, $\tau$는 두 순위 모두에서 상대 순서가 일치할 확률에서 불일치할 확률을 뺀 값이다\citep{36}. 이 해석은 실무자에게 결과를 전달할 때 유용하다. $\tau=0.355$는 allowance 프록시 순서가 EndorseRank 순서와 명확하지만 불완전하게 일치하는 경향을 의미한다.
+
+큰 $n$에서 $\tau$와 $\rho$는 부호와 크기가 종종 비슷하지만 동일하지는 않다. 본 논문은 Do et al.\citep{16}을 따라 둘 다 보고하며, 계열 평균 $\tau$를 주된 요약으로 사용한다.
+
+\dissertationSubheading[sec:construct-validity-note]{구성체 타당도 주석}
+
+Cronbach와 Meehl\cend{14}은 준거 관련 타당도와 구성체 타당도를 구분한다. 금표준 기본값 라벨이 없는 상황에서, 본 연구는 구성체 지향 전략을 취한다. 각 방법은 의도된 의미를 조작화한 검사(EndorseRank에 대한 allowance 수신; AWP에 대한 인바운드 전송 활동)와, 이후 신규 승인의 시간 홀드아웃에 대해 검증된다. 구성체 내 높은 $\tau$는 해석을 지지하고, 구성체 간 낮은 $\tau$는 자동으로 실패가 아니다---판별 타당도를 나타낼 수 있다.
+
+\dissertationSubheading[sec:numerical-summary-sheet]{수치 요약표}
+
+빠른 참조를 위해, 주된 매칭 코호트 수치는 다음과 같다.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+양 & 값 \\
+\midrule
+매칭 지갑 $n$ & $5{,}521$ \\
+EndorseRank 간선 & $14{,}727$ \\
+AWP 간선 & $137{,}087$ \\
+EndorseRank 런타임 & $2.105$\,s \\
+AWP 런타임 & $18.711$\,s \\
+런타임 비(AWP/ER) & $\approx 8.9\times$ \\
+방법 간 $\tau$ & $0.316$ \\
+ER allowance 평균 $\tau$ & $0.355$ \\
+AWP transfer 평균 $\tau$ & $0.534$ \\
+홀드아웃 지출자 $n$ & $1{,}335$ \\
+ER 홀드아웃 $\tau$ & $0.479$ (CI $0.426$--$0.529$) \\
+AWP 홀드아웃 $\tau$ & $0.044$ \\
+t2 신규 승인 지출자 & $222$ \\
+확장 풀 $N$ & $31{,}612$ \\
+$n=10{,}000$에서의 가속 & $\approx 10.4\times$ \\
+$N=31{,}612$에서의 가속 & $\approx 9.4\times$ \\
+관측 구간 & 2025-12-01 -- 2026-05-31 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+이 값들은 파이프라인의 기계 판독 가능 평가 요약에서 전사되었으며, 내보낸 결과 표와 일치한다.

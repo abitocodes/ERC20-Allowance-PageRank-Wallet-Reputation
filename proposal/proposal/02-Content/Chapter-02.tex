@@ -1,0 +1,210 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\section*{2 \textbf{Research Problem}}
+\label{sec:research-problem}
+\addcontentsline{toc}{section}{2 Research Problem}
+
+Current on-chain reputation methods using PageRank rely primarily on transaction values to infer economic ties among wallets. While the AWP algorithm has shown promise (Do et al., 2023), it exposes two practical limitations when used as a general-purpose on-chain reputation signal. First, reproducing transaction-based PageRank at large chain scale typically requires exhaustive parsing and aggregation of historical transfers, which increases data-processing cost, memory footprint, and iteration time for convergence. This computational burden becomes especially problematic when reputation is intended to be computed repeatedly or near real-time for DeFi risk monitoring on Arbitrum One.
+
+
+Second, transaction value is an indirect and sometimes ambiguous proxy for ``trust.'' Wallets may exchange tokens for many reasons (e.g., trading, arbitrage, airdrops, or automated contract activity) without expressing endorsement or delegating spending authority. Yet delegated permission is central to credit exposure in DeFi (Ghosh et al., 2024). By contrast, the ERC-20 allowance mechanism explicitly encodes delegation through approval (and, where supported, permit) updates that authorize a spender to transfer tokens on an owner's behalf (Ethereum Improvement Proposals, 2015; Ethereum Improvement Proposals, 2020). Because an approval remains in force until changed, the latest allowance state between each owner--spender pair offers a direct, current endorsement signal that can be represented as a sparse directed graph, aligning with network-propagation style risk scoring used in related graph-based models (Lin et al., 2024).
+
+
+A third consideration concerns the reputation tooling already deployed in practice. Attestation-based systems such as Human Passport establish whether an address is likely to be a distinct person by aggregating weighted on-chain and off-chain credentials against a passing threshold (Human Passport, n.d.; Bordeianu \& Popescu, 2026). They therefore act as an admission gate rather than as a graded ordering of wallets, and the relationships between addresses play no part in the score. A delegation-based ranking addresses the complementary question that remains open once such a gate has been applied, and Section~3.4 sets out this distinction in full.
+
+
+Thus, the central research problem is: Can we construct an on-chain reputation score using ERC-20 approve/permit relationships on Arbitrum One that reduces computational cost, more faithfully represents endorsement semantics, and yields equal or superior alignment with observable GMX V2 perpetual trading success compared to transaction-based PageRank methods?
+
+
+To address this issue, we will design, implement, and evaluate the EndorseRank algorithm, which constructs a sparse, directed, weighted endorsement graph using ERC-20 approve and permit calls. The key challenges include accurately extracting the most recent approve/permit states between each owner--spender pair so that outdated allowances do not distort the graph; ensuring rapid convergence of the PageRank algorithm on large but sparse endorsement graphs; and evaluating how effectively EndorseRank correlates with GMX V2 trading-success proxies derived from \textbf{PositionDecrease} events (close-success count, realized gain proxy, and close success rate).
+
+
+\phantomsection
+\subsection*{2.1 Research Questions}
+\label{sec:research-questions}
+\addcontentsline{toc}{subsection}{2.1 Research Questions}
+
+Can EndorseRank, a Weighted PageRank computed over ERC-20 allowance relationships, match or outperform transaction-based PageRank baselines in ranking Arbitrum One wallets by trading success, at lower computational cost?
+
+
+The setting, perspective, comparison baselines, and evaluation criteria that qualify this question are specified in the SPICE framework below rather than restated within the question itself. The sub-questions that follow are grouped into four thematic areas that mirror the evaluation constructs in Section~4.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}p{0.66\linewidth}}
+\caption{SPICE framework for the main research question}\\
+\toprule
+\textbf{SPICE Element} & Description \\
+\midrule
+\textbf{Setting} & Arbitrum One GMX V2 perpetual swap position trading and on-chain reputation score computation \\
+\addlinespace
+\textbf{Perspective} & DeFi protocols, risk analysts, wallet users, and researchers who need explainable wallet-level risk indicators \\
+\addlinespace
+\textbf{Intervention} & EndorseRank, a Weighted PageRank metric built from ERC-20 approval/permit-derived allowance relationships \\
+\addlinespace
+\textbf{Comparison} & Adaptive Weighted PageRank and transfer-based PageRank models that rely on historical transaction flows \\
+\addlinespace
+\textbf{Evaluation} & Rank divergence, trading-success alignment (Spearman's rho, Kendall's tau vs.\ GMX proxies), runtime, memory use, and convergence stability \\
+\addlinespace
+\bottomrule
+\end{longtable}
+
+The following sub-questions operationalize each SPICE element and are grouped by evaluation theme.
+
+\proposalSubheading{• Graph Construction and Fidelity}
+
+\begin{itemize}
+\item[\textendash] RQ1.1: How can we preprocess ERC-20 approve and permit events on Arbitrum One to construct a reliable, up-to-date weighted endorsement graph that reflects current token allowances?
+\item[\textendash] RQ1.2: Does a graph based on approve/permit edges preserve a sufficient trust signal compared to transaction-value graphs?
+\end{itemize}
+\proposalSubheading{• Ranking Comparison}
+
+\begin{itemize}
+\item[\textendash] RQ2.1: How does EndorseRank's ranking output differ from AWP and traditional transaction-based PageRank scoring in terms of relative ordering of wallets?
+\item[\textendash] RQ2.2: To what extent do EndorseRank scores correlate with AWP scores, and where do they diverge?
+\end{itemize}
+\proposalSubheading{• Trading Success Alignment}
+
+\begin{itemize}
+\item[\textendash] RQ3.1: What is the statistical correlation (Spearman's rho, Kendall's tau) between EndorseRank scores and GMX V2 trading-success proxies (close-success count, realized gain proxy, close success rate)?
+\item[\textendash] RQ3.2: How does EndorseRank's alignment with these proxies compare to that of AWP and transfer-based PageRank?
+\end{itemize}
+\proposalSubheading{• Computational Efficiency}
+
+\begin{itemize}
+\item[\textendash] RQ4.1: What is the execution time and resource usage (CPU, memory) required to compute EndorseRank versus AWP for a fixed set of wallets?
+\item[\textendash] RQ4.2: How does graph sparsity (approve/permit vs. transfer edges) affect convergence speed and floating-point stability in PageRank iterations?
+\end{itemize}
+\phantomsection
+\subsection*{2.2 Objectives}
+\label{sec:objectives}
+\addcontentsline{toc}{subsection}{2.2 Objectives}
+
+The overarching goal of this study is to design, implement, and evaluate an EndorseRank algorithm that leverages ERC-20 approve/permit allowances as edge weights without any time decay factors---to produce a computationally efficient and trust-reflective on-chain reputation score. Specifically, we aim to:
+
+
+The five objective groups below translate this goal into concrete deliverables aligned with the research questions in Section~2.1.
+
+
+\proposalSubheading{1. Graph Construction}
+
+\begin{itemize}
+\item[\textbullet] \textbf{O1.1: }Build a data-extraction pipeline that scans \textbf{Arbitrum One} for ERC-20 \textbf{Approve }and \textbf{Permit }events, isolates the most recent allowance amount for each owner \(\to\) spender pair, and stores these values.
+\begin{itemize}
+\item[\textendash] \emph{Rationale: }Since each new approve/permit transaction overrides previous allowances for the same owner \(\to\) spender, only the latest allowance per pair needs to be retained.
+\end{itemize}
+\item[\textbullet] \textbf{O1.2: }Construct a directed, weighted graph $G_{\text{approve}}$in which each node represents an ERC-20 wallet, and each edge (u\(\to\)v) carries a weight equal to the \textbf{latest allowance amount }(e.g., in ETH or token units) from wallet u (owner) to wallet v (spender).
+\begin{itemize}
+\item[\textendash] \emph{Detail: }We do \textbf{not }apply any time-based decay or history aggregation; all older approvals are superseded by the most recent event.
+\end{itemize}
+\end{itemize}
+\proposalSubheading{2. EndorseRank Algorithm Implementation}
+
+\begin{itemize}
+\item[\textbullet] \textbf{O2.1: }Implement a \textbf{Weighted PageRank }algorithm on $G_{\text{approve}}$, where each node's ``score'' is computed by distributing its PageRank mass to outgoing edges proportionally to the allowance weights.
+\begin{itemize}
+\item[\textendash] \emph{Specifications:}
+\begin{enumerate}
+\item[(a)] Normalize each node's outgoing edges so that for node u, the probability of transitioning to neighbor v is:
+\end{enumerate}
+\end{itemize}
+\end{itemize}
+\[P_{u\to v} = \frac{w_{u\to v}}{\sum _{x\in N^{+}(u)}w_{u\to x}}\]
+
+where N\textsuperscript{+}(u) is the set of out-neighbors of u (all nodes x that u approves), x is an element of N\textsuperscript{+}(u), and $W_{u\to v}$is the latest allowance amount from wallet u to wallet v.
+
+
+\begin{enumerate}
+\item[(b)] The equation above specifies the transition probability used by EndorseRank: $P_{u\to v}$ equals Wu\(\to\)v divided by the sum of all outgoing allowance amounts from wallet u, where each $W_{u\to v}$ denotes the latest allowance amount on edge u\(\to\)v. Thus, each wallet distributes its PageRank mass only across currently active approval relationships, proportionally to normalized allowance strength.
+\item[(c)] Use a standard damping factor (e.g., 0.85), but do not incorporate any additional time-weighting or value-decay beyond the raw allowance. This keeps the transition model consistent with PageRank-style convergence guarantees, avoids tuning extra hyperparameters without empirical justification, and preserves comparability to baselines that are defined over raw allowance weights rather than time-adjusted scores.
+\end{enumerate}
+\begin{itemize}
+\item[\textbullet] \textbf{O2.2: }Optimize the EndorseRank implementation for large, sparse graphs by using sparse-matrix representations and efficient iterative solvers, ensuring that convergence is achieved with minimal memory overhead and fast runtime.
+\end{itemize}
+\proposalSubheading{3. Reproduction of Baselines and Data Consistency}
+
+\begin{itemize}
+\item[\textbullet] \textbf{O3.1: }Reproduce two baseline ranking approaches on an identical wallet set drawn from the \textbf{GMX V2--active trader population on Arbitrum One} over the same time window:
+\end{itemize}
+\begin{enumerate}
+\item[(a)] Adaptive Weighted PageRank (AWP): a transaction-value--weighted PageRank that applies time-decay factors to transfers.
+\item[(b)] Transfer-Based Weighted PageRank: a simpler model that uses raw ERC-20 transfer amounts as edge weights, without time decay.
+\end{enumerate}
+\begin{itemize}
+\item[\textbullet] \textbf{O3.2: }Maintain a uniform data-processing pipeline so that EndorseRank, AWP, and Transfer-Based PageRank all operate on the same set of wallets and the same period's events, ensuring that any differences in results are due solely to the ranking logic rather than data inconsistencies.
+\end{itemize}
+\proposalSubheading{4. Performance Evaluation}
+
+\begin{itemize}
+\item[\textbullet] \textbf{O4.1: }Compute\textbf{ }Spearman's rho and Kendall's tau between EndorseRank scores and each of the two baselines (AWP and Transfer-Based PageRank) to quantify how similarly or differently wallets are ordered. Spearman's rho captures monotonic rank agreement, while Kendall's tau measures pairwise ordering agreement.
+\item[\textbullet] \textbf{O4.2:}\textbf{ }Compare the distribution of scores (e.g., mean, median, interquartile range) for EndorseRank versus the baselines, identifying any outlier wallets that receive disproportionately high approval-based weights but low transfer-based weights (or vice versa).
+\item[\textbullet] \textbf{O4.3: Trading Success Alignment}
+\begin{itemize}
+\item[\textendash] Extract GMX V2 \textbf{PositionDecrease} events from the GMX V2 \textbf{EventEmitter} on Arbitrum One, identifying traders via the event \textbf{account} field (not \texttt{tx.from}).
+\item[\textendash] Compute trading-success proxies for each wallet: \textbf{close-success count} (profitable closes), \textbf{realized gain proxy} ($\sum \max(\text{basePnlUsd}, 0)$), and \textbf{close success rate} (wins / total closes, with $\text{total\_closes} \geq 3$).
+\item[\textendash] Compute Spearman's rho and Kendall's tau between EndorseRank, AWP, and transfer-based PageRank scores and each proxy ranking, following the domain-alignment approach used in Do et al.\ (2023) for in-degree and in-value.
+\item[\textendash] Interpret correlation magnitudes: values too close to 1 indicate redundancy with simple proxy rankings; values below approximately 0.2 suggest insufficient domain insight from the PageRank propagation.
+\end{itemize}
+\end{itemize}
+\proposalSubheading{5. Computational Efficiency and Scalability Analysis}
+
+\begin{itemize}
+\item[\textbullet] \textbf{O5.1 Runtime Benchmarking: }Measure and compare the total time required (data extraction + graph construction + PageRank convergence) for EndorseRank, AWP, and Transfer-Based PageRank on a fixed wallet set, with staged expansion to 100,000 nodes (10,000 pilot $\to$ 50,000 $\to$ 100,000) after dry-run cost checks, subsampled from locally cached parquet graphs.
+\item[\textbullet] \textbf{O5.2 Memory Profiling: }Record peak memory usage for each method, highlighting how EndorseRank's use of only the latest approval amounts results in a sparser graph and lower memory footprint than transaction-based graphs.
+\item[\textbullet] \textbf{O5.3 Convergence Stability}\textbf{: }Analyze the number of iterations needed for each algorithm to reach a predefined convergence tolerance (e.g., 10\textsuperscript{-}\textsuperscript{6}) under different damping factors and token supply scales, verifying that EndorseRank remains numerically stable despite potentially large allowance values.
+\end{itemize}
+SMART Alignment
+
+
+The objectives are specific because each one targets a concrete research output: data pipeline, graph construction, algorithm implementation, baseline reproduction, trading-success alignment evaluation, and scalability benchmarking. They are measurable through rank-correlation statistics (Spearman's rho, Kendall's tau), runtime, memory, and convergence tolerance. They are attainable and realistic because they use public Arbitrum One blockchain logs, GMX V2 \textbf{PositionDecrease} events, reproducible Python-based tooling, and fixed computational resources. They are time-bound through the post-approval schedule, which allocates data extraction, implementation, evaluation, writing, and publication milestones between September 2026 and January 2028.
+
+
+By accomplishing these objectives, we will demonstrate how a latest-allowance-weighted approach to PageRank can yield a scalable, trust-aligned reputation-scoring model, EndorseRank, that outperforms or matches existing transaction-value-based methods in GMX trading-success alignment without any time-decay overhead.
+
+
+\phantomsection
+\subsection*{2.3 Expected Results}
+\label{sec:expected-results}
+\addcontentsline{toc}{subsection}{2.3 Expected Results}
+
+This section states the expected outcomes of the study and explicitly aligns them with the objectives above.
+
+
+These expected results map directly onto Objectives O1-O5 and mirror the three themes introduced in the background: endorsement-based trust structure, GMX trading-success alignment, and computational efficiency relative to transfer-based baselines.
+
+
+\proposalResultHeading{ER1: Reproducible allowance dataset and endorsement graph (O1.1-O1.2)}
+
+A documented, reproducible data-extraction pipeline that outputs the latest ERC-20 approve/permit allowance state for each owner-spender pair over a defined time window on Arbitrum One.
+
+
+A directed, weighted endorsement graph $G_{\text{approve}}$ constructed from these latest-allowance states, accompanied by summary statistics (e.g., node/edge counts, sparsity, degree distributions) that substantiate the intended sparsity relative to transfer graphs.
+
+
+\proposalResultHeading{ER2: Scalable EndorseRank implementation (O2.1--O2.2)}
+
+A correct Weighted PageRank implementation that uses latest allowance amounts as edge weights (with a clearly specified damping factor and convergence tolerance) and is optimized for large, sparse graphs.
+
+
+Evidence of numerical stability under large allowance values and practical convergence behavior (iterations to tolerance) on graphs of increasing size.
+
+
+\proposalResultHeading{ER3: Baseline reproduction and ranking-difference evidence (O3.1-O4.2)}
+
+Reproduced baseline rankings (AWP and transfer-based weighted PageRank) computed on the same wallet set and the same observation window as EndorseRank.
+
+
+Quantified agreement and divergence in wallet ordering via Spearman's *\(\rho\)* and Kendall's *\(\tau\)*, alongside targeted case analyses for wallets that are highly ranked by allowance endorsement but not by transfer volume (and vice versa).
+
+
+\proposalResultHeading{ER4: Trading-success alignment results (O4.3)}
+
+A GMX V2 \textbf{PositionDecrease} dataset with computed close-success count, realized gain proxy, and close success rate for matched wallets, and comparative rank-correlation results showing whether EndorseRank yields comparable or superior alignment with these proxies relative to AWP and transfer-based PageRank (Spearman's rho and Kendall's tau).
+
+
+\proposalResultHeading{ER5: End-to-end efficiency and scalability benchmarks (O5.1-O5.3)}
+
+Runtime and memory profiling results for (data extraction + graph construction + PageRank convergence) demonstrating the computational advantage of using only the latest allowance state versus exhaustive transfer-history parsing.
+
+
+A scalability analysis that reports how graph sparsity affects convergence speed and resource consumption across methods.

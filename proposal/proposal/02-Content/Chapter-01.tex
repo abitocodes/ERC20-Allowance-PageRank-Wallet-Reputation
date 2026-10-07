@@ -1,0 +1,62 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\section*{1 \textbf{Introduction and background}}
+\label{sec:introduction-and-background}
+\addcontentsline{toc}{section}{1 Introduction and background}
+
+Decentralized Finance (DeFi) has expanded lending, borrowing, and leveraged trading activity on public blockchains, yet most credit-like interactions remain highly collateralized because protocols cannot rely on traditional off-chain identity, employment, or credit histories (Sch\"{a}r, 2021; Packin \& Lev-Aretz, 2024). In a pseudonymous setting, the core challenge is not merely allocating capital, but allocating it safely: identifying which wallets are likely to behave reliably in credit-like interactions (e.g., repeated borrowing, repayment, delegation of spending rights, and successful management of leveraged exposure), while limiting exposure to opportunistic or malicious actors (e.g., position liquidation, griefing, Sybil-style account creation, and rapid reputation farming) (Packin \& Lev-Aretz, 2024).
+
+
+In this study, \textbf{on-chain reputation score} computation refers to the process of computing a quantitative score for a blockchain address using observable on-chain behavior and relationships, with the goal of approximating trustworthiness or credit-related reliability without relying on off-chain personal data (Ghosh et al., 2024; Vathsala V. \& V. D. Sharma, 2025). In DeFi, such scores can support (i) more accurate assessment of on-chain credit risk (e.g., position liquidation or repeated trading losses), (ii) improved risk controls for lending and perpetual trading protocols, and (iii) potential pathways toward more capital-efficient credit (e.g., reduced collateral requirements for low-risk participants) (Packin \& Lev-Aretz, 2024).
+
+
+To avoid ambiguity, the key concepts used throughout this proposal are defined as follows:
+
+
+\begin{itemize}
+\item[\textbullet] \textbf{DeFi (Decentralized Finance): }Financial services (e.g., lending, borrowing, perpetual trading) implemented via smart contracts on public blockchains (Sch\"{a}r, 2021).
+\item[\textbullet] \textbf{Smart contract: }Self-executing program code deployed on a blockchain that automatically enforces the terms of an agreement when predefined conditions are met, without a trusted intermediary (Buterin, 2014; Szabo, 1997).
+\item[\textbullet] \textbf{Wallet / Address: }A blockchain account that can hold assets and interact with smart contracts (used as the unit of analysis) (Buterin, 2014; Ethereum Improvement Proposals, 2015).
+\item[\textbullet] \textbf{On-chain reputation score: }A numerical indicator computed from on-chain signals intended to represent a wallet's reliability in financial interactions (Do et al., 2023).
+\item[\textbullet] \textbf{On-chain credit risk: }Observable adverse outcomes such as position liquidation, repeated trading losses, or protocol-defined delinquency signals on public blockchains (Lin et al., 2024).
+\item[\textbullet] \textbf{GMX V2 perpetual swap position: }A collateralized long or short exposure on GMX V2, opened via \textbf{PositionIncrease} and closed via \textbf{PositionDecrease} events emitted by the GMX V2 \textbf{EventEmitter} on Arbitrum One (GMX, n.d.; Arbitrum Foundation, n.d.).
+\item[\textbullet] \textbf{Profitable close / close-success: }A \textbf{PositionDecrease} with positive realized PnL (\textbf{basePnlUsd} $> 0$) that is not a position liquidation (\texttt{orderType} $\neq 7$) (GMX, n.d.).
+\item[\textbullet] \textbf{Close-success count: }The number of profitable \textbf{PositionDecrease} events for a wallet within the observation window (analogous to in-degree in transfer-based PageRank validation) (GMX, n.d.; Do et al., 2023).
+\item[\textbullet] \textbf{Realized gain proxy: }The sum of $\max(\text{basePnlUsd}, 0)$ over profitable closes in the observation window (analogous to in-value) (GMX, n.d.; Do et al., 2023).
+\item[\textbullet] \textbf{Weighted PageRank: }A graph-based ranking method that propagates influence through directed edges weighted by edge strength; this study uses the weighted variant throughout (Page et al., 1998; Do et al., 2023).
+\item[\textbullet] \textbf{ERC-20 allowance: }A state variable recording how much a token owner permits a spender to transfer on the owner's behalf (Ethereum Improvement Proposals, 2015).
+\item[\textbullet] \textbf{Approve / Permit: }ERC-20 mechanisms that set allowances; permit (EIP-2612) enables allowance updates via signed messages (Ethereum Improvement Proposals, 2020).
+\item[\textbullet] \textbf{Endorsement graph: }A directed graph where an edge represents an explicit delegation or endorsement signal rather than a mere transfer (Do et al., 2023).
+\item[\textbullet] \textbf{Attestation-based reputation: }A wallet score obtained by aggregating weighted credentials issued about the address holder by third-party verifiers, typically to establish unique personhood and resist Sybil attacks (Human Passport, n.d.; Siddarth et al., 2020).
+\item[\textbullet] \textbf{Sybil attack: }The creation of many illegitimate identities by a single actor in order to gain disproportionate influence over a pseudonymous system (Siddarth et al., 2020).
+\end{itemize}
+Reputation scoring is critical in credit-based and leveraged DeFi to distinguish reliable participants from potential bad actors (Sch\"{a}r, 2021; Packin \& Lev-Aretz, 2024). In current practice, trust in a DeFi setting is established in two broad ways, both anchored in what is observable on a public ledger. The first is behavioral: an address accrues standing through consistent, transparent on-chain activity, and because that history is immutable and openly auditable, attempts to inflate it are costly and tend to depress rather than raise the resulting score. The second is attestation-based: tooling such as Human Passport (formerly Gitcoin Passport) binds verifiable credentials to a wallet address and aggregates their weights into a score compared against a passing threshold, deliberately drawing on both on-chain and off-chain evidence in order to counter Sybil attacks (Human Passport, n.d.; Bordeianu \& Popescu, 2026). These mechanisms are reviewed in Section~3.4. Their shared objective is to determine whether an address may participate at all; neither is designed to order participating wallets by financial reliability, which is the task addressed here.
+
+
+Recent PageRank-inspired approaches to on-chain reputation score computation include the AWP algorithm proposed by Do et al. (2023), which assigns reputation scores based on transaction volume (greater inflows imply greater trust) and activeness (recent transactions receive higher weight via a logistic time-decay function). While this approach captures both economic magnitude and temporal relevance, it does not directly model explicit spending authorization as a trust signal.
+
+
+The ERC-20 token standard, however, includes two explicit allowance mechanisms---approve and permit---by which a token holder grants another address permission to spend up to a specified amount on its behalf (Ethereum Improvement Proposals, 2015; Ethereum Improvement Proposals, 2020). Each approval event inherently represents an endorsement, where the approved amount directly quantifies the granularity of trust. By extracting only the latest allowance for each owner \(\to\) spender pair, we can build a directed, weighted endorsement graph $G_{\text{approve}}$, in which each edge's weight equals the most recent approved token amount (Do et al., 2023). This design eliminates the need for any time-based decay---since newer approvals override older ones---and focuses computation on the most salient, up-to-date trust signals.
+
+
+\textbf{Domain validation on GMX V2.} This study's primary empirical setting is \textbf{Arbitrum One} and \textbf{GMX V2 perpetual swap position trading}. In principle, under-collateralized lending default or liquidation events would provide the most direct credit-risk labels; however, on Arbitrum One the volume of observable, reproducible unsecured or under-collateralized lending activity is insufficient for a stable evaluation dataset at the scale required for this dissertation. We therefore validate EndorseRank against GMX V2 trading-success proxies---long and short perpetual positions closed via \textbf{PositionDecrease}---which offer dense, wallet-level realized outcomes on the same chain. Opening a perpetual position is a collateralized leveraged exposure: the trader posts margin and takes directional risk on an underlying asset. Closing the position with positive \textbf{basePnlUsd}---a profitable \textbf{PositionDecrease}---functionally resembles successfully managing borrowed or leveraged exposure, analogous to borrowing and repaying well in a credit context. Following the AWP paper's use of in-degree and in-value as domain-intuition proxies, we therefore expect higher reputation scores to align with wallets that achieve more frequent profitable closes (\textbf{close-success count}) and larger cumulative realized gains (\textbf{realized gain proxy}).
+
+
+Clarifying the importance in DeFi, enhancing on-chain reputation score computation can provide concrete benefits:
+
+
+\begin{itemize}
+\item[\textbullet] \textbf{Risk management and protocol safety: }Better identification of risky wallets can reduce bad debt and improve the stability of lending and perpetual trading markets (Lin et al., 2024).
+\item[\textbullet] \textbf{Capital efficiency: }More informative trust signals can support differentiated risk parameters (e.g., borrowing limits or collateral requirements) instead of one-size-fits-all constraints (Packin \& Lev-Aretz, 2024).
+\item[\textbullet] \textbf{Access and inclusion without off-chain data: }On-chain scoring can enable participation for users who lack conventional credit records, while preserving the DeFi principle of permissionless access (Sch\"{a}r, 2021).
+\item[\textbullet] \textbf{Composable trust for DeFi applications: }A reusable reputation layer can be consumed by multiple protocols (e.g., lenders, perpetual exchanges, insurers, and DAOs) to make consistent, explainable decisions (Packin \& Lev-Aretz, 2024).
+\end{itemize}
+Despite the clear endorsement semantics and sparser graph structure of approval-based relationships, neither the scholarly reputation models reviewed in Sections~3.1--3.3 nor the attestation-based tooling reviewed in Section~3.4 leverages ERC-20 allowances as primary edge weights for PageRank: the former weight realized transfers, and the latter aggregate credentials about the address holder rather than the authorization relationships between addresses. This methodological gap motivates EndorseRank, our proposed on-chain reputation algorithm that applies a standard Weighted PageRank to $G_{\text{approve}}$. We hypothesize that EndorseRank will achieve comparable or superior alignment with GMX trading-success proxies while significantly reducing data-processing complexity compared to transaction-value-- and time-decay--based methods. To ensure a clear alignment between this motivation and what the study will deliver, the proposal specifies objective-linked expected results:
+
+
+\begin{itemize}
+\item[\textbullet] A reproducible pipeline and latest-allowance endorsement graph derived from ERC-20 approve/permit states on Arbitrum One;
+\item[\textbullet] An optimized, scalable Weighted PageRank implementation (EndorseRank) operating on this sparse, trust-semantic graph; and
+\item[\textbullet] Empirical evidence using GMX V2 \textbf{PositionDecrease} outcomes and rank-correlation metrics (Spearman's rho, Kendall's tau) showing that EndorseRank matches or improves trading-success alignment relative to transaction-based baselines while reducing computational overhead.
+\end{itemize}

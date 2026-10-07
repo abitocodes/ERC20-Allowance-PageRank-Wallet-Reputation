@@ -1,0 +1,191 @@
+# GMX V2 margin trading wallet ranking — full dissertation observation window
+
+protocol: gmx_v2_arbitrum
+chain_id: 42161
+chain_name: Arbitrum One
+
+period:
+  start_date: "2025-12-01"
+  end_date: "2026-06-01"  # exclusive end (through 2026-05-31 23:59:59 UTC)
+  start_ts: "2025-12-01 00:00:00 UTC"
+  end_ts: "2026-06-01 00:00:00 UTC"
+
+bigquery:
+  project_id: null  # uses GOOGLE_CLOUD_PROJECT or ADC default
+  # crypto_arbitrum is deprecated; use goog_blockchain_arbitrum_one_us
+  logs_fqn: bigquery-public-data.goog_blockchain_arbitrum_one_us.logs
+  transactions_fqn: bigquery-public-data.goog_blockchain_arbitrum_one_us.transactions
+
+gmx_arbitrum:
+  event_emitter: "0xC8ee91A54287DB53897056e12D9819156D3822Fb"
+  liquidation_handler: "0xaf157Eb8e2398A8E1Fc1dA929974652b9ba9BC25"
+  exchange_router: "0x1C3fa76e6E1088bCE750f23a5BFcffa1efEF6A41"
+  # Order.OrderType.Liquidation enum value
+  order_type_liquidation: 7
+
+events:
+  position_increase: PositionIncrease
+  position_decrease: PositionDecrease
+  # EventLog1 topic0 — verified on-chain (goog_blockchain_arbitrum_one_us)
+  event_log1_topic0: "0x137a44067c8961cd7e1d876f4754a5a3a75989b4552f1843fc69c3b372def160"
+
+ranking:
+  min_closes: 3
+  success_field: basePnlUsd
+
+# Folder names are explained in data/README.md (renamed on 2026-10-01).
+paths:
+  manifest: data/2-processed-tables-and-evaluations/extraction_manifest.json
+  eval_summary: data/2-processed-tables-and-evaluations/eval_summary.json
+  # Combined GMX file (over 100 MiB, kept locally); the monthly files are in raw_gmx_dir.
+  raw_logs: data/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx_event_logs_2025-12_to_2026-05.parquet
+  raw_gmx_dir: data/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx-position-close-logs
+  decoded_events: data/2-processed-tables-and-evaluations/gmx_decoded_events.parquet
+  wallet_rankings: data/2-processed-tables-and-evaluations/wallet_rankings.parquet
+  raw_lending_dir: data/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs
+  aave_events: data/2-processed-tables-and-evaluations/aave-lending-events/aave_events.parquet
+  aave_delegation_events: data/2-processed-tables-and-evaluations/aave-lending-events/aave_delegation_events.parquet
+
+methods:
+  gf_pr: { enabled: true }
+  lp_pr: { enabled: true }
+  cw_awp: { enabled: true }
+  lf_pr: { enabled: true }
+  riskprop_pr: { enabled: true }
+
+# Arbitrum collateral tokens for CW-AWP (lowercase applied at runtime)
+collateral_tokens:
+  - "0xaf88d065e77c8cc2239327c5edb3a432268e5831"   # USDC
+  - "0xff970a61a04b1ca14834a43f5de4533ebd5e8cc8"   # USDC.e
+  - "0x82af49447d8a07e3bd95bd0d56f35241523fbab1"   # WETH
+
+aave_arbitrum:
+  pool_addresses:
+    - "0x794a61358D6845594F94dc1DB02A252b5b4814aD"
+  event_topics:
+    borrow: "0xb3d084820fb1a9decffb176436bd02558d15fac9b0ddfed8c465bc7359d7dce0"
+    repay: "0xa534c8dbe71f871f9f3530e97a74601fea17b426cae02e1c5aee42c96c784051"
+    liquidation_call: "0xe413a321e8681d831f4dbccbca790d2952b56f977908e45be37335533e005286"
+    # Credit Delegation BQ extract deferred; synthetic fixtures use processed parquet
+    borrow_allowance_delegated: "0x0bfe1282206440d8e50a51e6ba542ca826a536a2e4b1ce4d084792bf7d86e935"
+
+reputation:
+  observation_start_ts: "2025-12-01 00:00:00 UTC"
+  observation_end_ts: "2026-06-01 00:00:00 UTC"
+  observation_end: "2026-05-31 23:59:59 UTC"
+  holdout:
+    score_end: "2026-02-28 23:59:59 UTC"
+    outcome_start: "2026-03-01 00:00:00 UTC"
+    outcome_end: "2026-05-31 23:59:59 UTC"
+    bootstrap_resamples: 400
+    bootstrap_seed: 42
+    min_closes: 3
+  damping: 0.85
+  pagerank_tolerance: 1.0e-8
+  max_iterations: 300
+  # Logistic decay T(t) of AWP (Do, Do and Nguyen 2023); the paper gives no values.
+  awp_decay_k: 0.01
+  awp_decay_t0_days: 180
+  # AWP in the form published by Do, Do and Nguyen (2023), the transfer-graph
+  # baseline of the thesis (method id awp_paper). Each transfer weighs T(t) * V(z)
+  # with V(z) = 2 / (1 + exp(-b z)) - 1 on raw base units, and restarts are
+  # weighted by sending activity. The paper gives no value for b; on raw base units
+  # any b near 1 puts V(z) at about 1 for every transfer above dust, so each
+  # transfer counts once, discounted by its age. The decay is the one above.
+  # EndorseRank (method id endorserank_vt) gives each latest allowance the same
+  # weight T(t) * V(z) and restarts uniformly.
+  # The transfer layer of C-PR and S-PR instead weighs each transfer by its raw
+  # amount times T(t) and restarts uniformly; walked alone (lambda = 0) it has the
+  # method id awp, the name the rule below and the registration give it. The
+  # allowance layer weighs raw amounts without decay; walked alone (lambda = 1)
+  # it has the method id endorserank.
+  awp_paper:
+    value_b: 1.0
+  # Coupled operator over the allowance and transfer layers (C-PR) and the
+  # endorsement-seeded transfer walk (S-PR). Fixed on 2026-09-14 before the
+  # hybrid results were computed (see local-other/sources/supervisor-feedback/
+  # 2026-09-14_two-page-contribution-plan.md).
+  hybrid:
+    coupled_lambda_primary: 0.5      # lambda=1 -> allowance layer alone (id endorserank), lambda=0 -> transfer layer alone (id awp)
+    coupled_lambda_grid: [0.25, 0.5, 0.75]
+    seeded_teleport_floor: 0.0       # mass given to nodes with zero allowance-layer score
+    # Pre-registered success rules (paired bootstrap, 95% percentile CI).
+    primary_criterion:
+      cohort: spenders
+      no_worse_than: { method: endorserank, label: future_new_approvers }  # allowance layer alone
+      better_than: { method: awp, label: future_new_transfer_senders }  # transfer layer alone
+    secondary_criterion:
+      cohort: matched
+      within_ci_of_best: [transfer, allowance]
+      exceed_both_on: sybil_stability
+  approval_topic0: "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+  transfer_topic0: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+  paths:
+    raw_approvals_dir: data/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs
+    raw_transfers_dir: data/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs
+    latest_allowances: data/2-processed-tables-and-evaluations/erc20-allowances-and-transfers/latest_allowances.parquet
+    transfer_events: data/2-processed-tables-and-evaluations/erc20-allowances-and-transfers/transfer_events.parquet
+    holdout_summary: data/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/eval_summary.json
+
+budget:
+  max_bytes_per_query: 161061273600  # 150 GiB per query; abort if dry-run exceeds
+  # Target cumulative scan: <= 1 TiB/month (BigQuery free tier) for Tier 1+2
+  # Tier 1 alignment (~80-350 GiB est.): GMX 6mo + monthly Approval/Transfer
+  # Tier 2 benchmark (10k/50k/100k): subgraph from parquet; no extra BQ scans
+
+proxies:
+  # All proxies oriented: higher value => higher expected reputation (before tau/rho).
+  transfer:
+    columns: [in_degree, in_value]
+    source: transfer_events
+  allowance:
+    columns: [in_approve_degree, in_approve_value]
+    source: latest_allowances
+  liquidation:
+    columns: [liquidation_free_rate, zero_liquidation_flag, liquidation_free_closes]
+    source: gmx_decoded_events
+  inverse_risk:
+    columns: [loss_avoidance, non_loss_close_rate, worst_close_pnl_score]
+    source: gmx_decoded_events
+  sybil_stability:
+    columns: [inbound_counterparty_ratio, transfer_tenure_days, active_months]
+    source: transfer_events
+  gmx_success:
+    columns: [close_success_count, realized_gain_proxy, close_success_rate]
+    source: gmx_decoded_events
+
+benchmark:
+  seed: "endorserank-benchmark-v1"
+  target_wallets: 100000
+  stages: [10000, 50000, 100000]
+  # In-cohort runtime scaling (Tier-1 subsample; full n appended at runtime).
+  scaling_stages: [1000, 2000, 4000]
+  scaling_seed: "benchmark-scale-v1"
+  tier2_scaling_seed: "benchmark-tier2-v1"
+  # Parquet of BQ-sampled or --from-parquet derived active addresses.
+  supplemental_path: data/2-processed-tables-and-evaluations/supplemental_wallets.parquet
+  wallet_set_path: data/2-processed-tables-and-evaluations/extraction_wallet_set.parquet
+  # Tier-2 BQ re-extract writes here; Tier-1 raw stays in reputation.paths.
+  tier2_paths:
+    raw_approvals_dir: data/1-raw-blockchain-logs/expanded-pool-tier2-2025-12-to-2026-05/erc20-approval-logs
+    raw_transfers_dir: data/1-raw-blockchain-logs/expanded-pool-tier2-2025-12-to-2026-05/erc20-transfer-logs
+    latest_allowances: data/2-processed-tables-and-evaluations/expanded-pool-tier2-allowances-and-transfers/latest_allowances.parquet
+    transfer_events: data/2-processed-tables-and-evaluations/expanded-pool-tier2-allowances-and-transfers/transfer_events.parquet
+
+alignment:
+  # Paired wallet bootstrap for every Kendall tau on the matched cohort
+  # (per-proxy CI, family-mean CI, inter-method CI, and delta-tau contrasts).
+  bootstrap_resamples: 400
+  bootstrap_seed: 42
+
+robustness:
+  damping_values: [0.75, 0.85, 0.95]
+  top_n_tokens: 20
+  sample_sizes: [50000, 200000]
+  gmx_proxy_variants: [raw_sum, size_weighted]
+  primary_methods: [endorserank_vt, awp_paper]
+
+dissertation:
+  export_methods: [endorserank_vt, awp_paper, gf_pr]
+  hybrid_methods: [coupled_pr, coupled_pr_l25, coupled_pr_l75, seeded_pr]
+  archive_presets: [seven, six-aave]

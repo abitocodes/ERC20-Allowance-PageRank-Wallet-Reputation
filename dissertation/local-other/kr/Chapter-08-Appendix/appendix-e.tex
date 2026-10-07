@@ -1,0 +1,73 @@
+% !TEX root = ../main.tex
+\section{주장--증거 대응표}
+\label{ch:appendix-claims}
+
+본 부록은 각 가설, 연구 질문, 실증 주장을 제~\ref{ch:results}장의 구체적 증거에 대응시킨다. 심사자와 재현자를 위한 탐색 보조로 의도되었다.
+
+\dissertationSubheading[sec:map-h1]{H1 / RQ1 --- 순위 분기}
+
+\begin{itemize}
+\item \textbf{진술:} EndorseRank와 AWP는 동일 코호트에서 구별되는 지갑 순서를 산출한다.
+
+\item \textbf{증거:} 점수 벡터 간 방법 간 Kendall $\tau=0.316$(제~\ref{sec:rank-divergence}절); 그림~\ref{fig:rank-scatter}의 순위 산점도; 그림~\ref{fig:score-distributions}의 점수 분포.
+
+\item \textbf{해석:} 관련되나 상호 교환 가능하지 않은 순위.
+\end{itemize}
+
+\dissertationSubheading[sec:map-h2]{H2 / RQ2 --- 구성 개념별 정합}
+
+\begin{itemize}
+\item \textbf{진술:} 사회적 방법은 동시기 allowance 검사와 전송 검사에서 서로 다르다.
+
+\item \textbf{증거:} 표~\ref{tab:alignment-transfer}--\ref{tab:alignment-allowance}; 히트맵 그림~\ref{fig:alignment-heatmap}(allowance 및 전송 칸만).
+
+\item \textbf{승자:} allowance에서 EndorseRank($\tau=0.355$ 대 $-0.030$); 전송에서 AWP($0.534$ 대 $0.333$).
+\end{itemize}
+
+\dissertationSubheading[sec:map-h3]{H3 / RQ3 --- 계산 효율}
+
+\begin{itemize}
+\item \textbf{진술:} 동일 $n$에서 EndorseRank가 AWP보다 빠르다.
+
+\item \textbf{증거:} 표~\ref{tab:benchmark-runtime}($2.105$\,s 대 $18.711$\,s, $\approx 8.9\times$); 표~\ref{tab:benchmark-scaling}($n=10{,}000$에서 $\approx 10.4\times$; $N=31{,}612$에서 $\approx 9.4\times$); 그림~\ref{fig:runtime-scaling}; 간선 수 $14{,}727$ 대 $137{,}087$.
+\end{itemize}
+
+\dissertationSubheading[sec:map-rq4]{RQ4 --- 시간 홀드아웃}
+
+\begin{itemize}
+\item \textbf{진술:} 점수를 t1에서 고정한 뒤, EndorseRank가 인바운드 지출자의 t2 신규 소유자--지출자 승인을 AWP보다 더 강하게 예측한다.
+
+\item \textbf{증거:} 지출자 코호트 $n=1{,}335$; 신규 t2 쌍이 적어도 하나인 지갑 $222$개; EndorseRank Kendall $\tau=0.479$(부트스트랩 95\% 신뢰구간 $0.426$--$0.529$); AWP $\tau=0.044$(제~\ref{sec:gf-pr-ceiling}절).
+\end{itemize}
+
+\dissertationSubheading[sec:map-c1c4]{주장 C1--C4}
+
+\begin{itemize}
+\item \textbf{C1:} H3/RQ3와 동일한 런타임 증거.
+\item \textbf{C2:} 의도된 구성 개념 검사---ER에 대한 allowance, AWP에 대한 전송---표~\ref{tab:alignment-allowance} 및~\ref{tab:alignment-transfer}.
+\item \textbf{C3:} H2/RQ2와 같은 구성 개념별 승자.
+\item \textbf{C4:} C1과 allowance $\tau=0.355$ 및 지출자 홀드아웃 $\tau=0.479$를 결합한 효율--정합 상충; 표~\ref{tab:robustness-damping}--\ref{tab:robustness-sample-size} 및 그림~\ref{fig:damping-sensitivity}의 강건성.
+\end{itemize}
+
+\dissertationSubheading[sec:map-nonclaims]{명시적 비주장}
+
+본 연구는 다음을 \emph{주장하지 않는다}.
+
+\begin{itemize}
+\item AWP가 구식이 되었다는 것;
+\item 결과가 재현 없이 Arbitrum One과 연구 창을 넘어 일반화된다는 것;
+\item 온체인 점수가 담보 또는 법적 신원 체계를 대체한다는 것.
+\end{itemize}
+
+\dissertationSubheading[sec:map-artifacts]{복제를 위한 산출물 점검표}
+
+\begin{enumerate}
+\item 병합된 지갑 순위 표 --- ER 및 AWP 점수.
+\item 지출자 코호트의 기계 판독 가능 홀드아웃 요약.
+\item 기계 판독 가능 평가 요약 --- 권위 있는 동일 창 수치.
+\item 내보낸 LaTeX 표 조각.
+\item 내보낸 벡터 그림.
+\item 선택적 아카이브 확장 기준선 행렬.
+\end{enumerate}
+
+재현자는 강건성 스윕과 표 내보내기를 포함하여 실제 데이터에서 평가 파이프라인을 실행한 뒤, 동일한 산출물에서 그림을 재생성하여 표와 그림을 다시 만들 수 있다.

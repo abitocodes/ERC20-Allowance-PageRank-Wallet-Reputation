@@ -1,0 +1,60 @@
+% !TEX root = ../main.tex
+% Cover page for per-chapter PDF builds (\ChapterOnly = 1..8).
+\ifcase\ChapterOnly\relax
+\or
+  \def\ChapterCoverTitle{서론과 연구 문제}%
+\or
+  \def\ChapterCoverTitle{앞선 연구 살펴보기와 이론의 틀}%
+\or
+  \def\ChapterCoverTitle{연구 방법}%
+\or
+  \def\ChapterCoverTitle{구현과 실증 결과}%
+\or
+  \def\ChapterCoverTitle{논의}%
+\or
+  \def\ChapterCoverTitle{결론과 앞으로 할 일}%
+\or
+  \def\ChapterCoverTitle{참고문헌}%
+\or
+  \def\ChapterCoverTitle{부록}%
+\fi
+
+\begin{titlepage}
+\newgeometry{left=0.885in,right=0.885in,top=1.33in,bottom=0.7in}
+\centering
+\vspace*{0.4cm}
+{\Large\bfseries ERC-20 허락 화살표를 페이지랭크에 넣어\\온체인 지갑 평판 점수를 더 좋게 만들기\par}
+\vspace{1.2cm}
+{\large\bfseries 제\ChapterOnly 장: \ChapterCoverTitle\par}
+\vfill
+{지은이\par}
+\vspace{0.7cm}
+{\large\bfseries 권태홍 (TAEHONG KWON)\par}
+\vspace{0.35cm}
+{학번: 28576810\par}
+\vfill
+{다음 학위를 받기 위한 요건에 따라 낸 논문\par}
+\vspace{0.7cm}
+{\large\bfseries 박사 (DOCTOR OF PHILOSOPHY)\par}
+\vspace{0.35cm}
+{전공\par}
+\vspace{0.7cm}
+{\large\bfseries 컴퓨터과학 (COMPUTER SCIENCE)\par}
+\vfill
+{학교\par}
+\vspace{0.7cm}
+{\large\bfseries 남아프리카대학교 (UNIVERSITY OF SOUTH AFRICA)\par}
+\vfill
+{지도 교수: Prof. Ernest Mnkandla\par}
+\vspace{0.35cm}
+{공동 지도 교수: Prof. Donatien Koulla Moulla\par}
+\vspace{0.35cm}
+{공동 지도 교수: Dr. David Sena Attipoe\par}
+\vfill
+{2026년 10월\par}
+\end{titlepage}
+\restoregeometry
+% Align body page numbers with main.pdf (\ChapterStartPage from build.ps1; checkpoints also apply for Ch2--8).
+\ifdefined\ChapterStartPage
+  \setcounter{page}{\ChapterStartPage}%
+\fi

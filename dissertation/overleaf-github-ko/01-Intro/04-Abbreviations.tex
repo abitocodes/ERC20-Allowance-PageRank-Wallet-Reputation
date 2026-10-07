@@ -1,0 +1,92 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\chapter*{줄임말과 기호}
+\label{ch:abbreviations}
+% Front-matter tables are numbered I, II, ... so they are not confused with Table 1.1 onwards.
+\let\FrontMatterSavedThetable\thetable
+\renewcommand{\thetable}{\Roman{table}}
+
+이 연구에서 쓰는 줄임말과 수학 기호를 아래에 모아 두었어요. 기호마다 본문에서 처음 나올 때도 뜻을 설명해요.
+
+\phantomsection
+\section*{줄임말}
+\label{sec:abbrev-table}
+
+\begin{table}[htbp]
+\centering
+\caption{이 연구에서 쓰는 줄임말.}
+\label{tab:abbreviations}
+\fitwidth{%
+\begin{tabular}{lp{0.72\linewidth}}
+\toprule
+줄임말 & 뜻 \\
+\midrule
+AWP & 적응형 가중 페이지랭크(Adaptive Weighted PageRank) \\
+C-PR & 결합 페이지랭크(Coupled PageRank). 지갑마다 금액을 그대로 쓴 허락 층과 송금 층을 비율 $\lambda$로 섞어요 \\
+DeFi & 디파이(Decentralized Finance, 탈중앙 금융) \\
+DEX & 탈중앙 거래소(Decentralized Exchange) \\
+EIP & 이더리움 개선 제안(Ethereum Improvement Proposal) \\
+ER & 엔도스랭크(EndorseRank, 표의 머리글에서 쓰는 줄임말) \\
+ERC-20 & 이더리움 의견 요청 20번(Ethereum Request for Comments 20, 서로 바꿀 수 있는 토큰의 공통 규칙) \\
+FC & 금융 암호학과 데이터 보안 학회(Financial Cryptography and Data Security) \\
+PR & 페이지랭크(PageRank) \\
+RQ & 연구 질문(Research Question) \\
+SoK & 지식 정리 논문(Systematization of Knowledge) \\
+S-PR & 보증 씨앗 페이지랭크(Endorsement-Seeded PageRank). 송금 층을 걷되, 허락 그래프를 걸은 점수에서 다시 출발해요 \\
+USENIX & USENIX 보안 심포지엄(USENIX Security Symposium) \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\phantomsection
+\section*{수학 기호}
+\label{sec:notation-table}
+
+\begin{table}[htbp]
+\centering
+\caption{이 연구에서 쓰는 수학 기호.}
+\label{tab:notation}
+\fitwidth{%
+\begin{tabular}{lp{0.72\linewidth}}
+\toprule
+기호 & 뜻 \\
+\midrule
+$G_{\mathrm{approve}}$ & 가장 최근 ERC-20 허락으로 만든, 방향이 있는 보증 그래프(주인 $\to$ 스펜더) \\
+$G_{\mathrm{transfer}}$ & 방향이 있는 송금 그래프(보낸 쪽 $\to$ 받는 쪽, AWP가 쓰는 그래프) \\
+$|V|$ & 평판 그래프에 있는 점의 수 \\
+$|E|$ & 평판 그래프에 있는 방향 있는 화살표의 수 \\
+$w_{ij}$ & 점 $i$에서 점 $j$로 가는 화살표의 무게 \\
+$o_i$ & 점 $i$에서 나가는 무게의 합, $o_i=\sum_j w_{ij}$(\ref{ch:methodology}장에서는 $o(u)$로 쓰고, 층마다 $o_A(u)$와 $o_T(u)$로 써요) \\
+$P$ & 이동 행렬, $o_i>0$이면 $P_{ij}=w_{ij}/o_i$예요. 매달린 점의 줄은 식~\eqref{eq:transition}에서는 고르게 나누고, 식~\eqref{eq:transition-impl}에서는 0이에요. 0일 때는 그 몫을 따로 다시 나눠 줘요 \\
+$G_{\mathrm{PR}}$ & 구글 행렬 $dP^{\top}+(1-d)\,\mathbf{1}\mathbf{1}^{\top}/|V|$(식~\eqref{eq:google-matrix}) \\
+$\mathbf{r}$, $r_i$ & 페이지랭크 벡터와 점 $i$의 값. $\mathbf{r}^{(t)}$는 거듭제곱 반복을 $t$번 한 뒤의 값이에요 \\
+$\boldsymbol{\pi}$ & 순간 이동(다시 출발) 분포. 엔도스랭크와 C-PR은 고르게, AWP는 활발함 $X_u$에 비례하게, S-PR은 허락 그래프를 걸은 점수를 정규화한 값으로 정해요 \\
+$d$ & 페이지랭크 감쇠 계수(기본값 $0.85$). 순간 이동할 확률은 $1-d$예요 \\
+$\varepsilon$ & 거듭제곱 반복을 멈추는 허용 오차($10^{-8}$, 앞뒤 값의 $\|\cdot\|_1$ 변화로 재요) \\
+$I_{\max}$ & 거듭제곱 반복의 최대 횟수($300$) \\
+$\lambda$ & 결합 연산자 C-PR에서 허락 층에 주는 비율($\lambda=1$과 $\lambda=0$은 한 층만 걸어요) \\
+$P^{(\lambda)}$ & 허락 층 비율이 $\lambda$인 C-PR의 결합 이동 행렬(식~\eqref{eq:coupled-transition}) \\
+$\alpha_A(u)$, $\alpha_T(u)$ & 지갑 $u$의 결합 이동 줄에서 허락 줄과 송금 줄에 주는 무게 \\
+$k$ & 로지스틱 시간 감쇠가 얼마나 가파른지 정하는 값 \\
+$t_0$ & 로지스틱 시간 감쇠의 가운데 지점(날) \\
+$\Delta t$ & 송금이나 허락이 일어난 뒤 지난 날수 \\
+$\sigma(\Delta t)$ & 송금(AWP)이나 마지막 허락(엔도스랭크)에 곱하는 로지스틱 시간 무게 \\
+$V(z)$ & AWP와 엔도스랭크가 쓰는 상한 있는 값 무게, $b=1$일 때 $2/(1+e^{-bz})-1$ \\
+$X_u$ & 주소 $u$의 활발함, AWP의 재시작 무게 \\
+$n$ & 상관을 계산하는 지갑 수(코호트 크기: 매칭 $n=5{,}521$, 스펜더 $n=1{,}335$) \\
+$N$ & 확장 지갑 풀의 크기(규모에 따른 변화 실험: $N=99{,}080$) \\
+$\rho$ & 스피어먼의 순위 상관 계수 \\
+$\tau$ & 켄달의 순위 상관 계수. 이 논문에 나오는 값은 모두 $\tau_b$예요 \\
+$t_1$, $t_2$ & 홀드아웃 날짜: 점수를 고정하는 날 $t_1$(2026년 2월 28일, 23:59:59 UTC)과 라벨 기간이 끝나는 날 $t_2$(2026년 5월 31일) \\
+$\mathcal{W}$ & 평가 코호트에 든 지갑들의 모임 \\
+$s(w)$ & 어떤 방법으로 매긴 지갑 $w$의 평판 점수 \\
+$p(w)$ & 지갑 $w$의 검증용 대리 지표 값 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+% Restore chapter-based table numbering for the main text.
+\let\thetable\FrontMatterSavedThetable

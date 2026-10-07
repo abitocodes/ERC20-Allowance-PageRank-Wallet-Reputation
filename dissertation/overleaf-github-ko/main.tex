@@ -1,0 +1,22 @@
+\input{Config/preamble.tex}
+\ifdefined\ChapterOnlyPath
+  \includeonly{\ChapterOnlyPath/index}
+\fi
+\begin{document}
+\ifdefined\ChapterOnly
+  \input{01-Intro/00-Chapter-Cover.tex}
+\else
+  \input{01-Intro/01-Title.tex}
+  \input{01-Intro/02-Abstract.tex}
+  \input{01-Intro/03-TOC.tex}
+  \input{01-Intro/04-Abbreviations.tex}
+\fi
+\include{Chapter-01-Introduction-and-Research-Problem/index}
+\include{Chapter-02-Literature-Review-and-Theoretical-Framework/index}
+\include{Chapter-03-Research-Methodology/index}
+\include{Chapter-04-Implementation-and-Empirical-Results/index}
+\include{Chapter-05-Discussion/index}
+\include{Chapter-06-Conclusion-and-Future-Work/index}
+\include{Chapter-07-References/index}
+\include{Chapter-08-Appendix/index}
+\end{document}

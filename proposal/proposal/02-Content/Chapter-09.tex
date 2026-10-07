@@ -1,0 +1,37 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\section*{9 \textbf{Schedule}}
+\label{sec:schedule}
+\addcontentsline{toc}{section}{9 Schedule}
+
+The following schedule assumes that the research proposal will be completed and approved by 31 August 2026. Post-approval research activities therefore begin in September 2026. Earlier setup, data-acquisition, and modelling milestones are merged into fewer periods so that the thesis submission target for examination remains January 2028. The timeline includes thesis-writing milestones as well as the preparation and submission of journal articles based on the research results.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.39\linewidth}>{\raggedright\arraybackslash}p{0.35\linewidth}}
+\caption{Research Project Schedule}\\
+\toprule
+\textbf{Period} & \textbf{Activities} & \textbf{Deliverables} \\
+\midrule
+By 31 August 2026 & Complete final proposal revisions\newline Obtain supervisor and departmental approval of the proposal\newline Confirm the approved research scope and post-approval timeline & Approved research proposal\newline Confirmed post-approval work plan \\
+\addlinespace
+Sep--Oct 2026 & Prepare the post-approval research protocol and data-management / ethics-alignment procedures\newline Set up the analysis environment\newline Develop and test the data-acquisition pipeline\newline Extract ERC-20 Approve/Permit and Transfer events on Arbitrum One\newline Extract and decode GMX V2 PositionDecrease events & Approved research protocol\newline Configured research environment\newline ETL scripts\newline Raw and decoded event datasets \\
+\addlinespace
+Nov--Dec 2026 & Clean and validate the extracted datasets\newline Construct wallet-transaction and endorsement graphs\newline Compute trading-success proxies\newline Implement EndorseRank together with AWP and PageRank baselines\newline Run initial parameter-sensitivity checks & Validated analysis and graph datasets\newline Trading-success proxy file\newline Model/baseline implementations\newline Preliminary scoring outputs \\
+\addlinespace
+Jan--Mar 2027 & Evaluate rank divergence and trading-success alignment\newline Compute Spearman's rho and Kendall's tau vs.\ GMX proxies\newline Assess computational efficiency and robustness\newline Interpret results and prepare figures, tables, and chapter-level findings & Evaluation results\newline Alignment / robustness tables\newline Results chapter materials \\
+\addlinespace
+Apr--May 2027 & Draft, revise, and submit the first journal article to an accredited journal\newline Incorporate article findings into the thesis results chapter & Submitted first journal article\newline Updated thesis results chapter \\
+\addlinespace
+June--August 2027 & Draft and revise the introduction, literature review, and methodology chapters\newline Integrate supervisor comments across completed chapters\newline Draft the second publication from the DeFi reputation and GMX alignment findings & Revised thesis chapters\newline Second publication draft\newline Publication-ready tables and evidence \\
+\addlinespace
+September 2027 & Revise and submit the second article to an accredited journal\newline Update the thesis discussion with publication feedback where applicable & Submitted second journal article\newline Updated discussion chapter \\
+\addlinespace
+October 2027 & Complete the full thesis draft\newline Finalize conclusions, limitations, and future-work sections\newline Conduct internal consistency and reference checks & Complete thesis draft\newline Checked references and cross-references \\
+\addlinespace
+November--December 2027 & Revise the full thesis based on supervisor feedback\newline Edit formatting, language, tables, and figures\newline Prepare submission documentation & Final revised thesis\newline Submission-ready document\newline Completed administrative documents \\
+\addlinespace
+January 2028 & Obtain final supervisor sign-off\newline Submit the thesis for examination\newline Track journal-review outcomes and respond to editorial queries if required & Submitted thesis\newline Supervisor sign-off\newline Journal response plan \\
+\addlinespace
+\bottomrule
+\end{longtable}

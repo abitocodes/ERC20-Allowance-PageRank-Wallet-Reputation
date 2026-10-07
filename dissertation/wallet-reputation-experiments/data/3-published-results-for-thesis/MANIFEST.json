@@ -1,0 +1,59 @@
+{
+  "published_at": "2026-10-02T06:21:46+00:00",
+  "files": [
+    {
+      "path": "eval_summary.json",
+      "source": "data/2-processed-tables-and-evaluations/eval_summary.json",
+      "sha256": "292e54d6f147d1a4838bcf11bf2e7ca41c3b052f9acf35c8de19acac32c336d8",
+      "bytes": 184901
+    },
+    {
+      "path": "spring-holdout-2026-03-to-2026-05/eval_summary_spenders.json",
+      "source": "data/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/eval_summary_spenders.json",
+      "sha256": "16485516e7cb789cc8bc2f0e78e41c45984ba1d15018a4448c37bde0efcbc973",
+      "bytes": 57296
+    },
+    {
+      "path": "spring-holdout-2026-03-to-2026-05/eval_summary_matched_traders.json",
+      "source": "data/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/eval_summary_matched_traders.json",
+      "sha256": "ed908a23ecc699978b22c9931348d99ebe4eb72b395b41400e010c4b28a36959",
+      "bytes": 56500
+    },
+    {
+      "path": "supplementary_checks.json",
+      "source": "data/2-processed-tables-and-evaluations/supplementary_checks.json",
+      "sha256": "4e63b78199f2e8fbcb6b666e85bb141b792e1cb0857c0e941b2b47276c123ccc",
+      "bytes": 30698
+    },
+    {
+      "path": "config-copies/margin_config.yaml",
+      "source": "config/margin_config.yaml",
+      "sha256": "c9e7d0142a3befdf8cd2e20f85f0a816d1c1a4e621f0b07885e6b81e9b2e5091",
+      "bytes": 9304
+    },
+    {
+      "path": "config-copies/fresh_holdout_2026q3.yaml",
+      "source": "config/fresh_holdout_2026q3.yaml",
+      "sha256": "6291f423b31c5488ab3a8f1209c09eb09ba9d633f734b7cba39677514a1f36c0",
+      "bytes": 3752
+    },
+    {
+      "path": "registered-replication-2026-06-to-2026-08/extraction_manifest.json",
+      "source": "data/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/extraction_manifest.json",
+      "sha256": "1f9c9d139cf2585dd4759b5d0794a49a5685c69dd40d60c9121382f08de6a8f7",
+      "bytes": 6046
+    },
+    {
+      "path": "registered-replication-2026-06-to-2026-08/fresh_holdout_summary.json",
+      "source": "data/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/fresh_holdout_summary.json",
+      "sha256": "9c988b7e687dbede5cde2987bf1449094b93222af810a29e2879ef7864ad7c84",
+      "bytes": 70598
+    },
+    {
+      "path": "registered-replication-2026-06-to-2026-08/posthoc_endorserank.json",
+      "source": "data/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/posthoc_endorserank.json",
+      "sha256": "b4f3fbb7a3c4472dde1b359e48e50e5c8981393bf140ed00cf4fbe5f881c1043",
+      "bytes": 34958
+    }
+  ]
+}

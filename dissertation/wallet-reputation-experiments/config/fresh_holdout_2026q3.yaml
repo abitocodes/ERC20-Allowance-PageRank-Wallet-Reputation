@@ -1,0 +1,99 @@
+# Fresh temporal holdout for the coupled operator: labels from June to August 2026.
+#
+# This file is the registration. It is committed, together with the plan in
+# docs/fresh_holdout_2026q3_plan.md, before any June-August log is extracted.
+# In that commit, `status` is changed from "draft" to "registered".
+# scripts/extract_fresh_window.py refuses to extract while the status is
+# "draft" or while this file or the plan has uncommitted changes.
+#
+# Everything not set here (damping, tolerance, iteration cap, AWP decay, the
+# C-PR lambda grid fixed on 14 September 2026, the S-PR teleport floor, the
+# value transform of the published AWP form) is read unchanged from
+# config/margin_config.yaml.
+
+registration:
+  id: fresh-holdout-2026q3
+  status: registered
+  plan: docs/fresh_holdout_2026q3_plan.md
+  operator_fixed_on: "2026-09-14"
+
+window:
+  # Scores use every extracted event from 1 December 2025 up to score_end.
+  score_end: "2026-05-31 23:59:59 UTC"
+  outcome_start: "2026-06-01 00:00:00 UTC"
+  outcome_end: "2026-08-31 23:59:59 UTC"
+  months:
+    - ["2026-06", "2026-06-01 00:00:00 UTC", "2026-07-01 00:00:00 UTC"]
+    - ["2026-07", "2026-07-01 00:00:00 UTC", "2026-08-01 00:00:00 UTC"]
+    - ["2026-08", "2026-08-01 00:00:00 UTC", "2026-09-01 00:00:00 UTC"]
+
+extraction:
+  # Same wallet filter as the spring extraction: paths.wallet_rankings, the
+  # 5,521 GMX V2 wallets with at least three closes from December to May.
+  expected_wallets: 5521
+  raw_approvals_dir: data/raw/fresh_2026q3/approvals
+  raw_transfers_dir: data/raw/fresh_2026q3/transfers
+  raw_gmx_dir: data/raw/fresh_2026q3/gmx
+  decoded_gmx: data/processed/fresh_2026q3/gmx_decoded_events.parquet
+  manifest: data/processed/fresh_2026q3/extraction_manifest.json
+
+cohorts:
+  spenders: >-
+    every spender holding at least one positive latest allowance at score_end
+    in the extracted approval data
+  traders: >-
+    the matched cohort (paths.wallet_rankings) restricted to wallets in the
+    score_end graph; the trader label is defined for wallets with at least
+    min_closes_in_window GMX closes in the outcome window
+
+evaluation:
+  output: data/processed/fresh_2026q3/fresh_holdout_summary.json
+  bootstrap_resamples: 400
+  bootstrap_seed: 42
+  ci_level: 0.95
+  min_closes_in_window: 3
+  # coupled_pr is C-PR at reputation.hybrid.coupled_lambda_primary (0.5).
+  method: coupled_pr
+  comparator: awp
+  non_inferiority_margin: 0.02
+  hypotheses:
+    - id: F1
+      cohort: spenders
+      label: future_new_approvers
+      test: superiority
+    - id: F2
+      cohort: spenders
+      label: future_new_transfer_senders
+      test: non_inferiority
+    - id: F3
+      cohort: traders
+      label: future_liquidation_free_rate
+      test: non_inferiority
+  # The improvement claim needs every hypothesis above to hold.
+  decision: all
+  # Reported in this order and not part of the decision.
+  secondary:
+    - id: F4
+      cohort: traders
+      a: coupled_pr
+      b: awp
+      label: future_liquidation_free_rate
+      test: superiority
+    - id: F5
+      cohort: traders
+      a: coupled_pr
+      b: endorserank
+      label: future_liquidation_free_rate
+      test: superiority
+    - id: F6
+      cohort: spenders
+      rule: september_primary
+  # Added on 1 October 2026, before registration (section 8 of the plan).
+  # Both are reported next to the decision and neither enters it.
+  sensitivity:
+    # F1-F4 again, with AWP in the form published by Do, Do and Nguyen (2023)
+    # (reputation.awp_paper in margin_config.yaml) in place of the comparator.
+    comparator: awp_paper
+    # F1-F6 again, with cohort wallets that a graph leaves out kept as isolated
+    # nodes instead of scored zero. Only EndorseRank and AWP change.
+    missing_wallet_rule: isolated_nodes

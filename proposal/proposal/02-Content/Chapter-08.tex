@@ -1,0 +1,36 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\section*{8 \textbf{Significance of Research}}
+\label{sec:significance-of-research}
+\addcontentsline{toc}{section}{8 Significance of Research}
+
+This research advances the field of on-chain reputation scoring and decentralized credit assessment in several meaningful ways. At the doctoral level, the intended original contribution is the formulation and empirical validation of allowance-based wallet reputation as a distinct class of on-chain trust signal. The study is positioned to contribute new knowledge by showing whether explicit authorization relationships can produce a reputation metric that is theoretically interpretable, aligned with GMX V2 perpetual trading success, and computationally more scalable than transaction-history-based PageRank baselines:
+
+
+\proposalSubheading{1. Theoretical Innovation}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Endorsement-Based Graph Modeling}: By introducing a directed, weighted endorsement graph derived from ERC-20 approve and permit events, EndorseRank extends the original PageRank citation paradigm to capture explicit on-chain trust signals. This conceptual shift---from token transfers to authorization links---broadens the theoretical underpinnings of network centrality in blockchain contexts.
+\item[\textbullet] \textbf{Temporal Simplification}: Unlike existing approaches that require elaborate time-decay functions, EndorseRank leverages the override semantics of ERC-20 allowances to dispense with time-based weighting, offering a cleaner, more principled framework for modeling enduring trust relationships.
+\item[\textbullet] \textbf{Leveraged-Exposure Validation Frame}: By validating reputation scores against GMX V2 close-success count and realized gain proxy---rather than transfer in-degree/in-value alone---the study connects graph-based reputation to collateralized perpetual trading outcomes on Arbitrum One.
+\item[\textbullet] \textbf{A Distinct Contribution Relative to Attestation-Based Tooling}: The reputation tooling currently deployed in DeFi, exemplified by Human Passport, scores a wallet by aggregating weighted credentials about its holder and comparing the total against a passing threshold, drawing on both on-chain and off-chain evidence in order to resist Sybil attacks (Human Passport, n.d.; Bordeianu \& Popescu, 2026). That approach answers whether an address is a distinct person. EndorseRank answers a question that remains open once personhood has been established---how wallets should be ordered relative to one another on the strength of the spending authority they delegate to each other---using no off-chain data and producing a continuous ranking rather than an admission decision. The originality claimed here is thus the treatment of delegation as a measurable, rankable trust relation, a signal that neither the graph-based nor the attestation-based prior art uses (Section~3.4).
+\end{itemize}
+\proposalSubheading{2. Methodological Contribution}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Efficient Computation}: EndorseRank demonstrates that a sparser approval graph can yield reputation scores with comparable or superior trading-success alignment to transfer-based PageRank, while reducing computation time, memory usage, and convergence iterations. This efficiency gain makes large-scale, near-real-time reputation scoring more feasible for resource-constrained DeFi platforms.
+\item[\textbullet] \textbf{Reproducible Framework}: We provide a fully specified, open-source pipeline---from Arbitrum One data extraction to PageRank implementation and rank-correlation evaluation---enabling other researchers and practitioners to validate, extend, and apply the EndorseRank methodology across different protocols and ecosystems.
+\end{itemize}
+\proposalSubheading{3. Practical Impact}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Improved Risk Management}: By more accurately identifying wallets whose on-chain endorsement structure aligns with successful GMX perpetual trading, EndorseRank can support differentiated risk parameters for collateralized and under-collateralized products. This has the potential to unlock significant liquidity in DeFi and broaden access to financial services.
+\item[\textbullet] \textbf{Protocol Integration}: The lightweight nature of EndorseRank makes it a strong candidate for integration into on-chain or off-chain risk oracles, governance dashboards, and compliance tools, providing actionable intelligence to DeFi protocols, perpetual exchanges, custodial services, and regulators.
+\end{itemize}
+\proposalSubheading{4. Broader Implications}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Cross-Protocol Applicability}: While this study focuses on Arbitrum One and GMX V2, the EndorseRank approach generalizes to any ERC-20--compatible network or custom token standard, making it relevant for emerging L2 solutions and alternative smart-contract platforms.
+\item[\textbullet] \textbf{Foundation for Future Research}: By highlighting the value of authorization networks and GMX-derived trading-success proxies, this work encourages further exploration of other on-chain signals---such as governance votes, staking approvals, and cross-chain bridges---and their integration into composite reputation and identity frameworks.
+\end{itemize}

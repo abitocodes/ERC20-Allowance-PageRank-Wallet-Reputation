@@ -1,0 +1,269 @@
+% !TEX root = ../main.tex
+
+\clearpage
+
+{\Large\bfseries 목차\par}
+
+\vspace{0.75em}
+
+\TOCentry{}{{\textbf{초록}}}{ch:abstract}
+
+\TOCentry{}{{\textbf{약어 및 기호}}}{ch:abbreviations}
+
+\TOCentry{1}{{\textbf{서론 및 연구 문제}}}{ch:introduction}
+
+\hspace*{1.5em}\TOCentry{1.1}{{배경: DeFi, 가명성, 담보}}{sec:background}
+
+\hspace*{1.5em}\TOCentry{1.2}{{온체인 평판 점수의 동기}}{sec:motivation}
+
+\hspace*{1.5em}\TOCentry{1.3}{{연구 문제}}{sec:research-problem}
+
+\hspace*{1.5em}\TOCentry{1.4}{{시간 홀드아웃}}{sec:supplementary-extension}
+
+\hspace*{1.5em}\TOCentry{1.5}{{연구 목표}}{sec:research-objectives}
+
+\hspace*{1.5em}\TOCentry{1.6}{{연구 질문}}{sec:research-questions}
+
+\hspace*{1.5em}\TOCentry{1.7}{{기여}}{sec:contributions}
+
+\hspace*{1.5em}\TOCentry{1.8}{{범위와 한계}}{sec:scope-limitations}
+
+\hspace*{1.5em}\TOCentry{1.9}{{연구의 구성}}{sec:roadmap}
+
+\TOCentry{2}{{\textbf{문헌 검토 및 이론적 틀}}}{ch:literature}
+
+\hspace*{1.5em}\TOCentry{2.1}{{블록체인과 DeFi 기초}}{sec:blockchain-defi-foundations}
+
+\hspace*{1.5em}\TOCentry{2.2}{{이더리움, Layer-2 롤업, Arbitrum One}}{sec:ethereum-l2}
+
+\hspace*{1.5em}\TOCentry{2.3}{{ERC-20 토큰과 allowance 생명주기}}{sec:erc20-allowance-lifecycle}
+
+\hspace*{1.5em}\TOCentry{2.4}{{그래프 기반 온체인 평판}}{sec:graph-reputation}
+
+\hspace*{1.5em}\TOCentry{2.5}{{PageRank 형식화}}{sec:pagerank-formalism}
+
+\hspace*{1.5em}\TOCentry{2.6}{{평판 시스템의 계보}}{sec:reputation-systems}
+
+\hspace*{1.5em}\TOCentry{2.7}{{보증으로서의 ERC-20 allowance}}{sec:allowance-endorsement}
+
+\hspace*{1.5em}\TOCentry{2.8}{{본 연구가 주장하지 않는 것}}{sub:gf-pr}
+
+\hspace*{1.5em}\TOCentry{2.9}{{순위 상관 이론}}{sec:rank-correlation-theory}
+
+\hspace*{1.5em}\TOCentry{2.10}{{이론적 틀}}{sec:theoretical-framework}
+
+\hspace*{1.5em}\TOCentry{2.11}{{용어 안내}}{sub:terminology}
+
+\hspace*{1.5em}\TOCentry{2.12}{{도메인 정합 지표}}{sec:domain-alignment-metrics}
+
+\hspace*{1.5em}\TOCentry{2.13}{{예제: 네 노드 보증 그래프에서의 PageRank}}{sec:pagerank-worked-example}
+
+\hspace*{1.5em}\TOCentry{2.14}{{DeFi 위험 분류와 평판의 위치}}{sec:defi-risk-taxonomy}
+
+\hspace*{1.5em}\TOCentry{2.15}{{관련 측정 전통}}{sec:related-measurement}
+
+\hspace*{1.5em}\TOCentry{2.16}{{계정, 가스, 로그가 측정 표면인 이유}}{sec:account-model}
+
+\hspace*{1.5em}\TOCentry{2.17}{{보안상 유의미한 사건으로서의 승인}}{sec:approval-security}
+
+\hspace*{1.5em}\TOCentry{2.18}{{AWP 심층 분석: 전송 그래프 기준선이 측정하는 것}}{sec:awp-in-depth}
+
+\hspace*{1.5em}\TOCentry{2.19}{{그래프 평판 방법 비교}}{sec:method-comparison-table}
+
+\hspace*{1.5em}\TOCentry{2.20}{{본 연구를 동기화하는 미해결 문제}}{sec:open-problems}
+
+\TOCentry{3}{{\textbf{연구 방법론}}}{ch:methodology}
+
+\hspace*{1.5em}\TOCentry{3.1}{{표기법}}{sec:notation}
+
+\hspace*{1.5em}\TOCentry{3.2}{{데이터 출처와 표본추출}}{sec:data-sources}
+
+\hspace*{1.5em}\TOCentry{3.3}{{2단계 수집 전략}}{sec:collection-strategy}
+
+\hspace*{1.5em}\TOCentry{3.4}{{파이프라인 아키텍처}}{sec:pipeline-architecture}
+
+\hspace*{1.5em}\TOCentry{3.5}{{이벤트 디코딩}}{sec:event-decoding}
+
+\hspace*{1.5em}\TOCentry{3.6}{{그래프 구축}}{sec:graph-construction}
+
+\hspace*{1.5em}\TOCentry{3.7}{{시간 홀드아웃 프로토콜}}{sec:gf-pr-graph}
+
+\hspace*{1.5em}\TOCentry{3.8}{{구성 개념 점검 설계}}{sec:proxy-evaluation}
+
+\hspace*{1.5em}\TOCentry{3.9}{{대리 지표의 조작적 정의}}{sec:proxy-formulas}
+
+\hspace*{1.5em}\TOCentry{3.10}{{통계 검정}}{sec:statistical-tests}
+
+\hspace*{1.5em}\TOCentry{3.11}{{계산 벤치마크 (주장~C1)}}{sec:computational-benchmark}
+
+\hspace*{1.5em}\TOCentry{3.12}{{확장성과 강건성 확장}}{sec:scaling-robustness}
+
+\hspace*{1.5em}\TOCentry{3.13}{{재현성}}{sec:reproducibility}
+
+\hspace*{1.5em}\TOCentry{3.14}{{표본추출 고려사항과 결측}}{sec:sampling-bias}
+
+\hspace*{1.5em}\TOCentry{3.15}{{구현 노트}}{sec:implementation-notes}
+
+\hspace*{1.5em}\TOCentry{3.16}{{윤리}}{sec:ethics}
+
+\hspace*{3.0em}\TOCentry{}{{\textbullet\ 프라이버시와 익명성}}{sub:privacy-anonymity}
+
+\hspace*{3.0em}\TOCentry{}{{\textbullet\ 데이터 최소화}}{sub:data-minimization}
+
+\hspace*{3.0em}\TOCentry{}{{\textbullet\ 데이터 이용과 준수}}{sub:data-usage-compliance}
+
+\hspace*{3.0em}\TOCentry{}{{\textbullet\ 공정성과 투명성}}{sub:fairness-transparency}
+
+\hspace*{3.0em}\TOCentry{}{{\textbullet\ 책임 있는 공개와 영향}}{sub:responsible-disclosure}
+
+\hspace*{3.0em}\TOCentry{}{{\textbullet\ 방법론적 약속 요약}}{sub:methodological-commitments}
+
+\TOCentry{4}{{\textbf{구현 및 실증 결과}}}{ch:results}
+
+\hspace*{1.5em}\TOCentry{4.1}{{데이터셋}}{sec:dataset}
+
+\hspace*{1.5em}\TOCentry{4.2}{{EndorseRank 대 AWP 벤치마크 (주장~C1)}}{sec:benchmark-results}
+
+\hspace*{1.5em}\TOCentry{4.3}{{강건성 검증}}{sec:robustness-results}
+
+\hspace*{1.5em}\TOCentry{4.4}{{사회적 방법 정합: EndorseRank 대 AWP (주장~C2--C3)}}{sec:three-method-alignment}
+
+\hspace*{1.5em}\TOCentry{4.5}{{대리 지표 계열 상세}}{sec:proxy-family-detail}
+
+\hspace*{1.5em}\TOCentry{4.6}{{순위 분기 (H1 / RQ1)}}{sec:rank-divergence}
+
+\hspace*{1.5em}\TOCentry{4.7}{{미래 신규 승인의 시간 홀드아웃 (RQ4)}}{sec:gf-pr-ceiling}
+
+\hspace*{1.5em}\TOCentry{4.8}{{주요 주장 (C1--C4)}}{sec:empirical-claims}
+
+\TOCentry{5}{{\textbf{논의}}}{ch:discussion}
+
+\hspace*{1.5em}\TOCentry{5.1}{{연구 질문별 발견}}{sec:findings-rq}
+
+\hspace*{1.5em}\TOCentry{5.2}{{이론적 함의}}{sec:theoretical-implications}
+
+\hspace*{1.5em}\TOCentry{5.3}{{실무적 함의}}{sec:practical-implications}
+
+\hspace*{1.5em}\TOCentry{5.4}{{allowance 그래프에서의 Sybil 비용}}{sec:sybil-cost-model}
+
+\hspace*{1.5em}\TOCentry{5.5}{{규제 및 윤리적 고려}}{sec:regulatory-ethics}
+
+\hspace*{1.5em}\TOCentry{5.6}{{타당성에 대한 위협}}{sec:threats-validity}
+
+\hspace*{1.5em}\TOCentry{5.7}{{한계}}{sec:limitations}
+
+\TOCentry{6}{{\textbf{결론 및 향후 연구}}}{ch:conclusion}
+
+\hspace*{1.5em}\TOCentry{6.1}{{발견 요약}}{sec:summary-findings}
+
+\hspace*{1.5em}\TOCentry{6.2}{{지식에 대한 독창적 기여}}{sec:contribution-knowledge}
+
+\hspace*{1.5em}\TOCentry{6.3}{{향후 연구}}{sec:future-work}
+
+\hspace*{1.5em}\TOCentry{6.4}{{맺음말}}{sec:closing-reflection}
+
+\TOCentry{7}{{\textbf{참고문헌}}}{ch:references}
+
+\TOCentry{8}{{\textbf{부록}}}{ch:appendix}
+
+\hspace*{1.5em}\TOCentry{8.1}{{\textbf{평가 파이프라인과 재현성}}}{ch:appendix-eval}
+
+\hspace*{3.0em}\TOCentry{8.1.1}{{파이프라인 단계}}{sec:pipeline-stages}
+
+\hspace*{3.0em}\TOCentry{8.1.2}{{BigQuery 추출 설계}}{sec:bq-extraction}
+
+\hspace*{3.0em}\TOCentry{8.1.3}{{확장성 표}}{sec:scaling-appendix}
+
+\hspace*{3.0em}\TOCentry{8.1.4}{{Credit Delegation 추출 (보류)}}{sec:delegation-deferred}
+
+\hspace*{3.0em}\TOCentry{8.1.5}{{보조 정합 요약 표}}{sec:supplementary-summary}
+
+\hspace*{3.0em}\TOCentry{8.1.6}{{매개변수 요약}}{sec:parameter-summary}
+
+\hspace*{3.0em}\TOCentry{8.1.7}{{대리 지표 조작적 정의 (참고)}}{sec:proxy-appendix}
+
+\hspace*{3.0em}\TOCentry{8.1.8}{{용어집}}{sec:glossary}
+
+\hspace*{1.5em}\TOCentry{8.2}{{\textbf{SQL 템플릿, 설정, 확장 노트}}}{ch:appendix-sql}
+
+\hspace*{3.0em}\TOCentry{8.2.1}{{Approval 로그 추출 패턴}}{sec:sql-approval}
+
+\hspace*{3.0em}\TOCentry{8.2.2}{{Transfer 로그 추출 패턴}}{sec:sql-transfer}
+
+\hspace*{3.0em}\TOCentry{8.2.3}{{설정 키}}{sec:config-keys}
+
+\hspace*{3.0em}\TOCentry{8.2.4}{{복잡도 노트}}{sec:complexity-notes}
+
+\hspace*{3.0em}\TOCentry{8.2.5}{{독자를 위한 해석 점검표}}{sec:interpretation-checklist}
+
+\hspace*{3.0em}\TOCentry{8.2.6}{{보관된 확장 기준선}}{sec:archived-baselines}
+
+\hspace*{3.0em}\TOCentry{8.2.7}{{한계 재진술}}{sec:limitations-reprise}
+
+\hspace*{1.5em}\TOCentry{8.3}{{\textbf{PageRank와 순위 상관의 기초 성질}}}{ch:appendix-theory}
+
+\hspace*{3.0em}\TOCentry{8.3.1}{{PageRank의 존재와 유일성}}{sec:pr-existence}
+
+\hspace*{3.0em}\TOCentry{8.3.2}{{간선 가중치에 대한 연속성}}{sec:pr-continuity}
+
+\hspace*{3.0em}\TOCentry{8.3.3}{{희소성과 반복당 비용}}{sec:pr-sparsity}
+
+\hspace*{3.0em}\TOCentry{8.3.4}{{Spearman $\rho$의 성질}}{sec:spearman-properties}
+
+\hspace*{3.0em}\TOCentry{8.3.5}{{Kendall $\tau$의 성질}}{sec:kendall-properties}
+
+\hspace*{3.0em}\TOCentry{8.3.6}{{구성 타당성 노트}}{sec:construct-validity-note}
+
+\hspace*{3.0em}\TOCentry{8.3.7}{{수치 요약표}}{sec:numerical-summary-sheet}
+
+\hspace*{1.5em}\TOCentry{8.4}{{\textbf{보관된 확장 기준선}}}{ch:appendix-archive}
+
+\hspace*{3.0em}\TOCentry{8.4.1}{{7개 방법 정합 행렬}}{sec:seven-method-archive}
+
+\hspace*{3.0em}\TOCentry{8.4.2}{{6개 방법 Aave 지향 행렬}}{sec:six-aave-archive}
+
+\hspace*{3.0em}\TOCentry{8.4.3}{{본문이 세 방법을 사용하는 이유}}{sec:why-archived}
+
+\hspace*{3.0em}\TOCentry{8.4.4}{{보관 표의 재현}}{sec:archive-repro}
+
+\hspace*{3.0em}\TOCentry{8.4.5}{{보관된 방법 식별자에 대한 노트}}{sec:archive-method-notes}
+
+\hspace*{3.0em}\TOCentry{8.4.6}{{결정 기록: 본문에 남은 것}}{sec:archive-decision-log}
+
+\hspace*{1.5em}\TOCentry{8.5}{{\textbf{주장--증거 대응표}}}{ch:appendix-claims}
+
+\hspace*{3.0em}\TOCentry{8.5.1}{{H1 / RQ1 --- 순위 분기}}{sec:map-h1}
+
+\hspace*{3.0em}\TOCentry{8.5.2}{{H2 / RQ2 --- 구성 개념별 정합}}{sec:map-h2}
+
+\hspace*{3.0em}\TOCentry{8.5.3}{{H3 / RQ3 --- 계산 효율}}{sec:map-h3}
+
+\hspace*{3.0em}\TOCentry{8.5.4}{{RQ4 --- 시간 홀드아웃}}{sec:map-rq4}
+
+\hspace*{3.0em}\TOCentry{8.5.5}{{주장 C1--C4}}{sec:map-c1c4}
+
+\hspace*{3.0em}\TOCentry{8.5.6}{{명시적 비주장}}{sec:map-nonclaims}
+
+\hspace*{3.0em}\TOCentry{8.5.7}{{복제를 위한 산출물 점검표}}{sec:map-artifacts}
+
+\clearpage
+
+{\Large\bfseries 그림 목록\par}
+
+\vspace{0.75em}
+
+\makeatletter
+\@starttoc{lof}%
+\makeatother
+
+\clearpage
+
+{\Large\bfseries 표 목록\par}
+
+\vspace{0.75em}
+
+\makeatletter
+\@starttoc{lot}%
+\makeatother
+
+\clearpage

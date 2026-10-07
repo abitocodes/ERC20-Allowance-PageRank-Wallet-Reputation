@@ -1,0 +1,107 @@
+\chapter{가짜 친구 작전}
+
+이번에는 교실을 조금 줄여서 네 명만 볼게요.
+지우, 하준, 서연, 도윤이에요.
+허락 지도는 이렇게 생겼어요.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.85, every node/.style={transform shape}]
+  \node[kid] (j) at (0,2) {지우};
+  \node[kid] (s) at (2.6,0.8) {서연};
+  \node[kid] (h) at (5.4,2) {하준};
+  \node[kid] (d) at (5.4,-0.6) {도윤};
+  \draw[allow] (j) -- (s);
+  \draw[allow] (h) to[bend right=15] (s);
+  \draw[allow] (d) -- (s);
+  \draw[allow] (s) to[bend right=15] (h);
+  \draw[allow] (h) -- (d);
+\end{tikzpicture}
+\caption{네 친구의 허락 지도. 이 지도는 6장에서도 계속 써요.}
+\label{fig:four}
+\end{figure}
+
+받은 화살표를 세면 서연이가 3개로 1등, 하준이와 도윤이가 1개씩, 지우는 0개예요.
+
+그런데 도윤이가 꾀를 냈어요.
+2장에서 새 통은 누구나 공짜로 얼마든지 만들 수 있다고 했지요.
+도윤이는 새 통을 세 개 만들었어요.
+이름표에는 아무도 모르는 주소가 적혀 있어요.
+그리고 세 통 모두에서 자기에게 허락 화살표를 보냈어요.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.85, every node/.style={transform shape}]
+  \node[kid] (j) at (0,2) {지우};
+  \node[kid] (s) at (2.6,0.8) {서연};
+  \node[kid] (h) at (5.4,2) {하준};
+  \node[kid] (d) at (5.4,-0.6) {도윤};
+  \node[fake] (f1) at (3.4,-2.4) {가짜1};
+  \node[fake] (f2) at (5.4,-2.9) {가짜2};
+  \node[fake] (f3) at (7.4,-2.4) {가짜3};
+  \draw[allow] (j) -- (s);
+  \draw[allow] (h) to[bend right=15] (s);
+  \draw[allow] (d) -- (s);
+  \draw[allow] (s) to[bend right=15] (h);
+  \draw[allow] (h) -- (d);
+  \draw[allow, color=roseline] (f1) -- (d);
+  \draw[allow, color=roseline] (f2) -- (d);
+  \draw[allow, color=roseline] (f3) -- (d);
+\end{tikzpicture}
+\caption{도윤이가 만든 가짜 통 세 개가 모두 도윤이를 가리켜요.}
+\end{figure}
+
+이제 받은 화살표를 세어 볼까요?
+도윤이는 4개, 서연이는 3개예요.
+도윤이가 1등이 되었어요!
+가짜 통 세 개를 만드는 데 든 노력은 거의 없는데 말이에요.
+
+\section{세기만 하면 속는 이유}
+
+무엇이 잘못되었을까요?
+받은 화살표를 세는 방법은 모든 화살표를 똑같이 쳐 줘요.
+반에서 가장 믿음직한 친구가 보낸 화살표도 1개,
+어제 막 만들어진, 아무도 모르는 통이 보낸 화살표도 1개예요.
+
+교실에서라면 우리는 이렇게 속지 않아요.
+반 친구 모두가 믿는 서연이가 “도윤이는 믿을 만해”라고 말하면 무게가 커요.
+처음 보는 사람 세 명이 그렇게 말하면 별로 믿기지 않아요.
+누가 한 말인지가 중요한 거예요.
+
+이렇게 가짜 이름을 잔뜩 만들어 점수나 투표를 부풀리는 속임수를 \textbf{시빌 공격}이라고 해요.
+
+\section{그럼 이렇게 하면 될까요?}
+
+생각을 바꿔 봐요.
+
+\begin{center}
+\begin{tcolorbox}[colback=white, colframe=inkblue, boxrule=0.8pt, arc=2mm, width=0.9\linewidth, halign=center]
+\titlefont\bfseries 믿을 만한 통이 보낸 화살표일수록\\더 무겁게 쳐 주자.
+\end{tcolorbox}
+\end{center}
+
+좋은 생각이에요.
+그런데 문제가 있어요.
+어떤 통이 믿을 만한지 알려면 점수가 있어야 하는데,
+점수를 매기려면 어떤 통이 믿을 만한지 알아야 해요.
+닭이 먼저냐 달걀이 먼저냐 같은 이야기지요.
+
+놀랍게도 이 꼬인 문제를 푸는 아주 쉬운 놀이가 있어요.
+교실에서 쪽지를 돌리기만 하면 돼요.
+다음 장에서 그 놀이를 해 볼게요.
+
+\begin{deeper}[시빌이라는 이름]
+“시빌”은 1973년에 나온 책 제목에서 따온 이름이에요.
+한 사람이 여러 사람의 모습을 보이는 이야기를 다룬 책이에요.
+컴퓨터 과학에서는 2002년 존 듀서가 「시빌 공격」이라는 논문에서 이 이름을 처음 썼어요.
+블록체인에서는 주소를 공짜로 만들 수 있기 때문에 시빌 공격을 늘 조심해야 해요.
+논문에서는 “받은 송금이 몇몇 상대에게서만 몰려 오는지”처럼 이런 속임수와 관련된 검사도 함께 살펴봤어요(시빌 안정성 검사).
+\end{deeper}
+
+\begin{learned}
+\begin{itemize}
+\item 받은 화살표를 세기만 하면 가짜 통으로 쉽게 속일 수 있어요.
+\item 누가 보낸 화살표인지에 따라 무게를 다르게 주어야 해요.
+\item 그런데 그러려면 “누가 믿을 만한지”를 먼저 알아야 하는 꼬인 문제가 생겨요.
+\end{itemize}
+\end{learned}

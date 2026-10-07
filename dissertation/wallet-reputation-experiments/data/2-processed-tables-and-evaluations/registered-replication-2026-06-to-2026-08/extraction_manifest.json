@@ -1,0 +1,161 @@
+{
+  "registration": {
+    "id": "fresh-holdout-2026q3",
+    "sha256": "9777f3098d4e5e6d7bb2e8fda590b171c549e643731818a8b6eb079e853609ff",
+    "plan_sha256": "e1b45e9b20a46e21417c45c84e0fe0231207d1b167c3569756ac72381d240a99",
+    "git": {
+      "registration": {
+        "path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\config\\fresh_holdout_2026q3.yaml",
+        "tracked": true,
+        "clean": true,
+        "last_commit": "4085ab919e7fdfc0b444d25a6c7f217b663272b5 2026-10-01T13:28:09Z",
+        "error": null
+      },
+      "plan": {
+        "path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\docs\\fresh_holdout_2026q3_plan.md",
+        "tracked": true,
+        "clean": true,
+        "last_commit": "f54d10c577070fc9a5a0f0f22826dde5c2a8321f 2026-10-01T12:50:40Z",
+        "error": null
+      }
+    }
+  },
+  "dry_run": {
+    "at": "2026-10-01T14:05:25.898746+00:00",
+    "split": 1,
+    "steps": [
+      {
+        "id": "approvals:2026-06",
+        "start_ts": "2026-06-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC",
+        "dry_run_bytes": 137744464988
+      },
+      {
+        "id": "transfers:2026-06",
+        "start_ts": "2026-06-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC",
+        "dry_run_bytes": 137744464988
+      },
+      {
+        "id": "gmx:2026-06",
+        "start_ts": "2026-06-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC",
+        "dry_run_bytes": 137744464988
+      },
+      {
+        "id": "approvals:2026-07",
+        "start_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-08-01 00:00:00 UTC",
+        "dry_run_bytes": 112133031836
+      },
+      {
+        "id": "transfers:2026-07",
+        "start_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-08-01 00:00:00 UTC",
+        "dry_run_bytes": 112133031836
+      },
+      {
+        "id": "gmx:2026-07",
+        "start_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-08-01 00:00:00 UTC",
+        "dry_run_bytes": 112133031836
+      },
+      {
+        "id": "approvals:2026-08",
+        "start_ts": "2026-08-01 00:00:00 UTC",
+        "end_ts": "2026-09-01 00:00:00 UTC",
+        "dry_run_bytes": 97078252640
+      },
+      {
+        "id": "transfers:2026-08",
+        "start_ts": "2026-08-01 00:00:00 UTC",
+        "end_ts": "2026-09-01 00:00:00 UTC",
+        "dry_run_bytes": 97078252640
+      },
+      {
+        "id": "gmx:2026-08",
+        "start_ts": "2026-08-01 00:00:00 UTC",
+        "end_ts": "2026-09-01 00:00:00 UTC",
+        "dry_run_bytes": 97078252640
+      }
+    ],
+    "total_bytes": 1040867248392
+  },
+  "steps": {
+    "approvals:2026-06": {
+      "rows": 72790,
+      "bytes_billed": 137745137664,
+      "job_id": "bec45938-2590-43fc-94dd-cdd25e390188",
+      "finished_at": "2026-10-01T14:05:37.647366+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\approvals\\approvals_2026-06.parquet"
+    },
+    "transfers:2026-06": {
+      "rows": 448328,
+      "bytes_billed": 137745137664,
+      "job_id": "56016924-af23-461f-8cee-50c6e119ed96",
+      "finished_at": "2026-10-01T14:05:54.471669+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\transfers\\transfers_2026-06.parquet"
+    },
+    "gmx:2026-06": {
+      "rows": 59969,
+      "bytes_billed": 137745137664,
+      "job_id": "9d0b2e8a-6e0b-4d38-8a64-5da1b6c6e6dd",
+      "finished_at": "2026-10-01T14:06:08.248119+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\gmx\\gmx_event_logs_2026-06.parquet"
+    },
+    "approvals:2026-07": {
+      "rows": 45904,
+      "bytes_billed": 112133668864,
+      "job_id": "8ba690ab-480d-4e3a-ba45-35ae7ec9e2c4",
+      "finished_at": "2026-10-01T14:06:21.147428+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\approvals\\approvals_2026-07.parquet"
+    },
+    "transfers:2026-07": {
+      "rows": 278548,
+      "bytes_billed": 112133668864,
+      "job_id": "713bb6b2-3250-4a46-851c-4a0f59bf8214",
+      "finished_at": "2026-10-01T14:06:36.168762+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\transfers\\transfers_2026-07.parquet"
+    },
+    "gmx:2026-07": {
+      "rows": 38176,
+      "bytes_billed": 112133668864,
+      "job_id": "2f045787-0e02-40cd-9c0a-0934db49c235",
+      "finished_at": "2026-10-01T14:06:48.075070+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\gmx\\gmx_event_logs_2026-07.parquet"
+    },
+    "approvals:2026-08": {
+      "rows": 44859,
+      "bytes_billed": 97079263232,
+      "job_id": "bdbefe05-44c8-46e1-ba95-0db242616a9d",
+      "finished_at": "2026-10-01T14:07:00.035104+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\approvals\\approvals_2026-08.parquet"
+    },
+    "transfers:2026-08": {
+      "rows": 286147,
+      "bytes_billed": 97079263232,
+      "job_id": "b75a5c38-a5e8-4667-8dcb-0040cb83f995",
+      "finished_at": "2026-10-01T14:07:14.190315+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\transfers\\transfers_2026-08.parquet"
+    },
+    "gmx:2026-08": {
+      "rows": 46007,
+      "bytes_billed": 97079263232,
+      "job_id": "2d5f69a7-e492-46e2-81b6-e6331c64faa4",
+      "finished_at": "2026-10-01T14:07:27.073520+00:00",
+      "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\fresh_2026q3\\gmx\\gmx_event_logs_2026-08.parquet"
+    }
+  },
+  "decode": {
+    "at": "2026-10-01T14:10:25.126816+00:00",
+    "input_files": [
+      "gmx_event_logs_2026-06.parquet",
+      "gmx_event_logs_2026-07.parquet",
+      "gmx_event_logs_2026-08.parquet"
+    ],
+    "input_rows": 144152,
+    "decoded_rows": 144152,
+    "decode_errors": 0,
+    "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\fresh_2026q3\\gmx_decoded_events.parquet"
+  }
+}

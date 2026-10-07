@@ -1,0 +1,37 @@
+% !TEX root = ../main.tex
+\documentclass[12pt]{article}
+\usepackage[a4paper,left=0.885in,right=0.885in,top=1.33in,bottom=1.46in,includefoot]{geometry}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+% Breakable monospace for long dataset IDs, file paths, and contract addresses.
+\newcommand{\codepath}[1]{\path{#1}}
+\usepackage{tikz}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\hypersetup{hidelinks}
+\setstretch{1.58}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.03\baselineskip}
+\setlist[itemize]{leftmargin=2.2em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
+\setlist[enumerate]{leftmargin=2.4em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
+\setcounter{secnumdepth}{0}
+\newcommand{\proposalSubheading}[1]{%
+  \par\addvspace{0.38\baselineskip}%
+  \noindent\textbf{#1}\par\nobreak\addvspace{0.08\baselineskip}%
+}
+\newcommand{\proposalResultHeading}[1]{%
+  \par\addvspace{0.45\baselineskip}%
+  \noindent\textbf{#1}\par\nobreak\addvspace{0.06\baselineskip}%
+}
+\newcommand{\TOCentry}[3]{%
+  \noindent\hyperref[#3]{\makebox[2.4em][l]{#1}#2}\nobreak\dotfill\ \hyperref[#3]{\pageref*{#3}}\par\vspace{0.15em}%
+}
