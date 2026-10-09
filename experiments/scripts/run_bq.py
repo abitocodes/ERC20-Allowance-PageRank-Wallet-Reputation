@@ -47,6 +47,7 @@ def main() -> int:
     ap.add_argument("sql")
     ap.add_argument("--dest", help="dataset.table substituted for __DEST__")
     ap.add_argument("--param", action="append", default=[], help="name=value (string parameters)")
+    ap.add_argument("--sub", action="append", default=[], help="KEY=VALUE text substituted for __KEY__")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--label", default="")
@@ -58,6 +59,9 @@ def main() -> int:
     sql = Path(args.sql).read_text(encoding="utf-8")
     if args.dest:
         sql = sql.replace("__DEST__", f"{project}.{args.dest}")
+    for sub in args.sub:
+        key, value = sub.split("=", 1)
+        sql = sql.replace(f"__{key}__", value)
     params = []
     for p in args.param:
         name, value = p.split("=", 1)
@@ -85,6 +89,7 @@ def main() -> int:
         "sql": str(Path(args.sql).as_posix()),
         "dest": args.dest,
         "params": {p.name: p.value for p in params},
+        "subs": args.sub,
         "label": args.label,
         "bytes_estimated": est,
         "bytes_billed": billed,

@@ -1,0 +1,11 @@
+{
+  "table": "dissertation-bq.contract_rep.gmx_closes_obs",
+  "rows": 133685,
+  "table_rows": 133685,
+  "downloaded_at": "2026-10-09T14:33:45+00:00",
+  "parts": [
+    "gmx_contract_closes_obs.part000.parquet",
+    "gmx_contract_closes_obs.part001.parquet"
+  ],
+  "bytes": 45456847
+}

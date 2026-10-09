@@ -1,0 +1,17 @@
+{
+  "table": "dissertation-bq.contract_rep.x_allow_pairs_t1",
+  "rows": 21550791,
+  "table_rows": 21550791,
+  "downloaded_at": "2026-10-09T15:51:44+00:00",
+  "parts": [
+    "allow_pairs_t1.part000.parquet",
+    "allow_pairs_t1.part001.parquet",
+    "allow_pairs_t1.part002.parquet",
+    "allow_pairs_t1.part003.parquet",
+    "allow_pairs_t1.part004.parquet",
+    "allow_pairs_t1.part005.parquet",
+    "allow_pairs_t1.part006.parquet",
+    "allow_pairs_t1.part007.parquet"
+  ],
+  "bytes": 475598236
+}

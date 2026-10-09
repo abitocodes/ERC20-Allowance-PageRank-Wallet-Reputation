@@ -27,11 +27,12 @@ holdout:          # W0
   outcome_start: "2026-04-01 00:00:00 UTC"
   outcome_end: "2026-06-30 23:59:59 UTC"      # t2
 
-registered_window:  # W1, rule registered later (docs/analysis_plan.md section 7)
+registered_window:  # W1, rule in docs/registration_w1.md
   score_end: "2026-06-30 23:59:59 UTC"
   outcome_start: "2026-07-01 00:00:00 UTC"
   outcome_end: "2026-09-30 23:59:59 UTC"
-  status: planned
+  status: registered
+  margin_delta: 0.01
 
 events:
   approval_topic0: "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"

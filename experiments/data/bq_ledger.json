@@ -1,0 +1,176 @@
+{
+  "usd_per_tib": 6.25,
+  "jobs": [
+    {
+      "at": "2026-10-09T13:43:56+00:00",
+      "job_id": "be81d938-fb06-4698-b160-c257d497f24a",
+      "sql": "sql/01_materialize_logs.sql",
+      "dest": "contract_rep.logs_obs",
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC"
+      },
+      "label": "scan A: observation window",
+      "bytes_estimated": 3616227979658,
+      "bytes_billed": 3615783649280,
+      "usd": 20.5534
+    },
+    {
+      "at": "2026-10-09T13:44:46+00:00",
+      "job_id": "dcba10c4-beec-475a-801a-ede7cae02e48",
+      "sql": "sql/02_spender_candidates.sql",
+      "dest": "contract_rep.spender_candidates",
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC"
+      },
+      "label": "cohort candidates",
+      "bytes_estimated": 276374076067,
+      "bytes_billed": 45901414400,
+      "usd": 0.2609
+    },
+    {
+      "at": "2026-10-09T14:09:37+00:00",
+      "job_id": "97d419d7-193c-443b-ac17-18e5f7c46aa8",
+      "sql": "sql/07_gmx_accounts.sql",
+      "dest": "contract_rep.gmx_accounts",
+      "params": {},
+      "subs": [
+        "SRC=logs_obs"
+      ],
+      "label": "gmx accounts",
+      "bytes_estimated": 25928959188,
+      "bytes_billed": 25929187328,
+      "usd": 0.1474
+    },
+    {
+      "at": "2026-10-09T14:30:47+00:00",
+      "job_id": "f077a500-cae4-4d21-9e1f-b0092a170ed3",
+      "sql": "sql/09_gmx_contract_closes.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=obs",
+        "SRC=logs_obs"
+      ],
+      "label": "gmx closes of contract accounts, observation window",
+      "bytes_estimated": 25964793984,
+      "bytes_billed": 25964838912,
+      "usd": 0.1476
+    },
+    {
+      "at": "2026-10-09T14:44:51+00:00",
+      "job_id": "cb46ce9f-e1c2-4e31-ab93-4585893f40b0",
+      "sql": "sql/03_ego_events.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC"
+      },
+      "subs": [
+        "SUFFIX=ego",
+        "SRC=logs_obs"
+      ],
+      "label": "ego approvals and transfers, observation window",
+      "bytes_estimated": 65499645146,
+      "bytes_billed": 394396696576,
+      "usd": 2.2419
+    },
+    {
+      "at": "2026-10-09T14:46:08+00:00",
+      "job_id": "dd502cd1-7dfb-4841-b63e-1f3ea3801ddd",
+      "sql": "sql/04_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59.999999 UTC"
+      },
+      "subs": [
+        "TAG=tobs"
+      ],
+      "label": "pairs at T_obs",
+      "bytes_estimated": 38206954436,
+      "bytes_billed": 132421517312,
+      "usd": 0.7527
+    },
+    {
+      "at": "2026-10-09T14:47:01+00:00",
+      "job_id": "d2e664b9-294d-4d7d-af23-0edb197341cd",
+      "sql": "sql/04_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-03-31 23:59:59.999999 UTC"
+      },
+      "subs": [
+        "TAG=t1"
+      ],
+      "label": "pairs at t1",
+      "bytes_estimated": 36120124208,
+      "bytes_billed": 124839264256,
+      "usd": 0.7096
+    },
+    {
+      "at": "2026-10-09T14:48:18+00:00",
+      "job_id": "5d9c2b77-39b6-4a70-b5dc-cbcfc866dd1f",
+      "sql": "sql/05_proxies_same_window.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59.999999 UTC"
+      },
+      "subs": [],
+      "label": "same-window proxies",
+      "bytes_estimated": 92304856588,
+      "bytes_billed": 92305096704,
+      "usd": 0.5247
+    },
+    {
+      "at": "2026-10-09T15:03:57+00:00",
+      "job_id": "e0d201e6-f0f1-4ae2-a9e9-d19bca8dc2b7",
+      "sql": "sql/06_holdout_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59.999999 UTC",
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59.999999 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=approvals_ego",
+        "TRANSFERS=transfers_ego",
+        "LOGS=logs_obs"
+      ],
+      "label": "W0 holdout labels",
+      "bytes_estimated": 100147323765,
+      "bytes_billed": 100147396608,
+      "usd": 0.5693
+    },
+    {
+      "at": "2026-10-09T15:05:16+00:00",
+      "job_id": "a9aa67dc-2a6f-420f-9dda-53629269bdef",
+      "sql": "sql/08_export_ids.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "node ids and export tables",
+      "bytes_estimated": 7114341696,
+      "bytes_billed": 22439526400,
+      "usd": 0.1276
+    },
+    {
+      "at": "2026-10-09T15:13:05+00:00",
+      "job_id": "9472b62a-e9ab-4b5b-8c85-5e6732a06515",
+      "sql": "sql/10_describe.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "descriptive statistics",
+      "bytes_estimated": 15774113883,
+      "bytes_billed": 28924968960,
+      "usd": 0.1644
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "table": "dissertation-bq.contract_rep.x_allow_pairs_tobs",
+  "rows": 22321470,
+  "table_rows": 22321470,
+  "downloaded_at": "2026-10-09T15:52:50+00:00",
+  "parts": [
+    "allow_pairs_tobs.part000.parquet",
+    "allow_pairs_tobs.part001.parquet",
+    "allow_pairs_tobs.part002.parquet",
+    "allow_pairs_tobs.part003.parquet",
+    "allow_pairs_tobs.part004.parquet",
+    "allow_pairs_tobs.part005.parquet",
+    "allow_pairs_tobs.part006.parquet",
+    "allow_pairs_tobs.part007.parquet",
+    "allow_pairs_tobs.part008.parquet"
+  ],
+  "bytes": 493340253
+}

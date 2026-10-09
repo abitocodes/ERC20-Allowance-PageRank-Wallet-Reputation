@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.spender_candidates",
+  "rows": 29022,
+  "table_rows": 29022,
+  "downloaded_at": "2026-10-09T13:45:14+00:00",
+  "parts": [
+    "spender_candidates.part000.parquet"
+  ],
+  "bytes": 1162249
+}

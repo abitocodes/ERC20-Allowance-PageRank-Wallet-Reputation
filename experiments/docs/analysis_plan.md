@@ -50,6 +50,6 @@ All PageRanks use one power-iteration solver: d = 0.85, tolerance 1e-8 (L1), at 
 - Secondary part, matched cohort, same window: C-PR's point estimate lies inside the 95% interval of the better single layer on the transfer family and on the allowance family, and C-PR exceeds both layers on the Sybil-stability family.
 - If the primary part fails, the question whether C-PR beats a walk over either layer alone is answered in the negative. λ is not tuned after any label is seen.
 
-## 7. Registered window W1 (to be completed and registered before scan B)
+## 7. Registered window W1 (registered in docs/registration_w1.md before scan B)
 
 Scores frozen at 2026-06-30 23:59:59 UTC, labels from 2026-07-01 to 2026-09-30. The decision rule for whether C-PR improves on its transfer layer walked alone, its margin, the trader label and any comparison on outcomes built from neither edge type are written here after the W0 results are known and committed with `registered_window.status: registered` before scan B is run.

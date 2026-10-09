@@ -1,0 +1,32 @@
+{
+  "table": "dissertation-bq.contract_rep.x_transfer_pairs_tobs",
+  "rows": 59737617,
+  "table_rows": 59737617,
+  "downloaded_at": "2026-10-09T16:18:43+00:00",
+  "parts": [
+    "transfer_pairs_tobs.part000.parquet",
+    "transfer_pairs_tobs.part001.parquet",
+    "transfer_pairs_tobs.part002.parquet",
+    "transfer_pairs_tobs.part003.parquet",
+    "transfer_pairs_tobs.part004.parquet",
+    "transfer_pairs_tobs.part005.parquet",
+    "transfer_pairs_tobs.part006.parquet",
+    "transfer_pairs_tobs.part007.parquet",
+    "transfer_pairs_tobs.part008.parquet",
+    "transfer_pairs_tobs.part009.parquet",
+    "transfer_pairs_tobs.part010.parquet",
+    "transfer_pairs_tobs.part011.parquet",
+    "transfer_pairs_tobs.part012.parquet",
+    "transfer_pairs_tobs.part013.parquet",
+    "transfer_pairs_tobs.part014.parquet",
+    "transfer_pairs_tobs.part015.parquet",
+    "transfer_pairs_tobs.part016.parquet",
+    "transfer_pairs_tobs.part017.parquet",
+    "transfer_pairs_tobs.part018.parquet",
+    "transfer_pairs_tobs.part019.parquet",
+    "transfer_pairs_tobs.part020.parquet",
+    "transfer_pairs_tobs.part021.parquet",
+    "transfer_pairs_tobs.part022.parquet"
+  ],
+  "bytes": 1612931818
+}

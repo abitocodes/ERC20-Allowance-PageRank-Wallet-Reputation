@@ -1,0 +1,14 @@
+{
+  "rpc": "https://arb1.arbitrum.io/rpc",
+  "block_number": 513216506,
+  "block_hex": "0x1e970ffa",
+  "read_at": "2026-10-09T13:55:49+00:00",
+  "counts": {
+    "contract": 27844,
+    "none": 1121,
+    "eip7702": 57
+  },
+  "n": 29022,
+  "note": "The first 20,000 addresses were read from arb1.arbitrum.io; after that RPC rate-limited the run, the remaining 9,022 were read from arbitrum-one.public.blastapi.io at the same block.",
+  "rpc_resumed": "https://arbitrum-one.public.blastapi.io"
+}

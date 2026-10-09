@@ -1,0 +1,12 @@
+{
+  "rpc": "https://arbitrum-one.public.blastapi.io",
+  "block_number": 513219999,
+  "block_hex": "0x1e971d9f",
+  "read_at": "2026-10-09T14:10:45+00:00",
+  "counts": {
+    "none": 28075,
+    "contract": 7633,
+    "eip7702": 4599
+  },
+  "n": 40307
+}
