@@ -1,67 +1,93 @@
 % !TEX root = ../main.tex
-\section{Archived Extended Baselines}
-\label{ch:appendix-archive}
+\section{Data Description}
+\label{ch:appendix-data}
 
-Further PageRank variants were scored on the same matched cohort and proxy families. They are not among the scores evaluated in Chapter~\ref{ch:results}.
+This appendix describes the extracted data behind Chapter~\ref{ch:results}: the volume of the ego extraction and the size of the two graphs, the tokens that carry the most rows and the largest amounts, how often owners grant unlimited allowances, and the activity of GMX~V2 contract accounts by quarter. The account types of the cohorts are in Table~\ref{tab:account-types}, and the extraction itself is described in Appendix~\ref{sec:bq-extraction}.
 
-\dissertationSubheading[sec:seven-method-archive]{Seven-method alignment matrix}
+\dissertationSubheading[sec:data-events]{Extracted events and graphs}
 
-The evaluation archive keeps the seven-method matrices (LP-PR, CW-AWP, LF-PR, and RiskProp-style variants), which are not drawn here. Their rows were computed with the two raw-amount layers of C-PR walked alone as the allowance and transfer references. Among these methods, the allowance walk leads on the allowance family, and the transfer walk, together with its closely related variants, leads on transfer.
+The ego extraction of the observation window holds $389{,}866{,}882$ approval logs and $1{,}538{,}404{,}067$ transfer logs of non-zero value, each with a contract of the matched cohort at one end. From these events the allowance graph at $T_{\text{obs}}$ has $13{,}055{,}150$ nodes and $22{,}321{,}470$ edges, and the transfer graph $23{,}029{,}298$ nodes and $59{,}737{,}617$ edges. At the freeze of W0 the two graphs have $21{,}550{,}791$ and $58{,}065{,}784$ edges. The allowance graph has about a third as many edges as the transfer graph. It keeps one latest allowance per token, owner and spender and drops the revoked ones, whereas the transfer graph has an edge for every sender--recipient pair that exchanged a transfer in the window.
 
-The archive matrices show the following patterns:
+Membership in the cohort does not depend on either graph at $T_{\text{obs}}$. Every cohort contract received non-zero approvals in the window, but $962$ of them neither hold nor grant a positive latest allowance at $T_{\text{obs}}$, so they lie outside the allowance graph; $3{,}297$ lie outside the transfer graph, and $138$ outside both. Chapter~\ref{ch:results} scores such a contract zero under the method whose graph it misses, and Table~\ref{tab:tie-sensitivity} reports the rule that keeps it as an isolated node instead.
 
-\begin{itemize}
-\item Methods that use transfer-like edges cluster around the transfer walk on the transfer and Sybil families.
-\item When a method has very few edges, its rankings can be unstable or degenerate, and a low runtime may simply reflect a tiny $m$.
-\item RiskProp-style rows that match the transfer walk numerically indicate shared transfer structure; they do not constitute an independent discovery.
-\end{itemize}
+\dissertationSubheading[sec:data-tokens]{Tokens and allowance amounts}
 
-\dissertationSubheading[sec:six-aave-archive]{Six-method Aave-oriented matrix}
+The token check of Section~\ref{sub:top-tokens} rebuilds both graphs from twenty tokens, chosen once by the number of rows and once by the summed raw amount (\texttt{sql/11\_top\_tokens.sql}). Table~\ref{tab:top-tokens} lists the $27$ tokens of the two lists, which share $13$. The list by rows is led by WETH, the native USDC and USDT0, and it holds the bridged USDC, ARB, WBTC and several smaller tokens. Raw amounts are summed without regard to decimals, and an unlimited allowance counts as $2^{256}-1$ base units, so the list by amount takes in seven tokens with comparatively few rows, among them aArbWETH, the Aave deposit receipt for WETH, and two Fiat24 tokens with two decimals.
 
-An Aave-oriented preset is archived as well. Within the study window, several of the lending-event graphs on Arbitrum are sparse, and the delegation-based rows may be degenerate when \texttt{BorrowAllowanceDelegated} events were not extracted (Appendix~\ref{ch:appendix-eval}).
+\begin{table}[htbp]
+\centering
+\caption[Tokens of the two top-20 lists of the token check.]{Tokens of the two top-20 lists of the token check (Table~\ref{tab:robustness-tokens}), ordered by rows: transfers in the ego tables up to $T_{\text{obs}}$ plus positive latest allowances at $T_{\text{obs}}$. By amount: among the 20 tokens with the largest summed raw amount of the same rows. By rows: among the 20 tokens with the most rows. Symbols and names are those the token contracts returned to \texttt{symbol()} and \texttt{name()} calls on 10~October~2026; the extraction keeps only addresses, which are given in full in \texttt{data/1-raw-blockchain-extracts/graph-tables/top\_tokens.csv}.}
+\label{tab:top-tokens}
+\fitwidth{%
+\begin{tabular}{lllrcc}
+\toprule
+Symbol & Name & Address & Rows & By amount & By rows \\
+\midrule
+WETH & Wrapped Ether & \texttt{0x82af49}\ldots\texttt{3fbab1} & 509{,}394{,}850 & \checkmark & \checkmark \\
+USDC & USD Coin & \texttt{0xaf88d0}\ldots\texttt{8e5831} & 366{,}294{,}721 & \checkmark & \checkmark \\
+USDT0 & USDT0 & \texttt{0xfd086b}\ldots\texttt{9fcbb9} & 163{,}462{,}893 & \checkmark & \checkmark \\
+ARB & Arbitrum & \texttt{0x912ce5}\ldots\texttt{9e6548} & 75{,}552{,}592 & \checkmark & \checkmark \\
+WBTC & Wrapped BTC & \texttt{0x2f2a25}\ldots\texttt{fc5b0f} & 71{,}824{,}604 & \checkmark & \checkmark \\
+USDC & USD Coin (Arb1) & \texttt{0xff970a}\ldots\texttt{db5cc8} & 71{,}329{,}831 & \checkmark & \checkmark \\
+PENDLE & Pendle & \texttt{0x0c880f}\ldots\texttt{a8c9e8} & 19{,}516{,}891 & \checkmark & \checkmark \\
+WBTC\_ETH\_FS\_LT & WBTC ETH Futureswap Liquidity Token & \texttt{0xa522a5}\ldots\texttt{0d8d98} & 17{,}735{,}463 &  & \checkmark \\
+NPC & NPC & \texttt{0xe1a498}\ldots\texttt{0bb8b0} & 12{,}163{,}764 &  & \checkmark \\
+UXUY & UXUY Token & \texttt{0xe2035f}\ldots\texttt{7c79f9} & 9{,}761{,}886 & \checkmark & \checkmark \\
+AIUS & Arbius & \texttt{0x4a24b1}\ldots\texttt{0cabc3} & 8{,}804{,}452 &  & \checkmark \\
+DAI & Dai Stablecoin & \texttt{0xda1000}\ldots\texttt{000da1} & 8{,}677{,}480 & \checkmark & \checkmark \\
+LINK & ChainLink Token & \texttt{0xf97f4d}\ldots\texttt{539fb4} & 8{,}675{,}046 &  & \checkmark \\
+xUSD & xUSD & \texttt{0xe80772}\ldots\texttt{afca65} & 6{,}437{,}746 &  & \checkmark \\
+ZRO & LayerZero & \texttt{0x698588}\ldots\texttt{3271cd} & 6{,}318{,}171 & \checkmark & \checkmark \\
+UXLINK & UXLINK Token & \texttt{0x1a6b3a}\ldots\texttt{c8cff1} & 6{,}187{,}243 &  & \checkmark \\
+VSN & Vision & \texttt{0x6fbbbd}\ldots\texttt{7db74b} & 6{,}052{,}221 & \checkmark & \checkmark \\
+wstETH & Wrapped liquid staked Ether 2.0 & \texttt{0x5979d7}\ldots\texttt{800529} & 5{,}553{,}387 &  & \checkmark \\
+GRT & Graph Token & \texttt{0x962306}\ldots\texttt{7e88c7} & 4{,}761{,}427 & \checkmark & \checkmark \\
+GMX & GMX & \texttt{0xfc5a1a}\ldots\texttt{35ad0a} & 4{,}378{,}643 & \checkmark & \checkmark \\
+BEBE & BEBE & \texttt{0x406d59}\ldots\texttt{64f97b} & 2{,}720{,}903 & \checkmark &  \\
+STG & StargateToken & \texttt{0x669434}\ldots\texttt{ce1eb6} & 1{,}647{,}816 & \checkmark &  \\
+aArbWETH & Aave Arbitrum WETH & \texttt{0xe50fa9}\ldots\texttt{8128c8} & 1{,}343{,}622 & \checkmark &  \\
+OTMT & OTMAirdrop & \texttt{0x6b708d}\ldots\texttt{37f770} & 493{,}833 & \checkmark &  \\
+BPET & BPET & \texttt{0x6daf58}\ldots\texttt{862ac5} & 389{,}567 & \checkmark &  \\
+USD24 & Fiat24 USD & \texttt{0xbe00f3}\ldots\texttt{cc0d62} & 207{,}237 & \checkmark &  \\
+CNH24 & Fiat24 CNH & \texttt{0x7288ac}\ldots\texttt{0144fd} & 102{,}957 & \checkmark &  \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
 
-That preset remains in the archive and is not drawn here.
+Unlimited allowances are common among the owners of the allowance graph. Of the $13{,}029{,}306$ owners with a positive latest allowance at $T_{\text{obs}}$, $5{,}798{,}712$ hold at least one allowance of $1.15\times10^{77}$ base units or more, close to the largest \texttt{uint256} value $2^{256}-1\approx1.16\times10^{77}$, and $1{,}532{,}301$ hold both such an allowance and a smaller one (\texttt{sql/10\_describe.sql}). EndorseRank and AWP pass amounts through the bounded value weight, under which an unlimited allowance counts about the same as any other allowance of ten base units or more. The raw allowance layer of C-PR sums amounts without a bound, so in the row of an owner with both kinds the unlimited allowances take nearly all the weight unless the other allowances are of a similar size (Section~\ref{sub:coupled-graph}).
 
-Although these matrices motivate future work on credit-delegation edges and cross-protocol lending labels, they leave Claims C1--C6 unchanged.
+\dissertationSubheading[sec:data-gmx]{GMX~V2 contract traders by quarter}
 
-\dissertationSubheading[sec:why-archived]{Why these variants are archived}
+The trader cohorts are GMX~V2 accounts that hold contract code (Section~\ref{sub:cohorts}). Table~\ref{tab:gmx-quarters} counts their position closes, the \texttt{PositionDecrease} events of the protocol's event emitter \parencite{gmxnddocs}, by calendar quarter, together with the liquidations among them and the number of contract accounts that closed at least one and at least three positions in the quarter.
 
-Three reasons explain why the scores evaluated are EndorseRank and AWP, with C-PR and S-PR built from the same two layers:
+\begin{table}[htbp]
+\centering
+\caption[GMX~V2 closes of contract accounts by quarter.]{GMX~V2 closes of contract accounts by quarter. October~2023 to June~2026: closes by the $7{,}633$ contracts among the $40{,}307$ GMX~V2 accounts with at least three closes in the observation window (Table~\ref{tab:account-types}). July to September~2026 (the label window of W1): closes by the contract accounts of the observation window and of the W1 run. Liquidation: a close with the liquidation order type or emitted through the liquidation handler. Source: the decoded closes in \texttt{data/2-processed-tables-and-evaluations/gmx/}.}
+\label{tab:gmx-quarters}
+\fitwidth{%
+\begin{tabular}{lrrrr}
+\toprule
+Quarter & Closes & Liquidations & Accounts with a close & Accounts with $\geq 3$ closes \\
+\midrule
+2023 Q4 & 1{,}119 & 104 & 180 & 105 \\
+2024 Q1 & 7{,}956 & 692 & 1{,}247 & 961 \\
+2024 Q2 & 11{,}509 & 589 & 2{,}120 & 1{,}165 \\
+2024 Q3 & 7{,}947 & 456 & 1{,}807 & 724 \\
+2024 Q4 & 7{,}343 & 904 & 1{,}321 & 698 \\
+2025 Q1 & 6{,}929 & 498 & 497 & 273 \\
+2025 Q2 & 12{,}080 & 379 & 368 & 250 \\
+2025 Q3 & 28{,}753 & 897 & 1{,}750 & 1{,}567 \\
+2025 Q4 & 40{,}240 & 1{,}596 & 1{,}915 & 1{,}744 \\
+2026 Q1 & 6{,}026 & 233 & 269 & 171 \\
+2026 Q2 & 3{,}783 & 125 & 169 & 127 \\
+\midrule
+2026 Q3 (W1) & 6{,}805 & 182 & 165 & 131 \\
+\midrule
+October~2023 -- June~2026 & 133{,}685 & 6{,}473 & & \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
 
-\begin{enumerate}
-\item Allowance-based endorsement is the new construct, and evaluating it beside the established transfer method~\cend{3} isolates the research question.
-\item Variants that share transfer edges with AWP contribute extra rows but no independent construct.
-\item The outcome-native GF-PR reference from the research proposal is derived from the same GMX events as the trading-success proxies, so any alignment between the two counts as construct overlap and not as validation (Section~\ref{sub:gf-pr}). The GF-PR three-method matrix is archived alongside the seven-method and six-Aave presets.
-\end{enumerate}
-
-\dissertationSubheading[sec:archive-repro]{Reproducing archive tables}
-
-Running the evaluation pipeline's table export with the seven-method and six-Aave presets regenerates the archive tables. CSV copies are written out together with the table fragments.
-
-\dissertationSubheading[sec:archive-method-notes]{Notes on archived method identifiers}
-
-The archive tables and CSV exports use the identifiers below.
-
-\begin{description}
-\item[LP-PR] The raw-amount transfer layer, with AWP's time decay, with each edge weight multiplied by one minus the GMX liquidation rate of its sender and one minus that of its receiver. It tracks the transfer walk closely on the transfer families. Its weights use the same liquidation outcomes as the liquidation proxies, so it shares the circularity of GF-PR.
-\item[CW-AWP] The raw-amount transfer layer restricted to transfers of a fixed list of collateral tokens. Its transfer $\tau$ is slightly lower than that of the full layer.
-\item[LF-PR] A lending-flow graph from Aave events, with borrows as edges from the pool to the user and repayments and liquidations as edges from the user to the pool, all under AWP's time decay. Few cohort wallets used Aave on Arbitrum in the window, so the graph has very few edges and near-zero runtimes, and its rankings cannot be compared with the transfer walks.
-\item[RiskProp] The raw-amount transfer layer with each edge weight multiplied by one minus the GMX liquidation rate of its sender. It borrows the idea of propagating risk from Lin et al.~\cend{12} but is not their method. On this cohort it mirrors the transfer walk numerically on several families, so the liquidation weighting changed little.
-\item[LiqCall-PR / Borrow-PR / Repay-PR] Aave-oriented wallet-to-wallet graphs derived from liquidation calls, borrows, and repays, where applicable. On Arbitrum in the study window they have only tens to hundreds of edges, which leaves alignment weak and runtimes negligible.
-\item[Delegation-PR] Intended to use credit-delegation allowances. With zero delegation edges extracted, its scores are degenerate and its $\tau$ cannot be interpreted.
-\end{description}
-
-No archive row is a peer-reviewed baseline.
-
-\dissertationSubheading[sec:archive-decision-log]{Criteria for the scores evaluated}
-
-Chapters~\ref{ch:results}--\ref{ch:discussion} concentrate on EndorseRank, AWP and the walks that couple their two layers; the other variants fall short of the following criteria:
-
-\begin{enumerate}
-\item Construct independence: a baseline should implement different edge semantics instead of merely reweighting transfers.
-\item Data adequacy: there should be enough edges for PageRank to be stable on the matched cohort.
-\item Scope: the contribution is allowance-based endorsement; it is not meant to survey every possible PageRank variant.
-\end{enumerate}
-
-By these criteria, EndorseRank (allowance) and AWP (transfer), with the walks that couple their layers, make up a minimal sufficient set. The seven-method and six-Aave matrices remain archived and do not enter into Claims~C1--C6.
-
+Contract accounts closed the most positions in the second half of 2025, $28{,}753$ and $40{,}240$ in the third and fourth quarters, when $1{,}567$ and $1{,}744$ of them closed at least three. In the first half of 2026 their closes fell to $6{,}026$ and $3{,}783$, and the accounts with at least three closes to $171$ and $127$. A trader cohort further requires the account to be a node of the graph at the freeze: of the $127$ contract accounts with at least three closes in April--June~2026, $88$ form the trader cohort of W0, and of the $131$ in July--September, $70$ form that of W1. These small cohorts are why every trader result of Chapter~\ref{ch:results} has wide intervals.

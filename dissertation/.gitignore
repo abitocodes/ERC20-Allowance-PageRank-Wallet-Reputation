@@ -9,3 +9,6 @@
 *.synctex.gz
 *.bbl
 *.blg
+*.bcf
+*.run.xml
+*.xdv

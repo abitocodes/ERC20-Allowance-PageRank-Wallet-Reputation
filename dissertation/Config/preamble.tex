@@ -63,7 +63,7 @@
 \usepackage{titlesec}
 \usepackage{etoolbox}
 \pretocmd{\chapter}{\phantomsection}{}{}
-% Match 1-Proposal article \section* / \subsection* sizing and spacing.
+% Chapter, section and subsection sizing and spacing.
 \titleformat{\chapter}[block]
   {\normalfont\Large\bfseries}{\thechapter}{0.5em}{}
 \titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
@@ -94,8 +94,6 @@
   \noindent\textbf{#1}\par\nobreak\addvspace{0.06\baselineskip}%
 }
 \newcommand{\figpath}[1]{Figures/generated/#1}
-% Placeholder for a benchmark value still being measured; none may remain at submission.
-\newcommand{\BENCH}[1]{\textbf{[#1]}}
 
 % Citations: APA 7 author-date (biblatex-apa), one alphabetical reference list in
 % Chapter 7. Use \textcite{key} when the authors are part of the sentence and

@@ -13,6 +13,8 @@ The abbreviations and mathematical notation used throughout this research are li
 \section*{Abbreviations}
 \label{sec:abbrev-table}
 
+Table~\ref{tab:abbreviations} gives the abbreviations in alphabetical order, each with the meaning it has in this thesis.
+
 \begin{table}[htbp]
 \centering
 \caption{Abbreviations used in this research.}
@@ -22,19 +24,33 @@ The abbreviations and mathematical notation used throughout this research are li
 \toprule
 Abbreviation & Meaning \\
 \midrule
+ABI & Application binary interface (the encoding of a contract's calls and event logs) \\
 AWP & Adaptive Weighted PageRank \\
 C-PR & Coupled PageRank (per-node mixture of the raw-amount allowance and transfer layers, weight $\lambda$) \\
+CI & Confidence interval (here a percentile interval of the paired bootstrap) \\
 DeFi & Decentralized Finance \\
 DEX & Decentralized Exchange \\
 EIP & Ethereum Improvement Proposal \\
+EIP-7702 & Ethereum Improvement Proposal 7702, which lets an EOA delegate to contract code through a delegation designator; such an address counts as an EOA in this research \\
+EOA & Externally owned account (an address controlled by a private key) \\
 ER & EndorseRank (in table headings) \\
 ERC-20 & Ethereum Request for Comments 20 (fungible token standard) \\
-FC & Financial Cryptography and Data Security \\
+EVM & Ethereum Virtual Machine \\
+JSON & JavaScript Object Notation (format of the machine-readable summaries) \\
+KYC & Know your customer (identity checks of a regulated service) \\
+L2 & Layer 2 (a network that settles its transactions on Ethereum) \\
+NFT & Non-fungible token \\
 PR & PageRank \\
+RPC & Remote procedure call (the node interface through which contract code is read) \\
 RQ & Research Question \\
-SoK & Systematization of Knowledge \\
 S-PR & Endorsement-Seeded PageRank (transfer layer walked with restarts drawn from the allowance walk) \\
-USENIX & USENIX Security Symposium \\
+SD & Standard deviation \\
+SHA-256 & Secure Hash Algorithm with a 256-bit digest \\
+SQL & Structured Query Language \\
+USD & United States dollar \\
+UTC & Coordinated Universal Time \\
+W0 & Holdout window: scores frozen on 31~March~2026, labels counted from April to June~2026 \\
+W1 & Registered window: scores frozen on 30~June~2026, labels counted from July to September~2026 \\
 \bottomrule
 \end{tabular}
 }
@@ -44,19 +60,21 @@ USENIX & USENIX Security Symposium \\
 \section*{Mathematical notation}
 \label{sec:notation-table}
 
+Table~\ref{tab:notation} gives the symbols that recur across the chapters. The full notation of the graphs, scores and statistics is in Table~\ref{tab:notation-methods} of Chapter~\ref{ch:methodology}.
+
 \begin{table}[htbp]
 \centering
 \caption{Mathematical notation used in this research.}
 \label{tab:notation}
-\fitwidth{%
+\begin{adjustbox}{max width=\linewidth, max totalheight=0.9\textheight, center}%
+\small\setlength{\tabcolsep}{3.5pt}%
 \begin{tabular}{lp{0.72\linewidth}}
 \toprule
 Symbol & Meaning \\
 \midrule
 $G_{\mathrm{approve}}$ & Directed endorsement graph from latest ERC-20 allowances (owner $\to$ spender) \\
 $G_{\mathrm{transfer}}$ & Directed transfer graph (sender $\to$ receiver; AWP input) \\
-$|V|$ & Number of nodes in a reputation graph \\
-$|E|$ & Number of directed edges in a reputation graph \\
+$|V|$, $|E|$ & Numbers of nodes and of directed edges in a reputation graph \\
 $w_{ij}$ & Weight of the directed edge from node $i$ to node $j$ \\
 $o_i$ & Out-strength of node $i$, $o_i=\sum_j w_{ij}$ (written $o(u)$, or $o_A(u)$ and $o_T(u)$ per layer, in Chapter~\ref{ch:methodology}) \\
 $P$ & Transition matrix, $P_{ij}=w_{ij}/o_i$ for $o_i>0$; a dangling row is uniform in Equation~\eqref{eq:transition} and zero in Equation~\eqref{eq:transition-impl}, where its mass is redistributed separately \\
@@ -68,24 +86,27 @@ $\varepsilon$ & Convergence tolerance of power iteration ($10^{-8}$, on the $\|\
 $I_{\max}$ & Iteration cap of power iteration ($300$) \\
 $\lambda$ & Allowance-layer weight of the coupled operator C-PR ($\lambda=1$ and $\lambda=0$: one layer walked alone) \\
 $P^{(\lambda)}$ & Coupled transition matrix of C-PR with allowance-layer weight $\lambda$ (Equation~\eqref{eq:coupled-transition}) \\
-$\alpha_A(u)$, $\alpha_T(u)$ & Weights of the allowance row and the transfer row in the coupled transition row of wallet $u$ \\
-$k$ & Logistic time-decay steepness \\
-$t_0$ & Logistic time-decay midpoint (days) \\
+$\alpha_A(u)$, $\alpha_T(u)$ & Weights of the allowance row and the transfer row in the coupled transition row of node $u$ \\
+$k$, $t_0$ & Steepness and midpoint (days) of the logistic time decay \\
 $\Delta t$ & Age in days of a transfer or approval \\
 $\sigma(\Delta t)$ & Logistic time weight of a transfer (AWP) or latest approval (EndorseRank) \\
 $V(z)$ & Bounded value weight of AWP and EndorseRank, $2/(1+e^{-bz})-1$ with $b=1$ \\
 $X_u$ & Activeness of address $u$, AWP's restart weight \\
-$n$ & Number of wallets in a correlation (cohort size: matched $n=5{,}521$, spender $n=1{,}335$) \\
-$N$ & Expanded wallet-pool size (scaling: $N=99{,}080$) \\
+$n$ & Number of contracts in a cohort or a benchmark stage (Section~\ref{sub:cohorts}) \\
 $\rho$ & Spearman's rank correlation coefficient \\
 $\tau$ & Kendall's rank correlation coefficient; every reported value is $\tau_b$ \\
-$t_1$, $t_2$ & Holdout dates: score freeze $t_1$ (28~February~2026, 23:59:59 UTC) and end of the label window $t_2$ (31~May~2026) \\
-$\mathcal{W}$ & Set of wallets in the evaluation cohort \\
-$s(w)$ & Reputation score of wallet $w$ under a given method \\
-$p(w)$ & Validation-proxy value for wallet $w$ \\
+$\Delta\tau$ & Paired difference of two Kendall coefficients on the same resamples \\
+$T_{\mathrm{obs}}$ & End of the observation window and score freeze of W1 (30~June~2026) \\
+$t_1$, $t_2$ & Score freeze of W0 (31~March~2026) and end of its label window (30~June~2026) \\
+$\mathcal{W}$ & Matched cohort of contracts \\
+$\mathcal{C}$ & Contracts evaluated in one analysis: $\mathcal{W}$, or a spender or trader cohort of a holdout \\
+$\mathbf{s}_M$ & Reputation score vector of method $M$ on the contracts evaluated \\
+$\mathbf{p}_q$ & Value vector of same-window proxy $q$ on the matched cohort \\
+$B$ & Number of paired bootstrap resamples \\
+$\delta$ & Non-inferiority margin of rule~B \\
 \bottomrule
-\end{tabular}
-}
+\end{tabular}%
+\end{adjustbox}
 \end{table}
 
 % Restore chapter-based table numbering for the main text.

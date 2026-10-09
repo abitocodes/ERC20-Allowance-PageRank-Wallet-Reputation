@@ -1,10 +1,9 @@
 # Results digest
 
-Written by `experiments/scripts/publish_results.py` on 2026-10-09 18:00 UTC from the summaries in this folder; nothing here is recomputed. Each row names the file (relative to this folder) and the key inside it. τ entries read `point [95% CI]`, contrasts `Δτ [95% CI]; τa, τb; P(Δτ>0)`, and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of every file published here.
+Written by `experiments/scripts/publish_results.py` on 2026-10-09 23:23 UTC from the summaries in this folder; nothing here is recomputed. Each row names the file (relative to this folder) and the key inside it. τ entries read `point [95% CI]`, contrasts `Δτ [95% CI]; τa, τb; P(Δτ>0)`, and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of every file published here.
 
-- Code revision: `0d3a057e4f0c8473d36d89fbe33c24deff0c9911` with uncommitted changes (git status code) in: `scripts/run_benchmark.py (M)`, `scripts/run_holdout.py (M)`, `scripts/sybil_model.py (M)`, `scripts/export_latex.py (??)`, `scripts/publish_results.py (??)`, `scripts/run_robustness.py (??)`, `scripts/run_supplementary.py (??)`, `sql/11_top_tokens.sql (??)`
-- Published files: `same-window/eval_summary.json`, `holdout-w0/eval_summary.json`, `registered-w1/eval_summary.json`, `registered-w1/extraction_manifest.json`, `sybil-model/sybil_model.json`, `robustness/robustness.json`, `supplementary/supplementary.json`, `cohort/matched_cohort.json`, `gmx/gmx_contract_closes_obs_decoded.json`, `gmx/gmx_contract_closes_w1_decoded.json`, `config/contract_reputation.yaml`, `docs/analysis_plan.md`, `docs/registration_w1.md`
-- Not yet available: `benchmark/benchmark.json`
+- Code revision: `8d8b568ecaf882cccc6caef60b444823966f5ce8` with uncommitted changes (git status code) in: `scripts/export_latex.py (M)`, `scripts/publish_results.py (M)`, `scripts/run_benchmark.py (M)`, `scripts/describe_data.py (??)`
+- Published files: `same-window/eval_summary.json`, `holdout-w0/eval_summary.json`, `registered-w1/eval_summary.json`, `registered-w1/extraction_manifest.json`, `sybil-model/sybil_model.json`, `robustness/robustness.json`, `benchmark/benchmark.json`, `supplementary/supplementary.json`, `describe/describe.json`, `cohort/matched_cohort.json`, `gmx/gmx_contract_closes_obs_decoded.json`, `gmx/gmx_contract_closes_w1_decoded.json`, `config/contract_reputation.yaml`, `docs/analysis_plan.md`, `docs/registration_w1.md`
 
 ## 1. Cohort and graph sizes
 
@@ -910,5 +909,202 @@ Family mean of Kendall τ_b with its 95% percentile interval (paired bootstrap o
 
 ## 10. Benchmark
 
-benchmark/benchmark.json does not exist yet.
+| Quantity | Value | Source |
+|---|---|---|
+| Protocol: warmup runs | 1 | `benchmark/benchmark.json` : `protocol.warmup_runs` |
+| Protocol: timed runs | 5 | `benchmark/benchmark.json` : `protocol.timed_runs` |
+| Protocol: damping | 0.85 | `benchmark/benchmark.json` : `protocol.damping` |
+| Protocol: tol | 1e-08 | `benchmark/benchmark.json` : `protocol.tol` |
+| Protocol: max iter | 300 | `benchmark/benchmark.json` : `protocol.max_iter` |
+| Machine: platform | Windows-10-10.0.26200-SP0 | `benchmark/benchmark.json` : `machine.platform` |
+| Machine: processor | Intel64 Family 6 Model 170 Stepping 4, GenuineIntel | `benchmark/benchmark.json` : `machine.processor` |
+| Machine: python | 3.11.9 | `benchmark/benchmark.json` : `machine.python` |
+| Scaling seed | contract-benchmark-v1 | `benchmark/benchmark.json` : `scaling_seed` |
+| Full graphs: EndorseRank | mean 29.596 s, SD 0.606 s; runs 29.644, 30.210, 29.762, 29.784, 28.582; peak 1,285.0 MB; iterations 84; \|V\| 13,055,150; \|E\| 22,321,470 | `benchmark/benchmark.json` : `main.endorserank` |
+| Full graphs: AWP | mean 69.819 s, SD 2.302 s; runs 70.808, 69.357, 73.212, 68.491, 67.226; peak 2,995.9 MB; iterations 93; \|V\| 23,029,298; \|E\| 59,737,617 | `benchmark/benchmark.json` : `main.awp` |
+| Full graphs: C-PR (λ=0.5) | mean 105.507 s, SD 2.478 s; runs 102.667, 103.853, 107.489, 104.934, 108.592; peak 4,582.2 MB; iterations 92; \|V\| 25,304,106; \|E\| 71,375,442 | `benchmark/benchmark.json` : `main.cpr_l50` |
+| Full graphs: S-PR | mean 100.861 s, SD 4.820 s; runs 107.139, 102.530, 94.957, 97.215, 102.465; peak 3,453.1 MB; iterations 185; \|V\| 23,029,298; \|E\| 59,737,617 | `benchmark/benchmark.json` : `main.spr` |
+| AWP/EndorseRank runtime ratio (derived) | 2.36 | `benchmark/benchmark.json` : `main.awp.mean_s / main.endorserank.mean_s` |
+| AWP/EndorseRank edge ratio (derived) | 2.68 | `benchmark/benchmark.json` : `main.awp.edges / main.endorserank.edges` |
+| Damping 0.75: EndorseRank | mean 18.998 s, SD 0.468 s; runs 18.986, 18.938, 19.770, 18.776, 18.522; peak 1,285.0 MB; iterations 50; \|V\| 13,055,150; \|E\| 22,321,470 | `benchmark/benchmark.json` : `damping.0.75.endorserank` |
+| Damping 0.75: AWP | mean 38.619 s, SD 1.297 s; runs 40.597, 39.114, 37.220, 38.200, 37.962; peak 2,995.9 MB; iterations 54; \|V\| 23,029,298; \|E\| 59,737,617 | `benchmark/benchmark.json` : `damping.0.75.awp` |
+| Damping 0.85: EndorseRank | mean 29.596 s, SD 0.606 s; runs 29.644, 30.210, 29.762, 29.784, 28.582; peak 1,285.0 MB; iterations 84; \|V\| 13,055,150; \|E\| 22,321,470 | `benchmark/benchmark.json` : `damping.0.85.endorserank` |
+| Damping 0.85: AWP | mean 69.819 s, SD 2.302 s; runs 70.808, 69.357, 73.212, 68.491, 67.226; peak 2,995.9 MB; iterations 93; \|V\| 23,029,298; \|E\| 59,737,617 | `benchmark/benchmark.json` : `damping.0.85.awp` |
+| Damping 0.95: EndorseRank | mean 63.623 s, SD 1.093 s; runs 62.116, 64.104, 64.708, 64.337, 62.852; peak 1,285.0 MB; iterations 224; \|V\| 13,055,150; \|E\| 22,321,470 | `benchmark/benchmark.json` : `damping.0.95.endorserank` |
+| Damping 0.95: AWP | mean 162.587 s, SD 8.359 s; runs 165.730, 175.831, 155.496, 158.528, 157.348; peak 2,995.9 MB; iterations 276; \|V\| 23,029,298; \|E\| 59,737,617 | `benchmark/benchmark.json` : `damping.0.95.awp` |
+| Stage n=1,000: EndorseRank | mean 0.166 s, SD 0.002 s; runs 0.168, 0.166, 0.166, 0.168, 0.162; peak 17.4 MB; iterations 82; \|V\| 185,281; \|E\| 194,084 | `benchmark/benchmark.json` : `scaling[0].endorserank` |
+| Stage n=1,000: AWP | mean 2.698 s, SD 0.121 s; runs 2.606, 2.688, 2.904, 2.616, 2.675; peak 126.8 MB; iterations 94; \|V\| 1,138,289; \|E\| 1,385,509 | `benchmark/benchmark.json` : `scaling[0].awp` |
+| Stage n=2,000: EndorseRank | mean 0.957 s, SD 0.016 s; runs 0.942, 0.953, 0.966, 0.981, 0.944; peak 65.6 MB; iterations 76; \|V\| 687,884; \|E\| 761,242 | `benchmark/benchmark.json` : `scaling[1].endorserank` |
+| Stage n=2,000: AWP | mean 6.922 s, SD 0.259 s; runs 7.070, 6.688, 6.782, 7.306, 6.767; peak 237.3 MB; iterations 89; \|V\| 1,946,268; \|E\| 3,145,438 | `benchmark/benchmark.json` : `scaling[1].awp` |
+| Stage n=5,000: EndorseRank | mean 4.460 s, SD 0.199 s; runs 4.718, 4.521, 4.263, 4.254, 4.542; peak 348.4 MB; iterations 74; \|V\| 3,958,686; \|E\| 4,606,533 | `benchmark/benchmark.json` : `scaling[2].endorserank` |
+| Stage n=5,000: AWP | mean 14.514 s, SD 0.264 s; runs 14.640, 14.841, 14.184, 14.594, 14.312; peak 902.6 MB; iterations 91; \|V\| 7,814,870; \|E\| 12,043,690 | `benchmark/benchmark.json` : `scaling[2].awp` |
+| Stage n=10,000: EndorseRank | mean 7.096 s, SD 0.142 s; runs 7.064, 7.000, 6.931, 7.265, 7.218; peak 476.3 MB; iterations 76; \|V\| 5,198,375; \|E\| 7,030,772 | `benchmark/benchmark.json` : `scaling[3].endorserank` |
+| Stage n=10,000: AWP | mean 21.589 s, SD 0.613 s; runs 20.986, 22.037, 21.046, 22.385, 21.492; peak 1,181.6 MB; iterations 92; \|V\| 9,727,925; \|E\| 20,054,589 | `benchmark/benchmark.json` : `scaling[3].awp` |
+| Stage n=20,000: EndorseRank | mean 16.285 s, SD 0.245 s; runs 16.297, 16.098, 16.453, 16.586, 15.990; peak 984.4 MB; iterations 75; \|V\| 10,409,908; \|E\| 15,690,094 | `benchmark/benchmark.json` : `scaling[4].endorserank` |
+| Stage n=20,000: AWP | mean 52.004 s, SD 0.790 s; runs 51.618, 52.408, 53.029, 52.024, 50.939; peak 2,643.0 MB; iterations 96; \|V\| 20,865,342; \|E\| 48,796,598 | `benchmark/benchmark.json` : `scaling[4].awp` |
+| Stage n=27,844 (reused main measurement): EndorseRank | mean 29.596 s, SD 0.606 s; runs 29.644, 30.210, 29.762, 29.784, 28.582; peak 1,285.0 MB; iterations 84; \|V\| 13,055,150; \|E\| 22,321,470 | `benchmark/benchmark.json` : `scaling[5].endorserank` |
+| Stage n=27,844 (reused main measurement): AWP | mean 69.819 s, SD 2.302 s; runs 70.808, 69.357, 73.212, 68.491, 67.226; peak 2,995.9 MB; iterations 93; \|V\| 23,029,298; \|E\| 59,737,617 | `benchmark/benchmark.json` : `scaling[5].awp` |
 
+## Data description (amount shares, monthly counts, GMX contract traders, timing)
+
+| Quantity | Value | Source |
+|---|---|---|
+| transfers ego | 1,538,404,067 | `describe/describe.json` : `amounts.transfers_ego` |
+| transfers ge10 share | 0.9952 | `describe/describe.json` : `amounts.transfers_ge10_share` |
+| latest allowances tobs | 28,069,418 | `describe/describe.json` : `amounts.latest_allowances_tobs` |
+| allowances ge10 share | 0.9978 | `describe/describe.json` : `amounts.allowances_ge10_share` |
+| unlimited allowances | 12,701,544 | `describe/describe.json` : `amounts.unlimited_allowances` |
+| unlimited share | 0.4525 | `describe/describe.json` : `amounts.unlimited_share` |
+| owners | 13,029,306 | `describe/describe.json` : `amounts.owners` |
+| owners with unlimited | 5,798,712 | `describe/describe.json` : `amounts.owners_with_unlimited` |
+| owners with both kinds | 1,532,301 | `describe/describe.json` : `amounts.owners_with_both_kinds` |
+| plan commit 43d8045 utc | 2026-10-09T13:41:27+00:00 | `describe/describe.json` : `timing.plan_commit_43d8045_utc` |
+| scan a | created 2026-10-09T13:41:37+00:00, ended 2026-10-09T13:43:54+00:00 | `describe/describe.json` : `timing.scan_a` |
+| registration commit 0d3a057 utc | 2026-10-09T16:49:32+00:00 | `describe/describe.json` : `timing.registration_commit_0d3a057_utc` |
+| scan b | created 2026-10-09T16:49:40+00:00, ended 2026-10-09T16:50:11+00:00 | `describe/describe.json` : `timing.scan_b` |
+| bigquery usd total | 29.71 | `describe/describe.json` : `timing.bigquery_usd_total` |
+| bigquery tib billed | 4.754 | `describe/describe.json` : `timing.bigquery_tib_billed` |
+| GMX contract traders 2023Q4 | 1,119 closes, 180 accounts, 104 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2024Q1 | 7,956 closes, 1,247 accounts, 692 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2024Q2 | 11,509 closes, 2,120 accounts, 589 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2024Q3 | 7,947 closes, 1,807 accounts, 456 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2024Q4 | 7,343 closes, 1,321 accounts, 904 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2025Q1 | 6,929 closes, 497 accounts, 498 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2025Q2 | 12,080 closes, 368 accounts, 379 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2025Q3 | 28,753 closes, 1,750 accounts, 897 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2025Q4 | 40,240 closes, 1,915 accounts, 1,596 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2026Q1 | 6,026 closes, 269 accounts, 233 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2026Q2 | 3,783 closes, 169 accounts, 125 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| GMX contract traders 2026Q3 | 6,805 closes, 165 accounts, 182 liquidations | `describe/describe.json` : `gmx_contract_traders_by_quarter` |
+| approval_ego 2023-10 | 6,550,552 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2023-11 | 8,249,843 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2023-12 | 8,295,650 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-01 | 10,121,473 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-02 | 7,735,239 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-03 | 12,757,917 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-04 | 23,625,463 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-05 | 20,926,464 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-06 | 14,438,650 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-07 | 15,293,846 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-08 | 13,937,402 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-09 | 10,047,990 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-10 | 10,616,817 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-11 | 12,370,652 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2024-12 | 14,754,155 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-01 | 11,283,677 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-02 | 9,026,269 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-03 | 12,696,548 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-04 | 10,617,469 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-05 | 10,655,513 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-06 | 10,065,624 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-07 | 12,522,333 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-08 | 16,674,579 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-09 | 12,814,948 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-10 | 13,897,714 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-11 | 11,139,720 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2025-12 | 17,247,237 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2026-01 | 11,262,167 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2026-02 | 9,912,123 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2026-03 | 9,034,662 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2026-04 | 6,869,236 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2026-05 | 5,677,394 | `describe/describe.json` : `monthly_counts` |
+| approval_ego 2026-06 | 8,747,556 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2023-10 | 49,527 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2023-11 | 32,832 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2023-12 | 38,266 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-01 | 45,244 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-02 | 36,572 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-03 | 58,183 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-04 | 62,113 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-05 | 41,584 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-06 | 37,592 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-07 | 60,369 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-08 | 59,675 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-09 | 56,010 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-10 | 60,616 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-11 | 100,758 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2024-12 | 89,671 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-01 | 74,619 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-02 | 74,068 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-03 | 78,398 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-04 | 81,774 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-05 | 85,790 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-06 | 71,209 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-07 | 107,619 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-08 | 110,509 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-09 | 86,605 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-10 | 107,090 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-11 | 86,534 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2025-12 | 57,240 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2026-01 | 68,537 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2026-02 | 66,692 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2026-03 | 59,968 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2026-04 | 53,554 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2026-05 | 59,497 | `describe/describe.json` : `monthly_counts` |
+| logs_G 2026-06 | 59,969 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2023-10 | 32,453 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2023-11 | 33,083 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2023-12 | 36,634 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-01 | 40,702 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-02 | 47,914 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-03 | 71,972 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-04 | 67,540 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-05 | 67,471 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-06 | 72,879 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-07 | 100,779 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-08 | 106,157 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-09 | 64,090 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-10 | 71,934 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-11 | 126,733 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2024-12 | 123,755 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-01 | 93,449 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-02 | 108,761 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-03 | 107,565 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-04 | 89,350 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-05 | 95,917 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-06 | 84,103 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-07 | 134,233 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-08 | 142,520 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-09 | 95,443 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-10 | 120,416 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-11 | 106,996 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2025-12 | 56,628 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2026-01 | 64,924 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2026-02 | 75,968 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2026-03 | 55,451 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2026-04 | 41,395 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2026-05 | 37,703 | `describe/describe.json` : `monthly_counts` |
+| logs_V 2026-06 | 58,228 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2023-10 | 14,300,580 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2023-11 | 19,268,431 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2023-12 | 20,124,810 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-01 | 25,891,066 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-02 | 20,149,012 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-03 | 36,580,294 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-04 | 61,441,344 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-05 | 47,956,506 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-06 | 39,909,928 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-07 | 51,109,579 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-08 | 56,517,663 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-09 | 40,576,538 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-10 | 45,102,719 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-11 | 63,978,880 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2024-12 | 63,416,248 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-01 | 55,093,057 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-02 | 55,205,950 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-03 | 60,153,290 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-04 | 55,610,632 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-05 | 68,388,497 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-06 | 56,826,671 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-07 | 64,444,756 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-08 | 67,702,627 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-09 | 49,695,846 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-10 | 59,438,422 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-11 | 53,361,692 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2025-12 | 57,949,683 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2026-01 | 62,732,053 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2026-02 | 41,069,636 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2026-03 | 33,959,783 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2026-04 | 28,192,517 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2026-05 | 26,591,803 | `describe/describe.json` : `monthly_counts` |
+| transfer_ego 2026-06 | 35,663,554 | `describe/describe.json` : `monthly_counts` |

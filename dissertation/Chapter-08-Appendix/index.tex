@@ -18,76 +18,106 @@
 \section{Evaluation Pipeline and Reproducibility}
 \label{ch:appendix-eval}
 
-This appendix documents the evaluation pipeline behind Chapter~\ref{ch:results}: its stages, the extraction design, the default parameters, the proxy formulas and a glossary.
+This appendix documents the evaluation pipeline behind Chapter~\ref{ch:results}: its stages, the extraction design, the scaling tables, the account-type classification, the log of every timed run, the default parameters, the proxies and a glossary. Paths are given relative to the folder \texttt{1-Dissertation-Works/ERC20-Allowance-PageRank-Contract-Reputation/experiments} of the public repository \url{https://github.com/abitocodes/phd_works}.
 
 \dissertationSubheading[sec:pipeline-stages]{Pipeline stages}
 
-The evaluation has four stages. The first three run on Arbitrum One over the observation period 2025-12-01 to 2026-05-31 (UTC, inclusive at both ends); the fourth adds the months from June to August 2026.
+The evaluation runs in six stages. Stages 2 to 4 read the logs of the observation window, 1~October~2023 to 30~June~2026 (UTC, inclusive at both ends); stage 5 adds July to September~2026; stages 1 and 6 read no logs.
 
 \begin{enumerate}
-\item Reputation graphs and scores: Fix the matched cohort ($n=5{,}521$) from GMX~V2 data before any approval or transfer extraction. Fetch the cohort's \texttt{Approval} and \texttt{Transfer} logs in monthly chunks, with a dry run before each query and an abort limit of $150$\,GiB. Build and score the latest-allowance graph (EndorseRank) and the transfer graph (AWP), then the two raw-amount layers (C-PR at $\lambda\in\{0,0.25,0.5,0.75,1\}$ and S-PR), all with the solver settings of Section~\ref{sec:notation}.
-\item Checks, alignment and benchmarks: Compute the checks of Section~\ref{sec:proxy-formulas} and report Spearman $\rho$ and Kendall $\tau$ for every score with 95\% paired-bootstrap intervals (400 resamples, seed 42), together with the contrasts of Section~\ref{sec:statistical-tests}. Time one solver call per method under the protocol of Section~\ref{sec:computational-benchmark}, and run the damping, top-token and sample-definition sweeps.
-\item Temporal holdout: On the spender cohort ($n=1{,}335$), freeze the scores at 28~February~2026 and count the new approval pairs and new transfer senders that appear in March--May~2026. Report every score and both raw-degree baselines against both labels with 400 paired resamples, along with the contrasts fixed before the coupled run and those computed afterwards (\texttt{scripts/run\_holdout\_eval.py --cohort spenders}).
-\item Registered replication: With \texttt{config/fresh\_holdout\_2026q3.yaml} and its plan, \texttt{docs/fresh\_holdout\_2026q3\_plan.md}, committed, first check the evaluation code against the spring holdout (\texttt{scripts/run\_fresh\_holdout.py --spring-check}). Then extract the June--August logs with the same SQL and wallet filter (\texttt{scripts/extract\_fresh\_window.py --dry-run}, then \texttt{--extract}) and evaluate both cohorts on scores frozen at 31~May~2026 (\texttt{scripts/run\_fresh\_holdout.py}). The extraction script will not run before the registration is committed with the status set to registered, and both scripts record the SHA-256 hashes of the two registration files.
+\item Plan and configuration: The analysis plan (\texttt{docs/analysis\_plan.md}), the configuration (\texttt{config/contract\_reputation.yaml}), the materialization query (\texttt{sql/01\_materialize\_logs.sql}) and the BigQuery runner (\texttt{scripts/run\_bq.py}) were committed together in \texttt{43d8045}, before any log of the study was extracted. The plan fixes the cohorts, the scores, the proxies and labels, the statistics and rule~A for the coupled operator.
+\item Scan~A and the cohort: \texttt{scripts/run\_bq.py} dry-runs every query, checks the estimate against the budget in the configuration, runs the query and writes the billed bytes to \texttt{data/bq\_ledger.json}. Scan~A materializes the observation window (Appendix~\ref{sec:bq-extraction}). \texttt{sql/02\_spender\_candidates.sql} lists the spenders that received a non-zero approval from at least three distinct owners in the window, \texttt{scripts/check\_account\_code.py} reads the account type of each (Appendix~\ref{sec:account-type-classification}), and \texttt{scripts/build\_cohort.py} keeps the contracts as the matched cohort and loads their addresses into BigQuery.
+\item Graph tables, proxies and labels: \texttt{sql/03\_ego\_events.sql} extracts the ego network of the cohort, and \texttt{sql/04\_anchor\_pairs.sql} aggregates it into the pair tables of both graphs at $T_{\text{obs}}$ and at $t_1$. \texttt{sql/05\_proxies\_same\_window.sql} computes the transfer and Sybil-stability proxies and \texttt{sql/06\_holdout\_labels.sql} the labels of W0. \texttt{sql/07\_gmx\_accounts.sql} and \texttt{sql/09\_gmx\_contract\_closes.sql} select the GMX~V2 closes of contract accounts, which \texttt{scripts/decode\_gmx\_events.py} decodes with the event ABI kept in \texttt{data/0-gmx-abi-for-decoding-logs/}. \texttt{sql/08\_export\_ids.sql} replaces addresses by integer node ids, \texttt{scripts/download\_graph\_tables.sh} downloads the tables in parquet parts, and \texttt{sql/10\_describe.sql} counts the events and allowance amounts described in Appendix~\ref{ch:appendix-data}.
+\item Same window and W0: \texttt{scripts/run\_same\_window.py} scores every method at $T_{\text{obs}}$ and computes the same-window checks, the contrasts and the secondary part of rule~A. \texttt{scripts/run\_holdout.py} scores every method at $t_1$ and evaluates the spender and trader cohorts of W0 together with the primary part of rule~A.
+\item Registration and scan~B: The registration of W1 (\texttt{docs/registration\_w1.md}) was committed in \texttt{0d3a057} with the configuration status set to \texttt{registered}. \texttt{scripts/extract\_w1.py} refuses to run unless both files are committed without local changes and the status is \texttt{registered}; it writes their SHA-256 hashes and the commit to \texttt{registered-w1/extraction\_manifest.json} and then runs scan~B, the ego extraction of July--September and the GMX account query of that window. The W1 labels and closes follow from \texttt{sql/06} and \texttt{sql/09}, and \texttt{scripts/run\_registered.py} evaluates rule~B, its two sensitivity analyses and the comparison on outcomes built from neither edge type, in the order of the registration.
+\item After the labels: \texttt{scripts/run\_supplementary.py} computes the spender contrasts made after the labels were known, \texttt{scripts/run\_robustness.py} the top-token subgraphs (with \texttt{sql/11\_top\_tokens.sql}) and the sample-definition stages, \texttt{scripts/sybil\_model.py} the Sybil cost model, and \texttt{scripts/run\_benchmark.py} the timed runs. \texttt{scripts/export\_latex.py} writes the tables of \texttt{results/tables/} and the figures of \texttt{Figures/generated/} from the summaries, and \texttt{scripts/publish\_results.py} copies the summaries to \texttt{data/3-published-results-for-thesis/} with a digest that names the source of every number and a list of checksums.
 \end{enumerate}
 
-The coupling weights, holdout labels and the first rule for RQ5 were written to the configuration and to the plan of 14~September~2026, before any coupled score was computed. On 30~September~2026 two inverse-risk proxies were found to carry the wrong sign and were corrected (Appendix~\ref{sec:supplementary-summary}). The same day \texttt{scripts/classify\_spenders.py} checked on BigQuery which spenders emitted logs or sent transactions in the scoring window, and \texttt{scripts/check\_spender\_code.py} read each spender's code from an Arbitrum node (\texttt{data/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/spender\_account\_types.csv}). On 1~October~2026 the registration gained its two sensitivity analyses (Section~\ref{sub:fresh-holdout}); AWP's value parameter is \texttt{reputation.awp\_paper} in the configuration. Later that day the status was set to registered (commit \texttt{4085ab9} of \texttt{phd\_works}), the June--August logs were extracted in nine monthly queries billed at about 1.04\,TB, and \texttt{scripts/run\_fresh\_holdout.py} evaluated them; \texttt{data/3-published-results-for-thesis/registered-replication-2026-06-to-2026-08/} holds the extraction manifest and the summary behind Tables~\ref{tab:fresh-holdout}, \ref{tab:fresh-contrasts} and~\ref{tab:fresh-traders}.
+The order of these steps is recorded in the commit history, in the cost ledger and in the extraction manifest of W1. The plan was committed at 13:41~UTC on 9~October~2026; the ledger, which records each job when it completes, lists the first job of scan~A at 13:43~UTC. The other queries and scripts of stages 2 to 4 entered the repository with the registration in \texttt{0d3a057}, after they had run, together with the summaries of the same window and of W0 and with the scripts of stage 5, which had not yet run. That commit was made at 16:49:32~UTC on 9~October~2026, which the commit records in Korea Standard Time as 01:49:32 on 10~October. \texttt{scripts/extract\_w1.py} wrote its manifest one second later, before its first query, and the manifest records that no override was used. The digest \texttt{results\_digest.md} records the code revision at which the summaries were published, \texttt{8d8b568}, and names the scripts that differed from that revision when the digest was written. Commit \texttt{8d8b568} added or extended the scripts of stage 6 and changed \texttt{scripts/run\_holdout.py} only in how it groups the contrasts of W0, which the summary of W0 records as leaving every value unchanged. The benchmark ran with \texttt{scripts/run\_benchmark.py} as committed in \texttt{8d8b568}, the revision the digest records; the script has not changed since. The timed runs were made on an otherwise idle machine with an Intel Core Ultra~9 185H processor (16 cores, 22 logical processors) and 64~GB of memory, under Windows~11 (build 26200), with Python 3.11.9, NumPy 2.3.2 and SciPy 1.16.1. \texttt{benchmark/benchmark.json} records the platform (\texttt{Windows-10-10.0.26200-SP0}, the string that Python reports for this build), the processor (Intel64 Family~6 Model~170 Stepping~4) and the Python version.
 
-The other tables of Chapter~\ref{ch:results} come from runs made on 2~October~2026 in a cloud container with four cores of an Intel Xeon processor at 2.8\,GHz and 15\,GB of memory, under Python~3.11 with NumPy~2.4, SciPy~1.17 and pandas~3.0: \texttt{scripts/run\_dissertation\_eval.py --real --robustness --benchmark-repeats 5}; \texttt{scripts/run\_holdout\_eval.py} with \texttt{--cohort spenders} and with \texttt{--cohort matched}; \texttt{scripts/run\_fresh\_posthoc.py}, which scores EndorseRank on the cohorts and labels of the registered replication (Table~\ref{tab:fresh-posthoc}); and \texttt{scripts/run\_supplementary\_checks.py}, behind Tables~\ref{tab:tie-sensitivity} and~\ref{tab:holdout-receiving}. The same day \texttt{scripts/run\_fresh\_holdout.py --spring-check} was run again on the spring window and reproduced the values it had given on 1~October. The tables were written to \texttt{results/tables/} by \texttt{scripts/export\_latex\_results.py} and the figures by \texttt{scripts/generate\_dissertation\_figures.py}. The summaries (\texttt{eval\_summary.json}, \texttt{supplementary\_checks.json}, \texttt{eval\_summary\_spenders.json} and \texttt{eval\_summary\_matched\_traders.json} in the spring-holdout folder, and \texttt{fresh\_holdout\_summary.json} and \texttt{posthoc\_endorserank.json} in the registered-replication folder) are committed under \texttt{data/3-published-results-for-thesis/} along with a copy of the configuration in force, so any number in a table can be checked against its summary without re-running the pipeline. The public repository \url{https://github.com/abitocodes/phd_works} contains the evaluation source in \texttt{1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/dissertation/wallet-reputation-experiments} (the folder was \texttt{A-Skill-Programs/margin\_rank} until 1~October~2026 and has that name in commit \texttt{4085ab9}), the versioned configuration (\texttt{config/margin\_config.yaml}), the extracted data and the summaries, at revision \texttt{7129981}. The file \texttt{data/README.md} in that folder describes every data file. The neutral-label analysis of Sections~\ref{sub:neutral-label-protocol} and~\ref{sub:neutral-label-results} (plan, script and results) and the check of EndorseRank's closed form (Section~\ref{sub:theory-closed-form}) are in the folder \texttt{analysis/} of the thesis repository, \url{https://github.com/abitocodes/phd-dissertation-draft-en}, where the tag \texttt{manuscripts-2026-11} fixes the state reported here; the plan was committed in \texttt{20e250f}, before the analysis ran.
+The public repository \url{https://github.com/abitocodes/phd_works} contains the evaluation source in \texttt{1-Dissertation-Works/ERC20-Allowance-PageRank-Contract-Reputation/experiments}: the queries (\texttt{sql/}), the scripts (\texttt{scripts/}), the tests (\texttt{tests/}), the versioned configuration (\texttt{config/contract\_reputation.yaml}), the plan and the registration (\texttt{docs/}), the extracted tables, the summaries and the cost ledger. Every data file is split into parquet parts below 90\,MB so that it can be committed, and a JSON file beside each table records the BigQuery table it came from, its row count and the time of the download. The summaries behind the tables are in \texttt{data/3-published-results-for-thesis/}, together with copies of the configuration, the plan and the registration, the digest \texttt{results\_digest.md}, which gives the summary file and key of every number, and \texttt{SHA256SUMS.txt}. Any number in a table can thus be checked against its summary without re-running the pipeline.
 
-The implementation is checked offline before any real extraction: synthetic tests run the same scoring and alignment logic on fixture graphs, with no cloud access. Real extraction needs Google Cloud credentials and a billing project, and its scans are confined to the public Arbitrum One log dataset.
+The scoring and statistics code is checked offline: \texttt{tests/test\_scoring.py} and \texttt{tests/test\_stats.py} compare the solver, the edge weights and the paired bootstrap on small synthetic graphs with a reference implementation of the same definitions, with no cloud access. Real extraction needs Google Cloud credentials and a billing project, and its scans read only the public Arbitrum One log table.
 
 \dissertationSubheading[sec:bq-extraction]{BigQuery extraction design}
 
-Each ERC-20 \texttt{Approval} or \texttt{Transfer} event is identified by its standard topic-$0$ hash. Queries are restricted to logs whose owner/spender or from/to address is on the evaluation wallet list, which ties scan cost to the size of the cohort instead of the whole chain. Batching by month keeps every query under the operational byte cap. Appendix~\ref{ch:appendix-sql} shows representative SQL patterns.
+The public table \texttt{bigquery-public-data.goog\_blockchain\_arbitrum\_one\_us.logs} is read once for each window. Scan~A runs \texttt{sql/01\_materialize\_logs.sql} over 1~October~2023 to 30~June~2026 and keeps four kinds of log in one project table, \texttt{contract\_rep.logs\_obs}, partitioned by month: ERC-20 \texttt{Approval} and \texttt{Transfer} logs with exactly three topics, identified by their standard topic-0 hashes \parencite{vogelsteller2015erc20}; GMX~V2 \texttt{PositionDecrease} logs of the protocol's event emitter; and the \texttt{Borrow}, \texttt{Repay} and \texttt{LiquidationCall} logs of the Aave~V3 pool, which no analysis of this thesis uses. Scan~B runs the same query over July to September~2026 into \texttt{contract\_rep.logs\_w1}. Every later query reads these project tables, so the cost of the chain-wide scan is paid once per window. Appendix~\ref{ch:appendix-sql} shows the three queries on which the graphs rest.
 
-For auditing, the study's acquisition log retains the extraction records (bytes processed, row counts, timestamps). This research reports only the resulting cohort sizes and edge counts, not the operational logs.
+The ego extraction (\texttt{sql/03\_ego\_events.sql}) keeps an approval when a contract of the matched cohort is its owner or its spender, and a transfer when a cohort contract is its sender or its recipient. Each graph is therefore the ego network of the cohort, and the size of the extract follows the cohort and not the chain. Amounts are raw base units, the \texttt{uint256} value read as a double. Zero-value transfers are dropped, while zero-value approvals are kept because they delete an allowance. For the observation window the two ego tables hold $389{,}866{,}882$ approval logs and $1{,}538{,}404{,}067$ transfer logs.
 
-A second-tier extraction had been planned for the $93{,}559$ supplemental addresses of the expanded wallet pool ($N=99{,}080$; Section~\ref{sub:expanded-pool}). For the six monthly approval and transfer queries over those addresses, the dry-run estimate came to more than $1.3$\,TiB, and the download stage failed repeatedly on the storage-backed result path. The extraction was therefore abandoned within the study period. As a result, the supplemental addresses enter the expanded-pool experiments only as sampled addresses. They have no approval or transfer edges of their own, and the solver graph takes its nodes from the endpoints of the retained edges, so they add no nodes either; that is why the full-pool row of Table~\ref{tab:benchmark-scaling} reproduces the matched-cohort graph. Chapter~\ref{ch:conclusion} lists the completion of that extraction as future work.
+The pair tables (\texttt{sql/04\_anchor\_pairs.sql}) are the edge lists of the two graphs at one anchor. They are built at $T_{\text{obs}}$ and at $t_1$ from the events up to the anchor, with the time decay anchored there, and each pair carries the weights of every method (Appendix~\ref{sec:sql-pairs}). At $T_{\text{obs}}$ they hold $22{,}321{,}470$ allowance pairs and $59{,}737{,}617$ transfer pairs, and at $t_1$ $21{,}550{,}791$ and $58{,}065{,}784$. The freeze of W1 coincides with $T_{\text{obs}}$, so W1 reuses the pair tables of $T_{\text{obs}}$. \texttt{sql/08\_export\_ids.sql} numbers the $25{,}305{,}099$ addresses that occur in a pair table of either anchor or in the cohort. Only the id-coded pair tables, the node table, the proxies and the labels are downloaded; the event tables stay in BigQuery.
+
+Every job is listed in \texttt{data/bq\_ledger.json} with its query, parameters, estimated and billed bytes and cost. The ledger holds 17 jobs that billed $5{,}226{,}856{,}710{,}144$ bytes ($4.75$\,TiB), or USD~29.71 at the on-demand rate of USD~6.25 per TiB recorded in the ledger, against a budget of USD~50 fixed in the configuration. Scan~A alone billed $3.29$\,TiB (USD~20.55) and scan~B $0.26$\,TiB (USD~1.64). When the registration was committed, the ledger stood at USD~26.20.
 
 \dissertationSubheading[sec:scaling-appendix]{Scaling tables}
 
-Table~\ref{tab:benchmark-scaling-incohort} reports runtime scaling within the cohort for $n \leq 5{,}521$, measured under the timing protocol of Section~\ref{sec:computational-benchmark}. Its last row is the same measurement as the one in Table~\ref{tab:benchmark-runtime}. Every in-cohort stage is a subset of the wallets whose edges were extracted, so $|V|$ and $|E|$ both grow with $n$. In the expanded-pool stages they grow as well, but only up to the size of the matched-cohort graph.
+Table~\ref{tab:benchmark-scaling} in Section~\ref{sub:runtime-scaling} reports the runtime of EndorseRank and AWP on deterministic SHA256 subsamples of the matched cohort, measured under the timing protocol of Section~\ref{sec:computational-benchmark}; this section describes how its stages were drawn. The contracts are ordered by the SHA256 hash of the seed string \texttt{contract-benchmark-v1} joined to the address, and the first $n$ of them form a stage, for $n=1{,}000$, $2{,}000$, $5{,}000$, $10{,}000$ and $20{,}000$; the last row is the full cohort, whose measurement is the one in Table~\ref{tab:benchmark-runtime}, reused. A stage keeps every extracted edge with an end point among its contracts, so $|V|$ and $|E|$ of both graphs grow with $n$, from $194{,}084$ allowance and $1{,}385{,}509$ transfer edges at $n=1{,}000$ to the full graphs with $22{,}321{,}470$ and $59{,}737{,}617$, and the table gives both counts for every stage. The stages are the evaluation sets of Table~\ref{tab:robustness-sample-size}, so the edge counts in the two tables agree.
 
-\input{results/tables/benchmark-scaling-incohort.tex}
+The ratio of transfer edges to allowance edges is not constant across the stages. It is highest at the smallest stage and settles near its full-cohort value from $n=5{,}000$ on; the table gives it for every stage, and Section~\ref{sub:runtime-scaling} discusses it. The table therefore shows whether the ratio of the two runtimes follows the ratio of the edge counts from stage to stage. No stage is larger than the cohort graph, so the table says nothing about graphs beyond it.
 
-\dissertationSubheading[sec:delegation-deferred]{Credit-delegation extract (deferred)}
+\dissertationSubheading[sec:account-type-classification]{Account-type classification}
 
-Aave~V3 records credit delegation in \texttt{BorrowAllowanceDelegated} events, a second on-chain form of delegated spending power. This study did not extract them, so the delegation-based row of the archived matrix (Appendix~\ref{ch:appendix-archive}) has no edges; adding these events to the allowance graph is future work.
-
-\dissertationSubheading[sec:supplementary-summary]{Supplementary alignment summary table}
-
-The pipeline computes six proxy families, and Table~\ref{tab:alignment-summary} lists the family-mean $\tau$ of every score on each. Among them are the liquidation, inverse-risk and GMX trading-success families, which were withdrawn from the primary analysis along with the GF-PR reference (Section~\ref{sub:gf-pr}). Until 30~September~2026 the pipeline negated two of the three inverse-risk proxies, the summed loss and the worst close, so both ranked the largest losses highest. They are now oriented like every other proxy, a value nearer zero meaning smaller losses, and the table shows the corrected values; the correction changes no other entry. Every score is negative on this family, which fits the summed loss and the worst close growing with how much a wallet trades (Section~\ref{sec:same-window-alignment}). The transfer, allowance and Sybil-stability columns repeat Table~\ref{tab:alignment-hybrid} without intervals.
-
-\input{results/tables/alignment-summary.tex}
-
-\dissertationSubheading[sec:parameter-summary]{Parameter summary}
+Only contracts are scored and evaluated, so every address that could enter a cohort was classified by its code first. \texttt{scripts/check\_account\_code.py} calls \texttt{eth\_getCode} for each address at one block, fetched once at the start of a run and written to the output with the time of the read. An address with non-empty code is a contract unless the code is an EIP-7702 delegation designator, the bytes \texttt{0xef0100} followed by a 20-byte address \parencite{buterin2024eip7702}; such an address, like one without code, is an externally owned account (EOA). Table~\ref{tab:account-types} lists the four runs. The candidates of the matched cohort were read from the public endpoint \url{https://arb1.arbitrum.io/rpc} until it limited the request rate after $20{,}000$ addresses; the other $9{,}022$ were read at the same block from \url{https://arbitrum-one.public.blastapi.io}, which also served the three later runs.
 
 \begin{table}[htbp]
 \centering
-\caption{Default parameters used in the primary evaluation.}
+\caption[Account types read with \texttt{eth\_getCode}.]{Account types read with \texttt{eth\_getCode} on Arbitrum One, one block per run. Contract: non-empty code that is not a delegation designator. No code and EIP-7702 (a delegation designator) are both externally owned accounts. The W0 run read the spenders that were not cohort candidates, and the W1 run the addresses that no earlier run had classified. Sources: the JSON files beside the parquet outputs in \texttt{data/1-raw-blockchain-extracts/cohort/} and \texttt{gmx/}.}
+\label{tab:account-types}
+\fitwidth{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Address set & Block & Read at (UTC) & Addresses & Contract & No code & EIP-7702 \\
+\midrule
+Cohort candidates: non-zero approvals from $\geq 3$ owners, observation window & 513{,}216{,}506 & 9 Oct 2026, 13:55 & 29{,}022 & 27{,}844 & 1{,}121 & 57 \\
+GMX~V2 accounts with $\geq 3$ closes in the observation window & 513{,}219{,}999 & 9 Oct 2026, 14:10 & 40{,}307 & 7{,}633 & 28{,}075 & 4{,}599 \\
+W0 spenders with a positive allowance at $t_1$, not cohort candidates & 513{,}233{,}527 & 9 Oct 2026, 15:08 & 8{,}224 & 7{,}792 & 413 & 19 \\
+W1 spenders and GMX~V2 accounts with $\geq 3$ closes in W1, not read before & 513{,}257{,}476 & 9 Oct 2026, 16:52 & 1{,}153 & 350 & 568 & 235 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+The matched cohort consists of the contracts among the candidates. The W0 spender cohort draws on the first and third runs: of the spenders with a positive latest allowance at $t_1$, $33{,}101$ are contracts, $431$ have no code and $24$ carry a delegation designator. The W1 spender cohort and the two trader cohorts take their account types from all four runs. Every read refers to the chain on 9~October~2026, so an address is classified by the code it held on that day.
+
+\dissertationSubheading[sec:benchmark-run-logs]{Benchmark run logs}
+
+Table~\ref{tab:benchmark-runs} lists the wall-clock seconds of every timed solver call of the benchmark, in the order the runs were made, with their mean and standard deviation: the four scores on the full graphs at $d=0.85$, EndorseRank and AWP at $d=0.75$ and $d=0.95$, and the two scores at every scaling stage below the full cohort. Each configuration had one untimed warm-up before its five timed runs, and peak memory was traced on the warm-up alone. Each graph and setting was timed once, and that measurement is reused wherever the same graph and setting appear: the $d=0.85$ rows of Table~\ref{tab:robustness-damping} and the full-cohort row of Table~\ref{tab:benchmark-scaling} repeat the first block of Table~\ref{tab:benchmark-runs}. Across all configurations the standard deviation of the five runs is between 1.5\% and 5.1\% of the mean.
+
+\input{results/tables/benchmark-runs.tex}
+
+\dissertationSubheading[sec:parameter-summary]{Parameter summary}
+
+Table~\ref{tab:parameter-summary} collects the default parameters of the evaluation. Most of them are keys of the configuration (Appendix~\ref{sec:config-keys}) and were set with the plan before any log was extracted. The registration of W1 added the margin of rule~B and the $2{,}000$ resamples of the trader comparisons, and the block of the code check was fixed when the check ran.
+
+\begin{table}[htbp]
+\centering
+\caption{Default parameters used in the evaluation.}
 \label{tab:parameter-summary}
 \fitwidth{%
 \begin{tabular}{lll}
 \toprule
 Parameter & Value & Role \\
 \midrule
-PageRank damping $d$ & $0.85$ & Default teleport mixture \\
-Convergence tolerance $\varepsilon$ & $10^{-8}$ & Power-iteration stop \\
+PageRank damping $d$ & $0.85$; sweep $0.75$, $0.95$ & Teleport mixture \\
+Convergence tolerance $\varepsilon$ & $10^{-8}$ ($L_1$) & Power-iteration stop \\
 Max iterations $I_{\max}$ & $300$ & Power-iteration cap \\
-Logistic $k$ & $0.01$ & Decay slope (AWP, EndorseRank, transfer layer) \\
-Logistic $t_0$ & $180$ days & Decay midpoint (AWP, EndorseRank, transfer layer) \\
+Logistic $k$ & $0.01$ & Decay slope (AWP, EndorseRank, transfer layer of C-PR) \\
+Logistic $t_0$ & $180$ days & Decay midpoint (AWP, EndorseRank, transfer layer of C-PR) \\
 Value transform $b$ & $1$ (raw base units) & Value weight $V(z)$ of AWP and EndorseRank \\
 Restart distribution & $\propto X_u$; uniform & AWP; EndorseRank, C-PR \\
-Coupling weight $\lambda$ & $0.5$ (primary); $0.25$, $0.75$ & C-PR allowance-layer weight, fixed before the run \\
-S-PR restart vector & allowance walk, normalized, floor $0$ & Endorsement-seeded teleportation \\
-Holdout freeze / outcome window & 2026-02-28 / 2026-03-01 -- 2026-05-31 & Spender cohort $n=1{,}335$ \\
-Registered replication freeze / labels & 2026-05-31 / 2026-06-01 -- 2026-08-31 & Spender and trader cohorts; margin $0.02$ \\
-Observation window & 2025-12-01 -- 2026-05-31 & UTC inclusive \\
-Bootstrap resamples / seed & $400$ / $42$ & Paired wallet bootstrap, percentile 95\% CI \\
-Timed repeats / warm-up & $5$ / $1$ & Runtime protocol \\
-In-cohort subsample seed & \texttt{benchmark-scale-v1} & Deterministic SHA256 seed \\
-Expanded pool subsample seed & \texttt{benchmark-tier2-v1} & Deterministic SHA256 seed \\
+Coupling weight $\lambda$ & $0.5$ (primary); $0.25$, $0.75$ & C-PR allowance-layer weight, fixed in the plan \\
+S-PR restart vector & C-PR ($\lambda=1$) on the transfer-layer nodes, renormalized & Endorsement-seeded teleportation \\
+Cohort rule & non-zero approvals from $\geq 3$ distinct owners; contract code & Matched cohort \\
+Account type & \texttt{eth\_getCode} at block 513{,}216{,}506 (cohort) & Contract or EOA \\
+Observation window & 2023-10-01 -- 2026-06-30 & UTC inclusive; $T_{\text{obs}}$ anchors the decay \\
+W0 freeze / labels & 2026-03-31 / 2026-04-01 -- 2026-06-30 & Spender and trader cohorts; rule~A \\
+W1 freeze / labels & 2026-06-30 / 2026-07-01 -- 2026-09-30 & Registered window; rule~B, margin $\delta=0.01$ \\
+Trader rule & contract code, node at the freeze, $\geq 3$ closes in the label window & GMX~V2 trader cohorts \\
+Bootstrap resamples / seed & $400$ / $42$; $2{,}000$ / $42$ & Paired contract bootstrap; trader labels of Table~\ref{tab:neutral-label-grid} \\
+Timed runs / warm-up & $5$ / $1$ & Runtime protocol \\
+Scaling seed & \texttt{contract-benchmark-v1} & Deterministic SHA256 subsamples \\
+Top-token lists & $20$ by summed raw amount; $20$ by rows & Token subgraphs (Table~\ref{tab:robustness-tokens}) \\
+BigQuery budget & USD~50 & Checked before every query \\
 \bottomrule
 \end{tabular}
 }
@@ -95,32 +125,37 @@ Expanded pool subsample seed & \texttt{benchmark-tier2-v1} & Deterministic SHA25
 
 \dissertationSubheading[sec:proxy-appendix]{Proxy operational definitions (reference)}
 
-The formulas below are those of Chapter~\ref{ch:methodology}.
+The proxies are defined in Section~\ref{sec:proxy-formulas}; the list below names each one with its equation and states in one line what it counts for a cohort contract $v$.
 
 \begin{itemize}
-\item Transfer: $\mathrm{in\_degree}(w)=|\{u:\exists u\to w\}|$; $\mathrm{in\_value}(w)=\sum_{e:u\to w}\mathrm{value}(e)$.
-
-\item Allowance: $\mathrm{in\_approve\_degree}(w)=|\{o:\exists o\to w\}|$; $\mathrm{in\_approve\_value}(w)=\sum_{o,\mathrm{token}} a^{\star}(o,w,\mathrm{token})$, where $w$ is the spender.
-
-\item Sybil-adjusted stability: $\mathrm{inbound\_counterparty\_ratio}(w)=|\{u:u\to w\}|/|T^{\mathrm{in}}(w)|$ (self-transfers excluded); tenure in days; active months.
+\item Transfer family: the in-degree (Equation~\eqref{eq:in-degree}) counts the distinct senders of transfers to $v$, self-transfers included; the in-value (Equation~\eqref{eq:in-value}) sums their raw amounts across tokens.
+\item Allowance family: the in-approve degree (Equation~\eqref{eq:in-approve-degree}) counts the owners with a positive latest allowance to the spender $v$; the in-approve value (Equation~\eqref{eq:in-approve-value}) sums those allowances across owners and tokens.
+\item Sybil-adjusted stability family: the inbound counterparty ratio (Equation~\eqref{eq:counterparty-ratio}) divides the distinct other senders by the transfers received from them; the transfer tenure (Equation~\eqref{eq:tenure}) is the span in days of the transfers attributed to $v$; the active months (Equation~\eqref{eq:active-months}) count the calendar months with such transfers.
 \end{itemize}
 
 \dissertationSubheading[sec:glossary]{Glossary}
 
+The terms below are used throughout the thesis with the meanings given here.
+
 \begin{description}
+\item[Account type] Contract or externally owned account, read with \texttt{eth\_getCode} at one block (Appendix~\ref{sec:account-type-classification}).
 \item[Activeness] AWP's restart weight of an address: over the addresses it has sent to, the sum of the time weights of its latest transfer to each.
 \item[Allowance] An ERC-20 authorization that lets a spender move tokens on an owner's behalf.
-\item[Alignment] Rank agreement between reputation scores and a validation proxy, measured by Spearman's $\rho$ on mid-ranks and by Kendall's $\tau$; every reported $\tau$ is the tie-corrected $\tau_b$.
-\item[Construct overlap] A ranking method and a proxy sharing a data source, which inflates alignment.
-\item[C-PR end points] C-PR at $\lambda=1$ and at $\lambda=0$, which walk the raw-amount allowance layer or transfer layer alone with uniform restarts. The registration documents call them EndorseRank and AWP.
-\item[Endorsement graph] Directed graph of latest allowances, used as the input to EndorseRank and as the allowance layer of C-PR.
-\item[Matched cohort] Primary sample of $n=5{,}521$ GMX V2 wallets on Arbitrum One with at least three closes between 2025-12-01 and 2026-05-31, fixed from GMX data before any approval or transfer extraction. Membership does not depend on graph connectivity: $966$ of these wallets touch no allowance edge and $381$ touch no transfer edge.
-\item[Expanded wallet pool] A larger address set ($N=99{,}080$) for testing runtime sensitivity to the number of sampled wallets; its supplemental addresses have no extracted edges, so they add no nodes to the solver graph.
-\item[Paired bootstrap] Resampling of wallets with replacement through a single index matrix shared by every coefficient, so that differences between coefficients can be tested on the same resamples.
+\item[Alignment] Rank agreement between a score and a proxy, measured by Spearman's $\rho$ on mid-ranks and by Kendall's $\tau$; every reported $\tau$ is the tie-corrected $\tau_b$.
+\item[Construct overlap] A ranking method and a proxy sharing a data source, which raises their agreement; such agreement is a check of the intended construct and not evidence from outside it.
+\item[C-PR end points] C-PR at $\lambda=1$ and at $\lambda=0$, which walk the raw-amount allowance layer or transfer layer alone with uniform restarts.
+\item[Ego network] The events with a cohort contract at one end: the owner or spender of an approval, the sender or recipient of a transfer.
+\item[Endorsement graph] Directed graph of positive latest allowances from owner to spender, the input of EndorseRank and the allowance layer of C-PR.
+\item[Externally owned account (EOA)] An address without code or with an EIP-7702 delegation designator. EOAs appear in the graphs as owners, senders and recipients and are never scored or evaluated.
+\item[Matched cohort] The primary sample: the contracts that received a non-zero \texttt{Approval} from at least three distinct owners in the observation window, fixed from the approval logs and the code check before any transfer was aggregated (Section~\ref{sub:cohorts}). Membership does not depend on either graph at $T_{\text{obs}}$, so a cohort contract can lie outside one graph or both.
+\item[Paired bootstrap] Resampling of contracts with replacement through a single index matrix shared by every coefficient, so that differences between coefficients can be tested on the same resamples.
 \item[PageRank] Spectral ranking of nodes by the stationary distribution of a damped random walk.
-\item[Proxy] Observable wallet metric for checking rankings against domain intuition.
-\item[Spender cohort] Holdout sample of $n=1{,}335$ wallets: every spender that holds at least one positive latest allowance at $t_1$ (28~February~2026, 23:59:59 UTC) in the extracted approval data.
+\item[Proxy] An observable statistic of a contract against which a ranking is checked for the construct it is built to measure.
+\item[Registered window (W1)] Scores frozen at 30~June~2026 and labels counted from July to September~2026, with rule~B and the comparison on outcomes built from neither edge type registered before the logs of those months were extracted (Section~\ref{sub:fresh-holdout}).
+\item[Scaling stage] A deterministic SHA256 subsample of the matched cohort together with the extracted edges incident to its contracts.
+\item[Spender cohort] Every contract spender with at least one positive latest allowance at the freeze in the extracted approval data: at $t_1$ (31~March~2026, 23:59:59 UTC) for W0 and at 30~June~2026, 23:59:59 UTC, for W1.
 \item[Teleport] The jump that PageRank makes with probability $1-d$, to a node drawn from the restart distribution: uniform for EndorseRank and C-PR, weighted by sending activity for AWP.
+\item[Trader cohort] The GMX~V2 accounts that hold contract code, are nodes of the graph at the freeze and close at least three positions in the label window.
 \end{description}
 
 \input{Chapter-08-Appendix/appendix-b.tex}

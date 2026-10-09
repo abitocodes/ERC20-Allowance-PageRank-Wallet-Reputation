@@ -2,59 +2,70 @@
 \section{Claim-to-Evidence Map}
 \label{ch:appendix-claims}
 
-This appendix maps each hypothesis, research question, and empirical claim to the relevant evidence in Chapter~\ref{ch:results}.
+This appendix maps each hypothesis, research question and empirical claim to the relevant evidence in Chapter~\ref{ch:results}, and lists what the evidence does not show.
 
 \dissertationSubheading[sec:map-h1]{H1 / RQ1: Rank divergence}
 
+RQ1 asks whether EndorseRank and AWP order the same contracts differently.
+
 \begin{itemize}
-\item Statement: on the same cohort, EndorseRank and AWP rank wallets differently.
-\item Evidence: Section~\ref{sec:rank-divergence}; Table~\ref{tab:tie-sensitivity}, whose last row gives the inter-method $\tau_b$ with its interval, also with the wallets outside each graph kept as isolated nodes; Figures~\ref{fig:rank-scatter} and~\ref{fig:score-distributions}.
-\item Interpretation: the rankings are not equivalent, and their agreement comes from the wallets that EndorseRank scores zero; the O1 criterion is met (Table~\ref{tab:objectives-achievement}).
+\item Statement: on the same cohort, EndorseRank and AWP rank contracts differently.
+\item Evidence: Section~\ref{sec:rank-divergence}; Table~\ref{tab:tie-sensitivity}, whose last row gives the inter-method $\tau_b$ with its interval, also with the contracts outside each graph kept as isolated nodes; Figures~\ref{fig:rank-scatter} and~\ref{fig:score-distributions}.
+\item Interpretation: the rankings are not equivalent. A large share of the pairs that both scores order are ordered oppositely, and the rule for contracts outside a graph does not change their agreement. The O1 criterion is met (Table~\ref{tab:objectives-achievement}).
 \end{itemize}
 
 \dissertationSubheading[sec:map-h2]{H2 / RQ2: Same-window alignment}
 
+RQ2 asks how closely each score agrees with the allowance checks and with the transfer checks of the same window.
+
 \begin{itemize}
-\item Statement: in the same window, each score agrees with the checks built from the edges it walks on.
-\item Evidence: the family means of every score with their CIs (Table~\ref{tab:alignment-hybrid}); the same-window coefficients with the wallets outside a graph kept as isolated nodes (Table~\ref{tab:tie-sensitivity}).
-\item Note: the agreement is partly built in, since the proxies come from the same events as the graphs. EndorseRank's allowance and transfer coefficients have different ceilings (Section~\ref{sec:same-window-alignment}), so the claim says nothing about which of the two it follows more closely, and the isolated-node rule was tried after the results were known. None of these comparisons was fixed in advance. The paired differences between EndorseRank and AWP and their per-proxy results are in Appendix~\ref{ch:appendix-er-awp}.
+\item Statement: in the same window, each score agrees most with the proxies of the edge type it walks on, EndorseRank with the allowance family and AWP with the transfer family, and the C-PR mixtures lie between their two layers on every family.
+\item Evidence: the family means of every score with their intervals (Table~\ref{tab:alignment-hybrid}); the paired contrasts of C-PR and S-PR (Table~\ref{tab:tau-diff-hybrid}); the same-window coefficients with the contracts outside a graph kept as isolated nodes (Table~\ref{tab:tie-sensitivity}).
+\item Note: this is a check of the intended construct and is partly built in, since the proxies come from the same events as the graphs. EndorseRank leaves almost no ties among the cohort, and the rule for contracts outside a graph changes no coefficient. Apart from the same-window part of rule~A, which concerns C-PR (Section~\ref{sec:coupled-results}), none of these comparisons was fixed in advance. The paired differences between EndorseRank and AWP and their per-proxy results are in Appendix~\ref{ch:appendix-er-awp}.
 \end{itemize}
 
 \dissertationSubheading[sec:map-h3]{H3 / RQ3: Computational cost}
 
+RQ3 asks what each score costs to compute on the same set of contracts.
+
 \begin{itemize}
-\item Statement: at the same $n$, a score's computation time follows the number of edges in its graph, so EndorseRank, on the sparsest graph, runs fastest.
-\item Evidence: Table~\ref{tab:benchmark-runtime} (runtime, SD, memory, iterations, $|V|$, $|E|$); Tables~\ref{tab:benchmark-scaling-incohort} and~\ref{tab:benchmark-scaling}; Figure~\ref{fig:runtime-scaling}.
-\item Note: the expanded-pool stages add sampled addresses but no edges, and hence no solver-graph nodes, beyond the matched-cohort graph (Section~\ref{sub:runtime-scaling}); the claim is confined to edge count.
+\item Statement: on the same contracts, the time of a solver call follows the edge count of its graph, so EndorseRank, on the sparser graph, takes the least time, while C-PR and S-PR, which walk the transfer layer, take longer than AWP.
+\item Evidence: Table~\ref{tab:benchmark-runtime} (runtime, SD, memory, iterations, $|V|$, $|E|$); Table~\ref{tab:benchmark-scaling}; every timed run in Table~\ref{tab:benchmark-runs}.
+\item Note: all scores run the same solver, so the speed is a property of $|E|$ and not an advantage of an algorithm (Appendix~\ref{sec:pr-sparsity}). The scaling stages are subsamples of the cohort graph, so the claim is confined to graphs up to its size.
 \end{itemize}
 
 \dissertationSubheading[sec:map-rq4]{RQ4: Temporal holdout}
 
+RQ4 asks whether scores frozen at $t_1$ rank the later arrivals of spender contracts, and whether any PageRank ranks them better than the raw degree it smooths.
+
 \begin{itemize}
-\item Statement: with scores fixed at $t_1$, the scores predict the new owner--spender approvals and new transfer senders that appear after $t_1$ and up to $t_2$ on the spender cohort ($n=1{,}335$), with the edge type deciding which label a score ranks well, but no PageRank predicts either label better than the raw $t_1$ degree of its own edge type.
-\item Evidence: Tables~\ref{tab:holdout-spenders} and~\ref{tab:holdout-diff} (Section~\ref{sec:holdout-results}); the June--August window, Table~\ref{tab:fresh-posthoc}; the spenders that had received a transfer before the freeze, Table~\ref{tab:holdout-receiving}.
-\item Qualification: both labels are the constructs as observed in a later period (new approvals, new senders), not credit or trading outcomes, and both are counts of arrivals. RQ4 replaced the proposal's trading-success validation (Section~\ref{sub:gf-pr}). Apart from the increment of C-PR ($\lambda=1$), none of these comparisons was fixed in advance. The differences between EndorseRank and AWP are in Appendix~\ref{ch:appendix-er-awp}.
+\item Statement: with scores frozen at $t_1$, each score ranks best the later arrivals of its own edge type on the spender cohort. Against the raw degree at the freeze the two walks differ: AWP ranks later new transfer senders above the transfer in-degree in both windows, while EndorseRank, with the uniform restarts fixed in the plan, ranks later new approval pairs below the in-approve degree in both windows.
+\item Evidence: Tables~\ref{tab:holdout-spenders} and~\ref{tab:holdout-diff} (Section~\ref{sec:holdout-results}); the registered window, Table~\ref{tab:fresh-posthoc}; the spenders that had received a transfer before the freeze, Table~\ref{tab:holdout-receiving}; EndorseRank with activity restarts, Table~\ref{tab:endorserank-restarts}.
+\item Qualification: both labels are the constructs as observed in a later period, counts of new approval pairs and new senders, not credit or trading outcomes. Only the two contrasts of rule~A were fixed in the plan. The degree contrasts of EndorseRank and AWP, the increment of C-PR ($\lambda=1$) over the in-approve degree, the contrasts of S-PR and the differences between EndorseRank and AWP (Appendix~\ref{ch:appendix-er-awp}) were computed after the labels were known. EndorseRank with AWP's activity restarts ranks new approval pairs above the in-approve degree in both windows, but that comparison too was made after the labels were known, so it is a hypothesis for a registered test and not a finding.
 \end{itemize}
 
 \dissertationSubheading[sec:map-rq5]{RQ5: Coupled operator}
 
+RQ5 asks whether C-PR improves on a walk over the transfers alone, and whether it ranks contracts better than a walk over either layer alone.
+
 \begin{itemize}
-\item Statement: under the rule of 14~September, a per-node convex mixture of the raw-amount allowance and transfer layers (C-PR) does not beat both layers walked alone, and the seeded ablation (S-PR) reproduces the transfer walk. The registered replication does not confirm that C-PR improves on the transfer walk alone, as it did in an exploratory comparison on the spring holdout: F1 and F3 hold, F2 fails. With AWP as the comparator, F2 fails by a wider margin.
-\item Evidence, rule of 14~September: Table~\ref{tab:holdout-diff} for the primary part, and Tables~\ref{tab:alignment-hybrid} and~\ref{tab:tau-diff-hybrid} for the secondary part (Section~\ref{sec:coupled-results}).
-\item Evidence, transfer walk alone: the exploratory spring contrast in Table~\ref{tab:holdout-diff}, and the registered decision (F1--F3, with F4--F6 reported beside it) in Table~\ref{tab:fresh-contrasts} (Section~\ref{sub:fresh-results}).
-\item Evidence, AWP: the registered sensitivity analysis in Table~\ref{tab:fresh-contrasts}, and the spring contrasts computed after the labels were known in Table~\ref{tab:holdout-diff}.
-\item Evidence, cost: runtime rows of Table~\ref{tab:benchmark-runtime}.
-\item Qualification: tested with fixed $\lambda\in\{0.25,0.5,0.75\}$, raw-amount layers, uniform teleportation, transition-level mixing and one chain. The rule of 14~September and the values of $\lambda$ were set in the configuration before any coupled score was computed (Section~\ref{sec:holdout-protocol}); the rule for the comparison with the transfer walk alone was written on 28~September~2026 for the June--August window and registered on 1~October~2026 together with two sensitivity analyses, one with AWP as the comparator, before the extraction (Section~\ref{sub:fresh-holdout}). The registration documents call the two layers walked alone EndorseRank and AWP.
+\item Statement: one walk over both edge types does not beat its layers walked alone. Rule~A fails: C-PR is no worse than the allowance walk on new approval pairs but worse than the transfer walk on new senders, and its same-window part fails as well. Rule~B is not met: C-PR improves on the transfer walk on new approval pairs (F1), so the exploratory gain of W0 replicates, but it fails the margin on new senders (F2) and on the liquidation-free close rate of the traders (F3). With AWP as the comparator, the registered sensitivity analysis, F2 fails clearly. In W0 contrasts computed after the labels were known, S-PR stays near the transfer walk on new senders and below the allowance walk on new approval pairs: allowance edges help only when they carry the walk.
+\item Evidence, rule~A: Table~\ref{tab:holdout-diff} for the primary part, and Tables~\ref{tab:alignment-hybrid} and~\ref{tab:tau-diff-hybrid} for the secondary part (Section~\ref{sec:coupled-results}).
+\item Evidence, rule~B: Table~\ref{tab:fresh-contrasts}, with F1--F3, F4--F6 reported beside them and both sensitivity analyses (Section~\ref{sub:fresh-results}); the exploratory contrast of W0 in Table~\ref{tab:holdout-diff}.
+\item Evidence, cost: the rows of C-PR and S-PR in Table~\ref{tab:benchmark-runtime}.
+\item Qualification: tested with fixed $\lambda\in\{0.25,0.5,0.75\}$, raw-amount layers, uniform teleportation, transition-level mixing and one chain. Rule~A and the values of $\lambda$ were fixed in the plan and configuration committed in \texttt{43d8045} on 9~October~2026, before any log was extracted (Section~\ref{sec:holdout-protocol}). Rule~B, its margin and its two sensitivity analyses were written after the results of W0 were known and registered in \texttt{0d3a057} before scan~B (Section~\ref{sub:fresh-holdout}).
 \end{itemize}
 
 \dissertationSubheading[sec:map-c1c4]{Claims C1--C5}
 
+Chapter~\ref{ch:results} states Claims C1--C6. The first five rest on the evidence below; the evidence for C6 follows in Appendix~\ref{sec:map-c6}.
+
 \begin{itemize}
-\item C1: the runtime evidence listed under H3/RQ3; the profiling run and the edge ratio are in Section~\ref{sec:benchmark-results} and Appendix~\ref{sec:pr-sparsity}. The claim is specific to EndorseRank, since C-PR costs at least as much as AWP.
-\item C2: the same-window agreement of every score with the checks of its own edges (Table~\ref{tab:alignment-hybrid}), partly built in and, for EndorseRank, set by the rule for wallets outside the graph (Table~\ref{tab:tie-sensitivity}).
+\item C1: the runtime evidence listed under H3/RQ3, with the edge ratio and the time ratio in Section~\ref{sec:benchmark-results} and Appendix~\ref{sec:pr-sparsity}. The speed belongs to the sparser graph, not to the algorithm, and C-PR and S-PR cost more than AWP.
+\item C2: the same-window agreement of every score with the proxies of its own edges (Table~\ref{tab:alignment-hybrid}), a check of the intended construct that is partly built in; the ties and the rule for contracts outside a graph (Table~\ref{tab:tie-sensitivity}).
 \item C3: the rank divergence listed under H1/RQ1 (Table~\ref{tab:tie-sensitivity}, Figure~\ref{fig:rank-scatter}).
-\item C4: the comparison of every PageRank with the raw degree of its own edge type on the spender holdout (Tables~\ref{tab:holdout-spenders} and~\ref{tab:holdout-diff}), with the coverage check (Table~\ref{tab:holdout-receiving}), the exploratory trader run as its limit on the traders (Table~\ref{tab:holdout-traders}) and the June--August window as its repetition (Table~\ref{tab:fresh-posthoc}); the robustness checks and the sample-definition sensitivity are reported in Tables~\ref{tab:robustness-damping}--\ref{tab:robustness-sample-size}, Table~\ref{tab:endorserank-restarts} and Figure~\ref{fig:damping-sensitivity}.
-\item C5: coupling does not beat its two layers walked alone, a bounded negative result, and the registered replication does not confirm its exploratory gain over the transfer walk alone (Table~\ref{tab:fresh-contrasts}); see RQ5 above and Section~\ref{sec:coupled-results}.
+\item C4: the comparison of each walk with the raw degree of its own edge type out of window (Tables~\ref{tab:holdout-spenders}, \ref{tab:holdout-diff} and~\ref{tab:fresh-posthoc}), with the coverage check (Table~\ref{tab:holdout-receiving}) and the variant with activity restarts (Table~\ref{tab:endorserank-restarts}). The damping and top-token checks are in Tables~\ref{tab:robustness-damping} and~\ref{tab:robustness-tokens} and Figure~\ref{fig:damping-sensitivity}; the sample-definition stages (Table~\ref{tab:robustness-sample-size}) show how the statistic moves with the evaluation set and are not robustness evidence.
+\item C5: coupling does not beat its two layers walked alone, a bounded negative result, and the registered rule for the comparison with the transfer walk alone is not met (Table~\ref{tab:fresh-contrasts}); see RQ5 above and Section~\ref{sec:coupled-results}.
 \end{itemize}
 
 \dissertationSubheading[sec:map-nonclaims]{Explicit non-claims}
@@ -63,38 +74,44 @@ This research does \emph{not} claim:
 
 \begin{itemize}
 \item that any of the scores is the better measure of reputation in general, or that AWP has become obsolete (the comparisons between EndorseRank and AWP in Appendix~\ref{ch:appendix-er-awp} follow the constructs and depend on coverage);
-\item that EndorseRank aligns more closely with the allowance family than with the transfer family (the two coefficients have different ceilings);
-\item that any PageRank of this thesis forecasts the future growth of its own construct better than the raw $t_1$ degree does;
-\item that allowance edges lead transfer edges on liquidation avoidance at the PageRank level, or that EndorseRank beats AWP there (the PageRank contrasts of Section~\ref{sub:neutral-label-results} are not resolved);
-\item that any score measures creditworthiness, default risk or trading skill (the allowance signal is lower on the profitable share, and the data contain no default label);
-\item that the liquidation-avoidance signal belongs to the allowance edge and not to account type (almost every approval-receiving trader is a contract account, and account type is unresolved);
-\item that the value parameter $b=1$, or EndorseRank's uniform restart, is the best choice (both were fixed by this study, the restart after comparing the two rules on these data);
-\item that C-PR improves on a walk over the transfers alone (the registered rule failed on new senders) or on AWP (it falls behind AWP on new senders in both windows);
+\item that the agreement of a score with proxies built from its own edges is evidence from outside the score (it checks the intended construct and is partly built in);
+\item that EndorseRank, as fixed in the plan, ranks later new approval pairs better than the raw in-approve degree (it ranks them lower in both windows);
+\item that EndorseRank with activity restarts beats the in-approve degree (that comparison was made after the labels were known and awaits a registered test);
+\item that multi-hop propagation, which is present in the allowance graph, made EndorseRank beat the raw count (Section~\ref{sub:theory-closed-form});
+\item that allowance edges lead transfer edges on liquidation avoidance, at the count level (R1) or at the PageRank level (R2), or that EndorseRank beats AWP there;
+\item that any score measures creditworthiness, default risk or trading skill (the approval count ranks traders lower on the profitable and non-loss shares, and the data contain no default label);
+\item that receiving approvals makes a contract trader avoid liquidation (the samples are small, the recipients close more positions, and the transfer count also ranks this label);
+\item that the value parameter $b=1$, or EndorseRank's uniform restart, is the best choice (both were fixed in the plan, and the comparison with activity restarts was made after the labels were known);
+\item that C-PR improves on a walk over the transfers alone (rule~B fails on new senders and on the traders) or on AWP (it falls behind AWP on new senders in both windows);
 \item that no combination of the two edge types can beat the single-layer methods, only that the per-node convex mixture tested here, with fixed $\lambda$, does not;
-\item that runtime scales favorably when the edge population grows beyond the cohort graph;
-\item that, without replication, the results generalize beyond Arbitrum One and the study window;
-\item that on-chain scores substitute for collateral or legal identity systems.
+\item that EndorseRank's shorter solve time is an advantage of its algorithm (it follows from the smaller edge count), or anything about runtime on graphs larger than the ego network of the cohort;
+\item that EndorseRank resists Sybil farms (reaching an ordinary or above-median score is cheap; Section~\ref{sec:sybil-cost-model});
+\item that the results generalize beyond contracts approved by at least three owners on Arbitrum One in the months studied;
+\item that on-chain scores substitute for collateral, audits or identity systems, or that they draw on off-chain information, which this study does not use.
 \end{itemize}
 
 \dissertationSubheading[sec:map-artifacts]{Replication artifacts}
 
+The paths below are relative to the experiments folder named in Appendix~\ref{ch:appendix-eval}.
+
 \begin{enumerate}
-\item A merged wallet-ranking table with the scores of EndorseRank, AWP, C-PR ($\lambda\in\{0,0.25,0.5,0.75,1\}$) and S-PR.
-\item The machine-readable holdout summaries for the spender cohort and the matched traders, with the paired contrasts and primary-criterion verdict (committed under \texttt{data/3-published-results-for-thesis/spring-holdout-2026-03-to-2026-05/}).
-\item The machine-readable evaluation summary: authoritative same-window numbers, per-run timings and the bootstrap protocol (committed under \texttt{data/3-published-results-for-thesis/}).
-\item The registered replication: the registration file and plan as committed on 1~October~2026, the extraction manifest with the hashes of both files, the evaluation summary with every coefficient, contrast and verdict, and the post hoc scores of EndorseRank on the same cohorts (committed under \texttt{config-copies/} and \texttt{registered-replication-2026-06-to-2026-08/} in \texttt{data/3-published-results-for-thesis/}).
-\item The exported table fragments (\texttt{results/tables/}).
-\item The exported vector figures (\texttt{Figures/generated/}).
-\item The extracted logs and the tables built from them (\texttt{data/1-raw-blockchain-logs/} and \texttt{data/2-processed-tables-and-evaluations/}); files over 100\,MiB are left out and can be rebuilt from the monthly files.
-\item The archived extended-baseline matrices (\texttt{data/4-archived-extended-baselines/}, optional).
+\item The per-contract scores of every method: the cohort scores of the same window and the spender and trader scores of W0 and W1 (parquet files in \texttt{data/2-processed-tables-and-evaluations/same-window/}, \texttt{holdout-w0/} and \texttt{registered-w1/}).
+\item The machine-readable summaries of the same window (with the damping sweep), W0, W1, the top-token and sample-definition checks, the supplementary contrasts, the Sybil model and the benchmark, with every coefficient, interval, contrast and verdict, published in \texttt{data/3-published-results-for-thesis/} together with \texttt{results\_digest.md} and \texttt{SHA256SUMS.txt}.
+\item The analysis plan (\texttt{docs/analysis\_plan.md}) and the configuration as committed in \texttt{43d8045} on 9~October~2026, before any log of the study was extracted.
+\item The registration of W1 (\texttt{docs/registration\_w1.md}) as committed in \texttt{0d3a057}, and the extraction manifest \texttt{data/2-processed-tables-and-evaluations/registered-w1/extraction\_manifest.json}. The manifest records the commit, the times at which the extraction of W1 started and finished, that no override was used, and the SHA-256 hashes of the registration, \texttt{2126c8dc3fe3c0f9273aa4ecfc1e15bddc1f5a6f65e98548b9528f2b18ca2a6b}, and of the configuration, \texttt{d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833}.
+\item The cost ledger \texttt{data/bq\_ledger.json}, with every BigQuery job, its parameters and its billed bytes.
+\item The extracted tables in \texttt{data/1-raw-blockchain-extracts/}: the cohort candidates and their account types, the GMX~V2 accounts and closes, the pair tables, the node table, the proxies, the labels and the top-token subgraphs, in parquet parts below 90\,MB, each with a JSON record of its source table.
+\item The exported table fragments (\texttt{results/tables/}) and vector figures (\texttt{Figures/generated/}) of the thesis folder.
 \end{enumerate}
 
-The tables and figures are rebuilt by running the evaluation pipeline on real data with the robustness sweeps, exporting the tables, and then redrawing the figures from the same artifacts (Appendix~\ref{sec:pipeline-stages}).
+The tables and figures are rebuilt by running the evaluation scripts on the extracted tables and then exporting the tables and figures from the same summaries (Appendix~\ref{sec:pipeline-stages}).
 
-\dissertationSubheading[sec:map-c6]{C6 --- Outcomes built from neither edge type}
+\dissertationSubheading[sec:map-c6]{C6: Outcomes built from neither edge type}
+
+C6 compares the two edge types on a trader outcome that neither graph contains.
 
 \begin{itemize}
-\item Statement: on the trader outcome built from neither edge type that bears on counterparty risk, later liquidation avoidance, the approval count at the freeze ranked traders above the transfer count in the registered window, after stratification by the number of closes, and in the spring window.
-\item Evidence: Tables~\ref{tab:neutral-label-contrasts} and~\ref{tab:neutral-label-recipients} (Section~\ref{sub:neutral-label-results}); all six trader labels in both windows, Table~\ref{tab:neutral-label-grid}; the protocol, Section~\ref{sub:neutral-label-protocol}; the plan and claim ledger, \texttt{analysis/neutral-label/PLAN.md}, committed in \texttt{20e250f} before the analysis ran, with its script and results in the same folder.
-\item Qualification: a pre-specified post hoc analysis of existing data that adds no research question. The claim is count-level, since the like-for-like PageRank pair points the same way but is not resolved. Most recipients are contract accounts, so account type is an unresolved confound, and the same signal is lower on the profitable share, so it ranks forced-liquidation avoidance, not trading success. Any use in screening would first need a registered test on new data with account type controlled (Section~\ref{sec:future-work}).
+\item Statement: on the liquidation-free close rate of GMX~V2 contract traders, the registered count-level lead of the approval count over the transfer count (R1) is not supported in the primary window W1, although P was positive in W0; the PageRank lead (R2) is not supported either; and R3 applies. In the wording fixed at registration: there is no count-level lead of allowance over transfer on later liquidation avoidance, the PageRank versions are not resolved, and the signal concerns forced-liquidation avoidance, not trading success.
+\item Evidence: Tables~\ref{tab:neutral-label-contrasts} and~\ref{tab:neutral-label-recipients} (Section~\ref{sub:neutral-label-results}); all six trader labels in both windows, Table~\ref{tab:neutral-label-grid}; the protocol, Section~\ref{sub:neutral-label-protocol}; the registration, section~3 of \texttt{docs/registration\_w1.md}, committed in \texttt{0d3a057} before scan~B.
+\item Qualification: the trader cohorts are small, $70$ contracts in W1 and $88$ in W0, because contract accounts traded little on GMX~V2 in 2026 (Table~\ref{tab:gmx-quarters}). Every trader that had received an approval avoided liquidation in both windows, against about three in four of the others, but the recipients closed more positions, and the transfer count also ranks this label. All traders are contracts, so account type is held fixed. Any use in screening would first need a registered test on a larger sample (Section~\ref{sec:future-work}).
 \end{itemize}

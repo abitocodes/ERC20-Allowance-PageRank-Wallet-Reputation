@@ -33,6 +33,7 @@ FILES = [
     ("robustness/robustness.json", PROC / "robustness" / "robustness.json"),
     ("benchmark/benchmark.json", PROC / "benchmark" / "benchmark.json"),
     ("supplementary/supplementary.json", PROC / "supplementary" / "supplementary.json"),
+    ("describe/describe.json", PROC / "describe" / "describe.json"),
     ("cohort/matched_cohort.json", PROC / "cohort" / "matched_cohort.json"),
     ("gmx/gmx_contract_closes_obs_decoded.json", PROC / "gmx" / "gmx_contract_closes_obs_decoded.json"),
     ("gmx/gmx_contract_closes_w1_decoded.json", PROC / "gmx" / "gmx_contract_closes_w1_decoded.json"),
@@ -383,6 +384,21 @@ SUPP_NAMES = {
 }
 
 
+def sec_describe(D: Digest, z: dict) -> None:
+    src = "describe/describe.json"
+    D.section("Data description (amount shares, monthly counts, GMX contract traders, timing)")
+    for k, v in z["amounts"].items():
+        D.row(k.replace("_", " "), num(v, 4) if isinstance(v, float) else f"{v:,}", src, f"amounts.{k}")
+    for k, v in z["timing"].items():
+        val = v if not isinstance(v, dict) else ", ".join(f"{a} {b}" for a, b in v.items())
+        D.row(k.replace("_", " "), str(val), src, f"timing.{k}")
+    for r in z["gmx_contract_traders_by_quarter"]:
+        D.row(f"GMX contract traders {r['quarter']}", f"{r['closes']:,} closes, {r['accounts']:,} accounts, "
+              f"{int(r['liquidations']):,} liquidations", src, "gmx_contract_traders_by_quarter")
+    for r in z["monthly_counts"]:
+        D.row(f"{r['stream']} {r['month']}", f"{int(r['n']):,}", src, "monthly_counts")
+
+
 def sec_supplementary(D: Digest, sup: dict) -> None:
     src = "supplementary/supplementary.json"
     D.sub("Supplementary spender contrasts (computed after the labels were known, outside every rule)")
@@ -565,6 +581,8 @@ def main() -> int:
         sec_sybil(D, j["sybil-model/sybil_model.json"])
     sec_robustness(D, s, j.get("robustness/robustness.json"))
     sec_benchmark(D, j.get("benchmark/benchmark.json"))
+    if j.get("describe/describe.json"):
+        sec_describe(D, j["describe/describe.json"])
     (PUB / DIGEST).write_text("\n".join(D.lines) + "\n", encoding="utf-8")
     published.append(DIGEST)
 
