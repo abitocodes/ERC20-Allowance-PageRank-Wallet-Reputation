@@ -1,0 +1,60 @@
+% !TEX root = ../main.tex
+% Cover page for per-chapter PDF builds (\ChapterOnly = 1..8).
+\ifcase\ChapterOnly\relax
+\or
+  \def\ChapterCoverTitle{Introduction and Research Problem}%
+\or
+  \def\ChapterCoverTitle{Literature Review and Theoretical Framework}%
+\or
+  \def\ChapterCoverTitle{Research Methodology}%
+\or
+  \def\ChapterCoverTitle{Implementation and Empirical Results}%
+\or
+  \def\ChapterCoverTitle{Discussion}%
+\or
+  \def\ChapterCoverTitle{Conclusion and Future Work}%
+\or
+  \def\ChapterCoverTitle{References}%
+\or
+  \def\ChapterCoverTitle{Appendix}%
+\fi
+
+\begin{titlepage}
+\newgeometry{left=0.885in,right=0.885in,top=1.33in,bottom=0.7in}
+\centering
+\vspace*{0.4cm}
+{\Large\bfseries INTEGRATING ERC-20 ALLOWANCE EDGES INTO PAGERANK FOR ON-CHAIN SMART CONTRACT REPUTATION SCORING\par}
+\vspace{1.2cm}
+{\large\bfseries CHAPTER~\ChapterOnly: \ChapterCoverTitle\par}
+\vfill
+{by\par}
+\vspace{0.7cm}
+{\large\bfseries TAEHONG KWON\par}
+\vspace{0.35cm}
+{Student number: 28576810\par}
+\vfill
+{submitted in accordance with the requirements for the degree of\par}
+\vspace{0.7cm}
+{\large\bfseries DOCTOR OF PHILOSOPHY\par}
+\vspace{0.35cm}
+{in the subject\par}
+\vspace{0.7cm}
+{\large\bfseries COMPUTER SCIENCE\par}
+\vfill
+{at the\par}
+\vspace{0.7cm}
+{\large\bfseries UNIVERSITY OF SOUTH AFRICA\par}
+\vfill
+{SUPERVISOR: Prof. Ernest Mnkandla\par}
+\vspace{0.35cm}
+{CO-SUPERVISOR: Prof. Donatien Koulla Moulla\par}
+\vspace{0.35cm}
+{CO-SUPERVISOR: Dr. David Sena Attipoe\par}
+\vfill
+{October 2026\par}
+\end{titlepage}
+\restoregeometry
+% Align body page numbers with main.pdf (\ChapterStartPage from build.ps1; checkpoints also apply for Ch2--8).
+\ifdefined\ChapterStartPage
+  \setcounter{page}{\ChapterStartPage}%
+\fi

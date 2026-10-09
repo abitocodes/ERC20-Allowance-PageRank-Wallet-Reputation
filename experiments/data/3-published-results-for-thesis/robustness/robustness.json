@@ -1,0 +1,137 @@
+{
+  "top_tokens": {
+    "by_amount": {
+      "endorserank": {
+        "transfer": 0.019530909666939614,
+        "allowance": 0.23666129657837057,
+        "sybil_stability": -0.016604754703016963
+      },
+      "awp": {
+        "transfer": 0.290481226738148,
+        "allowance": 0.07299861800537585,
+        "sybil_stability": 0.20671758529917783
+      },
+      "allowance_edges": 16708034,
+      "transfer_edges": 34385548
+    },
+    "by_rows": {
+      "endorserank": {
+        "transfer": 0.02196699558257728,
+        "allowance": 0.23851233845602932,
+        "sybil_stability": -0.014420118014388578
+      },
+      "awp": {
+        "transfer": 0.2941039490103004,
+        "allowance": 0.07443769347102772,
+        "sybil_stability": 0.20984264655296755
+      },
+      "allowance_edges": 17536468,
+      "transfer_edges": 35700301
+    },
+    "all": {
+      "endorserank": {
+        "transfer": 0.12197465063231729,
+        "allowance": 0.4812529450170625,
+        "sybil_stability": 0.02530630409330871
+      },
+      "awp": {
+        "transfer": 0.44678547315449507,
+        "allowance": 0.1727431900543772,
+        "sybil_stability": 0.3105882373998596
+      }
+    },
+    "shared_tokens": 13
+  },
+  "sample_definition": [
+    {
+      "n": 1000,
+      "endorserank": {
+        "transfer": 0.22842404374784625,
+        "allowance": 0.6360969300626838,
+        "sybil_stability": 0.08531103343774032
+      },
+      "awp": {
+        "transfer": 0.48037533324209936,
+        "allowance": 0.1958976594292619,
+        "sybil_stability": 0.32356840287892985
+      },
+      "allowance_edges": 194084,
+      "transfer_edges": 1385509
+    },
+    {
+      "n": 2000,
+      "endorserank": {
+        "transfer": 0.20095328458858772,
+        "allowance": 0.622133311354086,
+        "sybil_stability": 0.07499864595702697
+      },
+      "awp": {
+        "transfer": 0.46393434624764646,
+        "allowance": 0.19687147761083162,
+        "sybil_stability": 0.3170633836591111
+      },
+      "allowance_edges": 761242,
+      "transfer_edges": 3145438
+    },
+    {
+      "n": 5000,
+      "endorserank": {
+        "transfer": 0.16748618526019274,
+        "allowance": 0.5608594426552893,
+        "sybil_stability": 0.05880091254843981
+      },
+      "awp": {
+        "transfer": 0.4557560589239733,
+        "allowance": 0.19939496345095356,
+        "sybil_stability": 0.3202818425108802
+      },
+      "allowance_edges": 4606533,
+      "transfer_edges": 12043690
+    },
+    {
+      "n": 10000,
+      "endorserank": {
+        "transfer": 0.15058715147880744,
+        "allowance": 0.5267943464535781,
+        "sybil_stability": 0.044129899899154446
+      },
+      "awp": {
+        "transfer": 0.44796489634834874,
+        "allowance": 0.18319169707678304,
+        "sybil_stability": 0.312748918542457
+      },
+      "allowance_edges": 7030772,
+      "transfer_edges": 20054589
+    },
+    {
+      "n": 20000,
+      "endorserank": {
+        "transfer": 0.13063758717522214,
+        "allowance": 0.5013217891738655,
+        "sybil_stability": 0.030011687883663155
+      },
+      "awp": {
+        "transfer": 0.4503640180287568,
+        "allowance": 0.17815594785260178,
+        "sybil_stability": 0.312227211154119
+      },
+      "allowance_edges": 15690094,
+      "transfer_edges": 48796598
+    },
+    {
+      "n": 27844,
+      "endorserank": {
+        "transfer": 0.12197465063231729,
+        "allowance": 0.4812529450170625,
+        "sybil_stability": 0.02530630409330871
+      },
+      "awp": {
+        "transfer": 0.44678547315449507,
+        "allowance": 0.1727431900543772,
+        "sybil_stability": 0.3105882373998596
+      },
+      "allowance_edges": 22321470,
+      "transfer_edges": 59737617
+    }
+  ]
+}

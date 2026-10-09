@@ -1,0 +1,10 @@
+{
+  "rule": "contract spenders with non-zero approvals from >= 3 distinct owners, 2023-10-01 00:00:00 UTC to 2026-06-30 23:59:59 UTC",
+  "candidates": 29022,
+  "by_code_kind": {
+    "contract": 27844,
+    "none": 1121,
+    "eip7702": 57
+  },
+  "cohort": 27844
+}

@@ -8,7 +8,9 @@
   them back; its score against the highest EndorseRank in the matched cohort and the
   closed form r_t = b (1 + d m) / (1 - d^2) with b the common score of nodes without in-edges;
 - the share of an owner's row that one fresh approval takes, sigma(0) / (o(h) + sigma(0)),
-  at the median owner.
+  at the median owner;
+- the number of star farm addresses needed to reach the cohort's median, 90th and 99th
+  percentile and highest EndorseRank.
 Writes data/2-.../sybil-model/sybil_model.json.
 """
 
@@ -61,7 +63,7 @@ def main() -> int:
 
     ring = np.arange(new_id, new_id + 20)
     rs, rd, rw = np.r_[src, ring], np.r_[dst, np.roll(ring, -1)], np.r_[w, np.full(20, sig0)]
-    s_ring, _, _ = weighted_pagerank(rs, rd, rw, **params)
+    s_ring, _ = weighted_pagerank(rs, rd, rw, **params)
     ring_share = float(s_ring.loc[ring].sum()) / (20 / len(s_ring))
 
     m = 10
@@ -70,13 +72,21 @@ def main() -> int:
     ss = np.r_[src, farm, np.full(m, t)]
     sd = np.r_[dst, np.full(m, t), farm]
     sw = np.r_[w, np.full(2 * m, sig0)]
-    s_star, _, _ = weighted_pagerank(ss, sd, sw, **params)
+    s_star, _ = weighted_pagerank(ss, sd, sw, **params)
     top_cohort = float(scores_on(cohort, base).max())
     star = {
         "m": m, "target_score": float(s_star.loc[t]), "closed_form": b_common * (1 + d * m) / (1 - d ** 2),
         "highest_cohort_endorserank": top_cohort, "ratio_to_highest": float(s_star.loc[t]) / top_cohort,
         "approvals_per_window": 2 * m,
     }
+    # Farm addresses m a star needs to reach a cohort score quantile, from r_t = b (1 + d m) / (1 - d^2);
+    # 0 when a target with m = 0 (two addresses approving each other) already reaches it.
+    cohort_scores = scores_on(cohort, base).to_numpy()
+    reach = {}
+    for q in (50, 90, 99, 100):
+        target = float(np.percentile(cohort_scores, q))
+        m_need = ((target * (1 - d ** 2) / b_common) - 1) / d
+        reach[f"p{q}"] = {"score": target, "farm_addresses": max(0.0, m_need)}
     out_strength = pd.Series(w).groupby(src).sum()
     owners = out_strength.index
     share = sig0 / (out_strength + sig0)
@@ -86,6 +96,7 @@ def main() -> int:
         "ring20_collects_times_share": ring_share, "star": star,
         "fresh_approval_share_median_owner": float(np.median(share.to_numpy())),
         "owners": int(len(owners)),
+        "farm_size_to_reach_cohort_quantile": reach,
     }, OUT / "sybil_model.json")
     print(damping, ring_share, star)
     return 0

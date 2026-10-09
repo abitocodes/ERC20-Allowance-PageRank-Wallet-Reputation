@@ -1,0 +1,131 @@
+% !TEX root = ../main.tex
+\clearpage
+\chapter{Appendix}
+\label{ch:appendix}
+
+% Demote headings one level under Chapter 8 (sections become 8.1.x).
+\renewcommand{\dissertationSubheading}[2][]{%
+  \phantomsection
+  \subsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+\renewcommand{\dissertationSubsubheading}[2][]{%
+  \phantomsection
+  \subsubsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+
+\section{Evaluation Pipeline and Reproducibility}
+\label{ch:appendix-eval}
+
+This appendix documents the evaluation pipeline behind Chapter~\ref{ch:results}: its stages, the extraction design, the default parameters, the proxy formulas and a glossary.
+
+\dissertationSubheading[sec:pipeline-stages]{Pipeline stages}
+
+The evaluation has four stages. The first three run on Arbitrum One over the observation period 2025-12-01 to 2026-05-31 (UTC, inclusive at both ends); the fourth adds the months from June to August 2026.
+
+\begin{enumerate}
+\item Reputation graphs and scores: Fix the matched cohort ($n=5{,}521$) from GMX~V2 data before any approval or transfer extraction. Fetch the cohort's \texttt{Approval} and \texttt{Transfer} logs in monthly chunks, with a dry run before each query and an abort limit of $150$\,GiB. Build and score the latest-allowance graph (EndorseRank) and the transfer graph (AWP), then the two raw-amount layers (C-PR at $\lambda\in\{0,0.25,0.5,0.75,1\}$ and S-PR), all with the solver settings of Section~\ref{sec:notation}.
+\item Checks, alignment and benchmarks: Compute the checks of Section~\ref{sec:proxy-formulas} and report Spearman $\rho$ and Kendall $\tau$ for every score with 95\% paired-bootstrap intervals (400 resamples, seed 42), together with the contrasts of Section~\ref{sec:statistical-tests}. Time one solver call per method under the protocol of Section~\ref{sec:computational-benchmark}, and run the damping, top-token and sample-definition sweeps.
+\item Temporal holdout: On the spender cohort ($n=1{,}335$), freeze the scores at 28~February~2026 and count the new approval pairs and new transfer senders that appear in March--May~2026. Report every score and both raw-degree baselines against both labels with 400 paired resamples, along with the contrasts fixed before the coupled run and those computed afterwards (\texttt{scripts/run\_holdout\_eval.py --cohort spenders}).
+\item Registered replication: With \texttt{config/fresh\_holdout\_2026q3.yaml} and its plan, \texttt{docs/fresh\_holdout\_2026q3\_plan.md}, committed, first check the evaluation code against the spring holdout (\texttt{scripts/run\_fresh\_holdout.py --spring-check}). Then extract the June--August logs with the same SQL and wallet filter (\texttt{scripts/extract\_fresh\_window.py --dry-run}, then \texttt{--extract}) and evaluate both cohorts on scores frozen at 31~May~2026 (\texttt{scripts/run\_fresh\_holdout.py}). The extraction script will not run before the registration is committed with the status set to registered, and both scripts record the SHA-256 hashes of the two registration files.
+\end{enumerate}
+
+The coupling weights, holdout labels and the first rule for RQ5 were written to the configuration and to the plan of 14~September~2026, before any coupled score was computed. On 30~September~2026 two inverse-risk proxies were found to carry the wrong sign and were corrected (Appendix~\ref{sec:supplementary-summary}). The same day \texttt{scripts/classify\_spenders.py} checked on BigQuery which spenders emitted logs or sent transactions in the scoring window, and \texttt{scripts/check\_spender\_code.py} read each spender's code from an Arbitrum node (\texttt{data/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/spender\_account\_types.csv}). On 1~October~2026 the registration gained its two sensitivity analyses (Section~\ref{sub:fresh-holdout}); AWP's value parameter is \texttt{reputation.awp\_paper} in the configuration. Later that day the status was set to registered (commit \texttt{4085ab9} of \texttt{phd\_works}), the June--August logs were extracted in nine monthly queries billed at about 1.04\,TB, and \texttt{scripts/run\_fresh\_holdout.py} evaluated them; \texttt{data/3-published-results-for-thesis/registered-replication-2026-06-to-2026-08/} holds the extraction manifest and the summary behind Tables~\ref{tab:fresh-holdout}, \ref{tab:fresh-contrasts} and~\ref{tab:fresh-traders}.
+
+The other tables of Chapter~\ref{ch:results} come from runs made on 2~October~2026 in a cloud container with four cores of an Intel Xeon processor at 2.8\,GHz and 15\,GB of memory, under Python~3.11 with NumPy~2.4, SciPy~1.17 and pandas~3.0: \texttt{scripts/run\_dissertation\_eval.py --real --robustness --benchmark-repeats 5}; \texttt{scripts/run\_holdout\_eval.py} with \texttt{--cohort spenders} and with \texttt{--cohort matched}; \texttt{scripts/run\_fresh\_posthoc.py}, which scores EndorseRank on the cohorts and labels of the registered replication (Table~\ref{tab:fresh-posthoc}); and \texttt{scripts/run\_supplementary\_checks.py}, behind Tables~\ref{tab:tie-sensitivity} and~\ref{tab:holdout-receiving}. The same day \texttt{scripts/run\_fresh\_holdout.py --spring-check} was run again on the spring window and reproduced the values it had given on 1~October. The tables were written to \texttt{results/tables/} by \texttt{scripts/export\_latex\_results.py} and the figures by \texttt{scripts/generate\_dissertation\_figures.py}. The summaries (\texttt{eval\_summary.json}, \texttt{supplementary\_checks.json}, \texttt{eval\_summary\_spenders.json} and \texttt{eval\_summary\_matched\_traders.json} in the spring-holdout folder, and \texttt{fresh\_holdout\_summary.json} and \texttt{posthoc\_endorserank.json} in the registered-replication folder) are committed under \texttt{data/3-published-results-for-thesis/} along with a copy of the configuration in force, so any number in a table can be checked against its summary without re-running the pipeline. The public repository \url{https://github.com/abitocodes/phd_works} contains the evaluation source in \texttt{1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/dissertation/wallet-reputation-experiments} (the folder was \texttt{A-Skill-Programs/margin\_rank} until 1~October~2026 and has that name in commit \texttt{4085ab9}), the versioned configuration (\texttt{config/margin\_config.yaml}), the extracted data and the summaries, at revision \texttt{7129981}. The file \texttt{data/README.md} in that folder describes every data file. The neutral-label analysis of Sections~\ref{sub:neutral-label-protocol} and~\ref{sub:neutral-label-results} (plan, script and results) and the check of EndorseRank's closed form (Section~\ref{sub:theory-closed-form}) are in the folder \texttt{analysis/} of the thesis repository, \url{https://github.com/abitocodes/phd-dissertation-draft-en}, where the tag \texttt{manuscripts-2026-11} fixes the state reported here; the plan was committed in \texttt{20e250f}, before the analysis ran.
+
+The implementation is checked offline before any real extraction: synthetic tests run the same scoring and alignment logic on fixture graphs, with no cloud access. Real extraction needs Google Cloud credentials and a billing project, and its scans are confined to the public Arbitrum One log dataset.
+
+\dissertationSubheading[sec:bq-extraction]{BigQuery extraction design}
+
+Each ERC-20 \texttt{Approval} or \texttt{Transfer} event is identified by its standard topic-$0$ hash. Queries are restricted to logs whose owner/spender or from/to address is on the evaluation wallet list, which ties scan cost to the size of the cohort instead of the whole chain. Batching by month keeps every query under the operational byte cap. Appendix~\ref{ch:appendix-sql} shows representative SQL patterns.
+
+For auditing, the study's acquisition log retains the extraction records (bytes processed, row counts, timestamps). This research reports only the resulting cohort sizes and edge counts, not the operational logs.
+
+A second-tier extraction had been planned for the $93{,}559$ supplemental addresses of the expanded wallet pool ($N=99{,}080$; Section~\ref{sub:expanded-pool}). For the six monthly approval and transfer queries over those addresses, the dry-run estimate came to more than $1.3$\,TiB, and the download stage failed repeatedly on the storage-backed result path. The extraction was therefore abandoned within the study period. As a result, the supplemental addresses enter the expanded-pool experiments only as sampled addresses. They have no approval or transfer edges of their own, and the solver graph takes its nodes from the endpoints of the retained edges, so they add no nodes either; that is why the full-pool row of Table~\ref{tab:benchmark-scaling} reproduces the matched-cohort graph. Chapter~\ref{ch:conclusion} lists the completion of that extraction as future work.
+
+\dissertationSubheading[sec:scaling-appendix]{Scaling tables}
+
+Table~\ref{tab:benchmark-scaling-incohort} reports runtime scaling within the cohort for $n \leq 5{,}521$, measured under the timing protocol of Section~\ref{sec:computational-benchmark}. Its last row is the same measurement as the one in Table~\ref{tab:benchmark-runtime}. Every in-cohort stage is a subset of the wallets whose edges were extracted, so $|V|$ and $|E|$ both grow with $n$. In the expanded-pool stages they grow as well, but only up to the size of the matched-cohort graph.
+
+\input{results/tables/benchmark-scaling-incohort.tex}
+
+\dissertationSubheading[sec:delegation-deferred]{Credit-delegation extract (deferred)}
+
+Aave~V3 records credit delegation in \texttt{BorrowAllowanceDelegated} events, a second on-chain form of delegated spending power. This study did not extract them, so the delegation-based row of the archived matrix (Appendix~\ref{ch:appendix-archive}) has no edges; adding these events to the allowance graph is future work.
+
+\dissertationSubheading[sec:supplementary-summary]{Supplementary alignment summary table}
+
+The pipeline computes six proxy families, and Table~\ref{tab:alignment-summary} lists the family-mean $\tau$ of every score on each. Among them are the liquidation, inverse-risk and GMX trading-success families, which were withdrawn from the primary analysis along with the GF-PR reference (Section~\ref{sub:gf-pr}). Until 30~September~2026 the pipeline negated two of the three inverse-risk proxies, the summed loss and the worst close, so both ranked the largest losses highest. They are now oriented like every other proxy, a value nearer zero meaning smaller losses, and the table shows the corrected values; the correction changes no other entry. Every score is negative on this family, which fits the summed loss and the worst close growing with how much a wallet trades (Section~\ref{sec:same-window-alignment}). The transfer, allowance and Sybil-stability columns repeat Table~\ref{tab:alignment-hybrid} without intervals.
+
+\input{results/tables/alignment-summary.tex}
+
+\dissertationSubheading[sec:parameter-summary]{Parameter summary}
+
+\begin{table}[htbp]
+\centering
+\caption{Default parameters used in the primary evaluation.}
+\label{tab:parameter-summary}
+\fitwidth{%
+\begin{tabular}{lll}
+\toprule
+Parameter & Value & Role \\
+\midrule
+PageRank damping $d$ & $0.85$ & Default teleport mixture \\
+Convergence tolerance $\varepsilon$ & $10^{-8}$ & Power-iteration stop \\
+Max iterations $I_{\max}$ & $300$ & Power-iteration cap \\
+Logistic $k$ & $0.01$ & Decay slope (AWP, EndorseRank, transfer layer) \\
+Logistic $t_0$ & $180$ days & Decay midpoint (AWP, EndorseRank, transfer layer) \\
+Value transform $b$ & $1$ (raw base units) & Value weight $V(z)$ of AWP and EndorseRank \\
+Restart distribution & $\propto X_u$; uniform & AWP; EndorseRank, C-PR \\
+Coupling weight $\lambda$ & $0.5$ (primary); $0.25$, $0.75$ & C-PR allowance-layer weight, fixed before the run \\
+S-PR restart vector & allowance walk, normalized, floor $0$ & Endorsement-seeded teleportation \\
+Holdout freeze / outcome window & 2026-02-28 / 2026-03-01 -- 2026-05-31 & Spender cohort $n=1{,}335$ \\
+Registered replication freeze / labels & 2026-05-31 / 2026-06-01 -- 2026-08-31 & Spender and trader cohorts; margin $0.02$ \\
+Observation window & 2025-12-01 -- 2026-05-31 & UTC inclusive \\
+Bootstrap resamples / seed & $400$ / $42$ & Paired wallet bootstrap, percentile 95\% CI \\
+Timed repeats / warm-up & $5$ / $1$ & Runtime protocol \\
+In-cohort subsample seed & \texttt{benchmark-scale-v1} & Deterministic SHA256 seed \\
+Expanded pool subsample seed & \texttt{benchmark-tier2-v1} & Deterministic SHA256 seed \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\dissertationSubheading[sec:proxy-appendix]{Proxy operational definitions (reference)}
+
+The formulas below are those of Chapter~\ref{ch:methodology}.
+
+\begin{itemize}
+\item Transfer: $\mathrm{in\_degree}(w)=|\{u:\exists u\to w\}|$; $\mathrm{in\_value}(w)=\sum_{e:u\to w}\mathrm{value}(e)$.
+
+\item Allowance: $\mathrm{in\_approve\_degree}(w)=|\{o:\exists o\to w\}|$; $\mathrm{in\_approve\_value}(w)=\sum_{o,\mathrm{token}} a^{\star}(o,w,\mathrm{token})$, where $w$ is the spender.
+
+\item Sybil-adjusted stability: $\mathrm{inbound\_counterparty\_ratio}(w)=|\{u:u\to w\}|/|T^{\mathrm{in}}(w)|$ (self-transfers excluded); tenure in days; active months.
+\end{itemize}
+
+\dissertationSubheading[sec:glossary]{Glossary}
+
+\begin{description}
+\item[Activeness] AWP's restart weight of an address: over the addresses it has sent to, the sum of the time weights of its latest transfer to each.
+\item[Allowance] An ERC-20 authorization that lets a spender move tokens on an owner's behalf.
+\item[Alignment] Rank agreement between reputation scores and a validation proxy, measured by Spearman's $\rho$ on mid-ranks and by Kendall's $\tau$; every reported $\tau$ is the tie-corrected $\tau_b$.
+\item[Construct overlap] A ranking method and a proxy sharing a data source, which inflates alignment.
+\item[C-PR end points] C-PR at $\lambda=1$ and at $\lambda=0$, which walk the raw-amount allowance layer or transfer layer alone with uniform restarts. The registration documents call them EndorseRank and AWP.
+\item[Endorsement graph] Directed graph of latest allowances, used as the input to EndorseRank and as the allowance layer of C-PR.
+\item[Matched cohort] Primary sample of $n=5{,}521$ GMX V2 wallets on Arbitrum One with at least three closes between 2025-12-01 and 2026-05-31, fixed from GMX data before any approval or transfer extraction. Membership does not depend on graph connectivity: $966$ of these wallets touch no allowance edge and $381$ touch no transfer edge.
+\item[Expanded wallet pool] A larger address set ($N=99{,}080$) for testing runtime sensitivity to the number of sampled wallets; its supplemental addresses have no extracted edges, so they add no nodes to the solver graph.
+\item[Paired bootstrap] Resampling of wallets with replacement through a single index matrix shared by every coefficient, so that differences between coefficients can be tested on the same resamples.
+\item[PageRank] Spectral ranking of nodes by the stationary distribution of a damped random walk.
+\item[Proxy] Observable wallet metric for checking rankings against domain intuition.
+\item[Spender cohort] Holdout sample of $n=1{,}335$ wallets: every spender that holds at least one positive latest allowance at $t_1$ (28~February~2026, 23:59:59 UTC) in the extracted approval data.
+\item[Teleport] The jump that PageRank makes with probability $1-d$, to a node drawn from the restart distribution: uniform for EndorseRank and C-PR, weighted by sending activity for AWP.
+\end{description}
+
+\input{Chapter-08-Appendix/appendix-b.tex}
+\input{Chapter-08-Appendix/appendix-c.tex}
+\input{Chapter-08-Appendix/appendix-d.tex}
+\input{Chapter-08-Appendix/appendix-endorserank-awp.tex}
+\input{Chapter-08-Appendix/appendix-e.tex}
+\input{Chapter-08-Appendix/appendix-f.tex}

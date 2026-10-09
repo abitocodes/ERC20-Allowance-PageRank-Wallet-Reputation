@@ -1,0 +1,92 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\chapter*{Abbreviations and Notation}
+\label{ch:abbreviations}
+% Front-matter tables are numbered I, II, ... so they are not confused with Table 1.1 onwards.
+\let\FrontMatterSavedThetable\thetable
+\renewcommand{\thetable}{\Roman{table}}
+
+The abbreviations and mathematical notation used throughout this research are listed below. Each symbol is also defined where it first appears in the main chapters.
+
+\phantomsection
+\section*{Abbreviations}
+\label{sec:abbrev-table}
+
+\begin{table}[htbp]
+\centering
+\caption{Abbreviations used in this research.}
+\label{tab:abbreviations}
+\fitwidth{%
+\begin{tabular}{lp{0.72\linewidth}}
+\toprule
+Abbreviation & Meaning \\
+\midrule
+AWP & Adaptive Weighted PageRank \\
+C-PR & Coupled PageRank (per-node mixture of the raw-amount allowance and transfer layers, weight $\lambda$) \\
+DeFi & Decentralized Finance \\
+DEX & Decentralized Exchange \\
+EIP & Ethereum Improvement Proposal \\
+ER & EndorseRank (in table headings) \\
+ERC-20 & Ethereum Request for Comments 20 (fungible token standard) \\
+FC & Financial Cryptography and Data Security \\
+PR & PageRank \\
+RQ & Research Question \\
+SoK & Systematization of Knowledge \\
+S-PR & Endorsement-Seeded PageRank (transfer layer walked with restarts drawn from the allowance walk) \\
+USENIX & USENIX Security Symposium \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\phantomsection
+\section*{Mathematical notation}
+\label{sec:notation-table}
+
+\begin{table}[htbp]
+\centering
+\caption{Mathematical notation used in this research.}
+\label{tab:notation}
+\fitwidth{%
+\begin{tabular}{lp{0.72\linewidth}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$G_{\mathrm{approve}}$ & Directed endorsement graph from latest ERC-20 allowances (owner $\to$ spender) \\
+$G_{\mathrm{transfer}}$ & Directed transfer graph (sender $\to$ receiver; AWP input) \\
+$|V|$ & Number of nodes in a reputation graph \\
+$|E|$ & Number of directed edges in a reputation graph \\
+$w_{ij}$ & Weight of the directed edge from node $i$ to node $j$ \\
+$o_i$ & Out-strength of node $i$, $o_i=\sum_j w_{ij}$ (written $o(u)$, or $o_A(u)$ and $o_T(u)$ per layer, in Chapter~\ref{ch:methodology}) \\
+$P$ & Transition matrix, $P_{ij}=w_{ij}/o_i$ for $o_i>0$; a dangling row is uniform in Equation~\eqref{eq:transition} and zero in Equation~\eqref{eq:transition-impl}, where its mass is redistributed separately \\
+$G_{\mathrm{PR}}$ & Google matrix $dP^{\top}+(1-d)\,\mathbf{1}\mathbf{1}^{\top}/|V|$ (Equation~\eqref{eq:google-matrix}) \\
+$\mathbf{r}$, $r_i$ & PageRank vector and its entry for node $i$; $\mathbf{r}^{(t)}$ is the iterate after $t$ power-iteration steps \\
+$\boldsymbol{\pi}$ & Teleportation (restart) distribution: uniform for EndorseRank and C-PR, proportional to activeness $X_u$ for AWP, and the normalized allowance-walk score for S-PR \\
+$d$ & PageRank damping factor (default $0.85$); the teleport probability is $1-d$ \\
+$\varepsilon$ & Convergence tolerance of power iteration ($10^{-8}$, on the $\|\cdot\|_1$ change between iterates) \\
+$I_{\max}$ & Iteration cap of power iteration ($300$) \\
+$\lambda$ & Allowance-layer weight of the coupled operator C-PR ($\lambda=1$ and $\lambda=0$: one layer walked alone) \\
+$P^{(\lambda)}$ & Coupled transition matrix of C-PR with allowance-layer weight $\lambda$ (Equation~\eqref{eq:coupled-transition}) \\
+$\alpha_A(u)$, $\alpha_T(u)$ & Weights of the allowance row and the transfer row in the coupled transition row of wallet $u$ \\
+$k$ & Logistic time-decay steepness \\
+$t_0$ & Logistic time-decay midpoint (days) \\
+$\Delta t$ & Age in days of a transfer or approval \\
+$\sigma(\Delta t)$ & Logistic time weight of a transfer (AWP) or latest approval (EndorseRank) \\
+$V(z)$ & Bounded value weight of AWP and EndorseRank, $2/(1+e^{-bz})-1$ with $b=1$ \\
+$X_u$ & Activeness of address $u$, AWP's restart weight \\
+$n$ & Number of wallets in a correlation (cohort size: matched $n=5{,}521$, spender $n=1{,}335$) \\
+$N$ & Expanded wallet-pool size (scaling: $N=99{,}080$) \\
+$\rho$ & Spearman's rank correlation coefficient \\
+$\tau$ & Kendall's rank correlation coefficient; every reported value is $\tau_b$ \\
+$t_1$, $t_2$ & Holdout dates: score freeze $t_1$ (28~February~2026, 23:59:59 UTC) and end of the label window $t_2$ (31~May~2026) \\
+$\mathcal{W}$ & Set of wallets in the evaluation cohort \\
+$s(w)$ & Reputation score of wallet $w$ under a given method \\
+$p(w)$ & Validation-proxy value for wallet $w$ \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+% Restore chapter-based table numbering for the main text.
+\let\thetable\FrontMatterSavedThetable

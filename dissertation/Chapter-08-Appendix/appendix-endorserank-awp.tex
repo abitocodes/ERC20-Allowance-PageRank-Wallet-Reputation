@@ -1,0 +1,59 @@
+% !TEX root = ../main.tex
+\section{EndorseRank and AWP Side by Side}
+\label{ch:appendix-er-awp}
+
+Chapter~\ref{ch:results} reports every score of the thesis together and reads each PageRank against the raw degree it smooths. This appendix collects the direct comparisons between the two single-layer scores, EndorseRank and AWP: their family means and paired differences in the same window, their per-proxy coefficients, and their paired differences out of window. Apart from the trader grid at its end, none of these comparisons was fixed in advance, and none carries a claim of the thesis. The two scores walk on different edges and are built for different constructs, so on each check the score ahead is, almost every time, the one whose edges the check counts. Outcomes built from neither edge type are the exception, since neither score was built for them, and are reported in Section~\ref{sub:neutral-label-results}. Their coverage differs as well. No allowance edge touches 966 of the matched wallets and no transfer edge touches 381, and 318 of the 1,335 holdout spenders have no transfer edge before the freeze. EndorseRank's ties decide most of its same-window ordering (Section~\ref{sec:rank-divergence}). In both holdout windows each of the two falls below the raw degree it smooths (Section~\ref{sec:holdout-results}), so a difference between them does not show that either adds anything to its degree.
+
+\dissertationSubheading[sec:er-awp-same-window]{Same window}
+
+Table~\ref{tab:alignment-hybrid} gives the family means of the two scores with their intervals, and the last row of Table~\ref{tab:tie-sensitivity} their agreement. The two patterns cross. AWP tracks the transfer family most closely ($0.612$) and is slightly negative on the allowance family, while EndorseRank tracks the allowance family most closely ($0.375$) and the transfer family moderately ($0.330$). Table~\ref{tab:tau-diff} tests five paired differences on the same wallet resamples (Section~\ref{sec:statistical-tests}), numbered i to v in the order of its rows.
+
+\input{results/tables/tau-diff.tex}
+
+In three of the five contrasts the interval excludes zero. AWP's transfer alignment is higher than EndorseRank's ($+0.282$), EndorseRank's allowance alignment is higher than AWP's ($+0.398$), and AWP leads EndorseRank on the Sybil-stability family ($+0.047$). The remaining two compare EndorseRank with itself, and both are null: its allowance alignment is not shown to be higher than its transfer alignment (contrast~i, $+0.045$, interval $[-0.001,0.084]$), and its in-approve-degree alignment is not shown to be higher than its in-degree alignment (contrast~v, $+0.035$, $[-0.015,0.079]$). These two nulls cannot be read as evidence either way. EndorseRank's ties cap $\tau_b$ at about $0.38$ for the allowance proxies and at about $0.57$ for a proxy without ties (Section~\ref{sec:same-window-alignment}), so the coefficients are not on one scale. With the wallets outside the allowance graph kept as isolated nodes instead of being scored zero, contrasts~i and~v become $+1.061$ and $+1.090$, with intervals far above zero.
+
+The opposite signs of contrasts~ii and~iii follow from the constructs. Each score is ahead on the family built from its own edges, and the main proxies of each family include the in-degree that the corresponding PageRank smooths. EndorseRank's lead on the allowance family rests on the 131 wallets that receive approvals, all of which it lifts above its common value, while AWP spreads those 131 over most of its ranking. AWP's lead on the transfer family is measured against a transfer coefficient of EndorseRank's that turns negative once the missing wallets are kept as isolated nodes. Neither difference says which score is the better measure of reputation.
+
+On the staged pool subsamples of Table~\ref{tab:robustness-sample-size}, whose values are not comparable with those of the matched cohort, the order of the two scores within each family is the same at every stage: AWP is ahead on the transfer family and EndorseRank on the allowance family.
+
+\dissertationSubheading[sec:proxy-family-detail]{Proxy detail}
+
+Each family mean condenses several per-proxy coefficients. Tables~\ref{tab:alignment-transfer} to~\ref{tab:alignment-sybil-stability} report them one proxy at a time for EndorseRank and AWP, as Spearman $\rho$, Kendall $\tau$ and the 95\% interval of $\tau$. Before correlation, every proxy is oriented so that a higher value means higher expected reputation, and the transfer proxies are the ones AWP's source paper used to validate it\cend{3}.
+
+\dissertationSubsubheading[sub:transfer-family]{Transfer family}
+
+\input{results/tables/alignment-transfer.tex}
+
+In Table~\ref{tab:alignment-transfer}, AWP's agreement with in-degree is the largest per-proxy Kendall $\tau$ on the matched cohort, and its agreement with in-value is much lower, for the reason given in Section~\ref{sec:same-window-alignment}. EndorseRank's transfer coefficients are moderate ($0.341$ and $0.319$), and their intervals overlap neither zero nor AWP's intervals. They mainly reflect that wallets in the allowance graph also receive more transfers than wallets outside it (Section~\ref{sec:rank-divergence}). A protocol that equates reputation with inbound flow can read that flow from the in-degree itself, and out of window AWP ranks new senders below the in-degree (Section~\ref{sec:holdout-results}).
+
+\dissertationSubsubheading[sub:allowance-family]{Allowance family}
+
+\input{results/tables/alignment-allowance.tex}
+
+In Table~\ref{tab:alignment-allowance}, EndorseRank's two coefficients are almost equal and sit at the ceiling that its ties allow (Section~\ref{sec:same-window-alignment}). AWP's are slightly negative ($-0.024$ and $-0.023$), with intervals that exclude zero: among the cohort's wallets, transfer centrality does not pick out those that are approved as spenders. The comparison rests on the 131 wallets that receive approvals and is partly built in, since EndorseRank is computed from the same approvals.
+
+\dissertationSubsubheading[sub:sybil-family]{Sybil-adjusted stability family}
+
+\input{results/tables/alignment-sybil-stability.tex}
+
+Table~\ref{tab:alignment-sybil-stability} shows AWP ahead of EndorseRank on tenure ($0.507$ against $0.294$) and active months ($0.555$ against $0.327$), as one would expect from a transfer score that rewards activity spread over the window; the paired difference on the family mean excludes zero (Table~\ref{tab:tau-diff}, contrast~iv). On the inbound-counterparty ratio AWP is clearly negative ($-0.228$) and EndorseRank weakly positive ($0.072$). The family describes how much longitudinal transfer information each score carries.
+
+On the archived trading families of Table~\ref{tab:alignment-summary}, AWP is ahead of EndorseRank on liquidation ($0.141$ against $0.093$) and on trading success ($0.236$ against $0.096$). On the inverse-risk family both are negative, $-0.055$ for EndorseRank and $-0.127$ for AWP, and on the non-loss close rate, a share that does not grow with trading volume, the two coefficients are $-0.031$ and $-0.006$.
+
+\dissertationSubheading[sec:er-awp-holdout]{Out of window}
+
+Table~\ref{tab:endorserank-awp-holdout} collects the paired differences between the two scores in both holdout windows. On the full spender cohorts, $a$ is the score built from the edge type that the label counts; on the subset of the second block both rows take EndorseRank as $a$.
+
+\input{results/tables/endorserank-awp-holdout.tex}
+
+On the spring spenders EndorseRank ranks new approval pairs at $\tau=0.394$ (interval $[0.360,0.431]$) against $0.123$ for AWP, a paired difference of $+0.271$ ($[0.207,0.332]$). On new transfer senders the order reverses: AWP reaches $0.344$ against $0.283$ for EndorseRank, a difference of $+0.061$ ($[0.026,0.098]$). Every label falls after all scored events, so on this cohort each edge type carries information about its own construct that the other lacks. Coverage explains much of the first gap. AWP scores zero for the 318 spenders without a transfer edge before the freeze, and these gained new approval pairs more often than the rest. On the 977 spenders that had received a transfer, EndorseRank's lead on new approval pairs shrinks to $+0.042$ ($[0.003,0.085]$), and the two scores are level on new senders ($-0.029$, $[-0.070,0.011]$). The in-approve degree, which uses no transfer information, is also ahead of AWP on new senders ($0.404$ against $0.344$, without a paired test).
+
+In June--August, with EndorseRank scored after the registered evaluation, the pattern repeats. EndorseRank ranks new approval pairs at $0.333$ against $0.118$ for AWP ($+0.215$, $[0.171,0.270]$), and AWP ranks new senders at $0.319$ against $0.255$ ($+0.064$, $[0.036,0.088]$). On the liquidation-free close rate of the traders EndorseRank reaches $0.081$ and AWP $0.045$, a difference that cannot be told from zero ($+0.035$, $[-0.017,0.087]$).
+
+On the matched traders of the exploratory spring run (Table~\ref{tab:holdout-traders}), AWP ranks the number of profitable closes at $0.210$ (interval $[0.181,0.238]$) against $0.072$ ($[0.041,0.111]$) for EndorseRank, and the realized gain at $0.191$ ($[0.159,0.219]$) against $0.048$ ($[0.017,0.082]$). On the share of closes that were profitable neither score shows anything: $0.016$ ($[-0.015,0.044]$) for AWP and $-0.016$ ($[-0.053,0.024]$) for EndorseRank. AWP's lead is on counts and sums, which grow with how much a wallet trades, and the transfer in-degree does about as well on the same two labels.
+
+\dissertationSubheading[sec:er-awp-neutral-grid]{All trader labels in both windows}
+
+Table~\ref{tab:neutral-label-grid} sets the allowance side against the transfer side on all six trader labels in both windows; its contrasts were fixed before they were computed but after the labels and the single-score coefficients of the registered window were known (Section~\ref{sub:neutral-label-protocol}), and only P on the liquidation-free close rate enters a claim (C6, Section~\ref{sub:neutral-label-results}). The counts (P) favor the allowance side on both liquidation labels in both windows; Q, the PageRank pair with the same weights and restarts, points the same way, with intervals above zero on the no-liquidation flag but not, at 97.5\%, on the liquidation-free close rate. Every pair favors the transfer side, with intervals below zero, on profitable closes and realized gain, which grow with activity, and the counts favor it on the two shares as well.
+
+\input{results/tables/neutral-label-grid.tex}

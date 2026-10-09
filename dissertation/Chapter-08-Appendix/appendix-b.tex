@@ -1,0 +1,94 @@
+% !TEX root = ../main.tex
+\section{SQL Templates, Configuration, and Extended Notes}
+\label{ch:appendix-sql}
+
+To aid reproduction, this appendix gathers representative SQL patterns, configuration keys, and extended methodological notes.
+
+\dissertationSubheading[sec:sql-approval]{Approval log extraction pattern}
+
+An ERC-20 \texttt{Approval} event is identified by its topic~$0$, which is the keccak256 hash of \texttt{Approval(address,address,uint256)}. For one month, a simplified query is:
+
+\begin{verbatim}
+SELECT
+  block_timestamp,
+  block_number,
+  transaction_hash,
+  log_index,
+  address AS token,
+  topics[SAFE_OFFSET(1)] AS owner_topic,
+  topics[SAFE_OFFSET(2)] AS spender_topic,
+  data AS value_data
+FROM `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`
+WHERE block_timestamp >= TIMESTAMP('2025-12-01')
+  AND block_timestamp <  TIMESTAMP('2026-01-01')
+  AND topics[SAFE_OFFSET(0)] = '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925'
+  AND (
+    LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(1)], 27))) IN UNNEST(@wallet_list)
+    OR LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(2)], 27))) IN UNNEST(@wallet_list)
+  );
+\end{verbatim}
+
+With rows filtered against \texttt{@wallet\_list}, scan volume is proportional to the cohort instead of the full chain. Monthly batches keep every query below the per-query byte caps documented in the study's acquisition record.
+
+\dissertationSubheading[sec:sql-transfer]{Transfer log extraction pattern}
+
+\texttt{Transfer} events are selected by the topic~$0$ of \texttt{Transfer(address,address,uint256)}:
+
+\begin{verbatim}
+SELECT
+  block_timestamp,
+  block_number,
+  transaction_hash,
+  log_index,
+  address AS token,
+  topics[SAFE_OFFSET(1)] AS from_topic,
+  topics[SAFE_OFFSET(2)] AS to_topic,
+  data AS value_data
+FROM `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`
+WHERE block_timestamp >= TIMESTAMP('2025-12-01')
+  AND block_timestamp <  TIMESTAMP('2026-01-01')
+  AND topics[SAFE_OFFSET(0)] = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+  AND (
+    LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(1)], 27))) IN UNNEST(@wallet_list)
+    OR LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(2)], 27))) IN UNNEST(@wallet_list)
+  );
+\end{verbatim}
+
+Before PageRank, post-processing keeps, for each (token, owner, spender) triple, the value of the last \texttt{Approval} event in (\texttt{block\_number}, \texttt{log\_index}) order and drops zero (revoked) values. It then weights each latest approval and each transfer by its time weight and bounded value weight, builds the raw-amount layers of C-PR beside them, and keeps every edge with at least one endpoint in the matched cohort. Amounts stay in raw token base units, the \texttt{uint256} value cast to a float, and no decimal scaling is applied before the value weight or, in the C-PR layers, before allowances or transfer values are summed across tokens.
+
+\dissertationSubheading[sec:config-keys]{Configuration keys}
+
+All of the pipeline's parameters are kept in a single versioned configuration file, whose principal keys include:
+
+\begin{itemize}
+\item start and end timestamps of the observation window;
+\item the PageRank damping factor, tolerance, and maximum number of iterations;
+\item logistic decay parameters $k$ and $t_0$ and the value-weight parameter $b$;
+\item subsample seeds and the number of benchmark repetitions;
+\item the locations to which intermediate artifacts and table fragments are written (\texttt{results/tables/}).
+\end{itemize}
+
+Changing the damping factor or the decay parameter requires a rerun of the entire evaluation, including the robustness sweeps and the table export. All figures must then be regenerated from the same artifacts so that the reported numbers match the pipeline's machine-readable summary.
+
+\dissertationSubheading[sec:complexity-notes]{Complexity notes}
+
+Write $m=|E|$. Building the latest-allowance edges sorts the $R_a$ approval rows in (\texttt{block\_number}, \texttt{log\_index}) order, in $O(R_a\log R_a)$ time, and the transfer edges take $O(R_t)$ over the transfer rows. PageRank over $I$ iterations costs $O(m+mI)$, the first term for building the sparse operator, which dominates the measured calls (Appendix~\ref{sec:pr-sparsity}). The edge lists and score vectors account for most of the memory, so the peak-memory ratio in Table~\ref{tab:benchmark-runtime} is of the order of the edge ratio.
+
+\dissertationSubheading[sec:interpretation-checklist]{Conventions for the result tables}
+
+The tables of Chapter~\ref{ch:results} follow these conventions:
+
+\begin{enumerate}
+\item Every $\tau$ is Kendall's $\tau_b$ on raw scores and proxies, reported with its 95\% paired-bootstrap interval. Differences between coefficients come from the paired contrast tables, not from subtracting point estimates.
+\item On the matched cohort, EndorseRank's coefficients are capped by its ties (Section~\ref{sec:rank-divergence}), so they are compared with other coefficients only through the contrasts and with that cap in mind.
+\item A runtime is the time of one PageRank call on edge lists built in advance, covering matrix assembly and power iteration but not extraction or preprocessing. The same graph under the same settings shows the same numbers in every table (Section~\ref{sec:computational-benchmark}).
+\item The sample-definition sweep (Table~\ref{tab:robustness-sample-size}) is a sensitivity analysis, and its absolute values are not compared with the matched-cohort tables.
+\end{enumerate}
+
+\dissertationSubheading[sec:archived-baselines]{Archived extended baselines}
+
+The archived matrices, and the reasons they stay out of the main comparison, are described in Appendix~\ref{ch:appendix-archive}.
+
+\dissertationSubheading[sec:limitations-reprise]{Limitations}
+
+The SQL above was run only on Arbitrum One. All reported numbers come from the pipeline's machine-readable summaries for the matched cohort ($n=5{,}521$), the pool subsamples, the spender cohort ($n=1{,}335$) and the exploratory trader run; the registered June--August results come from the summary of that run (Section~\ref{sub:fresh-results}).

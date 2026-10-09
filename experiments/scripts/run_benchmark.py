@@ -101,11 +101,29 @@ def main() -> int:
         main_rows[m] = r
         print(m, f"{r['mean_s']:.3f}s", r["iterations"], r["edges"], flush=True)
 
+    # Damping sweep: the d = 0.85 rows are the main measurements above, reused, not re-timed.
+    damping = {}
+    for d in cfg["robustness"]["damping_values"]:
+        if abs(d - params["damping"]) < 1e-12:
+            damping[str(d)] = {m: main_rows[m] for m in ("endorserank", "awp")}
+            continue
+        sc = solver_calls(g, {**params, "damping": d})
+        damping[str(d)] = {}
+        for m in ("endorserank", "awp"):
+            fn, arrs = sc[m]
+            r = time_call(fn, runs)
+            r["nodes"], r["edges"] = graph_size(arrs)
+            damping[str(d)][m] = r
+        print("damping", d, {m: round(v["mean_s"], 3) for m, v in damping[str(d)].items()}, flush=True)
+
     order = sha_order(cohort["address"], cfg["benchmark"]["scaling_seed"])
     n_all = len(cohort)
     stages = [s for s in (1000, 2000, 5000, 10000, 20000) if s < n_all] + [n_all]
     scaling = []
     for n in stages:
+        if n == n_all:  # the full cohort graph is the main measurement, reused
+            scaling.append({"n": n, "endorserank": main_rows["endorserank"], "awp": main_rows["awp"], "reused_main": True})
+            continue
         ids = cohort["id"].to_numpy()[order[:n]]
         sub = restrict(g, ids)
         sc = solver_calls(sub, params)
@@ -125,6 +143,7 @@ def main() -> int:
         "machine": {"platform": platform.platform(), "processor": platform.processor(),
                     "python": platform.python_version()},
         "main": main_rows,
+        "damping": damping,
         "scaling": scaling,
         "scaling_seed": cfg["benchmark"]["scaling_seed"],
     }, OUT / "benchmark.json")

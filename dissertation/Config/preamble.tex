@@ -1,0 +1,106 @@
+% !TEX root = ../main.tex
+\documentclass[12pt]{report}
+\usepackage[a4paper,left=0.885in,right=0.885in,top=1.33in,bottom=1.46in,includefoot]{geometry}
+\usepackage{fontspec}
+% Times New Roman on Windows; TeX Gyre Termes (Times-compatible) on Overleaf/Linux.
+\IfFontExistsTF{Times New Roman}{%
+  \setmainfont{Times New Roman}%
+}{%
+  \setmainfont{TeX Gyre Termes}%
+}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{seqsplit}
+\usepackage{microtype}
+\usepackage{fvextra}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc,decorations.pathreplacing,patterns}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{round-mode=places,round-precision=3,detect-weight=true,detect-family=true}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage[bottom,hang,flushmargin]{footmisc}
+% Keep tables within the text block (no right-margin overflow).
+\newcommand{\fitwidth}[1]{%
+  \begin{adjustbox}{max width=\linewidth,center}%
+  \small\setlength{\tabcolsep}{3.5pt}%
+  #1%
+  \end{adjustbox}%
+}
+\hypersetup{
+  hidelinks,
+  pdftitle={Integrating ERC-20 Allowance Edges into PageRank for On-Chain Smart Contract Reputation Scoring},
+  pdfauthor={Taehong Kwon},
+  pdfsubject={Doctor of Philosophy dissertation, Computer Science, University of South Africa},
+  pdfkeywords={DeFi, smart contracts, EndorseRank, PageRank, on-chain reputation, ERC-20 allowance, Arbitrum}
+}
+\def\UrlFont{\ttfamily}
+\emergencystretch=2em
+\DeclareRobustCommand{\texttt}[1]{{\ttfamily\seqsplit{#1}}}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{%
+  breaklines=true,breakanywhere=true,fontsize=\small,formatcom=\ttfamily}
+\setstretch{1.58}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.03\baselineskip}
+\setlist[itemize]{leftmargin=2.2em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
+\setlist[enumerate]{leftmargin=2.4em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\pretocmd{\chapter}{\phantomsection}{}{}
+% Match 1-Proposal article \section* / \subsection* sizing and spacing.
+\titleformat{\chapter}[block]
+  {\normalfont\Large\bfseries}{\thechapter}{0.5em}{}
+\titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\Large\bfseries}{}{0pt}{}
+\titlespacing*{name=\chapter,numberless}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{2.5ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\newcommand{\dissertationSubheading}[2][]{%
+  \phantomsection
+  \section{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+\newcommand{\dissertationSubsubheading}[2][]{%
+  \phantomsection
+  \subsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+\newcommand{\TOCentry}[3]{%
+  \noindent\hyperref[#3]{\makebox[2.4em][l]{#1}#2}\nobreak\dotfill\ \hyperref[#3]{\pageref*{#3}}\par\vspace{0.15em}%
+}
+\newcommand{\dissertationResultHeading}[1]{%
+  \par\addvspace{0.45\baselineskip}%
+  \noindent\textbf{#1}\par\nobreak\addvspace{0.06\baselineskip}%
+}
+\newcommand{\figpath}[1]{Figures/generated/#1}
+% Placeholder for a benchmark value still being measured; none may remain at submission.
+\newcommand{\BENCH}[1]{\textbf{[#1]}}
+
+% Citations: APA 7 author-date (biblatex-apa), one alphabetical reference list in
+% Chapter 7. Use \textcite{key} when the authors are part of the sentence and
+% \parencite{key} otherwise; keys are in Config/references.bib.
+\usepackage{csquotes}
+\usepackage[style=apa,backend=biber,uniquename=init]{biblatex}
+\addbibresource{Config/references.bib}
+

@@ -1,0 +1,67 @@
+% !TEX root = ../main.tex
+\section{Archived Extended Baselines}
+\label{ch:appendix-archive}
+
+Further PageRank variants were scored on the same matched cohort and proxy families. They are not among the scores evaluated in Chapter~\ref{ch:results}.
+
+\dissertationSubheading[sec:seven-method-archive]{Seven-method alignment matrix}
+
+The evaluation archive keeps the seven-method matrices (LP-PR, CW-AWP, LF-PR, and RiskProp-style variants), which are not drawn here. Their rows were computed with the two raw-amount layers of C-PR walked alone as the allowance and transfer references. Among these methods, the allowance walk leads on the allowance family, and the transfer walk, together with its closely related variants, leads on transfer.
+
+The archive matrices show the following patterns:
+
+\begin{itemize}
+\item Methods that use transfer-like edges cluster around the transfer walk on the transfer and Sybil families.
+\item When a method has very few edges, its rankings can be unstable or degenerate, and a low runtime may simply reflect a tiny $m$.
+\item RiskProp-style rows that match the transfer walk numerically indicate shared transfer structure; they do not constitute an independent discovery.
+\end{itemize}
+
+\dissertationSubheading[sec:six-aave-archive]{Six-method Aave-oriented matrix}
+
+An Aave-oriented preset is archived as well. Within the study window, several of the lending-event graphs on Arbitrum are sparse, and the delegation-based rows may be degenerate when \texttt{BorrowAllowanceDelegated} events were not extracted (Appendix~\ref{ch:appendix-eval}).
+
+That preset remains in the archive and is not drawn here.
+
+Although these matrices motivate future work on credit-delegation edges and cross-protocol lending labels, they leave Claims C1--C6 unchanged.
+
+\dissertationSubheading[sec:why-archived]{Why these variants are archived}
+
+Three reasons explain why the scores evaluated are EndorseRank and AWP, with C-PR and S-PR built from the same two layers:
+
+\begin{enumerate}
+\item Allowance-based endorsement is the new construct, and evaluating it beside the established transfer method~\cend{3} isolates the research question.
+\item Variants that share transfer edges with AWP contribute extra rows but no independent construct.
+\item The outcome-native GF-PR reference from the research proposal is derived from the same GMX events as the trading-success proxies, so any alignment between the two counts as construct overlap and not as validation (Section~\ref{sub:gf-pr}). The GF-PR three-method matrix is archived alongside the seven-method and six-Aave presets.
+\end{enumerate}
+
+\dissertationSubheading[sec:archive-repro]{Reproducing archive tables}
+
+Running the evaluation pipeline's table export with the seven-method and six-Aave presets regenerates the archive tables. CSV copies are written out together with the table fragments.
+
+\dissertationSubheading[sec:archive-method-notes]{Notes on archived method identifiers}
+
+The archive tables and CSV exports use the identifiers below.
+
+\begin{description}
+\item[LP-PR] The raw-amount transfer layer, with AWP's time decay, with each edge weight multiplied by one minus the GMX liquidation rate of its sender and one minus that of its receiver. It tracks the transfer walk closely on the transfer families. Its weights use the same liquidation outcomes as the liquidation proxies, so it shares the circularity of GF-PR.
+\item[CW-AWP] The raw-amount transfer layer restricted to transfers of a fixed list of collateral tokens. Its transfer $\tau$ is slightly lower than that of the full layer.
+\item[LF-PR] A lending-flow graph from Aave events, with borrows as edges from the pool to the user and repayments and liquidations as edges from the user to the pool, all under AWP's time decay. Few cohort wallets used Aave on Arbitrum in the window, so the graph has very few edges and near-zero runtimes, and its rankings cannot be compared with the transfer walks.
+\item[RiskProp] The raw-amount transfer layer with each edge weight multiplied by one minus the GMX liquidation rate of its sender. It borrows the idea of propagating risk from Lin et al.~\cend{12} but is not their method. On this cohort it mirrors the transfer walk numerically on several families, so the liquidation weighting changed little.
+\item[LiqCall-PR / Borrow-PR / Repay-PR] Aave-oriented wallet-to-wallet graphs derived from liquidation calls, borrows, and repays, where applicable. On Arbitrum in the study window they have only tens to hundreds of edges, which leaves alignment weak and runtimes negligible.
+\item[Delegation-PR] Intended to use credit-delegation allowances. With zero delegation edges extracted, its scores are degenerate and its $\tau$ cannot be interpreted.
+\end{description}
+
+No archive row is a peer-reviewed baseline.
+
+\dissertationSubheading[sec:archive-decision-log]{Criteria for the scores evaluated}
+
+Chapters~\ref{ch:results}--\ref{ch:discussion} concentrate on EndorseRank, AWP and the walks that couple their two layers; the other variants fall short of the following criteria:
+
+\begin{enumerate}
+\item Construct independence: a baseline should implement different edge semantics instead of merely reweighting transfers.
+\item Data adequacy: there should be enough edges for PageRank to be stable on the matched cohort.
+\item Scope: the contribution is allowance-based endorsement; it is not meant to survey every possible PageRank variant.
+\end{enumerate}
+
+By these criteria, EndorseRank (allowance) and AWP (transfer), with the walks that couple their layers, make up a minimal sufficient set. The seven-method and six-Aave matrices remain archived and do not enter into Claims~C1--C6.
+

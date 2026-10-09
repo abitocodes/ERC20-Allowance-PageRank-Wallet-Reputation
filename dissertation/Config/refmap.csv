@@ -1,0 +1,76 @@
+number,key,status,notes
+1,schar2021defi,verified,Matches Crossref (DOI 10.20955/r.103.153-74). Crossref has no page field; pages 153-174 follow the DOI suffix and the St. Louis Fed record.
+2,packin2024credit,verified,Matches Crossref.
+3,do2023awp,verified,"Matches Crossref (IEEE RIVF 2023, pp. 318-323)."
+4,do2023hodgerank,corrected,"First author initials H. -> H.-D. (Huu-Dung Do, per Crossref). Year 2023 kept: it matches the issue date (vol. 11, no. 1, Jan 2023; online Dec 2022)."
+5,nakamoto2008bitcoin,non-scholarly,"Self-published white paper (no peer review, no DOI); title checked against bitcoin.org/bitcoin.pdf. Primary specification of Bitcoin; keep only if treated as a protocol specification under P35."
+6,szabo1997formalizing,verified,Matches Crossref.
+7,buterin2014ethereum,non-scholarly,"White paper, not peer reviewed. Title corrected: added the prefix ""Ethereum:"" (title of the 2014 PDF on ethereum.org); added descriptor [White paper] and URL."
+8,werner2022sok,verified,Matches Crossref.
+9,gudgeon2020crisis,corrected,Added missing DOI 10.1109/CVCBT50464.2020.00005; other metadata matched Crossref.
+10,harvey2021defi,verified,"Book (Wiley 2021), no DOI. Existence confirmed by reviews in Business Economics (10.1057/s11369-023-00321-7) and Financial Markets and Portfolio Management (10.1007/s11408-022-00418-7)."
+11,douceur2002sybil,verified,"Matches Crossref; editors (Druschel, Kaashoek, Rowstron) and LNCS 2429 added from the Springer record."
+12,lin2025riskprop,verified,Matches Crossref.
+13,hassija2020lending,verified,Matches Crossref.
+14,kotb2023credit,verified,Matches Crossref.
+15,page1999pagerank,corrected,"Year 1998 -> 1999 and institution ""Stanford Digital Library Technologies Project"" -> ""Stanford InfoLab"", per the Stanford InfoLab repository record (item 422, Technical Report). Added report number SIDL-WP-1999-0120 and URL. Key is therefore page1999pagerank, not page1998pagerank."
+16,kamvar2003eigentrust,verified,Matches Crossref/ACM DL (pp. 640-651).
+17,gyongyi2004trustrank,corrected,"Added DOI 10.1016/B978-012088469-8.50052-8; publisher ""VLDB Endowment"" -> ""Morgan Kaufmann"" (publisher of the VLDB 2004 proceedings per the DOI record)."
+18,vogelsteller2015erc20,non-scholarly,"Standard (EIP), allowed under P35. Author corrected from the group ""Ethereum Improvement Proposals"" to the EIP authors F. Vogelsteller and V. Buterin; title -> ""ERC-20: Token standard"" as on eips.ethereum.org (created 2015-11-19)."
+19,lundfall2020permit,non-scholarly,"Standard (EIP), allowed under P35. Author corrected from the group ""Ethereum Improvement Proposals"" to M. Lundfall; title -> ""ERC-2612: Permit extension for EIP-20 signed approvals"" as on eips.ethereum.org (created 2020-04-13)."
+20,spearman1904proof,verified,Matches Crossref/JSTOR.
+21,kendall1938rank,verified,Matches Crossref/JSTOR.
+22,cronbach1955construct,verified,Matches Crossref.
+23,langville2006pagerank,corrected,Added DOI 10.1515/9781400830329 (Princeton University Press record); other metadata matched.
+24,wu2022phishers,verified,Matches Crossref.
+25,bellini2020trust,verified,Matches Crossref.
+26,almasoud2020reputation,verified,Matches Crossref (article number 102814).
+27,zhou2023sok,verified,Matches Crossref.
+28,victor2021washtrading,verified,Matches Crossref.
+29,cong2023washtrading,verified,Matches Crossref.
+30,qin2022bev,verified,Matches Crossref.
+31,xia2021scamtokens,verified,Matches Crossref.
+32,luo2025airdrop,verified,Matches Crossref.
+33,messick1995validity,verified,Matches Crossref.
+34,efron1979bootstrap,verified,Matches Crossref/Project Euclid.
+35,diciccio1996bootstrap,verified,Matches Crossref/Project Euclid.
+36,wood2025yellowpaper,non-scholarly,"Protocol specification (Yellow Paper), not peer reviewed; treat as a standard under P35. Changed ""2014, Ethereum Project"" (no URL) to the version served at the official URL: Shanghai version efc5f9a, dated 2025-02-04. If the 2014 original is meant, cite that revision from the yellowpaper GitHub history instead."
+37,kitzler2023defi,verified,Matches Crossref.
+38,qin2021flashloans,corrected,"Pages 3-25 -> 3-32 (Crossref/Springer); added editors Borisov and Diaz and LNCS 12674 (FC 2021, Part I)."
+39,angeris2020oracles,verified,Matches Crossref.
+40,victor2020clustering,verified,Matches Crossref; editors Bonneau and Heninger and LNCS 12059 added.
+41,bartoletti2021lending,corrected,"Third author ""Lluch-Lafuente, A."" -> ""Lluch Lafuente, A."" as printed by Springer; added the nine workshop editors and LNCS 12676."
+42,gervais2016pow,verified,Matches Crossref.
+43,gudgeon2020layertwo,verified,Matches Crossref; editors Bonneau and Heninger and LNCS 12059 added.
+44,thibault2022rollups,verified,Matches Crossref.
+45,kalodner2018arbitrum,verified,No DOI; matches the USENIX Security 2018 paper page (pp. 1353-1370); URL added.
+46,gmxnddocs,non-scholarly,"Official documentation of the protocol studied (GMX); allowed under P35. Site title is ""GMX Docs"" (list had ""GMX V2 documentation""); retrieval date 2026-10-09 added."
+47,liu2021knowledge,verified,Matches Crossref.
+48,leskovec2020mining,corrected,"Added DOI 10.1017/9781108684163 (3rd ed., Cambridge University Press 2020)."
+49,kleinberg1999hits,verified,Matches Crossref.
+50,li2022defisecurity,corrected,Added missing DOI 10.1109/Blockchain55522.2022.00075; other metadata matched.
+51,perez2021liquidations,corrected,"Added missing DOI 10.1007/978-3-662-64331-0_24; added editors Borisov and Diaz and LNCS 12675 (FC 2021, Part II)."
+52,klagesmundt2020stablecoins,corrected,Added missing DOI 10.1145/3419614.3423261; other metadata matched.
+53,carter2021defi,corrected,"Chapter title ""The paradox of DeFi"" -> ""The paradox of cryptofinance""; book title -> ""Regtech, suptech and beyond: Innovation in financial services""; added editors B. Coen and D. R. Maurice (Risk.net/Risk Books record, first published 20 Oct 2021). Practitioner volume: no DOI, no page numbers, not academic peer review (SSRN preprint 10.2139/ssrn.3866699). Consider replacing if challenged."
+54,daian2020flashboys,verified,Matches Crossref.
+55,makarov2020arbitrage,verified,Matches Crossref.
+56,resnick2002trust,corrected,"Added DOI 10.1016/S0278-0984(02)11030-3, editor M. R. Baye and series Advances in Applied Microeconomics no. 11."
+57,haveliwala2003topic,verified,Matches Crossref.
+58,jeh2003personalized,verified,Matches Crossref/ACM DL (pp. 271-279).
+59,antonopoulos2018mastering,verified,"Book, no DOI; O'Reilly Media 2018 (ISBN 978-1-491-97194-9) confirmed in library catalogues. Practitioner book, not peer reviewed."
+60,narayanan2016bitcoin,corrected,"Added the missing subtitle ""A comprehensive introduction""; Princeton University Press 2016, no DOI."
+61,zetzsche2020defi,verified,Matches Crossref.
+62,halu2013multiplex,verified,Matches Crossref.
+63,dedomenico2015ranking,verified,Matches Crossref.
+64,humanpassportnddocs,non-scholarly,"Official documentation of Human Passport; allowed under P35. URL updated: docs.passport.xyz now 301-redirects to docs.passport.human.tech; title -> ""Human Passport developer platform"" (page title); retrieval date 2026-10-09 added."
+65,siddarth2020watchmen,verified,Matches Crossref.
+66,bordeianu2026sybil,verified,Matches Crossref.
+67,barabasi1999scaling,verified,Matches Crossref.
+68,newman2001clustering,verified,Matches Crossref.
+69,libennowell2007link,verified,Matches Crossref.
+70,fortunato2008indegree,corrected,Added missing DOI 10.1007/978-3-540-78808-9_6; other metadata matched.
+71,gyongyi2005alliances,verified,No DOI; matches the VLDB 2005 proceedings (pp. 517-528); URL to the VLDB PDF added.
+72,cheng2005sybilproof,corrected,Added missing DOI 10.1145/1080192.1080202; other metadata matched.
+73,wang2022unlimited,corrected,Added missing pages 99-114 (Crossref).
+74,lin2022tracking,verified,Matches Crossref.
+75,nosek2018preregistration,verified,Matches Crossref.

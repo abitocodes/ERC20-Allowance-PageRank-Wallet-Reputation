@@ -1,0 +1,371 @@
+% !TEX root = ../main.tex
+\chapter{Literature Review and Theoretical Framework}
+\label{ch:literature}
+
+The research problem set out in Chapter~\ref{ch:introduction} is that transfer-graph reputation scores give no role to spending authorization, an explicit act of trust that every ERC-20 token records, and that their graphs grow with every payment. The objectives O1--O5 and research questions RQ1--RQ5 follow from it. The addresses ranked are smart contracts: the routers, vaults, aggregators, lending pools and other contracts that owners approve to spend their tokens. To compare EndorseRank with Adaptive Weighted PageRank (AWP) on these contracts, we run each method's graph through PageRank and check the resulting rankings with rank correlations. The framework combines hyperlink--citation propagation, domain alignment and computational complexity. The gap that remains is taken up in Chapters~\ref{ch:methodology} and~\ref{ch:results}.
+
+\dissertationSubheading[sec:blockchain-defi-foundations]{Blockchain and DeFi foundations}
+
+A public blockchain records transactions in hashed blocks, and each block is secured by the ones added after it \parencite{nakamoto2008bitcoin}. Once a majority of the participating nodes has accepted a block, rewriting it is costly. That cost allows parties to settle on the ledger without each of them needing a known legal identity (\emph{trust-minimized} settlement).
+
+Bitcoin built a peer-to-peer electronic cash network on this kind of ledger \parencite{nakamoto2008bitcoin}. Ethereum keeps the append-only ledger but lets an account hold a program alongside its balance. A transaction can then call one of the program's functions and change the contract's state \parencite{buterin2014ethereum}, and these functions run on the Ethereum Virtual Machine (EVM) \parencite{wood2025yellowpaper}. Programs stored on the ledger in this way are called smart contracts; any honest node that replays a function call gets the same output \parencite{szabo1997formalizing}. As a result, collateralization ratios, liquidation conditions and fee schedules can be enforced by the contract instead of by a trusted third party \parencite{schar2021defi}. The contracts that users let act on their tokens are the objects this thesis ranks.
+
+Collectively, these contracts make up Decentralized Finance (DeFi). Between them they do the work of exchanges, lending platforms, derivatives markets and asset managers; \textcite{werner2022sok} define the protocol classes, and \textcite{schar2021defi} describes how protocols are layered on one another. Because one protocol can interact with another, new financial instruments can be composed from existing ones \parencite{kitzler2023defi}. In such compositions contracts call other contracts, and a contract can be the owner of an allowance as well as its spender, since the owner is simply the account that grants it \parencite{vogelsteller2015erc20}. The same property lets a failure spread across several protocols. Successful attacks have included flash-loan exploits \parencite{qin2021flashloans} and price-oracle manipulation \parencite{angeris2020oracles}. Transaction histories on these chains are public and machine-readable, yet they record actions, not legal identities \parencite{packin2024credit}.
+
+\dissertationSubsubheading[sub:pseudonymity-credit]{Pseudonymity and the credit problem}
+
+Conventional credit scoring ties a credit history to a legal entity. On a public blockchain the basic unit of analysis is instead an address. It may be an externally owned account controlled by a private key or a contract governed by its code, and it may stand for a legal entity, a trust, an algorithmic agent or a protocol. One entity can own several addresses \parencite{douceur2002sybil}, and statistical clustering can recover ownership only in part \parencite{victor2020clustering}. On-chain lending therefore requires borrowers to post collateral worth more than the amount they borrow; if the collateral value falls below a set threshold, a liquidator may repay part of the debt and receive the corresponding collateral at a discount \parencite{bartoletti2021lending}. The arrangement is secure, but it ties up capital. An on-chain credit score tries to quantify from on-chain behavior alone how likely an actor is to repay. Such scores draw on prospect theory \parencite{hassija2020lending}, on machine learning applied to lending data \parencite{kotb2023credit}, and on models of credit risk spreading through account networks \parencite{lin2025riskprop}. More recent work predicts liquidations from DeFi transaction features gathered on several chains \parencite{palaiokrassas2024credit}, and a credit score for DeFi lending combines account-level financial features with relational features from a weighted transaction graph \parencite{m2026hurdle}.
+
+All of these scores rank borrowers. A contract does not borrow, but the same lack of identity arises when an owner decides whether to let a contract spend its tokens. The contract's code is public, while who deployed it, who can change it and how it will use the allowance may not be. A reputation score for contracts asks what the on-chain record of other owners' decisions says about a given contract.
+
+\dissertationSubheading[sec:ethereum-l2]{Ethereum, Layer-2 rollups, and Arbitrum One}
+
+Most DeFi applications have been deployed on the Ethereum mainnet, historically the main venue for DeFi innovation and liquidity, but growing adoption there has raised gas costs and constrained throughput \parencite{gervais2016pow}. Layer-2 (L2) protocols try to keep Ethereum's security guarantees while making transactions cheaper. Some execute transactions off-chain, while others batch them and post a succinct summary of the execution to the Ethereum mainnet \parencite{gudgeon2020layertwo}. \textcite{thibault2022rollups} organize L2 scaling approaches into a taxonomy. Optimistic L2s such as Arbitrum treat each submitted batch of transactions as valid unless evidence against it is presented within a dispute period \parencite{kalodner2018arbitrum}.
+
+Arbitrum One is an optimistic L2 of this kind and can execute EVM-based smart contracts. It has become a popular platform for DeFi applications, among them \textcite{gmxnddocs}, an exchange for perpetual swaps. Contracts on Arbitrum do not simply behave as they would on Ethereum mainnet: a study of contracts migrated from Ethereum to Arbitrum traces their security risks to differences in cross-chain messaging, block properties, contract address aliasing and gas fees \parencite{tang2024arbitrum}. We use Arbitrum One because the public BigQuery dataset includes both its ERC-20 \texttt{Approval} and \texttt{Transfer} events, and because its fees are low enough that the observation window contains dense activity around the contracts studied. We make no claim that our results generalize to other L2s or to Ethereum mainnet without further validation. We do believe, however, that the framework (approval and transfer graphs, construct checks, and rank correlation) applies to any chain that emits the same logs.
+
+\dissertationSubheading[sec:erc20-allowance-lifecycle]{ERC-20 tokens and the allowance lifecycle}
+
+The ERC-20 standard defines a common interface for fungible tokens, made up of \texttt{transfer}, \texttt{approve}, \texttt{transferFrom}, \texttt{allowance} and the associated events \parencite{vogelsteller2015erc20}. After the owner calls \texttt{approve(spender, amount)}, the token contract records that the spender may move up to \texttt{amount} out of the owner's balance. The spender can then call \texttt{transferFrom} to carry out a token transfer. With EIP-2612 \texttt{permit}, an allowance can be updated through an off-chain signature that settles in a single transaction \parencite{lundfall2020permit}. The user experience improves, and the underlying semantics of authorization are unchanged. The owner is whichever account grants the allowance, an EOA or a contract, and the spender can be any address; in this thesis the spenders that are scored are contracts.
+
+Figure~\ref{fig:allowance-sequence} traces an ERC-20 allowance through its lifecycle. An allowance is an authorization and involves no actual transfer. Token owners can grant allowances to routers, vaults, aggregators, lending pools or trading contracts that they trust to act within set limits. Revoking (approving zero) and updating (setting a new non-zero allowance) both change the allowance currently in force. EndorseRank accounts for this by building each owner--spender edge from the most recent allowance on each token, so a newer allowance replaces the previous one outright; old values are not averaged in or left to decay gradually.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  actor/.style={draw, rounded corners, minimum width=2.4cm, minimum height=0.75cm, align=center},
+  msg/.style={-{Stealth[length=2.5mm]}, thick},
+  note/.style={font=\scriptsize\itshape, text=black!70, align=left}
+]
+% Actors
+\node[actor] (owner) at (0,0) {Owner};
+\node[actor] (token) at (5.5,0) {ERC-20 token};
+\node[actor] (spender) at (11,0) {Spender};
+
+% Lifelines (vertical dashed lines)
+\draw[dashed, gray] (owner.south) -- ++(0,-6.6);
+\draw[dashed, gray] (token.south) -- ++(0,-6.6);
+\draw[dashed, gray] (spender.south) -- ++(0,-6.6);
+
+% Message 1: approve (owner -> token), horizontal span 5.5cm
+\draw[msg] (0,-1.2) -- node[above,font=\scriptsize] {\texttt{approve(spender,$a$)}} (5.5,-1.2);
+\node[note] at (2.75,-1.7) {emit \texttt{Approval}; store allowance};
+
+% Alternative to message 1: EIP-2612 permit, submitted by the spender (or a relayer) with the owner's signature
+\draw[msg, densely dotted] (11,-2.6) -- node[above,font=\scriptsize] {\texttt{permit(owner,spender,$a$,sig)}} (5.5,-2.6);
+\node[note] at (8.25,-3.1) {alternative to \texttt{approve}: owner signs off-chain;\\ emit \texttt{Approval}; store allowance};
+
+% Message 2: transferFrom (spender -> token), horizontal span 5.5cm
+\draw[msg] (11,-4.2) -- node[above,font=\scriptsize] {\texttt{transferFrom(owner,to,$v\leq a$)}} (5.5,-4.2);
+\node[note] at (8.25,-4.7) {move tokens; reduce allowance};
+
+% Message 3: revoke (owner -> token), dashed
+\draw[msg, dashed] (0,-5.8) -- node[above,font=\scriptsize] {\texttt{approve(spender,$0$)} (revoke)} (5.5,-5.8);
+\end{tikzpicture}
+\caption[{ERC-20 allowance lifecycle: approve (or permit), optional \texttt{transferFrom}, and revoke. An EndorseRank edge sums, over tokens, the latest in-window approval of its owner--spender pair, weighted by its age and amount.}]{ERC-20 allowance lifecycle: \texttt{approve}, or its signature-based alternative \texttt{permit} (dotted), an optional \texttt{transferFrom}, and revoke. An EndorseRank edge sums, over tokens, one term for the most recent \texttt{Approval} event of its owner--spender pair in the observation window, and the term weights that approval by its age and amount as AWP weights a transfer. A later approval replaces an earlier one.}
+\label{fig:allowance-sequence}
+\end{figure}
+
+Allowances are sparse compared with transfers. A single approval can cover many transfers, and many accounts never grant an approval to any other address. The sparsity lowers the cost of a PageRank solve, as a consequence of the edge count (Section~\ref{sub:power-iteration}), and it also marks a semantic difference, since EndorseRank quantifies authorization to spend whereas a transfer graph records payment flows.
+
+\dissertationSubheading[sec:graph-reputation]{Graph-based on-chain reputation}
+
+PageRank and its variants rank nodes by the influence that flows to them along directed edges \parencite{page1999pagerank}. Two recent studies apply this approach to blockchain transaction graphs, and the two should be distinguished. \textcite{do2023hodgerank} run PageRank and HodgeRank on Ethereum transaction graphs to measure social credit; their main contribution is a definition of connectivity between accounts for credit scoring. \textcite{do2023awp} propose Adaptive Weighted PageRank (AWP), the transfer-graph method that this thesis evaluates beside EndorseRank on the same contracts (Section~\ref{sec:awp-in-depth}). \textcite{lin2025riskprop} argue that transaction connectivity can miss risk-relevant structure unless risk is propagated through the network, and \textcite{wu2022phishers} reach a similar conclusion for phishing detection, where network embeddings of transaction graphs outperform per-account features. Random walks have also been used to detect scam behavior on Ethereum from a graph of interactions between addresses \parencite{yan2023aparecium}, and a graph convolutional network labels the business role of Ethereum accounts from their features and their position in the transaction network \parencite{lin2024whoiswho}. Surveys of blockchain-based reputation systems \parencite{bellini2020trust} and of smart-contract reputation designs \parencite{almasoud2020reputation} find that most deployments still take explicit ratings or transfer volume as their trust signal, and a survey of knowledge discovery in cryptocurrency transaction data \parencite{liu2021knowledge} names degree- and value-based centralities as the main descriptors of addresses. \textcite{packin2024credit} stress that such systems must be auditable even though their users are pseudonymous.
+
+Outside the research literature, trust in deployed DeFi and web3 systems is usually established another way. An address builds standing through activity that anyone can inspect on the ledger, and tooling bound to the address summarizes it. The most widely used tool is documented by \textcite{humanpassportnddocs}, formerly Gitcoin Passport. It collects verifiable credentials, called stamps, for checks such as government identity, biometrics, vouching and earlier web2 and web3 activity. Each stamp carries a weight that reflects how hard it is to forge, and an address passes when the weighted sum reaches a threshold. According to the same documentation, Passport also classifies EVM addresses on several networks, Arbitrum among them, as human or Sybil from their on-chain activity. Its purpose is Sybil resistance, so it combines on-chain with off-chain evidence and works as a gate and not as a graded ordering. A review of proof-of-personhood protocols finds that they trade Sybil resistance against self-sovereignty and privacy \parencite{siddarth2020watchmen}, and a recent security review names credential farming, the bulk acquisition of cheap stamps, as the main residual weakness of Passport \parencite{bordeianu2026sybil}.
+
+Such tools answer whether an address is controlled by a distinct person. That is a question about the holder of a key, and it has no direct counterpart for a contract, whose behavior is fixed by its code and by whoever may upgrade it. Trust in a contract is formed in other ways. An owner usually decides whether to trust a spender contract at the moment its wallet software presents the approval for signature, and approval phishing exploits that moment (Section~\ref{sec:approval-security}); code analysis judges the contract by its functions (Section~\ref{sec:defi-risk-taxonomy}). EndorseRank answers a different question at the level of the contract: which contracts other addresses authorize to spend their tokens, and how strongly those addresses are endorsed in turn. It orders the contracts from on-chain records alone and certifies nothing about the people behind them (Table~\ref{tab:method-comparison-lit}).
+
+Graph-based methods are attractive because they (i) use only public information, (ii) produce continuous scores that suit ranking, and (iii) admit complexity analysis by number of edges. They are, however, vulnerable to Sybil attacks \parencite{douceur2002sybil} and wash trading, and graph centrality is neither the safety of a contract nor the default risk of an account; PageRank scores are not credit scores in the regulatory sense, and they are not security ratings (Section~\ref{sub:gf-pr}).
+
+A propagated score must also beat a simpler one. Where degree correlations are weak, as on the Web graph, PageRank is on average proportional to in-degree and can be approximated from it \parencite{fortunato2008indegree}. New links concentrate on nodes that already have many, as preferential attachment assumes \parencite{barabasi1999scaling} and measured network growth shows \parencite{newman2001clustering}, so link prediction, on Ethereum transaction networks too \parencite{lin2022tracking}, uses degree-based predictors as standard baselines \parencite{libennowell2007link}.
+
+\dissertationSubheading[sec:pagerank-formalism]{PageRank formalism}
+
+Consider a directed graph $G=(V,E)$ with $|V|$ nodes, and write $w_{ij}>0$ for the weight of the edge from $i$ to $j$. That weight stands for influence from $i$ to $j$, in either the endorsement or the transfer sense introduced above. Let $W$ be the corresponding weighted adjacency matrix, and let $o_i=\sum_j w_{ij}$ be the out-strength of node $i$. The row-stochastic transition matrix $P$ is then
+\begin{equation}
+P_{ij} =
+\begin{cases}
+w_{ij}/o_i & \text{if } o_i>0,\\
+1/|V| & \text{if } o_i=0
+\end{cases}
+\label{eq:transition}
+\end{equation}
+(dangling nodes spread their mass evenly). Given a damping parameter $d\in(0,1)$, the Google matrix is
+\begin{equation}
+G_{\mathrm{PR}} = d\, P^{\top} + \frac{1-d}{|V|}\,\mathbf{1}\mathbf{1}^{\top},
+\label{eq:google-matrix}
+\end{equation}
+and the PageRank vector $\mathbf{r}$ satisfies $\mathbf{r}=G_{\mathrm{PR}}\mathbf{r}$ with $\mathbf{r}\geq 0$ and $\sum_i r_i=1$ \parencite{page1999pagerank,langville2006pagerank}. Element by element, with the dangling rows of $P$ written as a separate middle term, this becomes
+\begin{equation}
+r_j = d\sum_{i:(i\to j)\in E} r_i \frac{w_{ij}}{o_i} + \frac{d}{|V|}\sum_{i:\,o_i=0} r_i + \frac{1-d}{|V|}.
+\label{eq:pagerank-node}
+\end{equation}
+
+\dissertationSubsubheading[sub:random-surfer]{Random-surfer interpretation}
+
+Equation~\eqref{eq:pagerank-node} can be read probabilistically. At each step a surfer at a node with out-edges follows one of them with probability $d$, choosing it in proportion to its weight, or teleports to a uniformly chosen node with probability $1-d$ (Figure~\ref{fig:random-surfer}). At a node without out-edges the surfer always jumps to a uniformly chosen node; this is the dangling rule of Equation~\eqref{eq:transition}. The stationary distribution then ranks nodes by how often they are visited in the long run. Damping keeps rank sinks (groups of nodes with no edge leaving them) from absorbing all the mass. With $d<1$ and uniform teleportation, every entry of $G_{\mathrm{PR}}$ is positive, so $G_{\mathrm{PR}}$ is primitive and its Perron vector is unique \parencite{langville2006pagerank}. Appendix~\ref{sec:pr-existence} gives the argument.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  vertex/.style={draw, circle, minimum size=0.95cm},
+  arrow/.style={-{Stealth[length=2.5mm]}, thick},
+  teleport/.style={arrow, dashed}
+]
+\node[vertex] (a) at (0,0) {$A$};
+\node[vertex] (b) at (3.2,1.5) {$B$};
+\node[vertex] (c) at (3.2,-1.5) {$C$};
+\node[vertex] (d) at (6.4,0) {$D$};
+% Graph transitions: A->B, A->C, B->D, C->D (same topology as the worked example; D is dangling)
+\draw[arrow] (a) -- node[above left, font=\footnotesize] {$2$} (b);
+\draw[arrow] (a) -- node[below left, font=\footnotesize] {$1$} (c);
+\draw[arrow] (b) -- node[below left=-1pt, font=\footnotesize] {$3$} (d);
+\draw[arrow] (c) -- node[above left=-1pt, font=\footnotesize] {$1$} (d);
+% Uniform teleportation, drawn from D only: one dashed arrow to every node, including D itself.
+% D->A runs through the gap between B and C, and D->B / D->C bend outward, so no dashed arrow crosses a solid edge.
+\draw[teleport] (d) -- (a);
+\draw[teleport] (d) to[bend right=32] (b);
+\draw[teleport] (d) to[bend left=32] (c);
+\draw[teleport] (d) to[loop right, min distance=12mm] (d);
+\end{tikzpicture}
+\caption[{Random-surfer intuition for PageRank on the four-node graph of Section~\ref{sec:pagerank-worked-example}. Solid arrows are graph transitions, followed with total probability $d$. Dashed arrows are uniform teleportation, probability $(1-d)/n$ to every node including the current one; the dashed fan is drawn from $D$ only but leaves every node.}]{Random-surfer intuition for PageRank on the four-node graph of Section~\ref{sec:pagerank-worked-example}; edge labels are the allowance weights. Solid arrows are graph transitions: with total probability $d$ the surfer follows one of them, chosen in proportion to its weight. Dashed arrows show uniform teleportation, which reaches every node (the current one included) with probability $(1-d)/|V|$; the dashed fan is drawn only from $D$, although every node has one. $D$ has no outgoing edge, so under the dangling rule of Equation~\eqref{eq:transition} a surfer at $D$ always jumps to a uniformly chosen node, each with probability $1/|V|=0.25$. That rule, and not damping, keeps $D$ from absorbing the chain.}
+\label{fig:random-surfer}
+\end{figure}
+
+\dissertationSubsubheading[sub:power-iteration]{Power iteration and complexity}
+
+In practice, $\mathbf{r}$ is usually obtained by power iteration from the uniform vector $\mathbf{r}^{(0)}=\mathbf{1}/|V|$,
+\begin{equation}
+\mathbf{r}^{(t+1)} = G_{\mathrm{PR}}\mathbf{r}^{(t)},
+\label{eq:power-iteration}
+\end{equation}
+until $\|\mathbf{r}^{(t+1)}-\mathbf{r}^{(t)}\|_1 < \varepsilon$ or until the iteration cap $I_{\max}$ is reached. On a sparse graph, each iteration costs $O(|E|)$ arithmetic operations \parencite{leskovec2020mining}. A method that generates fewer edges, for instance by using latest-allowance snapshots instead of full transfer histories, therefore lowers the cost per iteration and sometimes the memory required. Hypothesis H3 is motivated by this complexity fact.
+
+By default this work sets damping to the conventional $d=0.85$ \parencite{page1999pagerank} and uses two study-specific solver settings, a convergence tolerance $\varepsilon=10^{-8}$ and a maximum of $I_{\max}=300$ iterations.\footnote{The tolerance and the iteration cap were chosen to keep run-times reproducible; they are not put forward as part of the classical PageRank formulation.} Damping is varied over $d\in\{0.75,0.85,0.95\}$ in the robustness checks of Chapter~\ref{ch:results}.
+
+\dissertationSubheading[sec:reputation-systems]{Reputation systems lineage}
+
+PageRank belongs to a wider family of spectral and propagation-based reputation mechanisms. The HITS algorithm of \textcite{kleinberg1999hits} assigns each page two scores, one as a hub and one as an authority. EigenTrust extends the idea to peer-to-peer networks and normalizes local trust, so a malicious node cannot raise its own score at will \parencite{kamvar2003eigentrust}. To suppress web spam, TrustRank starts from a seed set of trusted nodes and propagates their trust outward \parencite{gyongyi2004trustrank}. Reputation is relational in all of these methods. Where trust flows only from a vetted seed set, as in TrustRank, a newcomer cannot raise its score without endorsements from nodes that already hold reputation. With uniform teleportation, which EndorseRank uses (Section~\ref{sub:endorserank-graph}), that protection is weaker. \textcite{gyongyi2005alliances} derive the link farms and farm alliances that most raise a target's PageRank, and \textcite{cheng2005sybilproof} show that symmetric reputation functions such as PageRank can be manipulated with Sybils, whereas some asymmetric functions based on flows or paths from a trusted node resist them. The Sybil cost model of Section~\ref{sec:sybil-cost-model} prices such a farm on an allowance graph.
+
+On-chain, the Sybil attack is still the main concern \parencite{douceur2002sybil}. New addresses cost little to create, whereas addresses that receive allowances or transfers from distinct counterparties cost more. For a spender contract the cheap route is plain: whoever deploys it can create owner addresses and have each of them approve it, paying only gas. Coordinated multi-address behavior does leave traces in the transaction graph. Graph learning on NFT transactions identifies airdrop hunters who amass many addresses \parencite{zhou2024artemis}, and features of each address's transaction subgraph, among them the timing of its first transaction and of its first gas funding, separate Sybil addresses in token airdrops \parencite{liu2025sybil}. The Sybil-adjusted stability proxies used in this work (inbound counterparty ratio, tenure, active months) partly capture that diversity of interaction, but they do not prevent a malicious actor from manipulating them, and no Sybil detector is applied here.
+
+Machine-learning credit models that use DeFi features \parencite{kotb2023credit} are trained to predict labeled defaults, and they give up interpretability to do so. EndorseRank and AWP keep to interpretable, audit-friendly propagation rules \parencite{packin2024credit}.
+
+\dissertationSubheading[sec:allowance-endorsement]{ERC-20 allowances as endorsement}
+
+Through the ERC-20 \texttt{approve} function \parencite{vogelsteller2015erc20} and EIP-2612 \texttt{permit} \parencite{lundfall2020permit}, owners state explicitly how much a spender may move on their behalf. EndorseRank takes the latest allowance from an owner to a spender on each token as one endorsement, weights it as AWP weights a transfer, and runs PageRank on the resulting directed graph. Newer approvals supersede older ones, so each pair and token contributes a single event. The endorsed node is the spender contract, and the endorsing node is the owner, which may be an EOA or another contract.
+
+Concretely, for each owner--spender pair the latest in-window approval on each token contributes its time weight times its bounded value weight, as AWP weights a transfer; a pair whose latest value is zero (a revocation) is dropped, and the terms are summed over tokens (Equation~\eqref{eq:approve-weight} in Section~\ref{sub:endorserank-graph}). The resulting graph $G_{\text{approve}}$ is usually much sparser than the transfer graph over the same contracts and window, and PageRank on it yields the EndorseRank scores $\mathbf{s}_{\mathrm{ER}}$ of the cohort contracts.
+
+Treating allowances as endorsements is a deliberate choice, and an imprecise one. Owners approve routers because it is convenient, not necessarily to make a social statement about whether the router is trustworthy. Contract addresses and EOAs coexist on the owner side as well. A contract that approves another contract does so because its code says so, and the approval records a decision its developers made in advance, not a judgement made when the event was emitted. Even so, an allowance signals approval more explicitly than a received transfer, which could come from market making, wash trading \parencite{cong2023washtrading}, airdrop farming \parencite{luo2025airdrop} or routing without any intent to endorse.
+
+Approvals have been read as a relation between addresses before: the self-authorization heuristic of \textcite{victor2020clustering} uses ERC-20 approvals to cluster addresses that it attributes to one entity. That reading links addresses and ranks nothing. It is also a caution, since an approval between two addresses of one entity is a self-endorsement, the edge that the Sybil cost model of Section~\ref{sec:sybil-cost-model} prices at gas alone.
+
+\dissertationSubheading[sub:gf-pr]{What this research does not claim}
+
+This thesis ranks contracts by how other addresses relate to them on chain, and its claims stop at that ordering. No score is offered as a predictor of credit default or of any borrower's repayment, and no score is tested against loan defaults. No score is a security audit: a contract can contain malicious functions \parencite{lin2024crpwarner} whatever its standing among owners, and the scores read neither code nor upgrade permissions. No score measures trading success. Where GMX~V2 trader contracts enter the evaluation (Section~\ref{sub:fresh-holdout}), their outcomes serve as out-of-window labels, not as a target that any score was built to predict. Agreement of a score with checks built from its own edges is an intended-construct check \parencite{cronbach1955construct}, so part of it is built in, and the holdout coefficients are associations over time. None of the results supports a causal claim, for instance that approvals make a contract safer or that a high score brings a contract later approvals.
+
+\dissertationSubheading[sec:rank-correlation-theory]{Rank correlation theory}
+
+Reputation scores and the proxies they are checked against are both continuous variables, and neither has a natural boundary for classification. Following the evaluation design of AWP \parencite{do2023awp} and classical psychometrics \parencite{cronbach1955construct}, this research measures two kinds of rank agreement, monotonic and pairwise. Bootstrap confidence intervals quantify the sampling uncertainty of every reported coefficient \parencite{efron1979bootstrap}.
+
+Spearman's rank correlation \parencite{spearman1904proof} is the Pearson correlation of the ranks. For paired ranks $(R_i,S_i)$ of $n$ items without ties, it reduces to
+\begin{equation}
+\rho = 1 - \frac{6\sum_{i=1}^n (R_i-S_i)^2}{n(n^2-1)}.
+\label{eq:spearman}
+\end{equation}
+This no-ties form does not hold when ties occur. Spearman's $\rho$ is then the Pearson correlation of average ranks (mid-ranks), in which tied items share the mean of the positions they occupy, and every reported $\rho$ is computed this way. In both forms $\rho$ measures monotonic association.
+
+Kendall's $\tau$ \parencite{kendall1938rank} rests on counts of concordant and discordant pairs. Of the $n_0=n(n-1)/2$ pairs $(i,j)$ with $i<j$, $n_c$ are concordant (both rankings order them the same way) and $n_d$ are discordant (the rankings order them oppositely); a pair tied in either ranking is neither. Let $n_1=\sum_k t_k(t_k-1)/2$, where $t_k$ is the size of the $k$-th group of tied values in the first ranking, and define $n_2$ in the same way for the second ranking. The $\tau$-b variant is then
+\begin{equation}
+\tau_b = \frac{n_c - n_d}{\sqrt{(n_0-n_1)(n_0-n_2)}},
+\label{eq:kendall}
+\end{equation}
+and without the tie corrections it becomes $\tau_a=(n_c-n_d)/n_0$. Every $\tau$ reported in this thesis is $\tau_b$, computed on the raw scores and proxies. The difference matters for heavily tied scores, such as the raw degrees, which are integer counts, and any PageRank that gives many contracts the same value (Section~\ref{sec:rank-divergence}). For agreement about pairwise orderings, Kendall's $\tau$ is usually the easier coefficient to interpret, and Chapter~\ref{ch:results} uses it as the main family-level summary. Its values are compared with those of other methods on the same cohort; no uncited absolute benchmark is used.
+
+\dissertationSubheading[sec:theoretical-framework]{Theoretical framework}
+
+This study compares EndorseRank and AWP on reputation structure (H1), construct alignment (H2) and computational efficiency (H3), and then on prediction out of window (RQ4) and on coupling the two layers (RQ5). Three bodies of theory frame the first part: hyperlink--citation propagation, construct (domain) alignment, and computational complexity. Two further arguments bear on the second part.
+
+\begin{itemize}
+\item Hyperlink--citation semantics: In the original PageRank algorithm \parencite{page1999pagerank}, an inbound hyperlink counts as a citation. \textcite{do2023hodgerank} apply this reasoning to Ethereum transfers, and AWP \parencite{do2023awp} weights each transfer edge by the age and the value of its transfers, through a logistic decay in age and a bounded transform of value (Section~\ref{sub:awp-graph}). EndorseRank extends citation-based propagation to ERC-20 approve and permit edges, in which the cited node is a spender contract and the citing nodes are the owners that approve it. An allowance is an explicit, on-chain delegation of spending authority that remains in force until it is revoked or replaced \parencite{vogelsteller2015erc20}, whereas a transfer may reflect trading or routing without any intent to trust. Graph-based risk models \parencite{lin2025riskprop} show that network structure can carry information beyond raw activity counts, which argues for a directed endorsement graph alongside transfer volume.
+
+\item Domain alignment framework: Measurement theory uses construct alignment to ask how closely an indicator follows the construct it is meant to track \parencite{cronbach1955construct}. \textcite{messick1995validity} widens the idea into one unified judgment about what a score means and what using it implies. With rank-based reputation scores, Spearman's $\rho$ and Kendall's $\tau$ measure monotonic and pairwise agreement in ordering and need no classification threshold, as in the AWP validation protocol \parencite{do2023awp}. Graph coherence is checked with contemporaneous transfer and allowance statistics of each contract. The out-of-window checks are temporal holdouts: new approval pairs and new transfer senders for spender contracts, and, in the registered window, an outcome label for the contracts that trade on GMX~V2 (Section~\ref{sub:fresh-holdout}).
+
+\item Computational complexity: Each PageRank iteration costs $O(|E|)$ \parencite{page1999pagerank}. Allowance graphs are sparser than transfer graphs, with fewer edges $|E|$, so an iteration needs less time and memory, and in practice convergence often takes fewer iterations too. This argument underlies H3. Both methods use the same solver, so any difference in runtime is an expected effect of edge sparsity and does not count as an algorithmic contribution.
+
+\item Local counts as a baseline: Where contracts that already have many counterparties gain the most new ones (Section~\ref{sec:graph-reputation}), the raw degree is a strong predictor of future arrivals, and a propagated score can beat it only when who the endorsers are matters more than how many. RQ4 therefore sets each PageRank against its own raw degree at the freeze date.
+
+\item Layer coupling: Multiplex PageRank \parencite{halu2013multiplex} and multilayer ranking \parencite{dedomenico2015ranking} treat several relations as layers over one node set. Mixing the layers node by node, as C-PR does, leaves a question open for layers of very different density: a node with no edge in the sparse layer follows the dense one, so the signal of the sparse layer may or may not survive. RQ5 therefore asks two things: whether the mixture improves on the transfer walk, and whether it beats both layers.
+\end{itemize}
+
+The conceptual model in Figure~\ref{fig:conceptual-model} links the scores of the thesis to H1--H3 and RQ1--RQ4. RQ5 is the dashed box on the right. It takes input from H2/RQ2 and from RQ4 and asks whether the two constructs combine.
+
+\begin{figure}[htbp]
+\centering
+\input{Figures/conceptual-model.tex}
+\caption[{Conceptual model: the allowance and transfer scores mapped to reputation structure (H1/RQ1), construct checks (H2/RQ2), computational cost (H3/RQ3), and the temporal holdout of future new approvals and senders against the raw degrees (RQ4).}]{Conceptual model linking the allowance and transfer scores of one contract cohort to reputation structure (H1/RQ1), construct checks (H2/RQ2), computational cost (H3/RQ3) and the temporal holdout, in which each PageRank is set against the raw degree it smooths (RQ4). The dashed box on the right is RQ5, the coupled operator C-PR.}
+\label{fig:conceptual-model}
+\end{figure}
+
+Only EndorseRank and AWP enter H1. H2/RQ2 and H3/RQ3 concern every score, and RQ4 is a time-split test on the spender contracts, with the raw degrees at the freeze as its baselines; trader outcomes enter only in the registered window (Section~\ref{sub:fresh-holdout}).
+
+\dissertationSubheading[sub:terminology]{Terminology}
+
+The formal constructs are defined in Chapter~\ref{ch:introduction}. The terms below are used when results are interpreted:
+
+\begin{itemize}
+\item Single-layer methods: EndorseRank (allowance graph) and AWP (transfer graph), the two PageRank scores that walk on one edge type. The coupled walks of Section~\ref{sub:coupled-graph} and the raw degrees are evaluated beside them.
+\item Primary graph construct: the graph that a method is \emph{designed} to rank, for example $G_{\text{approve}}$ for EndorseRank, as distinct from the checks applied after scoring.
+\item Contemporaneous check: a local transfer or allowance statistic taken from the same window as the score \parencite{cronbach1955construct}.
+\item Temporal holdout: scores are frozen at $t_1$, and new owner--spender approval pairs and new transfer senders are counted from $t_1$ up to $t_2$ (Section~\ref{sec:holdout-protocol}); a registered second window repeats the design with a later freeze and labels counted after the observation window ends (Section~\ref{sub:fresh-holdout}).
+\item Matched contract cohort, spender holdout cohort, trader cohort and benchmark subsamples: the address sets of Section~\ref{sub:cohorts}. Every scored and evaluated address in them is a contract; EOAs enter the graphs only as owners, senders and recipients.
+\end{itemize}
+
+\dissertationSubheading[sec:domain-alignment-metrics]{Domain alignment metrics}
+
+Construct alignment is measured by Spearman's $\rho$ and Kendall's $\tau$ between scores and check rankings (Section~\ref{sec:theoretical-framework}), on contemporaneous transfer and allowance checks and on the holdout labels; Chapter~\ref{ch:methodology} gives the operational definitions. The literature reviewed so far thus supports three design choices: PageRank as an interpretable propagation backbone, allowances as endorsement edges separate from transfers, and a check design based on rank correlation plus a time split.
+
+\dissertationSubheading[sec:pagerank-worked-example]{Worked example: PageRank on a four-node endorsement graph}
+
+Take four addresses $\{A,B,C,D\}$ joined by the latest-allowance edges
+\[
+A\to B\ (2),\quad A\to C\ (1),\quad B\to D\ (3),\quad C\to D\ (1),
+\]
+with damping $d=0.85$. One reading is that $A$ is an owner's EOA, $B$ and $C$ are two vault contracts that $A$ has approved, and $D$ is a lending pool that both vaults approve in turn so that it can pull the tokens they supply. The out-strengths are $o_A=3$, $o_B=3$, $o_C=1$ and $o_D=0$ (the last is dangling). The edges $B\to D$ and $C\to D$ are the only out-edges of their nodes, so each is followed with probability one and its weight has no effect on the scores. Teleportation adds $(1-d)/4=0.0375$ to every node at every step, the first one included. One power-iteration step from the uniform vector $\mathbf{r}^{(0)}=\mathbf{1}/4$ gives $\mathbf{r}^{(1)}=(0.0906,\,0.2323,\,0.1615,\,0.5156)$ for $(A,B,C,D)$. The mass already tilts toward $D$, since both $B$ and $C$ endorse $D$, while $A$ splits its mass between $B$ and $C$. The iteration converges to the stationary vector $\mathbf{r}=(0.1375,\,0.2154,\,0.1765,\,0.4706)$, so $D$ comes first, $B$ and $C$ follow, and $A$ is last. No address endorses $A$. Apart from teleportation, its whole score comes from the dangling rule, which spreads $D$'s mass evenly over the four nodes ($d\,r_D/4=0.1000$). The example shows that a node gains score by \emph{receiving} endorsements from nodes that are endorsed in turn, which is precisely the citation logic of PageRank \parencite{page1999pagerank,langville2006pagerank}.
+
+Suppose the same addresses were linked by transfers instead of allowances. The transfers would in general join other pairs, or the same pairs with other per-pair totals. That gives another transition matrix $P$, and possibly a different ranking of exactly the same nodes. Hypothesis H1 is this situation in miniature: EndorseRank and AWP need not agree.
+
+\dissertationSubheading[sec:defi-risk-taxonomy]{DeFi risk taxonomy and where reputation fits}
+
+\textcite{werner2022sok} classify DeFi risk by protocol layer; \textcite{zhou2023sok} group it by the kinds of attack seen in practice. Bugs in contract code and misconfigured upgrade keys are smart-contract risks \parencite{li2022defisecurity}. Token contracts add risks of their own: customizations that break the ERC-20 standard put the DeFi applications that handle those tokens at financial risk, and a large-scale study of Ethereum token contracts finds such behaviors in most of the contracts it examines \parencite{li2026erc20risk}. Some contracts are hostile by design. In a contract-related rug pull the developers abandon a token project and take investors' funds through malicious functions written into the contract, and code analysis can flag such functions \parencite{lin2024crpwarner}. On rollups, risk also arises between layers: a systematization of rollup security separates architectural risks, such as sequencing and data availability, from risks in how applications integrate with the rollup, such as cross-domain messaging \parencite{efimov2026rollup}. A stale price, or a feed under someone's control, is an oracle risk \parencite{angeris2020oracles}. Market risks \parencite{perez2021liquidations} cover volatility and liquidation cascades, including stress in stablecoin and funding markets \parencite{klagesmundt2020stablecoins}, and the market crash of March 2020 showed how these two layers can interact \parencite{gudgeon2020crisis}. Token-weighted voting, which can be modeled, falls under governance risk \parencite{carter2021defi}. We study a narrower layer, \emph{counterparty} or \emph{behavioral} risk, at the level of the contract: whether the approvals and transfers a contract has received mark it as a counterparty that owners trust to spend their tokens.
+
+On-chain reputation scores cover only part of the behavioral risk layer and are no substitute for collateral, auditing, or oracle design. Their purpose is to compress a system's relational structure (who authorizes whom, who pays whom) into an ordinal measure that can be audited and reproduced with little effort \parencite{packin2024credit}. Within behavioral risk, EndorseRank looks at authorization and AWP at payment flows. Neither tries to predict exploits, rug pulls, phishing or governance attacks.
+
+Finally, fake activity makes behavioral risk harder to measure. Wash trading inflates volume on decentralized exchanges \parencite{victor2021washtrading} and, on a larger scale, on unregulated centralized exchanges \parencite{cong2023washtrading}. Front-running and related forms of extractable value create transfers that follow ordering strategies instead of relationships \parencite{daian2020flashboys}; \textcite{qin2022bev} estimate how much of that value is captured on Ethereum. Scam tokens on Uniswap \parencite{xia2021scamtokens} and cross-exchange arbitrage trades \parencite{makarov2020arbitrage} likewise add transactions without forming sustained relationships. The transfer graph is particularly sensitive to fake volume, while the allowance graph is vulnerable to approval farming and to approvals obtained by phishing (Section~\ref{sec:approval-security}). Time-based splits and Sybil detection solve the problem only in part.
+
+\dissertationSubheading[sec:related-measurement]{Related measurement traditions}
+
+Outside blockchains, reputation systems have been studied in e-commerce \parencite{resnick2002trust}, in peer-to-peer networks \parencite{kamvar2003eigentrust}, and in work on web spam \parencite{gyongyi2004trustrank}. Four insights from this work apply here: (i) reputation is a property of relations; (ii) when identities are easy to create, Sybil attacks become possible \parencite{douceur2002sybil}; (iii) seeding and normalization limit the effect of inflation; and (iv) evaluation needs external benchmarks, because internal coherence alone is not enough \parencite{cronbach1955construct}. EndorseRank takes up (i) directly and treats (ii) as a threat. It does not take up (iii), since it restarts uniformly (Section~\ref{sec:reputation-systems}). On (iv) it goes part of the way: the contemporaneous checks, measured by Spearman's $\rho$ \parencite{spearman1904proof} and Kendall's $\tau$ \parencite{kendall1938rank}, test coherence, while the temporal holdouts test prediction out of window, on the same constructs for spender contracts and, in the registered window, on an outcome label for trader contracts.
+
+Personalized PageRank \parencite{jeh2003personalized} and topic-sensitive PageRank \parencite{haveliwala2003topic} bias the teleportation vector toward a chosen group of nodes, the mechanism that TrustRank uses to turn a small seed set into a global ranking \parencite{gyongyi2004trustrank}; AWP's restarts in proportion to sending activity are another instance \parencite{do2023awp}. Multiplex PageRank lets a node's centrality on one layer shape the walk on another \parencite{halu2013multiplex}, and the multilayer framework of \textcite{dedomenico2015ranking} lets one walker move within and between the layers of an interconnected network. Both treat layers as different relations over one node set, which matches allowances and transfers among the same addresses. C-PR takes the simplest form of this idea, a per-node weighted sum of two transition matrices with one weight, and S-PR borrows the personalized-teleportation idea, with the allowance score as the teleportation vector (Section~\ref{sub:coupled-graph}).
+
+\dissertationSubheading[sec:account-model]{Accounts, gas, and why logs are the measurement surface}
+
+Ethereum has two kinds of account: externally owned accounts (EOAs) and contract accounts. A private key controls an EOA, whereas a contract account is governed by the code it stores \parencite{antonopoulos2018mastering}. The difference decides what a score can attach to. An EOA acts when its key holder signs, while a contract acts only as its code allows when another account calls it, so the reputation of a contract belongs to its code and to whoever controls that code, not to a person. In the ERC-20 transfer network the two kinds of account also behave differently: transfers that involve contracts, especially transfers between two contracts, show heavier-tailed and less stable statistical patterns than transfers between EOAs \parencite{mukhia2026erc20}. This thesis scores contracts only, and EOAs enter its graphs as owners, senders and recipients (Section~\ref{sub:cohorts}).
+
+Every state-changing transaction consumes gas. Logs come from a contract's \texttt{LOG} instructions, which run when its code emits an event (the Solidity \texttt{emit} statement); writing to storage produces no log. A reputation system that means to be auditable must prefer logs to off-chain databases, because logs are a permanent part of the blockchain history that any full node or index provider can recompute independently \parencite{narayanan2016bitcoin}.
+
+Gas prices also shape the graphs. Cheaper gas on L2 networks densifies $G_{\text{transfer}}$ more than $G_{\text{approve}}$, because transfers recur routinely while an approval is granted once so that later transfers can go through; Chapter~\ref{ch:results} reports the resulting graph sizes.
+
+\dissertationSubheading[sec:approval-security]{Approvals as security-relevant events}
+
+Unlimited approvals (\texttt{type(uint256).max}) save the owner from approving again, at a cost in safety. If the approved contract is compromised, or was malicious from the start, the owner's whole balance of that token can be taken until the owner resets the approval. An allowance is therefore a capability and not a record: whoever holds it can move the owner's tokens until it is spent or revoked \parencite{vogelsteller2015erc20}. EndorseRank interprets a token approval as endorsing one spender's capability to move those tokens. This is why an allowance does not mean the same thing as a transfer, even though both involve the movement of tokens. A contract could receive many transfers and never be granted permission to move funds on anyone else's behalf.
+
+\textcite{wang2022unlimited} find that unlimited approvals make up the majority of ERC-20 approvals on Ethereum and quantify the risk they carry. Unlimited approvals appear as amounts of $2^{256}-1\approx1.16\times10^{77}$ base units. EndorseRank's value weight counts them like any other approval, while in the raw allowance layer of C-PR an unlimited approval takes almost all of its owner's row whenever that owner also holds finite ones; Chapter~\ref{ch:results} reports how often this happens.
+
+The capability is what attackers seek. In transaction-based phishing, fake websites lead users to sign transactions that let scammers take their assets, and the first empirical study of the attack on Ethereum detected and reported more than 26,000 such websites in about eight months \parencite{he2023txphishscope}. A later study of payload-based phishing, in which malicious payloads manipulate the contract calls a user signs, sorts the tactics into four main categories and finds more than 130,000 phishing transactions on Ethereum over 300 days \parencite{chen2025payload}. Phishing of this kind is now sold as a service: operators build the toolkits, called wallet drainers, affiliates deploy the phishing websites, and the proceeds are split through profit-sharing contracts \parencite{he2025drainer}. Approval phishing also drives high-yield investment frauds that run across several blockchains, and an analysis of eighteen popular wallets finds that weaknesses in how wallet software presents and validates token approvals make these frauds easier \parencite{adamczyk2025approval}.
+
+These attacks bear on a contract-level score in two ways. An approval obtained by deception emits the same \texttt{Approval} event as an informed one, so a spender that collects approvals by phishing gains endorsement edges just as an honest router does. EndorseRank cannot tell the two apart from the event; only who the approving owners are, and how strongly they are endorsed in turn, can separate them. In the other direction, an owner asked to sign an approval has little on-chain evidence about the contract in front of it, and a score that summarizes which other owners have approved the same contract is one possible input to that decision. This thesis tests neither score as a phishing or drainer detector (Section~\ref{sub:gf-pr}).
+
+\dissertationSubheading[sec:awp-in-depth]{AWP in depth: what the transfer-graph baseline measures}
+
+Adaptive Weighted PageRank (AWP), proposed by \textcite{do2023awp}, ranks the addresses of a transaction graph. Each transaction adds to its edge a logistic function of its time multiplied by a bounded function of its value, so that no transaction adds more than one to the edge weight. The walk restarts at each address in proportion to its activeness, the sum over the addresses it has sent to of the time weight of its latest transaction to each. Ranking accuracy is then validated against inbound degree and inbound value, taken as proxies for the economic attention an address attracts. The form of the decay (Equation~\eqref{eq:logistic-decay}) and the in-degree/in-value proxies in Chapters~\ref{ch:methodology} and~\ref{ch:results} are taken from the AWP paper. The paper gives no parameter values; Section~\ref{sub:awp-graph} gives the values used here. The approach has the advantage of being entirely on-chain and rank-based, and it needs no off-chain identity of any kind. In this thesis AWP is applied to the same cohort contracts as EndorseRank, through the transfers they send and receive.
+
+EndorseRank keeps the same template, AWP's edge weights under PageRank plus a rank-correlation check, and changes what the edges mean. In Chapter~\ref{ch:results} we test, on the same contracts, whether allowance edges yield a score that is construct-distinct, allowance-aligned, and cheaper to compute on its smaller edge set, and whether scores taken at $t_1$ can predict new approvals by $t_2$.
+
+\dissertationSubheading[sec:method-comparison-table]{Comparison of graph reputation methods}
+
+Table~\ref{tab:method-comparison-lit} compares EndorseRank with the other approaches covered in this chapter by edge semantics, temporal model and validation design.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of selected graph reputation methods (conceptual).}
+\label{tab:method-comparison-lit}
+\fitwidth{%
+\begin{tabular}{p{0.18\linewidth}p{0.24\linewidth}p{0.24\linewidth}p{0.28\linewidth}}
+\toprule
+Method & Edge semantics & Temporal model & Typical validation \\
+\midrule
+PageRank (web) \parencite{page1999pagerank} & Hyperlinks & None / static snapshot & Retrieval quality \\
+EigenTrust \parencite{kamvar2003eigentrust} & Local trust ratings & Iterative aggregation & P2P file authenticity \\
+TrustRank \parencite{gyongyi2004trustrank} & Links from seed goods & Static / seeded & Spam demotion \\
+PageRank\slash HodgeRank on Ethereum \parencite{do2023hodgerank} & Token transfers & Static window & Not reproduced in this thesis \\
+AWP \parencite{do2023awp} & Transactions, bounded value weights & Logistic decay of edges and restarts & In-degree / in-value \\
+RiskProp \parencite{lin2025riskprop} & Risk-bearing links & Propagation of risk & Account risk labels \\
+Multiplex \parencite{halu2013multiplex} / multilayer PageRank \parencite{dedomenico2015ranking} & Several relations over one node set & Static layers & Versatility of top-ranked nodes \\
+\textcite{humanpassportnddocs} & No edges; weighted credentials about the address holder, on-chain and off-chain & Current credential set & Admission threshold; known human and Sybil addresses \\
+CRPWarner \parencite{lin2024crpwarner} & No edges; functions in a contract's code & Code at the time of analysis & Contracts tied to known rug pulls \\
+EndorseRank (this study) & Latest allowances, AWP's weights & Logistic decay of each latest approval & Allowance checks; $t_2$ new approvals \\
+C-PR / S-PR (this study) & Allowances mixed with, or seeding, transfers; raw amounts & Allowance snapshot and logistic decay of transfers & Holdout labels; rules fixed in advance \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+As Table~\ref{tab:method-comparison-lit} indicates, EndorseRank's contribution is the use of the latest allowance as the edge of a reputation ranking of contracts, evaluated out of window; it is neither the ranking algorithm nor the reading of approvals as a link between addresses (Section~\ref{sec:allowance-endorsement}). The two rows without edges judge different things: Human Passport judges the person behind an address, and CRPWarner judges the code of a contract. Neither ranks a contract by the relations that other addresses have formed with it. On the operator side, our contribution is to couple the two relations into one walk, with a seeded ablation to measure how much this coupling contributes. The coupling is tested out of window, against both constructs, and under a pre-defined rule.
+
+\dissertationSubheading[sec:literature-summary-table]{Summary of the reviewed literature}
+
+Table~\ref{tab:literature-summary} collects in one place the sources underlying this study. Each row records a source's methodology, the strengths this thesis draws on, the limitations it tries to address, and how the source relates to this work. The research gap stated in Section~\ref{sec:research-gap} is grounded in the evidence collected in this table.
+
+{\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{p{0.15\linewidth}p{0.20\linewidth}p{0.19\linewidth}p{0.19\linewidth}p{0.18\linewidth}}
+\caption{Summary of the reviewed literature: methodology, strengths, limitations, and relation to this study.}
+\label{tab:literature-summary}\\
+\toprule
+Source & Methodology & Strengths & Limitations & Relation to this study \\
+\midrule
+\endfirsthead
+\multicolumn{5}{l}{\small Table~\thetable\ (continued)}\\
+\toprule
+Source & Methodology & Strengths & Limitations & Relation to this study \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\small continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\textcite{page1999pagerank}; \textcite{langville2006pagerank} & Eigenvector ranking of a hyperlink graph, solved by power iteration & Interpretable propagation; $O(|E|)$ per iteration; damping yields a unique Perron vector & Edges can only mean hyperlinks; no notion of time & Same solver and complexity argument, used unchanged for both methods compared \\
+\textcite{kamvar2003eigentrust}; \textcite{gyongyi2004trustrank} & Aggregation of trust in P2P networks; propagation from seeds to demote spam & Normalization and seed sets curb inflation; the adversary is modeled explicitly & Depends on explicit ratings or curated seeds; not applied on-chain & Informs the Sybil-cost discussion and the uniform-teleportation baseline \\
+\textcite{do2023hodgerank} & PageRank and HodgeRank applied to Ethereum transaction graphs as a measure of social credit & Treats transfer connectivity as relevant to credit; data are fully public & Transfers conflate payment with trust; allowance semantics absent & Prior transfer-graph study, kept separate from AWP in this thesis \\
+\textcite{do2023awp}, AWP & Transaction PageRank with bounded value weights, logistic recency and restarts weighted by sending activity; rank correlation with in-degree/in-value as validation & Validates on ranks, so no default labels are needed; recency modeled explicitly & Proxies are computed from the same transfer data that forms the graph (mechanical alignment); dense graph; no parameter values reported & Baseline, used as published on the same contracts (Section~\ref{sub:awp-graph}); the decay parameters and $b$ are set here, and EndorseRank takes the same edge weights \\
+\textcite{lin2025riskprop}, RiskProp & Network propagation of account risk, paired with a de-anonymization score & Structure shown to add information beyond activity counts; evaluated with labels & Needs risk labels; aimed at fraud, not trust or authorization & Argues for finer edge semantics; not reproduced here, since this study uses no risk labels \\
+\textcite{wu2022phishers} & Phishing detection through network embedding of Ethereum transaction graphs & Graph features outperform per-account features; large labeled dataset & Supervised; its labels mark phishing, not creditworthiness & Backs the premise that graph position is informative; not a competing method \\
+\textcite{lin2024whoiswho}; \textcite{yan2023aparecium}; \textcite{zhou2024artemis}; \textcite{liu2025sybil} & Account labelling with a graph convolutional network; scam detection with biased random walks; detection of airdrop hunters and Sybil addresses from transaction graphs & Show that account roles, scams and coordinated multi-address behavior leave traces in graph structure & Need labels; classify addresses and do not rank them & Back the premise that graph position is informative, and frame the Sybil threat to an allowance ranking \\
+\textcite{hassija2020lending}; \textcite{kotb2023credit} & Blockchain-data credit scoring using prospect theory and machine learning & Aimed directly at lending decisions & Need labels or off-chain features; only partly interpretable & A contrasting class; EndorseRank remains within auditable graph propagation \\
+\textcite{palaiokrassas2024credit}; \textcite{m2026hurdle} & Machine-learning prediction of liquidations from multichain DeFi features; a DeFi credit score that adds features from a weighted transaction graph & Show that on-chain behavior and graph position carry credit-relevant signal & Need liquidation or default labels; score borrowers & Support the use of graph position; this study ranks spender contracts, which do not borrow \\
+\textcite{bellini2020trust}; \textcite{almasoud2020reputation} & Surveys of blockchain-based trust and reputation systems & Chart the design space and find explicit ratings and volume-based signals dominant & Authorization edges left unevaluated; nothing measured on L2 & Show that none of the surveyed designs uses latest-allowance edges \\
+\textcite{victor2020clustering}; \textcite{victor2021washtrading}; \textcite{cong2023washtrading} & Heuristics for clustering addresses, one of which links addresses through ERC-20 approvals; detection of wash trading on DEXs and exchanges & Measure the share of on-chain activity that is artificial or multi-address & No reputation score proposed & Closest prior use of approvals, as a clustering link and not a ranking edge; show why transfer-based signals are open to inflation \\
+\textcite{he2023txphishscope}; \textcite{chen2025payload}; \textcite{he2025drainer}; \textcite{adamczyk2025approval} & Measurement and detection of transaction-based, payload-based and approval phishing and of drainer-as-a-service operations & Large datasets of phishing websites, transactions and accounts; analysis of how wallets present approvals & Aimed at detecting attacks, not at ranking the contracts that hold approvals & Show why an approval is security-relevant and that an approval edge can be obtained by deception (Section~\ref{sec:approval-security}) \\
+\textcite{lin2024crpwarner}; \textcite{li2026erc20risk}; \textcite{tang2024arbitrum}; \textcite{efimov2026rollup} & Code analysis of rug-pull functions and of token contracts that break ERC-20; security analysis of contracts on Arbitrum and of rollup ecosystems & Judge a contract by its code and by the chain it runs on & Say nothing about how owners treat a contract & Contract-level risk work that a relational score complements and does not replace \\
+\textcite{cronbach1955construct}; \textcite{messick1995validity} & Psychometric construct validity & Distinguish what a score is designed to measure from external criteria & Not specific to blockchains & Basis for treating the contemporaneous checks as construct checks and the temporal holdouts as out-of-window evidence \\
+\textcite{humanpassportnddocs}; \textcite{siddarth2020watchmen}; \textcite{bordeianu2026sybil} & Weighted credentials about an address holder, on-chain and off-chain, against a passing threshold; reviews of proof-of-personhood defenses & Deployed at scale; uses off-chain evidence against Sybil attacks & A gate and not a graded ordering; relations between addresses play no part; credential farming remains & Shows how trust is established in practice, and what a contract-level score does not offer: no personhood guarantee \\
+\textcite{efron1979bootstrap}; \textcite{diciccio1996bootstrap} & Bootstrap resampling and bootstrap-based confidence intervals & Uncertainty for rank statistics with no distributional assumption; paired contrasts & Units must be exchangeable & Source of the 95\% intervals and $\Delta\tau$ contrasts reported in Chapter~\ref{ch:results} \\
+\end{longtable}
+}
+
+\dissertationSubheading[sec:research-gap]{Research gap}
+
+Five gaps emerge from Table~\ref{tab:literature-summary} and Section~\ref{sec:related-measurement}. First, every on-chain reputation method discussed here (PageRank and HodgeRank \parencite{do2023hodgerank}, AWP \parencite{do2023awp}, RiskProp \parencite{lin2025riskprop}, and the designs in the surveys \parencite{bellini2020trust}) builds its graph from transfers or explicit ratings, and the attestation tooling deployed in DeFi scores the holder of an address without any graph of relations between addresses \parencite{humanpassportnddocs}. None uses the ERC-20 allowance, the on-chain record of a deliberate delegation of spending power that every ERC-20 token carries. Approvals have served address clustering and security analysis (Sections~\ref{sec:allowance-endorsement} and~\ref{sec:approval-security}), and contract risk has been assessed from code \parencite{lin2024crpwarner}, but in the work reviewed here approvals have not served as the edges of a reputation ranking, and contracts have not been ranked by the approvals they receive. It remains unknown whether a latest-allowance endorsement graph yields a distinct and meaningful ordering of spender contracts (O1 and RQ1). A second gap lies in evaluation. The transfer-graph baseline checks its scores against in-degree and in-value computed from the same transfer data used to build the graph, so some agreement is unavoidable; no report applies this procedure to an allowance construct and its transfer counterpart with confidence intervals and paired difference tests on the same set of contracts (O2 and RQ2). Third, runtimes for blockchain PageRank are often published without edge counts, memory use or iteration counts under a fixed protocol, which makes it hard to attribute any efficiency claim to sparsity as opposed to implementation (O3 and RQ3). The fourth gap is methodological and has to do with time. Graph statistics from the same window are often presented as validation, although such scores cannot be shown to predict future behavior; the out-of-window check used here is instead a temporal holdout with a future-tense label for each construct and raw degree at the time of the freeze as the baseline (O4 and RQ4). Finally, multilayer ranking has been developed for social, transport and citation networks \parencite{halu2013multiplex,dedomenico2015ranking} but has not been used on two on-chain relations over one set of addresses. No study reports whether combining an authorization layer with a payment layer improves on the payment layer alone, or beats both layers, under rules fixed before the outcome is seen (O5 and RQ5).
+
+\dissertationSubheading[sec:open-problems]{Open problems motivating this research}
+
+The literature leaves several problems in on-chain reputation unresolved, and these motivate the present study:
+
+\begin{enumerate}
+\item Edge semantics: When identities are pseudonymous, which on-chain relations capture trust or authorization best \parencite{packin2024credit}?
+\item Evaluation without defaults: On what basis can methods be compared when loan-default labels are scarce \parencite{do2023hodgerank}, and when the ranked contracts do not borrow at all?
+\item Computational cost: As graphs grow, can reputation scores still be refreshed at interactive latencies \parencite{langville2006pagerank}?
+\item Time-split checks: What keeps an evaluation from mistaking same-window graph statistics for out-of-window evidence \parencite{cronbach1955construct}?
+\item Adversarial robustness: How much does it cost to forge reputation when owner addresses and contracts are cheap to create \parencite{douceur2002sybil}?
+\end{enumerate}
+
+EndorseRank takes on (1)--(4) through allowance edges, contemporaneous checks, runtime benchmarks, and a temporal holdout. Problem (5) is analyzed at the model level in Chapter~\ref{ch:discussion}; a full empirical adversarial evaluation is left for future work.
+
+Chapter~\ref{ch:methodology} turns this gap statement into an operational design: the data window and cohorts, the construction of both graphs and their solution with one shared PageRank implementation, the proxy families, the temporal holdout, and the timing and bootstrap protocols behind the results of Chapter~\ref{ch:results}.

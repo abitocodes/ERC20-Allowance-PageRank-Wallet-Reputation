@@ -30,14 +30,14 @@ from stats import PairedBootstrap  # noqa: E402
 OUT = PROC / "holdout-w0"
 APPR, SEND = "future_new_approvers", "future_new_transfer_senders"
 
-PREFIXED = [  # rule A and the increment of the allowance walk, fixed on 9 October 2026
-    ("C-PR (l=1) minus t1 in-approve degree", "cpr_l100", "t1_in_approve_degree", APPR),
+PREFIXED = [  # rule A, fixed in docs/analysis_plan.md (commit 43d8045) before any data
     ("C-PR minus C-PR (l=1)", "cpr_l50", "cpr_l100", APPR),
     ("C-PR minus C-PR (l=0)", "cpr_l50", "cpr_l0", SEND),
-    ("S-PR minus C-PR (l=1)", "spr", "cpr_l100", APPR),
-    ("S-PR minus C-PR (l=0)", "spr", "cpr_l0", SEND),
 ]
 AFTER = [  # computed after the labels were known
+    ("C-PR (l=1) minus t1 in-approve degree", "cpr_l100", "t1_in_approve_degree", APPR),
+    ("S-PR minus C-PR (l=1)", "spr", "cpr_l100", APPR),
+    ("S-PR minus C-PR (l=0)", "spr", "cpr_l0", SEND),
     ("EndorseRank minus t1 in-approve degree", "endorserank", "t1_in_approve_degree", APPR),
     ("AWP minus t1 in-degree", "awp", "t1_in_degree", SEND),
     ("C-PR minus C-PR (l=0)", "cpr_l50", "cpr_l0", APPR),

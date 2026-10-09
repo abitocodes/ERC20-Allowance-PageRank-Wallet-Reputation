@@ -317,19 +317,6 @@
   },
   "contrasts_prefixed": [
     {
-      "label": "C-PR (l=1) minus t1 in-approve degree",
-      "a": "cpr_l100",
-      "b": "t1_in_approve_degree",
-      "outcome": "future_new_approvers",
-      "a_tau": 0.22776191957958933,
-      "b_tau": 0.252288618412687,
-      "delta_tau": -0.024526698833097688,
-      "ci_low": -0.030196129151542444,
-      "ci_high": -0.019491867687534213,
-      "share_positive": 0.0,
-      "n_boot": 400
-    },
-    {
       "label": "C-PR minus C-PR (l=1)",
       "a": "cpr_l50",
       "b": "cpr_l100",
@@ -352,6 +339,21 @@
       "delta_tau": -0.0297254977288543,
       "ci_low": -0.033669932316104725,
       "ci_high": -0.025734190777920232,
+      "share_positive": 0.0,
+      "n_boot": 400
+    }
+  ],
+  "contrasts_after": [
+    {
+      "label": "C-PR (l=1) minus t1 in-approve degree",
+      "a": "cpr_l100",
+      "b": "t1_in_approve_degree",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.22776191957958933,
+      "b_tau": 0.252288618412687,
+      "delta_tau": -0.024526698833097688,
+      "ci_low": -0.030196129151542444,
+      "ci_high": -0.019491867687534213,
       "share_positive": 0.0,
       "n_boot": 400
     },
@@ -380,9 +382,7 @@
       "ci_high": -0.006276933424993746,
       "share_positive": 0.0,
       "n_boot": 400
-    }
-  ],
-  "contrasts_after": [
+    },
     {
       "label": "EndorseRank minus t1 in-approve degree",
       "a": "endorserank",
@@ -916,5 +916,6 @@
         }
       }
     }
-  }
+  },
+  "note_regrouped": "Contrast groups follow run_holdout.py as committed after 0d3a057: only rule A is fixed in the plan; values unchanged."
 }

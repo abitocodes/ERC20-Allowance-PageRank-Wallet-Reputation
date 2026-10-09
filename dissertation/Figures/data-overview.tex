@@ -1,0 +1,141 @@
+% !TEX root = ../main.tex
+% Blockchain data used in the thesis: one lane per analysis, one bar per kind of
+% on-chain record, placed on the months it covers (1 Dec 2025 to 30 Sep 2026).
+\begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize, oneline/.style={text height=1.6ex, text depth=0.45ex}]
+\definecolor{dsApproval}{RGB}{0,114,178}
+\definecolor{dsTransfer}{RGB}{0,158,115}
+\definecolor{dsGMX}{RGB}{230,159,0}
+\definecolor{dsAave}{RGB}{204,121,167}
+\definecolor{dsOther}{RGB}{140,140,140}
+\def\xo{1.95}% x of 1 Dec 2025
+\def\mw{0.85}% width of one month
+\def\bh{0.36}% bar height
+\def\xr{10.7}% left edge of the right-hand column
+% \dsInput{colour}{y}{first month}{end month}{text}: records used as input
+% (scores, cohorts, same-window checks). Months count from 0 = December 2025.
+\def\dsInput#1#2#3#4#5{%
+  \fill[#1!35] ({\xo+\mw*(#3)},{#2-\bh/2}) rectangle ({\xo+\mw*(#4)},{#2+\bh/2});
+  \draw[#1!75!black, line width=0.5pt] ({\xo+\mw*(#3)},{#2-\bh/2}) rectangle ({\xo+\mw*(#4)},{#2+\bh/2});
+  \node[oneline, inner sep=0pt] at ({\xo+\mw*((#3)+(#4))/2},#2) {#5};}
+% \dsHeld{colour}{y}{first month}{end month}{text}{border style}: labels counted
+% after a freeze date and kept out of the scores.
+\def\dsHeld#1#2#3#4#5#6{%
+  \fill[pattern=north east lines, pattern color=#1] ({\xo+\mw*(#3)},{#2-\bh/2}) rectangle ({\xo+\mw*(#4)},{#2+\bh/2});
+  \draw[#1!75!black, line width=0.7pt, #6] ({\xo+\mw*(#3)},{#2-\bh/2}) rectangle ({\xo+\mw*(#4)},{#2+\bh/2});
+  \node[oneline, fill=white, inner sep=1pt] at ({\xo+\mw*((#3)+(#4))/2},#2) {#5};}
+\def\rowlabel#1#2#3{\node[oneline, anchor=east, text=#1!75!black] at ({\xo-0.1},#2) {#3};}
+\def\lanetitle#1#2{\node[oneline, anchor=west, font=\footnotesize\bfseries, fill=white, inner sep=1pt] at (0,#1) {#2};}
+\def\laneuse#1#2{\node[anchor=north west, text width=5.7cm, align=flush left, inner sep=0pt] at (\xr,#1) {#2};}
+\def\lanerule#1{\draw[black!25] (0,#1) -- (16.45,#1);}
+\def\top{-0.3}% top of the lanes
+\def\bottom{-12.8}% bottom of the lanes
+
+% Month grid and calendar
+\foreach \m in {0,...,10} {\draw[black!12] ({\xo+\mw*\m},\top) -- ({\xo+\mw*\m},\bottom);}
+\foreach \m/\name in {0/Dec,1/Jan,2/Feb,3/Mar,4/Apr,5/May,6/Jun,7/Jul,8/Aug,9/Sep}
+  {\node[oneline] at ({\xo+\mw*(\m+0.5)},0) {\name};}
+\node[oneline, font=\scriptsize\bfseries] at ({\xo+\mw*0.5},0.34) {2025};
+\node[oneline, font=\scriptsize\bfseries] at ({\xo+\mw*1.5},0.34) {2026};
+\draw[decorate, decoration={brace, amplitude=4pt}] ({\xo+0.03},0.6) -- ({\xo+\mw*6-0.03},0.6)
+  node[oneline, midway, above=4pt] {observation window};
+\draw[decorate, decoration={brace, amplitude=4pt}] ({\xo+\mw*6+0.03},0.6) -- ({\xo+\mw*9-0.03},0.6)
+  node[oneline, midway, above=4pt] {registered label window};
+
+% Freeze dates
+\draw[black!70, dashed, line width=0.6pt] ({\xo+\mw*3},\top) -- ({\xo+\mw*3},\bottom);
+\draw[black!70, dashed, line width=0.6pt] ({\xo+\mw*6},\top) -- ({\xo+\mw*6},\bottom);
+\node[align=center, anchor=north] at ({\xo+\mw*3},{\bottom-0.05}) {28 Feb 2026\\spring freeze $t_1$};
+\node[align=center, anchor=north] at ({\xo+\mw*6},{\bottom-0.05}) {31 May 2026\\registered freeze};
+
+% Lane A: cohort selection
+\lanetitle{-0.6}{Matched cohort selection}
+\rowlabel{dsGMX}{-1.0}{GMX V2}
+\dsInput{dsGMX}{-1.0}{0}{6}{closes: at least three per wallet}
+\laneuse{-0.5}{Fixes the matched cohort, $5{,}521$ wallets, before any approval or transfer is extracted (\S\ref{sec:data-sources}).}
+\lanerule{-1.35}
+
+% Lane B: same-window analysis
+\lanetitle{-1.65}{Same-window analysis, matched cohort ($n=5{,}521$)}
+\rowlabel{dsApproval}{-2.05}{Approval}
+\dsInput{dsApproval}{-2.05}{0}{6}{EndorseRank; allowance checks}
+\rowlabel{dsTransfer}{-2.49}{Transfer}
+\dsInput{dsTransfer}{-2.49}{0}{6}{AWP; transfer and Sybil checks}
+\rowlabel{dsGMX}{-2.93}{GMX V2}
+\dsInput{dsGMX}{-2.93}{0}{6}{archived trading families}
+\rowlabel{dsAave}{-3.37}{Aave V3}
+\dsInput{dsAave}{-3.37}{0}{6}{archived lending baselines}
+\laneuse{-1.55}{Approval and transfer edges together give \mbox{C-PR} and \mbox{S-PR}, weighted by raw amounts. RQ1--RQ3, the same-window part of RQ5 and the runtime benchmark (\S\S\ref{sec:benchmark-results}--\ref{sec:coupled-results}). The GMX and Aave rows enter no claim (Appendix~\ref{ch:appendix-archive}).}
+\lanerule{-3.72}
+
+% Lane C: spring holdout on spenders
+\lanetitle{-4.02}{Spring holdout, spenders ($n=1{,}335$)}
+\rowlabel{dsApproval}{-4.42}{Approval}
+\dsInput{dsApproval}{-4.42}{0}{3}{score input}
+\dsHeld{dsApproval}{-4.42}{3}{6}{new approval pairs}{solid}
+\rowlabel{dsTransfer}{-4.86}{Transfer}
+\dsInput{dsTransfer}{-4.86}{0}{3}{score input}
+\dsHeld{dsTransfer}{-4.86}{3}{6}{new senders}{solid}
+\laneuse{-3.92}{Spenders holding an allowance at $t_1$. Scores and degree baselines use events up to $t_1$; both labels count events after it. RQ4 and RQ5 (\S\ref{sec:holdout-protocol}, \S\ref{sec:holdout-results}).}
+\lanerule{-5.21}
+
+% Lane D: spring trader run
+\lanetitle{-5.51}{Spring trader run, exploratory}
+\rowlabel{dsApproval}{-5.91}{Approval}
+\dsInput{dsApproval}{-5.91}{0}{3}{score input}
+\rowlabel{dsTransfer}{-6.35}{Transfer}
+\dsInput{dsTransfer}{-6.35}{0}{3}{score input}
+\rowlabel{dsGMX}{-6.79}{GMX V2}
+\dsHeld{dsGMX}{-6.79}{3}{6}{success labels}{solid}
+\rowlabel{dsAave}{-7.23}{Aave V3}
+\dsHeld{dsAave}{-7.23}{3}{6}{liquidations}{solid}
+\laneuse{-5.41}{The 4,227 matched wallets in the $t_1$ graph, 1,860 of them with at least three closes from March to May. EndorseRank, AWP and C-PR, scored after the labels were known and under no rule (\S\ref{sub:trader-holdout}, \S\ref{sub:trader-results}).}
+\lanerule{-7.58}
+
+% Lane E: registered replication
+\lanetitle{-7.88}{Registered replication, June--August 2026}
+\rowlabel{dsApproval}{-8.28}{Approval}
+\dsInput{dsApproval}{-8.28}{0}{6}{score input}
+\dsHeld{dsApproval}{-8.28}{6}{9}{new approval pairs}{solid}
+\rowlabel{dsTransfer}{-8.72}{Transfer}
+\dsInput{dsTransfer}{-8.72}{0}{6}{score input}
+\dsHeld{dsTransfer}{-8.72}{6}{9}{new senders}{solid}
+\rowlabel{dsGMX}{-9.16}{GMX V2}
+\dsHeld{dsGMX}{-9.16}{6}{9}{liquidation-free}{solid}
+\laneuse{-7.78}{1,964 spenders at 31 May and the 5,151 matched traders in the 31 May graph, 1,402 of them with labels: F1--F6 and two reported sensitivity analyses. Extracted on 1 October 2026, after the registration was committed (\S\ref{sub:fresh-holdout}, \S\ref{sub:fresh-results}).}
+\lanerule{-9.51}
+
+% Lane F: runtime pool
+\lanetitle{-9.81}{Runtime scaling pool}
+\rowlabel{dsOther}{-10.21}{Addresses}
+\dsInput{dsOther}{-10.21}{0}{6}{93,559 sampled addresses, no edges}
+\laneuse{-9.71}{Expanded pool, $N=99{,}080$: node-count sensitivity of runtime and of the sample definition (\S\ref{sub:runtime-scaling}, \S\ref{sub:sample-size}).}
+\lanerule{-10.87}
+
+% Lane G: spender account check
+\lanetitle{-11.17}{Spender account check}
+\rowlabel{dsOther}{-11.57}{Accounts}
+\dsInput{dsOther}{-11.57}{0}{3}{logs, transactions}
+\fill[dsOther!75!black] ({\xo+\mw*10-0.15},-11.57) +(0,0.13) -- +(0.13,0) -- +(0,-0.13) -- +(-0.13,0) -- cycle;
+\node[anchor=east, fill=white, inner sep=1pt] at ({\xo+\mw*10-0.33},-11.57) {code read on 30 Sep 2026};
+\laneuse{-11.07}{Which spenders emitted logs or sent transactions up to $t_1$, then each spender's code at block 510{,}408{,}687: 1,174 contracts and 161 externally owned accounts among the 1,335 (\S\ref{sub:cohorts}).}
+
+% Legend: record colours, then bar styles
+\begin{scope}[shift={(0,-13.85)}]
+  \node[oneline, anchor=west, font=\scriptsize\bfseries, inner sep=0pt] at (0,0) {Records};
+  \foreach \c/\t/\x/\y in {dsApproval/ERC-20 Approval logs/1.4/0, dsTransfer/ERC-20 Transfer logs/5.0/0, dsGMX/GMX V2 position events/8.6/0, dsAave/Aave V3 lending events/12.45/0, dsOther/other BigQuery and node reads/1.4/-0.42} {
+    \fill[\c!35] (\x,{\y-0.1}) rectangle ({\x+0.45},{\y+0.1});
+    \draw[\c!75!black, line width=0.5pt] (\x,{\y-0.1}) rectangle ({\x+0.45},{\y+0.1});
+    \node[oneline, anchor=west] at ({\x+0.5},\y) {\t};
+  }
+  \node[oneline, anchor=west, font=\scriptsize\bfseries, inner sep=0pt] at (0,-0.9) {Bars};
+  \fill[dsApproval!35] (1.4,-1.0) rectangle (1.625,-0.8);
+  \fill[dsTransfer!35] (1.625,-1.0) rectangle (1.85,-0.8);
+  \draw[black!60, line width=0.5pt] (1.4,-1.0) rectangle (1.85,-0.8);
+  \node[oneline, anchor=west] at (1.9,-0.9) {solid: input to scores, cohorts or same-window checks};
+  \fill[pattern=north east lines, pattern color=black!70] (8.6,-1.0) rectangle (9.05,-0.8);
+  \draw[black!60, line width=0.7pt] (8.6,-1.0) rectangle (9.05,-0.8);
+  \node[oneline, anchor=west] at (9.1,-0.9) {hatched: held-out labels, counted after the freeze};
+  \draw[black!70, dashed, line width=0.6pt] (1.625,-1.5) -- (1.625,-1.14);
+  \node[oneline, anchor=west] at (1.9,-1.32) {dashed line: freeze date};
+\end{scope}
+\end{tikzpicture}

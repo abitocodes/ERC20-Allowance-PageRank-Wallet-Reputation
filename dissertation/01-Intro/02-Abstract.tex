@@ -1,0 +1,16 @@
+% !TEX root = ../main.tex
+
+\phantomsection
+\chapter*{Abstract}
+
+\label{ch:abstract}
+
+Decentralized finance (DeFi) protocols use on-chain wallet reputation to screen counterparties and set risk parameters. Adaptive Weighted PageRank (AWP) ranks wallets on token transfers, but a transfer records a payment, not trust. An ERC-20 allowance records an owner authorizing a spender to move its tokens. This thesis asks what allowance edges add to PageRank as a reputation score.
+
+EndorseRank is PageRank on the latest non-zero allowances, with AWP's edge weights and uniform restarts; it ranks spenders, not the owners approving them. A coupled PageRank (C-PR) walks both edge types. All scores, raw degrees included, are computed for $5{,}521$ GMX~V2 traders on Arbitrum One and compared with Kendall's $\tau$ and paired bootstrap intervals. Scores frozen on 28~February~2026 are tested on $1{,}335$ spenders, and a June--August~2026 window was registered before extraction.
+
+Out of window no PageRank ranks a label as well as the raw degree of its edge type: the approval count ranks later approvals at $\tau=0.711$, EndorseRank at $0.394$, and the transfer in-degree beats AWP on new senders. A closed form explains the allowance gap: on this one-hop ego-network sample EndorseRank reduces to an owner-normalized in-strength; multi-hop propagation is untested. C-PR meets neither its first nor its registered rule. In pre-specified post hoc analyses of later liquidation avoidance, a trader outcome built from neither edge type, the approval count ranked traders above the transfer count in both windows ($\Delta\tau=+0.150$ and $+0.153$, 97.5\% intervals above zero); the PageRank versions are not resolved. Most approval-receiving traders are contract accounts, an unresolved confound, and the signal is lower on the profitable and non-losing shares: it ranks forced-liquidation avoidance, not trading success. EndorseRank solves about nine times faster than AWP, on a ninefold smaller graph.
+
+The thesis contributes the allowance as a reputation edge, an out-of-window evaluation of every score against the counts it smooths, a closed form of EndorseRank on a depth-one graph, and a coupled walk whose rules, fixed in advance, failed. A ten-address farm can lift its target to 7.7 times the cohort's highest EndorseRank, so no score should decide rewards without Sybil controls, and none measures creditworthiness.
+
+\emph{Keywords---} DeFi, EndorseRank, Adaptive Weighted PageRank, coupled PageRank, on-chain reputation, ERC-20 allowance, temporal holdout, pre-registration, Arbitrum One, Kendall's tau
