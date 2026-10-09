@@ -1,0 +1,103 @@
+# Contract reputation from ERC-20 allowance edges on Arbitrum One.
+# Every setting that decides a result is fixed here before the logs are extracted
+# (see docs/analysis_plan.md, committed with this file on 2026-10-09).
+
+chain_id: 42161
+chain_name: Arbitrum One
+
+bigquery:
+  project_id: dissertation-bq
+  dataset: contract_rep
+  location: US
+  logs_fqn: bigquery-public-data.goog_blockchain_arbitrum_one_us.logs
+  # Total budget for the whole study (scans, storage and downloads), USD.
+  budget_usd: 50
+  # Scan A covers the observation window; scan B the registered window and runs
+  # only after the registration of docs/analysis_plan.md section 7 is committed.
+  scan_a: { start_ts: "2023-10-01 00:00:00 UTC", end_ts: "2026-07-01 00:00:00 UTC" }
+  scan_b: { start_ts: "2026-07-01 00:00:00 UTC", end_ts: "2026-10-01 00:00:00 UTC" }
+
+period:
+  start_ts: "2023-10-01 00:00:00 UTC"
+  end_ts: "2026-07-01 00:00:00 UTC"          # exclusive
+  observation_end: "2026-06-30 23:59:59 UTC"  # T_obs, anchor of the time decay
+
+holdout:          # W0
+  score_end: "2026-03-31 23:59:59 UTC"        # t1
+  outcome_start: "2026-04-01 00:00:00 UTC"
+  outcome_end: "2026-06-30 23:59:59 UTC"      # t2
+
+registered_window:  # W1, rule registered later (docs/analysis_plan.md section 7)
+  score_end: "2026-06-30 23:59:59 UTC"
+  outcome_start: "2026-07-01 00:00:00 UTC"
+  outcome_end: "2026-09-30 23:59:59 UTC"
+  status: planned
+
+events:
+  approval_topic0: "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
+  transfer_topic0: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+
+gmx_arbitrum:
+  event_emitter: "0xc8ee91a54287db53897056e12d9819156d3822fb"
+  event_log1_topic0: "0x137a44067c8961cd7e1d876f4754a5a3a75989b4552f1843fc69c3b372def160"
+  position_decrease_hash: "0x07d51b51b408d7c62dcc47cc558da5ce6a6e0fd129a427ebce150f52b0e5171a"
+  liquidation_handler: "0xaf157eb8e2398a8e1fc1da929974652b9ba9bc25"
+  order_type_liquidation: 7
+  min_closes: 3
+
+aave_arbitrum:
+  pool: "0x794a61358d6845594f94dc1db02a252b5b4814ad"
+  topics:
+    borrow: "0xb3d084820fb1a9decffb176436bd02558d15fac9b0ddfed8c465bc7359d7dce0"
+    repay: "0xa534c8dbe71f871f9f3530e97a74601fea17b426cae02e1c5aee42c96c784051"
+    liquidation_call: "0xe413a321e8681d831f4dbccbca790d2952b56f977908e45be37335533e005286"
+
+accounts:
+  # eth_getCode on a public Arbitrum RPC at one pinned block. Bytecode means a
+  # contract; no bytecode or an EIP-7702 delegation designator (0xef0100 + 20
+  # bytes) means an externally owned account.
+  rpc_url: https://arb1.arbitrum.io/rpc
+  delegation_prefix: "0xef0100"
+
+cohort:
+  # Matched cohort: contract accounts that received a non-zero Approval from at
+  # least min_owners distinct owners inside the observation window. Fixed from
+  # approval logs and eth_getCode before any transfer is aggregated.
+  min_owners: 3
+
+reputation:
+  damping: 0.85
+  pagerank_tolerance: 1.0e-8
+  max_iterations: 300
+  awp_decay_k: 0.01
+  awp_decay_t0_days: 180
+  awp_value_b: 1.0
+  hybrid:
+    coupled_lambda_primary: 0.5
+    coupled_lambda_grid: [0.25, 0.5, 0.75]
+    # Rule A (docs/analysis_plan.md section 6), fixed before any score is computed.
+    primary_criterion:
+      cohort: spenders
+      no_worse_than: { method: cpr_l100, label: new_approval_pairs }
+      better_than: { method: cpr_l0, label: new_transfer_senders }
+    secondary_criterion:
+      cohort: matched
+      within_ci_of_best: [transfer, allowance]
+      exceed_both_on: sybil_stability
+
+alignment:
+  bootstrap_resamples: 400
+  bootstrap_seed: 42
+
+benchmark:
+  warmup_runs: 1
+  timed_runs: 5
+  scaling_seed: "contract-benchmark-v1"
+
+robustness:
+  damping_values: [0.75, 0.85, 0.95]
+  top_n_tokens: 20
+
+storage:
+  # Every file written under data/ stays below GitHub's 100 MB limit.
+  max_part_bytes: 90000000
