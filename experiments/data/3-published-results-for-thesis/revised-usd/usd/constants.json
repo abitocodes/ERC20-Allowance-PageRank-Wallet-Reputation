@@ -1,0 +1,24 @@
+{
+  "computed_at": "2026-10-10T11:23:50+00:00",
+  "source": "sql/13_usd_constants.sql (contract_rep.u_constants), events up to t1",
+  "raw": {
+    "m_allowance": 61.51017255202981,
+    "m_transfer": 203.71288472076088,
+    "n_finite_allowances": 6491970.0,
+    "n_transfers": 1073838657.0,
+    "n_unlimited_allowances": 5490386.0,
+    "p10_allowance": 0.32462063421431514,
+    "p10_transfer": 0.14022151382290846,
+    "p90_allowance": 2146753785.2992494,
+    "p90_transfer": 3051.540127496864,
+    "p99_allowance": 9.996601316607136e+46,
+    "p99_transfer": 20266.38770523461
+  },
+  "m_transfer_usd": 200.0,
+  "m_allowance_usd": 62.0,
+  "cap_allowance_usd": 20000.0,
+  "b_transfer": 0.005493061443340549,
+  "b_allowance": 0.01771955304303403,
+  "unlimited_base_units": 1.15e+77,
+  "rule": "b = ln 3 / m with m the median rounded to two significant digits; the allowance cap U is the 99th percentile of the USD values of the transfers up to t1, rounded to two significant digits"
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compare the DefiLlama daily prices of the revised analysis with Chainlink feeds read on Arbitrum One.
 
-For a sample of listed tokens (the largest by rows) and dates (the 15th of every month from October 2023 to
+For the selected tokens and dates (the 15th of every month from October 2023 to
 September 2026, and the two freezes), the price of day D in daily_prices_usd.csv (DefiLlama's close of D) is
 set against the answer of the token's Chainlink proxy in force at 00:00 UTC of D+1. Proxy rounds are read with
 getRoundData (round id = phaseId << 64 | aggregator round), found by k-ary search over the rounds of each phase,
@@ -125,14 +125,14 @@ def dates(cfg: dict) -> list[date]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--tokens", type=int, default=7, help="the N largest USD-quoted listed tokens by rows")
+    ap.add_argument("--tokens", type=int, default=5, help="the N largest selected USD-quoted tokens by rows")
     ap.add_argument("--rpc", help="RPC URL (default: accounts.rpc_url of the configuration)")
     args = ap.parse_args()
     cfg = load_config()
     url = args.rpc or cfg["accounts"]["rpc_url"]
     lst = pd.read_csv(USD_INPUTS / "listed_tokens.csv")
-    lst = lst[lst["quote"] == "USD"].sort_values("n_rows_tobs", ascending=False).drop_duplicates("feed_proxy")
-    lst = lst.head(args.tokens)
+    lst = lst[(lst["selected"].astype(str).str.lower() == "true") & (lst["quote"] == "USD")]
+    lst = lst.sort_values("n_rows_tobs", ascending=False).drop_duplicates("feed_proxy").head(args.tokens)
     prices = pd.read_csv(USD_INPUTS / "daily_prices_usd.csv").set_index(["address", "day"])
     session = requests.Session()
     rows = []

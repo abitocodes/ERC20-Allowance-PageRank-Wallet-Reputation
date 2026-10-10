@@ -162,7 +162,7 @@ def cohort_summary(cfg: dict) -> None:
     out = u[["wallet", "owners_nonzero", "approval_logs"]].sort_values("wallet").reset_index(drop=True)
     write_parts(out, PROC / "cohort" / "matched_cohort")
     save_json({
-        "rule": f"contracts of the registered cohort with non-zero approvals of a listed token from >= "
+        "rule": f"contracts of the registered cohort with non-zero approvals of a selected token (WETH, USDC, USDT0, ARB, WBTC) from >= "
                 f"{cfg['cohort']['min_owners']} distinct owners, {cfg['period']['start_ts']} to "
                 f"{cfg['period']['observation_end']}",
         "registered_cohort": int(len(reg_set)),

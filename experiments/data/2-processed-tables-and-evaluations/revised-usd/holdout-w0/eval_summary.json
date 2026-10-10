@@ -1,0 +1,920 @@
+{
+  "freeze": "2026-03-31 23:59:59 UTC",
+  "labels": [
+    "2026-04-01 00:00:00 UTC",
+    "2026-06-30 23:59:59 UTC"
+  ],
+  "spender_account_types": {
+    "contract": 17050,
+    "none": 104,
+    "eip7702": 13
+  },
+  "spenders": 17050,
+  "gained_new_approvals": 2070,
+  "gained_new_senders": 1695,
+  "graph": {
+    "allowance_edges": 10650258,
+    "transfer_edges": 23680692
+  },
+  "iterations": {
+    "endorserank": 70,
+    "endorserank_activity": 74,
+    "awp": 91,
+    "cpr_l100": 64,
+    "cpr_l0": 92,
+    "cpr_l25": 79,
+    "cpr_l50": 77,
+    "cpr_l75": 77,
+    "spr": 159
+  },
+  "taus": {
+    "endorserank": {
+      "future_new_approvers": {
+        "kendall_tau": 0.23087575514778205,
+        "ci_low": 0.220142680026844,
+        "ci_high": 0.24169777107238388,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.1998012815553345,
+        "ci_low": 0.18883200967247035,
+        "ci_high": 0.21039663618977125,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.3373691636017188,
+        "ci_low": 0.3272696708121617,
+        "ci_high": 0.34684644858574515,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.2344160103459628,
+        "ci_low": 0.22388736698921047,
+        "ci_high": 0.2451374408193359,
+        "n_boot": 400
+      }
+    },
+    "endorserank_activity": {
+      "future_new_approvers": {
+        "kendall_tau": 0.3082445360502137,
+        "ci_low": 0.29851363639034795,
+        "ci_high": 0.31902001020129606,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.26942781006363975,
+        "ci_low": 0.26003963978099714,
+        "ci_high": 0.2783486455716315,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.31068241884773484,
+        "ci_low": 0.2997374142916471,
+        "ci_high": 0.32127112216882153,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.3276677031422922,
+        "ci_low": 0.318030100657984,
+        "ci_high": 0.33784046118480987,
+        "n_boot": 400
+      }
+    },
+    "awp": {
+      "future_new_approvers": {
+        "kendall_tau": 0.19619583806553922,
+        "ci_low": 0.18123332187452829,
+        "ci_high": 0.20981624285807363,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.34612473040984787,
+        "ci_low": 0.336230406745176,
+        "ci_high": 0.3563464778526008,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.19096374928932458,
+        "ci_low": 0.17549012759324012,
+        "ci_high": 0.20519578950474934,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.20242337467906943,
+        "ci_low": 0.18643030375853578,
+        "ci_high": 0.21587769422347616,
+        "n_boot": 400
+      }
+    },
+    "cpr_l100": {
+      "future_new_approvers": {
+        "kendall_tau": 0.22305598715856254,
+        "ci_low": 0.2127000231394337,
+        "ci_high": 0.23336307326043612,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.18759996285330646,
+        "ci_low": 0.17652136719002226,
+        "ci_high": 0.19878346801119776,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.33522501605912863,
+        "ci_low": 0.32505036851526203,
+        "ci_high": 0.3448808912163517,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.21762286590597862,
+        "ci_low": 0.2070926880138625,
+        "ci_high": 0.2281660291249155,
+        "n_boot": 400
+      }
+    },
+    "cpr_l0": {
+      "future_new_approvers": {
+        "kendall_tau": 0.15993514281472487,
+        "ci_low": 0.1442129010979297,
+        "ci_high": 0.1739336762885576,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.29583422371703944,
+        "ci_low": 0.2854214501587676,
+        "ci_high": 0.3071080679841744,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.20042549006293503,
+        "ci_low": 0.18473015649911448,
+        "ci_high": 0.21429948633793303,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.1545856980647653,
+        "ci_low": 0.1396573176568582,
+        "ci_high": 0.16869151145028846,
+        "n_boot": 400
+      }
+    },
+    "cpr_l25": {
+      "future_new_approvers": {
+        "kendall_tau": 0.25325101644353815,
+        "ci_low": 0.24261560348431635,
+        "ci_high": 0.2636001949276718,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.26870870762897686,
+        "ci_low": 0.25745742626571394,
+        "ci_high": 0.2797941720089287,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.3228363174724292,
+        "ci_low": 0.31215578218872164,
+        "ci_high": 0.3319906709858901,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.25351295716200506,
+        "ci_low": 0.24242793895934522,
+        "ci_high": 0.26384142456732224,
+        "n_boot": 400
+      }
+    },
+    "cpr_l50": {
+      "future_new_approvers": {
+        "kendall_tau": 0.25174169007960606,
+        "ci_low": 0.2408924617484571,
+        "ci_high": 0.26249744860790336,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.26152474308503626,
+        "ci_low": 0.25035083966568794,
+        "ci_high": 0.2730013528985388,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.3249307017544744,
+        "ci_low": 0.31450467642344165,
+        "ci_high": 0.33383224268692424,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.25401325343967224,
+        "ci_low": 0.24328549116082415,
+        "ci_high": 0.26517971479517954,
+        "n_boot": 400
+      }
+    },
+    "cpr_l75": {
+      "future_new_approvers": {
+        "kendall_tau": 0.2485989716626251,
+        "ci_low": 0.2375331202073901,
+        "ci_high": 0.2598531029439777,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.25342919819343346,
+        "ci_low": 0.24216867476299317,
+        "ci_high": 0.2646768094494686,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.3257555789044715,
+        "ci_low": 0.3151067735854648,
+        "ci_high": 0.33493022930365834,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.2518511087306504,
+        "ci_low": 0.24088598408535658,
+        "ci_high": 0.26308489478177144,
+        "n_boot": 400
+      }
+    },
+    "spr": {
+      "future_new_approvers": {
+        "kendall_tau": 0.1717048773591349,
+        "ci_low": 0.15682636519875015,
+        "ci_high": 0.18458506244140346,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.29479036374077694,
+        "ci_low": 0.283526254029067,
+        "ci_high": 0.3052955286891714,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.22496770442597286,
+        "ci_low": 0.20966120883813644,
+        "ci_high": 0.23892072576168014,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.17124871441468784,
+        "ci_low": 0.15598057662216966,
+        "ci_high": 0.18457368868776625,
+        "n_boot": 400
+      }
+    },
+    "t1_in_approve_degree": {
+      "future_new_approvers": {
+        "kendall_tau": 0.24962332203091217,
+        "ci_low": 0.23732803225315288,
+        "ci_high": 0.2618783821937026,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.17977044864206343,
+        "ci_low": 0.1686671743233386,
+        "ci_high": 0.1916667000508075,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.38756274267808377,
+        "ci_low": 0.37568029289262317,
+        "ci_high": 0.39805948791228263,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.21371538607819668,
+        "ci_low": 0.20039975901410365,
+        "ci_high": 0.22717028976718132,
+        "n_boot": 400
+      }
+    },
+    "t1_in_degree": {
+      "future_new_approvers": {
+        "kendall_tau": 0.1353374666947865,
+        "ci_low": 0.12141214220628799,
+        "ci_high": 0.14962737531598475,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.30347273715131495,
+        "ci_low": 0.2923146674741003,
+        "ci_high": 0.3151287234004468,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.2054147725595822,
+        "ci_low": 0.18875319910914454,
+        "ci_high": 0.21811795335373851,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.1123677334387685,
+        "ci_low": 0.09639752562173952,
+        "ci_high": 0.12623262939953028,
+        "n_boot": 400
+      }
+    }
+  },
+  "contrasts_prefixed": [
+    {
+      "label": "C-PR minus C-PR (l=1)",
+      "a": "cpr_l50",
+      "b": "cpr_l100",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.25174169007960606,
+      "b_tau": 0.22305598715856254,
+      "delta_tau": 0.028685702921043527,
+      "ci_low": 0.021597343677294892,
+      "ci_high": 0.03561539854411485,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus C-PR (l=0)",
+      "a": "cpr_l50",
+      "b": "cpr_l0",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.26152474308503626,
+      "b_tau": 0.29583422371703944,
+      "delta_tau": -0.034309480632003175,
+      "ci_low": -0.04003152948412762,
+      "ci_high": -0.02908761277645573,
+      "share_positive": 0.0,
+      "n_boot": 400
+    }
+  ],
+  "contrasts_after": [
+    {
+      "label": "C-PR (l=1) minus t1 in-approve degree",
+      "a": "cpr_l100",
+      "b": "t1_in_approve_degree",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.22305598715856254,
+      "b_tau": 0.24962332203091217,
+      "delta_tau": -0.026567334872349635,
+      "ci_low": -0.03423378270315327,
+      "ci_high": -0.01931233897662879,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR minus C-PR (l=1)",
+      "a": "spr",
+      "b": "cpr_l100",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.1717048773591349,
+      "b_tau": 0.22305598715856254,
+      "delta_tau": -0.05135110979942764,
+      "ci_low": -0.06561556376313335,
+      "ci_high": -0.03756323538284269,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR minus C-PR (l=0)",
+      "a": "spr",
+      "b": "cpr_l0",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.29479036374077694,
+      "b_tau": 0.29583422371703944,
+      "delta_tau": -0.0010438599762624956,
+      "ci_low": -0.004000534441274057,
+      "ci_high": 0.002122499894007497,
+      "share_positive": 0.265,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank minus t1 in-approve degree",
+      "a": "endorserank",
+      "b": "t1_in_approve_degree",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.23087575514778205,
+      "b_tau": 0.24962332203091217,
+      "delta_tau": -0.018747566883130118,
+      "ci_low": -0.02553408594797363,
+      "ci_high": -0.011465373557837234,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "AWP minus t1 in-degree",
+      "a": "awp",
+      "b": "t1_in_degree",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.34612473040984787,
+      "b_tau": 0.30347273715131495,
+      "delta_tau": 0.042651993258532916,
+      "ci_low": 0.037777514477433265,
+      "ci_high": 0.04789412499350818,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus C-PR (l=0)",
+      "a": "cpr_l50",
+      "b": "cpr_l0",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.25174169007960606,
+      "b_tau": 0.15993514281472487,
+      "delta_tau": 0.09180654726488119,
+      "ci_low": 0.07978857531119937,
+      "ci_high": 0.10493656161548874,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus EndorseRank",
+      "a": "cpr_l50",
+      "b": "endorserank",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.25174169007960606,
+      "b_tau": 0.23087575514778205,
+      "delta_tau": 0.02086593493182401,
+      "ci_low": 0.013450518005564623,
+      "ci_high": 0.028112828849389763,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus AWP",
+      "a": "cpr_l50",
+      "b": "awp",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.26152474308503626,
+      "b_tau": 0.34612473040984787,
+      "delta_tau": -0.08459998732481161,
+      "ci_low": -0.09190571092367789,
+      "ci_high": -0.07774056626083106,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus AWP",
+      "a": "cpr_l50",
+      "b": "awp",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.25174169007960606,
+      "b_tau": 0.19619583806553922,
+      "delta_tau": 0.05554585201406684,
+      "ci_low": 0.04208979269710702,
+      "ci_high": 0.0701534102559519,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank minus AWP",
+      "a": "endorserank",
+      "b": "awp",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.23087575514778205,
+      "b_tau": 0.19619583806553922,
+      "delta_tau": 0.03467991708224283,
+      "ci_low": 0.01922728000899648,
+      "ci_high": 0.051480778172461425,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank minus AWP",
+      "a": "endorserank",
+      "b": "awp",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.1998012815553345,
+      "b_tau": 0.34612473040984787,
+      "delta_tau": -0.14632344885451337,
+      "ci_low": -0.15640723483721264,
+      "ci_high": -0.1363719385388673,
+      "share_positive": 0.0,
+      "n_boot": 400
+    }
+  ],
+  "rule_a_primary": {
+    "no_worse_on_new_approvals": true,
+    "better_on_new_senders": false,
+    "pass": false
+  },
+  "receiving": {
+    "n": 14094,
+    "taus": {
+      "endorserank": {
+        "future_new_approvers": {
+          "kendall_tau": 0.2364322112631378,
+          "ci_low": 0.22431723066532466,
+          "ci_high": 0.2490922603265388,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.23062439208757257,
+          "ci_low": 0.2185497446618552,
+          "ci_high": 0.2437003910668917,
+          "n_boot": 400
+        }
+      },
+      "awp": {
+        "future_new_approvers": {
+          "kendall_tau": 0.29759490231963315,
+          "ci_low": 0.2871454830919118,
+          "ci_high": 0.3081106810482537,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.35739177828827745,
+          "ci_low": 0.3467587734483885,
+          "ci_high": 0.3674440460695422,
+          "n_boot": 400
+        }
+      },
+      "t1_in_approve_degree": {
+        "future_new_approvers": {
+          "kendall_tau": 0.24945050296790092,
+          "ci_low": 0.23652053953619612,
+          "ci_high": 0.2636379907142972,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.20499141741713137,
+          "ci_low": 0.192784328508225,
+          "ci_high": 0.21767033946089967,
+          "n_boot": 400
+        }
+      },
+      "t1_in_degree": {
+        "future_new_approvers": {
+          "kendall_tau": 0.21050682280821675,
+          "ci_low": 0.19644690964117156,
+          "ci_high": 0.22350583770403568,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.30112437895437655,
+          "ci_low": 0.2885983179460666,
+          "ci_high": 0.31331581846192086,
+          "n_boot": 400
+        }
+      }
+    },
+    "contrasts": [
+      {
+        "label": "EndorseRank minus t1 in-approve degree",
+        "a": "endorserank",
+        "b": "t1_in_approve_degree",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.2364322112631378,
+        "b_tau": 0.24945050296790092,
+        "delta_tau": -0.013018291704763124,
+        "ci_low": -0.020425832191126304,
+        "ci_high": -0.0058166646103578155,
+        "share_positive": 0.0,
+        "n_boot": 400
+      },
+      {
+        "label": "AWP minus t1 in-degree",
+        "a": "awp",
+        "b": "t1_in_degree",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.35739177828827745,
+        "b_tau": 0.30112437895437655,
+        "delta_tau": 0.0562673993339009,
+        "ci_low": 0.04867363712311218,
+        "ci_high": 0.06406486095055805,
+        "share_positive": 1.0,
+        "n_boot": 400
+      }
+    ]
+  },
+  "coverage": {
+    "spenders_without_transfer_edge": 2891,
+    "share_gaining_approvals_without": 0.13317191283292978,
+    "share_gaining_approvals_with": 0.11900557949007698,
+    "share_gaining_senders_without": 0.005534417156693186,
+    "share_gaining_senders_with": 0.11858182075005297
+  },
+  "ties": {
+    "endorserank": {
+      "n": 17050,
+      "distinct": 16208,
+      "share_pairs_tied": 0.0002668107399252353,
+      "largest_block": 156,
+      "largest_block_value": 2.8898648115685085e-07,
+      "zeros": 16
+    },
+    "awp": {
+      "n": 17050,
+      "distinct": 14158,
+      "share_pairs_tied": 0.028742388034901645,
+      "largest_block": 2891,
+      "largest_block_value": 0.0,
+      "zeros": 2891
+    },
+    "cpr_l100": {
+      "n": 17050,
+      "distinct": 13712,
+      "share_pairs_tied": 0.0008290060613628924,
+      "largest_block": 305,
+      "largest_block_value": 8.648084924697927e-08,
+      "zeros": 0
+    }
+  },
+  "closed_form": {
+    "common_value_c": 8.140464241388893e-08,
+    "spread_of_c": 1.0,
+    "spenders": 17032,
+    "depth_one_spenders": 11326,
+    "within_1pct_all": 0.736672146547675,
+    "within_1pct_depth_one": 1.0,
+    "within_1pct_deeper": 0.21398527865404837,
+    "tau_score_vs_delta": 0.8125611381641151
+  },
+  "traders": {
+    "n": 88,
+    "with_any_approval_received": 40,
+    "taus": {
+      "endorserank": {
+        "profitable_closes": {
+          "kendall_tau": 0.15029973513620135,
+          "ci_low": -0.018787554273600564,
+          "ci_high": 0.29471673847455554,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.07775185269484733,
+          "ci_low": -0.09417378388762893,
+          "ci_high": 0.22561686434720532,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.05453104603470805,
+          "ci_low": -0.19620396655304975,
+          "ci_high": 0.0838577427866355,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.1778440866762834,
+          "ci_low": -0.29795709316409374,
+          "ci_high": -0.04242543561370985,
+          "n_boot": 400
+        }
+      },
+      "endorserank_activity": {
+        "profitable_closes": {
+          "kendall_tau": 0.1386955098920711,
+          "ci_low": -0.022394862178852754,
+          "ci_high": 0.27771723123258657,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.0883088175788119,
+          "ci_low": -0.07408044014258637,
+          "ci_high": 0.23371923197153033,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.077846351122114,
+          "ci_low": -0.21963983695795744,
+          "ci_high": 0.05605605321161226,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.19917219335077407,
+          "ci_low": -0.31881242083764066,
+          "ci_high": -0.06155590924785803,
+          "n_boot": 400
+        }
+      },
+      "awp": {
+        "profitable_closes": {
+          "kendall_tau": 0.15503020166187056,
+          "ci_low": 0.004593063218273806,
+          "ci_high": 0.2966154325233295,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.19580271010919173,
+          "ci_low": 0.048262430573209406,
+          "ci_high": 0.3506572975982017,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.12358791400498813,
+          "ci_low": -0.26477394880604227,
+          "ci_high": 0.014743664844870148,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.25415117391892733,
+          "ci_low": -0.4040667500773722,
+          "ci_high": -0.10419778895059593,
+          "n_boot": 400
+        }
+      },
+      "cpr_l100": {
+        "profitable_closes": {
+          "kendall_tau": 0.08255872814815514,
+          "ci_low": -0.07238396998482928,
+          "ci_high": 0.2227265849908808,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.03960706176593489,
+          "ci_low": -0.1325968370007471,
+          "ci_high": 0.19044121036719827,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.07396526356858983,
+          "ci_low": -0.2309831513853649,
+          "ci_high": 0.06836621155883232,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.18805634308552874,
+          "ci_low": -0.32234470040719054,
+          "ci_high": -0.04696656348176582,
+          "n_boot": 400
+        }
+      },
+      "cpr_l0": {
+        "profitable_closes": {
+          "kendall_tau": 0.14998768525086104,
+          "ci_low": 0.010784346550383413,
+          "ci_high": 0.27249273778899535,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.2879695397013289,
+          "ci_low": 0.12833130302316242,
+          "ci_high": 0.43807521113399917,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.1013401364730708,
+          "ci_low": -0.2425512048100935,
+          "ci_high": 0.0451585794177151,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.22497226694408662,
+          "ci_low": -0.35946323226915755,
+          "ci_high": -0.08307898607442772,
+          "n_boot": 400
+        }
+      },
+      "cpr_l25": {
+        "profitable_closes": {
+          "kendall_tau": 0.1521265470726202,
+          "ci_low": 0.014824781615016722,
+          "ci_high": 0.2741416595692035,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.29428120084546755,
+          "ci_low": 0.1433320319000208,
+          "ci_high": 0.42398641956480154,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.08440601445146106,
+          "ci_low": -0.23266060014892245,
+          "ci_high": 0.06901592611240619,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.20960313681127504,
+          "ci_low": -0.35178685935233045,
+          "ci_high": -0.060531034021203314,
+          "n_boot": 400
+        }
+      },
+      "cpr_l50": {
+        "profitable_closes": {
+          "kendall_tau": 0.15961256344877725,
+          "ci_low": 0.03032368469113342,
+          "ci_high": 0.2842733065008755,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.2827098220812132,
+          "ci_low": 0.14154740426427642,
+          "ci_high": 0.4100616795276378,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.08440601445146106,
+          "ci_low": -0.22748664606152558,
+          "ci_high": 0.057832344394847586,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.20801322679753592,
+          "ci_low": -0.3463213360232822,
+          "ci_high": -0.06121102163884881,
+          "n_boot": 400
+        }
+      },
+      "cpr_l75": {
+        "profitable_closes": {
+          "kendall_tau": 0.15533483980525895,
+          "ci_low": 0.025138666213674075,
+          "ci_high": 0.2785376319363112,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.2695605280309243,
+          "ci_low": 0.12711361728445622,
+          "ci_high": 0.39834041601715775,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.08228924919875984,
+          "ci_low": -0.22091793180497876,
+          "ci_high": 0.06305608232107027,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.20271352675173882,
+          "ci_low": -0.3405786350257383,
+          "ci_high": -0.05853907993331515,
+          "n_boot": 400
+        }
+      },
+      "spr": {
+        "profitable_closes": {
+          "kendall_tau": 0.16585525083133892,
+          "ci_low": 0.023033848474484586,
+          "ci_high": 0.29014597694718813,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.30132886428473615,
+          "ci_low": 0.147302160947325,
+          "ci_high": 0.4356082980624965,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.07480214128682536,
+          "ci_low": -0.22136309606425295,
+          "ci_high": 0.07187318418562601,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.22129543518197803,
+          "ci_low": -0.3646648428779813,
+          "ci_high": -0.0778630140618163,
+          "n_boot": 400
+        }
+      },
+      "t1_in_approve_degree": {
+        "profitable_closes": {
+          "kendall_tau": 0.08275326353356892,
+          "ci_low": -0.10270816085823034,
+          "ci_high": 0.23776125897728645,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.02434734478821403,
+          "ci_low": -0.153850757337881,
+          "ci_high": 0.2023490817256703,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.1458814182116402,
+          "ci_low": -0.3172971045465578,
+          "ci_high": 0.02882445383083533,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.27754593447653547,
+          "ci_low": -0.4307017057494868,
+          "ci_high": -0.11872078134454157,
+          "n_boot": 400
+        }
+      },
+      "t1_in_degree": {
+        "profitable_closes": {
+          "kendall_tau": 0.007981833171251174,
+          "ci_low": -0.13516573092864254,
+          "ci_high": 0.16916535740492195,
+          "n_boot": 400
+        },
+        "realized_gain": {
+          "kendall_tau": 0.007570909776826596,
+          "ci_low": -0.1494864208029419,
+          "ci_high": 0.17454244759733298,
+          "n_boot": 400
+        },
+        "profitable_share": {
+          "kendall_tau": -0.1907134314215631,
+          "ci_low": -0.3292510183260224,
+          "ci_high": -0.04146100536486567,
+          "n_boot": 400
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.19720984439101708,
+          "ci_low": -0.3499636887705177,
+          "ci_high": -0.03533116832894512,
+          "n_boot": 400
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "value_slope": {
+    "1": {
+      "endorserank": {
+        "transfer": 0.15786104079081215,
+        "allowance": 0.5849211151590826,
+        "sybil_stability": 0.0071566654588566675
+      },
+      "awp": {
+        "transfer": 0.5722707002027285,
+        "allowance": 0.19295348866449347,
+        "sybil_stability": 0.394788759079629
+      }
+    },
+    "01x": {
+      "endorserank": {
+        "transfer": 0.15674880636223765,
+        "allowance": 0.5883594890598549,
+        "sybil_stability": 0.006426470116816634
+      },
+      "awp": {
+        "transfer": 0.5766836034415319,
+        "allowance": 0.1932597065750029,
+        "sybil_stability": 0.3966230196387319
+      },
+      "tau_with_main": {
+        "endorserank": 0.9728467706066541,
+        "awp": 0.9727206564505226
+      }
+    },
+    "10x": {
+      "endorserank": {
+        "transfer": 0.15878934161534003,
+        "allowance": 0.5803561856860023,
+        "sybil_stability": 0.008621320634479018
+      },
+      "awp": {
+        "transfer": 0.5668812005039185,
+        "allowance": 0.19148891497403026,
+        "sybil_stability": 0.3932147830436492
+      },
+      "tau_with_main": {
+        "endorserank": 0.9680543711309404,
+        "awp": 0.9713765057448923
+      }
+    }
+  },
+  "sample_definition": [
+    {
+      "n": 1000,
+      "endorserank": {
+        "transfer": 0.20542941685218058,
+        "allowance": 0.7145895560777797,
+        "sybil_stability": 0.037848512162850186
+      },
+      "awp": {
+        "transfer": 0.5857738903895467,
+        "allowance": 0.19645545647579613,
+        "sybil_stability": 0.4076538734524202
+      },
+      "allowance_edges": 425088,
+      "transfer_edges": 1695695
+    },
+    {
+      "n": 2000,
+      "endorserank": {
+        "transfer": 0.196322750881401,
+        "allowance": 0.685622774347771,
+        "sybil_stability": 0.03344961171139762
+      },
+      "awp": {
+        "transfer": 0.5882781948733437,
+        "allowance": 0.19884263276200015,
+        "sybil_stability": 0.41103808289609134
+      },
+      "allowance_edges": 1263854,
+      "transfer_edges": 3152531
+    },
+    {
+      "n": 5000,
+      "endorserank": {
+        "transfer": 0.19452914916263825,
+        "allowance": 0.63357714286991,
+        "sybil_stability": 0.0341035774167601
+      },
+      "awp": {
+        "transfer": 0.5707455619595816,
+        "allowance": 0.21053210950648282,
+        "sybil_stability": 0.39071462453393796
+      },
+      "allowance_edges": 2989819,
+      "transfer_edges": 7778320
+    },
+    {
+      "n": 10000,
+      "endorserank": {
+        "transfer": 0.16745887485016317,
+        "allowance": 0.6065896190139779,
+        "sybil_stability": 0.013490165741772614
+      },
+      "awp": {
+        "transfer": 0.5705690179963253,
+        "allowance": 0.19562971503114235,
+        "sybil_stability": 0.39352934829755837
+      },
+      "allowance_edges": 6678752,
+      "transfer_edges": 17190775
+    },
+    {
+      "n": 15107,
+      "endorserank": {
+        "transfer": 0.15786104079081215,
+        "allowance": 0.5849211151590826,
+        "sybil_stability": 0.0071566654588566675
+      },
+      "awp": {
+        "transfer": 0.5722707002027285,
+        "allowance": 0.19295348866449347,
+        "sybil_stability": 0.394788759079629
+      },
+      "allowance_edges": 11219116,
+      "transfer_edges": 25018892
+    }
+  ]
+}

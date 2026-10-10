@@ -1,0 +1,1041 @@
+{
+  "rows": {
+    "registered_ego": {
+      "approvals": 389866882,
+      "transfers": 1538404067,
+      "approvals_w1": 18199269,
+      "transfers_w1": 74441935
+    },
+    "unlisted_tokens": {
+      "tokens": 142958,
+      "approvals": 164202859,
+      "transfers": 364468917,
+      "approvals_w1": 5985398,
+      "transfers_w1": 13539539
+    },
+    "listed_tokens_outside_revised_ego": {
+      "approvals": 709821,
+      "transfers": 24766612,
+      "approvals_w1": 3977,
+      "transfers_w1": 720204
+    },
+    "revised_ego": {
+      "approvals": 224954202,
+      "transfers": 1149168538,
+      "approvals_w1": 12209894,
+      "transfers_w1": 60182192
+    },
+    "revised_share_of_registered": {
+      "approvals": 0.5770025934134103,
+      "transfers": 0.7469874544994947,
+      "approvals_w1": 0.670900243300981,
+      "transfers_w1": 0.8084447563057032
+    },
+    "revised_transfers_without_price": 0
+  },
+  "per_token": [
+    {
+      "token": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "symbol": "WETH",
+      "reg_approvals": 77975750.0,
+      "reg_transfers": 508611616.0,
+      "reg_approvals_w1": 2593638.0,
+      "reg_transfers_w1": 19983309.0,
+      "rev_approvals": 77750158.0,
+      "rev_transfers": 491260915.0,
+      "rev_approvals_w1": 2592513.0,
+      "rev_transfers_w1": 19414194.0,
+      "rev_transfer_usd": 835852965864.7858,
+      "rev_transfer_usd_w1": 12750576260.4841,
+      "rev_transfers_without_price": 0.0
+    },
+    {
+      "token": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "symbol": "USDC",
+      "reg_approvals": 41395787.0,
+      "reg_transfers": 359321018.0,
+      "reg_approvals_w1": 5174805.0,
+      "reg_transfers_w1": 23849670.0,
+      "rev_approvals": 41384428.0,
+      "rev_transfers": 354895908.0,
+      "rev_approvals_w1": 5173879.0,
+      "rev_transfers_w1": 23748196.0,
+      "rev_transfer_usd": 991356457001.5535,
+      "rev_transfer_usd_w1": 61450804323.20767,
+      "rev_transfers_without_price": 0.0
+    },
+    {
+      "token": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "symbol": "USD\u20ae0",
+      "reg_approvals": 72936517.0,
+      "reg_transfers": 160137487.0,
+      "reg_approvals_w1": 3718069.0,
+      "reg_transfers_w1": 7484037.0,
+      "rev_approvals": 72873996.0,
+      "rev_transfers": 158554279.0,
+      "rev_approvals_w1": 3716747.0,
+      "rev_transfers_w1": 7461946.0,
+      "rev_transfer_usd": 273071295763.0937,
+      "rev_transfer_usd_w1": 7400017444.716653,
+      "rev_transfers_without_price": 0.0
+    },
+    {
+      "token": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+      "symbol": "ARB",
+      "reg_approvals": 16330925.0,
+      "reg_transfers": 74421140.0,
+      "reg_approvals_w1": 224520.0,
+      "reg_transfers_w1": 4624845.0,
+      "rev_approvals": 15924247.0,
+      "rev_transfers": 73305553.0,
+      "rev_approvals_w1": 224304.0,
+      "rev_transfers_w1": 4607574.0,
+      "rev_transfer_usd": 85022223181.1487,
+      "rev_transfer_usd_w1": 1214397494.1909351,
+      "rev_transfers_without_price": 0.0
+    },
+    {
+      "token": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+      "symbol": "WBTC",
+      "reg_approvals": 17025044.0,
+      "reg_transfers": 71443889.0,
+      "reg_approvals_w1": 502839.0,
+      "reg_transfers_w1": 4960535.0,
+      "rev_approvals": 17021373.0,
+      "rev_transfers": 71151883.0,
+      "rev_approvals_w1": 502451.0,
+      "rev_transfers_w1": 4950282.0,
+      "rev_transfer_usd": 223190802368.85736,
+      "rev_transfer_usd_w1": 6236172119.931518,
+      "rev_transfers_without_price": 0.0
+    }
+  ],
+  "amounts": {
+    "latest_allowances_tobs": 12590613,
+    "unlimited_allowances": 5763757,
+    "unlimited_share": 0.4577820793951812,
+    "allowances_at_or_above_cap": 6776289,
+    "allowances_at_or_above_cap_share": 0.5382016745332415,
+    "owners": 6208769,
+    "owners_with_unlimited": 3294370,
+    "owners_with_both_kinds": 797852,
+    "finite_allowance_usd_percentiles_tobs": {
+      "p10": 0.32987787423105847,
+      "p25": 5.441385516937404,
+      "p50": 60.58363202484198,
+      "p75": 1198.3636327744296,
+      "p90": 2144554702.5355341,
+      "p99": 5.852974286215905e+45
+    },
+    "transfers_obs": 1149168538,
+    "transfer_usd_percentiles_obs": {
+      "p10": 0.141466907008,
+      "p25": 12.194400884562922,
+      "p50": 193.5687756288625,
+      "p75": 891.9412866156715,
+      "p90": 2967.57511752,
+      "p99": 19999.88
+    }
+  },
+  "constants": {
+    "computed_at": "2026-10-10T11:23:50+00:00",
+    "source": "sql/13_usd_constants.sql (contract_rep.u_constants), events up to t1",
+    "raw": {
+      "m_allowance": 61.51017255202981,
+      "m_transfer": 203.71288472076088,
+      "n_finite_allowances": 6491970.0,
+      "n_transfers": 1073838657.0,
+      "n_unlimited_allowances": 5490386.0,
+      "p10_allowance": 0.32462063421431514,
+      "p10_transfer": 0.14022151382290846,
+      "p90_allowance": 2146753785.2992494,
+      "p90_transfer": 3051.540127496864,
+      "p99_allowance": 9.996601316607136e+46,
+      "p99_transfer": 20266.38770523461
+    },
+    "m_transfer_usd": 200.0,
+    "m_allowance_usd": 62.0,
+    "cap_allowance_usd": 20000.0,
+    "b_transfer": 0.005493061443340549,
+    "b_allowance": 0.01771955304303403,
+    "unlimited_base_units": 1.15e+77,
+    "rule": "b = ln 3 / m with m the median rounded to two significant digits; the allowance cap U is the 99th percentile of the USD values of the transfers up to t1, rounded to two significant digits"
+  },
+  "prices": [
+    {
+      "address": "0x004b506865409877c9fa29bfb1eba929984b9bbc",
+      "days": 695,
+      "filled_days": 2,
+      "first_day": "2024-11-05",
+      "min_confidence": 0.99,
+      "symbol": "USDG"
+    },
+    {
+      "address": "0x0c880f6761f1af8d9aa9c466984b80dab9a8c9e8",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "PENDLE"
+    },
+    {
+      "address": "0x11cdb42b0eb46d95f990bedd4695a6e3fa034978",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "CRV"
+    },
+    {
+      "address": "0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "LDO"
+    },
+    {
+      "address": "0x17fc002b466eec40dae837fc4be5c67993ddbd6f",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "FRAX"
+    },
+    {
+      "address": "0x1b896893dfc86bb67cf57767298b9073d2c1ba2c",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "Cake"
+    },
+    {
+      "address": "0x1debd73e752beaf79865fd6446b0c970eae7732f",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "cbETH"
+    },
+    {
+      "address": "0x211cc4dd073734da055fbf44a2b4667d5e5fe5d2",
+      "days": 925,
+      "filled_days": 0,
+      "first_day": "2024-03-20",
+      "min_confidence": 0.99,
+      "symbol": "sUSDe"
+    },
+    {
+      "address": "0x23ee2343b892b1bb63503a4fabc840e0e2c6810f",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "AXL"
+    },
+    {
+      "address": "0x25d887ce7a35172c62febfd67a1856f20faebb00",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "PEPE"
+    },
+    {
+      "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "WBTC"
+    },
+    {
+      "address": "0x3082cc23568ea640225c2467653db90e9250aaa0",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "RDNT"
+    },
+    {
+      "address": "0x354a6da3fcde098f8389cad84b0182725c6c91de",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "COMP"
+    },
+    {
+      "address": "0x35751007a407ca6feffe80b3cb397736d2cf4dbe",
+      "days": 1000,
+      "filled_days": 1,
+      "first_day": "2024-01-05",
+      "min_confidence": 0.99,
+      "symbol": "weETH"
+    },
+    {
+      "address": "0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "SPELL"
+    },
+    {
+      "address": "0x40bd670a58238e6e230c430bbb5ce6ec0d40df48",
+      "days": 679,
+      "filled_days": 0,
+      "first_day": "2024-11-21",
+      "min_confidence": 0.99,
+      "symbol": "MORPHO"
+    },
+    {
+      "address": "0x46850ad61c2b7d64d08c9c754f45254596696984",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "PYUSD"
+    },
+    {
+      "address": "0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "crvUSD"
+    },
+    {
+      "address": "0x539bde0d7dbd336b79148aa742883198bbf60342",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "MAGIC"
+    },
+    {
+      "address": "0x58538e6a46e07434d7e7375bc268d3cb839c0133",
+      "days": 912,
+      "filled_days": 0,
+      "first_day": "2024-04-02",
+      "min_confidence": 0.99,
+      "symbol": "ENA"
+    },
+    {
+      "address": "0x5979d7b546e38e414f7e9822514be443a4800529",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "wstETH"
+    },
+    {
+      "address": "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34",
+      "days": 1023,
+      "filled_days": 9,
+      "first_day": "2023-12-13",
+      "min_confidence": 0.99,
+      "symbol": "USDe"
+    },
+    {
+      "address": "0x6314c31a7a1652ce482cffe247e9cb7c3f4bb9af",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "1INCH"
+    },
+    {
+      "address": "0x6491c05a82219b8d1479057361ff1654749b876b",
+      "days": 737,
+      "filled_days": 2,
+      "first_day": "2024-09-24",
+      "min_confidence": 0.99,
+      "symbol": "USDS"
+    },
+    {
+      "address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+      "days": 833,
+      "filled_days": 0,
+      "first_day": "2024-06-20",
+      "min_confidence": 0.99,
+      "symbol": "ZRO"
+    },
+    {
+      "address": "0x6c84a8f1c29108f47a79964b5fe888d4f4d0de40",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "tBTC"
+    },
+    {
+      "address": "0x7dff72693f6a4149b17e7c6314655f6a9f7c8b33",
+      "days": 1096,
+      "filled_days": 2,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "GHO"
+    },
+    {
+      "address": "0x7f9fbf9bdd3f4105c478b996b648fe6e828a1e98",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "APE"
+    },
+    {
+      "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "WETH"
+    },
+    {
+      "address": "0x82e3a8f066a6989666b031d916c43672085b1582",
+      "days": 1096,
+      "filled_days": 2,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "YFI"
+    },
+    {
+      "address": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "ARB"
+    },
+    {
+      "address": "0x9623063377ad1b27544c965ccd7342f7ea7e88c7",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "GRT"
+    },
+    {
+      "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "USDC"
+    },
+    {
+      "address": "0xba5ddd1f9d7f570dc94a51479a000e3bce967196",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "AAVE"
+    },
+    {
+      "address": "0xc87b37a581ec3257b734886d9d3a581f5a9d056c",
+      "days": 841,
+      "filled_days": 0,
+      "first_day": "2024-06-12",
+      "min_confidence": 0.99,
+      "symbol": "ATH"
+    },
+    {
+      "address": "0xca5ca9083702c56b481d1eec86f1776fdbd2e594",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "RSR"
+    },
+    {
+      "address": "0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "WOO"
+    },
+    {
+      "address": "0xd4d42f0b6def4ce0383636770ef773390d85c61a",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "SUSHI"
+    },
+    {
+      "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "DAI"
+    },
+    {
+      "address": "0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "rETH"
+    },
+    {
+      "address": "0xf97f4df75117a78c1a5a0dbb814af92458539fb4",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "LINK"
+    },
+    {
+      "address": "0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "UNI"
+    },
+    {
+      "address": "0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "GMX"
+    },
+    {
+      "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "USD\u20ae0"
+    },
+    {
+      "address": "0xfeb4dfc8c4cf7ed305bb08065d08ec6ee6728429",
+      "days": 1096,
+      "filled_days": 1,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "PAXG"
+    },
+    {
+      "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
+      "days": 1096,
+      "filled_days": 0,
+      "first_day": "2023-10-01",
+      "min_confidence": 0.99,
+      "symbol": "USDC"
+    }
+  ],
+  "listed_tokens": 64,
+  "priced_tokens": 46,
+  "selected_tokens": 5,
+  "listed_without_price": [
+    {
+      "address": "0x74885b4d524d497261259b38900f54e6dbad2210",
+      "symbol": "APE",
+      "n_rows_tobs": 23211
+    },
+    {
+      "address": "0x35e6a59f786d9266c7961ea28c7b768b33959cbb",
+      "symbol": "PEPE",
+      "n_rows_tobs": 14110
+    },
+    {
+      "address": "0xcba56cd8216fcbbf3fa6df6137f3147cbca37d60",
+      "symbol": "SNX",
+      "n_rows_tobs": 865
+    },
+    {
+      "address": "0x863708032b5c328e11abcbc0df9d79c71fc52a48",
+      "symbol": "EUROC",
+      "n_rows_tobs": 72
+    },
+    {
+      "address": "0x5033833c9fe8b9d3e09eed2f73d2aaf7e3872fd1",
+      "symbol": "SHIB",
+      "n_rows_tobs": 48
+    },
+    {
+      "address": "0x7550de0a4b9fb8caba8c32e72ee356afdd217a33",
+      "symbol": "USD1",
+      "n_rows_tobs": 18
+    },
+    {
+      "address": "0x7468a5d8e02245b00e8c0217fce021c70bc51305",
+      "symbol": "FRAX",
+      "n_rows_tobs": 11
+    },
+    {
+      "address": "0xdf8f0c63d9335a0abd89f9f752d293a98ea977d8",
+      "symbol": "ENA",
+      "n_rows_tobs": 8
+    },
+    {
+      "address": "0xc7def82ba77baf30bbbc9b6162dc075b49092fb4",
+      "symbol": "ATH",
+      "n_rows_tobs": 5
+    },
+    {
+      "address": "0xe390c0b46bd723995be02640e6f1e1c802f620ac",
+      "symbol": "MORPHO",
+      "n_rows_tobs": 5
+    },
+    {
+      "address": "0xe88998fb579266628af6a03e3821d5983e5d0089",
+      "symbol": "AXS",
+      "n_rows_tobs": 5
+    },
+    {
+      "address": "0x327006c8712fe0abdbbd55b7999db39b0967342e",
+      "symbol": "PYUSD",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0x7e2a1edee171c5b19e6c54d73752396c0a572594",
+      "symbol": "tBTC",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0x9c1a1c7ba9c2602123fd7ef3eb41a769edf6c53a",
+      "symbol": "MNT",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0xaafcfd42c9954c6689ef1901e03db742520829c5",
+      "symbol": "CVX",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0x8ea3156f834a0dfc78f1a5304fac2cda676f354c",
+      "symbol": "CRO",
+      "n_rows_tobs": 3
+    },
+    {
+      "address": "0x044d8e7f3a17751d521efea8ccf9282268fe08cc",
+      "symbol": "POL",
+      "n_rows_tobs": 2
+    },
+    {
+      "address": "0x73efdc761596328461b68e5fc58c3284cb15ba13",
+      "symbol": "PLUME",
+      "n_rows_tobs": 2
+    }
+  ],
+  "timing": {
+    "revision_commit_utc": "a897475 2026-10-10T07:54:35+00:00",
+    "revised_jobs_usd": 5.09,
+    "bigquery_usd_total": 34.8,
+    "bigquery_tib_billed": 5.569
+  },
+  "monthly_counts": [
+    {
+      "month": "2023-10",
+      "n": 2657369,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2023-11",
+      "n": 3763237,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2023-12",
+      "n": 3378029,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-01",
+      "n": 4668526,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-02",
+      "n": 3871550,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-03",
+      "n": 6783784,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-04",
+      "n": 14387562,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-05",
+      "n": 9923795,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-06",
+      "n": 7874383,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-07",
+      "n": 9020360,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-08",
+      "n": 7954426,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-09",
+      "n": 6098610,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-10",
+      "n": 6220715,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-11",
+      "n": 7397325,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2024-12",
+      "n": 8728129,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-01",
+      "n": 6782148,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-02",
+      "n": 5637389,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-03",
+      "n": 6386946,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-04",
+      "n": 4971297,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-05",
+      "n": 6644732,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-06",
+      "n": 5394561,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-07",
+      "n": 6069259,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-08",
+      "n": 9174372,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-09",
+      "n": 8351629,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-10",
+      "n": 9940050,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-11",
+      "n": 7559344,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2025-12",
+      "n": 11007845,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2026-01",
+      "n": 7814615,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2026-02",
+      "n": 7201005,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2026-03",
+      "n": 5967171,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2026-04",
+      "n": 4353160,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2026-05",
+      "n": 3295991,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2026-06",
+      "n": 5674888,
+      "stream": "approval_ego"
+    },
+    {
+      "month": "2023-10",
+      "n": 8131746,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2023-11",
+      "n": 11304117,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2023-12",
+      "n": 11861292,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-01",
+      "n": 15582879,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-02",
+      "n": 12195340,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-03",
+      "n": 23565922,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-04",
+      "n": 41446470,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-05",
+      "n": 30594305,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-06",
+      "n": 25356843,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-07",
+      "n": 36917305,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-08",
+      "n": 42543803,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-09",
+      "n": 29397283,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-10",
+      "n": 31463575,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-11",
+      "n": 50183746,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2024-12",
+      "n": 49030590,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-01",
+      "n": 43973194,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-02",
+      "n": 45503945,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-03",
+      "n": 47759742,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-04",
+      "n": 41841325,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-05",
+      "n": 51787297,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-06",
+      "n": 43134889,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-07",
+      "n": 49486331,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-08",
+      "n": 52533142,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-09",
+      "n": 38244778,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-10",
+      "n": 49611973,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-11",
+      "n": 44650159,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2025-12",
+      "n": 42182264,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2026-01",
+      "n": 39119508,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2026-02",
+      "n": 35385506,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2026-03",
+      "n": 29049388,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2026-04",
+      "n": 24033195,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2026-05",
+      "n": 22049046,
+      "stream": "transfer_ego"
+    },
+    {
+      "month": "2026-06",
+      "n": 29247640,
+      "stream": "transfer_ego"
+    }
+  ],
+  "gmx_contract_traders_by_quarter": [
+    {
+      "quarter": "2023Q4",
+      "closes": 1119,
+      "accounts": 180,
+      "liquidations": 104
+    },
+    {
+      "quarter": "2024Q1",
+      "closes": 7956,
+      "accounts": 1247,
+      "liquidations": 692
+    },
+    {
+      "quarter": "2024Q2",
+      "closes": 11509,
+      "accounts": 2120,
+      "liquidations": 589
+    },
+    {
+      "quarter": "2024Q3",
+      "closes": 7947,
+      "accounts": 1807,
+      "liquidations": 456
+    },
+    {
+      "quarter": "2024Q4",
+      "closes": 7343,
+      "accounts": 1321,
+      "liquidations": 904
+    },
+    {
+      "quarter": "2025Q1",
+      "closes": 6929,
+      "accounts": 497,
+      "liquidations": 498
+    },
+    {
+      "quarter": "2025Q2",
+      "closes": 12080,
+      "accounts": 368,
+      "liquidations": 379
+    },
+    {
+      "quarter": "2025Q3",
+      "closes": 28753,
+      "accounts": 1750,
+      "liquidations": 897
+    },
+    {
+      "quarter": "2025Q4",
+      "closes": 40240,
+      "accounts": 1915,
+      "liquidations": 1596
+    },
+    {
+      "quarter": "2026Q1",
+      "closes": 6026,
+      "accounts": 269,
+      "liquidations": 233
+    },
+    {
+      "quarter": "2026Q2",
+      "closes": 3783,
+      "accounts": 169,
+      "liquidations": 125
+    },
+    {
+      "quarter": "2026Q3",
+      "closes": 6805,
+      "accounts": 165,
+      "liquidations": 182
+    }
+  ]
+}

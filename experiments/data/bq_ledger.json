@@ -328,6 +328,32 @@
       "usd": 0.2252
     },
     {
+      "at": "2026-10-10T08:17:12+00:00",
+      "job_id": "bqjob_r6d20abf77fa3a223_000001a124e32cdc_1",
+      "sql": null,
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "revised: read u_constants (bq CLI in run_usd_pipeline.py constants)",
+      "bytes_estimated": null,
+      "bytes_billed": 10485760,
+      "usd": 0.0001,
+      "entered_by_hand": true
+    },
+    {
+      "at": "2026-10-10T08:17:50+00:00",
+      "job_id": "5e5bba49-f3a3-4f9c-ab69-52c50720a59a",
+      "sql": null,
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "revised: USD distribution of latest allowances and transfers at t1 (cap amendment, run outside run_bq.py)",
+      "bytes_estimated": null,
+      "bytes_billed": 39616249856,
+      "usd": 0.2252,
+      "entered_by_hand": true
+    },
+    {
       "at": "2026-10-10T11:23:44+00:00",
       "job_id": "a948ece7-eea0-4ffb-8982-12f59d460234",
       "sql": "sql/13_usd_constants.sql",
@@ -342,6 +368,147 @@
       "bytes_estimated": 39616047276,
       "bytes_billed": 39616249856,
       "usd": 0.2252
+    },
+    {
+      "at": "2026-10-10T11:23:49+00:00",
+      "job_id": "bqjob_r31f1314b3a648ca7_000001a1258e0905_1",
+      "sql": null,
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "revised: read u_constants (bq CLI in run_usd_pipeline.py constants)",
+      "bytes_estimated": null,
+      "bytes_billed": 10485760,
+      "usd": 0.0001,
+      "entered_by_hand": true
+    },
+    {
+      "at": "2026-10-10T11:24:57+00:00",
+      "job_id": "9ebdf325-1a6a-4ab8-a648-2c93731cecf8",
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC",
+        "b_transfer": "0.005493061443340549",
+        "b_allowance": "0.01771955304303403",
+        "cap_allowance": "20000.0"
+      },
+      "subs": [
+        "TAG=tobs"
+      ],
+      "label": "revised: pairs at tobs",
+      "bytes_estimated": 23846976898,
+      "bytes_billed": 93654614016,
+      "usd": 0.5324
+    },
+    {
+      "at": "2026-10-10T11:25:41+00:00",
+      "job_id": "8916c4f9-6254-4815-a7f0-1b5fe2b80b6f",
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-03-31 23:59:59 UTC",
+        "b_transfer": "0.005493061443340549",
+        "b_allowance": "0.01771955304303403",
+        "cap_allowance": "20000.0"
+      },
+      "subs": [
+        "TAG=t1"
+      ],
+      "label": "revised: pairs at t1",
+      "bytes_estimated": 22434628764,
+      "bytes_billed": 87681925120,
+      "usd": 0.4984
+    },
+    {
+      "at": "2026-10-10T11:25:52+00:00",
+      "job_id": "84e3edbe-bf85-445a-acf3-5dedf664da71",
+      "sql": "sql/15_usd_proxies.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "revised: same-window proxies",
+      "bytes_estimated": 68950444634,
+      "bytes_billed": 68951212032,
+      "usd": 0.3919
+    },
+    {
+      "at": "2026-10-10T11:26:54+00:00",
+      "job_id": "6048da77-f415-4185-8da4-ae028ab83fb2",
+      "sql": "sql/16_usd_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=u_approvals",
+        "TRANSFERS=u_transfers",
+        "LOGS=logs_obs"
+      ],
+      "label": "revised: W0 labels",
+      "bytes_estimated": 87662405349,
+      "bytes_billed": 87663050752,
+      "usd": 0.4983
+    },
+    {
+      "at": "2026-10-10T11:27:51+00:00",
+      "job_id": "15f412bd-898f-45a2-a7da-5c5ce8fdd477",
+      "sql": "sql/16_usd_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "t1": "2026-06-30 23:59:59 UTC",
+        "out_start": "2026-07-01 00:00:00 UTC",
+        "out_end": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w1",
+        "FREEZE=tobs",
+        "APPROVALS=u_approvals_w1",
+        "TRANSFERS=u_transfers_w1",
+        "LOGS=logs_w1"
+      ],
+      "label": "revised: W1 labels",
+      "bytes_estimated": 91806175982,
+      "bytes_billed": 91807023104,
+      "usd": 0.5219
+    },
+    {
+      "at": "2026-10-10T11:28:37+00:00",
+      "job_id": "518a3cd4-a60b-4b21-958d-192e2ed3d1d1",
+      "sql": "sql/17_usd_export_ids.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "revised: node ids and export tables",
+      "bytes_estimated": 3105366506,
+      "bytes_billed": 10634657792,
+      "usd": 0.0605
+    },
+    {
+      "at": "2026-10-10T11:28:52+00:00",
+      "job_id": "6bc2b8fd-1646-4266-b4e0-f5ba0ae2345f",
+      "sql": "sql/18_usd_describe.sql",
+      "dest": null,
+      "params": {
+        "unlimited": "1.15e+77",
+        "cap_allowance": "20000.0"
+      },
+      "subs": [],
+      "label": "revised: descriptive statistics",
+      "bytes_estimated": 85958199488,
+      "bytes_billed": 106624450560,
+      "usd": 0.6061
     }
   ]
 }

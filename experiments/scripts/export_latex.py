@@ -293,6 +293,7 @@ SHORT_CAPTIONS = {
     "fresh-traders": f"{W1_NAME}: Kendall $\\tau$ on the other trader labels.",
     "robustness-slope": "Robustness: family-mean Kendall $\\tau$ under ten times smaller and larger value slopes.",
     "registered-vs-revised": "Decision contrasts of the registered analysis and of the revised analysis.",
+    "usd-tokens": "The five tokens of the revised analysis, the rows they keep and their prices.",
     "neutral-label-contrasts": "Allowance-side against transfer-side scores on the liquidation-free close rate.",
     "neutral-label-recipients": "Traders that receive approvals against all other labelled traders.",
     "neutral-label-grid": "Allowance-side minus transfer-side scores on every trader label in both windows.",
@@ -782,20 +783,82 @@ def t_robustness_slope(rob: dict, n: int, consts: dict) -> None:
     agree = []
     for v, h in (("01x", "$b/10$"), ("10x", "$10b$")):
         t = sl[v].get("tau_with_main") or {}
-        agree.append(f"{f3(t.get('endorserank'), f'ER agreement {v}')} and {f3(t.get('awp'), f'AWP agreement {v}')} "
+        agree.append(f"${f3(t.get('endorserank'), f'ER agreement {v}')}$ and ${f3(t.get('awp'), f'AWP agreement {v}')}$ "
                      f"at {h}")
     caption = (
         f"Robustness: family-mean Kendall $\\tau$ on the matched cohort ($n={fint(n)}$ contracts) when the slope $b$ "
         "of the value weight $V$ is divided or multiplied by ten, next to the main analysis. The main slopes put "
         f"$V=1/2$ at the median amount, \\${fint(consts.get('m_transfer_usd'))} for transfers and "
         f"\\${fint(consts.get('m_allowance_usd'))} for allowances; $b/10$ moves that point to ten times the median and "
-        "$10b$ to a tenth of it. The rank agreement of each variant with the main score of the same method is "
-        f"$\\tau={agree[0]}$, and $\\tau={agree[1]}$ (EndorseRank and AWP). No intervals were computed for the variants."
+        "$10b$ to a tenth of it. The rank agreement $\\tau$ of each variant with the main score of the same method "
+        f"(EndorseRank and AWP) is {agree[0]}, and {agree[1]}. No intervals were computed for the variants."
     )
     group = " & ".join(f"\\multicolumn{{3}}{{c}}{{{h}}}" for _, h in FAMILIES)
     head = (f"Method & {group} \\\\\n\\cmidrule(lr){{2-4}} \\cmidrule(lr){{5-7}} \\cmidrule(lr){{8-10}}\n"
             " & " + " & ".join([" & ".join(h for _, h in variants)] * 3))
     emit("robustness-slope", caption, tabular("l" + "c" * 9, head, lines), [SOURCES["rob"], USD_INPUTS / "constants.json"])
+
+
+def _sci(x, digits: int = 2) -> str:
+    """A large number as m \\times 10^{k} in math mode."""
+    v = _num(x)
+    if v is None:
+        problem("missing number")
+        return "---"
+    if v == 0:
+        return "$0$"
+    k = int(np.floor(np.log10(abs(v))))
+    return f"${v / 10 ** k:.{digits - 1}f}\\times10^{{{k}}}$"
+
+
+def t_usd_tokens(desc: dict, cfg: dict) -> None:
+    """Revised analysis: the five tokens, the rows they keep and leave out, and their prices."""
+    begin("usd-tokens")
+    import pandas as pd
+    lst = pd.read_csv(USD_INPUTS / "listed_tokens.csv")
+    sel = lst[lst["selected"].astype(str).str.lower() == "true"].sort_values("n_rows_tobs", ascending=False)
+    per = {t["token"]: t for t in desc.get("per_token") or []}
+    chk = load_json(USD_INPUTS / "chainlink_check.json").get("per_token", {}) if (USD_INPUTS / "chainlink_check.json").exists() else {}
+    lines = []
+    for _, r in sel.iterrows():
+        p = per.get(r["address"]) or {}
+        if not p:
+            problem(f"no describe row for {r['symbol']}")
+        reg = (_num(p.get("reg_approvals")) or 0) + (_num(p.get("reg_transfers")) or 0)
+        rev = (_num(p.get("rev_approvals")) or 0) + (_num(p.get("rev_transfers")) or 0)
+        c = chk.get(r["symbol"]) or {}
+        sym = "USDT0" if r["symbol"] == "USD₮0" else r["symbol"]
+        lines.append(
+            f"{sym} & \\texttt{{{r['address'][:6]}\\ldots{r['address'][-4:]}}} & {fint(r['decimals'])} & "
+            f"{r['feed']} ({r['feed_category']}) & {fint(reg)} & {fint(rev)} & {_sci(p.get('rev_transfer_usd'))} & "
+            f"{fint(r['second_key_days_used'])} & {fint(r['filled_days'])} & {fint(r['spike_days'])} & "
+            f"{100 * (_num(c.get('median')) or float('nan')):.2f} / {100 * (_num(c.get('max')) or float('nan')):.2f} \\\\")
+    rows = desc.get("rows") or {}
+    reg, unl, out_ego, rev = (rows.get(k) or {} for k in ("registered_ego", "unlisted_tokens",
+                                                          "listed_tokens_outside_revised_ego", "revised_ego"))
+    am = desc.get("amounts") or {}
+    cons = desc.get("constants") or {}
+    caption = (
+        "The five tokens of the revised analysis, with their Chainlink feed (market-risk category), the rows of the "
+        "observation window that the ego tables of the plan's cohort hold for them (approvals and transfers) and the "
+        "rows that the revised analysis keeps, the US-dollar volume of the kept transfers, the days of the price "
+        "series filled from the second DefiLlama key, filled from the previous day and replaced as one-day errors "
+        "(of 1{,}096 days), and the median and largest absolute difference, in percent, between the DefiLlama price "
+        "and the Chainlink feed read on the chain on 38 dates. "
+        f"The ego tables of the plan's cohort hold {fint(reg.get('approvals'))} approvals and "
+        f"{fint(reg.get('transfers'))} transfers in the observation window. Of these, {fint(unl.get('approvals'))} "
+        f"approvals and {fint(unl.get('transfers'))} transfers belong to other tokens (of the "
+        f"{fint(unl.get('tokens'))} other tokens in the ego tables of the observation window and W1) and are left out; {fint(out_ego.get('approvals'))} approvals and {fint(out_ego.get('transfers'))} transfers "
+        "of the five tokens are left out because neither end point is a contract of the revised cohort; and "
+        f"{fint(rows.get('revised_transfers_without_price'))} kept transfers precede their token's first price. "
+        f"At $T_{{\\mathrm{{obs}}}}$, {fint(am.get('unlimited_allowances'))} of the {fint(am.get('latest_allowances_tobs'))} "
+        f"positive latest allowances are unlimited and {fint(am.get('allowances_at_or_above_cap'))} reach the cap "
+        f"$U={fint(cons.get('cap_allowance_usd'))}$ dollars of the allowance layer of C-PR."
+    )
+    head = ("Token & Address & Dec. & Chainlink feed & Rows, plan & Rows, kept & Transfer USD & 2nd key & Filled & "
+            "Errors & CL diff.\\ (\\%)")
+    emit("usd-tokens", caption, tabular("llrlrrrrrrr", head, lines),
+         [USD_INPUTS / "listed_tokens.csv", PROC / "describe" / "describe.json", USD_INPUTS / "chainlink_check.json"])
 
 
 def _dci(r: dict | None, what: str) -> str:
@@ -1776,6 +1839,8 @@ def main() -> int:
         t_neutral_grid(w1, seed, cfg)
     else:
         SKIPPED.append("W1 tables (no registered summary)")
+    if REVISED and (PROC / "describe" / "describe.json").exists():
+        t_usd_tokens(load_json(PROC / "describe" / "describe.json"), cfg)
     if REVISED and same and w0 and w1:
         reg = {k: load_json(PROC_SHARED / d / "eval_summary.json")
                for k, d in (("same", "same-window"), ("w0", "holdout-w0"), ("w1", "registered-w1"))}

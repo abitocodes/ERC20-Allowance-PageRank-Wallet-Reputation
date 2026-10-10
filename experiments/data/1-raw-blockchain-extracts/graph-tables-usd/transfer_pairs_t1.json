@@ -1,0 +1,19 @@
+{
+  "table": "dissertation-bq.contract_rep.u_x_transfer_pairs_t1",
+  "rows": 23680692,
+  "table_rows": 23680692,
+  "downloaded_at": "2026-10-10T11:35:31+00:00",
+  "parts": [
+    "transfer_pairs_t1.part000.parquet",
+    "transfer_pairs_t1.part001.parquet",
+    "transfer_pairs_t1.part002.parquet",
+    "transfer_pairs_t1.part003.parquet",
+    "transfer_pairs_t1.part004.parquet",
+    "transfer_pairs_t1.part005.parquet",
+    "transfer_pairs_t1.part006.parquet",
+    "transfer_pairs_t1.part007.parquet",
+    "transfer_pairs_t1.part008.parquet",
+    "transfer_pairs_t1.part009.parquet"
+  ],
+  "bytes": 690340132
+}

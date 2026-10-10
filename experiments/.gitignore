@@ -3,3 +3,4 @@ __pycache__/
 .pytest_cache/
 # Graph tables (6.4 GB of parquet parts) stay local and in BigQuery; see README "데이터".
 data/1-raw-blockchain-extracts/graph-tables/*.parquet
+data/1-raw-blockchain-extracts/graph-tables-usd/*.parquet

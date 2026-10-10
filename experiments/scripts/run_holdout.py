@@ -109,7 +109,9 @@ def main() -> int:
     recv = S["t1_in_degree"] > 0
     Sr, Lr = S.loc[recv, ["endorserank", "awp", "t1_in_approve_degree", "t1_in_degree"]], lab.loc[recv]
     boot_r, taus_r = evaluate(Sr, Lr, [APPR, SEND], cfg)
-    contr_r = contrast_rows(boot_r, [AFTER[0], AFTER[1]])
+    # The degree contrasts of EndorseRank and AWP (the registered run used these two; select them by name).
+    deg = [s for s in AFTER if (s[1], s[2]) in (("endorserank", "t1_in_approve_degree"), ("awp", "t1_in_degree"))]
+    contr_r = contrast_rows(boot_r, deg)
 
     no_transfer = S["awp"] == 0
     coverage = {
