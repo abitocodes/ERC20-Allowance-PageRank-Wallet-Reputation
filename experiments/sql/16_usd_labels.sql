@@ -49,12 +49,14 @@ seen AS (
   FROM `dissertation-bq.contract_rep.u_transfers`
   WHERE block_timestamp >= TIMESTAMP(@start_ts) AND block_timestamp <= TIMESTAMP(@t1)
     AND to_address IN (SELECT spender FROM spenders) AND from_address != to_address
+    AND usd IS NOT NULL
 ),
 win_senders AS (
   SELECT DISTINCT to_address, from_address
   FROM `dissertation-bq.contract_rep.__TRANSFERS__`
   WHERE block_timestamp >= TIMESTAMP(@out_start) AND block_timestamp <= TIMESTAMP(@out_end)
     AND to_address IN (SELECT spender FROM spenders) AND from_address != to_address
+    AND usd IS NOT NULL
 ),
 new_senders AS (
   SELECT w.to_address AS spender, COUNT(*) AS n_new_senders

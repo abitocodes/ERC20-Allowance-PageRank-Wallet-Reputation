@@ -10,6 +10,7 @@ WITH t AS (
          x.to_address IN (SELECT address FROM `dissertation-bq.contract_rep.u_cohort`) AS to_cohort
   FROM `dissertation-bq.contract_rep.u_transfers` AS x
   WHERE block_timestamp >= TIMESTAMP(@start_ts) AND block_timestamp <= TIMESTAMP(@anchor_ts)
+    AND usd IS NOT NULL
 ),
 inbound_all AS (
   SELECT to_address AS wallet, COUNT(DISTINCT from_address) AS in_degree, SUM(usd) AS in_value

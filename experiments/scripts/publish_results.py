@@ -21,26 +21,35 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, PUB, ROOT  # noqa: E402
+from common import PROC, PROC_SHARED, PUB, REVISED, ROOT, USD_INPUTS, W1_DIR  # noqa: E402
 
+W1_SRC = f"{W1_DIR}/eval_summary.json"
 # (published path, source)
 FILES = [
     ("same-window/eval_summary.json", PROC / "same-window" / "eval_summary.json"),
     ("holdout-w0/eval_summary.json", PROC / "holdout-w0" / "eval_summary.json"),
-    ("registered-w1/eval_summary.json", PROC / "registered-w1" / "eval_summary.json"),
-    ("registered-w1/extraction_manifest.json", PROC / "registered-w1" / "extraction_manifest.json"),
+    (W1_SRC, PROC / W1_DIR / "eval_summary.json"),
+    ("registered-w1/extraction_manifest.json", PROC_SHARED / "registered-w1" / "extraction_manifest.json"),
     ("sybil-model/sybil_model.json", PROC / "sybil-model" / "sybil_model.json"),
     ("robustness/robustness.json", PROC / "robustness" / "robustness.json"),
     ("benchmark/benchmark.json", PROC / "benchmark" / "benchmark.json"),
     ("supplementary/supplementary.json", PROC / "supplementary" / "supplementary.json"),
     ("describe/describe.json", PROC / "describe" / "describe.json"),
     ("cohort/matched_cohort.json", PROC / "cohort" / "matched_cohort.json"),
-    ("gmx/gmx_contract_closes_obs_decoded.json", PROC / "gmx" / "gmx_contract_closes_obs_decoded.json"),
-    ("gmx/gmx_contract_closes_w1_decoded.json", PROC / "gmx" / "gmx_contract_closes_w1_decoded.json"),
+    ("gmx/gmx_contract_closes_obs_decoded.json", PROC_SHARED / "gmx" / "gmx_contract_closes_obs_decoded.json"),
+    ("gmx/gmx_contract_closes_w1_decoded.json", PROC_SHARED / "gmx" / "gmx_contract_closes_w1_decoded.json"),
     ("config/contract_reputation.yaml", ROOT / "config" / "contract_reputation.yaml"),
     ("docs/analysis_plan.md", ROOT / "docs" / "analysis_plan.md"),
     ("docs/registration_w1.md", ROOT / "docs" / "registration_w1.md"),
 ]
+if REVISED:
+    FILES += [
+        ("docs/revision_price_weighting.md", ROOT / "docs" / "revision_price_weighting.md"),
+        ("usd/listed_tokens.csv", USD_INPUTS / "listed_tokens.csv"),
+        ("usd/usd_inputs.json", USD_INPUTS / "usd_inputs.json"),
+        ("usd/constants.json", USD_INPUTS / "constants.json"),
+        ("usd/chainlink_check.json", USD_INPUTS / "chainlink_check.json"),
+    ]
 DIGEST, SUMS = "results_digest.md", "SHA256SUMS.txt"
 
 METHODS = {
@@ -177,6 +186,9 @@ def sec_sizes(D: Digest, j: dict) -> None:
         for k, v in (c.get("by_code_kind") or {}).items():
             D.row(f"Candidates by account type: {k}", num(v), src, f"by_code_kind.{k}")
         D.row("Matched cohort (contracts)", num(c.get("cohort")), src, "cohort")
+        for k in ("registered_cohort", "left_out_of_registered"):
+            if k in c:
+                D.row(f"Revised cohort: {k.replace('_', ' ')}", num(c.get(k)), src, k)
     s, src = j.get("same-window/eval_summary.json"), "same-window/eval_summary.json"
     if s:
         D.row("Anchor T_obs", s.get("anchor"), src, "anchor")
@@ -324,8 +336,10 @@ def sec_w0(D: Digest, w0: dict) -> None:
 
 
 def sec_w1(D: Digest, w1: dict) -> None:
-    src = "registered-w1/eval_summary.json"
-    D.section("7. Registered window W1 (scores at T_obs, labels July to September 2026)")
+    src = W1_SRC
+    D.section("7. Window W1 (scores at T_obs, labels July to September 2026; the rules registered for the "
+              "raw-unit analysis, applied to the revised scores)" if REVISED else
+              "7. Registered window W1 (scores at T_obs, labels July to September 2026)")
     for k, name in (("delta", "Margin δ"), ("spenders", "Spender cohort (contracts)"),
                     ("gained_new_approvals", "Gained a new approval pair"),
                     ("gained_new_senders", "Gained a new transfer sender"),
@@ -384,9 +398,45 @@ SUPP_NAMES = {
 }
 
 
+def _walk(D: Digest, d, src: str, prefix: str) -> None:
+    for k, v in d.items():
+        key = f"{prefix}{k}"
+        if isinstance(v, dict):
+            _walk(D, v, src, key + ".")
+        elif isinstance(v, list):
+            continue
+        else:
+            D.row(key.replace("_", " "), num(v, 4) if isinstance(v, float) else (f"{v:,}" if isinstance(v, int) and
+                  not isinstance(v, bool) else str(v)), src, key)
+
+
 def sec_describe(D: Digest, z: dict) -> None:
     src = "describe/describe.json"
-    D.section("Data description (amount shares, monthly counts, GMX contract traders, timing)")
+    D.section("Data description (token list, rows left out, amounts in USD, constants, prices, GMX contract "
+              "traders, timing)" if REVISED else
+              "Data description (amount shares, monthly counts, GMX contract traders, timing)")
+    if REVISED:
+        for part in ("rows", "amounts", "constants", "timing"):
+            _walk(D, z.get(part) or {}, src, f"{part}.")
+        D.row("listed tokens", num(z.get("listed_tokens")), src, "listed_tokens")
+        D.sub("Listed tokens: rows of the registered and revised ego tables, USD volume")
+        for i, t in enumerate(z.get("per_token") or []):
+            D.row(f"{t.get('symbol')} {t.get('token')}",
+                  f"registered approvals {num(t.get('reg_approvals'))}, transfers {num(t.get('reg_transfers'))}; "
+                  f"revised approvals {num(t.get('rev_approvals'))}, transfers {num(t.get('rev_transfers'))}; "
+                  f"transfer USD {num(t.get('rev_transfer_usd'))}; without price "
+                  f"{num(t.get('rev_transfers_without_price'))}", src, f"per_token[{i}]")
+        D.sub("Daily prices per listed token")
+        for i, t in enumerate(z.get("prices") or []):
+            D.row(f"{t.get('symbol')} {t.get('address')}",
+                  f"days {num(t.get('days'))}, filled {num(t.get('filled_days'))}, first {t.get('first_day')}, "
+                  f"min confidence {num(t.get('min_confidence'))}", src, f"prices[{i}]")
+        for r in z["gmx_contract_traders_by_quarter"]:
+            D.row(f"GMX contract traders {r['quarter']}", f"{r['closes']:,} closes, {r['accounts']:,} accounts, "
+                  f"{int(r['liquidations']):,} liquidations", src, "gmx_contract_traders_by_quarter")
+        for r in z["monthly_counts"]:
+            D.row(f"{r['stream']} {r['month']}", f"{int(r['n']):,}", src, "monthly_counts")
+        return
     for k, v in z["amounts"].items():
         D.row(k.replace("_", " "), num(v, 4) if isinstance(v, float) else f"{v:,}", src, f"amounts.{k}")
     for k, v in z["timing"].items():
@@ -441,6 +491,16 @@ def sec_robustness(D: Digest, s: dict | None, rob: dict | None) -> None:
                 D.row(f"Damping {name}: {FAMILIES[f]} family", tau(d.get(f)), src, f"damping.{name}.{f}")
     if rob:
         src = "robustness/robustness.json"
+        for v, d in (rob.get("value_slope") or {}).items():
+            for m, fam in d.items():
+                if m == "tau_with_main":
+                    for mm, t in fam.items():
+                        D.row(f"Slope {v}: {METHODS.get(mm, mm)} rank agreement with the main score", num(t), src,
+                              f"value_slope.{v}.tau_with_main.{mm}")
+                    continue
+                for f, t in fam.items():
+                    D.row(f"Slope {v}: {METHODS.get(m, m)}, {FAMILIES.get(f, f)}", num(t), src,
+                          f"value_slope.{v}.{m}.{f}")
         tok = rob.get("top_tokens") or {}
         for lst, d in tok.items():
             if not isinstance(d, dict):
@@ -556,6 +616,9 @@ def main() -> int:
         "and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of "
         "every file published here.",
         "",
+        *(["**Revised analysis** (docs/revision_price_weighting.md): amounts in USD over the listed tokens, decided "
+           "after the registered results were known. Nothing in this digest is a registered result; the registered "
+           "digest is in the parent folder.", ""] if REVISED else []),
         f"- Code revision: `{head or 'unknown'}`"
         + (" with uncommitted changes (git status code) in: " + ", ".join(f"`{p}`" for p in dirty) if dirty else ""),
         "- Published files: " + ", ".join(f"`{p}`" for p in published),
@@ -564,7 +627,7 @@ def main() -> int:
         D.lines.append("- Not yet available: " + ", ".join(f"`{p}`" for p in missing))
     s = j.get("same-window/eval_summary.json")
     w0 = j.get("holdout-w0/eval_summary.json")
-    w1 = j.get("registered-w1/eval_summary.json")
+    w1 = j.get(W1_SRC)
     sec_sizes(D, j)
     if s:
         sec_same_window(D, s)
@@ -591,7 +654,8 @@ def main() -> int:
 
     known = set(published) | {SUMS}
     stale = sorted(p.relative_to(PUB).as_posix() for p in PUB.rglob("*") if p.is_file()
-                   and p.relative_to(PUB).as_posix() not in known)
+                   and p.relative_to(PUB).as_posix() not in known
+                   and not p.relative_to(PUB).as_posix().startswith("revised-usd/"))
     print(f"published {len(published)} files to {PUB}")
     if missing:
         print("not yet available:", ", ".join(missing))

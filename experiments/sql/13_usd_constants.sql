@@ -14,6 +14,7 @@ WITH tr AS (
   SELECT APPROX_QUANTILES(usd, 10000) AS q, COUNT(*) AS n
   FROM `dissertation-bq.contract_rep.u_transfers`
   WHERE block_timestamp >= TIMESTAMP(@start_ts) AND block_timestamp <= TIMESTAMP(@t1)
+    AND usd IS NOT NULL
 ),
 latest AS (
   SELECT token_address, value, amount,

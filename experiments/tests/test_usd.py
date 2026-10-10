@@ -133,3 +133,62 @@ def test_unknown_variant_is_refused():
     env = {**os.environ, "CONTRACT_REP_VARIANT": "eth", "PYTHONDONTWRITEBYTECODE": "1"}
     out = subprocess.run([sys.executable, "-c", "import common"], cwd=SCRIPTS, env=env, capture_output=True, text=True)
     assert out.returncode != 0
+
+
+# --------------------------------------------------------------------------- usd_inputs.py price rules
+
+
+def _ts(day: str, hours: float = 0.0) -> int:
+    return int((pd.Timestamp(day, tz="UTC") + pd.Timedelta(hours=hours)).timestamp())
+
+
+def test_daily_point_is_the_close_of_the_previous_day():
+    import usd_inputs
+    pts = [{"timestamp": _ts("2024-01-02", -0.05), "price": 10.0, "confidence": 0.99},   # 23:57 on 1 Jan
+           {"timestamp": _ts("2024-01-02", 0.5), "price": 11.0, "confidence": 0.99},     # 00:30 on 2 Jan
+           {"timestamp": _ts("2024-01-03", 2.0), "price": 12.0, "confidence": 0.99}]
+    d = usd_inputs.to_days(pts).set_index("day")["price"]
+    assert d[pd.Timestamp("2024-01-01")] == 10.0       # the nearer of the two points to 2 Jan 00:00
+    assert d[pd.Timestamp("2024-01-02")] == 12.0
+    assert len(d) == 2
+
+
+def test_second_key_fills_only_when_the_keys_agree():
+    import usd_inputs
+    days = pd.date_range("2024-01-01", periods=10)
+    arb = pd.DataFrame({"day": days[5:], "price": 100.0, "confidence": 0.99, "timestamp": 0})
+    close = pd.DataFrame({"day": days, "price": 100.4, "confidence": 0.99, "timestamp": 0})
+    out, info = usd_inputs.combine(arb, close)
+    assert info["second_key_used"] and info["second_key_days"] == 5 and info["shared_days"] == 5
+    assert (out.set_index("day").loc[days[5:], "key"] == "arbitrum").all()
+    far = close.assign(price=103.0)                    # 3% apart: the second key is not used
+    out, info = usd_inputs.combine(arb, far)
+    assert not info["second_key_used"] and len(out) == 5
+    out, info = usd_inputs.combine(arb.iloc[:0], close)  # no shared day: nothing to check against
+    assert not info["second_key_used"] and len(out) == 0
+
+
+def test_one_day_errors_are_replaced_by_the_previous_day():
+    import usd_inputs
+    days = pd.date_range("2024-01-01", periods=7)
+    price = [0.142, 0.141, 0.0011, 0.144, 0.15, 0.30, 0.31]   # a one-day drop, then a lasting doubling
+    df = pd.DataFrame({"day": days, "price": price, "confidence": 0.99, "timestamp": 0, "key": "arbitrum"})
+    out = usd_inputs.spikes(df)
+    assert out["spike"].tolist() == [False, False, True, False, False, False, False]
+    assert out.loc[2, "price"] == 0.141
+    gap = df.drop(index=1).reset_index(drop=True)              # no day before the drop: not judged
+    assert not usd_inputs.spikes(gap)["spike"].any()
+
+
+def test_listing_rule_is_mechanical():
+    import usd_inputs
+    base = {"feed_category": "low", "feed_product": "RefPrice", "feed_hidden": False, "feed_shutdown_date": "",
+            "quote": "USD", "relation": "token_itself", "n_rows_tobs": 10, "verification": "confirmed"}
+    rows = [base,
+            {**base, "feed_category": "high"}, {**base, "feed_product": "ExRate"}, {**base, "feed_hidden": True},
+            {**base, "feed_shutdown_date": "2026-09-30"}, {**base, "relation": "third_party_bridge"},
+            {**base, "relation": "canonical_bridge", "quote": "ETH"}, {**base, "n_rows_tobs": 0},
+            {**base, "verification": "wrong"}, {**base, "feed_category": "medium", "relation": "issuer_wrapper"}]
+    out = usd_inputs.listing(pd.DataFrame(rows))
+    assert out["listed"].tolist() == [True, False, False, False, False, False, True, False, False, True]
+    assert all(r for r, ok in zip(out["reason_not_listed"], out["listed"]) if not ok)

@@ -63,5 +63,6 @@ FROM (
   FROM `dissertation-bq.contract_rep.u_transfers`
   WHERE block_timestamp >= TIMESTAMP(@start_ts)
     AND block_timestamp <= TIMESTAMP(@anchor_ts)
+    AND usd IS NOT NULL  -- a transfer before its token's first price is left out (counted in 18)
 )
 GROUP BY from_address, to_address;

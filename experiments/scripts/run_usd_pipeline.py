@@ -68,11 +68,19 @@ def step_load(cfg: dict, dry: bool) -> None:
     for f in (tokens, prices):
         if not f.exists():
             raise SystemExit(f"{f} is missing; run scripts/usd_inputs.py first")
+    # Only the selected tokens (listed, priced, the TOP_N by rows) enter the revised SQL.
+    import pandas as pd
+    lst = pd.read_csv(tokens)
+    priced = lst[lst["selected"].astype(str).str.lower() == "true"][["address", "symbol", "name", "decimals"]]
+    work = ROOT / "data" / "_work" / "usd"
+    work.mkdir(parents=True, exist_ok=True)
+    priced.to_csv(work / "u_tokens_load.csv", index=False)
+    print(f"load: {len(priced)} selected tokens of {len(lst)} listed")
     if dry:
         print("load: would load", tokens.name, "and", prices.name)
         return
     bq_cli("load", "--replace", "--source_format=CSV", "--skip_leading_rows=1", "--ignore_unknown_values",
-           f"{project}:{ds}.u_tokens_hex", str(tokens),
+           f"{project}:{ds}.u_tokens_hex", str(work / "u_tokens_load.csv"),
            "address:STRING,symbol:STRING,name:STRING,decimals:INTEGER")
     bq_cli("load", "--replace", "--source_format=CSV", "--skip_leading_rows=1", "--ignore_unknown_values",
            f"{project}:{ds}.u_prices_hex", str(prices),

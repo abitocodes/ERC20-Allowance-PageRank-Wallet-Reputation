@@ -1,4 +1,4 @@
-# Revision: amounts in USD over a list of price-verified tokens
+# Revision: amounts in USD over five price-verified tokens
 
 - Written on 10 October 2026, after the registered results of the same window, W0 and W1 were known, and committed **before any revised score, proxy or label was computed**. The commit that adds this file is the reference point of the revision.
 - This is a deviation from the analysis plan (`docs/analysis_plan.md`, commit 43d8045) and from the W1 registration (`docs/registration_w1.md`, commit 0d3a057). It is decided after results were seen, so the revised results are post hoc and are never called registered.
@@ -28,7 +28,9 @@ A token is listed when all three conditions hold.
 2. **The feed prices this token.** The feed's base asset is the token itself; or the asset that the token wraps one-to-one through its issuer (WETH for ETH); or the Ethereum token of which the token is the copy minted by Arbitrum's canonical token bridge, when that Ethereum token is the asset's own issue (USDC.e for USDC). Tokens issued by other bridges (Axelar, Wormhole, Hyperlane and the like), copies of assets native to another chain, tokens for which the feed prices only an underlying asset (tokenised shares, cbBTC through BTC / USD) and tokens that copy a listed symbol at another address are not listed. Each identification was checked against the issuer's documentation, the Aave address book, the Arbitrum bridge token lists or CoinGecko's platform addresses, and against `symbol()`, `name()` and `decimals()` on the chain.
 3. **The token occurs in the observation-window data** (ego transfers or latest allowances at T_obs).
 
-When this file was written the rule gave about 64 tokens holding about 86% of the rows (transfers plus latest allowances at T_obs) of the registered ego data; the exact list, its counts and the rows of every other token are produced by `scripts/usd_inputs.py` and `sql/18_usd_describe.sql` and reported. An ETH-quoted feed qualifies a token as a USD-quoted one does (wstETH, weETH, rETH, cbETH); the feeds decide only which tokens are listed, and every listed token's USD price comes from DefiLlama (section 4).
+An ETH-quoted feed qualifies a token as a USD-quoted one does (wstETH, weETH, rETH, cbETH); the feeds decide only which tokens are listed, and every listed token's USD price comes from DefiLlama (section 4).
+
+**Selection of five tokens (decision of 10 October 2026, before any revised score was computed).** The three conditions list 64 of the 133 candidates, holding 86.1% of the rows (transfers plus latest allowances at T_obs) of the registered ego data. Eighteen of them, all small (at most 23,211 rows each), have no DefiLlama point under their Arbitrum address on any day, so every event of theirs would be unpriced; 46 have a price and hold 86.09% of the rows. The analysis keeps the **five priced listed tokens with the most rows**: WETH (`0x82af…bab1`), USDC (`0xaf88…5831`), USD₮0 (`0xfd08…cbb9`), ARB (`0x912c…6548`) and WBTC (`0x2f2a…5b0f`). Together they hold 1,186,529,660 rows, 75.75% of the rows of all tokens. All five are priced by Chainlink feeds rated low market risk and are Aave V3 reserves on Arbitrum One. The sixth, bridged USDC.e (71.3 million rows), and every other token are left out. The reason is to weight endorsements and transfers only by the assets whose markets are deepest and hardest to manipulate, so that the USD value of an edge does not depend on a thinly traded token's price; the 64-token list and the prices of all 46 priced tokens stay in `data/0-usd-token-list-and-prices/` with the rule that produced them. `scripts/usd_inputs.py` applies the selection (column `selected`, `TOP_N = 5`), and only the selected tokens are loaded into BigQuery.
 
 Wrapped XRP is not listed. Hex Trust's wXRP is not deployed on Arbitrum One (no code at its address; the issuer lists Ethereum, Optimism, HyperEVM and Solana). The XRP-backed tokens that do exist there are tiny and have no Chainlink feed of their own: uXRP of Universal Protocol (about 25,000 tokens, 11,729 rows of the data) and a canonical-bridge copy of Wrapped.com's Ethereum WXRP (2.13 tokens, 38 rows), whose Ethereum token is itself a custodial wrapper, not XRP.
 
@@ -49,7 +51,7 @@ Wrapped XRP is not listed. Hex Trust's wXRP is not deployed on Arbitrum One (no 
 
 ## 5. Amount weights
 
-- EndorseRank and AWP keep V(z) = 2/(1+exp(−bz)) − 1, now with z in USD. The slope is set so that V of the median amount is one half: b = ln 3 / m. m_T is the median USD value of the ego transfers of listed tokens from 1 October 2023 to t1, and m_A the median USD value at t1 prices of the finite latest allowances at t1 (below 1.15 × 10⁷⁷ base units). Both use only events up to t1 = 31 March 2026, the earlier freeze, so no label window enters them. The medians are computed by `sql/13_usd_constants.sql` (BigQuery `APPROX_QUANTILES`, 10,000 buckets) and rounded to two significant digits; b is computed from the rounded value.
+- EndorseRank and AWP keep V(z) = 2/(1+exp(−bz)) − 1, now with z in USD. The slope is set so that V of the median amount is one half: b = ln 3 / m. m_T is the median USD value of the ego transfers of the selected tokens from 1 October 2023 to t1, and m_A the median USD value at t1 prices of the finite latest allowances at t1 (below 1.15 × 10⁷⁷ base units). Both use only events up to t1 = 31 March 2026, the earlier freeze, so no label window enters them. The medians are computed by `sql/13_usd_constants.sql` (BigQuery `APPROX_QUANTILES`, 10,000 buckets) and rounded to two significant digits; b is computed from the rounded value.
 - An unlimited allowance has V = 1, the most an approval can weigh.
 - C-PR transfer layer: Σ_e usd_e · σ(Δt_e), the registered form with USD in place of base units.
 - C-PR allowance layer: Σ_token min(usd, U). U is the 99th percentile of the USD values, at t1 prices, of the finite positive latest allowances at t1, rounded to two significant digits (`sql/13_usd_constants.sql`). Every allowance at or above U counts U, so an unlimited allowance (and any allowance too large to be spent, such as 2¹²⁸) weighs as much as the largest finite ones instead of taking the owner's whole row. The number of allowances at or above U is reported.
@@ -58,21 +60,21 @@ Wrapped XRP is not listed. Hex Trust's wXRP is not deployed on Arbitrum One (no 
 
 ## 6. Scope
 
-Every quantity is restricted to the listed tokens:
+Every quantity is restricted to the five selected tokens:
 
-- Matched cohort: contracts that, inside the observation window, received a non-zero `Approval` of a listed token from at least three distinct owners. Such a contract received non-zero approvals from three owners on some token, so it is a member of the registered cohort; its account type is already known, and no new `eth_getCode` read is needed.
-- Graphs: approvals and transfers of listed tokens with a contract of the revised cohort as owner, spender, sender or recipient. These events are a subset of the registered ego tables, which hold every event touching a registered cohort contract; no public log is scanned again.
-- Spender cohorts of W0 and W1: contract spenders with a positive latest allowance of a listed token at the freeze in the revised approval data (a subset of the registered spender cohorts, whose account types are known).
+- Matched cohort: contracts that, inside the observation window, received a non-zero `Approval` of a selected token from at least three distinct owners. Such a contract received non-zero approvals from three owners on some token, so it is a member of the registered cohort; its account type is already known, and no new `eth_getCode` read is needed.
+- Graphs: approvals and transfers of the selected tokens with a contract of the revised cohort as owner, spender, sender or recipient. These events are a subset of the registered ego tables, which hold every event touching a registered cohort contract; no public log is scanned again.
+- Spender cohorts of W0 and W1: contract spenders with a positive latest allowance of a selected token at the freeze in the revised approval data (a subset of the registered spender cohorts, whose account types are known).
 - Trader cohort: as registered (GMX V2 contract accounts with at least three closes in the window), with membership in the revised freeze-date graph.
-- Labels: new approval pairs, new transfer senders, revocations and the drain heuristic count events of listed tokens only. The GMX trader labels do not depend on tokens and are unchanged.
+- Labels: new approval pairs, new transfer senders, revocations and the drain heuristic count events of the selected tokens only. The GMX trader labels do not depend on tokens and are unchanged.
 
 ## 7. Unchanged
 
-Windows and anchors, the logistic decay (k = 0.01, t0 = 180 days), the solver (d = 0.85, tolerance 10⁻⁸, at most 300 iterations, dangling mass through the restarts), restarts of each method, λ values, the raw degree baselines (now counted on listed tokens), the statistics (Kendall τ_b, Spearman ρ, 400 paired bootstrap resamples with seed 42, 2,000 for the outcome comparison), the decision thresholds of rules A and B and R1–R3, the benchmark protocol and the Sybil model.
+Windows and anchors, the logistic decay (k = 0.01, t0 = 180 days), the solver (d = 0.85, tolerance 10⁻⁸, at most 300 iterations, dangling mass through the restarts), restarts of each method, λ values, the raw degree baselines (now counted on selected tokens), the statistics (Kendall τ_b, Spearman ρ, 400 paired bootstrap resamples with seed 42, 2,000 for the outcome comparison), the decision thresholds of rules A and B and R1–R3, the benchmark protocol and the Sybil model.
 
 ## 8. Robustness
 
-The top-20-token subgraph check of the plan (section 5) loses its point once every graph keeps only listed tokens. It is replaced by a check of the new free parameter: EndorseRank and AWP are recomputed at T_obs with the slope b multiplied and divided by ten (the edge weights come from the same query as the main weights), and their family means on the matched cohort and their rank agreement with the main scores are reported without intervals, as the token check was. The damping sweep, the isolated-node rule and the sample-definition stages are unchanged.
+The top-20-token subgraph check of the plan (section 5) loses its point once every graph keeps only selected tokens. It is replaced by a check of the new free parameter: EndorseRank and AWP are recomputed at T_obs with the slope b multiplied and divided by ten (the edge weights come from the same query as the main weights), and their family means on the matched cohort and their rank agreement with the main scores are reported without intervals, as the token check was. The damping sweep, the isolated-node rule and the sample-definition stages are unchanged.
 
 The registered analysis keeps its top-20-token check as registered.
 
@@ -83,7 +85,7 @@ Inputs: `scripts/usd_inputs.py` applies the rule of section 3 to the Chainlink d
 BigQuery (each query dry-run first by `scripts/run_bq.py`, all within the study's USD 50 budget; `scripts/run_usd_pipeline.py` runs the steps in order):
 
 1. Load `u_tokens` and `u_prices` from the CSV files (load jobs are not billed).
-2. `sql/12_usd_ego.sql`: revised cohort and listed-token ego tables (`u_cohort`, `u_approvals`, `u_transfers`, `u_approvals_w1`, `u_transfers_w1`).
+2. `sql/12_usd_ego.sql`: revised cohort and selected-token ego tables (`u_cohort`, `u_approvals`, `u_transfers`, `u_approvals_w1`, `u_transfers_w1`).
 3. `sql/13_usd_constants.sql`: medians and quantiles up to t1 (`u_constants`).
 4. `sql/14_usd_anchor_pairs.sql` at T_obs and t1.
 5. `sql/15_usd_proxies.sql`; `sql/16_usd_labels.sql` for W0 and W1; `sql/17_usd_export_ids.sql`; `sql/18_usd_describe.sql`.

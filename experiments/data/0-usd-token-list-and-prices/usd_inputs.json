@@ -1,0 +1,164 @@
+{
+  "written_at": "2026-10-10T08:12:15+00:00",
+  "rule": "docs/revision_price_weighting.md, sections 3 and 4",
+  "candidates": 133,
+  "listed": 64,
+  "listed_rows_tobs": 1348562870,
+  "listed_share_of_rows_tobs": 0.8608909649051608,
+  "listed_without_price": [
+    {
+      "address": "0x74885b4d524d497261259b38900f54e6dbad2210",
+      "symbol": "APE",
+      "n_rows_tobs": 23211
+    },
+    {
+      "address": "0x35e6a59f786d9266c7961ea28c7b768b33959cbb",
+      "symbol": "PEPE",
+      "n_rows_tobs": 14110
+    },
+    {
+      "address": "0xcba56cd8216fcbbf3fa6df6137f3147cbca37d60",
+      "symbol": "SNX",
+      "n_rows_tobs": 865
+    },
+    {
+      "address": "0x863708032b5c328e11abcbc0df9d79c71fc52a48",
+      "symbol": "EUROC",
+      "n_rows_tobs": 72
+    },
+    {
+      "address": "0x5033833c9fe8b9d3e09eed2f73d2aaf7e3872fd1",
+      "symbol": "SHIB",
+      "n_rows_tobs": 48
+    },
+    {
+      "address": "0x7550de0a4b9fb8caba8c32e72ee356afdd217a33",
+      "symbol": "USD1",
+      "n_rows_tobs": 18
+    },
+    {
+      "address": "0x7468a5d8e02245b00e8c0217fce021c70bc51305",
+      "symbol": "FRAX",
+      "n_rows_tobs": 11
+    },
+    {
+      "address": "0xdf8f0c63d9335a0abd89f9f752d293a98ea977d8",
+      "symbol": "ENA",
+      "n_rows_tobs": 8
+    },
+    {
+      "address": "0xc7def82ba77baf30bbbc9b6162dc075b49092fb4",
+      "symbol": "ATH",
+      "n_rows_tobs": 5
+    },
+    {
+      "address": "0xe390c0b46bd723995be02640e6f1e1c802f620ac",
+      "symbol": "MORPHO",
+      "n_rows_tobs": 5
+    },
+    {
+      "address": "0xe88998fb579266628af6a03e3821d5983e5d0089",
+      "symbol": "AXS",
+      "n_rows_tobs": 5
+    },
+    {
+      "address": "0x327006c8712fe0abdbbd55b7999db39b0967342e",
+      "symbol": "PYUSD",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0x7e2a1edee171c5b19e6c54d73752396c0a572594",
+      "symbol": "tBTC",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0x9c1a1c7ba9c2602123fd7ef3eb41a769edf6c53a",
+      "symbol": "MNT",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0xaafcfd42c9954c6689ef1901e03db742520829c5",
+      "symbol": "CVX",
+      "n_rows_tobs": 4
+    },
+    {
+      "address": "0x8ea3156f834a0dfc78f1a5304fac2cda676f354c",
+      "symbol": "CRO",
+      "n_rows_tobs": 3
+    },
+    {
+      "address": "0x044d8e7f3a17751d521efea8ccf9282268fe08cc",
+      "symbol": "POL",
+      "n_rows_tobs": 2
+    },
+    {
+      "address": "0x73efdc761596328461b68e5fc58c3284cb15ba13",
+      "symbol": "PLUME",
+      "n_rows_tobs": 2
+    }
+  ],
+  "priced_tokens": 46,
+  "priced_rows_tobs": 1348524489,
+  "priced_share_of_rows_tobs": 0.8608664633733012,
+  "top_n": 5,
+  "selected": [
+    {
+      "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "symbol": "WETH",
+      "n_rows_tobs": 509394850
+    },
+    {
+      "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "symbol": "USDC",
+      "n_rows_tobs": 366294721
+    },
+    {
+      "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "symbol": "USD\u20ae0",
+      "n_rows_tobs": 163462893
+    },
+    {
+      "address": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+      "symbol": "ARB",
+      "n_rows_tobs": 75552592
+    },
+    {
+      "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+      "symbol": "WBTC",
+      "n_rows_tobs": 71824604
+    }
+  ],
+  "selected_rows_tobs": 1186529660,
+  "selected_share_of_rows_tobs": 0.7574527570123538,
+  "not_listed_by_reason": {
+    "feed category": 43,
+    "relation underlying_only": 11,
+    "relation other_chain_asset": 8,
+    "relation third_party_bridge": 4,
+    "feed product": 2,
+    "not in": 1
+  },
+  "priced_tokens_without_anchor_price": [],
+  "metadata": {
+    "rpc": "https://arbitrum-one-rpc.publicnode.com",
+    "block_number": 513457143,
+    "block_hex": "0x1e9abbf7",
+    "read_at": "2026-10-10T08:12:11+00:00",
+    "n": 64,
+    "with_decimals": 64,
+    "reverted_calls": 0
+  },
+  "prices": {
+    "source": "https://coins.llama.fi/chart, period=1d",
+    "days": [
+      "2023-10-01",
+      "2026-09-30"
+    ],
+    "second_key_threshold": 0.01,
+    "spike_factor": 2.0,
+    "price_rows": 48197,
+    "filled_days": 26,
+    "spike_days": 1,
+    "second_key_days": 2507
+  }
+}

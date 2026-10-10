@@ -99,6 +99,9 @@ def revised_amounts(ds: str) -> dict:
         "constants": json.loads((USD_INPUTS / "constants.json").read_text(encoding="utf-8")),
         "prices": fill.reset_index().to_dict(orient="records"),
         "listed_tokens": int(len(listed)),
+        "priced_tokens": int((listed["priced"].astype(str).str.lower() == "true").sum()),
+        "selected_tokens": int((listed["selected"].astype(str).str.lower() == "true").sum()),
+        "listed_without_price": json.loads((USD_INPUTS / "usd_inputs.json").read_text(encoding="utf-8"))["listed_without_price"],
     }
 
 

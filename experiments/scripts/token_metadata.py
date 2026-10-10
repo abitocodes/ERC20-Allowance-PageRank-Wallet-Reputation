@@ -59,26 +59,12 @@ def decode_uint(hexdata: str | None) -> int | None:
     return v if v < 256 else None
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("input")
-    ap.add_argument("output")
-    ap.add_argument("--column", default="token_address")
-    ap.add_argument("--top", type=int, default=0, help="first N rows of the input only")
-    ap.add_argument("--rpc", help="RPC URL (default: accounts.rpc_url of the configuration)")
-    args = ap.parse_args()
-
-    cfg = load_config()
-    url = args.rpc or cfg["accounts"]["rpc_url"]
-    df = pd.read_csv(args.input)
-    if args.top:
-        df = df.head(args.top)
-    addrs = df[args.column].astype(str).str.lower().drop_duplicates().tolist()
+def read_metadata(addrs: list[str], url: str) -> tuple[pd.DataFrame, dict]:
+    """symbol, name and decimals of ``addrs`` at the current block, which is recorded in the returned dict."""
     session = requests.Session()
     bn = post(session, url, {"jsonrpc": "2.0", "id": 1, "method": "eth_blockNumber", "params": []})["result"]
     meta = {"rpc": url, "block_number": int(bn, 16), "block_hex": bn,
             "read_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-
     rows = []
     reverted = 0
     for i in range(0, len(addrs), BATCH):
@@ -120,10 +106,29 @@ def main() -> int:
         if (i // BATCH) % 20 == 0:
             print(f"{len(rows):,}/{len(addrs):,}", flush=True)
     out = pd.DataFrame(rows)
-    out.to_csv(args.output, index=False)
     meta["n"] = int(len(out))
     meta["with_decimals"] = int(out["decimals"].notna().sum())
     meta["reverted_calls"] = reverted
+    return out, meta
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("input")
+    ap.add_argument("output")
+    ap.add_argument("--column", default="token_address")
+    ap.add_argument("--top", type=int, default=0, help="first N rows of the input only")
+    ap.add_argument("--rpc", help="RPC URL (default: accounts.rpc_url of the configuration)")
+    args = ap.parse_args()
+
+    cfg = load_config()
+    url = args.rpc or cfg["accounts"]["rpc_url"]
+    df = pd.read_csv(args.input)
+    if args.top:
+        df = df.head(args.top)
+    addrs = df[args.column].astype(str).str.lower().drop_duplicates().tolist()
+    out, meta = read_metadata(addrs, url)
+    out.to_csv(args.output, index=False)
     Path(args.output).with_suffix(".json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
     print(meta)
     return 0
