@@ -20,7 +20,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, RAW, load_config, read_parts, save_json, write_parts  # noqa: E402
+from common import GRAPH, PROC, load_config, read_parts, save_json, write_parts  # noqa: E402
 from graphs import METHOD_LABELS, load_graphs, load_nodes, raw_degrees, score_all  # noqa: E402
 from scoring import pagerank_params, scores_on  # noqa: E402
 from stats import PairedBootstrap, kendall_tau_b, spearman  # noqa: E402
@@ -126,7 +126,7 @@ def main() -> int:
     full, iters = score_all(g, params)
     S = pd.DataFrame({m: scores_on(ids, s).to_numpy() for m, s in full.items()}, index=ids)
 
-    prox = read_parts(RAW / "graph-tables" / "proxies_tobs").merge(
+    prox = read_parts(GRAPH / "proxies_tobs").merge(
         cohort, left_on="wallet", right_on="address").set_index("id").reindex(ids)
     deg = raw_degrees(g, ids)
     P = pd.DataFrame(index=ids)

@@ -19,7 +19,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, RAW, load_config, read_parts, save_json  # noqa: E402
+from common import GRAPH, PROC, REVISED, load_config, read_parts, save_json  # noqa: E402
 from graphs import load_graphs, load_nodes, restrict  # noqa: E402
 from run_benchmark import sha_order  # noqa: E402
 from run_same_window import FAMILIES  # noqa: E402
@@ -53,22 +53,38 @@ def main() -> int:
     ids = cohort["id"].to_numpy(np.int64)
     P = read_parts(PROC / "same-window" / "cohort_scores").set_index("id").loc[ids]
 
-    tok = read_parts(RAW / "graph-tables" / "top_token_pairs")
-    tokens = {}
-    for lst in ("by_amount", "by_rows"):
-        a = tok[(tok["list"] == lst) & (tok["layer"] == "allowance")].rename(columns={"w": "w_er"})
-        t = tok[(tok["list"] == lst) & (tok["layer"] == "transfer")].rename(columns={"w": "w_awp"})
-        er, awp = er_awp(a, t, params)
-        tokens[lst] = {"endorserank": family_means(scores_on(ids, er).to_numpy(), P),
-                       "awp": family_means(scores_on(ids, awp).to_numpy(), P),
-                       "allowance_edges": int(len(a)), "transfer_edges": int(len(t))}
-        print(lst, tokens[lst], flush=True)
-    tokens["all"] = {"endorserank": family_means(P["endorserank"].to_numpy(), P),
-                     "awp": family_means(P["awp"].to_numpy(), P)}
-    toklist = pd.read_csv(RAW / "graph-tables" / "top_tokens.csv")
-    tokens["shared_tokens"] = int((toklist["by_amount"] & toklist["by_rows"]).sum())
-
     g = load_graphs("tobs")
+    out = {}
+    if REVISED:
+        # The revised graphs already keep the listed tokens only; the check of the value weight is
+        # its slope b, multiplied and divided by ten (sql/14_usd_anchor_pairs.sql writes both weights).
+        slope = {"1": {"endorserank": family_means(P["endorserank"].to_numpy(), P),
+                       "awp": family_means(P["awp"].to_numpy(), P)}}
+        for tag in ("01x", "10x"):
+            er, awp = er_awp(g.allow, g.transfer, params, w_a=f"w_er_b{tag}", w_t=f"w_awp_b{tag}")
+            s_er, s_awp = scores_on(ids, er).to_numpy(), scores_on(ids, awp).to_numpy()
+            slope[tag] = {"endorserank": family_means(s_er, P), "awp": family_means(s_awp, P),
+                          "tau_with_main": {"endorserank": kendall_tau_b(s_er, P["endorserank"].to_numpy()),
+                                            "awp": kendall_tau_b(s_awp, P["awp"].to_numpy())}}
+            print("slope", tag, slope[tag], flush=True)
+        out["value_slope"] = slope
+    else:
+        tok = read_parts(GRAPH / "top_token_pairs")
+        tokens = {}
+        for lst in ("by_amount", "by_rows"):
+            a = tok[(tok["list"] == lst) & (tok["layer"] == "allowance")].rename(columns={"w": "w_er"})
+            t = tok[(tok["list"] == lst) & (tok["layer"] == "transfer")].rename(columns={"w": "w_awp"})
+            er, awp = er_awp(a, t, params)
+            tokens[lst] = {"endorserank": family_means(scores_on(ids, er).to_numpy(), P),
+                           "awp": family_means(scores_on(ids, awp).to_numpy(), P),
+                           "allowance_edges": int(len(a)), "transfer_edges": int(len(t))}
+            print(lst, tokens[lst], flush=True)
+        tokens["all"] = {"endorserank": family_means(P["endorserank"].to_numpy(), P),
+                         "awp": family_means(P["awp"].to_numpy(), P)}
+        toklist = pd.read_csv(GRAPH / "top_tokens.csv")
+        tokens["shared_tokens"] = int((toklist["by_amount"] & toklist["by_rows"]).sum())
+        out["top_tokens"] = tokens
+
     order = sha_order(cohort["address"], cfg["benchmark"]["scaling_seed"])
     stages = []
     for n in [s for s in (1000, 2000, 5000, 10000, 20000) if s < len(ids)] + [len(ids)]:
@@ -80,7 +96,8 @@ def main() -> int:
                        "awp": family_means(scores_on(sid, awp).to_numpy(), Ps),
                        "allowance_edges": int(len(sub.allow)), "transfer_edges": int(len(sub.transfer))})
         print("stage", n, stages[-1], flush=True)
-    save_json({"top_tokens": tokens, "sample_definition": stages}, OUT / "robustness.json")
+    out["sample_definition"] = stages
+    save_json(out, OUT / "robustness.json")
     return 0
 
 

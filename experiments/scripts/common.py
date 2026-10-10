@@ -1,8 +1,16 @@
-"""Shared helpers: configuration, paths, and parquet files split below GitHub's size limit."""
+"""Shared helpers: configuration, paths, and parquet files split below GitHub's size limit.
+
+Two analyses share this code. The registered analysis (raw base units, every token) is the
+default. Setting the environment variable CONTRACT_REP_VARIANT=usd selects the revised
+analysis of docs/revision_price_weighting.md (listed tokens, amounts in USD): the graph tables
+are then read from graph-tables-usd and every result is written under revised-usd, so the
+registered inputs and outputs are never overwritten.
+"""
 
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Iterable
 
@@ -15,8 +23,21 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config" / "contract_reputation.yaml"
 DATA = ROOT / "data"
 RAW = DATA / "1-raw-blockchain-extracts"
-PROC = DATA / "2-processed-tables-and-evaluations"
-PUB = DATA / "3-published-results-for-thesis"
+# Inputs both analyses read: account types, decoded GMX closes, the registered cohort.
+PROC_SHARED = DATA / "2-processed-tables-and-evaluations"
+USD_INPUTS = DATA / "0-usd-token-list-and-prices"
+
+VARIANTS = ("registered", "usd")
+VARIANT = os.environ.get("CONTRACT_REP_VARIANT", "registered")
+if VARIANT not in VARIANTS:
+    raise SystemExit(f"CONTRACT_REP_VARIANT must be one of {VARIANTS}, not {VARIANT!r}")
+REVISED = VARIANT == "usd"
+
+GRAPH = RAW / ("graph-tables-usd" if REVISED else "graph-tables")
+PROC = PROC_SHARED / "revised-usd" if REVISED else PROC_SHARED
+PUB = DATA / "3-published-results-for-thesis" / "revised-usd" if REVISED else DATA / "3-published-results-for-thesis"
+# Folder of the W1 evaluation; the revised one is not registered and is not named so.
+W1_DIR = "window-w1" if REVISED else "registered-w1"
 
 
 def load_config() -> dict:

@@ -26,7 +26,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, ROOT, load_config, load_json, read_parts  # noqa: E402
+from common import PROC, PROC_SHARED, REVISED, ROOT, USD_INPUTS, W1_DIR, load_config, load_json, read_parts  # noqa: E402
 from graphs import METHOD_LABELS  # noqa: E402
 from labels import TRADER_LABELS  # noqa: E402
 from run_same_window import FAMILIES as FAMILY_PROXIES  # noqa: E402
@@ -35,7 +35,7 @@ THESIS = ROOT.parent / "dissertation"
 SOURCES = {
     "same": PROC / "same-window" / "eval_summary.json",
     "w0": PROC / "holdout-w0" / "eval_summary.json",
-    "w1": PROC / "registered-w1" / "eval_summary.json",
+    "w1": PROC / W1_DIR / "eval_summary.json",
     "sybil": PROC / "sybil-model" / "sybil_model.json",
     "rob": PROC / "robustness" / "robustness.json",
     "bench": PROC / "benchmark" / "benchmark.json",
@@ -112,6 +112,16 @@ NEUTRAL_ROWS = (
     ("er_degree", "EndorseRank minus in-approve degree"),
 )
 NUMBER_WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 10: "ten"}
+
+# Wording that differs between the registered analysis and the revised one
+# (docs/revision_price_weighting.md): the revised results are never called registered.
+W1_NAME = "Window W1" if REVISED else "Registered window W1"
+LAYER_A = "latest allowances in USD, each capped" if REVISED else "latest allowances in raw amounts"
+LAYER_T = ("USD amounts discounted by the decay of AWP" if REVISED
+           else "raw amounts discounted by the decay of AWP")
+W1_NAME_LC = "window W1" if REVISED else "registered window W1"
+REG = "" if REVISED else "registered "
+APPLIED = " and applied here to the revised scores" if REVISED else ""
 
 PROBLEMS: list[str] = []
 WRITTEN: list[Path] = []
@@ -276,11 +286,13 @@ SHORT_CAPTIONS = {
     "holdout-receiving": "Spender holdout W0 restricted to spenders that had received a transfer before the freeze.",
     "holdout-traders": "W0 trader run on the GMX~V2 profit labels.",
     "endorserank-awp-holdout": "Paired bootstrap differences between EndorseRank and AWP out of window.",
-    "fresh-holdout": "Registered window W1: Kendall $\\tau$ on the three registered labels.",
-    "fresh-contrasts": "Registered window W1: the contrasts of rule B with their verdicts and the registered "
+    "fresh-holdout": f"{W1_NAME}: Kendall $\\tau$ on the three {REG}labels{' of rule B' if REVISED else ''}.",
+    "fresh-contrasts": f"{W1_NAME}: the contrasts of rule B with their verdicts and the {REG}"
                        "sensitivity analyses.",
-    "fresh-posthoc": "EndorseRank and its variant with activity restarts in the registered window W1.",
-    "fresh-traders": "Registered window W1: Kendall $\\tau$ on the other trader labels.",
+    "fresh-posthoc": f"EndorseRank and its variant with activity restarts in the {W1_NAME_LC}.",
+    "fresh-traders": f"{W1_NAME}: Kendall $\\tau$ on the other trader labels.",
+    "robustness-slope": "Robustness: family-mean Kendall $\\tau$ under ten times smaller and larger value slopes.",
+    "registered-vs-revised": "Decision contrasts of the registered analysis and of the revised analysis.",
     "neutral-label-contrasts": "Allowance-side against transfer-side scores on the liquidation-free close rate.",
     "neutral-label-recipients": "Traders that receive approvals against all other labelled traders.",
     "neutral-label-grid": "Allowance-side minus transfer-side scores on every trader label in both windows.",
@@ -513,8 +525,7 @@ def t_alignment_hybrid(same: dict, seed: int) -> None:
         "Same-window family-mean Kendall $\\tau$ with bootstrap intervals for every score of this study (matched "
         f"cohort, $n={fint(same.get('cohort'))}$ contracts). The scores are EndorseRank and AWP, the coupled operator "
         "C-PR at five values of $\\lambda$ and the endorsement-seeded walk S-PR; $\\lambda=1$ is the allowance layer "
-        "walked alone (latest allowances in raw amounts) and $\\lambda=0$ the transfer layer walked alone (raw amounts "
-        "discounted by the decay of AWP); both restart uniformly. The raw degrees have no row because they are proxies "
+        f"walked alone ({LAYER_A}) and $\\lambda=0$ the transfer layer walked alone ({LAYER_T}); both restart uniformly. The raw degrees have no row because they are proxies "
         "of the transfer and allowance families; EndorseRank with activity restarts is in "
         f"Table~\\ref{{tab:endorserank-restarts}}. {boot_note(seed)}"
     )
@@ -541,7 +552,7 @@ def _rule_a_secondary_text(rule: dict) -> str:
     syb = "exceeds" if s.get("pass") else "does not exceed"
     verdict = "met" if rule.get("pass") else "not met"
     return (
-        f"The secondary part of rule A, fixed in the analysis plan, is {verdict}: C-PR's point estimate lies "
+        f"The secondary part of rule A, fixed in the analysis plan{APPLIED}, is {verdict}: C-PR's point estimate lies "
         f"{inside(t, 'transfer')} and {inside(a, 'allowance')}, and C-PR {syb} both layers on the Sybil-stability family."
     )
 
@@ -756,6 +767,128 @@ def t_robustness_tokens(rob: dict, n: int, cfg: dict) -> None:
     emit("robustness-tokens", caption, tabular("l" + "c" * 9, head, lines), [SOURCES["rob"]])
 
 
+def t_robustness_slope(rob: dict, n: int, consts: dict) -> None:
+    """Revised analysis: EndorseRank and AWP with the value slope b divided and multiplied by ten."""
+    begin("robustness-slope")
+    sl = rob.get("value_slope") or {}
+    variants = (("01x", "$b/10$"), ("1", "$b$"), ("10x", "$10b$"))
+    if not all(v in sl for v, _ in variants):
+        SKIPPED.append("robustness-slope (incomplete value_slope)")
+        return
+    lines = []
+    for m, name in (("endorserank", "EndorseRank"), ("awp", "AWP")):
+        cells = [f3((sl[v].get(m) or {}).get(f), f"{m} {f} slope {v}") for f, _ in FAMILIES for v, _ in variants]
+        lines.append(f"{name} & {' & '.join(cells)} \\\\")
+    agree = []
+    for v, h in (("01x", "$b/10$"), ("10x", "$10b$")):
+        t = sl[v].get("tau_with_main") or {}
+        agree.append(f"{f3(t.get('endorserank'), f'ER agreement {v}')} and {f3(t.get('awp'), f'AWP agreement {v}')} "
+                     f"at {h}")
+    caption = (
+        f"Robustness: family-mean Kendall $\\tau$ on the matched cohort ($n={fint(n)}$ contracts) when the slope $b$ "
+        "of the value weight $V$ is divided or multiplied by ten, next to the main analysis. The main slopes put "
+        f"$V=1/2$ at the median amount, \\${fint(consts.get('m_transfer_usd'))} for transfers and "
+        f"\\${fint(consts.get('m_allowance_usd'))} for allowances; $b/10$ moves that point to ten times the median and "
+        "$10b$ to a tenth of it. The rank agreement of each variant with the main score of the same method is "
+        f"$\\tau={agree[0]}$, and $\\tau={agree[1]}$ (EndorseRank and AWP). No intervals were computed for the variants."
+    )
+    group = " & ".join(f"\\multicolumn{{3}}{{c}}{{{h}}}" for _, h in FAMILIES)
+    head = (f"Method & {group} \\\\\n\\cmidrule(lr){{2-4}} \\cmidrule(lr){{5-7}} \\cmidrule(lr){{8-10}}\n"
+            " & " + " & ".join([" & ".join(h for _, h in variants)] * 3))
+    emit("robustness-slope", caption, tabular("l" + "c" * 9, head, lines), [SOURCES["rob"], USD_INPUTS / "constants.json"])
+
+
+def _dci(r: dict | None, what: str) -> str:
+    if not r:
+        problem(f"no {what}")
+        return "---"
+    if r.get("n_boot") is not None:
+        STATE["nboot"].add(int(r["n_boot"]))
+    return f"${fsigned(r.get('delta_tau'), what)}$ {fci(r.get('ci_low'), r.get('ci_high'), what)}"
+
+
+def _yes(v, yes: str = "met", no: str = "not met") -> str:
+    if v is None:
+        problem("missing verdict")
+        return "---"
+    return yes if v else no
+
+
+def t_registered_vs_revised(reg: dict, rev: dict, seed: int) -> None:
+    """Revised analysis: the decision contrasts and verdicts of the registered analysis, as registered, beside the
+    same contrasts on the revised scores."""
+    begin("registered-vs-revised")
+    rows: list[tuple[str, str, str]] = []
+
+    def both(label: str, get, kind: str = "contrast") -> None:
+        cells = []
+        for name, d in (("registered", reg), ("revised", rev)):
+            try:
+                v = get(d)
+            except (KeyError, TypeError, StopIteration):
+                v = None
+            if kind == "contrast":
+                cells.append(_dci(v, f"{name} {label}"))
+            elif kind == "count":
+                cells.append(fint(v, f"{name} {label}"))
+            elif kind == "tau":
+                cells.append(tc(v, f"{name} {label}"))
+            else:
+                cells.append(_yes(v, *kind.split("/")) if "/" in kind else _yes(v))
+        rows.append((label, cells[0], cells[1]))
+
+    def pre(d, a, b):
+        return next(r for r in d["w0"]["contrasts_prefixed"] if r["a"] == a and r["b"] == b)
+
+    def after(d, a, b, out):
+        return next(r for r in d["w0"]["contrasts_after"] if r["a"] == a and r["b"] == b and r["outcome"] == out)
+
+    both("Matched cohort (contracts)", lambda d: d["same"]["cohort"], "count")
+    both("W0 spender cohort", lambda d: d["w0"]["spenders"], "count")
+    both("W1 spender cohort", lambda d: d["w1"]["spenders"], "count")
+    both("W1 traders", lambda d: d["w1"]["traders"], "count")
+    both("EndorseRank vs.\\ AWP, same window ($\\tau$)", lambda d: d["same"]["inter_method"]["endorserank_vs_awp"], "tau")
+    rows.append(("\\midrule", "", ""))
+    both("A, W0: C-PR minus C-PR ($\\lambda=1$), new approval pairs", lambda d: pre(d, "cpr_l50", "cpr_l100"))
+    both("A, W0: C-PR minus C-PR ($\\lambda=0$), new transfer senders", lambda d: pre(d, "cpr_l50", "cpr_l0"))
+    both("Rule A, primary part", lambda d: d["w0"]["rule_a_primary"]["pass"], "verdict")
+    both("Rule A, secondary part", lambda d: d["same"]["rule_a_secondary"]["pass"], "verdict")
+    rows.append(("\\midrule", "", ""))
+    for k, lab in (("F1", "new approval pairs"), ("F2", "new transfer senders"), ("F3", "liquidation-free close rate")):
+        both(f"B, {k}: C-PR minus C-PR ($\\lambda=0$), {lab}", lambda d, k=k: d["w1"]["rule_b"][k])
+    both("Rule B (F1, F2 and F3)", lambda d: d["w1"]["rule_b"]["decision"], "verdict")
+    both("Rule B, sensitivity 1 (AWP as comparator)", lambda d: d["w1"]["sensitivity_awp"]["decision"], "verdict")
+    both("Rule B, sensitivity 2 (isolated nodes)", lambda d: d["w1"]["sensitivity_isolated"]["decision"], "verdict")
+    both("F6 (rule A, primary part, on W1)", lambda d: d["w1"]["rule_b"]["F6"], "holds/fails")
+    rows.append(("\\midrule", "", ""))
+    both("P, W1: in-approve degree minus transfer in-degree", lambda d: d["w1"]["neutral_w1"]["grid"]["P"][LIQ])
+    both("Q, W1: EndorseRank (activity restarts) minus AWP", lambda d: d["w1"]["neutral_w1"]["grid"]["Q"][LIQ])
+    both("R1 (count-level lead)", lambda d: d["w1"]["neutral_rules"]["R1"], "verdict")
+    both("R2 (PageRank-level lead)", lambda d: d["w1"]["neutral_rules"]["R2"], "verdict")
+    both("R3 (specificity)", lambda d: d["w1"]["neutral_rules"]["R3"], "applies/does not apply")
+    rows.append(("\\midrule", "", ""))
+    both("W0: EndorseRank minus in-approve degree, new pairs", lambda d: after(d, "endorserank", "t1_in_approve_degree", APPR))
+    both("W0: AWP minus transfer in-degree, new senders", lambda d: after(d, "awp", "t1_in_degree", SEND))
+    both("W1: EndorseRank minus in-approve degree, new pairs",
+         lambda d: d["w1"]["endorserank_results"]["endorserank_minus_degree_appr"])
+    both("W1: AWP minus transfer in-degree, new senders", lambda d: d["w1"]["endorserank_results"]["awp_minus_degree_send"])
+    lines = [r[0] if r[0] == "\\midrule" else f"{r[0]} & {r[1]} & {r[2]} \\\\" for r in rows]
+    nb = sorted(STATE["nboot"])
+    caption = (
+        "Decision contrasts and verdicts of the registered analysis (amounts in raw base units, every ERC-20 token, "
+        "$b=1$), exactly as obtained under the analysis plan and the W1 registration, beside the same contrasts on "
+        "the revised scores (amounts in USD, listed tokens only). The revision was decided after the registered "
+        "results were known; the revised column applies the registered rules and thresholds to the revised scores "
+        "and is not a registered test. $\\Delta\\tau$ with 95\\% paired bootstrap interval "
+        f"({' and '.join(fint(x) for x in nb)} resamples, seed {seed}); the rules and their thresholds are in "
+        "Sections~\\ref{sec:holdout-protocol} and~\\ref{sub:fresh-holdout}."
+    )
+    head = "Quantity & Registered analysis & Revised analysis"
+    emit("registered-vs-revised", caption, tabular("lcc", head, lines),
+         [PROC_SHARED / "same-window" / "eval_summary.json", PROC_SHARED / "holdout-w0" / "eval_summary.json",
+          PROC_SHARED / "registered-w1" / "eval_summary.json", SOURCES["same"], SOURCES["w0"], SOURCES["w1"]])
+
+
 def t_robustness_sample_size(rob: dict, bench: dict | None, n: int, cfg: dict) -> None:
     begin("robustness-sample-size")
     stages = rob.get("sample_definition") or []
@@ -864,7 +997,8 @@ def t_holdout_diff(w0: dict, seed: int) -> None:
     if not pre:
         SKIPPED.append("holdout-diff (no contrasts)")
         return
-    lines = ["\\multicolumn{7}{l}{\\emph{Fixed before the data}} \\\\"]
+    first = "Rule A, primary part, fixed in the plan" if REVISED else "Fixed before the data"
+    lines = [f"\\multicolumn{{7}}{{l}}{{\\emph{{{first}}}}} \\\\"]
     lines += [contrast_line(_w0_label(r), r, LABEL_WORDS[r["outcome"]]) for r in pre]
     if post:
         lines += ["\\midrule", "\\multicolumn{7}{l}{\\emph{Computed after the labels were known}} \\\\"]
@@ -882,9 +1016,12 @@ def t_holdout_diff(w0: dict, seed: int) -> None:
     caption = (
         f"Paired bootstrap differences on the spender holdout W0 ($n={fint(w0.get('spenders'))}$ contracts; "
         f"{fint(max(STATE['nboot']) if STATE['nboot'] else None)} resamples shared by $a$ and $b$, seed {seed}). The "
-        "first block holds the two contrasts fixed before the data, the primary part of rule A in the analysis "
-        "plan committed on 9~October~2026 (C-PR against C-PR ($\\lambda=1$) on new approval pairs and against C-PR "
-        "($\\lambda=0$) on new transfer senders). The second block was computed after the labels were known: the "
+        + ("first block holds the two contrasts of the primary part of rule A, fixed in the analysis plan committed on "
+           "9~October~2026 before any data and applied here to the revised scores (C-PR against C-PR ($\\lambda=1$) on "
+           "new approval pairs and against C-PR " if REVISED else
+           "first block holds the two contrasts fixed before the data, the primary part of rule A in the analysis "
+           "plan committed on 9~October~2026 (C-PR against C-PR ($\\lambda=1$) on new approval pairs and against C-PR ")
+        + "($\\lambda=0$) on new transfer senders). The second block was computed after the labels were known: the "
         "increment of C-PR ($\\lambda=1$), the allowance layer walked alone, over its raw degree at $t_1$, the same "
         "comparisons for S-PR, the increments of EndorseRank and AWP over their raw degrees, C-PR against C-PR "
         "($\\lambda=0$) on new approval pairs, and C-PR against EndorseRank and AWP. Primary part of rule A (C-PR no "
@@ -946,7 +1083,7 @@ def t_holdout_traders(w0: dict, seed: int, cfg: dict) -> None:
         f"from {tex_date(h['outcome_start'])} to {tex_date(h['outcome_end'])}, on the $n={fint(tr.get('n'))}$ GMX~V2 "
         f"contract accounts in the freeze-date graph with at least {NUMBER_WORDS[cfg['gmx_arbitrum']['min_closes']]} "
         f"closes in that window, {fint(tr.get('with_any_approval_received'))} of which had received an approval by the "
-        "freeze. The run is exploratory; the liquidation labels of W0 were left for the registered comparison "
+        f"freeze. The run is exploratory; the liquidation labels of W0 were left for the {REG}comparison "
         "(Table~\\ref{tab:neutral-label-contrasts}). Profitable closes and realized gain grow with the number of "
         f"closes; the two shares do not. {boot_note(seed)}"
     )
@@ -1002,14 +1139,14 @@ def t_endorserank_awp_holdout(w0: dict, w1: dict | None, supp: dict | None, seed
         parts_.append(f"{fint(max(sp_counts))} for the spenders")
     if tr_counts:
         parts_.append(f"{fint(max(tr_counts))} for the traders")
-    w1_sp = (" The W1 spender rows were computed from the saved W1 scores after the registered evaluation, with the "
+    w1_sp = (f" The W1 spender rows were computed from the saved W1 scores after the {'W1' if REVISED else 'registered'} evaluation, with the "
              "resamples of Table~\\ref{tab:fresh-holdout}." if sp1 else "")
     sizes = "; ".join(size for _, size, _ in blocks)
     caption = (
         f"Paired bootstrap differences between EndorseRank and AWP out of window ({sizes}). "
         "None of them enters rule A or rule B: "
         "the spender rows were computed after the labels were known, and the trader rows are the EndorseRank-minus-AWP "
-        "pair of the registered comparison on an outcome built from neither edge type "
+        f"pair of the {REG}comparison on an outcome built from neither edge type "
         f"(Tables~\\ref{{tab:neutral-label-contrasts}} and~\\ref{{tab:neutral-label-grid}}).{w1_sp} Within each block "
         f"$a$ and $b$ share the contract resamples ({' and '.join(parts_)}; seed {seed})."
     )
@@ -1031,8 +1168,8 @@ def t_fresh_holdout(w1: dict, seed: int, cfg: dict) -> None:
     lines = method_rows(W1_ROWS, cell)
     rw = cfg["registered_window"]
     caption = (
-        f"Registered window W1: Kendall $\\tau$ between scores frozen at {tex_date(rw['score_end'])} and the three "
-        f"registered labels, counted from {tex_date(rw['outcome_start'])} to {tex_date(rw['outcome_end'])}. The "
+        f"{W1_NAME}: Kendall $\\tau$ between scores frozen at {tex_date(rw['score_end'])} and the three "
+        f"{REG}labels{' of rule B' if REVISED else ''}, counted from {tex_date(rw['outcome_start'])} to {tex_date(rw['outcome_end'])}. The "
         f"spenders are the $n={fint(w1.get('spenders'))}$ contract spenders holding a positive latest allowance at the "
         f"freeze; {fint(w1.get('gained_new_approvals'))} of them gained a new approval pair and "
         f"{fint(w1.get('gained_new_senders'))} a new sender. The traders are the $n={fint(w1.get('traders'))}$ GMX~V2 "
@@ -1108,8 +1245,11 @@ def t_fresh_contrasts(w1: dict, seed: int) -> None:
                   for k in ("F1", "F2", "F3", "F4", "F5", "F6a", "F6b") if k in s]
     n_tr = w1.get("traders")
     caption = (
-        "Registered window W1: the paired contrasts F1--F6 of rule B with their verdicts, and the two registered "
-        "sensitivity analyses. $\\Delta\\tau=\\tau_a-\\tau_b$, with C-PR ($\\lambda=0.5$) as $a$. Superiority holds "
+        f"{W1_NAME}: the paired contrasts F1--F6 of rule B with their verdicts, and the two {REG}"
+        "sensitivity analyses"
+        + (" (rule B and its sensitivity analyses were registered for the raw-unit analysis; here they are applied to "
+           "the revised scores)" if REVISED else "")
+        + ". $\\Delta\\tau=\\tau_a-\\tau_b$, with C-PR ($\\lambda=0.5$) as $a$. Superiority holds "
         f"when the interval lies above zero; non-inferiority holds when its lower end lies above $-\\delta=-{delta:.2f}$; "
         "F6a, the first part of rule A, holds when the interval contains zero or lies above it. F1, F2, F6a and F6b "
         f"are on the spenders ($n={fint(w1.get('spenders'))}$ contracts), F3--F5 on the traders ($n={fint(n_tr)}$), as "
@@ -1162,7 +1302,7 @@ def t_fresh_posthoc(w1: dict, supp: dict | None, seed: int, cfg: dict) -> None:
     act_text = (" The contrasts of EndorseRank with activity restarts were computed afterwards from the saved W1 "
                 "scores." if act else "")
     caption = (
-        "EndorseRank and its variant with activity restarts on the cohorts and labels of the registered window W1 "
+        f"EndorseRank and its variant with activity restarts on the cohorts and labels of the {W1_NAME_LC} "
         f"(spenders $n={fint(w1.get('spenders'))}$ contracts, traders $n={fint(w1.get('traders'))}$). Neither these "
         "rows nor the contrasts below them are part of rule B, and the contrasts were not named in the registration."
         f"{act_text} The AWP, C-PR and degree rows repeat Table~\\ref{{tab:fresh-holdout}}, and every contrast uses "
@@ -1190,7 +1330,7 @@ def t_fresh_traders(w1: dict, seed: int, cfg: dict) -> None:
                                                              for lab in W1_OTHER_LABELS))
     rw = cfg["registered_window"]
     caption = (
-        f"Registered window W1, traders: Kendall $\\tau$ between scores frozen at {tex_date(rw['score_end'])} and the "
+        f"{W1_NAME}, traders: Kendall $\\tau$ between scores frozen at {tex_date(rw['score_end'])} and the "
         f"other GMX~V2 labels counted from {tex_date(rw['outcome_start'])} to {tex_date(rw['outcome_end'])}, on the "
         f"$n={fint(nw.get('n'))}$ contract accounts with at least {NUMBER_WORDS[cfg['gmx_arbitrum']['min_closes']]} "
         "closes in that window. No liquidation is 1 when none of the account's closes was a liquidation. Profitable "
@@ -1210,7 +1350,8 @@ def _rules_text(rules: dict) -> str:
     r1 = "met" if rules.get("R1") else "not met"
     r2 = "met" if rules.get("R2") else "not met"
     r3 = "applies" if rules.get("R3") else "does not apply"
-    return f"Registered rules: R1 (count-level lead) {r1}; R2 (PageRank-level lead) {r2}; R3 (specificity) {r3}."
+    head = "Registered rules applied to the revised scores" if REVISED else "Registered rules"
+    return f"{head}: R1 (count-level lead) {r1}; R2 (PageRank-level lead) {r2}; R3 (specificity) {r3}."
 
 
 def _window_title(cfg_window: dict, n, label: str) -> str:
@@ -1221,7 +1362,7 @@ def _window_title(cfg_window: dict, n, label: str) -> str:
 def t_neutral_contrasts(w1: dict, seed: int, cfg: dict) -> None:
     begin("neutral-label-contrasts")
     lines = []
-    for key, title, win in (("neutral_w1", "Registered window W1", cfg["registered_window"]),
+    for key, title, win in (("neutral_w1", W1_NAME, cfg["registered_window"]),
                             ("neutral_w0", "Window W0", cfg["holdout"])):
         nw = w1.get(key) or {}
         if not nw:
@@ -1259,8 +1400,10 @@ def t_neutral_contrasts(w1: dict, seed: int, cfg: dict) -> None:
         "from neither edge type ($n="
         f"{fint((w1.get('neutral_w1') or {}).get('n'))}$ traders in W1, $n={fint((w1.get('neutral_w0') or {}).get('n'))}$ "
         "in W0). The pairs, the decision contrasts P and Q with their Bonferroni 97.5\\% intervals and the stratified "
-        "rows were registered before the July--September logs were extracted; W1 is the primary window and W0 the "
-        f"secondary one. Paired contract bootstrap with {fint(max(STATE['nboot']) if STATE['nboot'] else None)} "
+        + ("rows were registered before the July--September logs were extracted, for the raw-unit analysis, and are "
+           "applied here to the revised scores; W1 is the primary window and W0 the " if REVISED else
+           "rows were registered before the July--September logs were extracted; W1 is the primary window and W0 the ")
+        + f"secondary one. Paired contract bootstrap with {fint(max(STATE['nboot']) if STATE['nboot'] else None)} "
         f"resamples (seed {seed}). The stratified rows combine Kendall's $\\tau_b$ within strata of the number of "
         "label-window closes (3--4, 5--9, 10--24, 25 or more), weighted by the number of contract pairs. "
         f"{_rules_text(w1.get('neutral_rules') or {})}"
@@ -1273,7 +1416,7 @@ def t_neutral_recipients(w1: dict, seed: int, cfg: dict) -> None:
     begin("neutral-label-recipients")
     lines = []
     maxdeg = []
-    for key, title, win in (("neutral_w1", "Registered window W1", cfg["registered_window"]),
+    for key, title, win in (("neutral_w1", W1_NAME, cfg["registered_window"]),
                             ("neutral_w0", "Window W0", cfg["holdout"])):
         nw = w1.get(key) or {}
         rec = nw.get("recipients") or {}
@@ -1305,7 +1448,8 @@ def t_neutral_recipients(w1: dict, seed: int, cfg: dict) -> None:
         "GMX~V2 contract traders with a positive in-approve degree at the freeze (recipients) against all other "
         f"labelled traders, in both windows ($n={fint((w1.get('neutral_w1') or {}).get('n'))}$ traders in W1, "
         f"$n={fint((w1.get('neutral_w0') or {}).get('n'))}$ in W0). The comparison of recipients with the other traders "
-        "and the influence check were registered with the contrasts of Table~\\ref{tab:neutral-label-contrasts}. The "
+        "and the influence check were registered with the contrasts of Table~\\ref{tab:neutral-label-contrasts}"
+        + (" and are applied here to the revised scores" if REVISED else "") + ". The "
         f"highest in-approve degree among the traders is {deg}, so the ten recipients left out by the influence check "
         "are taken from tied values in node order. The influence check is a paired contract bootstrap on the remaining "
         f"traders ({fint(max(STATE['nboot']) if STATE['nboot'] else None)} resamples, seed {seed})."
@@ -1318,7 +1462,7 @@ def t_neutral_grid(w1: dict, seed: int, cfg: dict) -> None:
     begin("neutral-label-grid")
     pairs = ("P", "Q", "layers", "er_awp")
     lines = []
-    for key, title, win in (("neutral_w1", "Registered window W1", cfg["registered_window"]),
+    for key, title, win in (("neutral_w1", W1_NAME, cfg["registered_window"]),
                             ("neutral_w0", "Window W0", cfg["holdout"])):
         nw = w1.get(key) or {}
         grid = nw.get("grid") or {}
@@ -1342,10 +1486,10 @@ def t_neutral_grid(w1: dict, seed: int, cfg: dict) -> None:
         return
     caption = (
         "Allowance-side minus transfer-side scores, $\\Delta\\tau$ with 95\\% paired bootstrap interval, on all six "
-        f"trader labels of the registered window W1 ($n={fint((w1.get('neutral_w1') or {}).get('n'))}$ GMX~V2 contract "
+        f"trader labels of the {W1_NAME_LC} ($n={fint((w1.get('neutral_w1') or {}).get('n'))}$ GMX~V2 contract "
         f"traders) and of W0 ($n={fint((w1.get('neutral_w0') or {}).get('n'))}$). P: in-approve degree minus transfer "
         "in-degree. Q: EndorseRank with activity restarts minus AWP (same edge weights and restart rule). C-PR: "
-        "$\\lambda=1$ minus $\\lambda=0$ (same raw-amount build). ER: EndorseRank minus AWP. Profitable closes and "
+        f"$\\lambda=1$ minus $\\lambda=0$ (same {'USD' if REVISED else 'raw-amount'} build). ER: EndorseRank minus AWP. Profitable closes and "
         f"realized gain grow with the number of closes; the other four labels do not. {boot_note(seed)}"
     )
     head = "Label & P (counts) & Q (PageRanks) & C-PR layers & ER minus AWP"
@@ -1603,7 +1747,10 @@ def main() -> int:
     else:
         SKIPPED.append("same-window tables (no same-window summary)")
     if rob and n:
-        t_robustness_tokens(rob, n, cfg)
+        if REVISED:
+            t_robustness_slope(rob, n, load_json(USD_INPUTS / "constants.json"))
+        else:
+            t_robustness_tokens(rob, n, cfg)
         t_robustness_sample_size(rob, bench, n, cfg)
     else:
         SKIPPED.append("robustness-tokens, robustness-sample-size (no robustness.json)")
@@ -1629,6 +1776,10 @@ def main() -> int:
         t_neutral_grid(w1, seed, cfg)
     else:
         SKIPPED.append("W1 tables (no registered summary)")
+    if REVISED and same and w0 and w1:
+        reg = {k: load_json(PROC_SHARED / d / "eval_summary.json")
+               for k, d in (("same", "same-window"), ("w0", "holdout-w0"), ("w1", "registered-w1"))}
+        t_registered_vs_revised(reg, {"same": same, "w0": w0, "w1": w1}, seed)
 
     if not args.no_figures:
         STATE["name"] = "figures"

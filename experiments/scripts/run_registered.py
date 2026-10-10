@@ -17,13 +17,13 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, RAW, ROOT, load_config, read_parts, save_json, write_parts  # noqa: E402
+from common import GRAPH, PROC, ROOT, W1_DIR, load_config, read_parts, save_json, write_parts  # noqa: E402
 from graphs import load_graphs, load_nodes, raw_degrees, score_all  # noqa: E402
 from labels import TRADER_LABELS, account_types, load_closes, strata_tau, trader_labels  # noqa: E402
 from scoring import pagerank_params, scores_on  # noqa: E402
 from stats import PairedBootstrap, percentile_ci  # noqa: E402
 
-OUT = PROC / "registered-w1"
+OUT = PROC / W1_DIR
 APPR, SEND, LIQ = "future_new_approvers", "future_new_transfer_senders", "liquidation_free_rate"
 
 
@@ -156,7 +156,7 @@ def main() -> int:
     g = load_graphs("tobs")
     full, iters = score_all(g, params)
 
-    lab = read_parts(RAW / "graph-tables" / "labels_w1")
+    lab = read_parts(GRAPH / "labels_w1")
     lab["code_kind"] = lab["wallet"].map(kinds)
     if lab["code_kind"].isna().any():
         raise SystemExit(f"{int(lab['code_kind'].isna().sum())} W1 spenders lack an account type")

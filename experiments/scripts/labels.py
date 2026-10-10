@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from common import PROC, RAW, read_parts
+from common import PROC_SHARED, RAW, read_parts
 
 TRADER_LABELS = {
     "liquidation_free_rate": "Liquidation-free close rate",
@@ -18,7 +18,7 @@ TRADER_LABELS = {
 
 
 def load_closes(tags: tuple[str, ...] = ("obs",)) -> pd.DataFrame:
-    frames = [read_parts(PROC / "gmx" / f"gmx_contract_closes_{t}_decoded") for t in tags]
+    frames = [read_parts(PROC_SHARED / "gmx" / f"gmx_contract_closes_{t}_decoded") for t in tags]
     df = pd.concat(frames, ignore_index=True)
     df["block_timestamp"] = pd.to_datetime(df["block_timestamp"], utc=True)
     df["pnl"] = df["base_pnl_usd"].astype(float) / 1e30

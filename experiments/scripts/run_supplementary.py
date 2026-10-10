@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, load_config, read_parts, save_json  # noqa: E402
+from common import PROC, W1_DIR, load_config, read_parts, save_json  # noqa: E402
 from stats import PairedBootstrap  # noqa: E402
 
 APPR, SEND = "future_new_approvers", "future_new_transfer_senders"
@@ -37,7 +37,7 @@ def run(frame, deg_col, cfg):
 def main() -> int:
     cfg = load_config()
     w0 = read_parts(PROC / "holdout-w0" / "spender_scores")
-    w1 = read_parts(PROC / "registered-w1" / "spender_scores")
+    w1 = read_parts(PROC / W1_DIR / "spender_scores")
     out = {"w0": run(w0, "t1_in_approve_degree", cfg), "w1": run(w1, "in_approve_degree", cfg)}
     save_json(out, PROC / "supplementary" / "supplementary.json")
     for w, d in out.items():

@@ -19,7 +19,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, ROOT, load_config, save_json  # noqa: E402
+from common import PROC, REVISED, ROOT, load_config, save_json  # noqa: E402
+
+if REVISED:  # scan B ran once, for the registered analysis; the revised analysis reads its ego tables
+    raise SystemExit("extract_w1.py belongs to the registered analysis; unset CONTRACT_REP_VARIANT")
 
 FILES = [ROOT / "docs" / "registration_w1.md", ROOT / "config" / "contract_reputation.yaml"]
 

@@ -17,10 +17,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from common import PROC, RAW, load_config, read_parts
+from common import GRAPH, load_config, read_parts
 from scoring import activeness, coupled_pagerank, pagerank_params, seeded_pagerank, weighted_pagerank
 
-EXPORT = RAW / "graph-tables"
+EXPORT = GRAPH
 
 METHOD_LABELS = {
     "endorserank": "EndorseRank",

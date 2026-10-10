@@ -15,7 +15,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, RAW, load_config, read_parts, save_json, write_parts  # noqa: E402
+from common import PROC, RAW, REVISED, load_config, read_parts, save_json, write_parts  # noqa: E402
+
+if REVISED:  # the revised cohort is built in BigQuery by sql/12_usd_ego.sql
+    raise SystemExit("build_cohort.py belongs to the registered analysis; unset CONTRACT_REP_VARIANT")
 
 
 def main() -> int:
