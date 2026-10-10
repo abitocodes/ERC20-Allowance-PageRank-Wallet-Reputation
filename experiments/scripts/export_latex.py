@@ -829,7 +829,7 @@ def t_usd_tokens(desc: dict, cfg: dict) -> None:
         c = chk.get(r["symbol"]) or {}
         sym = "USDT0" if r["symbol"] == "USD₮0" else r["symbol"]
         lines.append(
-            f"{sym} & \\texttt{{{r['address'][:6]}\\ldots{r['address'][-4:]}}} & {fint(r['decimals'])} & "
+            f"{sym} & \\texttt{{{r['address'][:6]}\\ldots{{}}{r['address'][-4:]}}} & {fint(r['decimals'])} & "
             f"{r['feed']} ({r['feed_category']}) & {fint(reg)} & {fint(rev)} & {_sci(p.get('rev_transfer_usd'))} & "
             f"{fint(r['second_key_days_used'])} & {fint(r['filled_days'])} & {fint(r['spike_days'])} & "
             f"{100 * (_num(c.get('median')) or float('nan')):.2f} / {100 * (_num(c.get('max')) or float('nan')):.2f} \\\\")
@@ -942,7 +942,8 @@ def t_registered_vs_revised(reg: dict, rev: dict, seed: int) -> None:
         "$b=1$), exactly as obtained under the analysis plan and the W1 registration, beside the same contrasts on "
         "the revised scores (amounts in USD, listed tokens only). The revision was decided after the registered "
         "results were known; the revised column applies the registered rules and thresholds to the revised scores "
-        "and is not a registered test. $\\Delta\\tau$ with 95\\% paired bootstrap interval "
+        "and is not a registered test. The last block holds degree contrasts that no rule of either analysis "
+        "decides; they are reported in both. $\\Delta\\tau$ with 95\\% paired bootstrap interval "
         f"({' and '.join(fint(x) for x in nb)} resamples, seed {seed}); the rules and their thresholds are in "
         "Sections~\\ref{sec:holdout-protocol} and~\\ref{sub:fresh-holdout}."
     )

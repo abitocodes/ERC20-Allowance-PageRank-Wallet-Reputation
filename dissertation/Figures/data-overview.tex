@@ -58,28 +58,28 @@
 % Lane A: cohort selection
 \lanetitle{-0.6}{Matched cohort selection}
 \rowlabel{dsApproval}{-1.0}{Approval}
-\dsInput{dsApproval}{-1.0}{\xa}{\xt}{non-zero approvals from at least three owners}
-\laneuse{-0.5}{The $27{,}844$ contracts among the $29{,}022$ spenders that at least three owners approved (\S\ref{sec:data-sources}).}
+\dsInput{dsApproval}{-1.0}{\xa}{\xt}{approvals of five tokens from at least three owners}
+\laneuse{-0.5}{The $15{,}107$ contracts with non-zero approvals of the five tokens from at least three owners (\S\ref{sec:data-sources}).}
 \lanerule{-1.35}
 
 % Lane B: same-window analysis
-\lanetitle{-1.65}{Same-window analysis, matched cohort ($n=27{,}844$)}
+\lanetitle{-1.65}{Same-window analysis, matched cohort ($n=15{,}107$)}
 \rowlabel{dsApproval}{-2.05}{Approval}
 \dsInput{dsApproval}{-2.05}{\xa}{\xt}{EndorseRank; allowance checks}
 \rowlabel{dsTransfer}{-2.49}{Transfer}
 \dsInput{dsTransfer}{-2.49}{\xa}{\xt}{AWP; transfer and Sybil checks}
-\laneuse{-1.55}{Both edge types together give \mbox{C-PR} and \mbox{S-PR}. RQ1, RQ2, the benchmark of RQ3 and the same-window part of RQ5 (\S\S\ref{sec:benchmark-results}--\ref{sec:coupled-results}).}
+\laneuse{-1.55}{Both edge types together give \mbox{C-PR} and \mbox{S-PR}. RQ1, RQ2, the benchmark of RQ3 and the same-window part of RQ5 (\S\S\ref{sec:benchmark-results}--\ref{sec:rank-divergence}).}
 \lanerule{-2.84}
 
 % Lane C: holdout W0 on spender contracts
-\lanetitle{-3.14}{Holdout W0, spender contracts ($n=33{,}101$)}
+\lanetitle{-3.14}{Holdout W0, spender contracts ($n=17{,}050$)}
 \rowlabel{dsApproval}{-3.54}{Approval}
 \dsInput{dsApproval}{-3.54}{\xa}{\xw}{score input}
 \dsHeld{dsApproval}{-3.54}{\xw}{\xt}{new pairs}
 \rowlabel{dsTransfer}{-3.98}{Transfer}
 \dsInput{dsTransfer}{-3.98}{\xa}{\xw}{score input}
 \dsHeld{dsTransfer}{-3.98}{\xw}{\xt}{new senders}
-\laneuse{-3.04}{Contract spenders holding an allowance at $t_1$; scores and degree baselines use events up to $t_1$. RQ4 and RQ5 (\S\ref{sec:holdout-protocol}, \S\ref{sec:holdout-results}).}
+\laneuse{-3.04}{Contract spenders holding an allowance of the five tokens at $t_1$; scores and degree baselines use events up to $t_1$. RQ4 and RQ5 (\S\ref{sec:holdout-protocol}, \S\ref{sec:holdout-results}).}
 \lanerule{-4.33}
 
 % Lane D: W0 trader run
@@ -90,7 +90,7 @@
 \dsInput{dsTransfer}{-5.47}{\xa}{\xw}{score input}
 \rowlabel{dsGMX}{-5.91}{GMX V2}
 \dsHeld{dsGMX}{-5.91}{\xw}{\xt}{trader labels}
-\laneuse{-4.53}{GMX~V2 contract accounts in the $t_1$ graph with at least three closes from April to June; profit labels under no rule (\S\ref{sub:trader-holdout}). Their liquidation labels enter only the registered comparison.}
+\laneuse{-4.53}{GMX~V2 contract accounts in the $t_1$ graph with at least three closes from April to June; profit labels under no rule (\S\ref{sub:trader-holdout}). Their liquidation labels enter only the outcome comparison.}
 \lanerule{-6.26}
 
 % Lane E: registered window W1
@@ -103,7 +103,7 @@
 \dsHeld{dsTransfer}{-7.40}{\xt}{\xe}{new senders}
 \rowlabel{dsGMX}{-7.84}{GMX V2}
 \dsHeld{dsGMX}{-7.84}{\xt}{\xe}{liquidation-free}
-\laneuse{-6.46}{$34{,}587$ spender contracts and $70$ contract traders: rule~B and the comparison on outcomes built from neither edge type. Extracted after the registration of 9~October~2026, 16:49~UTC (\S\ref{sub:fresh-holdout}).}
+\laneuse{-6.46}{$18{,}152$ spenders and $70$ traders, all contracts: rule~B and the outcome comparison on the revised scores. Extracted after the registration of 9~Oct 2026, 16:49~UTC (\S\ref{sub:fresh-holdout}).}
 \lanerule{-8.19}
 
 % Lane F: account type

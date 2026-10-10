@@ -31,7 +31,7 @@
 
 ## 결과 한눈에
 
-- 원고: `dissertation/main.pdf` (236쪽). 빌드는 `dissertation/`에서 xelatex → biber → xelatex 두 번이며, MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
+- 원고: `dissertation/main.pdf` (266쪽, 수정 분석이 주 결과). 빌드는 `dissertation/`에서 xelatex → biber → xelatex 두 번이며, MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
 - 수치: `experiments/data/3-published-results-for-thesis/results_digest.md` (모든 수치와 그 JSON 경로), `SHA256SUMS.txt`.
 - 사전 고정: 분석 계획 `43d8045`(2026-10-09 13:41 UTC, 1차 추출 10초 전), W1 등록 `0d3a057`(같은 날 16:49 UTC, 2차 추출 8초 전).
 - BigQuery 비용: 등록 분석 USD 29.71, 수정 분석을 더해 USD 34.80 (`experiments/data/bq_ledger.json`).

@@ -25,8 +25,9 @@ Table~\ref{tab:abbreviations} gives the abbreviations in alphabetical order, eac
 Abbreviation & Meaning \\
 \midrule
 ABI & Application binary interface (the encoding of a contract's calls and event logs) \\
+ARB & Arbitrum governance token (one of the five tokens, Section~\ref{sec:amount-revision}) \\
 AWP & Adaptive Weighted PageRank \\
-C-PR & Coupled PageRank (per-node mixture of the raw-amount allowance and transfer layers, weight $\lambda$) \\
+C-PR & Coupled PageRank (per-node mixture of the allowance and transfer layers with weight $\lambda$) \\
 CI & Confidence interval (here a percentile interval of the paired bootstrap) \\
 DeFi & Decentralized Finance \\
 DEX & Decentralized Exchange \\
@@ -47,10 +48,14 @@ S-PR & Endorsement-Seeded PageRank (transfer layer walked with restarts drawn fr
 SD & Standard deviation \\
 SHA-256 & Secure Hash Algorithm with a 256-bit digest \\
 SQL & Structured Query Language \\
-USD & United States dollar \\
+USD & United States dollar, the unit of every amount in the revised analysis \\
+USDC & USD Coin, issued natively on Arbitrum One (one of the five tokens) \\
+USDT0 & Tether USD on Arbitrum One, backed one-to-one by USDT (one of the five tokens) \\
 UTC & Coordinated Universal Time \\
 W0 & Holdout window: scores frozen on 31~March~2026, labels counted from April to June~2026 \\
-W1 & Registered window: scores frozen on 30~June~2026, labels counted from July to September~2026 \\
+W1 & Registered window: scores frozen on 30~June~2026, labels counted from July to September~2026 (its rules were registered before its logs were extracted) \\
+WBTC & Wrapped Bitcoin (one of the five tokens) \\
+WETH & Wrapped Ether, the form in which ether enters the graphs (one of the five tokens) \\
 \bottomrule
 \end{tabular}
 }
@@ -72,25 +77,27 @@ Table~\ref{tab:notation} gives the symbols that recur across the chapters. The f
 \toprule
 Symbol & Meaning \\
 \midrule
-$G_{\mathrm{approve}}$ & Directed endorsement graph from latest ERC-20 allowances (owner $\to$ spender) \\
-$G_{\mathrm{transfer}}$ & Directed transfer graph (sender $\to$ receiver; AWP input) \\
+$G_{\mathrm{approve}}$ & Directed endorsement graph from the latest allowances of the five tokens, valued in US dollars (owner $\to$ spender) \\
+$G_{\mathrm{transfer}}$ & Directed transfer graph of the five tokens, amounts in US dollars (sender $\to$ receiver; AWP input) \\
 $|V|$, $|E|$ & Numbers of nodes and of directed edges in a reputation graph \\
 $w_{ij}$ & Weight of the directed edge from node $i$ to node $j$ \\
 $o_i$ & Out-strength of node $i$, $o_i=\sum_j w_{ij}$ (written $o(u)$, or $o_A(u)$ and $o_T(u)$ per layer, in Chapter~\ref{ch:methodology}) \\
 $P$ & Transition matrix, $P_{ij}=w_{ij}/o_i$ for $o_i>0$; a dangling row is uniform in Equation~\eqref{eq:transition} and zero in Equation~\eqref{eq:transition-impl}, where its mass is redistributed separately \\
 $G_{\mathrm{PR}}$ & Google matrix $dP^{\top}+(1-d)\,\mathbf{1}\mathbf{1}^{\top}/|V|$ (Equation~\eqref{eq:google-matrix}) \\
 $\mathbf{r}$, $r_i$ & PageRank vector and its entry for node $i$; $\mathbf{r}^{(t)}$ is the iterate after $t$ power-iteration steps \\
-$\boldsymbol{\pi}$ & Teleportation (restart) distribution: uniform for EndorseRank and C-PR, proportional to activeness $X_u$ for AWP, and the normalized allowance-walk score for S-PR \\
+$\boldsymbol{\pi}$ & Teleportation (restart) distribution: uniform for EndorseRank and C-PR, proportional to activeness $X_u$ for AWP and for the variant of EndorseRank with activity restarts, and the normalized allowance-walk score for S-PR \\
 $d$ & PageRank damping factor (default $0.85$); the teleport probability is $1-d$ \\
 $\varepsilon$ & Convergence tolerance of power iteration ($10^{-8}$, on the $\|\cdot\|_1$ change between iterates) \\
 $I_{\max}$ & Iteration cap of power iteration ($300$) \\
 $\lambda$ & Allowance-layer weight of the coupled operator C-PR ($\lambda=1$ and $\lambda=0$: one layer walked alone) \\
 $P^{(\lambda)}$ & Coupled transition matrix of C-PR with allowance-layer weight $\lambda$ (Equation~\eqref{eq:coupled-transition}) \\
 $\alpha_A(u)$, $\alpha_T(u)$ & Weights of the allowance row and the transfer row in the coupled transition row of node $u$ \\
+$U$ & Cap on an allowance in the allowance layer of C-PR and in the in-approve value: an allowance above $U$ counts $U$; $U=20{,}000$ dollars, the 99th percentile of the US-dollar values of single transfers up to $t_1$, rounded to two significant digits \\
 $k$, $t_0$ & Steepness and midpoint (days) of the logistic time decay \\
 $\Delta t$ & Age in days of a transfer or approval \\
 $\sigma(\Delta t)$ & Logistic time weight of a transfer (AWP) or latest approval (EndorseRank) \\
-$V(z)$ & Bounded value weight of AWP and EndorseRank, $2/(1+e^{-bz})-1$ with $b=1$ \\
+$V(z)$, $b$ & Bounded value weight of AWP and EndorseRank on a US-dollar amount $z$, $2/(1+e^{-bz})-1$ with slope $b_T=\ln 3/m_T$ for transfers and $b_A=\ln 3/m_A$ for allowances, so that an amount of $m_T$ or $m_A$ gets $V=1/2$ \\
+$m_T$, $m_A$ & Medians, rounded to two significant digits, of the US-dollar amounts of the transfers up to $t_1$ ($200$ dollars) and of the finite latest allowances at $t_1$, valued at $t_1$ prices ($62$ dollars) (Section~\ref{sec:amount-revision}) \\
 $X_u$ & Activeness of address $u$, AWP's restart weight \\
 $n$ & Number of contracts in a cohort or a benchmark stage (Section~\ref{sub:cohorts}) \\
 $\rho$ & Spearman's rank correlation coefficient \\
@@ -98,7 +105,7 @@ $\tau$ & Kendall's rank correlation coefficient; every reported value is $\tau_b
 $\Delta\tau$ & Paired difference of two Kendall coefficients on the same resamples \\
 $T_{\mathrm{obs}}$ & End of the observation window and score freeze of W1 (30~June~2026) \\
 $t_1$, $t_2$ & Score freeze of W0 (31~March~2026) and end of its label window (30~June~2026) \\
-$\mathcal{W}$ & Matched cohort of contracts \\
+$\mathcal{W}$ & Matched cohort: contracts that received non-zero approvals of the five tokens from at least three distinct owners, counted over the five tokens together, in the observation window; the registered analysis used the plan's cohort, approved on any token (Appendix~\ref{sec:map-registered}) \\
 $\mathcal{C}$ & Contracts evaluated in one analysis: $\mathcal{W}$, or a spender or trader cohort of a holdout \\
 $\mathbf{s}_M$ & Reputation score vector of method $M$ on the contracts evaluated \\
 $\mathbf{p}_q$ & Value vector of same-window proxy $q$ on the matched cohort \\

@@ -26,11 +26,11 @@ a bound that does not depend on $|V|$ \parencite{langville2006pagerank}.
 
 Continuity in $P$ is not the same as continuity in the edge weights. A row $P_{i\cdot}=w_{i\cdot}/o_i$ moves continuously with the weights only while the out-strength $o_i$ stays positive. When a node gains its first out-edge or loses its last one, its row jumps between the uniform dangling row and a row concentrated on its out-neighbors, however small the weight involved. In the worked example of Section~\ref{sec:pagerank-worked-example}, adding an edge $D\to A$ of weight $10^{-12}$ moves $\mathbf{r}$ by $0.37$ in the $\|\cdot\|_1$ norm and raises $r_A$ from $0.1375$ to $0.3202$.
 
-The damping sweep is covered by continuity: it keeps $P$ fixed and changes $d$ smoothly, and for $d<1$ the PageRank vector varies continuously with $d$. The top-token filter is not covered. It removes edges, which can leave an address without out-edges, so the stability of that check rests on the data alone (Table~\ref{tab:robustness-tokens}). Empirically, the family means of EndorseRank and AWP change little across $d\in\{0.75,0.85,0.95\}$, AWP's Sybil-stability mean the most (Section~\ref{sub:damping}; Table~\ref{tab:robustness-damping}), although the number of iterations grows with $d$.
+The damping sweep is covered by continuity: it keeps $P$ fixed and changes $d$ smoothly, and for $d<1$ the PageRank vector varies continuously with $d$. The value-slope check is covered only in part. Changing the slope $b$ of $V$ changes the weight of every finite amount, while an unlimited allowance keeps $V=1$, and in exact arithmetic it adds or removes no edge, since $V(z)>0$ for every $z>0$, so $P$ moves continuously with $b$. In floating point an edge that carries only tiny amounts can round to zero weight (Section~\ref{sec:rank-divergence}), and a change of $b$ can move such an edge to or from zero. A tenfold change of $b$ is not small, however, and the bound above says little about it, so the stability of that check rests on the data (Table~\ref{tab:robustness-slope}). Empirically, the family means of EndorseRank and AWP change little across $d\in\{0.75,0.85,0.95\}$, AWP's transfer mean the most (Section~\ref{sub:damping}; Table~\ref{tab:robustness-damping}), although the number of iterations grows with $d$.
 
 \dissertationSubheading[sec:pr-sparsity]{Sparsity and per-iteration cost}
 
-With $m=|E|$ nonzero edges, the sparse product $P^{\top}\mathbf{x}$ costs $O(m)$ arithmetic operations, and building the sparse operator from the edge list is also $O(m)$, so power iteration over $I$ iterations is $O(m+mI)$. On the matched cohort the transfer graph has about $2.7$ times as many edges as the allowance graph (Section~\ref{sec:benchmark-results}), so at equal iteration counts the transfer method would take about $2.7$ times as long. Both scores run the same solver, so any further difference in time comes from the iteration counts and from the vector operations over $|V|$, not from the algorithm. In the measured calls the time ratio of AWP to EndorseRank is $2.36$, with $93$ and $84$ iterations (Section~\ref{sec:benchmark-results}), so the transfer method's time per edge and iteration is lower than EndorseRank's on these graphs.
+With $m=|E|$ nonzero edges, the sparse product $P^{\top}\mathbf{x}$ costs $O(m)$ arithmetic operations, and building the sparse operator from the edge list is also $O(m)$, so power iteration over $I$ iterations is $O(m+mI)$. On the matched cohort the transfer graph has $2.23$ times as many edges as the allowance graph (Section~\ref{sec:benchmark-results}), so at equal iteration counts the transfer method would take about $2.23$ times as long. Both scores run the same solver, so any further difference in time comes from the iteration counts and from the vector operations over $|V|$, not from the algorithm. In the measured calls the time ratio of AWP to EndorseRank is $2.17$, with $92$ and $69$ iterations (Section~\ref{sec:benchmark-results}), so the transfer method's time per edge and iteration is lower than EndorseRank's on these graphs.
 
 \dissertationSubheading[sec:spearman-properties]{Properties of Spearman's \texorpdfstring{$\rho$}{rho}}
 
@@ -38,19 +38,19 @@ Spearman's $\rho$ is Pearson's correlation computed on ranks. It lies in $[-1,1]
 
 \dissertationSubheading[sec:kendall-properties]{Properties of Kendall's \texorpdfstring{$\tau$}{tau}}
 
-Kendall's $\tau$ compares the numbers of concordant and discordant pairs, $n_c$ and $n_d$. Without tie correction, $\tau_a=(n_c-n_d)/n_0$ with $n_0=n(n-1)/2$ is the probability that two randomly drawn contracts are ordered the same way by both rankings minus the probability that they are ordered oppositely \parencite{kendall1938rank}. Every reported $\tau$ is the tie-corrected $\tau_b$ of Equation~\eqref{eq:kendall}, whose denominator removes the pairs tied on either ranking from $n_0$. The two coincide without ties, and among the scores of this thesis ties are rare: on the matched cohort no score ties more than $1.5\%$ of the contract pairs, and Section~\ref{sec:rank-divergence} gives the shares of EndorseRank and AWP. For EndorseRank against AWP the denominator of $\tau_b$ therefore differs from $n_0$ by less than one percent, and $\tau_a$ lies within one percent of the reported $\tau_b$ (Table~\ref{tab:tie-sensitivity}).
+Kendall's $\tau$ compares the numbers of concordant and discordant pairs, $n_c$ and $n_d$. Without tie correction, $\tau_a=(n_c-n_d)/n_0$ with $n_0=n(n-1)/2$ is the probability that two randomly drawn contracts are ordered the same way by both rankings minus the probability that they are ordered oppositely \parencite{kendall1938rank}. Every reported $\tau$ is the tie-corrected $\tau_b$ of Equation~\eqref{eq:kendall}, whose denominator removes the pairs tied on either ranking from $n_0$. The two coincide without ties, and among the scores of this thesis ties are rare: on the matched cohort no score ties more than $3.2\%$ of the contract pairs, and Section~\ref{sec:rank-divergence} gives the shares of EndorseRank and AWP. For EndorseRank against AWP the denominator of $\tau_b$ therefore differs from $n_0$ by less than two percent, and $\tau_a$, computed from the pair counts of Section~\ref{sec:rank-divergence}, lies within two percent of the reported $\tau_b$ (Table~\ref{tab:tie-sensitivity}).
 
-Ties in a proxy cap $\tau_b$ as well. The integer proxies, such as the in-degree and the in-approve degree, tie many pairs, and the largest $\tau_b$ any score can reach against such a proxy falls with the share of tied pairs. Because no score here ties more than $1.5\%$ of the pairs, this cap is nearly the same for every score compared on one proxy, so paired contrasts on one proxy are not distorted by it. Contrasts between proxies can be, to the extent that the proxies' ties differ.
+Ties in a proxy cap $\tau_b$ as well. The integer proxies, such as the in-degree and the in-approve degree, tie many pairs, and the largest $\tau_b$ any score can reach against such a proxy falls with the share of tied pairs. Because no score here ties more than $3.2\%$ of the pairs, this cap differs little between the scores compared on one proxy, so paired contrasts on one proxy are not distorted by it. Contrasts between proxies can be, to the extent that the proxies' ties differ.
 
-When $n$ is large, $\tau$ and $\rho$ usually agree in sign, but they differ in magnitude. Across the pairs of EndorseRank or AWP with a proxy where $|\tau|>0.02$ (Tables~\ref{tab:alignment-transfer} to~\ref{tab:alignment-sybil-stability}), the ratio $\rho/\tau$ lies between about $1.3$ and $1.7$, and $|\rho|$ is always the larger of the two. The one pair whose signs differ is AWP with the inbound counterparty ratio, where both coefficients lie within $0.03$ of zero. We report both, as the AWP baseline does \parencite{do2023awp}. Our main summary statistic is the family-mean $\tau$ with a paired-bootstrap interval \parencite{efron1979bootstrap}.
+When $n$ is large, $\tau$ and $\rho$ usually agree in sign, but they differ in magnitude. Across the fourteen pairs of EndorseRank or AWP with a proxy (Tables~\ref{tab:alignment-transfer} to~\ref{tab:alignment-sybil-stability}), every $|\tau|$ exceeds $0.07$, the ratio $\rho/\tau$ lies between about $1.2$ and $1.8$, and $|\rho|$ is always the larger of the two. No pair has coefficients of opposite sign. We report both, as the AWP baseline does \parencite{do2023awp}. Our main summary statistic is the family-mean $\tau$ with a paired-bootstrap interval \parencite{efron1979bootstrap}.
 
 \dissertationSubheading[sec:construct-validity-note]{Construct validity note}
 
-\textcite{cronbach1955construct} distinguish criterion-related validity from construct validity. Since no definitive gold-standard label of contract reputation exists, this research takes a construct-oriented approach. Each score is checked against statistics that follow from its conceptual definition, such as receiving allowances for EndorseRank and receiving inbound transfers for AWP. Agreement with statistics built from a score's own edges is a check of the intended construct and is partly built in. Each score is also set against later arrivals of the same constructs, new approval pairs and new transfer senders, against the raw degree it smooths, and in the registered window against a trader outcome built from neither edge type. Agreement within a construct supports the intended reading of a score, subject to that overlap. Low agreement across constructs does not by itself signal failure, since a score built for one construct need not track the other.
+\textcite{cronbach1955construct} distinguish criterion-related validity from construct validity. Since no definitive gold-standard label of contract reputation exists, this research takes a construct-oriented approach. Each score is checked against statistics that follow from its conceptual definition, such as receiving allowances for EndorseRank and receiving inbound transfers for AWP. Agreement with statistics built from a score's own edges is a check of the intended construct and is partly built in. Each score is also set against later arrivals of the same constructs, new approval pairs and new transfer senders, against the raw degree it smooths, and in the windows W1 and W0 against a trader outcome built from neither edge type. Agreement within a construct supports the intended reading of a score, subject to that overlap. Low agreement across constructs does not by itself signal failure, since a score built for one construct need not track the other.
 
 \dissertationSubheading[sec:numerical-summary-sheet]{Where each primary quantity is reported}
 
-For each primary quantity, the index below names the table or section where it is established.
+For each primary quantity of the revised analysis, the index below names the table or section where it is established; its last rows point to the revision of the amounts and to the registered analysis.
 
 \begin{center}
 \fitwidth{%
@@ -61,23 +61,27 @@ Quantity & Reported in \\
 Runtime, SD, memory, iterations, $|V|$, $|E|$ (four scores, full graphs) & Table~\ref{tab:benchmark-runtime} \\
 Scaling stages (subsamples of the matched cohort) & Table~\ref{tab:benchmark-scaling} \\
 Every timed run of the benchmark & Table~\ref{tab:benchmark-runs} \\
-Family-mean $\tau$ with 95\% CI, every score & Table~\ref{tab:alignment-hybrid} \\
+Family-mean $\tau$ with 95\% CI, every PageRank & Tables~\ref{tab:alignment-hybrid} and~\ref{tab:endorserank-restarts} \\
 Paired $\Delta\tau$ contrasts of C-PR and S-PR & Table~\ref{tab:tau-diff-hybrid} \\
 Inter-method $\tau$; contracts outside a graph as isolated nodes & Table~\ref{tab:tie-sensitivity} \\
-Damping, top-token and sample-definition checks & Tables~\ref{tab:robustness-damping}, \ref{tab:robustness-tokens}, \ref{tab:robustness-sample-size} \\
+Damping, value-slope and sample-definition checks & Tables~\ref{tab:robustness-damping}, \ref{tab:robustness-slope}, \ref{tab:robustness-sample-size} \\
 EndorseRank with uniform and with activity restarts & Table~\ref{tab:endorserank-restarts} \\
 Spender holdout W0 & Tables~\ref{tab:holdout-spenders}, \ref{tab:holdout-diff} and~\ref{tab:holdout-receiving} \\
 Trader run W0 (profit labels) & Table~\ref{tab:holdout-traders} \\
-Registered window W1 & Tables~\ref{tab:fresh-holdout}, \ref{tab:fresh-contrasts}, \ref{tab:fresh-traders} and~\ref{tab:fresh-posthoc} \\
+Window W1, revised scores & Tables~\ref{tab:fresh-holdout}, \ref{tab:fresh-contrasts}, \ref{tab:fresh-traders} and~\ref{tab:fresh-posthoc} \\
 Outcomes built from neither edge type & Tables~\ref{tab:neutral-label-contrasts}, \ref{tab:neutral-label-recipients} and~\ref{tab:neutral-label-grid} \\
 Sybil cost model & Section~\ref{sec:sybil-cost-model} \\
 Comparisons between EndorseRank and AWP, per-proxy results & Appendix~\ref{ch:appendix-er-awp} \\
 Account types of the cohorts & Table~\ref{tab:account-types} \\
 Extracted events, tokens, GMX~V2 activity by quarter & Appendix~\ref{ch:appendix-data} \\
+Five tokens, rows kept and left out, prices & Table~\ref{tab:usd-tokens} \\
 Observation window & 2023-10-01 -- 2026-06-30 (Table~\ref{tab:parameter-summary}) \\
+\midrule
+Revision of the amounts (US dollars, five tokens, slopes, cap) & Section~\ref{sec:amount-revision} \\
+Registered analysis: decision contrasts and verdicts & Appendix~\ref{sec:map-registered}, Table~\ref{tab:registered-vs-revised} \\
 \bottomrule
 \end{tabular}
 }
 \end{center}
 
-Each quantity listed appears in a machine-readable summary and in a table of Chapter~\ref{ch:results} or of this appendix.
+Each quantity listed appears in a machine-readable summary and in the table or section named beside it; the registered results are in a summary of their own.

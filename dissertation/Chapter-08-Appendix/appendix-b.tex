@@ -2,7 +2,7 @@
 \section{SQL Templates, Configuration, and Extended Notes}
 \label{ch:appendix-sql}
 
-To aid reproduction, this appendix shows the three SQL patterns on which every graph of the thesis rests, the configuration keys, and notes on complexity and on the conventions of the result tables. The listings are abridged; the full files are in \texttt{sql/} of the experiments folder (Appendix~\ref{ch:appendix-eval}). Placeholders in double underscores, such as \texttt{\_\_DEST\_\_}, are replaced by \texttt{scripts/run\_bq.py} before a query runs, and names that start with \texttt{@} are query parameters.
+To aid reproduction, this appendix shows the SQL patterns on which the graphs of both analyses rest, the configuration keys, and notes on complexity and on the conventions of the result tables. The three queries of the plan build the graphs of the registered analysis; the revised analysis cuts its tables from their output and values the amounts in US dollars (Appendix~\ref{sec:sql-pairs}). The listings are abridged; the full files are in \texttt{sql/} of the experiments folder (Appendix~\ref{ch:appendix-eval}). Placeholders in double underscores, such as \texttt{\_\_DEST\_\_}, are replaced by \texttt{scripts/run\_bq.py} before a query runs, and names that start with \texttt{@} are query parameters.
 
 \dissertationSubheading[sec:sql-materialize]{Log materialization pattern}
 
@@ -52,7 +52,7 @@ For an approval, \texttt{a} is the owner and \texttt{b} the spender; for a trans
 
 \dissertationSubheading[sec:sql-ego]{Ego-network extraction pattern}
 
-\texttt{sql/03\_ego\_events.sql} reads the materialized table of one window and keeps the approvals and transfers with a cohort contract at one end. The table \texttt{contract\_rep.cohort} holds the 20-byte addresses of the matched cohort, loaded by \texttt{scripts/build\_cohort.py}. Abridged:
+\texttt{sql/03\_ego\_events.sql} reads the materialized table of one window and keeps the approvals and transfers with a cohort contract at one end. The table \texttt{contract\_rep.cohort} holds the 20-byte addresses of the plan's cohort, loaded by \texttt{scripts/build\_cohort.py}. Abridged:
 
 \begin{verbatim}
 CREATE TEMP FUNCTION u256(v BYTES) AS (
@@ -81,11 +81,11 @@ WHERE l.kind = 'A'
 --   AND LTRIM(TO_HEX(l.val), '0') != ''
 \end{verbatim}
 
-The function \texttt{u256} reads the 32-byte amount as a double in raw base units; no token decimals are applied anywhere in the pipeline. Approvals of zero are kept, because an approval of zero deletes an allowance, while zero-value transfers are dropped. The suffix is \texttt{ego} for the observation window and \texttt{w1ego} for July--September~2026.
+The function \texttt{u256} reads the 32-byte amount as a double in raw base units; the queries of the plan apply no token decimals. Approvals of zero are kept, because an approval of zero deletes an allowance, while zero-value transfers are dropped. The suffix is \texttt{ego} for the observation window and \texttt{w1ego} for July--September~2026. The revised analysis does not run this query again. It reads these tables of every token and the plan's cohort and keeps the part that concerns the five tokens and the revised cohort, which is a subset of the plan's: a contract that three owners approved on the five tokens was approved by three owners on some token.
 
 \dissertationSubheading[sec:sql-pairs]{Latest-allowance and pair-table pattern}
 
-\texttt{sql/04\_anchor\_pairs.sql} turns the ego events up to one anchor into the edge lists of both graphs. Abridged:
+In the registered analysis, \texttt{sql/04\_anchor\_pairs.sql} turns the ego events up to one anchor into the edge lists of both graphs. Abridged:
 
 \begin{verbatim}
 CREATE TEMP FUNCTION sig(age_days FLOAT64) AS
@@ -124,27 +124,82 @@ GROUP BY owner, spender;
 --   MAX(sig(age_days))             AS max_sig  -- AWP activeness
 \end{verbatim}
 
-The function \texttt{sig} is the logistic decay of Equation~\eqref{eq:logistic-decay} with $k=0.01$ and $t_0=180$ days, and \texttt{vt} the value transform of Equation~\eqref{eq:value-transform} with $b=1$, set to one from $z=40$ on, where it equals one in double precision. Among the approvals of one token, owner and spender up to the anchor, the latest is the one with the largest block number and, within the block, the largest log index. It is kept only when its value is positive, so a revocation removes that token from the pair. Each pair row carries the weights of every method, so all scores at one anchor come from the same rows. The tag is \texttt{tobs} for $T_{\text{obs}}$ and \texttt{t1} for the freeze of W0.
+The function \texttt{sig} is the logistic decay of Equation~\eqref{eq:logistic-decay} with $k=0.01$ and $t_0=180$ days, and \texttt{vt} the value transform of Equation~\eqref{eq:value-transform} with the plan's slope $b=1$ on raw base units, set to one from $z=40$ on, where it equals one in double precision. Among the approvals of one token, owner and spender up to the anchor, the latest is the one with the largest block number and, within the block, the largest log index. It is kept only when its value is positive, so a revocation removes that token from the pair. Each pair row carries the weights of every method, so all scores at one anchor come from the same rows. The tag is \texttt{tobs} for $T_{\text{obs}}$ and \texttt{t1} for the freeze of W0.
+
+The revised analysis adds a US-dollar valuation to these patterns (Section~\ref{sec:amount-revision}). \texttt{scripts/run\_usd\_pipeline.py} loads the five tokens with their decimals and the daily price table from \texttt{data/0-usd-token-list-and-prices/} into the tables \texttt{u\_tokens} and \texttt{u\_prices}, which \texttt{sql/19\_usd\_load.sql} keys by 20-byte address. \texttt{sql/12\_usd\_ego.sql} then forms the revised cohort and joins the ego events with these tables, and \texttt{sql/14\_usd\_anchor\_pairs.sql} builds the pair tables with the slope and the cap as query parameters. Abridged:
+
+\begin{verbatim}
+-- sql/12_usd_ego.sql
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.u_cohort` AS
+SELECT spender AS address, COUNT(DISTINCT owner) AS owners_nonzero
+FROM `dissertation-bq.contract_rep.approvals_ego`
+WHERE block_timestamp >= TIMESTAMP(@start_ts)
+  AND block_timestamp < TIMESTAMP(@end_ts)
+  AND value > 0
+  AND token_address IN
+        (SELECT token FROM `dissertation-bq.contract_rep.u_tokens`)
+  AND spender IN (SELECT address FROM `dissertation-bq.contract_rep.cohort`)
+GROUP BY spender
+HAVING COUNT(DISTINCT owner) >= 3;
+
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.u_transfers` AS
+SELECT x.block_timestamp, x.token_address, x.from_address, x.to_address,
+       x.value / POW(10.0, t.decimals) * p.price_usd AS usd
+FROM `dissertation-bq.contract_rep.transfers_ego` AS x
+JOIN `dissertation-bq.contract_rep.u_tokens` AS t
+  ON t.token = x.token_address
+LEFT JOIN `dissertation-bq.contract_rep.u_prices` AS p
+  ON p.token = x.token_address AND p.day = DATE(x.block_timestamp)
+WHERE x.from_address IN
+        (SELECT address FROM `dissertation-bq.contract_rep.u_cohort`)
+   OR x.to_address IN
+        (SELECT address FROM `dissertation-bq.contract_rep.u_cohort`);
+-- u_approvals: the same filter on approvals_ego, amount = value / 10^decimals
+
+-- sql/14_usd_anchor_pairs.sql
+CREATE TEMP FUNCTION vt(z FLOAT64, b FLOAT64) AS
+  (IF(b * z >= 40.0, 1.0, 2.0 / (1.0 + EXP(-b * z)) - 1.0));
+-- u_allow_triples___TAG__: the latest approvals of 04_anchor_pairs.sql, taken
+-- from u_approvals and valued at the price of the anchor's day:
+--   r.amount * p.price_usd AS usd ... JOIN u_prices AS p
+--   ON p.token = r.token_address AND p.day = DATE(TIMESTAMP(@anchor_ts))
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.u_allow_pairs___TAG__` AS
+SELECT owner, spender,
+       COUNT(*) AS n_tokens,
+       SUM(sig(age_days) * vt(usd, @b_allowance)) AS w_er,  -- EndorseRank
+       SUM(LEAST(usd, @cap_allowance)) AS w_raw,   -- C-PR allowance layer
+       MAX(sig(age_days)) AS max_sig,
+       MAX(block_timestamp) AS last_ts
+FROM `dissertation-bq.contract_rep.u_allow_triples___TAG__`
+GROUP BY owner, spender;
+-- u_transfer_pairs___TAG__: per (from_address, to_address) over u_transfers
+-- up to the anchor, rows with usd IS NULL left out, with
+--   SUM(sig(age_days) * vt(usd, @b_transfer)) AS w_awp   -- AWP
+--   SUM(usd * sig(age_days))                 AS w_raw   -- C-PR transfer layer
+--   MAX(sig(age_days))                       AS max_sig -- AWP activeness
+\end{verbatim}
+
+A transfer is valued at the price of the UTC day of its block, and a latest allowance at the price of the anchor's day, since the edge stands for the permission in force at the anchor. The parameters come from \texttt{constants.json}: $b_A=\ln 3/62$ and $b_T=\ln 3/200$ per dollar and $U=20{,}000$ dollars, computed from the events up to $t_1$ (\texttt{sql/13\_usd\_constants.sql}). An unlimited allowance reaches $bz\geq 40$, so it enters EndorseRank with $V=1$ and the allowance layer of C-PR with $U$. A transfer on a day before its token's first price would keep a null value and be left out; no kept transfer lacks a price (Table~\ref{tab:usd-tokens}). The same query writes the EndorseRank and AWP weights with the slope multiplied and divided by ten, from which the value-slope check of Table~\ref{tab:robustness-slope} is computed. \texttt{sql/15} to \texttt{sql/18} compute the proxies, the labels, the node ids and the description from the revised tables as \texttt{sql/05}, \texttt{sql/06}, \texttt{sql/08} and \texttt{sql/10} do from the registered ones, with the in-value summed in US dollars.
 
 \dissertationSubheading[sec:config-keys]{Configuration keys}
 
-All of the pipeline's settings are kept in one versioned file, \texttt{config/contract\_reputation.yaml}, which the scripts read at start-up. Its groups of keys are:
+The pipeline's settings are kept in one versioned file, \texttt{config/contract\_reputation.yaml}, which the scripts read at start-up. The environment variable \texttt{CONTRACT\_REP\_VARIANT} selects the analysis. Unset, the scripts compute the registered analysis from the keys below; set to \texttt{usd}, they read the revised tables in \texttt{data/1-raw-blockchain-extracts/graph-tables-usd/} and write every result under \texttt{revised-usd/}. The revised analysis takes its tokens, decimals, prices, value slopes and cap from \texttt{data/0-usd-token-list-and-prices/} (\texttt{listed\_tokens.csv}, \texttt{daily\_prices\_usd.csv} and \texttt{constants.json}) and not from the configuration. The groups of keys of the configuration are:
 
 \begin{itemize}
 \item \texttt{chain\_id}, \texttt{chain\_name} and \texttt{bigquery}: chain 42161 (Arbitrum One); the project, dataset, location and public log table; the budget in USD; and the windows of scan~A and scan~B;
 \item \texttt{period}, \texttt{holdout} and \texttt{registered\_window}: the observation window with its anchor $T_{\text{obs}}$, the freeze and label window of W0, and the freeze, label window, status and margin $\delta$ of W1;
 \item \texttt{events}, \texttt{gmx\_arbitrum} and \texttt{aave\_arbitrum}: the topic-0 hashes of \texttt{Approval} and \texttt{Transfer}; the GMX~V2 event emitter, the \texttt{EventLog1} topic, the \texttt{PositionDecrease} hash, the liquidation handler, the order type of a liquidation and the minimum of three closes; and the Aave~V3 pool with its event topics;
 \item \texttt{accounts} and \texttt{cohort}: the RPC endpoint and the delegation prefix \texttt{0xef0100} of the code check, and the minimum of three distinct owners;
-\item \texttt{reputation}: damping, tolerance, iteration cap, decay $k$ and $t_0$, value parameter $b$, the primary and sensitivity values of $\lambda$, and the two parts of rule~A;
-\item \texttt{alignment}, \texttt{benchmark} and \texttt{robustness}: the bootstrap resamples and seed; the warm-up and timed runs and the scaling seed; the damping values and the number of top tokens;
+\item \texttt{reputation}: damping, tolerance, iteration cap, decay $k$ and $t_0$, the value parameter $b=1$ of the registered analysis, the primary and sensitivity values of $\lambda$, and the two parts of rule~A;
+\item \texttt{alignment}, \texttt{benchmark} and \texttt{robustness}: the bootstrap resamples and seed; the warm-up and timed runs and the scaling seed; the damping values and the number of top tokens of the registered token check;
 \item \texttt{storage}: the largest size of a data file part, 90\,MB.
 \end{itemize}
 
-Changing the damping factor, the decay or the value parameter requires running the evaluation again, the damping, top-token and sample-definition checks included, and exporting the tables and figures again from the same summaries, so that every reported number matches its machine-readable source. \texttt{scripts/extract\_w1.py} records the SHA-256 hash of this file at the start of scan~B (Appendix~\ref{sec:map-artifacts}).
+Changing the damping factor, the decay, the value slopes, the cap or the tokens requires running the evaluation again, the damping, value-slope and sample-definition checks included, and exporting the tables and figures again from the same summaries, so that every reported number matches its machine-readable source. The revised analysis is such a rerun: \texttt{scripts/run\_usd\_pipeline.py} ran its BigQuery steps in order, and every local script ran again with \texttt{CONTRACT\_REP\_VARIANT=usd} (Appendix~\ref{sec:pipeline-stages}). \texttt{scripts/extract\_w1.py} records the SHA-256 hash of this file at the start of scan~B (Appendix~\ref{sec:map-artifacts}).
 
 \dissertationSubheading[sec:complexity-notes]{Complexity notes}
 
-Write $m=|E|$. In BigQuery the latest allowances come from a window function over the $R_a$ approval rows, which sorts within each token, owner and spender, in $O(R_a\log R_a)$ time at most; the transfer pairs are one aggregation over the $R_t$ transfer rows, in $O(R_t)$. Locally, PageRank over $I$ iterations costs $O(m+mI)$, the first term for building the sparse operator and the second for one sparse product per iteration (Appendix~\ref{sec:pr-sparsity}). C-PR walks the union of both layers, so one of its iterations costs as much as one on each layer, and S-PR solves the allowance layer first and then the transfer layer. The edge lists and score vectors take most of the memory, so the peak memory of a solve grows with $m$; in Table~\ref{tab:benchmark-runtime} the peak-memory ratio of AWP to EndorseRank is $2.33$ ($2{,}995.9$ against $1{,}285.0$~MB), at an edge ratio of $2.68$.
+Write $m=|E|$. In BigQuery the latest allowances come from a window function over the $R_a$ approval rows, which sorts within each token, owner and spender, in $O(R_a\log R_a)$ time at most; the transfer pairs are one aggregation over the $R_t$ transfer rows, in $O(R_t)$. The joins of the revised analysis with the token and price tables match each row with one token and one day, so they add work linear in $R_a$ and $R_t$. Locally, PageRank over $I$ iterations costs $O(m+mI)$, the first term for building the sparse operator and the second for one sparse product per iteration (Appendix~\ref{sec:pr-sparsity}). C-PR walks the union of both layers, so one of its iterations costs as much as one on each layer, and S-PR solves the allowance layer first and then the transfer layer. The edge lists and score vectors take most of the memory, so the peak memory of a solve grows with $m$; in Table~\ref{tab:benchmark-runtime} the peak-memory ratio of AWP to EndorseRank is $1.95$ ($1{,}712.6$ against $879.7$~MB), at an edge ratio of $2.23$.
 
 \dissertationSubheading[sec:interpretation-checklist]{Conventions for the result tables}
 
@@ -153,11 +208,11 @@ The tables of Chapter~\ref{ch:results} and of this appendix follow these convent
 \begin{enumerate}
 \item Every $\tau$ is Kendall's $\tau_b$ on raw scores and proxies, reported with its 95\% paired-bootstrap interval: $400$ resamples over contracts with seed 42, and $2{,}000$ for the trader comparisons on outcomes built from neither edge type, whose decision contrasts P and Q also carry 97.5\% intervals. Differences between coefficients come from the paired contrast tables, not from subtracting point estimates.
 \item A cohort contract missing from a method's graph scores zero under that method. Keeping it as an isolated node instead is the sensitivity analysis of Table~\ref{tab:tie-sensitivity}.
-\item Each contrast table says which of its contrasts were fixed in advance, by the plan (rule~A) or by the registration of W1 (rule~B and the comparison on outcomes built from neither edge type), and which were computed after the labels were known.
+\item Each contrast table says which of its contrasts decide a rule: rule~A, fixed by the plan, or rule~B and the comparison on outcomes built from neither edge type, fixed by the registration of W1. In the tables of the revised analysis these rules are applied to scores defined after the registered results were known, so none of their contrasts is a registered test; the registered decision contrasts are in Table~\ref{tab:registered-vs-revised}. Every other contrast was computed after the labels were known.
 \item A runtime is the mean wall-clock time of five timed solver calls after one untimed warm-up. A call turns edge lists built in advance into scores: node indexing, sparse-matrix assembly, row normalization, restart vector and power iteration, without extraction or preprocessing. Every runtime appears with $|V|$ and $|E|$ of its solver graph, and the same graph under the same settings shows the same measurement in every table (Section~\ref{sec:computational-benchmark}).
 \item The sample-definition stages (Table~\ref{tab:robustness-sample-size}) show how the statistic moves with the evaluation set; they are not robustness evidence, and their values are not compared with the full-cohort tables.
 \end{enumerate}
 
 \dissertationSubheading[sec:limitations-reprise]{Limitations}
 
-The queries above were run on Arbitrum One only. Their results depend on the public log table as it stood on 9~October~2026, when scan~A and scan~B ran. The ego filter keeps only events with a cohort contract at one end, so the graphs contain no edge between two addresses outside the cohort. All reported numbers come from the machine-readable summaries of the matched cohort, the spender and trader cohorts of W0 and W1, the scaling stages and the Sybil model; the registered results of July--September come from the summary of that run (Section~\ref{sub:fresh-results}).
+The queries above were run on Arbitrum One only. Their results depend on the public log table as it stood on 9~October~2026, when scan~A and scan~B ran. The revision read no public log again, but its results also depend on the Chainlink directory as read on 10~October~2026, on the token decimals read at block $513{,}457{,}143$ (read again at block $513{,}498{,}909$ with the same values) and on the DefiLlama daily prices as fetched for it. The ego filter keeps only events with a cohort contract at one end, so the graphs contain no edge between two addresses outside the cohort. The revised graphs keep the five tokens only: the rows of other tokens are counted and left out (Table~\ref{tab:usd-tokens}), and native ether, which moves without \texttt{Transfer} logs, enters only as WETH. The numbers of Chapter~\ref{ch:results} come from the machine-readable summaries of the revised analysis, for the matched cohort, the spender and trader cohorts of W0 and W1, the scaling stages and the Sybil model; the July--September results among them apply the registered rules to the revised scores after the registered results were known, as a re-analysis (Section~\ref{sub:fresh-results}). The registered results come from the summaries of the registered analysis (Appendix~\ref{sec:map-registered}).
