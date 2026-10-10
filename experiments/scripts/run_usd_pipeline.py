@@ -104,16 +104,16 @@ def step_constants(cfg: dict, dry: bool) -> None:
     ds = f"{cfg['bigquery']['project_id']}.{cfg['bigquery']['dataset']}"
     out = bq_cli("query", "--use_legacy_sql=false", "--format=json", f"SELECT * FROM `{ds}.u_constants`")
     row = {k: float(v) for k, v in json.loads(out[out.index("["):])[0].items()}
-    m_t, m_a, p99 = (round_sig(row["m_transfer"]), round_sig(row["m_allowance"]), round_sig(row["p99_allowance"]))
+    m_t, m_a, cap = (round_sig(row["m_transfer"]), round_sig(row["m_allowance"]), round_sig(row["p99_transfer"]))
     save_json({
         "computed_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "sql/13_usd_constants.sql (contract_rep.u_constants), events up to t1",
         "raw": row,
-        "m_transfer_usd": m_t, "m_allowance_usd": m_a, "cap_allowance_usd": p99,
+        "m_transfer_usd": m_t, "m_allowance_usd": m_a, "cap_allowance_usd": cap,
         "b_transfer": slope_for_median(m_t), "b_allowance": slope_for_median(m_a),
         "unlimited_base_units": UNLIMITED_BASE_UNITS,
-        "rule": "b = ln 3 / m with m the median rounded to two significant digits; the allowance cap is the "
-                "99th percentile of finite latest allowances at t1, rounded to two significant digits",
+        "rule": "b = ln 3 / m with m the median rounded to two significant digits; the allowance cap U is the "
+                "99th percentile of the USD values of the transfers up to t1, rounded to two significant digits",
     }, CONSTANTS)
     print(json.dumps(json.loads(CONSTANTS.read_text(encoding="utf-8")), indent=1))
 
