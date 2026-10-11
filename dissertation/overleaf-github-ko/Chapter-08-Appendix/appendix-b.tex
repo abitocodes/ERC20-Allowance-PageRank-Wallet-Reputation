@@ -1,0 +1,218 @@
+% !TEX root = ../main.tex
+\section{SQL 틀, 설정, 그리고 더 자세한 설명}
+\label{ch:appendix-sql}
+
+다른 사람이 똑같이 다시 해 볼 수 있도록, 이 부록은 몇 가지를 보여 줘요. 두 분석의 그래프가 바탕으로 삼는 SQL 틀, 설정 키, 그리고 계산량과 결과 표의 약속에 대한 설명이에요. 등록 분석의 그래프는 분석 계획에 있는 질의 세 개가 만들어요. 수정 분석은 그 질의들이 내놓은 결과에서 자기 표를 잘라 내고, 금액을 미국 달러로 매겨요(부록~\ref{sec:sql-pairs}). 아래 목록은 줄인 것이에요. 전체 파일은 실험 폴더의 \texttt{sql/}에 있어요(부록~\ref{ch:appendix-eval}). \texttt{\_\_DEST\_\_}처럼 밑줄 두 개로 감싼 자리 표시는 질의를 돌리기 전에 \texttt{scripts/run\_bq.py}가 다른 값으로 바꿔 넣어요. 그리고 \texttt{@}로 시작하는 이름은 질의 매개변수(질의에 밖에서 넣어 주는 값)예요.
+
+\dissertationSubheading[sec:sql-materialize]{로그를 미리 표로 만들어 두는 틀}
+
+스캔~A와 스캔~B는 같은 질의(\texttt{sql/01\_materialize\_logs.sql})를 서로 다른 기간에 대해 돌려요. 이 질의는 공개 로그 표를 한 번만 읽어요. 그리고 로그마다 종류 꼬리표를 붙이고, 이 연구에 필요한 네 종류만 남겨요. 남긴 로그는 달마다 나누고 종류별로 모아 둔 프로젝트 표에 넣어요. GMX 갈래와 Aave 갈래를 줄여서 보이면 다음과 같아요:
+
+\begin{verbatim}
+CREATE TABLE `__DEST__`
+PARTITION BY TIMESTAMP_TRUNC(block_timestamp, MONTH)
+CLUSTER BY kind
+AS
+WITH src AS (
+  SELECT block_timestamp, block_number, log_index,
+         LOWER(address) AS address, topics, data
+  FROM `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`
+  WHERE block_timestamp >= TIMESTAMP(@start_ts)
+    AND block_timestamp < TIMESTAMP(@end_ts)
+),
+tagged AS (
+  SELECT *,
+    CASE
+      WHEN ARRAY_LENGTH(topics) = 3 AND topics[OFFSET(0)] =
+        '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925'
+        THEN 'A'                                  -- ERC-20 Approval
+      WHEN ARRAY_LENGTH(topics) = 3 AND topics[OFFSET(0)] =
+        '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+        THEN 'T'                                  -- ERC-20 Transfer
+      WHEN address = '0xc8ee91a54287db53897056e12d9819156d3822fb'
+           AND ... THEN 'G'                       -- GMX V2 PositionDecrease
+      WHEN address = '0x794a61358d6845594f94dc1db02a252b5b4814ad'
+           AND ... THEN 'V'                       -- Aave V3 pool events
+    END AS kind
+  FROM src
+)
+SELECT
+  block_timestamp, block_number, log_index, kind,
+  FROM_HEX(SUBSTR(address, 3)) AS emitter,
+  IF(kind IN ('A', 'T'), FROM_HEX(SUBSTR(topics[OFFSET(1)], 27)), NULL) AS a,
+  IF(kind IN ('A', 'T'), FROM_HEX(SUBSTR(topics[OFFSET(2)], 27)), NULL) AS b,
+  IF(kind IN ('A', 'T'), SAFE.FROM_HEX(SUBSTR(data, 3)), NULL) AS val,
+  IF(kind IN ('G', 'V'), topics, NULL) AS raw_topics,
+  IF(kind IN ('G', 'V'), data, NULL) AS raw_data
+FROM tagged
+WHERE kind IS NOT NULL
+\end{verbatim}
+
+허락에서는 \texttt{a}가 주인이고 \texttt{b}가 스펜더예요. 송금에서는 \texttt{a}가 보낸 쪽이고 \texttt{b}가 받는 쪽이에요. 두 경우 모두 \texttt{emitter}는 토큰 계약이고, \texttt{val}은 32바이트 금액이에요. 두 topic-0 해시는 \texttt{Approval(address,address,uint256)}의 해시와 \texttt{Transfer(address,address,uint256)}의 해시를 keccak256으로 계산한 값이에요\parencite{vogelsteller2015erc20}. 토픽이 정확히 세 개인 로그만 남기면, ERC-20 로그는 남고 ERC-721 로그는 빠져요. ERC-721 로그는 두 해시를 똑같이 쓰지만, 토큰 번호를 네 번째 토픽에 넣기 때문이에요. 주소는 16진수 글자열이 아니라 20바이트 값으로 저장해요.
+
+\dissertationSubheading[sec:sql-ego]{에고 네트워크 뽑아내기 틀}
+
+\texttt{sql/03\_ego\_events.sql} 질의는 한 기간에 대해 미리 만들어 둔 로그 표를 읽어요. 그리고 한쪽 끝에 코호트 계약이 있는 허락과 송금만 남겨요. \texttt{contract\_rep.cohort} 표에는 계획에 있는 코호트의 20바이트 주소가 들어 있어요. 이 주소들은 \texttt{scripts/build\_cohort.py}가 넣어요. 줄여서 보이면 다음과 같아요:
+
+\begin{verbatim}
+CREATE TEMP FUNCTION u256(v BYTES) AS (
+  IFNULL((SELECT SUM(c * POW(256.0, LENGTH(v) - 1 - o))
+          FROM UNNEST(TO_CODE_POINTS(v)) AS c WITH OFFSET o), 0.0)
+);
+
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.approvals___SUFFIX__`
+PARTITION BY TIMESTAMP_TRUNC(block_timestamp, MONTH)
+AS
+SELECT
+  l.block_timestamp, l.block_number, l.log_index,
+  l.emitter AS token_address,
+  l.a AS owner,
+  l.b AS spender,
+  u256(l.val) AS value
+FROM `dissertation-bq.contract_rep.__SRC__` AS l
+WHERE l.kind = 'A'
+  AND l.block_timestamp >= TIMESTAMP(@start_ts)
+  AND l.block_timestamp < TIMESTAMP(@end_ts)
+  AND (l.a IN (SELECT address FROM `dissertation-bq.contract_rep.cohort`)
+       OR l.b IN (SELECT address FROM `dissertation-bq.contract_rep.cohort`));
+
+-- transfers___SUFFIX__: the same with kind = 'T', from_address = a and
+-- to_address = b, and zero amounts dropped:
+--   AND LTRIM(TO_HEX(l.val), '0') != ''
+\end{verbatim}
+
+함수 \texttt{u256}은 32바이트 금액을 원래 단위의 배정밀도 실수(double)로 읽어요. 계획의 질의들은 토큰의 소수 자릿수를 적용하지 않아요. 금액이 0인 허락은 남겨요. 금액이 0인 허락은 허락을 지우는 일이기 때문이에요. 반면 금액이 0인 송금은 버려요. 뒤에 붙는 이름(접미사)은 관측 기간이면 \texttt{ego}, 2026년 7월부터 9월까지이면 \texttt{w1ego}예요. 수정 분석은 이 질의를 다시 돌리지 않아요. 수정 분석은 모든 토큰에 대한 이 표들과 계획의 코호트를 읽고, 그 가운데 다섯 토큰과 수정 코호트에 관한 부분만 남겨요. 수정 코호트는 계획의 코호트에 모두 들어 있어요(부분 집합이에요). 다섯 토큰에서 주인 세 명이 허락한 계약이라면, 어떤 토큰에서 주인 세 명이 허락한 계약이기도 하기 때문이에요.
+
+\dissertationSubheading[sec:sql-pairs]{마지막 허락과 쌍 표를 만드는 틀}
+
+등록 분석에서는 \texttt{sql/04\_anchor\_pairs.sql} 질의가 한 기준 시점(앵커)까지의 에고 이벤트를 두 그래프의 화살표 목록으로 바꿔요. 줄여서 보이면 다음과 같아요:
+
+\begin{verbatim}
+CREATE TEMP FUNCTION sig(age_days FLOAT64) AS
+  (1.0 / (1.0 + EXP(0.01 * (age_days - 180.0))));
+CREATE TEMP FUNCTION vt(x FLOAT64) AS
+  (IF(x >= 40.0, 1.0, 2.0 / (1.0 + EXP(-x)) - 1.0));
+
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.allow_triples___TAG__` AS
+SELECT token_address, owner, spender, value, block_timestamp,
+       TIMESTAMP_DIFF(TIMESTAMP(@anchor_ts), block_timestamp, MICROSECOND)
+         / 8.64e10 AS age_days
+FROM (
+  SELECT *, ROW_NUMBER() OVER (
+           PARTITION BY token_address, owner, spender
+           ORDER BY block_number DESC, log_index DESC) AS rn
+  FROM `dissertation-bq.contract_rep.approvals_ego`
+  WHERE block_timestamp >= TIMESTAMP(@start_ts)
+    AND block_timestamp <= TIMESTAMP(@anchor_ts)
+)
+WHERE rn = 1 AND value > 0;
+
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.allow_pairs___TAG__` AS
+SELECT owner, spender,
+       COUNT(*) AS n_tokens,
+       SUM(sig(age_days) * vt(value)) AS w_er,   -- EndorseRank
+       SUM(value) AS w_raw,                      -- C-PR allowance layer
+       MAX(sig(age_days)) AS max_sig,
+       MAX(block_timestamp) AS last_ts
+FROM `dissertation-bq.contract_rep.allow_triples___TAG__`
+GROUP BY owner, spender;
+
+-- transfer_pairs___TAG__: per (from_address, to_address) over transfers_ego
+-- up to the anchor, with
+--   SUM(sig(age_days) * vt(value)) AS w_awp    -- AWP
+--   SUM(value * sig(age_days))     AS w_raw    -- C-PR transfer layer
+--   MAX(sig(age_days))             AS max_sig  -- AWP activeness
+\end{verbatim}
+
+함수 \texttt{sig}는 식~\eqref{eq:logistic-decay}의 로지스틱 감쇠예요. 이때 $k=0.01$이고 $t_0=180$일이에요. \texttt{vt}는 식~\eqref{eq:value-transform}의 값 변환이에요. 여기서는 계획에서 정한 기울기 $b=1$을 원래 단위에 그대로 써요. 그리고 $z=40$부터는 값을 1로 정해 두어요. 그 자리부터는 배정밀도로 계산해도 값이 1과 같기 때문이에요. 한 토큰, 한 주인, 한 스펜더에 대한 허락 가운데 기준 시점까지의 마지막 허락은 블록 번호가 가장 큰 것이에요. 같은 블록 안에서는 로그 번호(log index)가 가장 큰 것이에요. 이 마지막 허락은 금액이 0보다 클 때만 남겨요. 그래서 허락 취소(허락을 거두어들임)가 있으면 그 토큰은 그 쌍에서 빠져요. 쌍 표의 각 행에는 모든 방법의 무게가 함께 들어 있어요. 그래서 한 기준 시점의 모든 점수는 같은 행들에서 나와요. 꼬리표는 $T_{\text{obs}}$이면 \texttt{tobs}, W0의 동결일이면 \texttt{t1}이에요.
+
+수정 분석은 이 틀들에 미국 달러로 값을 매기는 단계를 더해요(\ref{sec:amount-revision}절). \texttt{scripts/run\_usd\_pipeline.py}는 다섯 토큰과 그 소수 자릿수, 그리고 하루 가격 표를 \texttt{data/0-usd-token-list-and-prices/}에서 읽어 \texttt{u\_tokens} 표와 \texttt{u\_prices} 표에 넣어요. \texttt{sql/19\_usd\_load.sql}은 이 표들에 20바이트 주소를 키로 붙여요. 그다음 \texttt{sql/12\_usd\_ego.sql}이 수정 코호트를 만들고, 에고 이벤트를 이 표들과 이어 붙여요. 그리고 \texttt{sql/14\_usd\_anchor\_pairs.sql}이 기울기와 상한을 질의 매개변수로 받아 쌍 표를 만들어요. 줄여서 보이면 다음과 같아요:
+
+\begin{verbatim}
+-- sql/12_usd_ego.sql
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.u_cohort` AS
+SELECT spender AS address, COUNT(DISTINCT owner) AS owners_nonzero
+FROM `dissertation-bq.contract_rep.approvals_ego`
+WHERE block_timestamp >= TIMESTAMP(@start_ts)
+  AND block_timestamp < TIMESTAMP(@end_ts)
+  AND value > 0
+  AND token_address IN
+        (SELECT token FROM `dissertation-bq.contract_rep.u_tokens`)
+  AND spender IN (SELECT address FROM `dissertation-bq.contract_rep.cohort`)
+GROUP BY spender
+HAVING COUNT(DISTINCT owner) >= 3;
+
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.u_transfers` AS
+SELECT x.block_timestamp, x.token_address, x.from_address, x.to_address,
+       x.value / POW(10.0, t.decimals) * p.price_usd AS usd
+FROM `dissertation-bq.contract_rep.transfers_ego` AS x
+JOIN `dissertation-bq.contract_rep.u_tokens` AS t
+  ON t.token = x.token_address
+LEFT JOIN `dissertation-bq.contract_rep.u_prices` AS p
+  ON p.token = x.token_address AND p.day = DATE(x.block_timestamp)
+WHERE x.from_address IN
+        (SELECT address FROM `dissertation-bq.contract_rep.u_cohort`)
+   OR x.to_address IN
+        (SELECT address FROM `dissertation-bq.contract_rep.u_cohort`);
+-- u_approvals: the same filter on approvals_ego, amount = value / 10^decimals
+
+-- sql/14_usd_anchor_pairs.sql
+CREATE TEMP FUNCTION vt(z FLOAT64, b FLOAT64) AS
+  (IF(b * z >= 40.0, 1.0, 2.0 / (1.0 + EXP(-b * z)) - 1.0));
+-- u_allow_triples___TAG__: the latest approvals of 04_anchor_pairs.sql, taken
+-- from u_approvals and valued at the price of the anchor's day:
+--   r.amount * p.price_usd AS usd ... JOIN u_prices AS p
+--   ON p.token = r.token_address AND p.day = DATE(TIMESTAMP(@anchor_ts))
+CREATE OR REPLACE TABLE `dissertation-bq.contract_rep.u_allow_pairs___TAG__` AS
+SELECT owner, spender,
+       COUNT(*) AS n_tokens,
+       SUM(sig(age_days) * vt(usd, @b_allowance)) AS w_er,  -- EndorseRank
+       SUM(LEAST(usd, @cap_allowance)) AS w_raw,   -- C-PR allowance layer
+       MAX(sig(age_days)) AS max_sig,
+       MAX(block_timestamp) AS last_ts
+FROM `dissertation-bq.contract_rep.u_allow_triples___TAG__`
+GROUP BY owner, spender;
+-- u_transfer_pairs___TAG__: per (from_address, to_address) over u_transfers
+-- up to the anchor, rows with usd IS NULL left out, with
+--   SUM(sig(age_days) * vt(usd, @b_transfer)) AS w_awp   -- AWP
+--   SUM(usd * sig(age_days))                 AS w_raw   -- C-PR transfer layer
+--   MAX(sig(age_days))                       AS max_sig -- AWP activeness
+\end{verbatim}
+
+송금은 그 블록이 있는 UTC 날짜의 가격으로 값을 매겨요. 마지막 허락은 기준 시점 날짜의 가격으로 값을 매겨요. 화살표가 기준 시점에 살아 있는 허락을 나타내기 때문이에요. 매개변수는 \texttt{constants.json}에서 가져와요. 1달러당 $b_A=\ln 3/62$와 $b_T=\ln 3/200$이고, 상한은 $U=20{,}000$달러예요. 이 값들은 $t_1$까지의 이벤트로 계산했어요(\texttt{sql/13\_usd\_constants.sql}). 무제한 허락(금액 한도가 없는 허락)은 $bz\geq 40$에 이르러요. 그래서 엔도스랭크에는 $V=1$로, C-PR의 허락 층에는 $U$로 들어가요. 토큰의 첫 가격보다 앞선 날의 송금은 값이 비어(null) 있게 되어 빠질 거예요. 하지만 남긴 송금 가운데 가격이 없는 것은 하나도 없어요(표~\ref{tab:usd-tokens}). 같은 질의는 기울기를 10배로 키운 경우와 10분의 1로 줄인 경우의 엔도스랭크 무게와 AWP 무게도 써 둬요. 표~\ref{tab:robustness-slope}의 값 기울기 점검은 이것으로 계산해요. \texttt{sql/15}부터 \texttt{sql/18}까지의 질의는 대리 지표, 라벨, 점 번호, 설명을 수정한 표에서 계산해요. 등록한 표에서 \texttt{sql/05}, \texttt{sql/06}, \texttt{sql/08}, \texttt{sql/10} 질의가 하는 것과 같은 방식이에요. 다만 받은 양의 합은 미국 달러로 더해요.
+
+\dissertationSubheading[sec:config-keys]{설정 키}
+
+처리 과정의 설정은 버전을 관리하는 파일 하나(\texttt{config/contract\_reputation.yaml})에 들어 있어요. 스크립트들은 시작할 때 이 파일을 읽어요. 환경 변수 \texttt{CONTRACT\_REP\_VARIANT}가 어느 분석을 할지 골라요. 이 변수를 정하지 않으면, 스크립트들은 아래 키로 등록 분석을 계산해요. 이 변수를 \texttt{usd}로 정하면, 스크립트들은 \texttt{data/1-raw-blockchain-extracts/graph-tables-usd/}에 있는 수정한 표를 읽고 모든 결과를 \texttt{revised-usd/} 아래에 써요. 수정 분석은 토큰, 소수 자릿수, 가격, 값 기울기, 상한을 설정 파일에서 가져오지 않아요. 이것들은 \texttt{data/0-usd-token-list-and-prices/}(\texttt{listed\_tokens.csv}, \texttt{daily\_prices\_usd.csv}, \texttt{constants.json})에서 가져와요. 설정의 키 묶음은 다음과 같아요:
+
+\begin{itemize}
+\item \texttt{chain\_id}, \texttt{chain\_name}, \texttt{bigquery}: 체인 42161(Arbitrum One), 프로젝트, 데이터셋, 위치, 공개 로그 표, 달러(USD)로 정한 예산, 그리고 스캔~A와 스캔~B의 기간이 들어 있어요.
+\item \texttt{period}, \texttt{holdout}, \texttt{registered\_window}: 관측 기간과 그 기준 시점 $T_{\text{obs}}$, W0의 동결일과 라벨 기간, 그리고 W1의 동결일, 라벨 기간, 상태, 허용 폭 $\delta$가 들어 있어요.
+\item \texttt{events}, \texttt{gmx\_arbitrum}, \texttt{aave\_arbitrum}: \texttt{Approval}과 \texttt{Transfer}의 topic-0 해시, GMX~V2의 이벤트를 내보내는 계약, \texttt{EventLog1} 토픽, \texttt{PositionDecrease} 해시, 청산을 처리하는 계약, 청산의 주문 종류, 최소 닫기 횟수 세 번, 그리고 Aave~V3 풀과 그 이벤트 토픽들이 들어 있어요.
+\item \texttt{accounts}, \texttt{cohort}: 코드 점검에 쓰는 RPC 접속 주소와 위임 접두어 \texttt{0xef0100}, 그리고 서로 다른 주인의 최소 수인 세 명이 들어 있어요.
+\item \texttt{reputation}: 감쇠 계수, 허용 오차(멈출 때 쓰는 작은 차이), 반복 횟수 상한, 로지스틱 감쇠의 $k$와 $t_0$, 등록 분석의 값 매개변수 $b=1$, $\lambda$의 주된 값과 민감도 분석용 값, 그리고 규칙~A의 두 부분이 들어 있어요.
+\item \texttt{alignment}, \texttt{benchmark}, \texttt{robustness}: 부트스트랩의 다시 뽑기 횟수와 시드, 준비 실행과 시간 잰 실행, 규모 실험의 시드, 그리고 감쇠 계수 값들과 등록한 토큰 점검의 상위 토큰 수가 들어 있어요.
+\item \texttt{storage}: 데이터 파일 조각 하나의 최대 크기인 90\,MB가 들어 있어요.
+\end{itemize}
+
+감쇠 계수, 로지스틱 감쇠, 값 기울기, 상한, 토큰 가운데 하나라도 바꾸면 평가를 다시 돌려야 해요. 감쇠 계수 점검, 값 기울기 점검, 표본 정의 점검도 함께 다시 해야 해요. 그리고 같은 요약에서 표와 그림을 다시 뽑아내야 해요. 그래야 보고한 모든 숫자가 기계가 읽을 수 있는 원본과 맞아요. 수정 분석이 바로 이렇게 다시 돌린 것이에요. \texttt{scripts/run\_usd\_pipeline.py}가 빅쿼리 단계를 순서대로 돌렸고, 모든 로컬 스크립트가 \texttt{CONTRACT\_REP\_VARIANT=usd}로 다시 돌았어요(부록~\ref{sec:pipeline-stages}). \texttt{scripts/extract\_w1.py}는 스캔~B를 시작할 때 이 설정 파일의 SHA-256 해시를 기록해요(부록~\ref{sec:map-artifacts}).
+
+\dissertationSubheading[sec:complexity-notes]{계산량에 대한 설명}
+
+화살표 수를 $m=|E|$라고 써요. 빅쿼리에서 마지막 허락은 $R_a$개의 허락 행에 윈도 함수를 써서 구해요. 이 함수는 토큰, 주인, 스펜더마다 그 안에서 줄을 세워요. 그래서 시간이 많아야 $O(R_a\log R_a)$만큼 걸려요. 송금 쌍은 $R_t$개의 송금 행을 한 번 모아 더하면 되므로 $O(R_t)$만큼 걸려요. 수정 분석에서 토큰 표, 가격 표와 이어 붙이는 일은 각 행을 토큰 하나, 날짜 하나와 맞추는 것이에요. 그래서 이 일로 늘어나는 계산은 $R_a$와 $R_t$에 정비례해요. 로컬 컴퓨터에서는 페이지랭크를 $I$번 반복하면 $O(m+mI)$만큼 걸려요. 앞의 항은 듬성듬성한 연산자(0이 아닌 칸만 적어 둔 행렬)를 만드는 몫이에요. 뒤의 항은 반복 한 바퀴마다 듬성듬성한 곱셈을 한 번 하는 몫이에요(부록~\ref{sec:pr-sparsity}). C-PR은 두 층을 합친 것을 걸어요. 그래서 한 번 반복하는 데 각 층에서 한 번씩 반복하는 것만큼 걸려요. S-PR은 허락 층을 먼저 풀고, 그다음 송금 층을 풀어요. 메모리는 대부분 화살표 목록과 점수 벡터가 차지해요. 그래서 한 번 풀 때 가장 많이 쓰는 메모리는 $m$과 함께 커져요. 표~\ref{tab:benchmark-runtime}에서 엔도스랭크에 대한 AWP의 최대 메모리 비율은 $1.95$예요($1{,}712.6$ 대 $879.7$~MB). 이때 화살표 수의 비율은 $2.23$이에요.
+
+\dissertationSubheading[sec:interpretation-checklist]{결과 표의 약속}
+
+\ref{ch:results}장과 이 부록의 표들은 다음 약속을 따라요:
+
+\begin{enumerate}
+\item 모든 $\tau$는 원래 점수와 대리 지표에 대해 구한 켄달의 $\tau_b$예요. 각 값은 95\% 짝지은 부트스트랩 구간과 함께 보고해요. 계약을 다시 뽑는 횟수는 $400$번이고, 시드는 42예요. 다만 두 화살표 종류 어느 것으로도 만들지 않은 결과에 대한 트레이더 비교에서는 $2{,}000$번이에요. 이 비교의 판정 대비 P와 Q에는 97.5\% 구간도 붙어 있어요. 계수 사이의 차이는 점 추정값을 빼서 구하지 않아요. 짝지은 대비 표에서 가져와요.
+\item 어떤 방법의 그래프에 없는 코호트 계약은 그 방법에서 0점을 받아요. 그 대신 그 계약을 외톨이 점(화살표가 하나도 없는 점)으로 넣어 두는 것은 표~\ref{tab:tie-sensitivity}의 민감도 분석이에요.
+\item 각 대비 표는 그 안의 어떤 대비가 규칙을 판정하는지 밝혀요. 계획이 정한 규칙~A일 수도 있어요. 또는 W1의 등록 문서가 정한 규칙~B와, 두 화살표 종류 어느 것으로도 만들지 않은 결과에 대한 비교일 수도 있어요. 수정 분석의 표에서는 이 규칙들을 등록 결과가 알려진 뒤에 정한 점수에 적용해요. 그래서 그 표의 어떤 대비도 등록한 검정이 아니에요. 등록한 판정 대비는 표~\ref{tab:registered-vs-revised}에 있어요. 나머지 대비는 모두 라벨을 본 뒤에 계산했어요.
+\item 실행 시간은 시간을 재지 않는 준비 실행을 한 번 한 뒤, 시간을 잰 풀이 프로그램 호출 다섯 번의 실제 걸린 시간을 평균한 값이에요. 호출 한 번은 미리 만들어 둔 화살표 목록을 점수로 바꿔요. 여기에는 점에 번호 붙이기, 듬성듬성한 행렬 조립, 행 정규화(각 행의 합을 1로 맞추기), 재시작 벡터 만들기, 거듭제곱 반복이 들어가요. 뽑아내기와 전처리는 들어가지 않아요. 모든 실행 시간은 그 풀이 그래프의 $|V|$, $|E|$와 함께 나와요. 그리고 같은 설정의 같은 그래프는 모든 표에서 같은 측정값을 보여요(\ref{sec:computational-benchmark}절).
+\item 표본 정의 단계(표~\ref{tab:robustness-sample-size})는 평가 집합에 따라 통계량이 어떻게 움직이는지 보여 줘요. 이것은 강건성의 증거가 아니에요. 그리고 그 값은 전체 코호트 표와 비교하지 않아요.
+\end{enumerate}
+
+\dissertationSubheading[sec:limitations-reprise]{한계}
+
+위의 질의들은 아비트럼 원(Arbitrum One)에서만 돌렸어요. 그 결과는 스캔~A와 스캔~B를 돌린 2026년 10월 9일 당시의 공개 로그 표에 달려 있어요. 수정 분석은 공개 로그를 다시 읽지 않았어요. 하지만 그 결과는 다른 것에도 달려 있어요. 2026년 10월 10일에 읽은 Chainlink 목록, 블록 $513{,}457{,}143$에서 읽은 토큰 소수 자릿수(블록 $513{,}498{,}909$에서 다시 읽었고 값이 같았어요), 그리고 수정 분석을 위해 가져온 DefiLlama 하루 가격이에요. 에고 필터는 한쪽 끝에 코호트 계약이 있는 이벤트만 남겨요. 그래서 그래프에는 코호트 밖의 두 주소 사이 화살표가 하나도 없어요. 수정한 그래프는 다섯 토큰만 남겨요. 다른 토큰의 행은 개수를 센 뒤 뺐어요(표~\ref{tab:usd-tokens}). 그리고 \texttt{Transfer} 로그 없이 움직이는 기본 이더(native ether)는 WETH로만 들어가요. \ref{ch:results}장의 숫자는 수정 분석의 기계가 읽을 수 있는 요약에서 나와요. 매칭 코호트, W0와 W1의 스펜더 코호트와 트레이더 코호트, 규모 실험 단계, 시빌 모델의 숫자예요. 그 가운데 7월부터 9월까지의 결과는 등록 결과가 알려진 뒤에 등록한 규칙을 수정한 점수에 적용한 것이에요. 곧 재분석이에요(\ref{sub:fresh-results}절). 등록 결과는 등록 분석의 요약에서 나와요(부록~\ref{sec:map-registered}).
