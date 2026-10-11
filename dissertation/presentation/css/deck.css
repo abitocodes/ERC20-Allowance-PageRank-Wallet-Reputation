@@ -1,0 +1,338 @@
+/* =====================================================================
+   deck.css — design system of the thesis slide deck (STORYBOARD.md §1)
+   Stage: 1920x1080 design pixels, scaled to the window by js/deck.js.
+   All sizes below are design pixels at 1920x1080.
+   ===================================================================== */
+
+/* ---------- fonts (vendored; works from file:// and http) ---------- */
+@font-face {
+  font-family: "Pretendard Variable";
+  src: url("../lib/fonts/PretendardVariable.woff2") format("woff2-variations"),
+       url("../lib/fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
+/* Hangul inside KaTeX (\text{...}): KaTeX fonts have no Hangul. Adding a
+   Hangul-only face to the KaTeX families (declared after katex.min.css, so
+   it is tried first for these code points) keeps formulas free of tofu. */
+@font-face { font-family: "KaTeX_Main"; src: url("../lib/fonts/PretendardVariable.woff2") format("woff2"); font-weight: 45 920;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF, U+3000-303F, U+FF00-FFEF; }
+@font-face { font-family: "KaTeX_Math"; src: url("../lib/fonts/PretendardVariable.woff2") format("woff2"); font-weight: 45 920;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF, U+3000-303F, U+FF00-FFEF; }
+@font-face { font-family: "KaTeX_SansSerif"; src: url("../lib/fonts/PretendardVariable.woff2") format("woff2"); font-weight: 45 920;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF, U+3000-303F, U+FF00-FFEF; }
+
+/* ---------- tokens (§1.1, §1.3, §1.4) ---------- */
+:root {
+  color-scheme: dark;
+  --bg: #0A0D14;
+  --bg-2: #10151F;
+  --bg-3: #161C29;
+  --line: #232B3B;
+  --grid: rgba(233,237,245,0.06);
+  --ink: #E9EDF5;
+  --ink-2: #A3ADBF;
+  --ink-3: #677083;
+  --letterbox: #04060A;
+
+  --c-allow: #F5B43C;   /* allowance, EndorseRank            (G1) */
+  --c-xfer:  #3CC4FF;   /* transfer, AWP                      (G2) */
+  --c-cpr:   #A78BFA;   /* coupled C-PR, lambda dial, S-PR    (G3) */
+  --c-deg:   #4ADE9B;   /* raw degree baselines               (G8) */
+  --c-hi:    #FF6B8A;   /* the one highlight per slide             */
+  --c-allow-soft: rgba(245,180,60,.16);
+  --c-xfer-soft:  rgba(60,196,255,.16);
+  --c-cpr-soft:   rgba(167,139,250,.16);
+  --c-deg-soft:   rgba(74,222,155,.14);
+  --c-hi-soft:    rgba(255,107,138,.16);
+  --lambda-grad: linear-gradient(90deg, #3CC4FF 0%, #A78BFA 50%, #F5B43C 100%);
+
+  --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", "Pretendard Variable", "Noto Sans KR", monospace;
+
+  --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px; --s8: 128px;
+  --pad-top: 72px; --pad-side: 96px; --pad-bottom: 88px; --gutter: 32px;
+  --r-card: 16px; --r-panel: 24px; --stroke: 2px;
+
+  --d-xs: .18s; --d-s: .35s; --d-m: .6s; --d-l: 1s; --d-xl: 1.8s;
+  --ease-out: cubic-bezier(.215,.61,.355,1);
+  --notes-w: 0px;
+}
+/* The deck has a single (dark) theme; the tokens are repeated so that a
+   light-scheme or data-theme override can never repaint the stage. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #0A0D14; --bg-2: #10151F; --bg-3: #161C29; --ink: #E9EDF5; --ink-2: #A3ADBF; --ink-3: #677083; --line: #232B3B; }
+}
+:root[data-theme="dark"] { --bg: #0A0D14; --bg-2: #10151F; --bg-3: #161C29; --ink: #E9EDF5; --ink-2: #A3ADBF; --ink-3: #677083; --line: #232B3B; }
+
+/* ---------- page ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  background: var(--letterbox);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  word-break: keep-all;
+  line-break: strict;
+  overflow-wrap: break-word;
+}
+
+#deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--letterbox); }
+#deck-stage {
+  position: absolute; left: 0; top: 0;
+  width: 1920px; height: 1080px;
+  transform-origin: 0 0;
+  background: var(--bg);
+  overflow: hidden;
+  font-size: 28px; line-height: 42px; letter-spacing: -0.01em;
+  contain: layout paint;
+}
+#deck-stage::before { /* very faint vignette, keeps the stage from looking flat */
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(120% 90% at 50% 40%, rgba(255,255,255,.018), rgba(0,0,0,0) 60%),
+              radial-gradient(80% 60% at 50% 120%, rgba(0,0,0,.35), rgba(0,0,0,0) 70%);
+}
+#deck-slides { position: absolute; inset: 0; z-index: 1; }
+#deck-ritual { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+#deck-hud    { position: absolute; inset: 0; z-index: 6; pointer-events: none; }
+#deck-carrier{ position: absolute; left: 0; top: 0; z-index: 7; pointer-events: none; }
+
+/* ---------- slide container ---------- */
+.slide { position: absolute; inset: 0; }
+.slide-inner {
+  position: absolute; inset: 0;
+  padding: var(--pad-top) var(--pad-side) var(--pad-bottom);
+}
+.slide .ritual-ghost {
+  position: absolute; right: 64px; top: 50%; margin-top: -200px;
+  font-size: 360px; line-height: 1; font-weight: 800; letter-spacing: -0.04em;
+  color: var(--ink); opacity: .04; pointer-events: none; z-index: 0;
+  font-variant-numeric: tabular-nums;
+}
+.slide-overlay { position: absolute; inset: 0; width: 1920px; height: 1080px; pointer-events: none; z-index: 20; overflow: visible; }
+
+/* ---------- typography (§1.2) ---------- */
+.t-display { font-size: 104px; line-height: 112px; font-weight: 800; letter-spacing: -0.02em; }
+.t-ghost   { font-size: 360px; line-height: 1;     font-weight: 800; letter-spacing: -0.04em; color: var(--ink); opacity: .04; }
+.t-h1, .slide h1 { font-size: 64px; line-height: 76px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.t-h2, .slide h2 { font-size: 44px; line-height: 56px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.t-stat    { font-size: 120px; line-height: 120px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.t-body-l  { font-size: 34px; line-height: 50px; font-weight: 500; }
+.t-body    { font-size: 28px; line-height: 42px; font-weight: 500; }
+.t-caption { font-size: 22px; line-height: 32px; font-weight: 500; }
+.t-micro   { font-size: 17px; line-height: 24px; font-weight: 500; font-family: var(--font-mono); letter-spacing: 0; }
+.slide p { margin: 0; }
+.slide ul, .slide ol { margin: 0; padding-left: 1.1em; }
+.num, .tnum { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--font-mono); letter-spacing: 0; }
+code, .code { font-family: var(--font-mono); font-size: .9em; color: var(--ink); background: var(--bg-3); padding: .05em .35em; border-radius: 6px; letter-spacing: 0; }
+
+.ink   { color: var(--ink); }   .ink-2 { color: var(--ink-2); }   .ink-3 { color: var(--ink-3); }
+.c-allow { color: var(--c-allow); } .c-xfer { color: var(--c-xfer); } .c-cpr { color: var(--c-cpr); }
+.c-deg { color: var(--c-deg); }     .c-hi { color: var(--c-hi); }
+.bg-allow { background: var(--c-allow-soft); } .bg-xfer { background: var(--c-xfer-soft); } .bg-cpr { background: var(--c-cpr-soft); }
+.bg-deg { background: var(--c-deg-soft); } .bg-hi { background: var(--c-hi-soft); }
+
+/* [[emphasis]] in slide text -> <span class="hl">: the one rose accent of the slide.
+   Colour plus an underline, so the accent never relies on colour alone. */
+.hl { position: relative; color: var(--c-hi); white-space: nowrap; }
+.hl::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -0.06em; height: 0.08em; min-height: 3px;
+  background: var(--c-hi); border-radius: 2px;
+  transform: scaleX(var(--hl-x, 1)); transform-origin: left center;
+}
+.example-mark { font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; }
+.source { font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; }
+
+/* word / char split (used by the engine for kinetic type) */
+.w-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; padding-top: .04em; margin-top: -.04em; }
+.w-word { display: inline-block; will-change: transform; }
+
+/* ---------- layout (§1.3) ---------- */
+.grid12 { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gutter); }
+.span-1{grid-column:span 1}.span-2{grid-column:span 2}.span-3{grid-column:span 3}.span-4{grid-column:span 4}
+.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}
+.span-9{grid-column:span 9}.span-10{grid-column:span 10}.span-11{grid-column:span 11}.span-12{grid-column:span 12}
+/* (가) derivation: figure 7 columns + formula panel 5 columns */
+.layout-derive { position: absolute; left: var(--pad-side); right: var(--pad-side); top: 196px; bottom: var(--pad-bottom);
+  display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gutter); }
+.layout-derive > .fig { grid-column: 1 / span 7; position: relative; }
+.layout-derive > .eq  { grid-column: 8 / span 5; position: relative; }
+/* (나) data: one big figure + one caption line below */
+.layout-data { position: absolute; left: var(--pad-side); right: var(--pad-side); top: 196px; bottom: var(--pad-bottom);
+  display: flex; flex-direction: column; }
+.layout-data > .figure { flex: 1 1 auto; position: relative; min-height: 0; }
+.layout-data > .caption-line { flex: 0 0 auto; padding-top: var(--s3); font-size: 28px; line-height: 42px; color: var(--ink-2); }
+.title-block { position: relative; max-width: 1500px; }
+.title-block .t-h1 + .sub, .title-block h1 + .sub { margin-top: var(--s2); color: var(--ink-2); font-size: 34px; line-height: 50px; }
+.stack > * + * { margin-top: var(--s3); }
+.stack-s > * + * { margin-top: var(--s2); }
+.row { display: flex; gap: var(--s4); align-items: center; }
+.abs { position: absolute; }
+.center { display: flex; align-items: center; justify-content: center; }
+.fill { position: absolute; inset: 0; }
+
+/* cards and panels */
+.card  { background: var(--bg-2); border-radius: var(--r-card); padding: var(--s4); }
+.panel { background: var(--bg-2); border-radius: var(--r-panel); padding: var(--s5); }
+.card.line, .panel.line { background: transparent; border: 1px solid var(--line); }
+.eq-panel { background: var(--bg-2); border-radius: var(--r-panel); padding: var(--s5) var(--s5) var(--s4); position: relative; }
+.eq-panel .eq-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--s3);
+  font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; }
+
+/* ---------- status tag pill (G11) ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 34px; padding: 0 14px 0 10px; border-radius: 17px;
+  border: 1px solid var(--ink-3); color: var(--ink-2); background: rgba(10,13,20,.6);
+  font-family: var(--font-sans); font-size: 17px; line-height: 1; font-weight: 600; letter-spacing: 0; white-space: nowrap;
+}
+.pill svg { width: 18px; height: 18px; flex: 0 0 auto; }
+.pill.pill-ghost { border-style: dashed; color: var(--ink-3); }
+.pill.pill-plain { padding: 0 12px; }
+
+/* ---------- KaTeX ---------- */
+.katex { font-size: 1.05em; }
+.math-display { display: block; text-align: center; margin: .3em 0; }
+.math-display > .katex-display { margin: 0; }
+.eq-hero .katex { font-size: 56px; }
+.formula { position: relative; isolation: isolate; display: inline-block; }
+.formula.display { display: block; text-align: center; }
+.fx-mark { position: absolute; z-index: -1; border-radius: 8px; background: var(--c-hi-soft); transform-origin: left center; pointer-events: none; }
+.formula .fx-part { transition: none; }
+.derive { position: relative; }
+.derive .derive-line { display: flex; align-items: baseline; gap: var(--s3); padding: 10px 0; }
+.derive .derive-no { flex: 0 0 auto; width: 34px; font-family: var(--font-mono); font-size: 17px; color: var(--ink-3); letter-spacing: 0; }
+.derive .derive-body { flex: 1 1 auto; min-width: 0; }
+.derive .derive-note { display: block; color: var(--ink-2); font-size: 22px; line-height: 32px; margin-top: 2px; }
+.derive .derive-tex .katex-display { margin: 0; text-align: left; }
+.derive .derive-tex .katex-display > .katex { text-align: left; }
+
+/* symbol card (기호 카드) */
+.sym-card { display: inline-flex; flex-direction: column; gap: 10px; min-width: 220px; max-width: 420px;
+  background: var(--bg-3); border: 1px solid var(--line); border-radius: var(--r-card); padding: 18px 22px; }
+.sym-card .sym { font-size: 44px; line-height: 1.1; }
+.sym-card .sym .katex { font-size: 1em; }
+.sym-card .sym-art svg { display: block; }
+.sym-card .sym-desc { font-size: 22px; line-height: 32px; color: var(--ink-2); }
+
+/* verdict stamp (G10) */
+.stamp { display: inline-flex; align-items: center; gap: 10px; padding: 10px 22px; border-radius: 14px;
+  border: 3px solid var(--ink); color: var(--ink); font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.01em;
+  background: rgba(10,13,20,.7); transform-origin: 50% 50%; }
+.stamp.fail { border-color: var(--c-hi); color: var(--c-hi); }
+
+/* lambda dial (G13) */
+.dial { position: relative; display: inline-block; user-select: none; }
+.dial svg { display: block; overflow: visible; }
+.dial.interactive { cursor: grab; }
+
+/* odometer */
+.odo { display: inline-flex; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.odo-col { display: inline-block; height: 1em; line-height: 1em; overflow: hidden; position: relative; vertical-align: top; }
+.odo-strip { display: flex; flex-direction: column; }
+.odo-strip > span { height: 1em; line-height: 1em; display: block; text-align: center; }
+
+/* three.js container */
+.three-wrap { position: absolute; inset: 0; overflow: hidden; }
+.three-wrap canvas { position: absolute; left: 0; top: 0; width: 100% !important; height: 100% !important; display: block; outline: none; }
+.three-wrap.orbit { cursor: grab; touch-action: none; }
+.three-wrap.orbit.dragging { cursor: grabbing; }
+.three-labels { position: absolute; inset: 0; pointer-events: none; }
+.three-label { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 22px; line-height: 32px; color: var(--ink-2); will-change: transform; }
+.three-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--ink-3); font-size: 22px; }
+
+/* svg helpers */
+svg text { font-family: var(--font-sans); }
+.svg-mono { font-family: var(--font-mono); letter-spacing: 0; }
+.axis line, .axis path { stroke: var(--line); stroke-width: 1; }
+.axis text { fill: var(--ink-3); font-size: 17px; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.glow-allow { filter: drop-shadow(0 0 6px rgba(245,180,60,.55)); }
+.glow-xfer  { filter: drop-shadow(0 0 6px rgba(60,196,255,.55)); }
+.glow-white { filter: drop-shadow(0 0 8px rgba(255,255,255,.85)); }
+
+/* ---------- HUD (§1.6) ---------- */
+.hud-eyebrow { position: absolute; left: 96px; top: 26px; display: flex; align-items: baseline; gap: 10px;
+  font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-2); letter-spacing: 0; white-space: nowrap; }
+.hud-eyebrow .hud-num { font-variant-numeric: tabular-nums; color: var(--ink); }
+.hud-eyebrow .hud-sep { color: var(--ink-3); }
+.hud-eyebrow .hud-name { font-family: var(--font-sans); font-weight: 600; }
+.hud-id { position: absolute; right: 96px; top: 26px; font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.hud-progress { position: absolute; left: 96px; right: 96px; bottom: 34px; height: 12px; display: flex; gap: 10px; align-items: center; }
+.hud-cell { position: relative; flex: 1 1 0; height: 12px; }
+.hud-cell::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 2px; border-radius: 1px; background: var(--line); transition: background .35s; }
+.hud-cell .hud-fill { position: absolute; left: 0; top: 5px; height: 2px; border-radius: 1px; background: var(--ink); width: 0; transition: width .5s cubic-bezier(.215,.61,.355,1); }
+.hud-cell .hud-dot { position: absolute; left: 50%; top: 3px; width: 6px; height: 6px; margin-left: -3px; border-radius: 3px; background: var(--ink-3); opacity: 0; transition: opacity .35s; }
+.hud-cell.past::before { background: transparent; }
+.hud-cell.past .hud-dot { opacity: 1; }
+.hud-cell.current::before { background: rgba(233,237,245,.28); }
+.hud-tags { position: absolute; right: 96px; bottom: 58px; display: flex; gap: 10px; justify-content: flex-end; }
+#deck-hud.hide-progress .hud-progress { visibility: hidden; }
+#deck-hud.hidden > * { visibility: hidden; }
+
+/* continuity carrier (G6 light dot) */
+.carrier-dot { position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 9px; background: #fff;
+  box-shadow: 0 0 12px 3px rgba(255,255,255,.75), 0 0 36px 8px rgba(255,255,255,.25); }
+.carrier-tail { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 5px; background: #fff; }
+
+/* ritual (section opening, §1.9) */
+.ritual-title { position: absolute; left: 96px; top: 430px; transform-origin: 0 0; white-space: nowrap; color: var(--ink); }
+
+/* ---------- notes panel (N) ---------- */
+#deck-notes {
+  position: fixed; top: 0; right: 0; bottom: 0; width: var(--notes-w-open, min(38vw, 620px));
+  background: #0D1119; border-left: 1px solid var(--line); color: var(--ink);
+  display: none; flex-direction: column; z-index: 20; font-family: var(--font-sans);
+}
+body.notes-open #deck-notes { display: flex; }
+#deck-notes .notes-head { display: flex; justify-content: space-between; gap: 12px; padding: 18px 24px 12px; border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); letter-spacing: 0; }
+#deck-notes .notes-title { padding: 18px 24px 4px; font-size: 22px; line-height: 1.35; font-weight: 700; }
+#deck-notes .notes-step { padding: 0 24px 10px; font-family: var(--font-mono); font-size: 13px; color: var(--ink-3); }
+#deck-notes .notes-body { flex: 1 1 auto; overflow: auto; padding: 8px 24px 24px; font-size: 19px; line-height: 1.75; color: var(--ink); white-space: pre-wrap; }
+#deck-notes .notes-next { border-top: 1px solid var(--line); padding: 14px 24px 18px; font-size: 14px; color: var(--ink-3); }
+#deck-notes .notes-next b { color: var(--ink-2); font-weight: 600; }
+#deck-notes .notes-steps { display: flex; gap: 6px; padding: 0 24px 12px; }
+#deck-notes .notes-steps i { width: 18px; height: 4px; border-radius: 2px; background: var(--line); }
+#deck-notes .notes-steps i.on { background: var(--ink-2); }
+
+/* ---------- overview (O) ---------- */
+#deck-overview { position: fixed; inset: 0; z-index: 30; background: rgba(4,6,10,.96); overflow: auto; display: none; padding: 40px 48px 64px; font-family: var(--font-sans); }
+body.overview-open #deck-overview { display: block; }
+#deck-overview h3 { margin: 28px 0 12px; font-size: 15px; font-family: var(--font-mono); letter-spacing: 0; color: var(--ink-2); font-weight: 500; }
+#deck-overview h3 b { color: var(--ink); font-weight: 600; font-family: var(--font-sans); margin-left: 8px; }
+#deck-overview .ov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+#deck-overview .ov-card { position: relative; aspect-ratio: 16 / 9; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; cursor: pointer; color: var(--ink); overflow: hidden; text-align: left; font: inherit; }
+#deck-overview .ov-card:hover, #deck-overview .ov-card:focus-visible { border-color: var(--ink-2); outline: none; }
+#deck-overview .ov-card.current { border-color: var(--c-hi); box-shadow: 0 0 0 1px var(--c-hi); }
+#deck-overview .ov-no { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0; }
+#deck-overview .ov-title { margin-top: 8px; font-size: 16px; line-height: 1.4; font-weight: 600; }
+#deck-overview .ov-steps { position: absolute; left: 16px; bottom: 12px; display: flex; gap: 4px; }
+#deck-overview .ov-steps i { width: 10px; height: 3px; border-radius: 2px; background: var(--line); }
+#deck-overview .ov-ghost { position: absolute; right: 10px; bottom: -14px; font-size: 64px; font-weight: 800; color: var(--ink); opacity: .05; }
+#deck-overview .ov-help { color: var(--ink-3); font-size: 14px; }
+
+/* ---------- small overlays ---------- */
+#deck-jump, #deck-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 40; pointer-events: none;
+  background: rgba(16,21,31,.94); border: 1px solid var(--line); border-radius: 10px; padding: 8px 16px; font-family: var(--font-mono); font-size: 15px; color: var(--ink); letter-spacing: 0; display: none; }
+#deck-jump.on, #deck-toast.on { display: block; }
+#deck-help { position: fixed; inset: 0; z-index: 35; display: none; align-items: center; justify-content: center; background: rgba(4,6,10,.85); font-family: var(--font-sans); }
+body.help-open #deck-help { display: flex; }
+#deck-help .help-card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px; padding: 28px 36px; color: var(--ink); font-size: 16px; line-height: 1.9; min-width: 440px; }
+#deck-help kbd { display: inline-block; min-width: 30px; text-align: center; font-family: var(--font-mono); font-size: 13px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; margin-right: 10px; color: var(--ink); }
+#deck-help h4 { margin: 0 0 10px; font-size: 18px; }
+
+/* ---------- placeholders (until a section is built) ---------- */
+.ph-list { margin-top: var(--s5); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s6); row-gap: 14px; max-width: 1500px; }
+.ph-item { display: flex; gap: 18px; align-items: baseline; color: var(--ink-2); font-size: 26px; line-height: 38px; }
+.ph-item .mono { color: var(--ink-3); font-size: 17px; flex: 0 0 auto; }
+.ph-note { position: absolute; left: var(--pad-side); bottom: 120px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-cell::before, .hud-cell .hud-fill, .hud-cell .hud-dot { transition: none; }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "deck-tools",
+  "private": true,
+  "description": "Screenshot walker for the thesis slide deck (tools/shoot.mjs).",
+  "type": "module",
+  "scripts": {
+    "shoot": "node shoot.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "1.56.1"
+  }
+}
