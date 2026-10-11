@@ -205,7 +205,7 @@
       if (A.key) tl.fromTo(A.key, { autoAlpha: 0, scale: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.25), ease: E.stamp }, 0);
       tl.set(strands, { autoAlpha: 1 }, 0);
       tl.fromTo(strands, { strokeDasharray: L + ' ' + L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: dd, ease: 'power2.inOut', onComplete: clearDash }, 0);
-      tl.fromTo(A.head, { autoAlpha: 0, scale: 0.4, transformOrigin: p1[0] + 'px ' + p1[1] + 'px' }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.25), ease: E.out }, dd * 0.85);
+      tl.fromTo(A.head, { autoAlpha: 0, scale: 0.4, svgOrigin: p1[0] + ' ' + p1[1] }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.25), ease: E.out }, dd * 0.85);
       if (A.label) tl.fromTo(A.label, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: dur(ctx, D.s), ease: E.out }, dd * 0.8);
       if (kind === 'xfer' && o.flow !== false) tl.call(function () { A.flow(true); }, null, dd);
       return tl;
@@ -216,7 +216,7 @@
       opt = opt || {};
       var L = pathLen(A.path) || 1, tl = gsap.timeline({ delay: opt.delay || 0 });
       A.flow(false);
-      tl.to(A.head, { autoAlpha: 0, scale: 0.4, transformOrigin: p1[0] + 'px ' + p1[1] + 'px', duration: dur(ctx, 0.15) }, 0);
+      tl.to(A.head, { autoAlpha: 0, scale: 0.4, svgOrigin: p1[0] + ' ' + p1[1], duration: dur(ctx, 0.15) }, 0);
       tl.fromTo(strands, { strokeDasharray: L + ' ' + L, strokeDashoffset: 0 }, { strokeDashoffset: L, duration: dur(ctx, opt.duration != null ? opt.duration : 0.4), ease: 'power2.in' }, 0.05);
       tl.to([A.key, A.label].filter(Boolean), { autoAlpha: 0, duration: dur(ctx, 0.2) }, '>-0.1');
       tl.set(strands, { autoAlpha: 0 });
@@ -444,7 +444,7 @@
       tl.fromTo(head, { y: -70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: 'bounce.out' }, 0);
       tl.fromTo(line, { attr: { y2: o.y0 } }, { attr: { y2: o.y1 }, duration: 0.5, ease: 'power2.out' }, 0.35);
       if (P.label) tl.fromTo(P.label, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: D.s }, 0.45);
-      tl.to(head, { rotation: 6, transformOrigin: o.x + 'px ' + o.y0 + 'px', duration: 0.08, yoyo: true, repeat: 1 }, 0.5);
+      tl.to(head, { rotation: 6, svgOrigin: o.x + ' ' + o.y0, duration: 0.08, yoyo: true, repeat: 1 }, 0.5);
       void L;
       return tl;
     };

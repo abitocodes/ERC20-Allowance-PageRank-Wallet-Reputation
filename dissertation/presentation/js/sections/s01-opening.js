@@ -219,7 +219,7 @@
         tl.call(function () { var e = g.cursorPath.getPointAtLength(g.cursorPath.getTotalLength()); g.cursor.set(e.x, e.y); }, null, 0.86);
         tl.to(g.yes, { scale: 0.93, duration: 0.09, ease: 'power2.in' }, 0.86);
         tl.to(g.yes, { scale: 1, duration: 0.3, ease: 'back.out(3)' }, 0.95);
-        tl.fromTo(g.ripple, { attr: { r: 18 }, opacity: 0.9 }, { attr: { r: 64 }, opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.9);
+        tl.fromTo(g.ripple, { attr: { r: 18 }, opacity: 0.9 }, { attr: { r: 64 }, opacity: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, 0.9);
         tl.to(g.fig.gap, { opacity: 0, duration: 0.2 }, 1.0);
         tl.set(g.arrow.g, { autoAlpha: 1 }, 1.0);
         var L = g.arrow.len();
@@ -388,7 +388,7 @@
     }
     return d;
   }
-  function inOutInv(p) { return p < 0.5 ? Math.sqrt(p / 2) : 1 - Math.sqrt((1 - p) / 2); } /* inverse of power1.inOut */
+  function inOutInv(p) { p = Math.max(0, Math.min(1, p)); return p < 0.5 ? Math.sqrt(p / 2) : 1 - Math.sqrt((1 - p) / 2); } /* inverse of power1.inOut */
   var slide3 = {
     id: 's01-03', title: '오늘의 길', time: 30, steps: 1, progress: false,
     notes: [
@@ -452,6 +452,8 @@
     },
     enter: function (el, ctx) {
       var g = ctx.g, tl = ctx.tl(), D0 = 2.0;
+      /* the stops appear first, left to right, as small rings */
+      tl.fromTo(g.stops.map(function (st) { return st.dot; }), { attr: { r: 0 } }, { attr: { r: 10 }, duration: 0.35, ease: 'back.out(2)', stagger: 0.035 }, 0);
       /* the light dot runs ahead of the road it draws; each stop lights up as it passes */
       tl.set(g.walker.g, { autoAlpha: 1 }, 0.2);
       tl.to(g.road, { strokeDashoffset: 0, duration: D0, ease: 'power1.inOut' }, 0.2);
@@ -459,7 +461,7 @@
       g.stops.forEach(function (st, k) {
         var t = 0.2 + D0 * inOutInv(g.frac[k]);
         tl.to(st.dot, { attr: { fill: C.ink }, stroke: C.ink, duration: 0.25 }, t);
-        tl.fromTo(st.dot, { attr: { r: 16 } }, { attr: { r: 10 }, duration: 0.45, ease: 'power3.out' }, t);
+        tl.fromTo(st.dot, { attr: { r: 16 } }, { attr: { r: 10 }, duration: 0.45, ease: 'power3.out', immediateRender: false }, t);
         tl.fromTo(st.lab, { autoAlpha: 0, y: g.up[k] ? 14 : -14 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out' }, t + 0.02);
         if (st.icon) tl.fromTo(st.icon, { autoAlpha: 0, scale: 0.5, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(1.6)' }, t + 0.12);
       });
