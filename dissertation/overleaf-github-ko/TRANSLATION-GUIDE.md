@@ -262,6 +262,37 @@
 | attestation tool | 증명 도구 |
 | by construction | 만든 방식 때문에 저절로 |
 | intended construct | 의도한 구성개념 |
+| value slope, value-slope check | 금액 기울기, 금액 기울기 점검 ("값 기울기"는 쓰지 않음) |
+| raw in-approve degree | 원시 받은 허락 수 ("허락 입차수"는 첫 풀이 안에서만 씀) |
+| revised scores / revised counts | 고친 점수 |
+| revised cohort / revised matched cohort | 수정 코호트 / 수정 매칭 코호트 |
+| the plan's cohort | 계획의 코호트 |
+| registered results | 등록 분석의 결과 |
+| registered verdict(s) | 등록 분석의 판정 |
+| registered test(s) / registered rule(s) | 등록한 시험 / 등록한 규칙 |
+| after the (registered) results were known | (등록 분석의) 결과를 안 뒤 |
+| decision contrasts (P, Q) | 판정 대비 |
+| stratified (by closes) | 층화한, 처음 나올 때 (닫은 횟수로 묶음을 나눈(층화한)) |
+| count-level (lead) | 그냥 센 수의 수준(에서 앞섬) |
+| time decay, decay ($\sigma(\Delta t)$) | 로지스틱 감쇠 (감쇠만 따로 쓰지 않음: 감쇠 계수와 헷갈림) |
+| time weight | 시간 무게 |
+| damping, damping check | 감쇠 계수, 감쇠 계수 점검 (감쇠만 따로 쓰지 않음) |
+| restart rule / restart mass / restart weight / restart vector | 다시 출발 규칙 / 다시 출발 몫 / 다시 출발 무게 / 재시작 벡터 |
+| activity restarts | 활동 재시작(활발한 주소에서 더 자주 다시 출발하기) |
+| family mean | 지표 가족 평균 (이름 붙은 가족은 허락 가족, 송금 가족처럼 줄여 씀) |
+| single-layer (score, method, PageRank) | 한 층 (점수, 방법, 페이지랭크) |
+| approval count / transfer count | 허락한 주인 수 / 송금 수 |
+| profitable share / non-loss share | 이익을 낸 비율 / 손실이 아닌 비율 |
+| profitable closes | 이익을 낸 닫기 (수) |
+| liquidation avoidance | 청산을 피하는 것(데, 일) |
+| no-liquidation indicator / flag | 청산이 없었는지 나타내는 표시 (표 머리글은 청산 없음) |
+| ego tables / ego extraction | 에고 표 / 에고 추출 |
+| daily token prices / daily US-dollar prices | 하루 토큰 가격 / 하루 달러 가격 |
+| US dollars | 달러 ("미국 달러"는 쓰지 않음; 첫 풀이는 달러(USD)) |
+| (RPC) endpoint | 접속 주소(블록체인 노드에 질문을 보내는 주소) |
+| Chainlink, DefiLlama | Chainlink, DefiLlama (영어 그대로; 처음에 체인링크(Chainlink)로 써도 됨) |
+| threshold (cohort) | 기준값 |
+| Kendall coefficient(s) | 켄달의 타우 계수 / 켄달의 $\tau$ 계수 |
 
 ## 6. 예시
 
