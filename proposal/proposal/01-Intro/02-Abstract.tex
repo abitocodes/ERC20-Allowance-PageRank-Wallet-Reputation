@@ -1,0 +1,27 @@
+% !TEX root = ../main.tex
+\phantomsection
+\section*{Abstract}
+\label{sec:abstract}
+
+The financial system has generated broad-based growth impetus by allocating capital efficiently through lending (Sch\"{a}r, 2021). In this light, the advancement of DeFi is likewise expected to hinge critically on the degree of on-chain lending and leveraged trading activity. However, DeFi platforms face constraints in executing collateral-backed loans due to difficulties in enforcing collateral assets, and they similarly encounter limitations in offering unsecured credit, since traditional credit-scoring models that incorporate tangible-asset and employment information cannot be applied directly (Sch\"{a}r, 2021; Ghosh et al., 2024).
+
+
+Existing PageRank-based methods, such as the Adaptive Weighted PageRank (AWP) algorithm, primarily rely on transaction volume and recency (time-decay) to assess wallet trustworthiness (Do et al., 2023). While these approaches effectively capture economic flows and activity levels, they might incur substantial computational overhead by requiring exhaustive parsing of historical transactions.
+
+
+This study proposes EndorseRank, an on-chain reputation metric leveraging ERC-20 approve and permit allowances as direct indicators of wallet endorsement. Each approve/permit action explicitly grants spending permissions to another wallet, inherently representing trust. By constructing a directed, weighted graph $G_{\text{approve}}$ based solely on the most recent allowance amounts for each wallet pair, EndorseRank eliminates the need for historical time-decay adjustments and significantly reduces computational complexity.
+
+
+The proposed EndorseRank algorithm utilizes PageRank methodology on this allowance-based graph on \textbf{Arbitrum One}. Empirical validation uses \textbf{GMX V2 perpetual swap position} outcomes: collateralized leveraged exposure on long and short positions, where a profitable \textbf{PositionDecrease} close (positive \textbf{basePnlUsd}, excluding position liquidation) is treated as a functional analog of successfully managing borrowed exposure. Our research aims to:
+
+
+\begin{enumerate}
+\item[1.] Develop a robust data pipeline to extract and manage the latest approve/permit allowances on Arbitrum One.
+\item[2.] Construct and efficiently compute reputation scores from a sparse and endorsement-oriented graph.
+\item[3.] Evaluate EndorseRank's alignment with GMX trading-success proxies (close-success count and realized gain proxy) versus AWP and other established transaction-based methods, using Spearman's rho and Kendall's tau.
+\item[4.] Conduct extensive computational benchmarks to demonstrate superior efficiency in runtime and memory usage.
+\end{enumerate}
+By addressing these objectives, EndorseRank seeks to provide a computationally efficient, semantically clear, and domain-aligned reputation scoring mechanism suitable for real-world DeFi platforms, enabling better risk management and decision-making.
+
+
+\textbf{\emph{Keywords--- }}\textbf{DeFi, On-Chain Reputation, GMX V2, Perpetual Swap Positions, Arbitrum One, Blockchain Data Analytics, Wallet Endorsement Graph}

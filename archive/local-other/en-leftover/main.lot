@@ -1,0 +1,30 @@
+\contentsline {table}{\numberline {1}{\ignorespaces Abbreviations used in this research.}}{13}{table.caption.8}%
+\contentsline {table}{\numberline {2}{\ignorespaces Mathematical notation used in this research.}}{14}{table.caption.10}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces Primary comparison: EndorseRank versus AWP (matched wallet cohort, $n=5{,}521$).}}{19}{table.caption.15}%
+\contentsline {table}{\numberline {1.2}{\ignorespaces Summary of hypotheses, research questions, and empirical claims.}}{21}{table.caption.17}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Comparison of selected graph reputation methods (conceptual).}}{43}{table.caption.51}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Summary of the reviewed literature: methodology, strengths, limitations, and relation to this study.}}{43}{table.2.2}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Notation for graphs, scores, proxies, and parameters.}}{50}{table.caption.57}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Computational benchmark on the matched wallet cohort.}}{74}{table.caption.95}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Runtime versus evaluation-set size on the expanded wallet pool.}}{75}{table.caption.97}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Family-mean Kendall $\tau $ with bootstrap confidence intervals on the matched cohort.}}{77}{table.caption.100}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Paired bootstrap tests of differences between Kendall $\tau $ coefficients.}}{78}{table.caption.102}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Domain alignment with transfer proxies.}}{79}{table.caption.105}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Domain alignment with allowance proxies.}}{80}{table.caption.107}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Domain alignment with Sybil-adjusted stability proxies from transfer activity.}}{81}{table.caption.109}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Robustness: mean Kendall $\tau $ under PageRank damping $d \in \{0.75, 0.85, 0.95\}$ on the matched alignment cohort.}}{83}{table.caption.115}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Robustness: mean Kendall $\tau $ on the top-20 ERC-20 token subgraph (matched cohort), next to the full-token value of Table~\ref {tab:alignment-family-ci} for the same family.}}{84}{table.caption.118}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Sensitivity of alignment to the evaluation set: mean Kendall $\tau $ and runtime at staged subsample sizes drawn from the expanded wallet pool.}}{85}{table.caption.120}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces Temporal holdout on the spender cohort ($n=1{,}335$): Kendall $\tau $ between scores frozen at 28~February~2026 and the number of new owner--spender approval pairs received between 1~March and 31~May~2026. CI = 95\% percentile bootstrap over wallets (200 resamples). $222$ spenders received at least one new pair.}}{86}{table.caption.122}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Research objectives, the criterion stated in Chapter~\ref {ch:introduction}, and the outcome.}}{92}{table.caption.131}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces In-cohort runtime scaling.}}{118}{table.caption.227}%
+\contentsline {table}{\numberline {8.2}{\ignorespaces Mean Kendall $\tau $ by proxy family: EndorseRank and AWP.}}{118}{table.caption.230}%
+\contentsline {table}{\numberline {8.3}{\ignorespaces Default parameters used in the primary evaluation.}}{119}{table.caption.232}%

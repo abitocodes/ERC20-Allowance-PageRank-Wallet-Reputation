@@ -1,0 +1,153 @@
+% !TEX root = ../main.tex
+\chapter{서론 및 연구 문제}
+\label{ch:introduction}
+
+탈중앙화 금융(DeFi)은 전통적 금융 중개자 없이 대출, 차입, 레버리지 거래를 가능하게 함으로써 공개 블록체인에서 자본이 배분되는 방식을 변화시켰다 \cend{53}. 그러나 대부분의 신용형 상호작용은 여전히 높은 담보를 요구하는데, 이는 프로토콜이 오프체인 신원 체계나 전통적 신용 이력에 의존할 수 없기 때문이다 \cend{48}. 가명 환경에서 운영상의 과제는 상대방이 식별된 개인이 아니라 주소일 때 자본을 안전하게 배분하는 것이다.
+
+본 연구는 그 설정 안의 구체적 연구 문제를 다룬다. ERC-20 \texttt{approve}/\texttt{permit} allowance로부터 구축한 온체인 평판 점수---\textbf{EndorseRank}로 구현---가 계산 비용을 줄이고, 보증(endorsement) 의미를 더 충실히 반영하며, \textbf{Arbitrum One}에서 전송 기반 Adaptive Weighted PageRank(AWP)와 비교할 때 구별되면서도 신뢰할 만한 정합 프로파일을 산출할 수 있는가이다. 주요 실증 비교는 동일 지갑 표본에서 \textbf{EndorseRank 대 AWP}이며, Do et al.\cend{16}의 순위 상관 틀 아래 동시기 전송·allowance 통계와 미래 신규 승인의 시간 홀드아웃으로 검증한다.
+
+본 연구에서 \textbf{온체인 평판 점수} 계산이란 오프체인 신원 없이 관측 가능한 온체인 행동과 관계로부터 정량적 지갑 점수를 도출하는 것을 말한다 \cend{16}. EndorseRank는 allowance 기반 보증 간선으로부터 그러한 점수를 산출한다. 본 장의 나머지는 문제를 역사적·경제적 맥락에 위치시키고, allowance 기반 평판의 동기를 제시하며, 연구 문제·목표·질문을 진술하고, 핵심 구성 개념을 정의하며, 기여, 범위, 연구의 구성을 개관한다.
+
+\dissertationSubheading[sec:background]{배경: DeFi, 담보화, 가명성}
+
+공개 블록체인은 중앙 운영자 없이 프로그램 가능한 정산과 개방적 참여를 도입하였다 \cend{46,60}. 스마트 계약은 합의 조건을 자체 실행 코드로 인코딩하여, 수탁 중개자가 아닌 온체인에서 정산되는 금융 응용을 가능하게 한다 \cend{9,55}. DeFi 프로토콜은 이러한 계약을 대출, 자동화된 시장 조성, 무기한 선물 시장으로 조합한다 \cend{53,59}. Arbitrum One과 유사한 Layer-2 네트워크에서는 활동 밀도가 충분히 높아, 지갑 수준의 행동 신호---전송, 승인, 프로토콜 이벤트---를 대규모로 관측할 수 있다.
+
+이러한 투명성에도 불구하고 DeFi 신용 시장은 구조적으로 과담보화되어 있다. 프로토콜은 일반적으로 차입자나 거래자가 노출 가치를 초과하는 담보를 예치하도록 요구하는데, 상대방이 식별된 법적 인격이 아니라 가명 주소이기 때문이다 \cend{26,28}. 가명성은 공개 원장의 설계 특성이다. 누구나 무시할 수 있는 비용으로 주소를 생성할 수 있고, 단일 경제 주체가 다수의 지갑을 통제할 수 있다 \cend{17}. 전통적 신용 평가는 신원에 연결된 이력에 의존하며, 이는 본 설정으로 깔끔하게 이전되지 않는다 \cend{48}. 결과적으로 위험 관리는 개별화된 평판보다 담보 완충, 청산 엔진, 프로토콜 수준 매개변수에 의존한다.
+
+담보화는 프로토콜을 보호하지만 자본 비효율을 초래한다. 거래자와 차입자는 다른 곳에 배치할 수 있는 자산을 잠가야 하며, 프로토콜은 확립된 신용을 가진 차입자에게 전통 금융이 제공하는 저담보 상품을 포기한다. 이에 연구자들은 오프체인 신원의 대체물로서 온체인 신호를 탐색해 왔다. 전송 그래프 중심성 \cend{16}, 네트워크 위험 전파 \cend{44}, 전망 이론 및 블록체인 기반 신용 모형 \cend{29}, 대출 프로토콜에 대한 기계학습 파이프라인 \cend{39} 등이 그 예이다. 이들 접근은 공통 전제를 공유한다. 공개 원장 데이터는 사용자를 비익명화하지 않고도 위험 평가에 정보를 제공할 수 있는, 경제적으로 유의미한 관계를 인코딩한다는 것이다.
+
+그래프 순위 방법은 이 전제에 자연스럽게 부합한다. PageRank와 그 변형은 방향성 간선을 통해 영향력을 전파하여, 다른 노드로부터의 재귀적 보증에 따라 노드를 순위화한다 \cend{49,8,40}. EigenTrust와 TrustRank 같은 초기 웹 신뢰 시스템은 유사한 아이디어를 P2P 및 웹 스팸 설정에 적용하였다 \cend{35,27}. Do and Do\cend{16}는 이더리움 전송 그래프에 PageRank와 HodgeRank를 사회적 신용 측정으로 적용한다. Adaptive Weighted PageRank(AWP)\cend{64}는 가치 가중·시간 감쇠 간선을 쓰는 관련 전송 그래프 순위 방법이며, 경제적 중요성에 대한 도메인 직관 대리 지표로서 인바운드 전송량을 기준으로 점수를 검증한다. 이 연구 계보는 전송 그래프 평판을 신뢰할 만한 기준선으로 확립하지만, ERC-20 allowance로 기록되는 명시적 지출 승인---별개의 온체인 행위---은 모형화하지 않는다 \cend{18,19}.
+
+\dissertationSubheading[sec:motivation]{온체인 평판의 동기}
+
+레버리지 DeFi에서 온체인 평판 연구를 동기화하는 네 가지 실무적 압력이 있다.
+\begin{itemize}
+\item \textbf{자본 효율:} 프로토콜은 온체인 정산을 유지하면서, 예를 들어 한도 상향 주기, 수수료 등급, 모니터링 우선순위와 같은 차별화된 서비스를 지원할 수 있는 서열 신호를 추구하며, 향후 통제된 실험 하에서만 완만한 담보 차별화를 고려한다 \cend{53,26}.
+\item \textbf{감사 가능성:} 불투명한 오프체인 신용 점수와 달리, 공개 이벤트로부터 도출된 그래프 기반 점수는 재계산·검사할 수 있어, 블랙박스형 탈중앙화 신용 평점에 대한 우려에 대응한다 \cend{48}.
+\item \textbf{운영 비용:} 예를 들어 각 레버리지 조정 전에 자주 갱신해야 하는 평판 시스템은, 매 갱신마다 비용이 큰 과거 전송 집계를 감당할 수 없다.
+\item \textbf{표준화:} 주식 시장은 주가수익비율과 주가순자산비율을 완벽한 수익률 예측자가 아니라 스크리닝과 소통을 위한 공유 어휘로 오래 사용해 왔다 \cend{24,6,20}. 가명 DeFi에는 지갑 수준 상대방 차별화를 위한 유사한 서열 언어가 없다 \cend{1}. 제~\ref{ch:discussion}장은 EndorseRank와 AWP가 담보를 대체하지 않으면서 수수료·이용률·모니터링 효율을 지원하는 인프라적 역할을 하는 산업 채택 시나리오를 전개한다.
+\end{itemize}
+
+전송 기반 AWP는 처음 두 압력에는 대응하지만 세 번째에서는 비용이 크다. $G_{\text{transfer}}$를 구축하려면 전송 이력을 집계하고, 로지스틱 시간 감쇠를 적용하며, 밀집한 간선 집합에서 PageRank를 실행해야 한다 \cend{64}. 본 연구에서 사용한 매칭 코호트($n=5{,}521$ 지갑)에서,\footnote{매칭 코호트는 관측 창에서 보증·전송 부분그래프 연결성이 비영인 지갑이다. 런타임 확장성은 더 큰 확장 지갑 풀($N=31{,}612$)을 사용한다.} AWP 부분그래프는 $137{,}087$개 간선을 포함하며 $18.711$\,s의 PageRank 벽시계 시간이 필요하다. allowance 그래프는 구조적으로 다른 대안을 제공한다. ERC-20 \texttt{approve} 또는 EIP-2612 \texttt{permit}은 토큰 소유자가 지출자에게 전송을 얼마나 승인하는지를 기록한다 \cend{18,19}. 소유자--지출자 쌍당 최신 allowance는 현재 승인 의도의 스냅샷이다. 신규 승인이 구 승인을 덮어쓰므로 시간 감쇠는 불필요하다. 결과적인 보증 그래프 $G_{\text{approve}}$는 희소하며---동일 코호트에서 $14{,}727$개 간선---PageRank는 $2.105$\,s에 완료되어 AWP보다 약 $8.9\times$ 빠르다. 그 차이는 최신 allowance 스냅샷 하에서의 그래프 희소성($14{,}727$ 대 $137{,}087$ 간선)의 결과이며, 독립된 과학적 기여가 아니다. 주장~C1은 이를 표현의 운영적 속성으로 보고한다.
+
+효율을 넘어 allowance는 구별되는 의미를 지닌다. 전송은 라우팅, 시장 조성, 수동적 수령을 반영할 수 있는 반면, allowance는 지출 권한의 명시적 위임이다. allowance를 보증 간선으로 취급하면 PageRank의 인용 은유 \cend{49}가 프로토콜이 이미 토큰 상호작용에 의존하는 신뢰형 행위와 정렬된다. 그 의미적 차이가 단지 다른 순위를 낳는지, 아니면 승인 및 전송 검사와 다르게 정합하는 순위를 낳는지는 실증적 질문이다. 본 연구는 Arbitrum One에서, 보증·전송 그래프 연결성이 비영인 매칭 표본($n=5{,}521$)으로 그 질문에 답한다.
+
+\dissertationSubheading[sec:research-problem]{연구 문제}
+
+기존 Adaptive Weighted PageRank(AWP) 방법은 거래 이력에 대한 전송량과 로지스틱 시간 감쇠로부터 신뢰를 추론한다 \cend{64}. 경제적으로 해석 가능하지만, (i) 비용이 큰 과거 전송 집계를 요구하고, (ii) 인바운드 전송량을 ``가치 있는 지갑''의 대리 지표로 취급하며, (iii) 명시적 지출 승인을 모형화하지 않는다. EndorseRank는 대신 소유자--지출자 쌍당 최신 allowance를 방향성 보증 그래프의 간선 강도로 사용하여, 시간 감쇠 가중 없이 더 희소한 그래프와 의미적으로 구별되는 신뢰 신호를 산출한다---즉, 향상된 온체인 지갑 평판 점수화를 위해 ERC-20 allowance 간선을 PageRank에 통합한다.
+
+따라서 연구 문제는 비교·평가적이다. 동일 Arbitrum One 지갑 표본에서, EndorseRank는 AWP와 구성 개념상 구별되는 지갑 순서를 산출하고, allowance 및 전송 검사와 정합하며, 시간 홀드아웃에서 이후의 신규 보증을 예측하고, 현저히 낮은 계산 비용으로 이를 수행하는가? 주요 비교는 EndorseRank 대 AWP이다.
+
+표~\ref{tab:primary-methods-preview}는 주요 비교를 요약한다. 표~\ref{tab:hrq-claim-map}는 가설(H1--H3), 연구 질문(RQ1--RQ4), 제4장 실증 주장(C1--C4)을 요약한다.
+
+\begin{table}[htbp]
+\centering
+\caption{주요 비교: EndorseRank 대 AWP (매칭 지갑 코호트, $n=5{,}521$).}
+\label{tab:primary-methods-preview}
+\fitwidth{%
+\begin{tabular}{p{0.18\linewidth}p{0.28\linewidth}p{0.48\linewidth}}
+\toprule
+방법 & 입력 그래프 & 역할 \\
+\midrule
+EndorseRank & 최신 ERC-20 allowance ($G_{\text{approve}}$) & 주요 구성 개념: allowance 위임; 본 연구의 대상 \\
+AWP & 시간 감쇠 전송 ($G_{\text{transfer}}$) & 주요 기준선: IEEE RIVF 2023 전송 그래프 방법 \cend{64}; Do and Do\cend{16}는 PageRank/HodgeRank 동반 논문 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+모호성을 피하기 위해, 본 연구 전반에서 사용하는 핵심 개념을 다음과 같이 정의한다.
+
+\begin{itemize}
+\item \textbf{DeFi (탈중앙화 금융):} 공개 블록체인의 스마트 계약을 통해 구현되는 금융 서비스---대출, 차입 포함---로, 일반적으로 수탁이나 정산을 통제하는 중앙 운영자가 없다 \cend{53,28}. DeFi 프로토콜은 개방 인터페이스를 조합하여 토큰 이동이 온체인에서 관측 가능하게 한다.
+\item \textbf{스마트 계약:} 신뢰할 수 있는 중개자 없이 합의 조건을 강제하는, 블록체인에 배포된 자체 실행 프로그램 코드 \cend{9,55}. 본 연구에서 스마트 계약은 ERC-20 allowance 로그와 전송 로그의 출처이다.
+\item \textbf{지갑 / 주소:} 자산을 보유하고 스마트 계약과 상호작용하는 블록체인 계정; 평판 점수화의 분석 단위 \cend{9,18}. 지갑은 주소로 식별되며, 오프체인 신원은 가정하거나 복원하지 않는다.
+\item \textbf{온체인 평판 점수:} 가명성 하에서 금융 상호작용을 위한 지갑의 상대적 위치를 나타내는, 온체인 신호로부터 도출된 수치 지표 \cend{16}. 점수는 순위화 목적의 서열이며, 절대 크기는 신용 한도로 해석하지 않는다.
+\item \textbf{PageRank:} 감쇠 계수 하에서 방향성 간선을 통해 영향력을 전파하는 그래프 순위 방법 \cend{49,8,40}. \textbf{EndorseRank}는 최신 allowance 보증 그래프에 PageRank를 적용한다. 간선 강도는 소유자--지출자 쌍당 현재 allowance와 같으며 시간 감쇠는 없다. \textbf{Adaptive Weighted PageRank(AWP)}는 전송 가치와 로지스틱 시간 감쇠로 주어진 간선 가중치를 갖는 전송 그래프에 PageRank를 적용한다 \cend{64}.
+\item \textbf{ERC-20 allowance / Approve / Permit:} 토큰 소유자가 지출자에게 소유자를 대신하여 전송을 얼마나 허용하는지를 기록하는 메커니즘 \cend{18,19}. \texttt{Approve}는 표준 온체인 호출이며, EIP-2612 \texttt{permit}은 서명을 통해 동일한 상태 변경을 승인한다. EndorseRank는 소유자--지출자 쌍당 최신 비영(非零) allowance 스냅샷을 사용한다.
+\item \textbf{보증 그래프:} 단순 자산 전송이 아니라 지출 권한의 명시적 위임을 간선이 나타내는 방향성 그래프 \cend{18,19}. EndorseRank에서 간선 $u \to v$는 지갑 $u$가 현재 지갑 또는 계약 $v$에게 $u$가 소유한 토큰을 지출하도록 승인함을 의미한다. 전송 그래프 AWP는 대비되는 기준선을 제공한다 \cend{16}.
+\item \textbf{도메인 정합:} 평판 순위가 관측 가능한 대리 지표 순위와 일치하는 정도이며, Spearman $\rho$와 Kendall $\tau$로 평가한다 \cend{54,36,14,16}. 정합은 구성 개념별이다. 한 방법은 자신의 주요 그래프 구성 개념과 강하게 정합하고 직교하는 검사와는 약하게 정합할 수 있다.
+\end{itemize}
+
+\dissertationSubheading[sec:supplementary-extension]{시간 홀드아웃}
+
+동시기 allowance Kendall $\tau$ $0.355$는 의도된 구성 개념 검사이다. $G_{\text{approve}}$에 대한 PageRank는 지출자 측 승인 차수와 일치할 것으로 기대된다. 점수가 동일 창 그래프를 넘는 정보를 가지는지를 검정하기 위해, 점수를 2026년 2월 28일에 고정하고 2026년 3--5월에 처음 나타나는 신규 소유자--지출자 승인 쌍과 비교한다. 홀드아웃 주장의 코호트는 t1 인바운드 지출자($n=1{,}335$)이다.
+
+\begin{table}[htbp]
+\centering
+\caption{가설, 연구 질문, 실증 주장 요약.}
+\label{tab:hrq-claim-map}
+\fitwidth{%
+\begin{tabular}{p{0.12\linewidth}p{0.42\linewidth}p{0.40\linewidth}}
+\toprule
+항목 & 다루는 내용 & 보고 위치 \\
+\midrule
+H1 / RQ1 & EndorseRank와 AWP가 구별되는 지갑 순서를 산출하는가? & \S\ref{sec:rank-divergence}; 방법 간 $\tau=0.316$ \\
+H2 / RQ2 & 어느 사회적 방법이 allowance 대 전송 검사와 정합하는가? & 표~\ref{tab:alignment-transfer}--\ref{tab:alignment-allowance}; 주장 C2--C3 \\
+H3 / RQ3 & 동일 $n$에서 EndorseRank가 AWP보다 빠른가? & 표~\ref{tab:benchmark-runtime}--\ref{tab:benchmark-scaling}; 주장 C1, C4 \\
+RQ4 & t1 점수가 동일 창 allowance를 넘어 t2 신규 승인을 예측하는가? & \S\ref{sec:holdout-results} \\
+C1 & EndorseRank 대 AWP 런타임과 그래프 크기 & 표~\ref{tab:benchmark-runtime} \\
+C2 & 의도된 구성 개념 검사: EndorseRank는 allowance, AWP는 전송 & 표~\ref{tab:alignment-transfer}--\ref{tab:alignment-allowance} \\
+C3 & 구성 개념별 우세 (EndorseRank 대 AWP) & 표~\ref{tab:alignment-three-methods} \\
+C4 & EndorseRank의 효율--정합 상충 & 표~\ref{tab:benchmark-runtime}--\ref{tab:benchmark-scaling} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\dissertationSubheading[sec:research-objectives]{연구 목표}
+
+본 연구의 주요 목표는 RQ1--RQ4에 일대일로 대응한다.
+
+\begin{enumerate}
+\item[\textbf{O1.}] 동일 Arbitrum One 코호트에서 EndorseRank와 AWP가 구별되는 지갑 순서를 유도하는지를 확인한다(RQ1).
+\item[\textbf{O2.}] 동시기 구성 개념 검사를 측정한다. EndorseRank는 allowance, AWP는 전송이다(RQ2).
+\item[\textbf{O3.}] 동일 $n$에서 EndorseRank와 AWP의 PageRank 계산 비용을 비교하고, 확장 풀 확장성을 포함한다(RQ3).
+\item[\textbf{O4.}] 지출자 코호트에서 t1 점수가 t2 신규 소유자--지출자 승인을 예측하는지를 검정한다(RQ4).
+\end{enumerate}
+
+\dissertationSubheading[sec:research-questions]{연구 질문}
+
+본 연구는 세 가지 주요 가설을 검정한다. \textbf{H1}---EndorseRank와 AWP는 동일 코호트에서 구별되는 지갑 순서를 산출한다. \textbf{H2}---두 사회적 방법은 구성 개념별 검사(allowance 대 전송)에서 다르다. \textbf{H3}---동일 $n$에서 EndorseRank가 AWP보다 계산적으로 더 효율적이다. 다음 연구 질문이 표~\ref{tab:hrq-claim-map}에 요약된 실증 평가를 안내한다.
+
+\begin{enumerate}
+\item[\textbf{RQ1.}] EndorseRank와 AWP는 동일 Arbitrum 지갑 표본에서 의미 있게 다른 지갑 순서를 산출하는가?
+\item[\textbf{RQ2.}] EndorseRank와 AWP 중, 어느 사회적 방법이 동시기 allowance 검사 및 동시기 전송 검사와 더 강하게 정합하는가(Spearman $\rho$, Kendall $\tau$)?
+\item[\textbf{RQ3.}] 동일 매칭 표본에서 EndorseRank가 AWP보다 계산적으로 더 효율적인가(런타임, 메모리, 반복 횟수)?
+\item[\textbf{RQ4.}] 점수를 t1에서 고정한 뒤, 인바운드 지출자에 대해 EndorseRank가 t2 신규 소유자--지출자 승인을 AWP보다 더 강하게, 그리고 동일 창 allowance 검사보다 더 정보적으로 예측하는가?
+\end{enumerate}
+
+RQ1은 allowance 그래프와 전송 그래프가 구별되는 중심성 구조를 유도하는지를 검정하며, 점수 벡터 간 방법 간 Kendall $\tau$로 조작화한다. RQ2는 전송 및 allowance 국소 통계에 대한 의도된 구성 개념 검사를 평가한다. RQ3는 동일 지갑 집합에서 PageRank 벽시계 시간, 메모리, 반복 횟수를 비교하며, 확장 지갑 풀에서의 확장성을 포함한다. RQ4는 동일 보증 구성 개념의 시간 분할 검정이다. 미래 신규 승인이지, 거래 이익이 아니다.
+
+\dissertationSubheading[sec:contributions]{기여}
+
+본 연구는 온체인 평판 연구와 DeFi 위험 평가에 다음 기여를 한다.
+\begin{itemize}
+\item \textbf{EndorseRank:} 최신 ERC-20 \texttt{approve}/\texttt{permit} 간선에 PageRank를 적용하는 allowance 기반 보증 그래프 모형. EndorseRank는 새로운 순위 알고리즘이 아니며, 고전적 PageRank\cend{49}를 새로운 간선 구성 개념(최신 ERC-20 allowance)에 적용한다. 현재 지출 승인을 보증 강도로 취급하고, allowance 덮어쓰기 의미론에 의존하여 시간 감쇠를 제거하며, 빈번한 갱신에 적합한 희소 그래프를 산출한다.
+\item \textbf{구성 개념 검사와 시간 홀드아웃:} 동시기 전송·allowance 통계 \cend{16}와, 점수를 t1에서 고정한 뒤의 t2 신규 소유자--지출자 승인에서 EndorseRank와 AWP를 비교한다. 정합은 Spearman $\rho$와 Kendall $\tau$로 보고한다 \cend{54,36}.
+\item \textbf{개방형 재현 가능 평가 파이프라인:} BigQuery 추출, 그래프 구축, PageRank 점수화, 대리 지표 계산, LaTeX 결과 표를 기계 판독 가능 요약에 연결한다(부록~\ref{ch:appendix-eval}). 파이프라인은 주장 C1--C4의 독립적 검증을 지원한다.
+\end{itemize}
+
+방법 간 $\tau$, 계열 수준 정합, 런타임의 핵심 수치는 제~\ref{ch:results}장(표~\ref{tab:benchmark-runtime}--\ref{tab:alignment-three-methods})에서 보고하며 여기서 반복하지 않는다. 그 결과는 어느 사회적 방법의 보편적 우세가 아니라 효율--정합 상충을 지지한다.
+
+\dissertationSubheading[sec:scope-limitations]{범위와 한계}
+
+본 연구는 관측 창 2025-12-01부터 2026-05-31까지 Arbitrum One에 초점을 둔다. 주요 실증 표본은 보증·전송 그래프 연결성이 비영인 $n=5{,}521$ 주소의 매칭 지갑 코호트이며, $14{,}727$개 EndorseRank 간선과 $137{,}087$개 AWP 간선으로 구성된다. 런타임 확장성은 확장 지갑 풀($N=31{,}612$)에서 보고한다. 강건성 검증은 감쇠 민감도, 상위 토큰 부분그래프, 표본 크기 민감도를 검토한다.
+
+무담보 대출 부도 라벨은 범위 밖이다. 구성 개념과 윤리는 제~\ref{ch:introduction}장과 제~\ref{ch:methodology}장에서 정의한다. 홀드아웃 주장은 지출자 코호트($n=1{,}335$)를 사용한다. 향후 비교를 위해 보관된 확장 기준선은 본문 서술에서 제외한다(부록~\ref{ch:appendix-eval}).
+
+Arbitrum One과 6개월 창을 넘는 일반화는 주장하지 않는다. 토큰 소수점 정규화, 가격 오라클, permit 대 approve 커버리지는 간선 가중치에 영향을 줄 수 있다. allowance나 전송의 적대적 조작은 제~\ref{ch:discussion}장에서 논의하는 위협으로 남으며, Sybil 조정 대리 지표는 그 위험을 부분적으로 다루지만 제거하지는 않는다 \cend{17}.
+
+\dissertationSubheading[sec:roadmap]{연구의 구성}
+
+본 연구는 다음과 같이 진행된다.
+
+제~\ref{ch:literature}장은 그래프 기반 온체인 평판과 ERC-20 allowance 의미론을 검토한다. 주요 EndorseRank 대 AWP 비교를 동기화하는 이론적 틀---하이퍼링크 전파, 도메인 정합, 계산 복잡도---을 전개한다.
+
+제~\ref{ch:methodology}장은 데이터 출처, 표본추출, EndorseRank와 AWP의 그래프 구축, 동시기 구성 개념 검사, 시간 홀드아웃, 계산 벤치마크, 강건성 검증, 재현성 관행, 윤리를 명세한다. 매칭 지갑 코호트, 지출자 홀드아웃 코호트, 확장성에 사용하는 확장 지갑 풀, 제~\ref{ch:results}장 표를 산출하는 조작 절차를 정의한다.
+
+제~\ref{ch:results}장은 실증 결과를 보고한다. 코호트 특성, 런타임 및 확장성 벤치마크(주장~C1), 강건성 검증, allowance 및 전송 정합(주장~C2--C3), 순위 분기(H1/RQ1), 시간 홀드아웃(RQ4). 주요 주장 C1--C4를 명시적으로 진술한다.
+
+제~\ref{ch:discussion}장은 연구 질문별로 발견을 해석하고, 이론적·실무적 함의를 전개하며, allowance 그래프에서의 Sybil 공격 비용 모형을 정식화하고, 규제·윤리적 고려를 논의하며, 타당성에 대한 위협과 한계를 평가한다.
+
+제~\ref{ch:conclusion}장은 지식에 대한 기여를 종합하고, RQ1--RQ4에 대한 발견을 요약하며, 교차 프로토콜 검증, 적대적 강건성, 하이브리드 방법, 실시간 오라클 통합에 대한 향후 연구를 개관한다.

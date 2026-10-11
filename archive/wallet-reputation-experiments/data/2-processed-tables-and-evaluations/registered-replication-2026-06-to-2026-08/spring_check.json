@@ -1,0 +1,374 @@
+{
+  "mode": "spring_check",
+  "cohort": "spenders",
+  "score_end": "2026-02-28 23:59:59+00:00",
+  "outcome_start": "2026-03-01 00:00:00+00:00",
+  "outcome_end": "2026-05-31 23:59:59+00:00",
+  "n_wallets": 1335,
+  "n_t1_allowance_rows": 14027,
+  "n_t1_transfers": 1491377,
+  "n_er_edges": 9765,
+  "n_awp_edges": 87712,
+  "alignment": {
+    "methods": {
+      "endorserank": {
+        "future_new_approvers": {
+          "spearman_rho": 0.5216676388692449,
+          "kendall_tau": 0.47860789811384274,
+          "ci_low": 0.42728384395183305,
+          "ci_high": 0.5294905041261468,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.40653943431425293,
+          "kendall_tau": 0.37200516499937625,
+          "ci_low": 0.3253500220864462,
+          "ci_high": 0.42404890744410456,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "awp": {
+        "future_new_approvers": {
+          "spearman_rho": 0.052968959232543064,
+          "kendall_tau": 0.04352575041461237,
+          "ci_low": -0.010871817681272414,
+          "ci_high": 0.09762677604082753,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.3269346529153265,
+          "kendall_tau": 0.2701733765699188,
+          "ci_low": 0.23494210735867532,
+          "ci_high": 0.31021088092786325,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "coupled_pr": {
+        "future_new_approvers": {
+          "spearman_rho": 0.36147770467096857,
+          "kendall_tau": 0.29498981729927687,
+          "ci_low": 0.25227270954428854,
+          "ci_high": 0.3364945891640311,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.3374971702700359,
+          "kendall_tau": 0.2767568762214579,
+          "ci_low": 0.2412203076768108,
+          "ci_high": 0.31778608350142734,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "coupled_pr_l25": {
+        "future_new_approvers": {
+          "spearman_rho": 0.33279853555031963,
+          "kendall_tau": 0.2709289661550065,
+          "ci_low": 0.23097208614596806,
+          "ci_high": 0.3143028872719993,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.324287523999132,
+          "kendall_tau": 0.26575435948485093,
+          "ci_low": 0.23137871254812914,
+          "ci_high": 0.30576948084008904,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "coupled_pr_l75": {
+        "future_new_approvers": {
+          "spearman_rho": 0.3831556583848206,
+          "kendall_tau": 0.31371294874531497,
+          "ci_low": 0.27115484959668446,
+          "ci_high": 0.35680777216491444,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.3501019704497972,
+          "kendall_tau": 0.2874541675273216,
+          "ci_low": 0.25268865794131384,
+          "ci_high": 0.3301485819134916,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "seeded_pr": {
+        "future_new_approvers": {
+          "spearman_rho": 0.13794881849231833,
+          "kendall_tau": 0.11365535561266302,
+          "ci_low": 0.052305368207660054,
+          "ci_high": 0.16406779811224384,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.3192384324882089,
+          "kendall_tau": 0.2640934781974825,
+          "ci_low": 0.22940612721944784,
+          "ci_high": 0.30363457882696737,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "t1_in_approve_degree": {
+        "future_new_approvers": {
+          "spearman_rho": 0.7366517097742241,
+          "kendall_tau": 0.7111252393960045,
+          "ci_low": 0.6649518421870891,
+          "ci_high": 0.7591041011369719,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.42316289191907247,
+          "kendall_tau": 0.40404424450129256,
+          "ci_low": 0.3478589827726423,
+          "ci_high": 0.466680323772158,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "t1_in_degree": {
+        "future_new_approvers": {
+          "spearman_rho": 0.12226956070983801,
+          "kendall_tau": 0.11664986692234862,
+          "ci_low": 0.04872936125191565,
+          "ci_high": 0.19107325518964136,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.5010855633906202,
+          "kendall_tau": 0.47163239613775,
+          "ci_low": 0.42285710337196886,
+          "ci_high": 0.5198827314671322,
+          "n": 1335,
+          "n_boot": 400
+        }
+      },
+      "awp_paper": {
+        "future_new_approvers": {
+          "spearman_rho": 0.14885939279628105,
+          "kendall_tau": 0.12315286203250951,
+          "ci_low": 0.06801699240884239,
+          "ci_high": 0.17729598523971843,
+          "n": 1335,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "spearman_rho": 0.4181433490648773,
+          "kendall_tau": 0.3442513030719671,
+          "ci_low": 0.3070300623262825,
+          "ci_high": 0.3833913615123507,
+          "n": 1335,
+          "n_boot": 400
+        }
+      }
+    },
+    "protocol": "t1_score_vs_t2_label"
+  },
+  "september_contrasts": [
+    {
+      "label": "EndorseRank minus t1 in-approve degree",
+      "role": "increment",
+      "a": {
+        "method": "endorserank",
+        "tau": 0.47860789811384274
+      },
+      "b": {
+        "method": "t1_in_approve_degree",
+        "tau": 0.7111252393960045
+      },
+      "holdout_label": "future_new_approvers",
+      "delta_tau": -0.23251734128216173,
+      "ci_low": -0.2905930931493972,
+      "ci_high": -0.18295292094860247,
+      "share_positive": 0.0,
+      "n": 1335,
+      "n_boot": 400
+    },
+    {
+      "label": "AWP minus t1 in-degree",
+      "role": "increment",
+      "a": {
+        "method": "awp",
+        "tau": 0.2701733765699188
+      },
+      "b": {
+        "method": "t1_in_degree",
+        "tau": 0.47163239613775
+      },
+      "holdout_label": "future_new_transfer_senders",
+      "delta_tau": -0.2014590195678312,
+      "ci_low": -0.23035959594184938,
+      "ci_high": -0.1707016520123491,
+      "share_positive": 0.0,
+      "n": 1335,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank minus AWP",
+      "role": "single_layer",
+      "a": {
+        "method": "endorserank",
+        "tau": 0.47860789811384274
+      },
+      "b": {
+        "method": "awp",
+        "tau": 0.04352575041461237
+      },
+      "holdout_label": "future_new_approvers",
+      "delta_tau": 0.43508214769923037,
+      "ci_low": 0.36468339639462466,
+      "ci_high": 0.5107840825865401,
+      "share_positive": 1.0,
+      "n": 1335,
+      "n_boot": 400
+    },
+    {
+      "label": "AWP minus EndorseRank",
+      "role": "single_layer",
+      "a": {
+        "method": "awp",
+        "tau": 0.2701733765699188
+      },
+      "b": {
+        "method": "endorserank",
+        "tau": 0.37200516499937625
+      },
+      "holdout_label": "future_new_transfer_senders",
+      "delta_tau": -0.10183178842945745,
+      "ci_low": -0.1476824083494872,
+      "ci_high": -0.050509361147797076,
+      "share_positive": 0.0,
+      "n": 1335,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus EndorseRank",
+      "role": "primary_a",
+      "a": {
+        "method": "coupled_pr",
+        "tau": 0.29498981729927687
+      },
+      "b": {
+        "method": "endorserank",
+        "tau": 0.47860789811384274
+      },
+      "holdout_label": "future_new_approvers",
+      "delta_tau": -0.18361808081456588,
+      "ci_low": -0.21331854460891905,
+      "ci_high": -0.14916181462486994,
+      "share_positive": 0.0,
+      "n": 1335,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus AWP",
+      "role": "primary_b",
+      "a": {
+        "method": "coupled_pr",
+        "tau": 0.2767568762214579
+      },
+      "b": {
+        "method": "awp",
+        "tau": 0.2701733765699188
+      },
+      "holdout_label": "future_new_transfer_senders",
+      "delta_tau": 0.006583499651539093,
+      "ci_low": -0.011603508058719557,
+      "ci_high": 0.028187696435413606,
+      "share_positive": 0.735,
+      "n": 1335,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR minus EndorseRank",
+      "role": "ablation_a",
+      "a": {
+        "method": "seeded_pr",
+        "tau": 0.11365535561266302
+      },
+      "b": {
+        "method": "endorserank",
+        "tau": 0.47860789811384274
+      },
+      "holdout_label": "future_new_approvers",
+      "delta_tau": -0.3649525425011797,
+      "ci_low": -0.431131564073675,
+      "ci_high": -0.2996865762490059,
+      "share_positive": 0.0,
+      "n": 1335,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR minus AWP",
+      "role": "ablation_b",
+      "a": {
+        "method": "seeded_pr",
+        "tau": 0.2640934781974825
+      },
+      "b": {
+        "method": "awp",
+        "tau": 0.2701733765699188
+      },
+      "holdout_label": "future_new_transfer_senders",
+      "delta_tau": -0.0060798983724362765,
+      "ci_low": -0.016877658269622616,
+      "ci_high": 0.005631040227343057,
+      "share_positive": 0.1625,
+      "n": 1335,
+      "n_boot": 400
+    }
+  ],
+  "september_primary_rule": {
+    "no_worse_than_endorserank_on_future_new_approvers": false,
+    "better_than_awp_on_future_new_transfer_senders": false,
+    "met": false,
+    "delta_a": -0.18361808081456588,
+    "delta_a_ci": [
+      -0.21331854460891905,
+      -0.14916181462486994
+    ],
+    "delta_b": 0.006583499651539093,
+    "delta_b_ci": [
+      -0.011603508058719557,
+      0.028187696435413606
+    ]
+  },
+  "exploratory_cpr_minus_awp_on_new_approvers": [
+    {
+      "label": "C-PR minus AWP (exploratory)",
+      "role": "exploratory",
+      "a": {
+        "method": "coupled_pr",
+        "tau": 0.29498981729927687
+      },
+      "b": {
+        "method": "awp",
+        "tau": 0.04352575041461237
+      },
+      "holdout_label": "future_new_approvers",
+      "delta_tau": 0.2514640668846645,
+      "ci_low": 0.2025471947959219,
+      "ci_high": 0.3064736009102546,
+      "share_positive": 1.0,
+      "n": 1335,
+      "n_boot": 400
+    }
+  ],
+  "at": "2026-10-01T12:34:00.160921+00:00",
+  "published_compare": {
+    "path": "/home/user/phd_works/A-Skill-Programs/margin_rank/results/holdout/eval_summary_spenders.json",
+    "mismatches": 0
+  }
+}

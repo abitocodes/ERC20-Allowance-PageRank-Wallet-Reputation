@@ -1,0 +1,233 @@
+﻿% !TEX root = ../main.tex
+\chapter{논의}
+\label{ch:discussion}
+
+본 장은 제~\ref{ch:results}장의 결과를 RQ1--RQ4에 비추어 해석하고, 이론적·실무적 함의를 논의하며, allowance 그래프에 대한 Sybil 공격 비용 모형을 정식화하고, 규제·윤리적 고려를 다루며, 타당성에 대한 위협을 평가하고, 한계를 진술한다. 별도 표기가 없는 한, 동일 창 수량은 매칭 코호트($n=5{,}521$)에 대한 값이다. 방법 간 Kendall $\tau=0.316$, EndorseRank allowance $\tau=0.355$, AWP 전송 $\tau=0.534$, PageRank 실행 시간 $2.105$\,s 대 $18.711$\,s(약 $8.9\times$), 풀 스케일링은 $n=10{,}000$에서 약 $10.4\times$, $N=31{,}612$에서 약 $9.4\times$이다. 홀드아웃은 t1 인바운드 지출자($n=1{,}335$)를 사용한다. 미래 신규 승인자와의 EndorseRank $\tau=0.479$(신뢰구간 $0.426$--$0.529$) 대 AWP $\tau=0.044$이다.
+
+\dissertationSubheading[sec:findings-rq]{연구 질문별 발견}
+
+주요 실증 비교는 지갑 간 그래프에서 사회 평판 방법으로서 EndorseRank와 AWP에 관한 것이다. 다음 소절은 동시기 구성 개념 검사, 시간 홀드아웃, 계산 벤치마크에 비추어 각 연구 질문을 해석한다.
+
+\dissertationSubsubheading[sub:finding-rq1]{RQ1: 평판 구조와 순위 분기}
+
+RQ1은 동일 Arbitrum 표본에서 EndorseRank와 AWP가 의미 있게 다른 지갑 순서를 산출하는지를 묻는다. 두 점수 벡터 간 방법 간 Kendall $\tau$는 매칭 코호트($n=5{,}521$)에서 $0.316$이다. 상관은 존재한다---두 방법 모두 동일 관측 창에서 중첩되는 지갑 활동을 대상으로 한다---그러나 그 크기는 1에서 멀리 떨어져 있다. 따라서 allowance 그래프와 전송 그래프는 서로 다른 지갑 관계를 강조한다.
+
+이러한 분기는 구조적으로 예상된다. 보증 그래프 $G_{\text{approve}}$는 현재 지출 승인을 인코딩하는 $14{,}727$개 간선을 포함하고, 전송 그래프 $G_{\text{transfer}}$는 시간 감쇠된 경제 흐름을 인코딩하는 $137{,}087$개 간선을 포함한다 \cend{16}. PageRank는 동일한 감쇠 규약 아래 이들 간선을 따라 영향력을 전파하므로 \cend{49,40}, 간선 집합과 가중치의 차이는 정상 질량의 차이를 낳는다. Allowance는 승인 의도를 인코딩하고, 전송은 가치의 이동을 인코딩한다. 큰 전송을 받으면서 allowance를 부여하지 않는 지갑은 AWP에서는 높게, EndorseRank에서는 중간 정도로 순위화될 수 있으며, 전송 허브가 아니면서 지출자를 승인하는 지갑에서는 그 반대가 성립한다.
+
+따라서 H1은 지지된다. EndorseRank와 AWP는 부분적으로 중첩되면서도 구성 개념상 구별되는 순서를 산출한다. 실무적 함의는 두 점수가 상호 교환 가능한 대체물이 아니라는 점이다. 효율을 위해 EndorseRank를 채택하는 배포는 AWP의 더 빠른 근사만이 아니라, 다른 순위 기하를 수용해야 한다.
+
+\dissertationSubsubheading[sub:finding-rq2]{RQ2: 구성 개념별 사회적 방법 정합}
+
+RQ2는 어느 사회적 방법이 동시기 allowance 검사 및 동시기 전송 검사와 더 강하게 정합하는지를 묻는다. 표~\ref{tab:alignment-transfer}--\ref{tab:alignment-allowance}는 보편적 순위가 아니라 구성 개념별 승자를 보여 준다.
+
+\textbf{allowance} 계열에서 EndorseRank는 평균 Kendall $\tau=0.355$를 달성하는 반면, AWP는 영에 가깝다($-0.030$). 이는 의도된 구성 개념 검사이다. 최신 allowance 중심성은 allowance 국소 통계와 정합하고, 전송 그래프 PageRank는 그렇지 않다 \cend{14}.
+
+\textbf{전송} 계열에서 AWP는 $\tau=0.534$를, EndorseRank는 중간 정도 이차 축 $\tau=0.333$을 달성한다. AWP의 우위는 예상되는데, 전송 검사가 $G_{\text{transfer}}$와 입력 의미를 공유하기 때문이다 \cend{16}.
+
+H2는 구성 개념별 형태로 지지된다. EndorseRank는 allowance에서 우세하고, AWP는 전송에서 우세하다. 그래프 의미가 점수가 신뢰할 만하게 추적할 수 있는 검사를 결정한다.
+
+\dissertationSubsubheading[sub:finding-rq3]{RQ3: 계산 효율}
+
+RQ3는 동일 매칭 표본에서 EndorseRank가 AWP보다 계산적으로 더 효율적인지를 묻는다. 전체 코호트($n=5{,}521$)에서 EndorseRank는 PageRank를 $2.105$\,s에 완료하고 AWP는 $18.711$\,s에 완료하여---약 $8.9\times$ 빠르며---더 희소한 그래프($14{,}727$ 대 $137{,}087$개 간선)를 사용한다. 두 방법 모두 허용오차 $10^{-8}$ 내에서 수렴하며, EndorseRank는 평균적으로 더 적은 반복을 요구하는데, 이는 더 작은 유효 간선 집합과 일치한다 \cend{49}.
+
+확장 지갑 풀($N=31{,}612$)에서의 스케일링도 이점을 유지한다. $n=10{,}000$에서 약 $10.4\times$, 전체 풀 크기에서 약 $9.4\times$이다. 감쇠와 상위 토큰 부분그래프에 대한 강건성 검증은 allowance--전송 상충 패턴을 바꾸지 않는다. EndorseRank의 allowance $\tau$는 감쇠 $d \in \{0.75, 0.85, 0.95\}$에 걸쳐 $0.355$ 근처에서 안정적이며, 두 방법의 전송 계열 $\tau$는 최대 약 $0.005$만 변동한다.
+
+H3는 지지된다. 효율 이득은 로지스틱 감쇠로 전체 전송 이력을 집계하는 대신 최신 allowance 스냅샷을 사용하기 때문이다 \cend{64}. 평판을 자주 갱신해야 하는 프로토콜에게 이 차이는 운영상 실질적이다. PageRank 벽시계 시간의 한 자릿수 감소는 비례하는 인프라 비용 없이 더 조밀한 갱신 루프를 가능하게 한다.
+
+\dissertationSubsubheading[sub:finding-rq4]{RQ4: 미래 신규 승인의 시간 홀드아웃}
+
+RQ4는 t1 점수가 인바운드 지출자에서 t2 신규 소유자--지출자 승인을 예측하는지를 묻는다. 그 코호트($n=1{,}335$)에서 EndorseRank Kendall $\tau=0.479$(신뢰구간 $0.426$--$0.529$), AWP $\tau=0.044$이다. $222$개 지출자가 적어도 하나의 신규 t2 쌍을 받았다.
+
+홀드아웃은 미래 시제의 동일 보증 구성 개념이다. 라벨이 점수 창 밖에 있으므로, 동일 창 allowance $\tau=0.355$보다 외부 증거로서 더 정보적이다.
+
+\dissertationSubheading[sec:theoretical-implications]{이론적 함의}
+
+결과는 세 갈래의 이론을 확장한다. 금융 그래프에서의 하이퍼링크형 전파, 온체인 점수의 구성 타당성, 가명성 하에서의 신뢰 경제학이다.
+
+\dissertationSubsubheading[sub:theory-propagation]{전송을 넘어선 전파 의미}
+
+PageRank의 원래 정식화는 인바운드 하이퍼링크를 인용으로 취급한다 \cend{49,8}. Do et al.\cend{16}은 그 은유를 이더리움 전송에 대응시킨다. EndorseRank는 이를 ERC-20 allowance에 대응시킨다. 지출자를 승인하는 소유자는 지출 권한에 대한 방향성 보증을 발행한다 \cend{18,19}. 방법 간 $\tau=0.316$은 노드 집합을 고정한 채 간선 의미만 바꾸어도 순위 기하가 달라짐을 보여 준다. 따라서 그래프 기반 평판은 ``그'' 거래 그래프에 적용되는 단일 알고리즘이 아니라, 어떤 관계가 간선으로 인코딩되는지에 타당성이 의존하는 방법 계열이다 \cend{40,44}.
+
+P2P 및 웹 설정의 관련 신뢰 전파 시스템---EigenTrust와 TrustRank---역시 시드 집합과 간선 정의가 결과를 지배함을 보여 준다 \cend{35,27}. EndorseRank는 메시지 전달 오버레이나 하이퍼링크 그래프가 아니라 토큰 표준에 고유한 간선 정의를 기여한다.
+
+\dissertationSubsubheading[sub:theory-construct]{다중 구성 개념 도메인 정합}
+
+검사 설계는 전송 중심성과 allowance 위임을 분리한다. EndorseRank는 일차 allowance 구성 개념($G_{\text{approve}}$, $\tau=0.355$)과 정합하고, 전송 검사는 이차 축이다(중간 $\tau=0.333$, AWP $0.534$보다 낮음). 시간 홀드아웃은 그 승인 신호가 점수 창 이후에도 지속되는지를 묻는다.
+
+이 패턴은 고전적 구성 타당성 추론과 일치한다. 지표는 동일 구성 개념의 측정치와 상관하고 다른 구성 개념의 측정치와 분기해야 한다 \cend{14}. 순위 상관 \cend{54,36}은 분류 임계값을 부과하지 않고 서열 평판 점수에 대해 그 추론을 조작화한다.
+
+\dissertationSubsubheading[sub:theory-pseudonymity]{저비용 가명 하에서의 평판}
+
+공개 원장은 저비용 신원 생성을 허용한다 \cend{46,60,17}. 따라서 인바운드 전송이나 allowance를 보상하는 평판 시스템은, 공격자가 통제 주소 간에 간선을 제조하는 Sybil 전략에 노출된다. 실증 결과는 그 위협을 제거하지 않는다. 다만 allowance 그래프와 전송 그래프가 관측 표본에 존재하는 활동 패턴에 다르게 반응함을 보여 준다. 제~\ref{sec:sybil-cost-model}절은 allowance 그래프에 대한 공격 비용을 정식화하며, 외부 지출자에 대한 비영(非零) allowance가 순수 전송 워시 트레이딩에는 없는 기회비용과 철회 비용을 부과할 수 있다고 주장한다.
+
+\dissertationSubheading[sec:practical-implications]{실무적 함의}
+
+프로토콜과 인프라 제공자는 전송 허브 탐지와 승인 인식 평판 사이의 설계 선택에 직면한다. 실증적 상충은 단일 권장 점수가 아니라 시나리오 의존적 채택을 지지한다.
+
+\dissertationSubsubheading[sub:deploy-transfer]{전송 허브 및 흐름 모니터링}
+
+고흐름 지갑 탐지를 우선하는 프로토콜---예를 들어 시장 조성자 식별, 라우팅 분석, 전송 기반 컴플라이언스 휴리스틱---은 비용이 더 높더라도 AWP를 선호할 수 있다. AWP의 전송 $\tau=0.534$는 운영 목표가 경제 흐름 중심성일 때 더 나은 정합을 제공한다 \cend{16}. $n=5{,}521$ 지갑에서 $18.711$\,s의 실행 시간은 배치 분석에는 수용 가능하나, 초미만 또는 준실시간 갱신에는 덜 매력적이다.
+
+\dissertationSubsubheading[sub:deploy-allowance]{승인 인식 및 저지연 갱신}
+
+명시적 지출 승인을 강조하는 프로토콜---토큰 볼트, allowance 게이트 통합, 승인을 신뢰 행위로 취급하는 위험 엔진---은 EndorseRank를 선호할 수 있다. 방법의 allowance $\tau=0.355$, 희소 그래프($14{,}727$개 간선), $2.105$\,s PageRank 시간은 빈번한 재계산을 지원한다. 풀 스케일링($n=10{,}000$에서 약 $10.4\times$; $N=31{,}612$에서 약 $9.4\times$)은 효율 이점이 매칭 코호트를 넘어 유지됨을 나타낸다. 운영자는 승인 의미, 미래 신규 승인에 대한 홀드아웃 증거, 속도의 대가로 더 낮은 전송 검사 정합($\tau=0.333$)을 수용한다.
+
+\dissertationSubsubheading[sub:deploy-hybrid]{평가 설계와 하이브리드 사용}
+
+하이브리드 배포는 가능하다. 지속적 승인 인식 모니터링에는 EndorseRank, 주기적 전송 허브 감사에는 AWP를 사용한다. 오픈 파이프라인은 allowance 로그가 있는 모든 ERC-20 체인에서 교차 프로토콜 재현을 가능하게 한다(부록~\ref{ch:appendix-eval}). 실시간 위험 오라클과의 통합은 향후 연구로 남지만(제~\ref{ch:conclusion}장), EndorseRank의 효율 프로파일은 전송 그래프 AWP가 동일 비용으로 유지하기 어려울 수 있는 갱신 주기와 호환된다.
+
+\dissertationSubsubheading[sub:deploy-industry]{산업 채택 시나리오}
+
+EndorseRank와 AWP의 실무적 가치는 저렴하고 표준화되며 독립적으로 재계산 가능한 서열 신호를 공급한다는 데 있다. 가치 포착은 담보를 줄이는 경로가 아니라, 수수료, 이용률, 모니터링 비용, 보상 누출 감소를 통해 이루어진다고 가설화한다. 아래 시나리오는 행위자를 실증 결과와 일치하는 의사결정 문제에 대응시킨다.
+
+\begin{itemize}
+\item \textbf{DEX 운영자:} 주로 거래 수수료에서 수익을 얻는 프로토콜은, 평판을 자주 갱신해야 할 때 모니터링, 수수료 등급, 기능 접근을 어느 지갑에 우선할지라는 연속적 의사결정 문제에 직면한다. EndorseRank는 allowance $\tau=0.355$가 점수를 승인 활동과 정합시키고, 매칭 코호트에서 PageRank가 $2.105$\,s에 완료되어 전송 이력 집계 없이 빈번한(초 단위) 갱신을 가능하게 하므로 이 루프에 적합하다. 수익 효과는 수수료 거래량(차별화된 서비스가 유지 명목을 높이는 경우)과 위험 검토의 모니터링 비용 절감을 통해 이루어진다고 가설화한다. 수수료 및 모니터링 정책이 정당화된 레버로 남는다.
+
+\item \textbf{대출 프로토콜:} 대출 시장은 담보화를 포기하지 않으면서 더 높은 자본 이용률을 추구한다 \cend{5,26}. 평판은 이미 담보화된 포지션에 대한 이자율·수수료 등급 및 검토 주기의 보조 신호로 진입할 수 있으며, 담보의 대체물이 아니다. 프로토콜이 예치와 차입에 이미 ERC-20 승인에 의존할 때 EndorseRank는 자연스러운 사회 입력이다(제~\ref{sec:allowance-endorsement}절). 이용률 기반 이자 수입이 수익 채널이다. 점수는 부도 예측자가 아니다. 담보 차별화 실험은 향후 연구로 남는다(제~\ref{ch:conclusion}장).
+
+\item \textbf{지갑 및 보안 도구:} 사용자와 통합자는 지출자 계약이 널리 승인되었는지를 판단해야 한다. 지출자의 EndorseRank---또는 인바운드 보증 질량의 분포---를 신뢰 배지로 표시하면, allowance 의미를 지출 권한의 명시적 위임으로 조작화한다 \cend{18,19}. 벤더는 프리미엄 알림과 API 구독을 통해 수익화할 수 있다. 이는 도구용 구독 수익이며, 프로토콜 수수료, 이용률, 모니터링 비용 절감, Sybil 필터 보상 누출 감소와는 구별된다. 배지는 공개된 간선 정의 하에서의 그래프 위치를 보고하며, 보안 감사나 악성 계약에 대한 보증이 아니다.
+
+\item \textbf{유동성 공급자 및 시장 조성자:} LP와 시장 조성자는 재고 및 스프레드 관리를 위해 전송 허브와 흐름 구조를 식별해야 한다. AWP가 이 목표에 더 나은 사회적 방법이다. 전송 $\tau=0.534$와 $n=5{,}521$ 지갑에서 $18.711$\,s의 배치 친화적 실행 시간은 초미만 갱신이 아니라 주기적 분석을 지원한다 \cend{16}. 운영 채널은 개선된 P\&L이나 수익성 예측이 아니라, 전송 허브 식별 시 스크리닝·모니터링 비용 절감이다. AWP는 흐름 중심성 도구로 남으며, 수익성 오라클이 아니다.
+
+\item \textbf{에어드롭 및 거버넌스 프로그램:} 토큰 분배와 거버넌스 자격은 일상적으로 Sybil 클러스터에 의해 조작된다 \cend{17}. 프로그램은 인바운드 보증 다양성을 요구하거나, 보상 지급 전에 제~\ref{sec:sybil-cost-model}절의 폐쇄 클러스터 질량 상한(식~\ref{eq:cluster-mass})을 필터로 적용할 수 있다. 수익---또는 비용 회피---채널은 조작된 신원으로의 보상 누출 감소이다. 그래프 구조 기반 필터는 폐쇄 클러스터 인플레이션을 완화하지만, 정직한 인바운드 보증을 모집하는 개방 클러스터 공격을 제거하지는 않는다.
+
+\item \textbf{분석 및 컴플라이언스 제공자:} 거래소, 펀드, 컴플라이언스 팀은 제3자가 재계산할 수 있는 감사 가능한 상대방 순위가 필요하다. 오픈 파이프라인(부록~\ref{ch:appendix-eval})은 공개된 창과 매개변수 아래 EndorseRank와 AWP를 게시하는 구독 API를 지원한다. 반복 데이터 수익은 벤더 비즈니스 모델이며, 감사 가능성은 불투명한 기계학습 점수에 대한 제품 차별화 요소이다 \cend{48}. 제공자는 순위를 표시하는 대시보드와 함께 Sybil 노출을 공개해야 한다.
+\end{itemize}
+
+이들 시나리오 중 어느 것도 평판을 담보의 대체물로 취급하지 않는다. 주장은 더 좁고, 우리는 더 지속 가능하다고 본다. 표준화되고 감사 가능하며 저지연인 서열 신호는 상대방 차별화 비용을 낮추며, 이를 채택하는 프로토콜은 담보를 줄이거나 프로토콜 신용 위험을 점수로 이전하는 경로가 아니라, 수수료, 이용률, 모니터링 비용, 보상 누출 감소를 통해 가치를 포착할 수 있다.
+
+\dissertationSubsubheading[sub:deploy-multiples]{가치평가 배수에서 평판 배수로}
+
+주가수익비율과 주가순자산비율이 산업 언어가 된 이유는 수익률을 잘 예측해서가 아니라, 표준화·비교 가능·불완전·조작 가능하기 때문이다 \cend{24,6,20,31}. 토큰 경제 가치평가 모형 역시 사적 신원이 아니라 공유되고 공개적으로 관측 가능한 양에 의존한다 \cend{13}. EndorseRank와 AWP는 가명 지갑에 대해 유사한 인프라 역할을 할 수 있다. 오픈 파이프라인(부록~\ref{ch:appendix-eval})이 공개 로그로부터 계산하고, 갱신 비용이 낮으며(매칭 코호트에서 EndorseRank $2.105$\,s), 독립적으로 검증할 수 있다. 어느 점수도 이익 예측이 아니다. 가치평가 배수와 마찬가지로, 표준화된 평판 점수는 구성이 공개되고 실패 모드가 명명될 때만 유용하다(제~\ref{sec:sybil-cost-model}절, 제~\ref{sec:regulatory-ethics}절).
+
+\dissertationSubheading[sec:sybil-cost-model]{allowance 그래프에서의 Sybil 비용}
+
+Sybil 공격은 저비용 가명을 악용하여 평판을 제조한다 \cend{17}. 전송 그래프에서 공격자는 통제 지갑 간에 가치를 워시 트레이딩하여, 수수료와 재고 위험을 대가로 인디그리와 인밸류를 부풀릴 수 있다. Allowance 그래프에서는 간선이 완료된 전송이 아니라 승인을 나타내므로 공격면이 다르다. 본 절은 조작된 allowance를 통해 EndorseRank를 부풀리기 위한 최소 비용 모형을 정식화한다.
+
+\dissertationSubsubheading[sub:sybil-setup]{공격 설정}
+
+공격자가 통제하는 주소 집합을 $\mathcal{A}$, 보증 그래프 $G_{\text{approve}}=(V,E,w)$에서 정직한 지갑 집합을 $\mathcal{H}$라 하자. 가중치 $w_{uv}>0$인 간선 $(u,v)$는 $u$가 현재 $v$에게 소수점 조정된 토큰 단위 합계 $w_{uv}$의 지출을 승인함을 나타낸다. EndorseRank는 감쇠 $d\in(0,1)$로 $G_{\text{approve}}$에서 PageRank 벡터 $\mathbf{r}$를 계산한다 \cend{49,40}:
+\begin{equation}
+\label{eq:pagerank-sybil}
+\mathbf{r} = d\, P^{\top} \mathbf{r} + \frac{1-d}{|V|}\mathbf{1},
+\end{equation}
+여기서 $P$는 출고 allowance 가중치를 정규화하여 얻은 행확률 행렬이다(댕글링 노드에 대한 표준 처리를 포함).
+
+공격자는 목표 부분집합 $T\subseteq\mathcal{A}$의 평균 EndorseRank를 최대화하려 한다.
+\begin{equation}
+\label{eq:objective}
+J(T) = \frac{1}{|T|}\sum_{i\in T} r_i,
+\end{equation}
+아래 정의된 공격 비용 예산의 제약을 받는다.
+
+\dissertationSubsubheading[sub:sybil-cost]{비용 구성 요소}
+
+가중치 $w_{uv}$인 allowance 간선 $(u,v)$를 조작하면 적어도 세 가지 비용 구성 요소가 발생한다.
+
+\begin{enumerate}
+\item \textbf{거래 비용:} \texttt{approve} 또는 \texttt{permit} 제출은 가스를 소비한다. allowance 갱신당 기대 수수료를 $c_{\mathrm{gas}}$라 하자. $m$회 갱신에 대해,
+\begin{equation}
+C_{\mathrm{gas}} = m\, c_{\mathrm{gas}}.
+\end{equation}
+
+\item \textbf{자본 잠금 / 기회비용:} 외부 지출자 $v\notin\mathcal{A}$에 대한 비영 allowance는 $u$가 소유한 토큰을 $v$의 전송에 노출시킨다. $v\in\mathcal{A}$인 경우에도, 정직한 행동을 모방하려면 계약이나 라우터에 대한 큰 allowance를 유지해야 할 수 있다. 평판 갱신 지평에 걸쳐 가중치 $w_{uv}$와 연관된 자본의 기회비용을 $\ell(w_{uv})$라 하자(예를 들어, 포기된 수익). 그러면
+\begin{equation}
+C_{\mathrm{cap}} = \sum_{(u,v)\in E_{\mathcal{A}}} \ell(w_{uv}),
+\end{equation}
+여기서 $E_{\mathcal{A}}$는 공격자가 생성한 간선을 나타낸다.
+
+\item \textbf{철회 및 탐지 비용:} 정직한 사용자는 오래된 allowance를 철회한다. 철회하지 않는 공격자는 구별될 수 있다. $k$개 갱신 에포크에 걸쳐 목표 간선 집합을 유지하는 데 필요한 주기적 철회 및 재승인의 기대 비용을 $c_{\mathrm{rev}}$라 하자.
+\begin{equation}
+C_{\mathrm{rev}} = k\, c_{\mathrm{rev}}.
+\end{equation}
+\end{enumerate}
+
+총 공격 비용은
+\begin{equation}
+\label{eq:total-cost}
+C = C_{\mathrm{gas}} + C_{\mathrm{cap}} + C_{\mathrm{rev}}.
+\end{equation}
+
+\dissertationSubsubheading[sub:sybil-bound]{영향력과 비용 효과성 상한}
+
+표준 PageRank 민감도 결과에 따르면, 간선이 $\mathbf{r}$에 미치는 영향은 출발지의 정상 질량과 정규화된 출고 가중치에 의해 매개된다 \cend{40}. $\mathcal{A}$ 내부에만 간선을 추가하여 $J(T)$에서 얻는 이득---정직한 인바운드 보증이 없는 폐쇄 Sybil 클러스터---에 대한 조악한 상한은 텔레포테이션 질량에 의해 제한된다.
+\begin{equation}
+\label{eq:closed-cluster}
+\sum_{i\in\mathcal{A}} r_i \leq |\mathcal{A}|\cdot\frac{1-d}{|V|} + d\cdot \sum_{i\in\mathcal{A}} r_i,
+\end{equation}
+이를 정리하면
+\begin{equation}
+\label{eq:cluster-mass}
+\sum_{i\in\mathcal{A}} r_i \leq \frac{|\mathcal{A}|}{|V|}.
+\end{equation}
+따라서 폐쇄 공격자 클러스터는 총 순위 질량의 인구 점유율을 초과하여 포착할 수 없다. 그 점유율을 초과하려면 공격자는 $\mathcal{H}$로부터의 인바운드 보증이 필요하며, 이는 정직한 지갑을 침해하거나 정직한 소유자가 공격자 통제 지출자를 승인하도록 유도하는 것을 요구한다---그 비용은 통상 가스만이 아니라 $C_{\mathrm{cap}}$과 사회공학적 노력에 의해 지배된다.
+
+공격자가 정직한 소유자로부터 인바운드 allowance를 구매할 때(예를 들어, 승인을 요청하는 서비스를 운영하여), 정직 출처 가중치 $w_{h a}$ 단위당 한계 비용은
+\begin{equation}
+\label{eq:marginal}
+c_{\mathrm{in}}(w_{h a}) = c_{\mathrm{gas}} + \ell_{\mathrm{honest}}(w_{h a}) + \pi(w_{h a}),
+\end{equation}
+로 쓸 수 있다. 여기서 $\ell_{\mathrm{honest}}$는 정직한 소유자에게 지급하는 보상이고, $\pi$는 악의적 지출로 인한 잠재 손실에 대한 위험 프리미엄이다. 공격의 비용 효과성은 그러면
+\begin{equation}
+\label{eq:efficiency}
+\eta = \frac{\Delta J(T)}{C},
+\end{equation}
+이며, $\Delta J(T)$는 공격 간선에 기인하는 평균 목표 순위의 증가분이다.
+
+식~\eqref{eq:closed-cluster}--\eqref{eq:efficiency}는 EndorseRank가 Sybil-proof가 아니지만, 폐쇄 클러스터 인플레이션은 인구 점유율로 제한되고, 교차 클러스터 인플레이션은 비용이 큰 정직 출처 allowance를 요구함을 함의한다. 전송 워시 트레이딩은 다른 비용(수수료와 재고)에 직면하지만, 외부 주소에 지출 권한을 노출할 필요는 없다. 제~\ref{ch:results}장의 Sybil 조정 안정성 대리 지표는 관측적 조작을 부분적으로 다루지만, 적대적 평가를 대체하지는 않으며, 이는 향후 연구로 남는다.
+
+\dissertationSubheading[sec:regulatory-ethics]{규제 및 윤리적 고려}
+
+온체인 평판 점수는 투명성과 공정성 사이의 경합 공간에 위치한다. DeFi에 대한 법적·규제적 분석은 정산이 온체인에서 이루어지더라도 탈중앙화 시장이 공시 및 소비자 보호 우려의 대상임을 강조한다 \cend{62}. Packin and Lev-Aretz\cend{48}는 모형이 불투명하거나, 이의 제기할 수 없거나, 적법 절차 없이 신원 체계에 결합되면 탈중앙화 신용 평점이 블랙박스 피해를 재현할 수 있다고 경고한다. EndorseRank와 AWP는 공개 원장 이벤트와 공개된 알고리즘에 의해 완전히 결정되며, 어떤 당사자도 오픈 파이프라인(부록~\ref{ch:appendix-eval})으로부터 점수를 재계산할 수 있다. 그 감사 가능성은 블랙박스 우려에 대한 부분적 대응이지만, 분배 효과를 해결하지는 않는다. 승인 또는 전송 이력이 제한된 지갑은 오프체인 신용도와 무관하게 낮은 점수를 받는다.
+
+윤리적으로, 점수는 신원, 소비자 대출 의미의 신용도, 또는 고유 인격의 증명으로 제시되어서는 안 된다 \cend{17}. 이들은 지정된 간선 의미 하에서 온체인 그래프 위치의 서열 지표이다. 금융 서비스 접근을 게이트하는 배포는 그래프 정의, 관측 창, 알려진 실패 모드---Sybil 노출을 포함---를 공개해야 한다. 설명 가능성을 요구하는 규제 체제는, 운영자가 대출 부도에 대한 예측력을 과대 주장하지 않는 한, 불투명한 기계학습 점수보다 그래프 전파를 선호한다 \cend{39,48}.
+
+프라이버시는 공개 원장에서 구조적으로 제한된다 \cend{46,60}. 평판 계산은 이미 방송된 데이터를 사용한다. 따라서 윤리적 의무는 분석을 피하는 것이 아니라, 주소 수준 집계를 넘는 비익명화를 피하고, 점수를 지속적 생체인식형 식별자로 오용하는 것을 방지하는 것이다. 본 연구는 주소만을 분석하며, 오프체인 신원 연결은 수행하지 않는다(제~\ref{ch:methodology}장).
+
+\dissertationSubheading[sec:threats-validity]{타당성에 대한 위협}
+
+실증 주장의 해석은 구성, 내부, 외부, 적대적 타당성으로 조직된 다음 위협을 고려해야 한다.
+
+\dissertationSubsubheading[sub:threat-construct]{구성 타당성}
+
+\begin{itemize}
+\item \textbf{검사는 신용 라벨이 아님:} 저담보 대출 부도 라벨은 사용하지 않는다. 동일 창 검사는 allowance와 전송 국소 통계이다. 홀드아웃은 미래 신규 승인이다.
+
+\item \textbf{홀드아웃 구성 개념:} 미래 신규 승인은 여전히 보증 이벤트이다. 점수 창 밖에 있으나, 독립된 신용 또는 거래 구성 개념이 아니다.
+
+\item \textbf{이차 축 해석:} EndorseRank의 중간 정도 전송 $\tau=0.333$은 이차 검증 축이며, allowance 그래프가 AWP($\tau=0.534$)만큼 잘 전송 중심성을 측정한다는 증거가 아니다.
+\end{itemize}
+
+\dissertationSubsubheading[sub:threat-internal]{내부 타당성}
+
+\begin{itemize}
+\item \textbf{공유 관측 창:} 모든 방법과 대리 지표는 2025-12-01부터 2026-05-31까지 계산된다. 그 창에 특유한 시장 체제---변동성, 인센티브 프로그램, 프로토콜 변경---가 정합을 부풀리거나 축소할 수 있다. 감쇠와 상위 토큰 부분그래프에 대한 강건성 검증은 PageRank 하이퍼파라미터와 토큰 집중에 대한 민감도를 줄이지만, 달력 창을 변동시키지는 않는다.
+
+\item \textbf{코호트 선택:} 매칭 지갑 코호트는 비영 평판 부분그래프 연결성을 요구한다($n=5{,}521$). 결과는 allowance 및 전송 부분그래프에 없는 주소로 확장되지 않을 수 있다.
+
+\item \textbf{간선 가중치 측정:} 토큰 소수점 정규화, USD 환산 선택, permit 대 approve 커버리지는 $w_{uv}$에 영향을 줄 수 있다. 간선 가중치의 측정 오차는 $\mathbf{r}$와 순위 상관으로 전파된다 \cend{40}.
+\end{itemize}
+
+\dissertationSubsubheading[sub:threat-external]{외부 타당성}
+
+\begin{itemize}
+\item \textbf{단일 프로토콜 및 체인:} 증거는 Arbitrum One에 한정된다. 다른 거래소, 대출 프로토콜, Layer-1 체인으로의 일반화는 교차 프로토콜 검증을 요구한다 \cend{53,59,28}.
+
+\item \textbf{풀 스케일링 대 정합 스케일링:} 확장 지갑 풀($N=31{,}612$)에서의 런타임 스케일링은 더 큰 $n$에서의 효율 주장을 지지한다. 동일 창 정합은 매칭 코호트에, 홀드아웃은 지출자에 고정된다. 효율 이득이 임의 인구 크기에서 동일한 $\tau$ 프로파일을 보존한다고 가정해서는 안 된다.
+\end{itemize}
+
+\dissertationSubsubheading[sub:threat-adversarial]{적대적 타당성}
+
+\begin{itemize}
+\item \textbf{Sybil 및 워시 트레이딩:} 적대적 allowance 또는 전송 패턴이 순위를 조작할 수 있다 \cend{17}. Sybil 조정 대리 지표는 이 위험을 부분적으로 다루지만 제거하지는 않는다. 제~\ref{sec:sybil-cost-model}절의 비용 모형은 분석적이며, 실증적 레드팀 평가가 아니다.
+
+\item \textbf{전략적 승인 행동:} EndorseRank가 배포되면, 합리적 행위자는 순위를 파밍하기 위해 전략적으로 allowance를 부여할 수 있다. 광범위한 배포 이전에 추정된 관측 $\tau$는 전략적 행동에 대한 강건성을 과대평가할 수 있다.
+\end{itemize}
+
+\dissertationSubheading[sec:limitations]{한계}
+
+결과는 Arbitrum One에서 매칭 지갑 코호트 $n=5{,}521$개 주소에 대한 한 6개월 창과, 지출자 홀드아웃 $n=1{,}335$를 반영한다. 보증 부분그래프는 $14{,}727$개 간선, 전송 부분그래프는 $137{,}087$개 간선을 포함한다. EndorseRank의 일차적으로 입증된 강점은 allowance 구성 개념 정합($\tau=0.355$), AWP와의 순위 구별성(방법 간 $\tau=0.316$), 계산 효율($2.105$\,s 대 $18.711$\,s), 미래 신규 승인자와의 홀드아웃 정합($\tau=0.479$)이다.
+
+토큰 소수점 정규화, USD 가격 오라클, permit 대 approve 커버리지는 간선 가중치에 영향을 줄 수 있다. 확장 기준선(대안 PageRank 변형 및 대출 지향 그래프)은 향후 비교를 위해 보관되지만(부록~\ref{ch:appendix-eval}), 본 연구의 주요 서술에서는 제외된다. 무담보 대출 부도 라벨은 범위 밖이다. 규제·윤리적 배포 제약(제~\ref{sec:regulatory-ethics}절)은 정합이 유리하더라도 점수를 어떻게 사용해야 하는지를 제한한다.
+
+이러한 한계는 주장을 한정한다. EndorseRank는 연구된 코호트와 창에서 신뢰할 만하고 효율적이며 allowance에 특화된 사회 평판 방법이다. 보편적 신용 점수, Sybil-proof 신원 체계, 또는 프로토콜 수준 담보화의 대체물이 아니다 \cend{26,48}.

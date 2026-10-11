@@ -7,8 +7,8 @@ run_benchmark.py; run_supplementary.py when it exists) and the same-window cohor
 score parts; it computes no score and no statistic. A table or figure is written
 only when its inputs exist.
 
-Tables:  dissertation/results/tables/<name>.tex, \\label{tab:<name>}
-Figures: dissertation/Figures/generated/<name>.pdf
+Tables:  dissertation/overleaf-github/results/tables/<name>.tex, \\label{tab:<name>}
+Figures: dissertation/overleaf-github/Figures/generated/<name>.pdf
 
 Every cell is checked while it is written: a missing number is printed as ---
 and listed at the end, as is an interval whose ends are reversed, a verdict that
@@ -31,7 +31,7 @@ from graphs import METHOD_LABELS  # noqa: E402
 from labels import TRADER_LABELS  # noqa: E402
 from run_same_window import FAMILIES as FAMILY_PROXIES  # noqa: E402
 
-THESIS = ROOT.parent / "dissertation"
+THESIS = ROOT.parent / "dissertation" / "overleaf-github"  # manuscript submodule (phd-dissertation-draft-en)
 SOURCES = {
     "same": PROC / "same-window" / "eval_summary.json",
     "w0": PROC / "holdout-w0" / "eval_summary.json",

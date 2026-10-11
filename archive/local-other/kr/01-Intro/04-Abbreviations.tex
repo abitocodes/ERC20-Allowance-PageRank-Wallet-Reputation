@@ -1,0 +1,75 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\chapter*{약어 및 기호}
+\label{ch:abbreviations}
+
+본 절은 연구 전반에서 사용하는 약어와 수학 기호를 정리한다. 기호는 본문 장에서 국소적 이해를 돕기 위해 최초 사용 시 다시 정의한다.
+
+\phantomsection
+\section*{약어}
+\label{sec:abbrev-table}
+
+\begin{table}[htbp]
+\centering
+\caption{본 연구에서 사용하는 약어.}
+\label{tab:abbreviations}
+\fitwidth{%
+\begin{tabular}{lp{0.72\linewidth}}
+\toprule
+약어 & 의미 \\
+\midrule
+AMM & Automated Market Maker (자동화된 시장 조성자) \\
+AWP & Adaptive Weighted PageRank \\
+BQ & BigQuery \\
+CCS & ACM Conference on Computer and Communications Security \\
+DeFi & Decentralized Finance (탈중앙화 금융) \\
+DEX & Decentralized Exchange (탈중앙화 거래소) \\
+EIP & Ethereum Improvement Proposal \\
+ERC-20 & Ethereum Request for Comments 20 (대체 가능 토큰 표준) \\
+FC & Financial Cryptography and Data Security \\
+LP & Liquidity Provider (유동성 공급자) \\
+MEV & Maximal Extractable Value (이전 명칭: Miner Extractable Value) \\
+PR & PageRank \\
+RQ & Research Question (연구 질문) \\
+SoK & Systematization of Knowledge \\
+SRQ & Supplementary Research Question (보조 연구 질문) \\
+USENIX & USENIX Security Symposium \\
+WWW & World Wide Web Conference \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\phantomsection
+\section*{수학 기호}
+\label{sec:notation-table}
+
+\begin{table}[htbp]
+\centering
+\caption{본 연구에서 사용하는 수학 기호.}
+\label{tab:notation}
+\fitwidth{%
+\begin{tabular}{lp{0.72\linewidth}}
+\toprule
+기호 & 의미 \\
+\midrule
+$G_{\mathrm{approve}}$ & 최신 ERC-20 allowance로부터의 방향성 보증 그래프 (소유자 $\to$ 지출자) \\
+$G_{\mathrm{transfer}}$ & 시간 감쇠 간선 가중치를 갖는 방향성 전송 그래프 (AWP 입력) \\
+$n$ & 정합 코호트 크기 (주요 비교: $n=5{,}521$) \\
+$N$ & 확장 지갑 풀 크기 (확장성: $N=31{,}612$) \\
+$d$ & PageRank 감쇠(텔레포트) 계수 \\
+$k$ & AWP 로지스틱 시간 감쇠 기울기 \\
+$t_0$ & AWP 로지스틱 시간 감쇠 중점 (일) \\
+$\Delta t$ & AWP 감쇠를 위한 간선 연령 (일) \\
+$\sigma(\Delta t)$ & 전송 간선에 적용하는 로지스틱 감쇠 가중치 \\
+$\rho$ & Spearman 순위 상관계수 \\
+$\tau$ & Kendall 순위 상관계수 \\
+$|E|$ & 평판 그래프의 방향성 간선 수 \\
+$\mathcal{W}$ & 평가 코호트에 속한 지갑 집합 \\
+$s(w)$ & 주어진 방법 하에서 지갑 $w$의 평판 점수 \\
+$p(w)$ & 지갑 $w$에 대한 검증 대리 지표 값 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

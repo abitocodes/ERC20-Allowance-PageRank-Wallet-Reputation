@@ -1,0 +1,44 @@
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture, overlay]
+  % 배경에 흩어진 점과 화살표
+  \begin{scope}[shift={(current page.north west)}, opacity=0.35]
+    \foreach \x/\y/\n in {2.2/-2.6/a, 5.4/-1.8/b, 8.7/-3.1/c, 11.6/-2.2/d, 3.7/-5.0/e, 7.0/-5.6/f, 10.4/-5.3/g, 13.0/-4.4/h}
+      \node[circle, fill=allowcol!40, minimum size=5mm, inner sep=0pt] (\n) at (\x,\y) {};
+    \foreach \s/\t in {a/b, b/c, e/b, f/c, g/c, c/d, h/d, f/g}
+      \draw[allow, line width=1.2pt] (\s) -- (\t);
+    \foreach \s/\t in {a/e, e/f, d/h, g/h}
+      \draw[send, line width=1.2pt] (\s) -- (\t);
+  \end{scope}
+\end{tikzpicture}
+
+\vspace*{58mm}
+\begin{center}
+{\titlefont\bfseries\fontsize{34}{42}\selectfont\color{inkblue} 허락의 화살표\par}
+\vspace{6mm}
+{\titlefont\Large 블록체인 지갑의 믿음을 재는 이야기\par}
+\vspace{22mm}
+{\normalsize 권태홍의 박사 학위 논문을\\어린이도 읽을 수 있게 풀어 쓴 책\par}
+\vfill
+{\small 2026년 10월\par}
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+\vspace*{\fill}
+{\small
+\noindent 이 책은 권태홍의 박사 학위 논문
+「더 나은 온체인 지갑 평판 점수를 위해 ERC-20 허락 화살표를 페이지랭크에 넣기」
+(남아프리카공화국 유니사, 컴퓨터 과학)를 쉬운 말로 다시 쓴 것입니다.
+논문은 영어로 쓰였고, 원래 제목은
+{\footnotesize ‘Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring’}입니다.
+
+\medskip
+\noindent 책에 나오는 숫자는 모두 논문의 표를 만든 결과 파일에서 그대로 가져왔습니다.
+그 파일들은 깃허브 공개 저장소 \filepath{github.com/abitocodes/phd_works}의
+\filepath{1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/dissertation/wallet-reputation-experiments/data/3-published-results-for-thesis/}에 있습니다.
+
+\medskip
+\noindent 교실 이야기에 나오는 아이들의 이름과 스티커 이야기는 설명을 위해 지어낸 것입니다.
+}
+\clearpage

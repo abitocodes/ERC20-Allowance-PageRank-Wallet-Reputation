@@ -1,0 +1,18 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces ERC-20 allowance lifecycle: approve (or permit), optional \texttt {transferFrom}, and revoke. EndorseRank edges reflect the latest live allowance snapshot per owner--spender pair (historical approvals superseded, not time-decayed).}}{25}{figure.caption.28}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Random-surfer intuition for PageRank. Solid arrows are graph transitions; dashed arrows represent teleportation that mixes the chain.}}{27}{figure.caption.32}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Conceptual model: primary EndorseRank vs.\ AWP comparison mapped to reputation structure (H1/RQ1), construct checks (H2/RQ2), computational efficiency (H3/RQ3), and the temporal holdout of future new approvals (RQ4).}}{31}{figure.caption.39}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Evaluation pipeline: public Arbitrum logs are extracted and decoded, reputation edges are preprocessed, EndorseRank and AWP ranks are computed, checks and alignment statistics are evaluated, and LaTeX result fragments are exported.}}{43}{figure.caption.57}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Logistic time-decay $\sigma (\Delta t)$ used by AWP ($k=0.01$, $t_0=180$ days). Horizontal axis is event age in days before 2026-05-31 UTC; vertical axis is the multiplicative weight applied to transfer value.}}{47}{figure.caption.62}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces PageRank wall-clock runtime versus cohort size (log $x$-axis). Solid lines: in-cohort scaling on the matched sample ($n\leq 5{,}521$). Dashed lines: expanded wallet pool ($N=31{,}612$). EndorseRank remains approximately $9$--$10\times $ faster than AWP at $n=10{,}000$ ($\approx 10.4\times $) and at full pool size ($\approx 9.4\times $).}}{63}{figure.caption.93}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Damping sensitivity of mean Kendall $\tau $ for allowance and transfer families ($d \in \{0.75, 0.85, 0.95\}$). EndorseRank allowance alignment remains $\approx 0.355$ across the sweep; AWP transfer alignment varies by at most $\approx 0.005$.}}{65}{figure.caption.97}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Family-level mean Kendall $\tau $ heatmap on the matched cohort ($n=5{,}521$). Claims use allowance and transfer cells only.}}{68}{figure.caption.104}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Marginal distributions of EndorseRank and AWP scores on the matched cohort ($n=5{,}521$), shown on a $\log _{10}$ scale for wallets with positive score (EndorseRank excludes $966$ zero-score wallets; AWP excludes $381$). Both are right-skewed PageRank distributions; differences in shape reflect the distinct endorsement and transfer operators.}}{72}{figure.caption.113}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Rank--rank scatter of EndorseRank versus AWP on the matched cohort. Inter-method Kendall $\tau =0.316$ indicates partial overlap with substantial pairwise disagreement, supporting H1/RQ1 (construct-distinct orderings).}}{73}{figure.caption.114}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

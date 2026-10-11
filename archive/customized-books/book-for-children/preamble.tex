@@ -1,0 +1,130 @@
+% 판형: 152 x 225 mm (신국판)
+\usepackage[paperwidth=152mm,paperheight=225mm,top=21mm,bottom=22mm,inner=19mm,outer=17mm,footskip=11mm,headsep=6mm]{geometry}
+\usepackage{fontspec}
+\usepackage{kotex}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,shapes.misc,calc,decorations.pathreplacing,fit,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={허락의 화살표: 블록체인 지갑의 믿음을 재는 이야기}, pdfauthor={권태홍}, pdfsubject={박사 학위 논문을 어린이 눈높이로 풀어 쓴 책}, pdflang={ko}}
+\usepackage{xurl}
+
+% 글꼴: 나눔 글꼴이 있으면 쓰고, 없으면 Windows의 맑은 고딕을 씁니다.
+\IfFontExistsTF{NanumBarunGothic}{%
+  \setmainhangulfont{NanumBarunGothic}[AutoFakeSlant=0.15]%
+  \setmainfont{NanumBarunGothic}[AutoFakeSlant=0.15]%
+  \setsansfont{NanumBarunGothic}%
+}{%
+  \setmainhangulfont{Malgun Gothic}[AutoFakeSlant=0.15]%
+  \setmainfont{Malgun Gothic}[AutoFakeSlant=0.15]%
+  \setsansfont{Malgun Gothic}%
+}
+\IfFontExistsTF{NanumSquareRound}{%
+  \newfontfamily\titlefont{NanumSquareRound}[BoldFont={NanumSquareRound ExtraBold}]%
+}{%
+  \newfontfamily\titlefont{Malgun Gothic}%
+}
+\IfFontExistsTF{NanumGothicCoding}{%
+  \setmonofont{NanumGothicCoding}%
+}{%
+  \setmonofont{Consolas}%
+}
+
+\linespread{1.5}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.35em}
+\frenchspacing
+\emergencystretch=3em
+% 한글에는 기울임꼴이 어울리지 않아서, 강조는 색으로 해요.
+\renewcommand{\emph}[1]{\textcolor{inkblue}{#1}}
+\newcommand{\filepath}[1]{{\small\nolinkurl{#1}}}
+
+% 색
+\definecolor{inkblue}{HTML}{2B5C8A}
+\definecolor{skyfill}{HTML}{E8F1FA}
+\definecolor{sunfill}{HTML}{FFF6D6}
+\definecolor{sunline}{HTML}{E0B000}
+\definecolor{leaffill}{HTML}{E9F6EA}
+\definecolor{leafline}{HTML}{3C8D47}
+\definecolor{rosefill}{HTML}{FCE9EC}
+\definecolor{roseline}{HTML}{C0392B}
+\definecolor{allowcol}{HTML}{2E86C1}
+\definecolor{sendcol}{HTML}{E67E22}
+\definecolor{greycol}{HTML}{8A8F98}
+
+% 장 제목
+\titleformat{\chapter}[display]
+  {\titlefont\color{inkblue}}
+  {\large\bfseries \thechapter 장}
+  {0.6ex}
+  {\bfseries\fontsize{22}{30}\selectfont}
+  [\vspace{0.4ex}{\color{inkblue!40}\titlerule[1.2pt]}]
+\titleformat{name=\chapter,numberless}[display]
+  {\titlefont\color{inkblue}}
+  {}
+  {0pt}
+  {\bfseries\fontsize{22}{30}\selectfont}
+  [\vspace{0.4ex}{\color{inkblue!40}\titlerule[1.2pt]}]
+\titlespacing*{\chapter}{0pt}{0pt}{16pt}
+\titleformat{\section}{\titlefont\bfseries\large\color{inkblue}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titleformat{\subsection}{\titlefont\bfseries\normalsize\color{inkblue}}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{0}
+
+% 차례, 그림 이름
+\renewcommand{\contentsname}{차례}
+\renewcommand{\figurename}{그림}
+\renewcommand{\tablename}{표}
+
+% 쪽 머리와 쪽 번호
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small\color{greycol}\leftmark}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% 상자: 조금 더 알고 싶은 사람에게 (어른이나 고학년 독자용)
+\newtcolorbox{deeper}[1][]{%
+  enhanced, breakable, colback=skyfill, colframe=inkblue!70, boxrule=0.6pt, arc=2mm,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\titlefont\bfseries\small,
+  title={조금 더 알고 싶은 사람에게\ifx&#1&\else: #1\fi}, before skip=10pt, after skip=10pt,
+  fontupper=\small}
+% 상자: 생각해 보기
+\newtcolorbox{think}{%
+  enhanced, breakable, colback=sunfill, colframe=sunline, boxrule=0.6pt, arc=2mm,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\titlefont\bfseries\small,
+  coltitle=black, title={생각해 보기}, before skip=10pt, after skip=10pt}
+% 상자: 이 장에서 알게 된 것
+\newtcolorbox{learned}{%
+  enhanced, breakable, colback=leaffill, colframe=leafline, boxrule=0.6pt, arc=2mm,
+  left=3mm, right=3mm, top=2mm, bottom=2mm, fonttitle=\titlefont\bfseries\small,
+  title={이 장에서 알게 된 것}, before skip=12pt, after skip=4pt}
+
+\setlist[itemize]{leftmargin=1.4em, itemsep=0.15em, topsep=0.3em}
+\setlist[enumerate]{leftmargin=1.6em, itemsep=0.15em, topsep=0.3em}
+
+% 그림 공통 모양
+\tikzset{
+  kid/.style={circle, draw=inkblue, fill=skyfill, line width=0.7pt, minimum size=11mm, inner sep=0pt, font=\small},
+  robot/.style={rounded rectangle, draw=greycol, fill=gray!12, line width=0.7pt, minimum height=8mm, inner sep=2pt, font=\small},
+  fake/.style={circle, draw=roseline, dashed, fill=rosefill, line width=0.7pt, minimum size=9mm, inner sep=0pt, font=\scriptsize},
+  allow/.style={-{Stealth[length=2.6mm]}, line width=1pt, color=allowcol},
+  send/.style={-{Stealth[length=2.6mm]}, line width=1pt, color=sendcol},
+  plainarrow/.style={-{Stealth[length=2.6mm]}, line width=0.9pt, color=inkblue},
+}
+\newcommand{\num}[1]{\textbf{#1}}

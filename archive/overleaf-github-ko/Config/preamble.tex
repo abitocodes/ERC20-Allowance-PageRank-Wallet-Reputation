@@ -1,0 +1,168 @@
+% !TEX root = ../main.tex
+\documentclass[12pt]{report}
+\usepackage[a4paper,left=0.885in,right=0.885in,top=1.33in,bottom=1.46in,includefoot]{geometry}
+\usepackage{fontspec}
+% Times New Roman on Windows; TeX Gyre Termes (Times-compatible) on Overleaf/Linux.
+\IfFontExistsTF{Times New Roman}{%
+  \setmainfont{Times New Roman}%
+}{%
+  \setmainfont{TeX Gyre Termes}%
+}
+% 한글 글꼴(xetexko). 본문은 명조, 산세리프는 고딕, 고정폭은 고딕코딩.
+% Linux·Overleaf에는 나눔 글꼴, Windows에는 바탕·맑은 고딕을 씁니다.
+\usepackage{kotex}
+\IfFontExistsTF{NanumMyeongjo}{%
+  \setmainhangulfont{NanumMyeongjo}[AutoFakeSlant=0.15]%
+}{%
+  \IfFontExistsTF{Batang}{%
+    \setmainhangulfont{Batang}[AutoFakeSlant=0.15]%
+  }{%
+    \setmainhangulfont{Malgun Gothic}[AutoFakeSlant=0.15]%
+  }%
+}
+\IfFontExistsTF{NanumGothic}{%
+  \setsanshangulfont{NanumGothic}%
+}{%
+  \setsanshangulfont{Malgun Gothic}%
+}
+\IfFontExistsTF{NanumGothicCoding}{%
+  \setmonohangulfont{NanumGothicCoding}[AutoFakeSlant=0.15]%
+}{%
+  \setmonohangulfont{Malgun Gothic}%
+}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{seqsplit}
+\usepackage{microtype}
+\usepackage{fvextra}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc,decorations.pathreplacing,patterns}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{round-mode=places,round-precision=3,detect-weight=true,detect-family=true}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage[bottom,hang,flushmargin]{footmisc}
+% Keep tables within the text block (no right-margin overflow).
+\newcommand{\fitwidth}[1]{%
+  \begin{adjustbox}{max width=\linewidth,center}%
+  \small\setlength{\tabcolsep}{3.5pt}%
+  #1%
+  \end{adjustbox}%
+}
+\hypersetup{
+  hidelinks,
+  pdftitle={ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기 (한국어 쉬운 번역)},
+  pdfauthor={권태홍 (Taehong Kwon)},
+  pdfsubject={남아프리카대학교(UNISA) 컴퓨터과학 박사 학위 논문의 한국어 번역},
+  pdfkeywords={DeFi, 엔도스랭크, EndorseRank, 페이지랭크, 온체인 평판, Arbitrum}
+}
+% 한국어 이름표: 그림, 표, 목록, 알고리즘
+\AtBeginDocument{%
+  \renewcommand{\figurename}{그림}%
+  \renewcommand{\tablename}{표}%
+  \renewcommand{\listfigurename}{그림 목록}%
+  \renewcommand{\listtablename}{표 목록}%
+  \renewcommand{\contentsname}{차례}%
+  \renewcommand{\chaptername}{장}%
+  \renewcommand{\appendixname}{부록}%
+}
+\floatname{algorithm}{알고리즘}
+\algrenewcommand\algorithmicrequire{\textbf{입력:}}
+\algrenewcommand\algorithmicensure{\textbf{출력:}}
+\algrenewcommand\algorithmicreturn{\textbf{돌려주기:}}
+\algrenewtext{For}[1]{\textbf{반복:} #1}
+\algrenewtext{EndFor}{\textbf{반복 끝}}
+\def\UrlFont{\ttfamily}
+\emergencystretch=2em
+\DeclareRobustCommand{\texttt}[1]{{\ttfamily\seqsplit{#1}}}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{%
+  breaklines=true,breakanywhere=true,fontsize=\small,formatcom=\ttfamily}
+\setstretch{1.58}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.03\baselineskip}
+\setlist[itemize]{leftmargin=2.2em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
+\setlist[enumerate]{leftmargin=2.4em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\pretocmd{\chapter}{\phantomsection}{}{}
+% Match the proposal (../proposal) article \section* / \subsection* sizing and spacing.
+\titleformat{\chapter}[block]
+  {\normalfont\Large\bfseries}{\thechapter}{0.5em}{}
+\titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\Large\bfseries}{}{0pt}{}
+\titlespacing*{name=\chapter,numberless}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{2.5ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\newcommand{\dissertationSubheading}[2][]{%
+  \phantomsection
+  \section{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+\newcommand{\dissertationSubsubheading}[2][]{%
+  \phantomsection
+  \subsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+\newcommand{\TOCentry}[3]{%
+  \noindent\hyperref[#3]{\makebox[2.4em][l]{#1}#2}\nobreak\dotfill\ \hyperref[#3]{\pageref*{#3}}\par\vspace{0.15em}%
+}
+\newcommand{\dissertationResultHeading}[1]{%
+  \par\addvspace{0.45\baselineskip}%
+  \noindent\textbf{#1}\par\nobreak\addvspace{0.06\baselineskip}%
+}
+\newcommand{\figpath}[1]{Figures/generated/#1}
+
+% Citations: superscript [n] in text, hyperlinked to Section 7 References.
+% No page-bottom citation footnotes (媛곸＜); full entries live only in References.
+\ExplSyntaxOn
+\cs_new_protected:Npn \cend_one:n #1
+  {
+    \textsuperscript{\hyperref[ref:#1]{[#1]}}
+  }
+\cs_new_protected:Npn \cend:n #1
+  {
+    \clist_set:Nn \l_tmpa_clist { #1 }
+    \clist_sort:Nn \l_tmpa_clist
+      {
+        \int_compare:nNnTF { ##1 } > { ##2 }
+          { \sort_return_swapped: }
+          { \sort_return_same: }
+      }
+    \clist_clear:N \l_tmpb_clist
+    \clist_map_inline:Nn \l_tmpa_clist
+      {
+        \clist_if_in:NnF \l_tmpb_clist { ##1 }
+          { \clist_put_right:Nn \l_tmpb_clist { ##1 } }
+      }
+    \cs_set_nopar:Npn \cend_sep: {}
+    \clist_map_inline:Nn \l_tmpb_clist
+      {
+        \cend_sep:
+        \cend_one:n { ##1 }
+        \cs_set_nopar:Npn \cend_sep: { \textsuperscript{,} }
+      }
+  }
+\cs_new_eq:NN \cend \cend:n
+\ExplSyntaxOff
+

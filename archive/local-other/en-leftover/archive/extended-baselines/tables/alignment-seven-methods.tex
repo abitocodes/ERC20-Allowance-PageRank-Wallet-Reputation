@@ -1,0 +1,23 @@
+% Real BigQuery data -- regenerate with:
+%   run_dissertation_eval.py --real --export-latex
+
+\begin{table}[htbp]
+\centering
+\caption{Mean Kendall $\tau$ by proxy family across 7 PageRank methods ($n=5521$). Bold = column maximum. Runtime = mean PageRank wall time (s, 5 timed repeats after one warm-up). Edge counts: liq_pr=45, borrow_pr=484, repay_pr=787, borrow_pr_pool=262, repay_pr_pool=232, delegation_pr=0.}
+\label{tab:alignment-seven-methods}
+\fitwidth{%
+\begin{tabular}{lccccccr}
+\toprule
+Method & Transfer & Allowance & Liq. & Inv.risk & Sybil & GMX & Runtime (s) \\
+\midrule
+AWP & 0.534 & -0.030 & 0.113 & 0.107 & \textbf{0.286} & 0.179 & 4.105 \\
+EndorseRank & 0.333 & \textbf{0.355} & 0.093 & 0.035 & 0.233 & 0.096 & 0.401 \\
+GF-PR & 0.246 & -0.041 & 0.132 & \textbf{0.376} & 0.093 & \textbf{0.583} & 0.314 \\
+LP-PR & 0.529 & -0.027 & \textbf{0.136} & 0.098 & 0.280 & 0.196 & 5.257 \\
+CW-AWP & 0.504 & -0.013 & 0.128 & 0.114 & 0.253 & 0.204 & 3.302 \\
+LF-PR & 0.197 & -0.031 & 0.045 & 0.017 & 0.102 & 0.032 & 0.051 \\
+RiskProp & \textbf{0.534} & -0.030 & 0.113 & 0.107 & 0.286 & 0.179 & 4.588 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

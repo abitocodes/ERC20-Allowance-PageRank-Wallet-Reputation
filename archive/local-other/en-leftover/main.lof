@@ -1,0 +1,18 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces ERC-20 allowance lifecycle: approve (or permit), optional \texttt {transferFrom}, and revoke. EndorseRank edges reflect the latest live allowance snapshot per owner--spender pair (historical approvals superseded, not time-decayed).}}{31}{figure.caption.30}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Random-surfer intuition for PageRank. Solid arrows are graph transitions; dashed arrows represent teleportation that mixes the chain.}}{33}{figure.caption.34}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Conceptual model: primary EndorseRank vs.\ AWP comparison mapped to reputation structure (H1/RQ1), construct checks (H2/RQ2), computational efficiency (H3/RQ3), and the temporal holdout of future new approvals (RQ4).}}{38}{figure.caption.41}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Evaluation pipeline: public Arbitrum logs are extracted and decoded, reputation edges are preprocessed, EndorseRank and AWP ranks are computed, checks and alignment statistics are evaluated, and LaTeX result fragments are exported.}}{54}{figure.caption.61}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Logistic time-decay $\sigma (\Delta t)$ used by AWP ($k=0.01$, $t_0=180$ days). Horizontal axis is event age in days before 2026-05-31 UTC; vertical axis is the multiplicative weight applied to transfer value.}}{58}{figure.caption.66}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces PageRank wall-clock runtime versus number of sampled wallets (log $x$-axis). Solid lines: in-cohort stages ($n\le 5{,}521$, Table~\ref {tab:benchmark-scaling-incohort}). Dashed lines: expanded-pool stages ($N=99{,}080$, Table~\ref {tab:benchmark-scaling}). Pool stages add addresses without adding extracted edges, so the rightmost pool point coincides with the full matched cohort.}}{76}{figure.caption.98}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Family-mean Kendall $\tau $ on the matched cohort ($n=5{,}521$) for EndorseRank and AWP; the values are those of Table~\ref {tab:alignment-family-ci}.}}{77}{figure.caption.101}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Marginal distributions of EndorseRank and AWP scores on the matched cohort ($n=5{,}521$), on a $\log _{10}$ scale for wallets with positive score (EndorseRank has $966$ zero-score wallets and AWP $381$, omitted from the histograms).}}{82}{figure.caption.111}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Rank--rank scatter of EndorseRank versus AWP on the matched cohort (random subsample of $2{,}000$ wallets for legibility). Points on the dashed identity line would indicate identical orderings.}}{83}{figure.caption.112}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Damping sensitivity of family-mean Kendall $\tau $ for the allowance and transfer families, $d\in \{0.75,0.85,0.95\}$ (values of Table~\ref {tab:robustness-damping}).}}{84}{figure.caption.116}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

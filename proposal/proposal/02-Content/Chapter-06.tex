@@ -1,0 +1,53 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\section*{6 \textbf{Limitations}}
+\label{sec:limitations}
+\addcontentsline{toc}{section}{6 Limitations}
+
+While this study is designed to rigorously evaluate EndorseRank against Adaptive Weighted PageRank, we acknowledge several inherent limitations and potential threats to validity:
+
+
+\proposalSubheading{1. Data Coverage and Quality}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Event Completeness:} We rely on public event logs (Approve, Permit, Transfer, GMX \textbf{PositionDecrease}) from Arbitrum One archives or BigQuery. Some missing or misindexed events (e.g., due to chain reorganizations or node sync issues) may bias graph construction or GMX outcome aggregation.
+\item[\textbullet] \textbf{Proxy Limitations:} Trading-success proxies (close-success count, realized gain proxy) are domain-intuition measures, not external ground-truth credit labels. High correlation does not by itself establish predictive validity for unrelated under-collateralized lending outcomes studied in prior lending-focused scoring work (e.g., Ghosh et al., 2024).
+\end{itemize}
+\proposalSubheading{2. Temporal Scope}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Fixed Window}: Limiting analysis to a single six-month window may not capture longer-term reputation dynamics or market regime shifts. Results may differ for other periods, especially during high volatility or GMX protocol upgrades.
+\end{itemize}
+\proposalSubheading{3. Graph Modeling Assumptions}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Approval Semantics}: We assume that any nonzero approve/permit represents a substantive trust endorsement. In practice, users may issue ``spend-all'' approvals by default or interact via custodial services, which dilute the trust signal.
+\item[\textbullet] \textbf{Edge Weight Aggregation}: Summing all transfers or using only the latest allowance ignores the provenance of funds and may obscure multi-token or multi-chain interactions.
+\item[\textbullet] \textbf{GMX Trading Semantics}: Profitable \textbf{PositionDecrease} closes reflect realized PnL on perpetual swap positions, not loan repayment. The credit analogy is interpretive; wash trading, copy trading, and automated strategies may inflate proxies without reflecting genuine trustworthiness.
+\end{itemize}
+\proposalSubheading{4. Algorithmic Simplifications}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Fixed Damping Factor}: We apply a single damping factor (d = 0.85) uniformly; in reality, the optimal factor may vary by token, wallet type, or network segment.
+\item[\textbullet] \textbf{Unmodeled Attributes}: EndorseRank ignores off-chain factors (e.g., KYC status, IP geolocation) and non-ERC-20 relationships (e.g., NFT approvals, cross-chain bridges), which may also influence trust.
+\item[\textbullet] \textbf{Minimum Close Filter}: Requiring $\text{total\_closes} \geq 3$ excludes novice or inactive traders and may introduce selection bias in the matched sample.
+\end{itemize}
+\proposalSubheading{5. Generalizability}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Protocol Specificity}: We focus on GMX V2 perpetual swap outcomes on Arbitrum One. EndorseRank's alignment may differ for other perpetual exchanges (e.g., dYdX, Hyperliquid) or non-trading use cases.
+\item[\textbullet] \textbf{Asset Bias}: High-volume tokens (e.g., USDC, WETH) dominate graph structure; smaller or emerging tokens may yield sparse endorsement networks less amenable to PageRank.
+\end{itemize}
+\proposalSubheading{6. Adversarial Manipulation and Sybil Attacks}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Gaming the Graph}: Malicious actors could issue dummy approvals or orchestrate circular allowance patterns to inflate their EndorseRank score. Similarly, coordinated small profitable closes could inflate close-success count. Detecting and mitigating such Sybil strategies require additional safeguards beyond the scope of this study.
+\item[\textbullet] \textbf{No Personhood Layer}: EndorseRank is computed entirely from on-chain state and therefore incorporates none of the off-chain evidence---government-identity checks, biometrics, or web-of-trust vouching---that attestation-based tooling such as Human Passport uses to establish unique personhood (Human Passport, n.d.). It consequently offers no independent guarantee that two highly ranked addresses are controlled by different actors. This is a deliberate design choice that preserves permissionless participation and avoids personal-data processing, but it means EndorseRank should be read as a relational reliability ordering computed over an already admitted population, not as a Sybil defence in itself.
+\item[\textbullet] \textbf{Untested Composition}: Because a personhood gate and a relational ranking answer different questions, combining the two---filtering addresses with an attestation threshold before computing EndorseRank---is a plausible deployment pattern, and the residual weaknesses of attestation scoring such as credential farming would carry over to it (Bordeianu \& Popescu, 2026; Siddarth et al., 2020). Evaluating that composition requires labelled Sybil data that this study does not collect, and it is left to future work.
+\end{itemize}
+\proposalSubheading{7. Computational Constraints}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Scalability Limitations}: Although EndorseRank is more efficient than AWP on our sample, real-time computation on the full Arbitrum transfer graph (millions of wallets) may still demand distributed computing or approximation techniques.
+\end{itemize}

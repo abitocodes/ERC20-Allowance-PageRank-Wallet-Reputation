@@ -1,0 +1,97 @@
+% !TEX root = ../main.tex
+\section{SQL 템플릿, 설정, 확장 주석}
+\label{ch:appendix-sql}
+
+본 부록은 본문을 복잡하게 만들지 않으면서 재현을 지원하는 대표 SQL 패턴, 설정 키, 확장된 방법론 주석을 모은다.
+
+\dissertationSubheading[sec:sql-approval]{Approval 로그 추출 패턴}
+
+ERC-20 \texttt{Approval} 이벤트는 topic~$0$이 \texttt{Approval(address,address,uint256)}의 keccak256 해시와 같을 때 식별된다. 단순화된 월별 쿼리 패턴은 다음과 같다.
+
+\begin{verbatim}
+SELECT
+  block_timestamp,
+  block_number,
+  transaction_hash,
+  log_index,
+  address AS token,
+  topics[SAFE_OFFSET(1)] AS owner_topic,
+  topics[SAFE_OFFSET(2)] AS spender_topic,
+  data AS value_data
+FROM `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`
+WHERE block_timestamp >= TIMESTAMP('2025-12-01')
+  AND block_timestamp <  TIMESTAMP('2026-01-01')
+  AND topics[SAFE_OFFSET(0)] = '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925'
+  AND (
+    LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(1)], 27))) IN UNNEST(@wallet_list)
+    OR LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(2)], 27))) IN UNNEST(@wallet_list)
+  );
+\end{verbatim}
+
+\texttt{@wallet\_list}를 통한 지갑 필터링은 스캔을 전체 체인이 아니라 코호트에 비례하도록 유지한다. 월별 배치는 연구의 수집 기록에 문서화된 쿼리당 바이트 상한을 준수한다.
+
+\dissertationSubheading[sec:sql-transfer]{Transfer 로그 추출 패턴}
+
+\texttt{Transfer} 이벤트는 \texttt{Transfer(address,address,uint256)}에 대한 topic~$0$을 사용한다.
+
+\begin{verbatim}
+SELECT
+  block_timestamp,
+  block_number,
+  transaction_hash,
+  log_index,
+  address AS token,
+  topics[SAFE_OFFSET(1)] AS from_topic,
+  topics[SAFE_OFFSET(2)] AS to_topic,
+  data AS value_data
+FROM `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`
+WHERE block_timestamp >= TIMESTAMP('2025-12-01')
+  AND block_timestamp <  TIMESTAMP('2026-01-01')
+  AND topics[SAFE_OFFSET(0)] = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+  AND (
+    LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(1)], 27))) IN UNNEST(@wallet_list)
+    OR LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(2)], 27))) IN UNNEST(@wallet_list)
+  );
+\end{verbatim}
+
+후처리에서는 토큰 소수점을 적용하고, 시간 감쇠 간선 가중치를 구축하며, PageRank 이전에 노드를 평가 표본으로 제한한다.
+
+\dissertationSubheading[sec:config-keys]{설정 키}
+
+파이프라인 매개변수는 단일 버전 관리 설정 파일에 모인다. 주요 키는 다음과 같다.
+
+\begin{itemize}
+\item 관측 구간 시작·종료 타임스탬프;
+\item PageRank 감쇠, 허용오차, 최대 반복 횟수;
+\item 로지스틱 감쇠 $k$와 $t_0$;
+\item 벤치마크 반복 횟수 및 부분표본 시드;
+\item 중간 산출물과 LaTeX 조각의 출력 위치.
+\end{itemize}
+
+감쇠(damping) 또는 로지스틱 감쇠 매개변수를 변경하면 강건성 스윕과 표 내보내기를 포함한 전체 평가를 다시 실행하고, 동일한 산출물에서 그림을 재생성해야 보고된 수치가 파이프라인의 기계 판독 가능 요약과 일치한다.
+
+\dissertationSubheading[sec:complexity-notes]{복잡도 주석}
+
+노드 수를 $n$, 간선 수를 $m=|E|$라 하자. 최신 allowance 간선 구축은 $R_a$개의 approval 행을 타임스탬프로 정렬하면 $O(R_a\log R_a)$이고, (token, owner, spender)를 키로 하는 해시맵을 쓰면 기대 시간 $O(R_a)$이다. 전송 간선 구축은 전송 행에 대해 $O(R_t)$이다. PageRank는 $I$회 반복에 대해 $O(mI)$이다. 경험적으로 매칭 코호트에서 EndorseRank는 $I\approx 37$, AWP는 $I\approx 100$이며 $m_{\mathrm{approve}}\ll m_{\mathrm{transfer}}$이므로, 두 요인 모두 EndorseRank에 유리하다.
+
+메모리는 간선 목록과 점수 벡터가 지배한다. 최대 해법 메모리 $4.6$\,MB 대 $38.2$\,MB(표~\ref{tab:benchmark-runtime})는 간선 수 비 $14{,}727:137{,}087$와 일치한다.
+
+\dissertationSubheading[sec:interpretation-checklist]{독자를 위한 해석 체크리스트}
+
+제~\ref{ch:results}장 표를 읽을 때, 다음 체크리스트는 흔한 오독을 줄인다.
+
+\begin{enumerate}
+\item 행이 사회적 방법(EndorseRank 또는 AWP)인지 식별한다.
+\item 각 계열을 의도된 구성체(allowance 대 transfer)에 대응시킨다.
+\item 절대 $\tau$ 임계값보다 동일 코호트에서의 상대 비교를 우선한다.
+\item 런타임 표를 사전 구축된 간선에 대한 PageRank 해법 시간으로 읽고, 종단 간 ETL 시간으로 읽지 않는다.
+\item 점 추정치를 일반화하기 전에 강건성 표를 확인한다.
+\end{enumerate}
+
+\dissertationSubheading[sec:archived-baselines]{아카이브된 확장 베이스라인}
+
+7-방법 및 6-Aave 정렬 행렬은 평가 파이프라인과 함께 아카이브되며, 스프레드시트 검사용 CSV 행렬도 함께 보관된다. 여러 변형이 추가 이벤트 유형(예: 신용 위임)을 요구하거나 주된 EndorseRank--AWP 질문 밖의 구성체를 도입하기 때문에 본문 서술에서는 제외한다. 본 연구를 확장하는 연구자는 문서화된 프리셋이 있는 전용 내보내기 유틸리티로 내보내기를 다시 활성화할 수 있다.
+
+\dissertationSubheading[sec:limitations-reprise]{한계의 재진술}
+
+부록 자료는 제~\ref{ch:results}장을 넘어 실증 주장을 확장하지 않는다. 특히 SQL 템플릿은 다른 체인을 조회했음을 함의하지 않으며, 아카이브된 베이스라인은 본 논문에서 동료 비교를 구성하지 않는다. 권위 있는 수치는 매칭 코호트($n=5{,}521$)와 확장 지갑 풀($N=31{,}612$)에 대한 파이프라인의 기계 판독 가능 요약 산출물에 남아 있다.

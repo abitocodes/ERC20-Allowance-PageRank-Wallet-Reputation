@@ -1,0 +1,244 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\section*{5 \textbf{Research Methodology}}
+\label{sec:research-methodology}
+\addcontentsline{toc}{section}{5 Research Methodology}
+
+This section outlines the overall approach for implementing EndorseRank, comparing it to Adaptive Weighted PageRank (AWP), and evaluating their performance in terms of reputation structure, trading success alignment, and computational efficiency.
+
+
+\phantomsection
+\subsection*{5.1 Research Design and Method}
+\label{sec:research-design-and-method}
+\addcontentsline{toc}{subsection}{5.1 Research Design and Method}
+
+\textbf{Dataset Overview}
+
+
+This study uses public, on-chain event logs as the primary dataset. The raw data are time-stamped, address-level records emitted by Arbitrum One smart contracts, which makes them reproducible but also inherently pseudonymous (wallets are identifiers, not verified real-world entities).
+
+
+\textbf{Core unit of analysis}
+
+
+Wallet addresses and directed (one-way) relationships from owner to spender, later represented as a sparse graph. GMX V2 trading outcomes are aggregated at the same wallet level using the \textbf{account} field from \textbf{PositionDecrease} events.
+
+
+\textbf{Primary signals}
+
+
+ERC-20 Approve (and EIP-2612 Permit) authorizations that specify an owner, a spender, and an allowance amount (with token contracts providing the context for each authorization). GMX V2 \textbf{PositionIncrease} and \textbf{PositionDecrease} events provide realized trading outcomes for validation.
+
+
+\textbf{Sparsity and heavy tails}
+
+
+Endorsement/authorization graphs are expected to be highly sparse with skewed degree/weight distributions (a small number of contracts/routers receive many approvals), which motivates robust evaluation beyond mean-based summaries.
+
+
+\textbf{Temporal structure}
+
+
+Events form a time series; we operationalize EndorseRank on a fixed observation window (December 1, 2025 -- May 31, 2026) and construct ``latest state'' edge weights by retaining the most recent relevant allowance information per relationship. GMX trading-success proxies are computed over the same window.
+
+
+\textbf{Data quality considerations}
+
+
+Event logs are generally reliable but can include revocations (amount = 0), ``spend-all by default'' approvals, and occasional indexing gaps; these characteristics are treated explicitly in preprocessing and robustness checks. GMX events must be decoded from the EventEmitter \textbf{EventLog1} format; trader identity uses the event \textbf{account} field, not \texttt{transaction.from}, to avoid misattributing router or keeper addresses.
+
+
+Data Collection \& Preprocessing
+
+
+\textbf{Blockchain Data Source}
+
+
+\textbf{Arbitrum One} (chain ID 42161), observation window December 1, 2025 -- May 31, 2026, via Google BigQuery (\codepath{bigquery-public-data.goog_blockchain_arbitrum_one_us}) or an archive node.
+
+
+Event Extraction
+
+
+Approval/permit-derived authorizations: all ERC-20 Approval(owner, spender, value) events on Arbitrum One, including approvals generated through permit-compatible flows where the token emits the standard Approval event.
+
+
+GMX V2 perpetual swap outcomes: \textbf{PositionDecrease} logs from the GMX V2 \textbf{EventEmitter} contract (\codepath{0xC8ee91A54287DB53897056e12D9819156D3822Fb}) over the full observation window are the \textbf{primary validation stream}, decoded to extract \textbf{account}, \textbf{basePnlUsd}, \textbf{orderType}, and liquidation flags. \textbf{PositionIncrease} events are referenced for domain context (position opening) but are not extracted separately. Profitable closes satisfy \textbf{basePnlUsd} $> 0$ and are not position liquidations (\texttt{orderType} $\neq 7$).
+
+
+\textbf{Empirical Validation Choice}
+
+
+Theoretically, the strongest validation target for on-chain credit reputation would be a binary default or liquidation label drawn from under-collateralized lending (e.g., loan liquidation after health-factor breach). Such labels directly encode credit failure on-chain. In practice, however, the Arbitrum One ecosystem targeted by this study lacks sufficient active, publicly observable unsecured or under-collateralized lending volume to construct a large, reproducible wallet-level default dataset within the observation window. Collecting comparable labels from other chains would break the single-chain design and inflate data-engineering cost without improving endorsement-graph semantics.
+
+
+Accordingly, this dissertation adopts \textbf{GMX V2 perpetual long/short position outcomes} as the primary empirical validation frame. Collateralized perpetual trading on GMX produces high-frequency, wallet-attributed \textbf{PositionDecrease} events with realized PnL, enabling measurable proxies---close-success count, realized gain proxy, and close success rate---for credit-like risk management on the same chain as the endorsement graph. These measures are interpreted as \textbf{domain-intuition proxies}, not ground-truth loan-repayment labels; limitations are discussed in Section~6.
+
+
+\textbf{Trading-Success Proxies (Validation Targets)}
+
+
+Following Do et al.\ (2023), who validated PageRank against in-degree and in-value, we define GMX analogs:
+
+\begin{itemize}
+\item[\textbullet] \textbf{Close-success count:} number of profitable \textbf{PositionDecrease} events per wallet in the observation window.
+\item[\textbullet] \textbf{Realized gain proxy:} $\sum \max(\text{basePnlUsd}, 0)$ over profitable closes in the window.
+\item[\textbullet] \textbf{Close success rate:} wins / total closes, retaining wallets with $\text{total\_closes} \geq 3$ for statistical stability.
+\end{itemize}
+
+
+Sampling
+
+
+The alignment analysis uses the intersection of wallets present in the reputation graph and wallets with at least three GMX \textbf{PositionDecrease} events in the observation window. Computational benchmarks use a reproducible random sample with a fixed seed, expanded in stages (10,000 $\to$ 50,000 $\to$ 100,000 wallets) after dry-run cost checks; robustness checks compare 50,000- and 200,000-wallet subsamples drawn from locally cached parquet graphs (no additional BigQuery scans).
+
+
+\proposalSubheading{BigQuery Data Acquisition Plan}
+
+Data are collected in three phases from \codepath{bigquery-public-data.goog_blockchain_arbitrum_one_us.logs}. Technical details and SQL templates are versioned in \codepath{A-Skill-Programs/margin_rank/docs/bigquery_data_plan.md}.
+
+
+\textbf{Phase 1 --- GMX validation labels (Stream A).}
+
+
+Extract all GMX V2 \textbf{PositionDecrease} logs from the EventEmitter contract over the full six-month observation window. Decode \textbf{account}, \textbf{basePnlUsd}, and \textbf{orderType}; identify qualified wallets ($\geq 3$ closes). This phase is highly selective (contract + topic filters) and is expected to scan on the order of 1--10 GiB.
+
+
+\textbf{Phase 2 --- Reputation subgraph (Streams B \& C).}
+
+
+For the Phase~1 wallet set (plus benchmark seed addresses), extract ERC-20 \textbf{Approval} and \textbf{Transfer} events in six monthly batches. Preprocess to latest nonzero allowances (EndorseRank) and time-decayed transfer edges (AWP). Wallet filters reduce returned rows; partition scans remain bounded by monthly time windows and event-topic filters.
+
+
+\textbf{Phase 3 --- Evaluation and benchmark (local).}
+
+
+Run alignment and rank-divergence tests on Tier~1 parquet outputs. Scale computational benchmarks to 10k, 50k, and 100k wallets by subsampling the cached subgraph---no additional BigQuery queries.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.14\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}>{\raggedright\arraybackslash}p{0.22\linewidth}>{\raggedright\arraybackslash}p{0.22\linewidth}}
+\toprule
+\textbf{Tier} & \textbf{Cohort / scale} & \textbf{Est.\ scan} & \textbf{Hypotheses} \\
+\midrule
+Tier 1 (required) & GMX $\geq 3$ closes; all qualified wallets (expected 500--3,000) & $\sim$80--350 GiB & H1, H2 \\
+Tier 2 (staged) & Benchmark pilot 10k $\to$ mid 50k $\to$ full 100k (parquet subsample) & $\approx 0$ extra BQ & H3 \\
+Tier 3 (local) & Damping, top-token subgraph, weight transforms & 0 (local recompute) & Robustness \\
+\addlinespace
+\bottomrule
+\end{longtable}
+
+
+\textbf{Cost guardrails.}
+
+
+All extractions require a BigQuery \texttt{--dry-run} before \texttt{--extract}; per-query scan is capped at 150 GiB (\codepath{margin_config.yaml}). The billing account receives 1 TiB of query processing free per month; overage is approximately US\$6.25/TiB. Target total cost for Tier~1+2 is \textbf{\$0}. If dry-run estimates exceed budget, restrict Phase~2 to the top ERC-20 tokens by Arbitrum volume (consistent with Section~5.2.2 robustness checks). Bytes processed and row counts are logged in \codepath{data/processed/extraction_manifest.json}.
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.39\linewidth}>{\raggedright\arraybackslash}p{0.35\linewidth}}
+\toprule
+\textbf{Construct} & \textbf{Definition} & \textbf{Associated Variables} \\
+\midrule
+Reputation\newline Structure & The pattern and relative ordering\newline of wallet reputations produced by\newline a ranking algorithm. & (1) EndorseRank score;\newline AWP score;\newline Rank correlation (Spearman's \emph{\(\rho\)} / Kendall's \emph{\(\tau\)}) between EndorseRank and AWP \\
+\addlinespace
+Trading Success\newline Alignment & The extent to which a reputation score aligns with GMX V2 trading-success proxy rankings. & Close-success count;\newline Realized gain proxy;\newline Close success rate;\newline Spearman's \emph{\(\rho\) }/ Kendall's \emph{\(\tau\) } for each ranking method vs.\ each proxy \\
+\addlinespace
+Computational\newline Efficiency & The computational resources(time, memory, convergence iterations) required to compute\newline scores. & EndorseRank runtime;\newline AWP runtime;\newline Peak memory usage;\newline Iterations to convergence \\
+\addlinespace
+\bottomrule
+\end{longtable}
+
+\proposalSubheading{1. Graph Construction \& Algorithm Implementation}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Approve/Permit Graph }($G_{\text{approve}}$)
+\begin{itemize}
+\item[\textendash] \textbf{Nodes}: Wallet addresses.
+\item[\textendash] Edges: directed owner-to-spender relationships weighted by the latest nonzero allowance from u to v. Because ERC-20 tokens differ in decimals and economic scale, weights will first be token-decimal adjusted; sensitivity checks will compare raw allowance weights, log-transformed weights, and value-normalized weights where reliable price data are available.
+\end{itemize}
+\item[\textbullet] \textbf{Transfer-Based Graph }($G_{\text{transfer}}$)
+\begin{itemize}
+\item[\textendash] Same node set; edges weighted by sum of transfer amounts \emph{u }\(\to\) \emph{v}.
+\end{itemize}
+\item[\textbullet] Algorithms
+\end{itemize}
+\textbf{EndorseRank: Weighted PageRank on }$G_{\text{approve}}$\textbf{with damping factor d = 0.85. This value is retained because 0.85 is the standard PageRank setting, provides a stable balance between diffusion and teleportation, and enables direct comparison with prior graph-ranking studies.}
+
+
+\begin{itemize}
+\item[\textendash] \textbf{AWP Reproduction}: Adaptive Weighted PageRank on $G_{\text{transfer}}$
+\end{itemize}
+incorporating time and value decay per Do et al. (2023).
+
+
+\begin{itemize}
+\item[\textbullet] Tools \& Environment
+\begin{itemize}
+\item[\textendash] Python with NetworkX or GraphFrames; Scipy sparse solvers; Docker containers for reproducibility.
+\end{itemize}
+\end{itemize}
+\proposalSubheading{2. Performance Evaluation Procedures}
+
+\begin{itemize}
+\item[\textbullet] Trading Success Alignment
+\begin{itemize}
+\item[\textendash] For each ranking method (EndorseRank, AWP, transfer-based PageRank), compute Spearman's \emph{\(\rho\) }and Kendall's \emph{\(\tau\) }against close-success count, realized gain proxy, and close success rate rankings on the matched wallet sample.
+\item[\textendash] Compare EndorseRank vs.\ AWP alignment coefficients; test whether EndorseRank achieves higher correlation without approaching 1.0 (which would indicate redundancy with simple proxy rankings).
+\item[\textendash] Report results in tables analogous to Do et al.\ (2023), including comparison against a simple (unweighted) transfer PageRank baseline.
+\end{itemize}
+\item[\textbullet] Rank Divergence
+\begin{itemize}
+\item[\textendash] Compute Spearman's \emph{\(\rho\) }and Kendall's \emph{\(\tau\) }between EndorseRank and AWP.
+\item[\textendash] Visualize via scatter plots and top-k Jaccard overlap.
+\end{itemize}
+\item[\textbullet] Computational Efficiency
+\begin{itemize}
+\item[\textendash] Hardware: Fixed 22-vCPU, 64 GB RAM server.
+\item[\textendash] Measures:
+\end{itemize}
+\end{itemize}
+\(\ast\) Runtime (graph build + PageRank convergence, averaged over 5 runs)
+
+
+\(\ast\) Peak memory usage
+
+
+\(\ast\) Iterations to reach tolerance 10\textsuperscript{-}\textsuperscript{6}
+
+
+\phantomsection
+\subsection*{5.2 Data Analysis}
+\label{sec:data-analysis}
+\addcontentsline{toc}{subsection}{5.2 Data Analysis}
+
+\proposalSubheading{1. Hypothesis Testing}
+
+\begin{itemize}
+\item[\textbullet] \textbf{H1 (Divergence)}
+\begin{itemize}
+\item[\textendash] Test whether rank correlations between EndorseRank and AWP differ significantly from 1 using a one-sample t-test or Wilcoxon signed-rank test.
+\end{itemize}
+\item[\textbullet] H2 (Trading Success Alignment)
+\begin{itemize}
+\item[\textendash] Compare Spearman's \emph{\(\rho\) }and Kendall's \emph{\(\tau\) }coefficients for EndorseRank vs.\ AWP against each GMX proxy using paired bootstrap confidence intervals or Fisher z-transform tests for correlated correlations.
+\end{itemize}
+\item[\textbullet] H3 (Computational Efficiency)
+\begin{itemize}
+\item[\textendash] Paired t-tests (or Wilcoxon tests if non-normal) on runtime, memory, and iteration counts.
+\end{itemize}
+\end{itemize}
+\proposalSubheading{2. Robustness Checks}
+
+\begin{itemize}
+\item[\textbullet] Vary damping factor \emph{d }\(\in\) \{0\emph{.}75\emph{, }0\emph{.}85\emph{, }0\emph{.}95\}.
+\item[\textbullet] Repeat analyses on subgraphs of top ERC-20 tokens by volume on Arbitrum One.
+\item[\textbullet] Assess sensitivity to sample size (50k vs. 200k wallets).
+\item[\textbullet] Compare raw vs.\ size-weighted realized gain proxy definitions.
+\end{itemize}
+\proposalSubheading{3. Reproducibility}
+
+\begin{itemize}
+\item[\textbullet] All code, queries, and analysis scripts versioned on GitHub.
+\item[\textbullet] Data snapshots and Docker images preserved for full replication of results.
+\end{itemize}
+This methodological framework ensures a rigorous, reproducible evaluation of EndorseRank's advantages over existing PageRank-based approaches in reputation structure, GMX trading-success alignment, and computational performance.

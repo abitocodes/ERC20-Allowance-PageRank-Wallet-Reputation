@@ -1,0 +1,120 @@
+% !TEX root = ../main.tex
+\clearpage
+\chapter{부록}
+\label{ch:appendix}
+
+% Demote headings one level under Chapter 8 (sections become 8.1.x).
+\renewcommand{\dissertationSubheading}[2][]{%
+  \phantomsection
+  \subsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+\renewcommand{\dissertationSubsubheading}[2][]{%
+  \phantomsection
+  \subsubsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+
+\section{평가 파이프라인과 재현성}
+\label{ch:appendix-eval}
+
+본 부록은 제~\ref{ch:results}장의 수치를 산출한 평가 파이프라인을 문서화한다. 데이터 출처, 처리 단계, 기본 매개변수, 프록시 공식, 용어집을 포함한다. 여기에 인용된 모든 양은 본문의 표와 그림에도 나타나며, 주장을 해석하기 위해 외부 파일은 필요하지 않다.
+
+\dissertationSubheading[sec:pipeline-stages]{파이프라인 단계}
+
+평가는 Arbitrum One에서 관측 구간 2025-12-01부터 2026-05-31까지(UTC, 양끝 포함) 두 단계로 진행된다.
+
+\begin{enumerate}
+\item \textbf{평판 그래프와 점수:} ERC-20 \texttt{Approval} 및 \texttt{Transfer} 로그를 월별 배치로 추출한다(쿼리당 dry-run 및 $150$\,GiB 중단 상한). 매칭 코호트는 비영 승인 또는 전송 연결성을 갖는 지갑이다($n=5{,}521$). 최신 allowance 보증 그래프와 시간 감쇠 전송 그래프를 구축한 뒤, 거듭제곱 반복으로 EndorseRank와 AWP 점수를 계산한다(감쇠 $d=0.85$, 허용오차 $10^{-8}$, 최대 $300$회 반복).
+\item \textbf{검사, 정합, 벤치마크:} 제~\ref{ch:methodology}장에서 정의한 전송·allowance 검사를 계산하고, 각 점수 벡터에 대한 Spearman $\rho$와 Kendall $\tau$를 보고하며, 사전 구축된 간선에 대한 PageRank 해법 시간을 측정하고(3회 평균), 감쇠, 상위 토큰, 표본 크기에 대한 강건성 스윕을 수행한다.
+\end{enumerate}
+
+오프라인 합성 검사는 픽스처 그래프에서 동일한 점수·정렬 논리를 사용하여(클라우드 접근 없음) 실제 추출 전에 구현을 검증한다. 실제 추출에는 Google Cloud 자격 증명과 과금 프로젝트가 필요하며, 스캔은 공개 Arbitrum One 로그 데이터셋만을 대상으로 한다.
+
+\dissertationSubheading[sec:bq-extraction]{BigQuery 추출 설계}
+
+ERC-20 \texttt{Approval} 및 \texttt{Transfer} 이벤트는 표준 topic-$0$ 해시로 식별되며, owner/spender 또는 from/to 주소가 평가 지갑 목록에 속하는 로그만으로 제한한다. 따라서 스캔 비용은 전체 체인이 아니라 코호트에 비례한다. 월별 배치는 각 쿼리를 운영상 바이트 상한 아래로 유지한다. 대표 SQL 패턴은 부록~\ref{ch:appendix-sql}에 제시한다.
+
+추출 기록(처리 바이트, 행 수, 타임스탬프)은 감사 가능성을 위해 연구의 수집 로그에 보존한다. 본 논문은 해당 운영 로그가 아니라 그 결과로 얻은 코호트 크기와 간선 수를 보고한다.
+
+\dissertationSubheading[sec:scaling-appendix]{스케일링 표}
+
+표~\ref{tab:benchmark-scaling-incohort}는 $n \leq 5{,}521$에 대한 코호트 내 런타임 스케일링을 보고한다. 제~\ref{ch:results}장의 강건성 표는 주 평가와 동일한 솔버 설정 및 코호트 정의를 사용한다.
+
+\begin{table}[htbp]
+\centering
+\caption{코호트 내 런타임 스케일링 (SHA256 시드 \texttt{benchmark-scale-v1}; $n \leq 5{,}521$ 매칭 코호트).}
+\label{tab:benchmark-scaling-incohort}
+\begin{tabular}{rrrrrr}
+\toprule
+$n$ & ER (s) & AWP (s) & 가속 & ER $|E|$ & AWP $|E|$ \\
+\midrule
+1000 & 0.393 & 3.215 & 8.2$\times$ & 2584 & 23058 \\
+2000 & 0.729 & 6.794 & 9.3$\times$ & 5147 & 47031 \\
+4000 & 2.075 & 18.031 & 8.7$\times$ & 10557 & 97105 \\
+5521 & 2.105 & 18.711 & 8.9$\times$ & 14727 & 137087 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\dissertationSubheading[sec:delegation-deferred]{신용 위임 추출(보류)}
+
+Aave V3 \texttt{BorrowAllowanceDelegated} 이벤트는 본 연구에서 추출하지 않았다. 따라서 신용 위임 간선에 의존하는 탐색적 순위는 현재 표본에서 정의되지 않으며, 아카이브된 Aave 지향 행렬(부록~\ref{ch:appendix-archive})에서 해석 불가($\tau = \text{---}$)로 보고한다. 위임 기반 평판으로 연구를 확장하려면 해당 이벤트의 전용 추출과 새로운 정렬 평가가 필요하며, 이는 향후 연구로 남긴다.
+
+\dissertationSubheading[sec:supplementary-summary]{보조 정렬 요약 표}
+
+전송 및 allowance의 계열별 평균 $\tau$는 제~\ref{ch:results}장의 표~\ref{tab:alignment-three-methods}에 다시 제시한다.
+
+\dissertationSubheading[sec:parameter-summary]{매개변수 요약}
+
+\begin{table}[htbp]
+\centering
+\caption{주 평가에 사용된 기본 매개변수.}
+\label{tab:parameter-summary}
+\fitwidth{%
+\begin{tabular}{lll}
+\toprule
+매개변수 & 값 & 역할 \\
+\midrule
+PageRank 감쇠 $d$ & $0.85$ & 기본 텔레포트 혼합 \\
+수렴 허용오차 $\varepsilon$ & $10^{-8}$ & 거듭제곱 반복 중단 기준 \\
+최대 반복 횟수 & $300$ & 거듭제곱 반복 상한 \\
+로지스틱 $k$ & $0.01$ & AWP 감쇠 기울기 \\
+로지스틱 $t_0$ & $180$일 & AWP 감쇠 중점 \\
+관측 구간 & 2025-12-01 -- 2026-05-31 & UTC 양끝 포함 \\
+확장 풀 부분표본 시드 & \texttt{benchmark-tier2-v1} & 결정적 SHA256 시드 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\dissertationSubheading[sec:proxy-appendix]{프록시 운영 정의(참고)}
+
+다음 공식은 제~\ref{ch:methodology}장과 일치한다.
+
+\begin{itemize}
+\item \textbf{Transfer:} $\mathrm{in\_degree}(w)=|\{u:\exists u\to w\}|$; $\mathrm{in\_value}(w)=\sum_{e:u\to w}\mathrm{value}(e)$.
+
+\item \textbf{Allowance:} $\mathrm{in\_approve\_degree}(w)=|\{o:\exists o\to w\}|$; $\mathrm{in\_approve\_value}(w)=\sum_o w_a(o,w)$ ($w$는 spender).
+
+\item \textbf{Sybil-adjusted stability:} $\mathrm{inbound\_counterparty\_ratio}(w)=|\{u:u\to w\}|/|T^{\mathrm{in}}(w)|$ (자기 전송 제외); 보유 기간(일); 활성 월 수.
+\end{itemize}
+
+\dissertationSubheading[sec:glossary]{용어집}
+
+\begin{description}
+\item[Allowance] 소유자를 대신하여 spender가 토큰을 이전할 수 있도록 하는 ERC-20 승인.
+\item[Alignment] 평판 점수와 검증 프록시 간의 순위 일치도($\rho$, $\tau$).
+\item[Construct overlap] 순위 방법과 프록시가 데이터 출처를 공유하여 정렬을 부풀리는 현상.
+\item[Endorsement graph] 최신 allowance의 방향 그래프(EndorseRank 입력).
+\item[Matched cohort] 보증 또는 전송 그래프 연결성이 비영인 주 표본 $n=5{,}521$개 지갑.
+\item[Expanded wallet pool] 런타임 스케일링을 위한 더 큰 주소 집합($N=31{,}612$).
+\item[PageRank] 감쇠 무작위 보행의 정상분포에 의한 스펙트럼 순위.
+\item[Proxy] 영역 직관 검증에 사용되는 관측 가능한 지갑 지표.
+\item[Teleport] 확률 $1-d$로 이루어지는 PageRank의 균등 점프.
+\end{description}
+
+\input{Chapter-08-Appendix/appendix-b.tex}
+\input{Chapter-08-Appendix/appendix-c.tex}
+\input{Chapter-08-Appendix/appendix-d.tex}
+\input{Chapter-08-Appendix/appendix-e.tex}

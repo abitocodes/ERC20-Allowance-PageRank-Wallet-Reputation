@@ -1,0 +1,665 @@
+================================================================================
+EndorseRank — PhD Proposal Presentation
+Speaker script (English + Korean) · Target duration: ~15 minutes
+Deck: 1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/proposal/presentation/index.html (16 slides)
+Presenter: Taehong Kwon
+================================================================================
+Timing guide (approx.): ~130 words/minute → ~1,950 English words total.
+Advance with → / Space. Pause briefly at slide changes.
+Do NOT read every table cell aloud—point to the slide and speak the message.
+발표는 영어(EN)로 하고, 한국어(KO)는 연습·이해용입니다.
+================================================================================
+
+
+--------------------------------------------------------------------------------
+[SLIDE 1 / 16]  Title
+data-title: Title
+Suggested time: ~45 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Good morning / Good afternoon.
+
+My name is Taehong Kwon, and I am a PhD candidate in Computer Science at the University of South Africa.
+
+My supervisors are Professor Ernest Mnkandla and Professor Donatien Koulla Moulla.
+
+Today I will present my dissertation proposal:
+Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring.
+
+The method I propose is called EndorseRank.
+This talk focuses on the research design—the problem, the empirical setting, the parameters we will estimate, and how we will evaluate the work.
+I will not present empirical results in this session.
+
+[KO]
+안녕하십니까.
+
+저는 남아프리카공화국 유니사(University of South Africa) 컴퓨터과학 박사과정 권태홍입니다.
+
+지도교수는 Ernest Mnkandla 교수님, 공동지도교수는 Donatien Koulla Moulla 교수님입니다.
+
+오늘 발표할 학위논문 제안서 제목은
+「Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring」입니다.
+
+제안 방법은 EndorseRank입니다.
+이번 발표는 연구 설계—문제, 실증 환경, 추정할 파라미터, 평가 방법—에 초점을 둡니다.
+실증 결과는 이번 세션에서 다루지 않습니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 2 / 16]  Agenda
+data-title: Agenda
+Suggested time: ~40 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+I will cover seven parts.
+
+First, the problem, research gap, question, and objectives.
+Second, the hypotheses and evaluation constructs.
+Third, a short method overview.
+Fourth, why we use Arbitrum One rather than Ethereum, and why we validate against GMX PositionDecrease data.
+Fifth, supporting literature for that validation choice.
+Sixth, the pre-registered parameter table and proxy definitions.
+And finally, the evaluation plan, expected contributions, and timeline.
+
+[KO]
+일곱 부분으로 구성했습니다.
+
+첫째, 문제·연구 공백·연구 질문·목표.
+둘째, 가설과 평가 구성개념.
+셋째, 방법론 개요.
+넷째, 이더리움이 아니라 아비트럼 원을 쓰는 이유, 그리고 GMX PositionDecrease로 검증하는 이유.
+다섯째, 그 검증 선택을 뒷받침하는 문헌.
+여섯째, 사전 등록된 파라미터 표와 프록시 정의.
+마지막으로 평가 계획, 기대 기여, 일정입니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 3 / 16]  Problem & Gap
+data-title: Problem & Gap
+Suggested time: ~75 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Let me start with the problem.
+
+Existing on-chain reputation methods—especially Adaptive Weighted PageRank, or AWP—treat token transfers as signals of economic trust.
+But transfers are noisy.
+Wallets transfer tokens for trading, routing, airdrops, and automated contract activity.
+Those actions do not necessarily mean one wallet is endorsing another.
+
+Transfers also create dense graphs.
+At chain scale, repeatedly computing transfer-based PageRank becomes expensive in data processing, memory, and convergence time.
+
+The research gap is that ERC-20 approve and permit actions encode something more direct:
+they grant another address spending authority over tokens, and that authority remains until it is changed or revoked.
+
+Most graph reputation systems ignore these allowance relationships as first-class edges.
+Identity tools such as Passport address personhood and Sybil resistance, but they do not produce a graded financial ranking from endorsement structure.
+
+So the central problem is this:
+Can we build a reputation score from approve and permit relationships on Arbitrum One that better captures endorsement semantics, aligns at least as well with observable GMX V2 trading success as transfer-based PageRank, and does so at lower computational cost?
+
+[KO]
+먼저 문제부터 말씀드리겠습니다.
+
+기존 온체인 평판 방법—특히 Adaptive Weighted PageRank, 즉 AWP—는 토큰 전송을 경제적 신뢰 신호로 취급합니다.
+그러나 전송은 잡음이 큽니다.
+지갑은 거래, 라우팅, 에어드롭, 자동 컨트랙트 활동 때문에 토큰을 전송합니다.
+그 행위가 반드시 한 지갑이 다른 지갑을 보증(endorse)한다는 뜻은 아닙니다.
+
+전송은 또한 밀집한 그래프를 만듭니다.
+체인 규모에서 전송 기반 PageRank를 반복 계산하면 데이터 처리, 메모리, 수렴 시간 비용이 커집니다.
+
+연구 공백은 ERC-20 approve와 permit이 더 직접적인 신호를 담는다는 점입니다.
+다른 주소에 토큰 사용 권한을 부여하고, 그 권한은 변경되거나 취소될 때까지 유지됩니다.
+
+대부분의 그래프 평판 시스템은 이런 allowance 관계를 1급 엣지로 다루지 않습니다.
+Passport 같은 신원 도구는 인격성·사이빌 저항을 다루지만, 보증 구조로부터 등급형 금융 순위를 만들지는 않습니다.
+
+따라서 핵심 문제는 이렇습니다.
+아비트럼 원에서 approve/permit 관계로 평판 점수를 만들어, 보증 의미를 더 잘 반영하고, 전송 기반 PageRank와 비슷하거나 더 나은 GMX V2 거래 성공 정렬을, 더 낮은 계산 비용으로 얻을 수 있는가?
+
+
+--------------------------------------------------------------------------------
+[SLIDE 4 / 16]  Research Question + SPICE
+data-title: Research Question
+Suggested time: ~60 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+The main research question is:
+
+Can EndorseRank—a Weighted PageRank computed over ERC-20 allowance relationships—match or outperform transaction-based PageRank baselines in ranking Arbitrum One wallets by trading success, at lower computational cost?
+
+I frame this with SPICE.
+The Setting is Arbitrum One GMX V2 perpetual position trading and on-chain reputation scoring.
+The Perspective includes DeFi protocols, risk analysts, wallet users, and researchers.
+The Intervention is EndorseRank.
+The Comparison is AWP and transfer-based PageRank.
+The Evaluation uses rank divergence, Spearman’s rho and Kendall’s tau against GMX proxies, plus runtime, memory, and convergence.
+
+[KO]
+주요 연구 질문은 다음과 같습니다.
+
+EndorseRank—ERC-20 allowance 관계 위의 계산한 Weighted PageRank—가 아비트럼 원 지갑을 거래 성공 기준으로 순위화할 때, 거래(전송) 기반 PageRank 베이스라인과 같거나 더 나은 성능을, 더 낮은 계산 비용으로 낼 수 있는가?
+
+이를 SPICE로 정리합니다.
+Setting은 아비트럼 원 GMX V2 무기한 포지션 거래와 온체인 평판 점수화입니다.
+Perspective는 DeFi 프로토콜, 리스크 분석가, 지갑 사용자, 연구자입니다.
+Intervention은 EndorseRank입니다.
+Comparison은 AWP와 전송 기반 PageRank입니다.
+Evaluation은 순위 발산, GMX 프록시에 대한 Spearman ρ·Kendall τ, 그리고 런타임·메모리·수렴입니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 5 / 16]  Objectives
+data-title: Objectives
+Suggested time: ~55 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+The work is organised into five objective groups.
+
+O1 builds the graph pipeline: extract approve and permit events and keep the latest nonzero allowance for each owner-to-spender pair.
+
+O2 implements EndorseRank—Weighted PageRank with damping factor zero point eight five, and no time decay on allowance edges.
+
+O3 reproduces AWP and a transfer-based PageRank baseline on the same GMX-active wallets and the same time window.
+
+O4 evaluates alignment with GMX trading-success proxies using rho and tau, and interprets both redundancy and weak signal.
+
+O5 measures computational efficiency—runtime, memory, and iterations—as we scale toward larger graphs.
+
+The overarching aim is to design, implement, and evaluate EndorseRank as an allowance-based reputation model.
+
+[KO]
+목표는 다섯 그룹으로 나뉩니다.
+
+O1은 그래프 파이프라인: approve/permit 이벤트를 추출하고, owner→spender 쌍마다 최신 nonzero allowance를 유지합니다.
+
+O2는 EndorseRank 구현—damping 0.85, allowance 엣지에 시간 감쇠 없음.
+
+O3는 동일 GMX 활성 지갑·동일 기간에서 AWP와 전송 기반 PageRank 베이스라인을 재현합니다.
+
+O4는 ρ·τ로 GMX 거래 성공 프록시와의 정렬을 평가하고, 중복성(ρ≈1)과 약한 신호(ρ&lt;~0.2)를 해석합니다.
+
+O5는 더 큰 그래프로 확장하며 런타임·메모리·반복 횟수 등 계산 효율을 측정합니다.
+
+총괄 목표는 allowance 기반 평판 모델인 EndorseRank를 설계·구현·평가하는 것입니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 6 / 16]  Hypotheses & Constructs
+data-title: Hypotheses
+Suggested time: ~55 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+I evaluate three constructs.
+
+Reputation Structure asks whether EndorseRank and AWP produce different rankings.
+Trading Success Alignment asks how each score relates to GMX proxies.
+Computational Efficiency compares build time, PageRank time, memory, and iterations.
+
+These map to three hypotheses.
+
+H1, Divergence: EndorseRank and AWP will yield significantly different wallet orderings.
+
+H2, Alignment: EndorseRank will correlate more strongly with GMX trading-success proxies than AWP.
+
+H3, Efficiency: EndorseRank will require less runtime, memory, and fewer iterations than AWP.
+
+[KO]
+평가 구성개념은 세 가지입니다.
+
+Reputation Structure는 EndorseRank와 AWP가 서로 다른 순위를 만드는지 묻습니다.
+Trading Success Alignment는 각 점수가 GMX 프록시와 어떻게 관련되는지 묻습니다.
+Computational Efficiency는 그래프 구축 시간, PageRank 시간, 메모리, 반복 횟수를 비교합니다.
+
+이는 세 가설에 대응합니다.
+
+H1 (Divergence): EndorseRank와 AWP는 유의하게 다른 지갑 순서를 만든다.
+
+H2 (Alignment): EndorseRank는 AWP보다 GMX 거래 성공 프록시와 더 강하게 상관한다.
+
+H3 (Efficiency): EndorseRank는 AWP보다 런타임·메모리·반복 횟수가 적다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 7 / 16]  Method Overview
+data-title: Method Overview
+Suggested time: ~70 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Methodologically, we keep the wallet set fixed and compare two graphs.
+
+From public Arbitrum logs in BigQuery, we extract GMX PositionDecrease events, qualify wallets with at least three closes, then build an approval graph and a transfer graph on that same cohort.
+
+EndorseRank uses wallets as nodes and owner-to-spender allowances as edges.
+The edge weight is the latest nonzero allowance, decimal-adjusted.
+We use damping zero point eight five and no time decay, because an approval remains live until it is superseded.
+
+AWP and the transfer baseline use transfer edges weighted by value.
+AWP adds logistic time decay on transfer age.
+
+Both methods are then compared on the same GMX-active cohort and window, using trading-success proxies—close-success count, realized gain, and success rate.
+
+Important: these proxies are domain-intuition measures.
+They are not loan-repayment ground truth.
+
+[KO]
+방법론적으로는 지갑 집합을 고정하고 두 그래프를 비교합니다.
+
+BigQuery의 공개 아비트럼 로그에서 GMX PositionDecrease를 추출하고, 최소 3회 close한 지갑을 선정한 뒤, 동일 cohort에 approval 그래프와 transfer 그래프를 구축합니다.
+
+EndorseRank는 노드를 지갑, 엣지를 owner→spender allowance로 둡니다.
+엣지 가중치는 소수점 조정된 최신 nonzero allowance입니다.
+damping은 0.85이며, 승인이 대체될 때까지 유효하므로 시간 감쇠는 없습니다.
+
+AWP와 전송 베이스라인은 가치로 가중된 전송 엣지를 사용합니다.
+AWP는 전송 연령에 logistic 시간 감쇠를 적용합니다.
+
+두 방법은 동일 GMX 활성 cohort·기간에서 close-success count, realized gain, success rate로 비교합니다.
+
+중요: 이 프록시는 도메인 직관용 지표이며, 대출 상환 ground truth가 아닙니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 8 / 16]  Why Arbitrum One (not Ethereum)
+data-title: Why Arbitrum
+Suggested time: ~90 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Let me explain the empirical setting carefully, because the chain choice changed during proposal development.
+
+Earlier framing—and much of the literature—focused on Ethereum mainnet, with validation conceived around lending-style default or liquidation labels.
+
+The approved setting is Arbitrum One, chain ID forty-two thousand one hundred sixty-one, with reputation graphs from public ERC-20 Approval and Transfer logs, and domain validation via GMX V2 perpetual position outcomes.
+
+Why Arbitrum?
+
+First, public BigQuery access: the goog_blockchain_arbitrum_one_us dataset makes Approval and Transfer extraction reproducible.
+
+Second, same-chain GMX PnL: PositionDecrease events carry wallet-attributed realized outcomes on the same EVM chain as the endorsement graph.
+
+Third, L2 fee levels support denser trading activity inside a fixed six-month window.
+
+Fourth, a single-chain design avoids cross-chain wallet aliasing and multi-chain ETL cost.
+
+I also need a clarification that is easy to get wrong.
+
+We did not choose Arbitrum because GMX is currently the global on-chain perpetuals volume leader.
+As of twenty twenty-six, Hyperliquid leads perp-DEX volume, open interest, and TVL.
+GMX remains a major Arbitrum-native venue with publicly queryable EVM position logs that fit this research design.
+
+In one sentence:
+We chose Arbitrum One because that is where GMX V2 provides dense, publicly queryable position outcomes on the same EVM chain as our allowance graph—not because GMX is the global volume leader.
+
+[KO]
+실증 환경을 신중히 설명하겠습니다. 제안서 개발 과정에서 체인 선택이 바뀌었기 때문입니다.
+
+초기 프레이밍과 많은 문헌은 이더리움 메인넷에 초점을 두었고, 검증도 렌딩형 부도·청산 라벨을 염두에 두었습니다.
+
+승인된 설정은 아비트럼 원(체인 ID 42161)이며, 공개 ERC-20 Approval/Transfer 로그로 평판 그래프를 만들고, GMX V2 무기한 포지션 결과로 도메인 검증합니다.
+
+왜 아비트럼인가?
+
+첫째, 공개 BigQuery: goog_blockchain_arbitrum_one_us로 Approval/Transfer 추출을 재현할 수 있습니다.
+
+둘째, 동일 체인 GMX PnL: PositionDecrease가 endorsement 그래프와 같은 EVM 체인에서 지갑 귀속 실현 손익을 제공합니다.
+
+셋째, L2 수수료 수준이 고정 6개월 창에서 더 밀집한 거래 활동을 가능하게 합니다.
+
+넷째, 단일 체인 설계로 크로스체인 지갑 별칭·다중 체인 ETL 비용을 피합니다.
+
+혼동하기 쉬운 점도 분명히 하겠습니다.
+
+아비트럼을 고른 이유가 “GMX가 현재 전 세계 온체인 퍼프 거래량 1위”여서가 아닙니다.
+2026년 기준 Hyperliquid가 perp-DEX volume·OI·TVL을 주도합니다.
+GMX는 이 연구 설계에 맞는 공개 조회 가능 EVM 포지션 로그를 가진, 아비트럼 네이티브의 주요 거래소입니다.
+
+한 문장으로:
+아비트럼 원을 선택한 이유는, allowance 그래프와 같은 EVM 체인에서 GMX V2가 밀집·공개 조회 가능한 포지션 결과를 주기 때문이지, GMX가 전 세계 거래량 1위여서가 아닙니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 9 / 16]  Why GMX PositionDecrease
+data-title: Why GMX
+Suggested time: ~75 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Why must we use GMX PositionDecrease data?
+
+In principle, under-collateralized lending defaults or liquidations would be the most direct credit-risk labels.
+On Arbitrum One, however, publicly observable unsecured or under-collateralized lending volume is insufficient for a stable evaluation dataset.
+
+Pulling default labels from other chains would break the single-chain design and increase both engineering cost and identity ambiguity.
+
+Therefore, we adopt GMX V2 perpetual long and short PositionDecrease outcomes.
+They give dense, wallet-level realized PnL on the same chain as the reputation graphs.
+
+A profitable close—positive base PnL in USD, excluding liquidation—is treated as a functional analog of successfully managing collateralized leveraged exposure.
+It is not treated as proof of creditworthiness.
+
+This follows a construct-alignment stance: we judge reputation scores by agreement with observable domain indicators, extending the proxy-validation pattern used by Do and colleagues for transfer in-degree and in-value.
+
+[KO]
+왜 GMX PositionDecrease 데이터를 쓸 수밖에 없는가?
+
+원칙적으로 under-collateralized 렌딩 부도·청산이 가장 직접적인 신용위험 라벨입니다.
+그러나 아비트럼 원에서는 관측 가능한 무담보·저담보 렌딩 물량이 안정적 평가 집합을 만들기엔 부족합니다.
+
+다른 체인에서 부도 라벨을 가져오면 단일 체인 설계가 깨지고, 엔지니어링 비용과 신원 모호성이 커집니다.
+
+따라서 GMX V2 롱·숏 PositionDecrease 결과를 채택합니다.
+평판 그래프와 같은 체인에서 밀집한 지갑 단위 실현 PnL을 제공합니다.
+
+수익성 close—양수 basePnlUsd, 청산 제외—는 담보부 레버리지 노출을 성공적으로 관리한 기능적 유추로 취급합니다.
+신용도를 증명하는 것으로 취급하지 않습니다.
+
+이는 construct alignment 입장입니다. Do 등이 전송 in-degree·in-value에 쓴 프록시 검증 패턴을, 관측 가능한 도메인 지표와의 일치로 확장합니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 10 / 16]  Supporting Literature
+data-title: Supporting Literature
+Suggested time: ~70 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Several sources support using perpetual-position outcomes as a usable laboratory.
+
+Chen, Ma, and Nie, twenty twenty-four, analyse decentralised perpetual designs including GMX under an oracle pricing model.
+They show that on-chain perpetual activity yields measurable trader behaviour—volume, open interest, liquidation, and leverage.
+That supports treating GMX position streams as empirically informative, not arbitrary.
+
+Do and Do, twenty twenty-three, validate PageRank-family scores against domain-intuition proxies.
+We extend that pattern from transfer in-degree and in-value to GMX close-success count and realized-gain proxies.
+
+Ghosh and colleagues, twenty twenty-four, emphasise that on-chain credit and risk scoring need wallet-level histories—reinforcing why dense outcome streams matter when lending defaults are sparse.
+
+Cronbach and Meehl provide the measurement-theory basis: construct alignment, not identity with legal credit.
+
+And we state the limitation clearly:
+a profitable perpetual trader is not the same construct as a good unsecured borrower.
+Alignment may also differ on other venues such as dYdX or Hyperliquid.
+
+[KO]
+무기한 포지션 결과를 “쓸 수 있는 실험실”로 보는 데 여러 문헌이 지지합니다.
+
+Chen, Ma, Nie(2024)는 오라클 가격 모델 아래 GMX를 포함한 DEX 퍼프 설계를 분석합니다.
+온체인 퍼프 활동이 거래량·미결제약정·청산·레버리지 등 측정 가능한 트레이더 행동을 낳음을 보여, GMX 포지션 스트림이 임의가 아니라 실증적으로 유의미함을 지지합니다.
+
+Do & Do(2023)는 PageRank 계열 점수를 도메인 직관 프록시로 검증합니다.
+우리는 전송 in-degree·in-value 패턴을 GMX close-success count·realized-gain 프록시로 확장합니다.
+
+Ghosh 등(2024)은 온체인 신용·리스크 스코어링에 지갑 단위 이력이 필요함을 강조해, 렌딩 부도가 희소할 때 밀집 결과 스트림이 중요한 이유를 보강합니다.
+
+Cronbach & Meehl은 측정 이론 기초—법적 신용과의 동일성이 아니라 construct alignment—를 제공합니다.
+
+한계도 분명히 합니다.
+수익성 퍼프 트레이더는 좋은 무담보 차입자와 같은 구성개념이 아닙니다.
+dYdX나 Hyperliquid 등 다른 거래소에서는 정렬이 달라질 수 있습니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 11 / 16]  Parameter Table
+data-title: Parameter Table
+Suggested time: ~90 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+This slide is the parameter table—what we fix before reading results.
+
+These are configuration constants for the primary setting.
+If we change them later, that is a robustness re-run, not silent retuning.
+
+Chain: Arbitrum One, forty-two thousand one hundred sixty-one—one universe, no cross-chain aliasing.
+
+Observation window: from the first of December twenty twenty-five to the thirty-first of May twenty twenty-six, UTC.
+That fixes which events exist and anchors transfer age for AWP at the window end.
+
+Minimum GMX closes, m, equals three—so we exclude one-off traders and stabilise success-rate denominators.
+
+PageRank damping, d, equals zero point eight five, with robustness checks at zero point seven five and zero point nine five.
+
+Convergence tolerance is ten to the minus six, with a maximum of three hundred iterations, so runtime comparisons are fair.
+
+For AWP, logistic decay uses k equals zero point zero one and t-zero equals one hundred eighty days.
+EndorseRank has no time decay.
+
+EndorseRank edge weight is the latest nonzero allowance—current endorsement strength.
+
+GMX proxies are three families: close-success count, sum of positive base PnL, and close success rate.
+
+The Tier-one cohort is wallets with at least three GMX closes—the primary sample for H1 and H2.
+
+[KO]
+이 슬라이드는 파라미터 표입니다—결과를 보기 전에 고정하는 값들입니다.
+
+주 설정의 구성 상수입니다.
+나중에 바꾸면 조용한 재튜닝이 아니라 robustness 재실행입니다.
+
+Chain: Arbitrum One (42161)—단일 우주, 크로스체인 별칭 없음.
+
+Observation window: 2025-12-01 ~ 2026-05-31 UTC.
+어떤 이벤트가 들어오는지를 고정하고, AWP의 전송 연령을 창 끝에 앵커합니다.
+
+최소 GMX close 수 m = 3—일회성 트레이더를 제외하고 success-rate 분모를 안정화합니다.
+
+PageRank damping d = 0.85, robustness는 0.75 / 0.95.
+
+수렴 허용오차 10⁻⁶, 최대 반복 300—런타임 비교가 공정하도록.
+
+AWP logistic decay: k = 0.01, t₀ = 180일.
+EndorseRank는 시간 감쇠 없음.
+
+EndorseRank 엣지 가중치: 최신 nonzero allowance—현재 보증 강도.
+
+GMX 프록시 3종: close-success count, 양수 base PnL 합, close success rate.
+
+Tier 1 cohort: GMX close ≥ 3인 지갑—H1·H2 주 표본.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 12 / 16]  What Parameters Allow Us to Know
+data-title: What Params Mean
+Suggested time: ~55 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+What do these parameters allow us to know?
+
+Sampling parameters—window, minimum closes, and cohort—fix which events enter the study and ensure both methods see the same wallets.
+Differences in Kendall tau then reflect graph semantics and algorithm choice, not unequal samples.
+
+Solver and graph parameters—damping, tolerance, AWP decay, and allowance weights—control how score mass propagates and how runtime is measured.
+EndorseRank keeps the latest live allowance; AWP prefers more recent transfers through logistic decay.
+
+The design principle is simple:
+pre-register the knobs, then measure alignment and efficiency.
+Robustness sweeps test sensitivity; they do not redefine the primary setting after seeing the correlation numbers.
+
+[KO]
+이 파라미터들로 무엇을 알 수 있는가?
+
+표본 파라미터—window, 최소 close, cohort—는 어떤 이벤트가 들어오는지 고정하고, 두 방법이 같은 지갑을 보게 합니다.
+그러면 Kendall τ 차이는 표본 불균형이 아니라 그래프 의미·알고리즘 선택에서 옵니다.
+
+솔버·그래프 파라미터—damping, tolerance, AWP decay, allowance 가중치—는 점수 질량이 어떻게 전파되고 런타임을 어떻게 측정하는지를 통제합니다.
+EndorseRank는 최신 유효 allowance를 유지하고, AWP는 logistic decay로 최근 전송을 더 선호합니다.
+
+설계 원칙은 단순합니다.
+노브를 사전 등록한 뒤 정렬과 효율을 측정합니다.
+robustness 스윕은 민감도를 검정할 뿐, τ를 본 뒤에 주 설정을 바꾸지 않습니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 13 / 16]  GMX Proxies
+data-title: GMX Proxies
+Suggested time: ~60 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Here are the operational definitions for H2.
+
+Close-success count is the number of profitable PositionDecrease closes—an analogue of in-degree in Do and Do.
+
+Realized gain proxy is the sum of max of base PnL in USD and zero—an analogue of in-value.
+
+Close success rate is wins over total closes, requiring at least three closes.
+
+Inclusion rules matter.
+The trader identity is the event account field, not the transaction sender.
+A profitable close requires positive base PnL.
+Liquidations are excluded when order type equals seven.
+Events come from the GMX V2 EventEmitter on Arbitrum One.
+
+We are not claiming loan-repayment ground truth, not resolving multi-wallet entities, and we acknowledge that wash, copy, or automated trading can inflate proxies.
+
+[KO]
+H2를 위한 조작적 정의입니다.
+
+Close-success count: 수익성 PositionDecrease close 횟수—Do & Do의 in-degree 유추.
+
+Realized gain proxy: max(basePnlUsd, 0)의 합—in-value 유추.
+
+Close success rate: 승리 / 전체 close, 단 총 close ≥ 3.
+
+포함 규칙이 중요합니다.
+트레이더 ID는 이벤트 account 필드이며 tx.from이 아닙니다.
+수익성 close는 basePnlUsd > 0입니다.
+청산은 orderType = 7일 때 제외합니다.
+이벤트는 아비트럼 원 GMX V2 EventEmitter에서 옵니다.
+
+대출 상환 ground truth를 주장하지 않고, 다중 지갑 엔티티 해석도 하지 않으며, wash·카피·자동매매가 프록시를 부풀릴 수 있음을 인정합니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 14 / 16]  Evaluation Plan
+data-title: Evaluation Plan
+Suggested time: ~55 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+How will we test the hypotheses?
+
+For H1, we compare EndorseRank and AWP with rho, tau, and top-k overlap on the Tier-one GMX cohort, expecting divergence from identical rankings.
+
+For H2, we correlate each method with the GMX proxies and test whether EndorseRank is stronger than AWP—again on Tier one.
+
+For H3, we measure runtime, peak memory, and iterations, averaged over five runs, while scaling from ten thousand toward one hundred thousand nodes on Tier two.
+
+Tier three covers local robustness: damping values, top-token subgraphs, and weight transforms.
+
+We target a twenty-two vCPU, sixty-four gigabyte machine, keep BigQuery scan guardrails for reproducibility, and will release extraction scripts, parameter config, and a Dockerised scoring pipeline.
+
+[KO]
+가설은 어떻게 검정하는가?
+
+H1: Tier 1 GMX cohort에서 EndorseRank와 AWP를 ρ·τ·top-k로 비교하고, 동일 순위로부터의 발산을 기대합니다.
+
+H2: 각 방법을 GMX 프록시와 상관시키고, EndorseRank가 AWP보다 강한지 Tier 1에서 검정합니다.
+
+H3: Tier 2에서 1만→5만→10만 노드로 확장하며 런타임·피크 메모리·반복 횟수를 5회 평균으로 측정합니다.
+
+Tier 3은 로컬 robustness: damping, top-token 서브그래프, 가중치 변환입니다.
+
+하드웨어는 22 vCPU·64 GB, BigQuery 스캔 가드레일로 재현성을 유지하고, 추출 스크립트·파라미터 설정·Docker 점수 파이프라인을 공개할 예정입니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 15 / 16]  Contributions & Timeline
+data-title: Contributions & Timeline
+Suggested time: ~55 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+Expected contributions fall into four areas.
+
+Theoretically, allowance edges form a distinct endorsement-graph trust signal without time decay.
+Methodologically, we provide sparse EndorseRank and a reproducible Arbitrum pipeline.
+Empirically, we use GMX leveraged-exposure proxies for domain alignment against AWP.
+Practically, the scores are graded and explainable for risk and collateral research.
+
+On schedule, after proposal approval by August twenty twenty-six:
+September to December is ETL, graphs, and model implementation;
+January to May twenty twenty-seven is evaluation and the first journal article;
+June to September continues thesis chapters and a second article;
+and October twenty twenty-seven to January twenty twenty-eight covers the full draft, revision, and examination submission.
+
+[KO]
+기대 기여는 네 영역입니다.
+
+이론적으로, allowance 엣지는 시간 감쇠 없는 별개의 endorsement-graph 신뢰 신호입니다.
+방법론적으로, 희소 EndorseRank와 재현 가능한 아비트럼 파이프라인을 제공합니다.
+실증적으로, AWP 대비 도메인 정렬을 위해 GMX 레버리지 노출 프록시를 사용합니다.
+실용적으로, 리스크·담보 연구를 위한 등급형·설명 가능한 점수입니다.
+
+일정: 2026년 8월까지 제안서 승인 후,
+9–12월 ETL·그래프·모델 구현,
+2027년 1–5월 평가·첫 저널 논문,
+6–9월 논문 챕터·두 번째 논문,
+2027년 10월–2028년 1월 전체 초고·수정·심사 제출입니다.
+
+
+--------------------------------------------------------------------------------
+[SLIDE 16 / 16]  Closing
+data-title: Closing
+Suggested time: ~60 seconds
+--------------------------------------------------------------------------------
+
+[EN]
+To summarise for discussion.
+
+EndorseRank ranks wallets from ERC-20 allowance edges—explicit endorsement, not payment flow.
+
+Arbitrum One is chosen for same-chain BigQuery logs and dense GMX outcomes on an L2—not because GMX is the twenty twenty-six global perp-DEX volume leader.
+
+GMX PositionDecrease is the feasible validation stream when under-collateralized default labels are too sparse.
+
+And the key experimental parameters—chain, window, minimum closes, damping, tolerance, AWP decay, and proxies—are pre-registered before we interpret alignment.
+
+I am happy to take questions.
+Thank you.
+
+[KO]
+논의를 위해 요약합니다.
+
+EndorseRank는 ERC-20 allowance 엣지로 지갑을 순위화합니다—명시적 보증이지 결제 흐름이 아닙니다.
+
+아비트럼 원은 동일 체인 BigQuery 로그와 L2의 밀집 GMX 결과 때문에 선택했으며, GMX가 2026년 전 세계 perp-DEX 거래량 1위여서가 아닙니다.
+
+under-collateralized 부도 라벨이 너무 희소할 때, GMX PositionDecrease가 실행 가능한 검증 스트림입니다.
+
+그리고 chain, window, 최소 close, damping, tolerance, AWP decay, proxies 등 핵심 실험 파라미터는 정렬을 해석하기 전에 사전 등록됩니다.
+
+질문 받겠습니다.
+감사합니다.
+
+
+================================================================================
+END OF SCRIPT
+Optional Q&A prompts (not timed) / 선택 Q&A 프롬프트:
+
+[EN] Why not Hyperliquid?
+[KO] 왜 Hyperliquid가 아닌가?
+→ custom L1; Google 공개 EVM BigQuery에 없음; same-chain 설계가 깨짐
+
+[EN] Why no time decay on allowances?
+[KO] 왜 allowance에 시간 감쇠가 없는가?
+→ 철회·대체될 때까지 유효(live until revoked/superseded)
+
+[EN] Why m = 3?
+[KO] 왜 m = 3인가?
+→ success-rate 분모 안정화
+
+[EN] Is H2 claiming credit scores?
+[KO] H2가 신용점수를 주장하는가?
+→ 아니오—도메인 직관 프록시일 뿐
+================================================================================

@@ -1,0 +1,110 @@
+Proposal merge validation (professor-feedback + research baseline)
+===================================================================
+
+Historical note: paths below before 2026-06-21 used the pre-restructure layout
+(proposal/, sources/, scripts/ at repo root). Current canonical paths are under
+1-Proposal/.
+
+Merged output:
+  1-Proposal/proposal/main.pdf
+
+Source inputs:
+  professor-feedback: 1-Proposal/sources/professor-feedback/dissertation-proposal-commented.docx
+  research baseline: 1-Proposal/archive/snapshots/proposal-0-research-baseline/
+
+Merge strategy:
+  - Base structure and professor feedback from professor-feedback DOCX
+  - Research direction (EndorseRank, Arbitrum One, GMX V2) from research baseline
+  - LaTeX canonical output in 1-Proposal/proposal/
+
+Term consistency (1-Proposal/proposal/*.tex grep):
+  AbitoRank: 0
+  Aave: 0
+  AUC: 0
+  EndorseRank: present throughout
+  GMX / Arbitrum One: present in methodology and validation sections
+
+Build:
+  XeLaTeX 2-pass: PASS (51 pages)
+  Fatal LaTeX errors: 0
+
+Professor comment remediation (second pass)
+============================================
+
+Applied fixes for remaining partial/no items from professor comment audit.
+
+Term grep (1-Proposal/proposal/*.tex):
+  confront: 0
+  AbitoRank: 0
+  Aave: 0
+  Colendi: 0
+  Do et al. (2019): 0
+  on-chain wallet reputation: 0
+  predictive power: 0
+  Imig: 0
+
+Build:
+  XeLaTeX 2-pass: PASS
+  Output: 1-Proposal/proposal/main.pdf
+
+Key changes:
+  - Abstract: confront -> encounter; Schär (2021) citation
+  - Ch1: on-chain reputation score terminology; definition citations; acronym note
+  - Ch2: SPICE setting terminology; §2.1 intro sentence; Yang-only risk propagation
+  - Ch3: removed Do (2019), Colendi, Imig; risk ranking performance wording
+  - Ch4: Imig removed; DeFi-informed learning future-work sentence
+  - Ch5: directed (one-way) relationships
+  - Bibliography: Schär (2021) added; Imig (2023) removed
+
+
+DOCX merge script:
+  1-Proposal/scripts/merge_proposal_docx.py
+  Backup: 1-Proposal/sources/professor-feedback/dissertation-proposal-commented.pre-merge.docx
+
+Pre-submission review fixes (2026-06-20)
+=========================================
+
+Applied fixes from 8-axis submission review:
+
+  - Ch6: fixed broken itemize in Limitations SS3 and SS7
+  - Title: June 2025 -> June 2026 (align with Ch2 schedule)
+  - bibliography: Lin moved to alphabetical order (after Kotb); Packin SSRN DOI added
+  - Ch3: removed duplicate Packin paragraph; novel -> distinctive
+  - Abstract: novel -> an on-chain reputation metric
+
+Term grep (1-Proposal/proposal/*.tex):
+  confront: 0
+  AbitoRank: 0
+  Yang et al.: 0
+  novel: 0
+
+Build:
+  XeLaTeX 2-pass: PASS
+  Output: 1-Proposal/proposal/main.pdf (52 pages)
+
+Optional polish (2026-06-20, post-commit)
+==========================================
+
+  - Abstract O3: explicit EndorseRank vs AWP comparison in GMX proxy alignment objective
+  - bibliography: shortened href display text (doi:..., arXiv:..., docs.*) to reduce overfull hbox in References
+
+Build:
+  XeLaTeX 2-pass: PASS
+  Output: 1-Proposal/proposal/main.pdf
+
+DOCX export (2026-06-20)
+========================
+
+  - 1-Proposal/proposal/build-docx.ps1: pdf2docx from main.pdf (PDF layout preserved)
+  - 1-Proposal/scripts/build_proposal_docx_from_pdf.py: converter + content verification
+  - Output: 1-Proposal/proposal/main.docx (~113 KB, 52 pages, Times New Roman inline)
+  - Content checks: June 2026, versus AWP, Lin et al., EndorseRank, Figure 1; Yang et al. absent
+  - Zip integrity: testzip() OK
+  - Note: pandoc export removed (Word styles diverged from PDF); use PDF-first path after build.ps1
+
+Repository restructure (2026-06-21)
+====================================
+
+  - Proposal assets moved to 1-Proposal/
+  - Dissertation draft scaffold created at 2-Dissertation-Draft/
+  - Git remote: https://github.com/abitocodes/phd_works.git

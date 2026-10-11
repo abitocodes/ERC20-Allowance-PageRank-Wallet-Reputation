@@ -1,0 +1,94 @@
+% !TEX root = ../main.tex
+\section{SQL 틀, 설정, 덧붙인 설명}
+\label{ch:appendix-sql}
+
+다른 사람이 쉽게 다시 해 볼 수 있도록, 이 부록에는 대표적인 SQL 모양, 설정 키(설정 파일 속 항목 이름), 그리고 방법에 대해 덧붙인 설명을 모았어요.
+
+\dissertationSubheading[sec:sql-approval]{허락 로그 추출 모양}
+
+ERC-20(토큰 공통 규칙)의 \texttt{Approval} 이벤트는 topic~$0$(이벤트 종류를 알려 주는 첫 번째 꼬리표)으로 알아봐요. 이 값은 \texttt{Approval(address,address,uint256)}의 keccak256 해시(글자를 정해진 길이의 지문 같은 값으로 바꾼 것)예요. 한 달 치를 꺼내는 질의를 간단하게 줄이면 다음과 같아요.
+
+\begin{verbatim}
+SELECT
+  block_timestamp,
+  block_number,
+  transaction_hash,
+  log_index,
+  address AS token,
+  topics[SAFE_OFFSET(1)] AS owner_topic,
+  topics[SAFE_OFFSET(2)] AS spender_topic,
+  data AS value_data
+FROM `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`
+WHERE block_timestamp >= TIMESTAMP('2025-12-01')
+  AND block_timestamp <  TIMESTAMP('2026-01-01')
+  AND topics[SAFE_OFFSET(0)] = '0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925'
+  AND (
+    LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(1)], 27))) IN UNNEST(@wallet_list)
+    OR LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(2)], 27))) IN UNNEST(@wallet_list)
+  );
+\end{verbatim}
+
+행을 \texttt{@wallet\_list}로 거르기 때문에, 읽는 양은 체인 전체가 아니라 코호트(평가하는 지갑 묶음)에 비례해요. 한 달씩 나누어 질의하면, 모든 질의가 이 연구의 수집 기록에 적힌 질의별 바이트 상한 아래에 머물러요.
+
+\dissertationSubheading[sec:sql-transfer]{송금 로그 추출 모양}
+
+\texttt{Transfer} 이벤트는 \texttt{Transfer(address,address,uint256)}의 topic~$0$으로 골라내요.
+
+\begin{verbatim}
+SELECT
+  block_timestamp,
+  block_number,
+  transaction_hash,
+  log_index,
+  address AS token,
+  topics[SAFE_OFFSET(1)] AS from_topic,
+  topics[SAFE_OFFSET(2)] AS to_topic,
+  data AS value_data
+FROM `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`
+WHERE block_timestamp >= TIMESTAMP('2025-12-01')
+  AND block_timestamp <  TIMESTAMP('2026-01-01')
+  AND topics[SAFE_OFFSET(0)] = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+  AND (
+    LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(1)], 27))) IN UNNEST(@wallet_list)
+    OR LOWER(CONCAT('0x', SUBSTR(topics[SAFE_OFFSET(2)], 27))) IN UNNEST(@wallet_list)
+  );
+\end{verbatim}
+
+페이지랭크(PageRank)를 돌리기 전에 뒤처리를 해요. 먼저 (토큰, 주인, 스펜더) 세 짝마다 (\texttt{block\_number}, \texttt{log\_index}) 순서로 마지막 \texttt{Approval} 이벤트의 값만 남기고, 0인 값(허락을 거둔 값)은 버려요. 그다음 마지막 허락 하나하나와 송금 하나하나에 시간 무게와 상한이 있는 값 무게(금액이 아무리 커도 1을 넘지 않는 무게)를 매기고, 그 옆에 C-PR의 금액을 그대로 쓴 층들도 만들어요. 그리고 적어도 한쪽 끝이 매칭 코호트(모든 점수가 똑같이 점수를 매기는 지갑 묶음)에 있는 화살표는 모두 남겨요. 금액은 토큰의 원래 단위(소수점 조정을 하지 않은 가장 작은 단위)로 두는데, \texttt{uint256} 값을 소수점이 있는 수(float)로 바꾼 값이에요. 값 무게를 매기기 전에도, 그리고 C-PR 층에서 허락이나 송금 값을 여러 토큰에 걸쳐 더하기 전에도, 소수 자릿수에 맞춘 조정은 하지 않아요.
+
+\dissertationSubheading[sec:config-keys]{설정 키}
+
+처리 과정(파이프라인)의 매개변수는 모두 버전 관리되는 설정 파일 하나에 들어 있어요. 그 안의 주요 키는 다음과 같아요.
+
+\begin{itemize}
+\item 관찰 기간의 시작 시각과 끝 시각;
+\item 페이지랭크의 감쇠 계수(화살표를 따라갈 확률), 허용 오차, 최대 반복 횟수;
+\item 로지스틱 감쇠(오래된 일일수록 가볍게 세는 무게)의 매개변수 $k$와 $t_0$, 그리고 값 무게 매개변수 $b$;
+\item 부분 표본의 시드(무작위로 뽑을 때의 출발 번호)와 벤치마크(속도 재기) 반복 횟수;
+\item 중간 결과물과 표 조각을 써 넣는 위치(\texttt{results/tables/}).
+\end{itemize}
+
+감쇠 계수나 감쇠 매개변수를 바꾸면, 강건성 점검(조건을 바꿔도 결과가 버티는지 보기)을 위한 실행과 표 내보내기까지 포함해서 평가 전체를 다시 돌려야 해요. 그다음에는 모든 그림도 같은 결과물에서 다시 만들어야 해요. 그래야 보고한 숫자가 처리 과정이 만든, 컴퓨터가 읽을 수 있는 요약과 맞아요.
+
+\dissertationSubheading[sec:complexity-notes]{계산량 메모}
+
+$m=|E|$라고 써요. 마지막 허락 화살표를 만들 때는 허락 행 $R_a$개를 (\texttt{block\_number}, \texttt{log\_index}) 순서로 정렬하는데, 여기에 $O(R_a\log R_a)$ 시간(대략 이 값에 비례하는 시간)이 걸려요. 송금 화살표는 송금 행에 대해 $O(R_t)$가 걸려요. $I$번 반복하는 페이지랭크는 $O(m+mI)$가 들어요. 첫 번째 항은 희소 연산자(0이 아닌 칸만 적어 둔 듬성듬성한 행렬)를 만드는 몫인데, 실제로 잰 호출에서는 이 몫이 대부분을 차지해요(부록~\ref{sec:pr-sparsity}). 메모리는 대부분 화살표 목록과 점수 벡터가 차지해요. 그래서 표~\ref{tab:benchmark-runtime}의 최대 메모리 비율은 화살표 수 비율과 비슷한 크기예요.
+
+\dissertationSubheading[sec:interpretation-checklist]{결과 표를 읽는 약속}
+
+\ref{ch:results}장의 표들은 다음 약속을 따라요.
+
+\begin{enumerate}
+\item 모든 $\tau$는 점수와 대리 지표(대신 재는 값)의 원래 값으로 구한 켄달의 $\tau_b$(동점을 보정한 켄달의 타우)이고, 95\% 짝지은 부트스트랩(다시 뽑기) 구간과 함께 보고해요. 계수 사이의 차이는 짝지은 대비 표에서 가져온 것이고, 점 추정값(하나의 값으로 낸 추정)끼리 빼서 구한 것이 아니에요.
+\item 매칭 코호트에서 엔도스랭크(EndorseRank)의 계수는 동점 때문에 위쪽 한계가 있어요(\ref{sec:rank-divergence}절). 그래서 엔도스랭크의 계수는 대비를 통해서만, 그리고 그 한계를 염두에 두고서만 다른 계수와 비교해요.
+\item 실행 시간은 미리 만들어 둔 화살표 목록으로 페이지랭크를 한 번 부르는 데 걸린 시간이에요. 여기에는 행렬 조립과 거듭제곱 반복(같은 계산을 되풀이하기)이 들어가지만, 추출이나 전처리(미리 다듬기)는 들어가지 않아요. 같은 설정의 같은 그래프는 모든 표에서 같은 숫자로 나와요(\ref{sec:computational-benchmark}절).
+\item 표본 정의를 바꿔 보는 실행(표~\ref{tab:robustness-sample-size})은 민감도 분석(조건을 바꿔 결과가 얼마나 움직이는지 보기)이에요. 그래서 그 절댓값은 매칭 코호트 표들과 비교하지 않아요.
+\end{enumerate}
+
+\dissertationSubheading[sec:archived-baselines]{보관해 둔 확장 기준선}
+
+보관해 둔 결과 행렬들과, 그것들이 주된 비교에 들어가지 않는 까닭은 부록~\ref{ch:appendix-archive}에 설명했어요.
+
+\dissertationSubheading[sec:limitations-reprise]{한계}
+
+위의 SQL은 아비트럼 원(Arbitrum One)에서만 돌렸어요. 보고한 숫자는 모두 처리 과정이 만든, 컴퓨터가 읽을 수 있는 요약에서 나왔어요. 그 요약은 매칭 코호트($n=5{,}521$), 풀의 부분 표본, 스펜더 코호트($n=1{,}335$), 그리고 탐색적(미리 정하지 않고 살펴본) 트레이더 실행에 대한 것이에요. 등록해 둔 6월부터 8월까지의 결과는 그 실행의 요약에서 나왔어요(\ref{sub:fresh-results}절).

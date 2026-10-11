@@ -1,0 +1,312 @@
+{
+  "created_at": "2026-06-24T01:42:08.138107+00:00",
+  "synthetic": false,
+  "period": {
+    "start_date": "2025-12-01",
+    "end_date": "2026-06-01",
+    "start_ts": "2025-12-01 00:00:00 UTC",
+    "end_ts": "2026-06-01 00:00:00 UTC"
+  },
+  "protocol": "gmx_v2_arbitrum",
+  "note": "Offline synthetic data; re-run extract_margin_week.py for real BigQuery data.",
+  "decoded_rows": 4231,
+  "wallets_ranked": 571,
+  "n_wallets_requested": 571,
+  "reputation_synthetic": {
+    "at": "2026-06-24T01:34:33.938306+00:00",
+    "approval_rows": 11420,
+    "transfer_rows": 33323,
+    "wallets": 571,
+    "note": "Replace with extract_reputation_data.py + BigQuery when online."
+  },
+  "preprocess_arbitrum_allowances": {
+    "at": "2026-06-24T01:41:31.321321+00:00",
+    "input_rows": 453545,
+    "output_rows": 21585,
+    "output_path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\reputation\\latest_allowances.parquet"
+  },
+  "preprocess_arbitrum_transfers": {
+    "at": "2026-06-24T01:41:42.926148+00:00",
+    "input_rows": 2639388,
+    "output_rows": 2639388,
+    "output_path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\reputation\\transfer_events.parquet"
+  },
+  "reputation_ranks": {
+    "at": "2026-10-02T05:40:35.061199+00:00",
+    "wallets": 5521,
+    "methods": {
+      "endorserank_vt": 14727,
+      "endorserank_vt_activity": 14727,
+      "endorserank": 14727,
+      "awp_paper": 137087,
+      "awp": 137087,
+      "coupled_pr": 151814,
+      "coupled_pr_l25": 151814,
+      "coupled_pr_l75": 151814,
+      "seeded_pr": 137087,
+      "gf_pr": 10338,
+      "lp_pr": 136426,
+      "cw_awp": 110098,
+      "riskprop_pr": 136852,
+      "lf_pr": 536,
+      "liq_pr": 45,
+      "borrow_pr": 484,
+      "repay_pr": 787,
+      "delegation_pr": 0,
+      "borrow_pr_pool": 262,
+      "repay_pr_pool": 232
+    },
+    "six_aave_methods": [
+      "endorserank",
+      "awp",
+      "liq_pr",
+      "borrow_pr",
+      "repay_pr",
+      "delegation_pr"
+    ],
+    "output": "/home/user/phd_works/2-Dissertation-Draft-Works/wallet-reputation-experiments/data/2-processed-tables-and-evaluations/wallet_rankings.parquet"
+  },
+  "aave_synthetic": {
+    "at": "2026-06-24T01:35:33.805656+00:00",
+    "lending_rows": 203,
+    "delegation_rows": 84,
+    "aave_wallets": 85
+  },
+  "aave_extract": {
+    "at": "2026-07-01T06:09:05.565115+00:00",
+    "wallet_count": 5521,
+    "wallet_meta": {
+      "gmx_wallet_count": 5521,
+      "target_wallets": 0,
+      "benchmark_seed": "endorserank-benchmark-v1",
+      "extraction_wallet_count": 5521,
+      "supplemental_source": "none",
+      "supplemental_count": 0
+    },
+    "dry_run_bytes_total": 725866358496,
+    "months": [
+      {
+        "label": "2025-12",
+        "start_ts": "2025-12-01 00:00:00 UTC",
+        "end_ts": "2026-01-01 00:00:00 UTC",
+        "bytes_aave": 138768790428
+      },
+      {
+        "label": "2026-01",
+        "start_ts": "2026-01-01 00:00:00 UTC",
+        "end_ts": "2026-02-01 00:00:00 UTC",
+        "bytes_aave": 147798865712
+      },
+      {
+        "label": "2026-02",
+        "start_ts": "2026-02-01 00:00:00 UTC",
+        "end_ts": "2026-03-01 00:00:00 UTC",
+        "bytes_aave": 119275794248
+      },
+      {
+        "label": "2026-03",
+        "start_ts": "2026-03-01 00:00:00 UTC",
+        "end_ts": "2026-04-01 00:00:00 UTC",
+        "bytes_aave": 112603918164
+      },
+      {
+        "label": "2026-04",
+        "start_ts": "2026-04-01 00:00:00 UTC",
+        "end_ts": "2026-05-01 00:00:00 UTC",
+        "bytes_aave": 92086994940
+      },
+      {
+        "label": "2026-05",
+        "start_ts": "2026-05-01 00:00:00 UTC",
+        "end_ts": "2026-06-01 00:00:00 UTC",
+        "bytes_aave": 115331995004
+      }
+    ]
+  },
+  "decode": {
+    "at": "2026-06-24T01:48:22.561602+00:00",
+    "input_rows": 365488,
+    "decoded_rows": 365488,
+    "decode_errors": 0,
+    "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\gmx_decoded_events.parquet"
+  },
+  "rankings": {
+    "at": "2026-10-02T05:38:53.358522+00:00",
+    "wallets_ranked": 5521,
+    "min_closes": 3,
+    "output": "/home/user/phd_works/2-Dissertation-Draft-Works/wallet-reputation-experiments/data/2-processed-tables-and-evaluations/wallet_rankings.parquet"
+  },
+  "preprocess_aave_lending": {
+    "at": "2026-06-24T01:41:44.763878+00:00",
+    "input_rows": 8801,
+    "output_rows": 8801,
+    "output_path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\lending\\aave_events.parquet"
+  },
+  "gmx_extract": {
+    "at": "2026-06-24T01:42:08.138107+00:00",
+    "dry_run_bytes_total": 726080303904,
+    "months": [
+      {
+        "label": "2025-12",
+        "start_ts": "2025-12-01 00:00:00 UTC",
+        "end_ts": "2026-01-01 00:00:00 UTC",
+        "dry_run_bytes": 138804447996
+      },
+      {
+        "label": "2026-01",
+        "start_ts": "2026-01-01 00:00:00 UTC",
+        "end_ts": "2026-02-01 00:00:00 UTC",
+        "dry_run_bytes": 147834523280
+      },
+      {
+        "label": "2026-02",
+        "start_ts": "2026-02-01 00:00:00 UTC",
+        "end_ts": "2026-03-01 00:00:00 UTC",
+        "dry_run_bytes": 119311451816
+      },
+      {
+        "label": "2026-03",
+        "start_ts": "2026-03-01 00:00:00 UTC",
+        "end_ts": "2026-04-01 00:00:00 UTC",
+        "dry_run_bytes": 112639575732
+      },
+      {
+        "label": "2026-04",
+        "start_ts": "2026-04-01 00:00:00 UTC",
+        "end_ts": "2026-05-01 00:00:00 UTC",
+        "dry_run_bytes": 92122652508
+      },
+      {
+        "label": "2026-05",
+        "start_ts": "2026-05-01 00:00:00 UTC",
+        "end_ts": "2026-06-01 00:00:00 UTC",
+        "dry_run_bytes": 115367652572
+      }
+    ],
+    "extracted_at": "2026-06-24T01:42:13.885179+00:00",
+    "rows": 365488,
+    "bytes_processed": 0,
+    "output": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\gmx_event_logs_2025-12_to_2026-05.parquet",
+    "monthly_dir": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\raw\\gmx",
+    "merged_months": [
+      "gmx_event_logs_2025-12.parquet",
+      "gmx_event_logs_2026-01.parquet",
+      "gmx_event_logs_2026-02.parquet",
+      "gmx_event_logs_2026-03.parquet",
+      "gmx_event_logs_2026-04.parquet",
+      "gmx_event_logs_2026-05.parquet"
+    ]
+  },
+  "supplemental_wallet_sample": {
+    "at": "2026-07-02T00:08:06.008221+00:00",
+    "gmx_wallet_count": 5521,
+    "target_wallets": 100000,
+    "supplemental_limit": 94479,
+    "source": "bigquery_monthly",
+    "bytes_processed": 0,
+    "pool_meta": {
+      "gmx_wallet_count": 5521,
+      "target_wallets": 100000,
+      "extraction_wallet_count": 99080,
+      "supplemental_source": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\supplemental_wallets.parquet",
+      "supplemental_count": 93559
+    },
+    "supplemental_path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\supplemental_wallets.parquet",
+    "extraction_wallet_set_path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\extraction_wallet_set.parquet"
+  },
+  "reputation_extract": {
+    "at": "2026-07-04T03:42:30.637436+00:00",
+    "wallet_count": 99080,
+    "wallet_meta": {
+      "gmx_wallet_count": 5521,
+      "target_wallets": 99080,
+      "extraction_wallet_count": 99080,
+      "supplemental_source": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\extraction_wallet_set.parquet",
+      "supplemental_count": 93559,
+      "tier2": true
+    },
+    "extraction_wallet_set_path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\extraction_wallet_set.parquet",
+    "dry_run_bytes_total": 1457463560284,
+    "months": [
+      {
+        "label": "2025-12",
+        "start_ts": "2025-12-01 00:00:00 UTC",
+        "end_ts": "2026-01-01 00:00:00 UTC",
+        "bytes_approvals": 139231486852,
+        "bytes_transfers": 139236958956
+      },
+      {
+        "label": "2026-01",
+        "start_ts": "2026-01-01 00:00:00 UTC",
+        "end_ts": "2026-02-01 00:00:00 UTC",
+        "bytes_approvals": 148267034240,
+        "bytes_transfers": 148271149180
+      },
+      {
+        "label": "2026-02",
+        "start_ts": "2026-02-01 00:00:00 UTC",
+        "end_ts": "2026-03-01 00:00:00 UTC",
+        "bytes_approvals": 119751559980,
+        "bytes_transfers": 119751559980
+      },
+      {
+        "label": "2026-03",
+        "start_ts": "2026-03-01 00:00:00 UTC",
+        "end_ts": "2026-04-01 00:00:00 UTC",
+        "bytes_approvals": 113082964032,
+        "bytes_transfers": 113087021264
+      },
+      {
+        "label": "2026-04",
+        "start_ts": "2026-04-01 00:00:00 UTC",
+        "end_ts": "2026-05-01 00:00:00 UTC",
+        "bytes_approvals": 92570098040,
+        "bytes_transfers": 92572834000
+      },
+      {
+        "label": "2026-05",
+        "start_ts": "2026-05-01 00:00:00 UTC",
+        "end_ts": "2026-06-01 00:00:00 UTC",
+        "bytes_approvals": 115820446880,
+        "bytes_transfers": 115820446880
+      }
+    ],
+    "observation": {
+      "start": "2025-12-01 00:00:00 UTC",
+      "end": "2026-06-01 00:00:00 UTC"
+    }
+  },
+  "tier2_reputation_extract": {
+    "status": "in_progress",
+    "note": "Wallet pool N=31612 from supplemental_wallets.parquet. BQ --tier2 dry-run ~1353 GiB; full extract not completed.",
+    "dry_run_bytes_total": 1353370000000,
+    "wallet_pool_size": 99080,
+    "checkpoint": {
+      "steps": [
+        {
+          "step_id": "2025-12/approvals",
+          "status": "completed",
+          "finished_at": "2026-07-04T03:42:30.662740+00:00"
+        },
+        {
+          "step_id": "2025-12/transfers",
+          "status": "failed",
+          "job_id": "4313dc59-c5f7-4819-9cdc-913ce2e4d9b0",
+          "started_at": "2026-07-03T05:36:09.763327+00:00",
+          "batches": 377,
+          "rows": 11333272,
+          "error": "2025-12/transfers: arrow download failed (404 GET https://bigquery.googleapis.com/bigquery/v2/projects/dissertation-bq/queries/4313dc59-c5f7-4819-9cdc-913ce2e4d9b0?fields=jobReference%2CtotalRows%2CpageToken%2Crows&location=US&formatOptions.useInt64Timestamp=True&prettyPrint=false: Not found: Table dissertation-bq:_e496aa0d12ab07052bbf89a291e0fb865a60a7d6.anon059692de_2e2a_4cfc_ae48_da0ae065766a); 377 chunks preserved \u2014 re-run --resume to continue",
+          "finished_at": "2026-07-04T05:39:23.469392+00:00"
+        }
+      ]
+    },
+    "started_at": "2026-07-03T00:35:51.071323+00:00"
+  },
+  "aave_delegation_extract": {
+    "at": "2026-07-01T06:09:05.567118+00:00",
+    "status": "deferred",
+    "topic0": "0x0bfe1282206440d8e50a51e6ba542ca826a536a2e4b1ce4d084792bf7d86e935",
+    "output_path": "D:\\Github\\phd_works\\A-Skill-Programs\\margin_rank\\data\\processed\\lending\\aave_delegation_events.parquet",
+    "note": "BorrowAllowanceDelegated BQ SQL not run in this study; Delegation-PR scores degenerate until extract is implemented."
+  }
+}

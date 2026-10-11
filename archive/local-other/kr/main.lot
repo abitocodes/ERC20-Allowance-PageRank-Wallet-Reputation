@@ -1,0 +1,26 @@
+\contentsline {table}{\numberline {1}{\ignorespaces 본 연구에서 사용하는 약어.}}{11}{table.caption.8}%
+\contentsline {table}{\numberline {2}{\ignorespaces 본 연구에서 사용하는 수학 기호.}}{12}{table.caption.10}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces 주요 비교: EndorseRank 대 AWP (매칭 지갑 코호트, $n=5{,}521$).}}{17}{table.caption.15}%
+\contentsline {table}{\numberline {1.2}{\ignorespaces 가설, 연구 질문, 실증 주장 요약.}}{18}{table.caption.17}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces 선택된 그래프 평판 방법의 비교(개념적).}}{36}{table.caption.49}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces 그래프, 점수, 대리 지표, 매개변수의 기호.}}{39}{table.caption.53}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces 매칭 코호트($n=5{,}521$ 지갑, 비영 평판 부분그래프 연결성)의 데이터셋 특성.}}{60}{table.caption.88}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces 매칭 지갑 코호트($n=5{,}521$)의 계산 벤치마크.}}{61}{table.caption.90}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Runtime scaling on expanded wallet pool ($N=31612$; SHA256 seed \texttt {benchmark-tier2-v1}). Stages subsample the extraction wallet set; ER speedup = AWP/ER runtime ratio.}}{62}{table.caption.92}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Robustness: mean Kendall $\tau $ under PageRank damping $d \in \{0.75, 0.85, 0.95\}$ on matched wallet cohort ($n=5521$).}}{64}{table.caption.96}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces 강건성: 상위 20개 ERC-20 토큰 부분그래프의 평균 Kendall $\tau $ (매칭 코호트).}}{66}{table.caption.99}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Robustness: alignment and runtime vs.\ subsample size from wallet pool ($N=31612$; seed \texttt {benchmark-tier2-v1}).}}{66}{table.caption.101}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces 전송 및 allowance 계열의 평균 Kendall $\tau $ ($n=5{,}521$). 런타임은 평균 PageRank 벽시계 시간(초, 3회 반복)이다.}}{67}{table.caption.103}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces 전송 대리 지표와의 정합 (Do et al.\ 2023 기준선).}}{69}{table.caption.107}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces allowance 대리 지표와의 정합 (지출자 측 인승인 차수와 가치).}}{70}{table.caption.109}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces 전송 활동에서 도출한 Sybil 조정 안정성 대리 지표와의 정합.}}{71}{table.caption.111}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces 코호트 내 런타임 스케일링 (SHA256 시드 \texttt {benchmark-scale-v1}; $n \leq 5{,}521$ 매칭 코호트).}}{102}{table.caption.218}%
+\contentsline {table}{\numberline {8.2}{\ignorespaces 주 평가에 사용된 기본 매개변수.}}{103}{table.caption.222}%

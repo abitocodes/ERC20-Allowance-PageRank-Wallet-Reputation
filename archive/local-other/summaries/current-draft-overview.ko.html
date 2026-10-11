@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>학위논문 초안 요약 — EndorseRank와 AWP</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --muted: #4a4a4a;
+      --line: #d8d4cc;
+      --paper: #f7f4ee;
+      --card: #fffdf8;
+      --accent: #2c4a3e;
+      --accent-soft: #e6efe9;
+      --num: #1f3d4d;
+      --max: 46rem;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      font-size: 16.5px;
+      line-height: 1.75;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 16.5rem minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    nav.toc {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+      padding: 1.25rem 1rem 2rem;
+      border-right: 1px solid var(--line);
+      background: #f3efe6;
+    }
+    nav.toc h1 {
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      margin: 0 0 0.75rem;
+      color: var(--accent);
+    }
+    nav.toc ol {
+      margin: 0;
+      padding-left: 1.15rem;
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+    nav.toc a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    nav.toc a:hover,
+    nav.toc a:focus {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    main {
+      padding: 2rem 2.25rem 4rem;
+      max-width: calc(var(--max) + 4.5rem);
+    }
+    header.mast {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    header.mast p.kicker {
+      margin: 0 0 0.35rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+    }
+    header.mast h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.85rem;
+      line-height: 1.3;
+    }
+    header.mast .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+    section {
+      margin: 0 0 2.75rem;
+      scroll-margin-top: 1rem;
+    }
+    section h2 {
+      margin: 0 0 0.85rem;
+      font-size: 1.28rem;
+      color: var(--accent);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.35rem;
+    }
+    section h3 {
+      margin: 1.4rem 0 0.5rem;
+      font-size: 1.02rem;
+    }
+    p { margin: 0 0 0.85rem; }
+    ul, ol { margin: 0 0 0.95rem; padding-left: 1.3rem; }
+    li { margin: 0.2rem 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 0.7rem 0 1.1rem;
+      background: var(--card);
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 0.4rem 0.55rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0 0 0.4rem;
+    }
+    th { background: var(--accent-soft); font-weight: 600; }
+    td.num { font-variant-numeric: tabular-nums; color: var(--num); white-space: nowrap; }
+    figure.diagram {
+      margin: 1rem 0 0.4rem;
+      padding: 0.75rem 0.6rem 0.4rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+    figure.diagram figcaption {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0.35rem 0 0;
+    }
+    details.fallback {
+      margin: 0 0 1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    details.fallback summary { cursor: pointer; }
+    .note {
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      padding: 0.65rem 0.85rem;
+      margin: 0.8rem 0 1rem;
+      font-size: 0.93rem;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding-top: 0.85rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      nav.toc { position: relative; height: auto; max-height: 16rem; }
+      main { padding: 1.25rem 1rem 3rem; }
+    }
+    @media print {
+      nav.toc { display: none; }
+      .layout { display: block; }
+      body { background: #fff; font-size: 11pt; }
+      section { break-inside: avoid; }
+      figure.diagram { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav class="toc" aria-label="목차">
+      <h1>목차 (20절)</h1>
+      <ol>
+        <li><a href="#s01">이 요약이 다루는 것</a></li>
+        <li><a href="#s02">초록</a></li>
+        <li><a href="#s03">배경</a></li>
+        <li><a href="#s04">동기와 연구 문제</a></li>
+        <li><a href="#s05">핵심 개념</a></li>
+        <li><a href="#s06">목표·질문·가설</a></li>
+        <li><a href="#s07">시간 홀드아웃 정의</a></li>
+        <li><a href="#s08">범위와 비주장</a></li>
+        <li><a href="#s09">문헌·이론 틀</a></li>
+        <li><a href="#s10">승인 생명주기</a></li>
+        <li><a href="#s11">표본과 방법 입장</a></li>
+        <li><a href="#s12">2단계 수집</a></li>
+        <li><a href="#s13">그래프와 점수</a></li>
+        <li><a href="#s14">홀드아웃 프로토콜</a></li>
+        <li><a href="#s15">구성 개념 검사</a></li>
+        <li><a href="#s16">실증 주장 C1–C3</a></li>
+        <li><a href="#s17">홀드아웃과 주장 C4</a></li>
+        <li><a href="#s18">논의</a></li>
+        <li><a href="#s19">결론과 향후 연구</a></li>
+        <li><a href="#s20">부록이 하는 일</a></li>
+      </ol>
+    </nav>
+    <main>
+      <header class="mast">
+        <p class="kicker">현재 학위논문 초안 요약 · 한국어</p>
+        <h1>EndorseRank와 전송 그래프 AWP:<br>승인 인지 온체인 평판 점수의 비교 평가</h1>
+        <p class="lead">
+          이 문서는 초안(초록–제6장–부록)의 주장과 수치만으로 연구 흐름을 다시 쓴 읽기용 요약이다.
+          시퀀스 도식은 누가 무엇을 주고받는지를 보여 준다. 새 문헌이나 새 숫자는 넣지 않았다.
+        </p>
+      </header>
+
+      <section id="s01">
+        <h2>1. 이 요약이 다루는 것</h2>
+        <p>
+          초안은 초록과 약어 다음에 여섯 본문 장과 참고문헌, 부록으로 이어진다.
+          제1장은 문제·목표·질문을 고정하고, 제2장은 이론과 비주장(이 연구가 지지한다고 말하지 않는 범위)을 두며,
+          제3장은 수집·그래프·홀드아웃 절차를 명세하고, 제4장은 실증 주장 C1–C4를 보고한다.
+          제5장은 해석과 한계, 제6장은 기여와 향후 연구이다.
+          비주장의 목록은 8절, 홀드아웃의 조작 정의는 7절과 14절, 주장 C1–C4의 문장은 16–17절에 있다.
+        </p>
+        <p>
+          읽는 순서는 초안과 같다. 먼저 비교 대상(EndorseRank 대 AWP)을 잡고,
+          이어서 동일 창 검사와 시간 분할 검사를 구별한 뒤, 런타임과 정합을 한 표에서 본다.
+          아래 네 시퀀스 도식은 각각 승인 생명주기, 2단계 수집, 그래프 점수화, 홀드아웃 라벨링을 다룬다.
+        </p>
+      </section>
+
+      <section id="s02">
+        <h2>2. 초록</h2>
+        <p>
+          탈중앙화 금융(DeFi) 프로토콜은 자주 갱신할 수 있고, 운영 용어로 해석할 수 있으며,
+          공개 원장 신호와 대조할 수 있는 온체인 지갑 평판 점수가 필요하다.
+          전송 그래프 Adaptive Weighted PageRank(AWP)는 문서화된 기준선이지만,
+          과거 전송 집계는 비용이 크고, 전송량은 명시적 지출 승인과 같지 않다.
+        </p>
+        <p>
+          본 연구는 EndorseRank를 도입한다. Arbitrum One에서 최신 ERC-20 allowance를 간선으로 하는
+          방향성 보증 그래프에 PageRank를 적용한 점수이다. 평가는 보증·전송 그래프 연결성이 비영인
+          매칭 지갑 코호트(<em>n</em> = 5,521)에서 이루어진다. 동시창 점검은 전송·allowance 국소 통계를 쓴다.
+          시간 홀드아웃은 2026년 2월 28일까지의 사건으로 점수를 매기고,
+          2026년 3–5월의 신규 소유자–지출자 승인으로 라벨을 만든다.
+        </p>
+        <table>
+          <caption>초록의 핵심 대비 (매칭 코호트 <em>n</em> = 5,521; 홀드아웃은 지출자 <em>n</em> = 1,335)</caption>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>EndorseRank</th>
+              <th>AWP</th>
+              <th>읽기</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PageRank 벽시계</td>
+              <td class="num">2.105 s</td>
+              <td class="num">18.711 s</td>
+              <td>약 8.9배</td>
+            </tr>
+            <tr>
+              <td>allowance 계열 τ</td>
+              <td class="num">0.355</td>
+              <td class="num">−0.030</td>
+              <td>구성 개념 점검 (외부 검증 아님)</td>
+            </tr>
+            <tr>
+              <td>전송 계열 τ</td>
+              <td class="num">0.333</td>
+              <td class="num">0.534</td>
+              <td>구성 개념 점검 (외부 검증 아님)</td>
+            </tr>
+            <tr>
+              <td>홀드아웃 신규 승인자 τ</td>
+              <td class="num">0.479<br><span style="font-weight:normal;color:var(--muted)">(95% CI 0.426–0.529)</span></td>
+              <td class="num">—</td>
+              <td>창 밖 검사 · 지출자 <em>n</em> = 1,335. EndorseRank만 둔다. 라벨이 보증(신규 승인 쌍)이므로 전송 방법과의 머리 대결로 읽지 않는다.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          홀드아웃 라벨은 t1 스냅샷에 없던 소유자–지출자 쌍이다. AWP는 전송 그래프이므로 이 라벨과 구성 개념이 다르다.
+          초안에 AWP τ = 0.044가 있어도, 이 표에서는 우열 칸으로 쓰지 않는다.
+        </p>
+        <p>
+          방법 간 Kendall τ는 0.316으로, 순위는 겹치지만 서로 대체할 수 없다.
+          확장 지갑 풀(<em>N</em> = 31,612)에서 EndorseRank는 <em>n</em> = 10,000에서 약 10.4배,
+          전체 풀에서 약 9.4배 빠르다. 감쇠, 상위 20개 토큰, 표본 크기 검사는
+          allowance–전송 상충을 뒤집지 않는다.
+        </p>
+      </section>
+
+      <section id="s03">
+        <h2>3. 배경</h2>
+        <p>
+          DeFi는 전통적 금융 중개자 없이 대출·차입·레버리지 거래를 가능하게 한다.
+          그러나 대부분의 신용형 상호작용은 여전히 높은 담보를 요구한다.
+          프로토콜이 오프체인 신원이나 전통적 신용 이력에 의존할 수 없기 때문이다.
+          가명 환경에서 상대방은 식별된 개인이 아니라 주소이다.
+        </p>
+        <p>
+          공개 블록체인은 프로그램 가능한 정산과 개방적 참여를 도입한다.
+          스마트 계약은 합의 조건을 자체 실행 코드로 인코딩한다.
+          투명성에도 불구하고 누구나 무시할 수 있는 비용으로 주소를 만들 수 있고,
+          한 경제 주체가 여러 지갑을 통제할 수 있다. 위험 관리는 개별 평판보다
+          담보 완충, 청산 엔진, 프로토콜 매개변수에 의존한다.
+        </p>
+        <p>
+          담보화는 프로토콜을 보호하지만 자본 비효율을 남긴다.
+          연구 계보는 전송 그래프 중심성, 네트워크 위험 전파, 블록체인 기반 신용 모형,
+          대출 프로토콜 기계학습을 탐색해 왔다. 공통 전제는 공개 원장 데이터가
+          사용자를 비익명화하지 않고도 경제적으로 유의미한 관계를 인코딩한다는 것이다.
+          전송 그래프 평판은 신뢰할 만한 기준선이지만, ERC-20 allowance로 기록되는
+          명시적 지출 승인은 그 모형에 들어가지 않는다.
+        </p>
+      </section>
+
+      <section id="s04">
+        <h2>4. 동기와 연구 문제</h2>
+        <h3>네 가지 운영 압력</h3>
+        <ul>
+          <li><strong>자본 효율.</strong> 온체인 정산을 유지하면서 한도 주기, 수수료 등급, 모니터링 우선순위 같은 서열 신호가 필요하다. 담보 차별화는 통제된 실험 하에서만 고려한다.</li>
+          <li><strong>감사 가능성.</strong> 공개 이벤트에서 나온 그래프 점수는 재계산·검사할 수 있다.</li>
+          <li><strong>운영 비용.</strong> 자주 갱신해야 하는 점수는 매 갱신마다 과거 전송 집계를 감당하기 어렵다.</li>
+          <li><strong>표준화.</strong> 가명 DeFi에는 지갑 수준 상대방 차별화를 위한 공유 서열 언어가 없다.</li>
+        </ul>
+        <p>
+          AWP는 처음 두 압력에는 대응하지만 세 번째에서 비용이 크다.
+          전송 그래프를 만들려면 이력을 집계하고 로지스틱 시간 감쇠를 적용한 뒤
+          밀집한 간선에서 PageRank를 돌려야 한다. 매칭 코호트에서 AWP 부분그래프는
+          137,087개 간선이며 PageRank 벽시계는 18.711초이다.
+        </p>
+        <p>
+          allowance 그래프는 다른 대안이다. ERC-20 <code>approve</code> 또는 EIP-2612 <code>permit</code>은
+          소유자가 지출자에게 얼마나 전송을 승인하는지를 기록한다.
+          소유자–지출자 쌍당 최신 allowance는 현재 승인 의도의 스냅샷이다.
+          신규 승인이 구 승인을 덮어쓰므로 시간 감쇠는 필요하지 않다.
+          보증 그래프는 14,727개 간선이며 PageRank는 2.105초에 끝나 AWP보다 약 8.9배 빠르다.
+          그 차이는 희소성의 결과이며, 독립된 과학적 기여로 팔지 않는다. 주장 C1이 이를 운영 속성으로 보고한다.
+        </p>
+        <p>
+          연구 문제는 비교·평가적이다. 동일 Arbitrum One 지갑 표본에서 EndorseRank는
+          AWP와 구별되는 지갑 순서를 산출하고, allowance 및 전송 검사와 정합하며,
+          시간 홀드아웃에서 이후의 신규 보증을 예측하고, 더 낮은 계산 비용으로 이를 수행하는가?
+        </p>
+      </section>
+
+      <section id="s05">
+        <h2>5. 핵심 개념</h2>
+        <table>
+          <thead>
+            <tr><th>용어</th><th>초안에서의 뜻</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>지갑 / 주소</td><td>분석 단위. 오프체인 신원은 가정하거나 복원하지 않는다.</td></tr>
+            <tr><td>온체인 평판 점수</td><td>온체인 신호에서 나온 서열. 절대 크기를 신용 한도로 읽지 않는다.</td></tr>
+            <tr><td>EndorseRank</td><td>최신 allowance 보증 그래프의 PageRank. 시간 감쇠 없음.</td></tr>
+            <tr><td>AWP</td><td>전송 가치와 로지스틱 시간 감쇠를 쓰는 전송 그래프 PageRank.</td></tr>
+            <tr><td>allowance / approve / permit</td><td>소유자가 지출자에게 대신 전송을 얼마나 허용하는지. permit은 같은 Approval 로그를 낸다.</td></tr>
+            <tr><td>보증 그래프</td><td>간선 <em>u → v</em>는 <em>u</em>가 현재 <em>v</em>에게 자기 토큰 지출을 승인함을 뜻한다.</td></tr>
+            <tr><td>도메인 정합</td><td>평판 순위가 관측 가능한 대리 지표 순위와 얼마나 일치하는가. Spearman ρ, Kendall τ.</td></tr>
+            <tr><td>비주장</td><td>초안이 지지한다고 말하지 않는 해석. 예: 규제적 신용 점수, 담보 대체, Arbitrum One 밖 일반화. 목록은 8절.</td></tr>
+            <tr><td>시간 홀드아웃</td><td>점수는 t1까지의 사건만으로 고정하고, 라벨은 그 이후 t2의 신규 승인만으로 만든다. 점수 창과 라벨 창을 겹치지 않게 자르는 창 밖 검사. 절차는 7절·14절.</td></tr>
+          </tbody>
+        </table>
+        <div class="note">
+          주요 비교는 항상 동일 지갑 집합에서 EndorseRank 대 AWP이다.
+          표 미리보기의 입력은 최신 ERC-20 allowance(<em>G</em><sub>approve</sub>)와 시간 감쇠 전송(<em>G</em><sub>transfer</sub>)이다.
+        </div>
+      </section>
+
+      <section id="s06">
+        <h2>6. 목표·질문·가설</h2>
+        <p>목표 O1–O4는 연구 질문 RQ1–RQ4와 일대일로 대응한다. 가설은 H1–H3이다.</p>
+        <table>
+          <thead>
+            <tr><th>항목</th><th>묻는 것</th><th>초안이 보고하는 위치</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>H1 / RQ1 / O1</td><td>두 방법이 구별되는 지갑 순서를 내는가?</td><td>방법 간 τ = 0.316</td></tr>
+            <tr><td>H2 / RQ2 / O2</td><td>어느 쪽이 allowance 대 전송 검사와 정합하는가?</td><td>주장 C2–C3</td></tr>
+            <tr><td>H3 / RQ3 / O3</td><td>동일 <em>n</em>에서 EndorseRank가 더 빠른가?</td><td>주장 C1, C4</td></tr>
+            <tr><td>RQ4 / O4</td><td>t1 점수가 동일 창 allowance를 넘어 t2 신규 승인을 예측하는가?</td><td>홀드아웃 절</td></tr>
+          </tbody>
+        </table>
+        <ul>
+          <li><strong>RQ1.</strong> 동일 Arbitrum 표본에서 두 점수 벡터가 의미 있게 다른가?</li>
+          <li><strong>RQ2.</strong> 동시기 allowance 검사와 전송 검사 중 어디에 더 강하게 정합하는가?</li>
+          <li><strong>RQ3.</strong> 런타임·메모리·반복 횟수에서 EndorseRank가 더 효율적인가?</li>
+          <li><strong>RQ4.</strong> 점수를 t1에서 고정한 뒤, 인바운드 지출자의 t2 신규 소유자–지출자 승인을 AWP보다 더 강하게 예측하는가?</li>
+        </ul>
+        <p>RQ4는 같은 보증 구성 개념의 시간 분할 검정이다. 미래 신규 승인이지 거래 이익이 아니다.</p>
+      </section>
+
+      <section id="s07">
+        <h2>7. 시간 홀드아웃 정의</h2>
+        <p>
+          동시기 allowance Kendall τ 0.355는 의도된 구성 개념 검사이다.
+          보증 그래프 PageRank는 지출자 측 승인 차수와 맞을 것으로 기대된다.
+          점수가 동일 창 그래프를 넘는 정보를 가지는지를 보려면 시간을 잘라야 한다.
+        </p>
+        <p>
+          점수는 2026년 2월 28일에 고정한다(t1).
+          라벨은 2026년 3–5월에 처음 나타나는 신규 소유자–지출자 승인 쌍이다(t2).
+          홀드아웃 주장의 코호트는 t1 인바운드 지출자(<em>n</em> = 1,335)이다.
+          222개 지출자가 t2에서 적어도 한 쌍의 신규 승인을 받았다.
+        </p>
+        <p>
+          철회율, 승인 후 아웃바운드 유출 휴리스틱, Aave 차입자 청산 같은 다른 t2 수량은
+          파이프라인에서 계산되었을 수 있으나 지지 증거로 보고하지 않는다.
+        </p>
+      </section>
+
+      <section id="s08">
+        <h2>8. 범위와 비주장</h2>
+        <p>
+          비주장은 초안이 숫자로 지지한다고 말하지 않는 해석이다.
+          C1–C4가 「무엇을 보였는가」라면, 아래 목록은 「무엇을 보이지 않았는가」이다.
+        </p>
+        <p>
+          초점은 Arbitrum One과 관측 창 2025-12-01부터 2026-05-31까지이다.
+          주요 실증 표본은 보증·전송 그래프 연결성이 비영인 5,521개 주소이다.
+          런타임 확장성은 확장 지갑 풀 31,612에서 보고한다.
+          강건성 검증은 감쇠 민감도, 상위 토큰 부분그래프, 표본 크기 민감도를 본다.
+        </p>
+        <ul>
+          <li>무담보 대출 부도 라벨은 범위 밖이다.</li>
+          <li>PageRank 점수를 규제적 의미의 신용 점수라고 주장하지 않는다.</li>
+          <li>담보, 감사, 오라클 설계를 대체한다고 주장하지 않는다.</li>
+          <li>익스플로잇이나 거버넌스 공격을 예측한다고 주장하지 않는다.</li>
+          <li>거래 이익을 사회 그래프만으로 예측하는 질문은 주장 밖이다.</li>
+          <li>Arbitrum One과 6개월 창을 넘는 일반화는 주장하지 않는다.</li>
+        </ul>
+        <p>
+          남는 외부 검사는 미래 신규 소유자–지출자 승인의 시간 홀드아웃이다.
+          보관된 확장 기준선은 본문 서술에서 제외하고 부록에 둔다.
+        </p>
+      </section>
+
+      <section id="s09">
+        <h2>9. 문헌·이론 틀</h2>
+        <p>
+          제2장은 분산 원장에 익숙하지 않은 독자를 위해 블록체인과 DeFi부터 시작한다.
+          이어서 그래프 순위, 평판 시스템 계보, allowance 의미론, 순위 상관을 전개한다.
+          이론적 틀은 세 기둥이다. 하이퍼링크–인용 전파, 구성 개념(도메인) 정합, 계산 복잡도.
+        </p>
+        <p>
+          PageRank는 감쇠 계수 아래에서 방향성 간선을 따라 영향력을 퍼뜨린다.
+          웹의 인용 은유를 지갑 그래프에 옮기면, 간선이 무엇을 뜻하는지가 순위가 무엇을 말하는지와 같아진다.
+          EndorseRank는 그 간선을 현재 지출 승인으로 읽고, AWP는 시간 감쇠된 가치 이동으로 읽는다.
+        </p>
+        <p>
+          평판 점수와 검사 값은 보편적 분류 임계값이 없는 연속 변수이다.
+          Spearman ρ는 순위에 대한 Pearson 상관이며 단조 연관을 본다.
+          Kendall τ는 일치·불일치 쌍을 세며, 초안의 주요 계열 수준 요약이다.
+          값은 인용되지 않은 절대 임계값이 아니라 동일 코호트에서 방법 간 상대적으로 비교한다.
+        </p>
+      </section>
+
+      <section id="s10">
+        <h2>10. 승인 생명주기</h2>
+        <p>
+          EndorseRank의 간선은 전송이 아니라 승인이다.
+          소유자가 토큰 계약에 <code>approve</code>를 보내거나, 오프체인 서명 <code>permit</code>으로 같은 상태 변경을 승인하면
+          계약은 동일한 Approval 로그를 남긴다. 지출자는 그 한도 안에서 소유자를 대신해 전송할 수 있다.
+        </p>
+        <figure class="diagram">
+          <div class="mermaid">
+sequenceDiagram
+  participant Owner as 토큰소유자
+  participant Token as ERC20계약
+  participant Spender as 지출자
+  Owner->>Token: approve 또는 permit
+  Token-->>Owner: Approval 로그 기록
+  Token-->>Spender: 최신 allowance 갱신
+  Note over Owner,Spender: 같은 쌍의 신규 승인은 구 승인을 덮어쓴다
+  Owner->>Token: 금액을 0으로 승인
+  Token-->>Spender: 간선 제거
+          </div>
+          <figcaption>그림 1. 소유자–계약–지출자 사이의 승인 생명주기.</figcaption>
+        </figure>
+        <details class="fallback" open>
+          <summary>도식이 보이지 않을 때 — 같은 내용의 단계</summary>
+          <ol>
+            <li>토큰 소유자가 ERC-20 계약에 approve 또는 permit을 보낸다.</li>
+            <li>계약은 Approval 로그를 남기고 해당 지출자의 최신 allowance를 갱신한다.</li>
+            <li>같은 소유자–지출자–토큰 삼중항에 새 승인이 오면 창 안의 마지막 시각만 남는다.</li>
+            <li>최종 금액이 0이면 그 간선은 보증 그래프에서 빠진다.</li>
+          </ol>
+        </details>
+        <p>
+          무제한 승인(<code>type(uint256).max</code>)은 소수점 조정 후 큰 유한 가중치로 유지한다.
+          강한 온체인 승인이기 때문이다. permit은 별도 평판 이벤트를 만들지 않는다.
+        </p>
+      </section>
+
+      <section id="s11">
+        <h2>11. 표본과 방법 입장</h2>
+        <p>
+          방법론은 구성 개념 정합이다. 평판 점수는 연속 순위이고,
+          검사는 이항 부도 라벨이 아니라 관측 가능한 지갑 수준 통계이다.
+          동시기 전송·allowance 통계는 그래프 정합성을 본다.
+          미래 신규 승인의 시간 홀드아웃이 창 밖 검사이다.
+        </p>
+        <ul>
+          <li><strong>동일 시드.</strong> 두 방법은 항상 같은 지갑 집합에서 점수화한다. 차이를 표본추출 불일치에 돌릴 수 없다.</li>
+          <li><strong>매칭 코호트.</strong> 관측 창에서 승인 또는 전송 간선이 유도한 부분그래프에 비영 연결성을 갖는 지갑. 크기 5,521.</li>
+          <li><strong>범위 밖 수집.</strong> 멤풀, 오프체인 호가창, 중앙화 거래소 계정 맵, 교차 체인 브리지는 모으지 않는다. 다수 주소의 개체 해석도 하지 않는다.</li>
+        </ul>
+        <p>
+          로그는 소유자 또는 지출자(승인)나 송신자 또는 수신자(전송)가 시드 지갑에 있으면 유지한다.
+          추출은 여섯 월별 배치로 실행하여 한 달이 실패해도 재개할 수 있게 한다.
+        </p>
+      </section>
+
+      <section id="s12">
+        <h2>12. 2단계 수집</h2>
+        <p>
+          수집은 두 단계이다. 1단계는 공개 로그에서 평판 스트림을 뽑아 전처리 표를 쓴다.
+          2단계는 그 표만 읽어 순위, 검사, 홀드아웃, 벤치마크, 결과 표를 계산한다.
+        </p>
+        <figure class="diagram">
+          <div class="mermaid">
+sequenceDiagram
+  participant Chain as 공개원장
+  participant Extract as 1단계추출
+  participant Store as 전처리표
+  participant Eval as 2단계평가
+  participant Tables as 결과표
+  Chain->>Extract: Approval과 Transfer 로그
+  Extract->>Extract: 월별 배치로 지갑 필터
+  Extract->>Store: 최신 allowance와 전송 사건
+  Store->>Eval: 캐시된 표 전달
+  Eval->>Eval: 순위 검사 홀드아웃 벤치마크
+  Eval->>Tables: 제4장용 수치 내보내기
+          </div>
+          <figcaption>그림 2. 공개 로그에서 결과 표까지의 2단계 수집.</figcaption>
+        </figure>
+        <details class="fallback" open>
+          <summary>도식이 보이지 않을 때 — 같은 내용의 단계</summary>
+          <ol>
+            <li>공개 Arbitrum 로그에서 Approval과 Transfer를 월별로 추출한다.</li>
+            <li>승인은 소유자–지출자–토큰당 최신 allowance로 줄인다.</li>
+            <li>전송은 소수점 조정 사건 표로 남긴다.</li>
+            <li>2단계는 그 표만 읽어 그래프, PageRank, 검사, 홀드아웃, 벤치마크를 계산한다.</li>
+            <li>1단계 표가 있으면 추가 전체 체인 스캔은 필요하지 않다.</li>
+          </ol>
+        </details>
+        <p>
+          합성 픽스처 모드는 클라우드 자격 증명 없이 오프라인 검증을 지원한다.
+          관측 창, 감쇠, 토픽 해시, 벤치마크 시드는 단일 버전 설정에 모은다.
+        </p>
+      </section>
+
+      <section id="s13">
+        <h2>13. 그래프와 점수</h2>
+        <p>
+          두 방법은 같은 PageRank 해법기, 허용오차, 반복 상한, 기본 감쇠를 공유한다.
+          다른 것은 간선 의미이다. 주의는 시드 지갑에 닿는 부분그래프에 한정하고,
+          점수는 코호트 지갑에만 보고한다. 비코호트 이웃은 질량을 줄 수 있으나 평가 집합은 코호트이다.
+        </p>
+        <figure class="diagram">
+          <div class="mermaid">
+sequenceDiagram
+  participant Allow as 최신allowance
+  participant Xfer as 시간감쇠전송
+  participant Ga as 보증그래프
+  participant Gt as 전송그래프
+  participant Solver as PageRank해법기
+  participant Scores as 동일지갑점수
+  Allow->>Ga: 덮어쓰기 스냅샷 간선
+  Xfer->>Gt: 가치와 로지스틱 감쇠
+  Ga->>Solver: 14,727개 간선
+  Gt->>Solver: 137,087개 간선
+  Solver->>Scores: EndorseRank와 AWP
+          </div>
+          <figcaption>그림 3. 두 그래프가 같은 해법기를 지나 같은 지갑 집합의 점수가 된다.</figcaption>
+        </figure>
+        <details class="fallback" open>
+          <summary>도식이 보이지 않을 때 — 같은 내용의 단계</summary>
+          <ol>
+            <li>최신 양수 allowance가 보증 그래프 간선이 된다. 간선 수 14,727.</li>
+            <li>시간 감쇠 전송이 전송 그래프 간선이 된다. 간선 수 137,087.</li>
+            <li>같은 PageRank 해법기가 두 인접 구조를 푼다.</li>
+            <li>모든 코호트 지갑에 점수를 낸다. 누락 노드는 순위 전 점수 0.</li>
+          </ol>
+        </details>
+        <p>
+          개념 구분은 보증 대 흐름이다. allowance는 명시적이고 철회 가능한 지출 승인이다.
+          전송은 신뢰 약속 없이 결제, 라우팅, 시장 조성, 워시 활동을 반영할 수 있는 완료된 이동이다.
+        </p>
+      </section>
+
+      <section id="s14">
+        <h2>14. 홀드아웃 프로토콜</h2>
+        <p>
+          홀드아웃용 점수는 시각이 2026년 2월 28일 23:59:59 UTC 이하인 사건에서만 계산한다.
+          라벨은 2026년 3월 1일부터 5월 31일까지의 사건을 쓴다.
+          주장하는 라벨은 최신 양수 t1 스냅샷에 없는 t2의 신규 소유자–지출자 승인 쌍 건수이며, 지출자에 귀속한다.
+        </p>
+        <figure class="diagram">
+          <div class="mermaid">
+sequenceDiagram
+  participant T1 as t1창
+  participant Freeze as 점수고정
+  participant T2 as t2창
+  participant Label as 지출자라벨
+  participant Tau as Kendall타우
+  T1->>Freeze: 2026-02-28까지 사건
+  Freeze->>Tau: EndorseRank와 AWP 점수
+  T2->>Label: 2026-03부터 05 신규 승인 쌍
+  Label->>Tau: 지출자별 신규 승인자 수
+  Tau-->>Tau: n 1,335에서 방법 비교
+          </div>
+          <figcaption>그림 4. 점수를 먼저 고정하고, 이후 신규 승인으로만 라벨을 만든다.</figcaption>
+        </figure>
+        <details class="fallback" open>
+          <summary>도식이 보이지 않을 때 — 같은 내용의 단계</summary>
+          <ol>
+            <li>t1 사건만으로 EndorseRank와 AWP 점수를 계산하고 고정한다.</li>
+            <li>t2에서 처음 나타나는 소유자–지출자 승인 쌍을 센다.</li>
+            <li>그 건수를 t1 인바운드 지출자 1,335명에 라벨로 붙인다.</li>
+            <li>점수 순위와 라벨 순위의 Kendall τ를 방법별로 비교한다.</li>
+          </ol>
+        </details>
+      </section>
+
+      <section id="s15">
+        <h2>15. 구성 개념 검사</h2>
+        <p>
+          동일 창 검사는 그래프 인접이다. 전송·allowance 그래프를 만드는 같은 사건 계급에서
+          국소 통계를 계산하되, 전역 PageRank 자체가 아니다.
+          AWP가 전송 검사와 맞거나 EndorseRank가 allowance 검사와 맞는 것은
+          구성 개념 안 정합성이지 독립 예측력이 아니다.
+        </p>
+        <p>
+          allowance 검사는 수신된 보증을 측정한다. 인승인 차수와 인승인 가치이다.
+          다홉 사슬을 전파하지 않고 인바운드 승인을 세고 합산한다.
+          창 밖 증거는 홀드아웃에 남겨 둔다.
+        </p>
+        <p>
+          벤치마크(주장 C1)는 일회 그래프 구축과 PageRank 해 비용을 분리한다.
+          구축은 증분 갱신에서 상각될 I/O가 지배하고, 반복 해가 두 방법의 계산 핵이기 때문이다.
+          공정 비교를 위해 해법기·허용오차·반복 상한·시드 집합을 같게 둔다.
+          선호 요약은 AWP 시간을 EndorseRank 시간으로 나눈 가속비이다.
+        </p>
+      </section>
+
+      <section id="s16">
+        <h2>16. 실증 주장 C1–C3</h2>
+        <p>
+          제4장의 주요 실증 주장은 넷이다. C1은 계산 비용, C2는 각 방법이 자기 구성 개념을 복원하는지,
+          C3는 승자가 구성 개념마다 갈리는지, C4(17절)는 그 효율과 정합을 한 상충으로 묶는다.
+          네 주장 모두 동일 매칭 코호트(<em>n</em> = 5,521)의 EndorseRank 대 AWP 비교이다.
+          C4의 홀드아웃만 지출자 코호트(<em>n</em> = 1,335)를 쓴다.
+        </p>
+        <h3>C1. 동일 입력에서 EndorseRank가 AWP보다 계산 비용이 낮다</h3>
+        <p>
+          <strong>주장.</strong> 같은 지갑 집합, 같은 PageRank 해법기·허용오차·감쇠에서
+          EndorseRank의 PageRank 해 시간이 AWP보다 짧다.
+          더 빠르다는 것이 위험 판별이 더 낫다는 뜻은 아니다. C1은 효율만 말한다.
+        </p>
+        <table>
+          <caption>매칭 코호트(<em>n</em> = 5,521)의 PageRank 해 벤치마크. 일회 그래프 구축은 제외한다.</caption>
+          <thead>
+            <tr><th>방법</th><th>시간 (s)</th><th>메모리 (MB)</th><th>반복</th><th>간선</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>EndorseRank</td><td class="num">2.105</td><td class="num">4.6</td><td class="num">37.0</td><td class="num">14,727</td></tr>
+            <tr><td>AWP</td><td class="num">18.711</td><td class="num">38.2</td><td class="num">약 100</td><td class="num">137,087</td></tr>
+          </tbody>
+        </table>
+        <p>
+          매칭 코호트에서 벽시계 가속은 약 8.9배, 간선은 약 9.3배 차이다.
+          PageRank 반복당 비용은 간선 수에 비례하므로, 최신 allowance 스냅샷이 전송 이력보다 희소한 것이 원인이다.
+          확장 지갑 풀에서 가속은 <em>n</em> = 10,000에서 1.18 s 대 12.28 s(약 10.4배),
+          전체 풀 <em>N</em> = 31,612에서 2.29 s 대 21.40 s(약 9.4배)로 유지된다.
+          세 벽시계 쌍은 서로 다른 표본 정의이므로 교환하지 않는다.
+        </p>
+        <h3>C2. 각 방법이 의도한 구성 개념을 동일 창 국소 통계에서 복원한다</h3>
+        <p>
+          <strong>주장.</strong> EndorseRank는 allowance 국소 통계와, AWP는 전송 국소 통계와
+          무시할 수 없는 순위 정합을 보인다. 이는 구성 개념 검사이다.
+          그래프를 만든 같은 사건 계급의 국소 집계(인승인 차수·가치, 인디그리·인밸류)와
+          전역 PageRank 순위가 같은 방향을 가리키는지를 묻는 것이지,
+          부도·청산·거래 이익 같은 외부 라벨을 맞힌다는 주장이 아니다.
+        </p>
+        <table>
+          <caption>동일 창 계열 평균 Kendall τ (<em>n</em> = 5,521). 구성 개념 점검이며 외부 검증이 아니다.</caption>
+          <thead>
+            <tr><th>방법</th><th>전송 평균 τ</th><th>allowance 평균 τ</th><th>의도한 일차 축</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>EndorseRank</td><td class="num">0.333</td><td class="num">0.355</td><td>allowance (수신된 보증)</td></tr>
+            <tr><td>AWP</td><td class="num">0.534</td><td class="num">−0.030</td><td>전송 (인바운드 흐름)</td></tr>
+          </tbody>
+        </table>
+        <p>
+          EndorseRank의 allowance 평균 τ = 0.355, AWP의 전송 평균 τ = 0.534가 C2의 숫자이다.
+          EndorseRank의 전송 τ = 0.333은 이차 축으로 남긴다. 창 밖 증거는 17절의 홀드아웃이다.
+        </p>
+        <h3>C3. 정합의 승자는 구성 개념마다 갈린다</h3>
+        <p>
+          <strong>주장.</strong> 어느 사회적 방법도 두 검사를 모두 지배하지 않는다.
+          EndorseRank는 allowance에서 AWP를 상회하고(τ = 0.355 대 −0.030),
+          AWP는 전송에서 EndorseRank를 상회한다(τ = 0.534 대 0.333).
+          방법 간 순위 일치는 중간 정도에 불과하다(Kendall τ = 0.316).
+        </p>
+        <p>
+          AWP의 allowance 정합이 영에 가깝다는 칸이 정보적이다. 전송 중심성은 승인을 복원하지 않는다.
+          두 점수는 상관이 있으나 서로 대체할 수 없다. H1은 이 중간 정도 분기로 지지된다.
+        </p>
+        <p>
+          감쇠 <em>d</em> ∈ {0.75, 0.85, 0.95}에서 EndorseRank allowance τ는 약 0.355로 안정적이다.
+          상위 20개 토큰 부분그래프에서도 계열 평균은 거의 움직이지 않는다.
+          뒤집히지 않는 것은 비교 구조이다. 더 빠르고(C1), allowance에서 이기고(C2–C3), 전송에서는 AWP가 이긴다(C3).
+        </p>
+      </section>
+
+      <section id="s17">
+        <h2>17. 홀드아웃과 주장 C4</h2>
+        <h3>홀드아웃 결과 (RQ4)</h3>
+        <p>
+          t1(2026-02-28까지)에서 점수를 고정한 뒤, t2(2026-03–05)의 신규 소유자–지출자 승인 쌍을
+          t1 인바운드 지출자 1,335명에 라벨로 붙인다. 222명이 적어도 한 쌍을 받았다.
+        </p>
+        <p>
+          미래 신규 승인자와의 EndorseRank Kendall τ는 0.479이다
+          (부트스트랩 95% 신뢰구간 0.426–0.529, 200회 재표본).
+          AWP는 0.044이다(신뢰구간 −0.011–0.095).
+          라벨이 점수화된 사건에서 만들어지지 않으므로,
+          이 결과는 동일 창 allowance τ 0.355보다 창 밖 증거로서 더 강하다.
+          같은 보증 구성 개념의 미래형이다.
+        </p>
+        <h3>C4. 효율–정합 상충</h3>
+        <p>
+          <strong>주장.</strong> EndorseRank는 매칭 코호트에서 AWP보다 PageRank 런타임이 약 8.9배 낮고
+          (확장 풀에서는 약 9–10배), 동시에 승인 검사와 정합하는 유일한 사회적 방법으로 남는다.
+          지출자 홀드아웃(<em>n</em> = 1,335)에서 미래 신규 승인자와의 τ는
+          EndorseRank 0.479 대 AWP 0.044이다.
+        </p>
+        <p>
+          C4는 C1의 속도와 C2–C3의 allowance 정합, 그리고 이 홀드아웃을 한 문장으로 묶는다.
+          AWP가 구식이 되었다는 주장이 아니다. 전송 허브 탐지를 최우선하는 프로토콜은
+          여전히 AWP를 택하고 런타임 프리미엄을 낼 수 있다.
+          저지연에서 승인 인식 점수가 필요하면 EndorseRank의 근거가 된다.
+        </p>
+      </section>
+
+      <section id="s18">
+        <h2>18. 논의</h2>
+        <h3>연구 질문별 읽기</h3>
+        <ul>
+          <li><strong>RQ1.</strong> τ = 0.316은 상관이 있으나 1에서 멀다. 두 점수는 상호 교환 가능한 대체물이 아니다.</li>
+          <li><strong>RQ2.</strong> 보편 승자가 아니라 구성 개념별 승자이다. H2는 그 형태로 지지된다.</li>
+          <li><strong>RQ3.</strong> 희소 스냅샷이 이력 집계를 대체하므로 H3가 지지된다.</li>
+          <li><strong>RQ4.</strong> t1 점수는 인바운드 지출자의 t2 신규 승인을 EndorseRank 쪽에서 더 강하게 추적한다.</li>
+        </ul>
+        <h3>실무·Sybil·한계</h3>
+        <p>
+          실무적 함의는 겸손하다. 지출을 신뢰받는 자에 대한 빠르고 감사 가능한 점수가 필요하면
+          이 유형의 Arbitrum One 데이터에서 EndorseRank는 쓸 수 있는 도구이다.
+          목표가 전송 허브라면 AWP가 더 강하다.
+          점수는 금융 조언이나 소비자 보고 상품이 아니며, 대출·준수 결정에는 인간 감독이 남는다.
+        </p>
+        <p>
+          allowance 그래프의 Sybil 비용 모형은 제5장에서 분석적으로 둔다.
+          전송 그래프의 워시와 승인 그래프의 조정된 지출자 팜은 다른 공격면이다.
+          Sybil 조정 대리 지표는 위험을 부분적으로 다루지만 제거하지는 않는다.
+        </p>
+        <p>
+          타당성 위협에는 단일 체인·단일 창, 토큰 소수점과 permit 커버리지,
+          표준 로그를 내지 않는 토큰의 결측, 온체인·표준 토큰 활동으로의 편향이 있다.
+          콜드스타트와 신규 진입자의 저평가는 구조적 한계로 남는다.
+        </p>
+      </section>
+
+      <section id="s19">
+        <h2>19. 결론과 향후 연구</h2>
+        <p>
+          독창적 기여는 allowance 그래프 PageRank가 Arbitrum One에서
+          구별되고 효율적이며 allowance에 타당한 사회 평판 구성 개념임을 실증한 것이다.
+          전송 그래프 AWP의 단순 근사가 아니며 담보화를 대체하지 않는다.
+        </p>
+        <ul>
+          <li><strong>EndorseRank 모형.</strong> 최신 approve/permit을 방향성 보증 간선으로 두어 시간 감쇠를 없앤다.</li>
+          <li><strong>구성 개념 검사와 시간 홀드아웃.</strong> 동일 창 통계와 t2 신규 승인을 분리해 보고한다.</li>
+          <li><strong>재현 가능한 평가 파이프라인.</strong> 추출부터 결과 표까지를 독립 검증할 수 있게 연다.</li>
+        </ul>
+        <p>향후 연구로 초안이 열어 둔 줄은 다음과 같다.</p>
+        <ul>
+          <li>교차 프로토콜·교차 체인 재현</li>
+          <li>워시 승인, 지출자 팜, 전략적 철회에 대한 적대 평가</li>
+          <li>보증 특징과 전송 특징을 결합하는 하이브리드(구성 개념별 검사와 시간 분할을 유지)</li>
+          <li>실시간 오라클·거버넌스 도구와의 갱신 주기 검증</li>
+          <li>담보 차별화는 채택 가설로 남기고, 통제된 증거가 있을 때까지 실증 주장으로 올리지 않음</li>
+        </ul>
+        <p>
+          전송은 경제 흐름의 이야기이고, allowance는 위임된 권한의 이야기이다.
+          PageRank는 어느 쪽이든 서술할 수 있지만, 같은 순위로 둘을 동시에 서술하지는 않는다.
+        </p>
+      </section>
+
+      <section id="s20">
+        <h2>20. 부록이 하는 일</h2>
+        <p>
+          부록은 본문 주장을 부풀리지 않고 재현과 보관에 쓴다.
+        </p>
+        <ul>
+          <li><strong>8.1 평가 파이프라인.</strong> 단계, BigQuery 추출 설계, 확장성 표, 보류된 Credit Delegation, 매개변수, 용어집.</li>
+          <li><strong>8.2 SQL과 설정.</strong> Approval·Transfer 추출 패턴, 설정 키, 복잡도, 해석 점검표, 한계 재진술.</li>
+          <li><strong>8.3 기초 성질.</strong> PageRank의 존재·유일성·연속성, Spearman과 Kendall의 성질, 구성 타당성 노트.</li>
+          <li><strong>8.4 보관된 확장 기준선.</strong> 본문이 두 사회적 방법 비교에 머무른 이유와 재현 메모.</li>
+          <li><strong>8.5 주장–증거 대응표.</strong> H1–H3, RQ4, C1–C4, 명시적 비주장, 복제 산출물 점검표.</li>
+        </ul>
+        <p>
+          본문을 읽을 때 부록은 숫자가 어디서 나왔는지를 추적하는 지도이다.
+          주장 C1–C4의 숫자는 제4장에 있고, 그 조작적 정의는 제3장과 부록 8.1–8.2에 있다.
+        </p>
+      </section>
+
+      <footer>
+        출처: 현재 학위논문 초안 초록 및 제1–6장, 목차. 수치는 초안에 적힌 값만 옮겼다.
+        이 파일은 조판본이 아니며 LaTeX 빌드에 포함되지 않는다.
+      </footer>
+    </main>
+  </div>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      securityLevel: "loose",
+      themeVariables: {
+        fontFamily: "Malgun Gothic, Apple SD Gothic Neo, sans-serif",
+        primaryColor: "#e6efe9",
+        primaryTextColor: "#1a1a1a",
+        lineColor: "#2c4a3e",
+        actorBkg: "#fffdf8",
+        actorBorder: "#2c4a3e",
+        actorTextColor: "#1a1a1a",
+        signalColor: "#1f3d4d",
+        signalTextColor: "#1a1a1a",
+        noteBkgColor: "#f3efe6",
+        noteTextColor: "#1a1a1a"
+      }
+    });
+  </script>
+</body>
+</html>

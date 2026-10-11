@@ -18,13 +18,7 @@ sys.dont_write_bytecode = True
 EXPERIMENTS = Path(__file__).resolve().parents[1]
 SCRIPTS = EXPERIMENTS / "scripts"
 CONFIG_PATH = EXPERIMENTS / "config" / "contract_reputation.yaml"
-REFERENCE = (
-    EXPERIMENTS.parents[1]
-    / "ERC20-Allowance-PageRank-Wallet-Reputation"
-    / "dissertation"
-    / "wallet-reputation-experiments"
-    / "scripts"
-)
+REFERENCE = EXPERIMENTS.parent / "archive" / "wallet-reputation-experiments" / "scripts"
 
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))

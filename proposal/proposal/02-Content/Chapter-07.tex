@@ -1,0 +1,43 @@
+% !TEX root = ../main.tex
+\clearpage
+\phantomsection
+\section*{7 \textbf{Ethics Considerations}}
+\label{sec:ethics-considerations}
+\addcontentsline{toc}{section}{7 Ethics Considerations}
+
+Although this research relies exclusively on publicly available blockchain data, we will observe the following ethical principles to ensure responsible conduct. Because the study uses non-personal, public ledger data and does not intervene with human participants, it will align with UNISA's research ethics principles on privacy, confidentiality, responsible data management, and prior ethics reviews where required.
+
+
+Ethics clearance process: before starting the empirical data collection and analysis phase, the researcher will submit the proposal, data-management plan, and public-data justification to the relevant UNISA School ethics process. If the study is classified as exempt or low risk because it uses public pseudonymous blockchain data and no human-participant intervention, the exemption or clearance confirmation will be retained as part of the research record. No attempt will be made to deanonymize wallet owners, combine wallet addresses with off-chain personal data, or publish address-level findings in a way that could reasonably identify individuals.
+
+
+\proposalSubheading{1. Privacy and Anonymity}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Pseudonymity Respect}: Arbitrum One addresses are pseudonymous, not inherently linked to real-world identities. We will not attempt to deanonymize addresses or correlate them with personally identifying information.
+\item[\textbullet] \textbf{No Sensitive Data Collection}: We will restrict data collection to on-chain events (approve, permit, transfer, GMX \textbf{PositionDecrease}) and avoid scraping or integrating off-chain data such as IP addresses or KYC records.
+\end{itemize}
+\proposalSubheading{2. Data Usage and Compliance}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Open Data Sources}: All queries will target public datasets (e.g., Google BigQuery \codepath{goog_blockchain_arbitrum_one_us}) in accordance with their terms of service and rate limits.
+\item[\textbullet] \textbf{No Malicious Interaction}: We will not broadcast transactions or otherwise interact with smart contracts in ways that could disrupt network operations or degrade performance.
+\end{itemize}
+\proposalSubheading{3. Fairness and Bias Mitigation}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Algorithmic Fairness}: We will audit EndorseRank and AWP for unintended biases---e.g., systematically undervaluing new entrants or low-volume participants---and discuss these limitations in our analysis.
+\item[\textbullet] \textbf{Transparency}: All code, parameter choices, and evaluation metrics will be documented and published, enabling peer review and independent replication.
+\end{itemize}
+\proposalSubheading{4. Responsible Disclosure}
+
+\begin{itemize}
+\item[\textbullet] \textbf{Vulnerability Reporting}: If our analysis uncovers potential vulnerabilities in smart contracts (e.g., unexpected approval patterns that could be exploited), we will confidentially notify the responsible protocol teams before public disclosure.
+\end{itemize}
+\proposalSubheading{5. Social and Financial Impact}
+
+\begin{itemize}
+\item[\textbullet] \textbf{No Financial Advice}: Although EndorseRank may inform risk assessment, we will explicitly disclaim that it is not financial advice and highlight the need for human oversight in lending and trading decisions.
+\item[\textbullet] \textbf{Avoiding Misuse}: We will discuss potential adversarial manipulation (e.g., Sybil attacks) and recommend safeguards so that our methodology is not misused to target or disadvantage specific users.
+\end{itemize}
+By adhering to these practices, we ensure that our research advances on-chain reputation modeling ethically, respects user privacy, and contributes responsibly to the DeFi ecosystem.

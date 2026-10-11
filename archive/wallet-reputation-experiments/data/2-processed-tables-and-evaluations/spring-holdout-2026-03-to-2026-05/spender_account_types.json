@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-09-30T16:26:54.347001+00:00",
+  "window": [
+    "2025-12-01 00:00:00 UTC",
+    "2026-03-01 00:00:00+00:00"
+  ],
+  "bytes_processed": 49442412032,
+  "n_spenders": 1335,
+  "counts": {
+    "inactive": 686,
+    "contract": 644,
+    "eoa": 5
+  },
+  "counts_top100_endorserank": {
+    "contract": 71,
+    "inactive": 29
+  },
+  "counts_with_new_approver": {
+    "contract": 171,
+    "inactive": 51
+  },
+  "code_check": {
+    "at": "2026-09-30T17:09:12.842291+00:00",
+    "rpc_host": "arb1.arbitrum.io",
+    "block": 510408687,
+    "counts": {
+      "contract": 1174,
+      "eoa": 160,
+      "eoa_7702": 1
+    },
+    "counts_top100_endorserank": {
+      "contract": 100
+    },
+    "counts_with_new_approver": {
+      "contract": 221,
+      "eoa": 1
+    },
+    "by_bigquery_activity": {
+      "contract": {
+        "contract": 644
+      },
+      "eoa": {
+        "eoa": 4,
+        "eoa_7702": 1
+      },
+      "inactive": {
+        "contract": 530,
+        "eoa": 156
+      }
+    }
+  }
+}

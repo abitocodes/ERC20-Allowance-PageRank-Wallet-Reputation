@@ -1,0 +1,67 @@
+% !TEX root = ../main.tex
+\section{아카이브된 확장 베이스라인}
+\label{ch:appendix-archive}
+
+탐색적 분석 과정에서, 동일한 매칭 코호트와 프록시 계열에 대해 추가 PageRank 변형을 점수화하였다. 완전성과 향후 연구를 위해 여기에 아카이브한다. 이들은 주된 EndorseRank--AWP 연구 질문의 일부가 \emph{아니며}, 본문 서술에서 동료 주장으로 읽혀서는 안 된다.
+
+\dissertationSubheading[sec:seven-method-archive]{7-방법 정렬 행렬}
+
+탐색적 일곱 방법 행렬은 평가 아카이브에 남는다(LP-PR, CW-AWP, LF-PR, RiskProp 스타일 변형). 여기서는 그리지 않는다. 사회적 방법 가운데 EndorseRank는 allowance 계열의 선두를 유지하고, AWP(및 밀접한 전송 변형)는 transfer에서 선두이다.
+
+해석 지침:
+
+\begin{itemize}
+\item transfer형 간선에 구축된 방법은 transfer 및 Sybil 계열에서 AWP 근처에 군집한다.
+\item 간선 수가 매우 작은 방법은 불안정하거나 퇴화한 순위를 낼 수 있으며, 런타임이 낮은 것은 단순히 $m$이 작기 때문일 수 있다.
+\item AWP를 수치적으로 반영하는 RiskProp 스타일 행은 독립적 발견이 아니라 공유된 전송 구조를 나타낸다.
+\end{itemize}
+
+\dissertationSubheading[sec:six-aave-archive]{6-방법 Aave 지향 행렬}
+
+Aave 지향 프리셋은 평가 아카이브에 남는다. 여러 대출 이벤트 그래프는 연구 구간 내 Arbitrum에서 희소하며, \texttt{BorrowAllowanceDelegated} 이벤트가 추출되지 않은 경우 위임 기반 행은 퇴화할 수 있다(부록~\ref{ch:appendix-eval}).
+
+Aave 지향 프리셋은 평가 아카이브에 남기며 여기서는 그리지 않는다.
+
+이 행렬들은 신용 위임 간선과 교차 프로토콜 대출 라벨에 대한 향후 연구를 동기화하지만, 주장 C1--C4를 변경하지는 않는다.
+
+\dissertationSubheading[sec:why-archived]{본문이 두 방법을 사용하는 이유}
+
+연구를 EndorseRank와 AWP에 집중시키는 것은 두 가지 목표를 위한 것이다.
+
+\begin{enumerate}
+\item \textbf{기여의 명확성:} 새로운 구성체는 allowance 기반 보증이다. 확립된 전송 베이스라인\cend{16}과 비교하면 연구 질문이 분리된다.
+\item \textbf{베이스라인 난립 회피:} AWP와 전송 간선을 공유하는 추가 변형은 독립 구성체를 더하지 않고 행만 늘린다.
+\end{enumerate}
+
+더 넓은 베이스라인이 필요한 연구자는 공개 평가 파이프라인에서 7-방법 및 6-Aave 프리셋을 사용하여 아카이브 표를 재생성할 수 있다.
+
+\dissertationSubheading[sec:archive-repro]{아카이브 표 재현}
+
+아카이브 표는 평가 파이프라인의 표 내보내기에서 7-방법 및 6-Aave 프리셋으로 재생성된다. CSV 사본은 스프레드시트 검사용으로 LaTeX 조각과 함께 기록된다.
+
+\dissertationSubheading[sec:archive-method-notes]{아카이브 방법 식별자에 대한 주석}
+
+다음 식별자는 아카이브 표와 CSV 내보내기에 나타난다. 평가 코드베이스의 탐색적 구현을 문서화한다.
+
+\begin{description}
+\item[LP-PR] 개발 중 탐색한, 대안적 손실 페널티 또는 유동성 지향 가중치를 가진 transfer 그래프 변형. 경험적으로 transfer 계열에서 AWP를 밀접히 추적하며, 공유된 결제 흐름 구조를 나타낸다.
+\item[CW-AWP] 동일 쌍 간 반복 전송의 가중치를 낮추는 상대방 가중 AWP 변형. AWP 대비 transfer $\tau$를 약간 낮추면서도 동일 구성체 계열에 남는다.
+\item[LF-PR] 간선 수가 매우 작고 런타임이 거의 0인 저빈도 또는 약하게 필터링된 그래프. 순위는 전체 AWP와 비교할 수 없으며, 실패한 희소 베이스라인을 문서화하기 위해서만 유지한다.
+\item[RiskProp] Lin et al.\citep{44}에서 영감을 받은, transfer형 간선 위의 위험 전파 스타일 순위. 본 코호트에서는 여러 계열에서 AWP를 수치적으로 반영하며, 구현된 위험 신호가 연구의 매개변수화 아래에서 전송 중심성과 강하게 갈라지지 않았음을 시사한다.
+\item[LiqCall-PR / Borrow-PR / Repay-PR] 해당 이벤트가 있을 때 liquidation call, borrow, repay로 구축한 Aave 지향 지갑-대-지갑 그래프. 연구 구간 Arbitrum에서 간선 수는 작아(수십에서 수백) 정렬이 약하고 런타임은 무시할 만하다.
+\item[Delegation-PR] 신용 위임 allowance를 사용하도록 의도되었으나, 추출된 위임 간선이 0이므로 점수는 퇴화하고 $\tau$는 해석할 수 없다.
+\end{description}
+
+이 주석은 향후 연구자가 아카이브 행을 동료 심사된 베이스라인으로 취급하기보다, 어떤 변형이 완전한 재구현을 받을 가치가 있는지 판단할 수 있도록 존재한다.
+
+\dissertationSubheading[sec:archive-decision-log]{결정 로그: 본문에 남은 것}
+
+제~\ref{ch:results}--\ref{ch:discussion}장에 EndorseRank와 AWP만 남기기로 한 결정은 7-방법 및 6-Aave 행렬을 검토한 뒤에 이루어졌다. 기준은 다음과 같다.
+
+\begin{enumerate}
+\item \textbf{구성체 독립성:} 베이스라인은 전송의 사소한 재가중이 아니라 구별되는 간선 의미를 구현해야 한다.
+\item \textbf{데이터 충분성:} 매칭 코호트에서 안정적인 PageRank를 위해 간선 수가 충분히 커야 한다.
+\item \textbf{서술 초점:} 본 연구의 기여는 allowance 기반 보증이며, 가능한 모든 PageRank 변형의 조사가 아니다.
+\end{enumerate}
+
+이 기준 아래에서 EndorseRank(allowance)와 AWP(transfer)는 최소 충분 집합을 이룬다. 아카이브 표는 주된 주장을 희석하지 않으면서 더 넓은 지형을 원하는 독자를 위해 이용 가능하다.
