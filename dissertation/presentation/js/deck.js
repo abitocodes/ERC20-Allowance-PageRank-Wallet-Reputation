@@ -27,6 +27,8 @@
      tags:   ['construct'] | function (step) -> [...],   // status pills, bottom right (§0.3)
      time:   45,                           // seconds planned (notes panel)
      ritual: true|false,                   // section-opening ritual (§1.9); default: first slide of a section
+     ghost:  true|false,                   // ritual ghost numeral stays at 4 % (true) or fades out (false);
+                                           //   default: fades out when slide content reaches into its box
      hud:    false,                        // hide the whole HUD on this slide (title page)
      progress: false,                      // hide only the progress bar
      autoIn: false,                        // switch off the generic entry animation of this slide
@@ -52,7 +54,8 @@
      (enter + step(1..i, dir 0), all tweens completed), so every step is
      reversible without writing backward code.
    FRAGMENTS (no code): any element with data-step="n" is hidden until step n;
-     data-step-out="n" hides it again at step n. Reveal style: data-in = rise
+     data-step-out="n" hides it again at step n. Their reveal/hide tweens belong to the slide's
+     gsap context: a press during a reveal completes it first, and Deck.idle() waits for it. Reveal style: data-in = rise
      (default) | words | pop | draw | left | right | fade | none; data-stagger="0.08"
      staggers its children instead.
    TIMELINE MODE: tl(el, ctx) returns a GSAP timeline with labels 'step0' (end of
@@ -134,9 +137,12 @@
    window.__deckErrors  runtime errors (window errors, rejections, slide callbacks, KaTeX)
 
    KEYS  → Space PageDown click: next step/slide · ← PageUp: back · ↓/↑ next/previous slide ·
-         Home End · digits+Enter: go to slide n · N notes · O overview · M reduced motion ·
-         F fullscreen · ? help · Esc close panels.  Hash: #<slide-id>[/<step>],
-         #<section-id>[/<step>] (first slide of the section), #<n>[/<step>] (1-based).
+         Home End · digits+Enter: go to slide n (the HUD shows "n / total") · N notes in this window
+         (rehearsal) · P presenter window (notes, next, timer; drives this window by postMessage,
+         also from file://) · O overview · M reduced motion · F fullscreen · ? help · Esc close panels.
+         A focused range slider keeps only its arrows/Home/End; a mouse drag gives the keys back.
+         Hash: #<slide-id>[/<step>], #<section-id>[/<step>] (first slide of the section),
+         #<n>[/<step>] (1-based), #presenter (the presenter window).
    ========================================================================= */
 (function (global) {
   'use strict';
@@ -185,13 +191,13 @@
   var D = { xs: 0.18, s: 0.35, m: 0.6, l: 1.0, xl: 1.8, count: 1.6 };
   var E = { out: 'power3.out', 'in': 'power2.in', io: 'power2.inOut', type: 'expo.out', stamp: 'back.out(1.4)' };
   var COLORS = {
-    bg: '#0A0D14', bg2: '#10151F', bg3: '#161C29', line: '#232B3B', ink: '#E9EDF5', ink2: '#A3ADBF', ink3: '#677083',
+    bg: '#0A0D14', bg2: '#10151F', bg3: '#161C29', line: '#232B3B', ink: '#E9EDF5', ink2: '#A3ADBF', ink3: '#8790A3',
     allow: '#F5B43C', xfer: '#3CC4FF', cpr: '#A78BFA', deg: '#4ADE9B', hi: '#FF6B8A'
   };
   var TEX_MACROS = {
     '\\ca': '\\textcolor{F5B43C}{#1}', '\\ct': '\\textcolor{3CC4FF}{#1}', '\\cc': '\\textcolor{A78BFA}{#1}',
     '\\cd': '\\textcolor{4ADE9B}{#1}', '\\ch': '\\textcolor{FF6B8A}{#1}', '\\ci': '\\textcolor{A3ADBF}{#1}',
-    '\\cm': '\\textcolor{677083}{#1}', '\\part': '\\htmlClass{fx-part fx-#1}{#2}'
+    '\\cm': '\\textcolor{8790A3}{#1}', '\\part': '\\htmlClass{fx-part fx-#1}{#2}'
   };
 
   /* status tags (§0.3, G11): icon + words, never colour */
@@ -375,7 +381,8 @@
   var state = {
     started: false, index: -1, scale: 1, notes: false, overview: false, help: false,
     reducedUser: null, reducedSys: false, transition: null, suppressClick: false,
-    startTime: 0, jumpBuf: '', jumpTimer: null, pendingGoto: null
+    startTime: 0, jumpBuf: '', jumpTimer: null, pendingGoto: null,
+    presenter: /^#presenter\b/.test(global.location.hash || ''), presenterWin: null, lastSync: 0
   };
   var cur = null;                 /* current slide instance */
   var dying = [];                 /* instances leaving (during a transition) */
@@ -439,7 +446,8 @@
     dom.help.innerHTML = '<div class="help-card"><h4>키</h4>' +
       '<div><kbd>→</kbd><kbd>Space</kbd>다음 단계 · 다음 장</div><div><kbd>←</kbd>이전 단계</div>' +
       '<div><kbd>↓</kbd><kbd>↑</kbd>다음 장 · 이전 장</div><div><kbd>Home</kbd><kbd>End</kbd>처음 · 끝</div>' +
-      '<div><kbd>12</kbd><kbd>Enter</kbd>12번째 장으로</div><div><kbd>N</kbd>발표 노트</div><div><kbd>O</kbd>전체 보기</div>' +
+      '<div><kbd>12</kbd><kbd>Enter</kbd>12번째 장으로</div><div><kbd>N</kbd>발표 노트 (같은 창, 연습용)</div>' +
+      '<div><kbd>P</kbd>발표자 창 (노트·다음·시간, 따로 띄워요)</div><div><kbd>O</kbd>전체 보기</div>' +
       '<div><kbd>M</kbd>움직임 줄이기</div><div><kbd>F</kbd>전체 화면</div><div><kbd>Esc</kbd>닫기</div></div>';
     buildCarrier();
     buildProgress();
@@ -867,10 +875,49 @@
     if (s.ritual) {
       var g = el('div', 'ritual-ghost', null, pad2(s.section.num));
       inst.el.insertBefore(g, inst.inner); inst.ghost = g;
+      inst.ghostRest = ghostRest(inst);
     }
     inst.frags = $$(inst.inner, '[data-step], [data-step-out]');
     inst.frags.forEach(function (f) { f.__vis = fragVisible(f, 0); if (!f.__vis) gsap.set(f, { autoAlpha: 0 }); });
     $$(inst.inner, '.hl').forEach(function (h) { h.style.setProperty('--hl-x', '0'); });
+  }
+  /* resting opacity of the ghost numeral after the ritual: 4 % on an empty right side, 0 when
+     slide content (text, figures, cards — including fragments still hidden) reaches into its box,
+     where it would show through translucent panels. slide.ghost true/false forces it. */
+  var GHOST_REST = 0.04;
+  function ghostRest(inst) {
+    var g = inst.ghost, s = inst.slide;
+    if (s.ghost === true) return GHOST_REST;
+    if (s.ghost === false) return 0;
+    try {
+      var gr = g.getBoundingClientRect();
+      var ix = gr.width * 0.08, iy = gr.height * 0.12;
+      var G = { l: gr.left + ix, r: gr.right - ix, t: gr.top + iy, b: gr.bottom - iy };
+      var area = Math.max(1, (G.r - G.l) * (G.b - G.t)), hit = 0;
+      var all = inst.inner.querySelectorAll('*');
+      for (var i = 0; i < all.length; i++) {
+        var n = all[i];
+        if (n instanceof global.SVGElement) {
+          if (!/^(path|line|polyline|polygon|circle|ellipse|rect|text|image|foreignObject)$/.test(n.tagName)) continue;
+          if (n.closest('defs, clipPath, mask, marker, pattern, symbol')) continue;
+        } else {
+          if (n.closest('.katex-mathml')) continue;
+          var leaf = /^(IMG|CANVAS|VIDEO)$/.test(n.nodeName) || n.classList.contains('three-wrap');
+          for (var c = n.firstChild; !leaf && c; c = c.nextSibling) if (c.nodeType === 3 && /\S/.test(c.nodeValue)) leaf = true;
+          if (!leaf) {
+            var cs = global.getComputedStyle(n);
+            leaf = (cs.backgroundColor && !/^(transparent|rgba\(0, 0, 0, 0\))$/.test(cs.backgroundColor)) || cs.backgroundImage !== 'none' ||
+              (parseFloat(cs.borderTopWidth) > 0 && cs.borderTopStyle !== 'none');
+          }
+          if (!leaf) continue;
+        }
+        var r = n.getBoundingClientRect();
+        if (r.width < 1 || r.height < 1) continue;
+        var w = Math.min(G.r, r.right) - Math.max(G.l, r.left), h = Math.min(G.b, r.bottom) - Math.max(G.t, r.top);
+        if (w > 0 && h > 0) { hit += w * h; if (hit > area * 0.03) return 0; }
+      }
+    } catch (e) { pushError(s.id + ' ghost', e); }
+    return GHOST_REST;
   }
   function destroyInstance(inst) {
     if (!inst || inst.dead) return;
@@ -958,15 +1005,28 @@
     var a = f.getAttribute('data-step'), b = f.getAttribute('data-step-out');
     return (a == null || +a <= target) && (b == null || +b > target);
   }
-  /* bring every data-step / data-step-out element to its state at build `target` */
+  /* finish (then drop) the engine's own reveal/hide animation of a fragment, so a later state
+     change never races a still-running one (a 0.6 s reveal would otherwise outlive a 0.35 s hide
+     and leave the fragment on screen). Tweens a slide made on the element are left alone. */
+  function stopFrag(f) {
+    var a = f.__fragAnim;
+    if (!a) return;
+    f.__fragAnim = null;
+    try { if (a.totalProgress() < 1) a.totalProgress(1); } catch (e) { pushError('fragment', e); }
+    a.kill();
+  }
+  /* bring every data-step / data-step-out element to its state at build `target`.
+     Called inside the slide's gsap context (runStep), so the reveal and hide tweens are
+     recorded: a press during a reveal completes it first, and Deck.idle() waits for it. */
   function applyFragments(inst, target, animate) {
     if (!inst.frags) return;
     inst.frags.forEach(function (f) {
       var vis = fragVisible(f, target);
       if (vis === f.__vis) return;
       f.__vis = vis;
+      stopFrag(f);
       if (vis) {
-        if (animate) revealEl(f);
+        if (animate) f.__fragAnim = revealEl(f);
         else {
           gsap.set(f, { autoAlpha: 1, y: 0, x: 0, scale: 1 });
           if (f.getAttribute('data-stagger') != null) gsap.set(f.children, { autoAlpha: 1, clearProps: 'transform' });
@@ -975,7 +1035,7 @@
           if (f.classList.contains('hl')) f.style.setProperty('--hl-x', '1');
         }
       } else {
-        if (animate && !reduced()) gsap.to(f, { autoAlpha: 0, y: -16, duration: D.s, ease: E['in'] });
+        if (animate && !reduced()) f.__fragAnim = gsap.to(f, { autoAlpha: 0, y: -16, duration: D.s, ease: E['in'], overwrite: 'auto' });
         else gsap.set(f, { autoAlpha: 0 });
       }
     });
@@ -1025,6 +1085,13 @@
     walk(inner);
     return { heads: heads, blocks: blocks };
   }
+  /* hidden by the builder (inline visibility on the block or an ancestor inside the slide)?
+     The computed visibility cannot be used here: the whole new slide is still hidden while
+     its entry timeline is built, so every block would look hidden and never rise. */
+  function builderHidden(b, inst) {
+    for (var n = b; n && n !== inst.el; n = n.parentNode) { if (n.style && n.style.visibility === 'hidden') return true; }
+    return false;
+  }
   function entryTimeline(inst, dir) {
     var tl = gsap.timeline();
     if (inst.slide.autoIn === false) return tl;
@@ -1032,7 +1099,7 @@
     if (reduced()) {
       parts.heads.concat(parts.blocks).forEach(function (b) {
         var op = +gsap.getProperty(b, 'opacity');
-        if (!(op > 0) || global.getComputedStyle(b).visibility === 'hidden') return;
+        if (!(op > 0) || builderHidden(b, inst)) return;
         tl.fromTo(b, { opacity: 0 }, { opacity: op, duration: 0.2 }, 0);
       });
       $$(inst.inner, '.hl').forEach(function (h) { if (!h.closest('[data-step]')) h.style.setProperty('--hl-x', '1'); });
@@ -1050,7 +1117,7 @@
         if ((kind && kind !== 'rise') || b.hasAttribute('data-stagger')) { tl.add(revealEl(b, kind || 'rise'), 0.12 + i * 0.1); return; }
         /* rise back to the opacity the slide gave it (a dimmed block stays dimmed) */
         var op = +gsap.getProperty(b, 'opacity');
-        if (!(op > 0) || global.getComputedStyle(b).visibility === 'hidden') return;
+        if (!(op > 0) || builderHidden(b, inst)) return;
         tl.fromTo(b, { opacity: 0, y: 28 * (dir < 0 ? -1 : 1) }, { opacity: op, y: 0, duration: D.m, ease: E.out }, 0.12 + i * 0.1);
       });
     }
@@ -1058,19 +1125,23 @@
     if (hls.length) tl.fromTo(hls, { '--hl-x': 0 }, { '--hl-x': 1, duration: 0.5, ease: 'power2.inOut', stagger: 0.1 }, Math.max(0.5, t));
     return tl;
   }
-  function exitItems(inner) {
+  /* keep (optional): the data-shared keys of the incoming slide. A shared element whose key the
+     incoming slide does not have exits with the rest (otherwise it would stay on screen, fully
+     visible, until the transition ends). Without keep every shared element is held back. */
+  function exitItems(inner, keep) {
     var out = [];
+    function held(n) { var k = n.getAttribute('data-shared'); return k != null && (!keep || !!keep[k]); }
     (function walk(parent) {
       Array.prototype.slice.call(parent.children).forEach(function (c) {
-        if (c.hasAttribute('data-shared')) return;
-        if (c.querySelector('[data-shared]')) walk(c); else out.push(c);
+        if (held(c)) return;
+        if ($$(c, '[data-shared]').some(held)) walk(c); else out.push(c);
       });
     })(inner);
     return out;
   }
-  function exitTimeline(inst, dir) {
+  function exitTimeline(inst, dir, keep) {
     var tl = gsap.timeline();
-    var items = exitItems(inst.inner);
+    var items = exitItems(inst.inner, keep);
     var extra = [];
     if (inst.overlay) extra.push(inst.overlay);
     if (inst.ghost) extra.push(inst.ghost);
@@ -1103,12 +1174,16 @@
     gsap.set(dom.hudName, { opacity: 0 });
     gsap.set(dom.hudSep, { opacity: 1 });
     var nameR = stageRect(dom.hudName), titleR = stageRect(title);
-    var k = 17 / 104;
-    var dx = nameR.x - titleR.x, dy = nameR.y - titleR.y - (112 * k - 24) / 2;
+    /* land exactly on the eyebrow: scale = eyebrow font size / display font size (read from CSS) */
+    var ecs = global.getComputedStyle(dom.eyebrow), tcs = global.getComputedStyle(title);
+    var efs = parseFloat(ecs.fontSize) || 20, elh = parseFloat(ecs.lineHeight) || 28;
+    var tfs = parseFloat(tcs.fontSize) || 104, tlh = parseFloat(tcs.lineHeight) || 112;
+    var k = efs / tfs;
+    var dx = nameR.x - titleR.x, dy = nameR.y - titleR.y - (tlh * k - elh) / 2;
     if (ghost) tl.fromTo(ghost, { x: 420, opacity: 0 }, { x: 0, opacity: 0.16, duration: 0.7, ease: E.out }, 0);
     tl.fromTo(words, { yPercent: 115 }, { yPercent: 0, duration: 0.7, ease: E.type, stagger: 0.08 }, 0.15);
     var hold = 0.15 + 0.7 + 0.08 * (words.length - 1) + 0.45;   /* §1.9: ~0.9 s in, then a short hold */
-    if (ghost) tl.to(ghost, { opacity: 0.04, duration: 0.6, ease: E.io }, hold);
+    if (ghost) tl.to(ghost, { opacity: inst.ghostRest, duration: 0.6, ease: E.io }, hold);
     tl.to(title, { x: dx, y: dy, scale: k, duration: 0.6, ease: E.io }, hold);
     tl.to(title, { opacity: 0, duration: 0.15 }, hold + 0.48);
     tl.to(dom.hudName, { opacity: 1, duration: 0.15 }, hold + 0.48);
@@ -1139,7 +1214,8 @@
     var s = inst.slide, sec = s.section;
     dom.hud.classList.toggle('hidden', s.hud === false);
     dom.hud.classList.toggle('hide-progress', s.progress === false);
-    dom.hudId.textContent = s.id;
+    /* slide number (pairs with "digits + Enter"); the internal id is shown in the notes panel */
+    dom.hudId.textContent = (s.index + 1) + ' / ' + slides.length;
     var num = pad2(sec.num);
     if (!ritualRunning) {
       if (dom.hudNum.textContent !== num) {
@@ -1161,10 +1237,18 @@
     renderTags(inst, animate);
     updateNotes();
   }
-  function notesText(inst) {
-    var n = inst.slide.notes;
-    if (Array.isArray(n)) return n.map(function (p, i) { return (i === inst.step ? '▶ ' : '') + p; }).join('\n\n');
-    return n || '(노트 없음)';
+  /* notes: one paragraph per build step; the current one is marked (▶), bright, and kept in view */
+  function renderNotesBody(body, inst) {
+    var n = inst.slide.notes, arr = Array.isArray(n), paras = arr ? n : [n || '(노트 없음)'];
+    body.innerHTML = paras.map(function (p, i) {
+      var on = arr && i === inst.step;
+      return '<p class="np' + (on ? ' on' : '') + (arr ? '' : ' single') + '">' + (on ? '▶ ' : '') + esc(p) + '</p>';
+    }).join('');
+    var on = body.querySelector('.np.on');
+    if (on && body.clientHeight) {   /* scroll only the panel, never the page */
+      var top = on.offsetTop - body.offsetTop, bottom = top + on.offsetHeight;
+      if (top < body.scrollTop + 8 || bottom > body.scrollTop + body.clientHeight - 8) body.scrollTop = Math.max(0, top - 16);
+    }
   }
   function updateNotes() {
     if (!dom.notes || !cur) return;
@@ -1173,8 +1257,11 @@
     dom.notes.querySelector('.notes-title').textContent = s.title || s.id;
     dom.notes.querySelector('.notes-step').textContent = s.steps ? '단계 ' + cur.step + ' / ' + s.steps : '단계 없음';
     dom.notes.querySelector('.notes-steps').innerHTML = s.steps ? new Array(s.steps + 1).join('.').split('').map(function (_, i) { return '<i class="' + (i < cur.step ? 'on' : '') + '"></i>'; }).join('') : '';
-    dom.notes.querySelector('.notes-body').textContent = notesText(cur);
-    dom.notes.querySelector('.notes-next').innerHTML = nxt ? '다음: <b>' + esc(nxt.title || nxt.id) + '</b>' : '마지막 장이에요';
+    renderNotesBody(dom.notes.querySelector('.notes-body'), cur);
+    var nextHTML;
+    if (cur.step < s.steps) nextHTML = '다음: <b>단계 ' + (cur.step + 1) + ' / ' + s.steps + '</b>' + (nxt ? ' · 그다음 장: ' + esc(nxt.title || nxt.id) : '');
+    else nextHTML = nxt ? '다음 장: <b>' + esc(nxt.title || nxt.id) + '</b>' : '마지막 장이에요';
+    dom.notes.querySelector('.notes-next').innerHTML = nextHTML;
   }
   function tickTimer() {
     if (!dom.notes || !state.notes) return;
@@ -1184,11 +1271,13 @@
 
   /* ------------------------------------------------------------ hash */
   function writeHash() {
-    if (!cur) return;
+    if (!cur || state.presenter) return;
     var h = '#' + cur.slide.id + (cur.step ? '/' + cur.step : '');
     if (global.location.hash === h) return;
-    state.writingHash = h;
-    try { global.history.replaceState(null, '', h); } catch (e) { try { global.location.hash = h; } catch (e2) { /* ignore */ } }
+    /* replaceState fires no hashchange, so only the fallback marks the hash as self-written
+       (a stale mark would make a later Back to that hash look self-written and be ignored) */
+    try { global.history.replaceState(null, '', h); state.writingHash = null; }
+    catch (e) { state.writingHash = h; try { global.location.hash = h; } catch (e2) { state.writingHash = null; } }
   }
   function parseHash(h) {
     h = decodeURIComponent((h || '').replace(/^#/, ''));
@@ -1255,7 +1344,7 @@
   function runStep(inst, target, dir, instant) {
     var s = inst.slide;
     inst.ctx.step = target; inst.ctx.dir = dir; inst.ctx.instant = !!instant;
-    applyFragments(inst, target, !instant && dir > 0);
+    call(inst, 'fragments', function () { applyFragments(inst, target, !instant && dir > 0); });
     if (inst.tl) {
       if (inst.tlTween) { inst.tlTween.kill(); inst.tlTween = null; }
       var to = labelTime(inst, target);
@@ -1326,7 +1415,7 @@
       enterInstance(inst, true);
       for (var k = 1; k <= step; k++) runStep(inst, k, 0, true);
       markHighlights(inst, step);
-      if (inst.ghost) gsap.set(inst.ghost, { opacity: 0.04 });
+      if (inst.ghost) gsap.set(inst.ghost, { opacity: inst.ghostRest });
       afterNav(true);
       return;
     }
@@ -1335,7 +1424,9 @@
     state.transition = tl;
     var tIn = old ? (reduced() ? 0.2 : 0.3) : 0;        /* the new slide appears */
     if (old) {
-      tl.add(exitTimeline(old, dir), 0);
+      var keepKeys = {};
+      $$(inst.inner, '[data-shared]').forEach(function (n) { keepKeys[n.getAttribute('data-shared')] = 1; });
+      tl.add(exitTimeline(old, dir, keepKeys), 0);
       gsap.set(inst.el, { autoAlpha: 0 });
       tl.set(inst.el, { autoAlpha: 1 }, tIn);
     }
@@ -1357,7 +1448,7 @@
       tContent = tIn + rt.contentAt;
     } else {
       updateHUD(inst, true, false);
-      if (inst.ghost) gsap.set(inst.ghost, { opacity: 0.04 });
+      if (inst.ghost) gsap.set(inst.ghost, { opacity: inst.ghostRest });
     }
     if (instantBuild) {
       enterInstance(inst, true);
@@ -1388,7 +1479,7 @@
     updateHUD(inst, false);
     enterInstance(inst, true);
     for (var k = 1; k <= step; k++) runStep(inst, k, 0, true);
-    if (inst.ghost) gsap.set(inst.ghost, { opacity: 0.04 });
+    if (inst.ghost) gsap.set(inst.ghost, { opacity: inst.ghostRest });
     markHighlights(inst, step);
     inst.threes.forEach(function (T) { T.render(); });
   }
@@ -1397,6 +1488,7 @@
     renderTags(cur, true);
     updateNotes();
     writeHash();
+    postSync();
     if (state.overview) renderOverview();
   }
 
@@ -1463,12 +1555,79 @@
     } catch (e) { pushError('fullscreen', e); }
   }
 
+  /* ------------------------------------------------------------ presenter window (P)
+     The audience window keeps the stage only. P opens this same page with #presenter in a second
+     window: notes (current step marked), what comes next, timer, and a live copy of the current
+     slide. The two windows talk by postMessage, which also works from file:// (opaque origins,
+     so messages are checked by their source window, never by origin). Keys pressed in the
+     presenter window (→ ← Space PageDown PageUp ↓ ↑ Home End, digits+Enter, a clicker) drive the
+     audience window. */
+  var MSG = 'deck-presenter-v1';
+  function presenterAlive() { return state.presenterWin && !state.presenterWin.closed; }
+  function postSync() {
+    if (state.presenter || !cur || !presenterAlive()) return;
+    try { state.presenterWin.postMessage({ deck: MSG, type: 'sync', index: cur.index, step: cur.step, startTime: state.startTime }, '*'); }
+    catch (e) { pushError('presenter sync', e); }
+  }
+  function openPresenter() {
+    if (state.presenter) return;
+    if (presenterAlive()) { try { state.presenterWin.focus(); } catch (e) { /* ignore */ } postSync(); return; }
+    var url = global.location.href.split('#')[0] + '#presenter';
+    var w = null;
+    try { w = global.open(url, 'deck-presenter', 'popup=yes,width=1280,height=800'); } catch (e) { pushError('presenter open', e); }
+    if (!w) { toast('발표자 창이 막혔어요 · 팝업을 허용해 주세요'); return; }
+    state.presenterWin = w;
+    toast('발표자 창을 열었어요');
+  }
+  /* commands shared by the keyboard, clicks, swipes and the presenter window */
+  function runCmd(cmd, arg) {
+    switch (cmd) {
+      case 'next': next(); break;
+      case 'prev': prev(); break;
+      case 'nextSlide': nextSlide(); break;
+      case 'prevSlide': prevSlide(); break;
+      case 'first': show(0, 0, { dir: -1 }); break;
+      case 'last': show(slides.length - 1, 0, { dir: 1 }); break;
+      case 'goto': if (arg >= 0) show(arg, 0, { dir: cur && arg < cur.index ? -1 : 1 }); break;
+    }
+  }
+  /* in the presenter window navigation is forwarded to the audience window (when it is there) */
+  function nav(cmd, arg) {
+    if (state.presenter && global.opener && !global.opener.closed) {
+      try { global.opener.postMessage({ deck: MSG, type: 'cmd', cmd: cmd, arg: arg }, '*'); return; }
+      catch (e) { pushError('presenter cmd', e); }
+    }
+    runCmd(cmd, arg);
+  }
+  function onMessage(e) {
+    var d = e.data;
+    if (!d || d.deck !== MSG) return;
+    if (state.presenter) {
+      if (e.source !== global.opener || d.type !== 'sync') return;
+      state.lastSync = Date.now();
+      if (d.startTime) state.startTime = d.startTime;
+      if (!state.booted) { state.pendingGoto = [d.index, d.step]; return; }
+      if (!cur || cur.index !== d.index || cur.step !== d.step) show(d.index, d.step, { instant: true });
+      tickTimer();
+      return;
+    }
+    if (d.type === 'hello') { state.presenterWin = e.source; postSync(); return; }   /* (re)connect, e.g. after a reload */
+    if (d.type === 'cmd' && e.source && e.source === state.presenterWin) runCmd(d.cmd, d.arg);
+  }
+  function presenterHello() {
+    if (!state.presenter || !global.opener || global.opener.closed) return;
+    if (state.lastSync && Date.now() - state.lastSync < 4000) return;
+    try { global.opener.postMessage({ deck: MSG, type: 'hello' }, '*'); } catch (e) { /* ignore */ }
+  }
+
   /* ------------------------------------------------------------ input */
   function onKey(e) {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
-    var t = e.target;
-    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.nodeName))) return;
-    var k = e.key;
+    var t = e.target, k = e.key;
+    /* text fields keep every key; a focused range slider keeps only its own arrows/Home/End,
+       so PageDown (clicker), Space, N, O, Esc … still drive the deck */
+    if (t && (t.isContentEditable || /^(TEXTAREA|SELECT)$/.test(t.nodeName) || (t.nodeName === 'INPUT' && t.type !== 'range'))) return;
+    if (t && t.nodeName === 'INPUT' && t.type === 'range' && /^(Arrow(Left|Right|Up|Down)|Home|End)$/.test(k)) return;
     if (state.overview) {
       if (k === 'Escape' || k === 'o' || k === 'O') { toggleOverview(false); e.preventDefault(); }
       else if (k === 'Enter' && doc.activeElement && doc.activeElement.classList.contains('ov-card')) { doc.activeElement.click(); e.preventDefault(); }
@@ -1494,22 +1653,23 @@
       case 'Enter':
         if (state.jumpBuf) {
           var n = parseInt(state.jumpBuf, 10); state.jumpBuf = ''; dom.jump.classList.remove('on');
-          if (n >= 1) show(n - 1, 0, { dir: cur && n - 1 < cur.index ? -1 : 1 });
+          if (n >= 1) nav('goto', Math.min(slides.length, n) - 1);
           e.preventDefault();
         }
         break;
-      case 'ArrowRight': case ' ': case 'PageDown': case 'Spacebar': next(); e.preventDefault(); break;
-      case 'ArrowLeft': case 'PageUp': case 'Backspace': prev(); e.preventDefault(); break;
-      case 'ArrowDown': nextSlide(); e.preventDefault(); break;
-      case 'ArrowUp': prevSlide(); e.preventDefault(); break;
-      case 'Home': show(0, 0, { dir: -1 }); e.preventDefault(); break;
-      case 'End': show(slides.length - 1, 0, { dir: 1 }); e.preventDefault(); break;
-      case 'n': case 'N': toggleNotes(); e.preventDefault(); break;
+      case 'ArrowRight': case ' ': case 'PageDown': case 'Spacebar': nav('next'); e.preventDefault(); break;
+      case 'ArrowLeft': case 'PageUp': case 'Backspace': nav('prev'); e.preventDefault(); break;
+      case 'ArrowDown': nav('nextSlide'); e.preventDefault(); break;
+      case 'ArrowUp': nav('prevSlide'); e.preventDefault(); break;
+      case 'Home': nav('first'); e.preventDefault(); break;
+      case 'End': nav('last'); e.preventDefault(); break;
+      case 'n': case 'N': if (!state.presenter) toggleNotes(); e.preventDefault(); break;
+      case 'p': case 'P': openPresenter(); e.preventDefault(); break;
       case 'o': case 'O': toggleOverview(); e.preventDefault(); break;
       case 'm': case 'M': setReduced(!reduced()); e.preventDefault(); break;
       case 'f': case 'F': fullscreen(); e.preventDefault(); break;
       case '?': case 'h': case 'H': toggleHelp(); e.preventDefault(); break;
-      case 'Escape': if (state.notes) toggleNotes(false); break;
+      case 'Escape': if (state.notes && !state.presenter) toggleNotes(false); break;
     }
   }
   var INTERACTIVE = 'a, button, input, select, textarea, label, summary, [data-interactive], .no-advance, .dial.interactive';
@@ -1517,14 +1677,14 @@
     if (state.suppressClick) { state.suppressClick = false; return; }
     if (e.button !== 0) return;
     if (e.target.closest && e.target.closest(INTERACTIVE)) return;
-    if (e.shiftKey) prev(); else next();
+    if (e.shiftKey) nav('prev'); else nav('next');
   }
   var touch = null;
   function onTouchStart(e) { if (e.touches.length === 1) touch = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }
   function onTouchEnd(e) {
     if (!touch) return;
     var t = e.changedTouches[0], dx = t.clientX - touch.x, dy = t.clientY - touch.y; touch = null;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { state.suppressClick = true; if (dx < 0) next(); else prev(); }
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { state.suppressClick = true; nav(dx < 0 ? 'next' : 'prev'); }
   }
 
   /* ------------------------------------------------------------ boot */
@@ -1532,19 +1692,38 @@
     if (state.started) return;
     state.started = true;
     buildChrome();
+    global.addEventListener('message', onMessage);
+    if (state.presenter) {
+      /* presenter window: notes panel always open beside a live copy of the current slide */
+      doc.body.classList.add('presenter', 'notes-open');
+      state.notes = true;
+      doc.title = '발표자 화면 · ' + doc.title;
+      setInterval(presenterHello, 2000);
+    }
     layout();
     global.addEventListener('resize', layout);
-    doc.addEventListener('keydown', onKey);
+    /* range sliders: the deck listens in the capture phase, because a slide may stop keydown
+       propagation on its slider; every other target uses the normal (bubbling) listener */
+    var isRange = function (t) { return !!(t && t.nodeName === 'INPUT' && t.type === 'range'); };
+    doc.addEventListener('keydown', function (e) { if (isRange(e.target)) onKey(e); }, true);
+    doc.addEventListener('keydown', function (e) { if (!isRange(e.target)) onKey(e); });
     dom.stage.addEventListener('click', onClick);
     dom.stage.addEventListener('touchstart', onTouchStart, { passive: true });
     dom.stage.addEventListener('touchend', onTouchEnd);
+    /* a slider dragged with the mouse hands the keyboard back to the deck, so → advances again */
+    dom.stage.addEventListener('pointerup', function (e) {
+      var t = e.target;
+      if (t && t.nodeName === 'INPUT' && t.type === 'range') setTimeout(function () { if (doc.activeElement === t) t.blur(); }, 0);
+    });
     dom.overview.addEventListener('click', function (e) {
       var c = e.target.closest('.ov-card'); if (!c) return;
-      toggleOverview(false); show(+c.getAttribute('data-index'), 0);
+      toggleOverview(false); nav('goto', +c.getAttribute('data-index'));
     });
     dom.help.addEventListener('click', function () { toggleHelp(false); });
     global.addEventListener('hashchange', function () {
-      if (state.writingHash && global.location.hash === state.writingHash) return;
+      if (state.presenter) return;
+      if (state.writingHash && state.writingHash === global.location.hash) { state.writingHash = null; return; }
+      state.writingHash = null;
       var p = parseHash(global.location.hash); if (p) show(p.index, p.step, { instant: true });
     });
     if (mq) {
@@ -1557,10 +1736,11 @@
       if (state.booted) return;
       state.booted = true;
       if (!slides.length) { pushError('boot', new Error('no slides registered')); return; }
-      var p = parseHash(global.location.hash);
+      var p = state.presenter ? null : parseHash(global.location.hash);
       if (state.pendingGoto) { show(state.pendingGoto[0], state.pendingGoto[1], { instant: true }); state.pendingGoto = null; }
       else if (p) show(p.index, p.step, { instant: p.step > 0 });
-      else show(0, 0);
+      else show(0, 0, state.presenter ? { instant: true } : {});
+      if (state.presenter) { presenterHello(); tickTimer(); }
     };
     /* wait for the fonts so split text and FLIP measure the final glyphs (max 2.5 s) */
     var fontsReady = doc.fonts && doc.fonts.ready ? doc.fonts.ready : null;
@@ -1596,7 +1776,8 @@
     settle: function () { if (state.transition) finishTransition(); if (cur) settleCtx(cur.gctx, cur.tl); },
     setReduced: setReduced,
     get reduced() { return reduced(); },
-    toggleNotes: toggleNotes, toggleOverview: toggleOverview,
+    toggleNotes: toggleNotes, toggleOverview: toggleOverview, openPresenter: openPresenter,
+    get presenter() { return state.presenter; },
     tex: tex, renderMath: renderMath, tagHTML: tagHTML,
     TAGS: TAGS, ICONS: ICONS, COLORS: COLORS, D: D, E: E, TEX_MACROS: TEX_MACROS,
     STAGE: { w: STAGE_W, h: STAGE_H },

@@ -218,7 +218,8 @@
       A.flow(false);
       tl.to(A.head, { autoAlpha: 0, scale: 0.4, svgOrigin: p1[0] + ' ' + p1[1], duration: dur(ctx, 0.15) }, 0);
       tl.fromTo(strands, { strokeDasharray: L + ' ' + L, strokeDashoffset: 0 }, { strokeDashoffset: L, duration: dur(ctx, opt.duration != null ? opt.duration : 0.4), ease: 'power2.in' }, 0.05);
-      tl.to([A.key, A.label].filter(Boolean), { autoAlpha: 0, duration: dur(ctx, 0.2) }, '>-0.1');
+      var extras = [A.key, A.label].filter(Boolean);   /* a transfer arrow without a label has neither */
+      if (extras.length) tl.to(extras, { autoAlpha: 0, duration: dur(ctx, 0.2) }, '>-0.1');
       tl.set(strands, { autoAlpha: 0 });
       return tl;
     };
@@ -267,7 +268,7 @@
       N.label.textContent = o.label;
     }
     if (o.sub != null) {
-      N.sub = s('text', { x: 0, y: sz / 2 + 56, 'text-anchor': 'middle', fill: COL.ink3, 'font-size': 18 }, g);
+      N.sub = s('text', { x: 0, y: sz / 2 + 56, 'text-anchor': 'middle', fill: COL.ink3, 'font-size': 20 }, g);
       N.sub.textContent = o.sub;
     }
     if (o.hidden) gsap.set(g, { autoAlpha: 0 });
@@ -279,11 +280,11 @@
       opt = opt || {};
       if (!N.badgeG) {
         N.badgeG = s('g', { transform: 'translate(0,' + (-sz / 2 - 22) + ')' }, g);
-        N.badgeR = s('rect', { x: -40, y: -16, width: 80, height: 32, rx: 16, fill: COL.bg3, stroke: opt.color || COL.ink, 'stroke-width': 1.5 }, N.badgeG);
-        N.badgeT = s('text', { x: 0, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: opt.color || COL.ink, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' }, N.badgeG);
+        N.badgeR = s('rect', { x: -40, y: -17, width: 80, height: 34, rx: 17, fill: COL.bg3, stroke: opt.color || COL.ink, 'stroke-width': 1.5 }, N.badgeG);
+        N.badgeT = s('text', { x: 0, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: opt.color || COL.ink, 'font-size': 20, 'font-weight': 700, 'class': 'tnum' }, N.badgeG);
       }
       N.badgeT.textContent = text;
-      var w = Math.max(56, String(text).length * 11 + 26);
+      var w = Math.max(60, String(text).length * 12.5 + 28);
       N.badgeR.setAttribute('x', -w / 2); N.badgeR.setAttribute('width', w);
       return gsap.fromTo(N.badgeG, { autoAlpha: 0, scale: 0.4, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: dur(ctx, D.s), ease: E.stamp, delay: opt.delay || 0 });
     };
@@ -306,7 +307,7 @@
       return gsap.fromTo(g, { autoAlpha: 0, scale: 0.4, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: dur(ctx, D.s), ease: E.stamp, delay: opt.delay || 0 });
     };
     N.tag = function (text) {
-      if (!N.tagT) N.tagT = s('text', { x: 0, y: -r - 14, 'text-anchor': 'middle', fill: COL.ink3, 'font-size': 18 }, g);
+      if (!N.tagT) N.tagT = s('text', { x: 0, y: -r - 14, 'text-anchor': 'middle', fill: COL.ink3, 'font-size': 20 }, g);
       N.tagT.textContent = text;
       return gsap.fromTo(N.tagT, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: dur(ctx, D.s) });
     };
@@ -399,7 +400,7 @@
   Comp.stamp = function (ctx, parent, o) {
     o = o || {};
     var ok = o.ok !== false;
-    var el = h('div', 'stamp' + (ok ? '' : ' fail'), parent, Deck.util.esc(o.text || (ok ? '충족 ✓' : '미충족 ✕')));
+    var el = h('div', 'stamp' + (ok ? '' : ' fail'), parent, Deck.util.esc(o.text || (ok ? '충족 ✓' : '미충족 ×')));
     if (o.x != null) { el.style.position = 'absolute'; el.style.left = o.x + 'px'; el.style.top = o.y + 'px'; }
     gsap.set(el, { autoAlpha: 0 });
     return {
@@ -469,7 +470,7 @@
     snap.forEach(function (v) {
       var p0 = pt(v, R - 12), p1 = pt(v, R + 12), pl = pt(v, R + 30);
       s('line', { x1: p0[0], y1: p0[1], x2: p1[0], y2: p1[1], stroke: COL.ink2, 'stroke-width': 2 }, svg);
-      var t = s('text', { x: pl[0], y: pl[1] + 6, 'text-anchor': 'middle', fill: COL.ink2, 'font-size': 17, 'class': 'svg-mono' }, svg);
+      var t = s('text', { x: pl[0], y: pl[1] + 6, 'text-anchor': 'middle', fill: COL.ink2, 'font-size': 20, 'class': 'svg-mono' }, svg);
       t.textContent = v === 0 ? '0' : v === 1 ? '1' : String(v).replace(/^0/, '');
     });
     var needle = s('g', {}, svg);
@@ -557,7 +558,7 @@
     s('path', { d: 'M' + x + ',' + y + ' L' + (x + 6) + ',' + (y + hh) + ' L' + (x + w - 6) + ',' + (y + hh) + ' L' + (x + w) + ',' + y, fill: 'none', stroke: COL.ink2, 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
     var U = { g: g, value: 0 };
     if (o.label !== false) {
-      U.label = s('text', { x: x + w / 2, y: y + hh + 28, 'text-anchor': 'middle', fill: COL.ink2, 'font-size': 18, 'class': 'tnum svg-mono' }, g);
+      U.label = s('text', { x: x + w / 2, y: y + hh + 29, 'text-anchor': 'middle', fill: COL.ink2, 'font-size': 20, 'class': 'tnum svg-mono' }, g);
     }
     var st = { v: 0 };
     function render() {
@@ -719,14 +720,14 @@
     });
     s('line', { x1: x0, x2: x1, y1: yAxis, y2: yAxis }, axis);
     if (o.zero !== false && dom[0] <= 0 && dom[1] >= 0) s('line', { x1: x(0), x2: x(0), y1: top - 10, y2: yAxis, stroke: COL.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 5' }, svg);
-    if (o.axisLabel) { var al = s('text', { x: (x0 + x1) / 2, y: yAxis + 52, 'text-anchor': 'middle', fill: COL.ink3, 'font-size': 18 }, svg); al.textContent = o.axisLabel; }
+    if (o.axisLabel) { var al = s('text', { x: (x0 + x1) / 2, y: yAxis + 52, 'text-anchor': 'middle', fill: COL.ink3, 'font-size': 20 }, svg); al.textContent = o.axisLabel; }
     var fm = o.format || function (v) { return fmt(v, 3); };
     rows.forEach(function (r, i) {
       var cy = top + i * rowH + rowH / 2, col = color(r.color || 'ink');
       var g = s('g', { 'class': 'forest-row' }, svg);
       var R = { g: g, data: r, cy: cy };
       R.label = s('text', { x: 0, y: cy + (r.sub ? -4 : 8), fill: COL.ink, 'font-size': 26, 'font-weight': 600 }, g); R.label.textContent = r.label || '';
-      if (r.sub) { R.sub = s('text', { x: 0, y: cy + 22, fill: COL.ink3, 'font-size': 18 }, g); R.sub.textContent = r.sub; }
+      if (r.sub) { R.sub = s('text', { x: 0, y: cy + 23, fill: COL.ink3, 'font-size': 20 }, g); R.sub.textContent = r.sub; }
       if (r.ghost) {
         R.gbar = s('line', { x1: x(r.ghost.lo), x2: x(r.ghost.hi), y1: cy + 14, y2: cy + 14, stroke: COL.ink3, 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.8 }, g);
         R.gdot = s('circle', { cx: x(r.ghost.est), cy: cy + 14, r: 7, fill: COL.bg, stroke: COL.ink3, 'stroke-width': 2 }, g);

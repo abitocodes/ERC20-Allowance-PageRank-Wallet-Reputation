@@ -13,6 +13,11 @@
   font-style: normal;
   font-display: swap;
 }
+/* Two symbols the deck uses that Pretendard lacks (✕ U+2715, ⇄ U+21C4): a 3 KB subset of
+   DejaVu Sans, so they never fall back to a host font or tofu. Listed after Pretendard in the
+   stacks, and limited to those code points. */
+@font-face { font-family: "Deck Symbols"; src: url("../lib/fonts/DeckSymbols.woff") format("woff"); font-weight: 45 599; font-display: swap; unicode-range: U+2715, U+21C4; }
+@font-face { font-family: "Deck Symbols"; src: url("../lib/fonts/DeckSymbols-Bold.woff") format("woff"); font-weight: 600 920; font-display: swap; unicode-range: U+2715, U+21C4; }
 /* Hangul inside KaTeX (\text{...}): KaTeX fonts have no Hangul. Adding a
    Hangul-only face to the KaTeX families (declared after katex.min.css, so
    it is tried first for these code points) keeps formulas free of tofu. */
@@ -33,7 +38,7 @@
   --grid: rgba(233,237,245,0.06);
   --ink: #E9EDF5;
   --ink-2: #A3ADBF;
-  --ink-3: #677083;
+  --ink-3: #8790A3;
   --letterbox: #04060A;
 
   --c-allow: #F5B43C;   /* allowance, EndorseRank            (G1) */
@@ -48,8 +53,8 @@
   --c-hi-soft:    rgba(255,107,138,.16);
   --lambda-grad: linear-gradient(90deg, #3CC4FF 0%, #A78BFA 50%, #F5B43C 100%);
 
-  --font-sans: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", "Pretendard Variable", "Noto Sans KR", monospace;
+  --font-sans: "Pretendard Variable", "Deck Symbols", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", "Pretendard Variable", "Deck Symbols", "Noto Sans KR", monospace;
 
   --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px; --s8: 128px;
   --pad-top: 72px; --pad-side: 96px; --pad-bottom: 88px; --gutter: 32px;
@@ -62,9 +67,9 @@
 /* The deck has a single (dark) theme; the tokens are repeated so that a
    light-scheme or data-theme override can never repaint the stage. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --bg: #0A0D14; --bg-2: #10151F; --bg-3: #161C29; --ink: #E9EDF5; --ink-2: #A3ADBF; --ink-3: #677083; --line: #232B3B; }
+  :root:not([data-theme="light"]) { --bg: #0A0D14; --bg-2: #10151F; --bg-3: #161C29; --ink: #E9EDF5; --ink-2: #A3ADBF; --ink-3: #8790A3; --line: #232B3B; }
 }
-:root[data-theme="dark"] { --bg: #0A0D14; --bg-2: #10151F; --bg-3: #161C29; --ink: #E9EDF5; --ink-2: #A3ADBF; --ink-3: #677083; --line: #232B3B; }
+:root[data-theme="dark"] { --bg: #0A0D14; --bg-2: #10151F; --bg-3: #161C29; --ink: #E9EDF5; --ink-2: #A3ADBF; --ink-3: #8790A3; --line: #232B3B; }
 
 /* ---------- page ---------- */
 * { box-sizing: border-box; }
@@ -123,8 +128,8 @@ body {
 .t-stat    { font-size: 120px; line-height: 120px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .t-body-l  { font-size: 34px; line-height: 50px; font-weight: 500; }
 .t-body    { font-size: 28px; line-height: 42px; font-weight: 500; }
-.t-caption { font-size: 22px; line-height: 32px; font-weight: 500; }
-.t-micro   { font-size: 17px; line-height: 24px; font-weight: 500; font-family: var(--font-mono); letter-spacing: 0; }
+.t-caption { font-size: 24px; line-height: 34px; font-weight: 500; }
+.t-micro   { font-size: 20px; line-height: 28px; font-weight: 500; font-family: var(--font-mono); letter-spacing: 0; }
 .slide p { margin: 0; }
 .slide ul, .slide ol { margin: 0; padding-left: 1.1em; }
 .num, .tnum { font-variant-numeric: tabular-nums; }
@@ -145,8 +150,9 @@ code, .code { font-family: var(--font-mono); font-size: .9em; color: var(--ink);
   background: var(--c-hi); border-radius: 2px;
   transform: scaleX(var(--hl-x, 1)); transform-origin: left center;
 }
-.example-mark { font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; }
-.source { font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; }
+/* legibility floor (QA): nothing the audience reads is below 20 px at 1920 wide; captions 24 px */
+.example-mark { font-family: var(--font-mono); font-size: 20px; line-height: 28px; color: var(--ink-3); letter-spacing: 0; }
+.source { font-family: var(--font-mono); font-size: 20px; line-height: 28px; color: var(--ink-3); letter-spacing: 0; }
 
 /* word / char split (used by the engine for kinetic type) */
 .w-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; padding-top: .04em; margin-top: -.04em; }
@@ -182,16 +188,16 @@ code, .code { font-family: var(--font-mono); font-size: .9em; color: var(--ink);
 .card.line, .panel.line { background: transparent; border: 1px solid var(--line); }
 .eq-panel { background: var(--bg-2); border-radius: var(--r-panel); padding: var(--s5) var(--s5) var(--s4); position: relative; }
 .eq-panel .eq-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--s3);
-  font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; }
+  font-family: var(--font-mono); font-size: 20px; line-height: 28px; color: var(--ink-3); letter-spacing: 0; }
 
 /* ---------- status tag pill (G11) ---------- */
 .pill {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 34px; padding: 0 14px 0 10px; border-radius: 17px;
+  height: 38px; padding: 0 15px 0 11px; border-radius: 19px;
   border: 1px solid var(--ink-3); color: var(--ink-2); background: rgba(10,13,20,.6);
-  font-family: var(--font-sans); font-size: 17px; line-height: 1; font-weight: 600; letter-spacing: 0; white-space: nowrap;
+  font-family: var(--font-sans); font-size: 20px; line-height: 1; font-weight: 600; letter-spacing: 0; white-space: nowrap;
 }
-.pill svg { width: 18px; height: 18px; flex: 0 0 auto; }
+.pill svg { width: 20px; height: 20px; flex: 0 0 auto; }
 .pill.pill-ghost { border-style: dashed; color: var(--ink-3); }
 .pill.pill-plain { padding: 0 12px; }
 
@@ -206,9 +212,9 @@ code, .code { font-family: var(--font-mono); font-size: .9em; color: var(--ink);
 .formula .fx-part { transition: none; }
 .derive { position: relative; }
 .derive .derive-line { display: flex; align-items: baseline; gap: var(--s3); padding: 10px 0; }
-.derive .derive-no { flex: 0 0 auto; width: 34px; font-family: var(--font-mono); font-size: 17px; color: var(--ink-3); letter-spacing: 0; }
+.derive .derive-no { flex: 0 0 auto; width: 34px; font-family: var(--font-mono); font-size: 20px; color: var(--ink-3); letter-spacing: 0; }
 .derive .derive-body { flex: 1 1 auto; min-width: 0; }
-.derive .derive-note { display: block; color: var(--ink-2); font-size: 22px; line-height: 32px; margin-top: 2px; }
+.derive .derive-note { display: block; color: var(--ink-2); font-size: 24px; line-height: 34px; margin-top: 2px; }
 .derive .derive-tex .katex-display { margin: 0; text-align: left; }
 .derive .derive-tex .katex-display > .katex { text-align: left; }
 
@@ -250,7 +256,7 @@ code, .code { font-family: var(--font-mono); font-size: .9em; color: var(--ink);
 svg text { font-family: var(--font-sans); }
 .svg-mono { font-family: var(--font-mono); letter-spacing: 0; }
 .axis line, .axis path { stroke: var(--line); stroke-width: 1; }
-.axis text { fill: var(--ink-3); font-size: 17px; }
+.axis text { fill: var(--ink-3); font-size: 20px; }
 .gridline { stroke: var(--grid); stroke-width: 1; }
 .glow-allow { filter: drop-shadow(0 0 6px rgba(245,180,60,.55)); }
 .glow-xfer  { filter: drop-shadow(0 0 6px rgba(60,196,255,.55)); }
@@ -258,11 +264,12 @@ svg text { font-family: var(--font-sans); }
 
 /* ---------- HUD (§1.6) ---------- */
 .hud-eyebrow { position: absolute; left: 96px; top: 26px; display: flex; align-items: baseline; gap: 10px;
-  font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-2); letter-spacing: 0; white-space: nowrap; }
+  font-family: var(--font-mono); font-size: 20px; line-height: 28px; color: var(--ink-2); letter-spacing: 0; white-space: nowrap; }
 .hud-eyebrow .hud-num { font-variant-numeric: tabular-nums; color: var(--ink); }
 .hud-eyebrow .hud-sep { color: var(--ink-3); }
 .hud-eyebrow .hud-name { font-family: var(--font-sans); font-weight: 600; }
-.hud-id { position: absolute; right: 96px; top: 26px; font-family: var(--font-mono); font-size: 17px; line-height: 24px; color: var(--ink-3); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+/* top right: slide number "n / total" (pairs with digits+Enter); the internal id is in the notes */
+.hud-id { position: absolute; right: 96px; top: 26px; font-family: var(--font-mono); font-size: 20px; line-height: 28px; color: var(--ink-3); letter-spacing: 0; font-variant-numeric: tabular-nums; }
 .hud-progress { position: absolute; left: 96px; right: 96px; bottom: 34px; height: 12px; display: flex; gap: 10px; align-items: center; }
 .hud-cell { position: relative; flex: 1 1 0; height: 12px; }
 .hud-cell::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 2px; border-radius: 1px; background: var(--line); transition: background .35s; }
@@ -294,12 +301,25 @@ body.notes-open #deck-notes { display: flex; }
   font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); letter-spacing: 0; }
 #deck-notes .notes-title { padding: 18px 24px 4px; font-size: 22px; line-height: 1.35; font-weight: 700; }
 #deck-notes .notes-step { padding: 0 24px 10px; font-family: var(--font-mono); font-size: 13px; color: var(--ink-3); }
-#deck-notes .notes-body { flex: 1 1 auto; overflow: auto; padding: 8px 24px 24px; font-size: 19px; line-height: 1.75; color: var(--ink); white-space: pre-wrap; }
+#deck-notes .notes-body { flex: 1 1 auto; overflow: auto; padding: 8px 24px 24px; font-size: 19px; line-height: 1.75; color: var(--ink); white-space: pre-wrap; position: relative; }
+#deck-notes .notes-body .np { margin: 0 0 .85em; color: var(--ink-2); }
+#deck-notes .notes-body .np.on, #deck-notes .notes-body .np.single { color: var(--ink); }
+#deck-notes .notes-body .np.on { border-left: 3px solid var(--c-hi); margin-left: -15px; padding-left: 12px; }
 #deck-notes .notes-next { border-top: 1px solid var(--line); padding: 14px 24px 18px; font-size: 14px; color: var(--ink-3); }
 #deck-notes .notes-next b { color: var(--ink-2); font-weight: 600; }
 #deck-notes .notes-steps { display: flex; gap: 6px; padding: 0 24px 12px; }
 #deck-notes .notes-steps i { width: 18px; height: 4px; border-radius: 2px; background: var(--line); }
 #deck-notes .notes-steps i.on { background: var(--ink-2); }
+/* presenter window (P, #presenter): wider notes with larger type beside a live copy of the slide */
+body.presenter #deck-notes { width: min(46vw, 920px); }
+body.presenter #deck-notes .notes-head { font-size: 18px; padding: 16px 28px 12px; }
+body.presenter #deck-notes .nh-timer { font-size: 30px; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+body.presenter #deck-notes .notes-title { font-size: 28px; padding: 18px 28px 6px; }
+body.presenter #deck-notes .notes-step { font-size: 16px; padding: 0 28px 10px; }
+body.presenter #deck-notes .notes-steps { padding: 0 28px 14px; }
+body.presenter #deck-notes .notes-steps i { width: 26px; height: 5px; }
+body.presenter #deck-notes .notes-body { font-size: 24px; line-height: 1.7; padding: 8px 28px 28px; }
+body.presenter #deck-notes .notes-next { font-size: 20px; padding: 16px 28px 20px; color: var(--ink-2); }
 
 /* ---------- overview (O) ---------- */
 #deck-overview { position: fixed; inset: 0; z-index: 30; background: rgba(4,6,10,.96); overflow: auto; display: none; padding: 40px 48px 64px; font-family: var(--font-sans); }
@@ -330,7 +350,7 @@ body.help-open #deck-help { display: flex; }
 /* ---------- placeholders (until a section is built) ---------- */
 .ph-list { margin-top: var(--s5); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s6); row-gap: 14px; max-width: 1500px; }
 .ph-item { display: flex; gap: 18px; align-items: baseline; color: var(--ink-2); font-size: 26px; line-height: 38px; }
-.ph-item .mono { color: var(--ink-3); font-size: 17px; flex: 0 0 auto; }
+.ph-item .mono { color: var(--ink-3); font-size: 20px; flex: 0 0 auto; }
 .ph-note { position: absolute; left: var(--pad-side); bottom: 120px; }
 
 @media (prefers-reduced-motion: reduce) {

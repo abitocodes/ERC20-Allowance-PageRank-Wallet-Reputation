@@ -28,10 +28,10 @@
     '.s01-win .bar{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;border-bottom:1px solid var(--line)}',
     '.s01-win .bar .ttl{display:flex;align-items:center;gap:12px;font-size:22px;line-height:1;color:var(--ink-2);font-weight:600}',
     '.s01-win .bar .ttl svg{width:22px;height:22px}',
-    '.s01-win .bar .chip{font-family:var(--font-mono);font-size:16px;line-height:1;color:var(--ink-3);border:1px solid var(--line);border-radius:14px;padding:6px 12px;letter-spacing:0}',
+    '.s01-win .bar .chip{font-family:var(--font-mono);font-size:20px;line-height:1;color:var(--ink-3);border:1px solid var(--line);border-radius:16px;padding:6px 14px;letter-spacing:0}',
     '.s01-win svg.fig{position:absolute;left:0;top:60px;overflow:visible}',
     '.s01-win .q{position:absolute;left:40px;right:40px;top:262px;text-align:center;font-size:30px;line-height:42px;font-weight:600;color:var(--ink)}',
-    '.s01-win .cd{position:absolute;left:0;right:0;top:318px;text-align:center;font-family:var(--font-mono);font-size:18px;line-height:24px;color:var(--ink-3);letter-spacing:0}',
+    '.s01-win .cd{position:absolute;left:0;right:0;top:316px;text-align:center;font-family:var(--font-mono);font-size:21px;line-height:28px;color:var(--ink-3);letter-spacing:0}',
     '.s01-win .btns{position:absolute;left:0;right:0;top:396px;display:flex;justify-content:center;gap:20px}',
     '.s01-win .btn{width:190px;height:66px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;letter-spacing:-.01em}',
     '.s01-win .btn.no{border:1.5px solid #3A4458;color:var(--ink-2)}',
@@ -63,18 +63,20 @@
     '.s01-rq{position:relative;display:flex;align-items:center;gap:20px;min-height:92px;padding:12px 22px 12px 18px;margin-bottom:14px;',
     '  border:1.5px solid var(--line);border-radius:18px;background:rgba(16,21,31,.85)}',
     '.s01-rq .k{flex:0 0 auto;width:74px;height:40px;border-radius:10px;background:var(--bg-3);display:flex;align-items:center;justify-content:center;',
-    '  font-family:var(--font-mono);font-size:19px;color:var(--ink);letter-spacing:0}',
+    '  font-family:var(--font-mono);font-size:20px;color:var(--ink);letter-spacing:0}',
     '.s01-rq .t{flex:1 1 auto;font-size:25px;line-height:34px;color:var(--ink)}',
-    '.s01-rq .s{flex:0 0 auto;font-family:var(--font-mono);font-size:18px;color:var(--ink-3);letter-spacing:0;white-space:nowrap}',
+    '.s01-rq .s{flex:0 0 auto;font-family:var(--font-mono);font-size:20px;color:var(--ink-3);letter-spacing:0;white-space:nowrap}',
     '.s01-rq.test{border-color:var(--ink)}',
     '.s01-rq-note{position:absolute;left:96px;top:858px;width:1728px;font-size:28px;line-height:42px;color:var(--ink-2)}',
     '.s01-rq-note b{color:var(--ink);font-weight:700}',
+    '.s01-rq-note .obj{display:block;margin-top:6px;font-size:24px;line-height:36px;color:var(--ink-3)}',
+    '.s01-rq-note .obj b{color:var(--ink-2);font-weight:600}',
     /* s01-03 */
     '.s01-road-lbl{position:absolute;width:300px;margin-left:-150px;text-align:center;pointer-events:none}',
     '.s01-road-lbl .n{display:block;font-family:var(--font-mono);font-size:20px;line-height:26px;color:var(--ink-3);letter-spacing:0}',
     '.s01-road-lbl .t{display:block;font-size:28px;line-height:36px;font-weight:600;color:var(--ink)}',
     '.s01-road-lbl .ic{display:block;margin:4px auto 2px;overflow:visible}',
-    '.s01-next{position:absolute;font-size:22px;line-height:32px;color:var(--ink-2);white-space:nowrap}',
+    '.s01-next{position:absolute;font-size:24px;line-height:34px;color:var(--ink-2);white-space:nowrap}',
     '.s01-next b{color:var(--ink);font-weight:700}'
   ].join('\n');
   (function inject() {
@@ -166,7 +168,7 @@
         '<div class="s01-who" id="who" data-in="none">' + who + '</div>' +
         '<div class="s01-note" id="note" data-in="none">' +
           '<svg width="44" height="44" viewBox="0 0 44 44"><rect x="3" y="3" width="38" height="38" rx="9" fill="#10151F" stroke="#A3ADBF" stroke-width="2"/>' +
-          '<text x="22" y="23" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="17" class="svg-mono">{ }</text></svg>' +
+          '<text x="22" y="23" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="18" class="svg-mono">{ }</text></svg>' +
           '<span>제목은 \'지갑 평판\'이지만, 이 연구가 점수를 매긴 대상은 <b>스마트 계약</b>이에요.</span></div>' +
         '<svg class="s01-layer" id="layer" width="1920" height="1080" viewBox="0 0 1920 1080" data-in="none"></svg>';
     },
@@ -275,7 +277,7 @@
       '이 논문의 큰 질문은 이거예요. ERC-20 허락 화살표를 페이지랭크에 넣으면, 아비트럼 원의 스마트 계약 평판 점수로서 무엇이 더해질까요?',
       '비교 상대는 둘이에요. 하나는 송금 기록으로 걷는 기존 점수 AWP이고, 다른 하나는 두 걷기가 다듬는 재료, 곧 화살표를 그냥 센 수예요. 허락으로 걷는 점수를 이 논문에서는 엔도스랭크라고 불러요.',
       '이 큰 질문을 다섯 개의 연구 질문으로 나눴어요. 칩 끝의 숫자는 답이 나오는 섹션이에요. 아래 막대의 그 칸에서 답을 보여 드릴게요.',
-      '앞의 세 개는 점수를 만든 방식 때문에 대체로 저절로 맞는 점검이에요. 나중 일을 맞히는지 묻는 RQ4와 두 화살표를 섞는 RQ5가 진짜 시험이에요.'
+      '앞의 세 질문에는 가설 H1–H3이 하나씩 붙어 있어요. 가설은 미리 세워 둔 예상 답이에요. 이 셋은 점수를 만든 방식 때문에 대체로 저절로 맞는 점검이에요. 나중 일을 맞히는지 묻는 RQ4와 두 화살표를 섞는 RQ5가 진짜 시험이에요. 그리고 질문마다 목표가 하나씩 있어서, 목표 O1–O5라고 불러요. O1은 RQ1의 목표, O5는 RQ5의 목표예요. 목표를 이뤘는지는 마지막 11에서 판정할게요.'
     ],
     html:
       '<h1 class="t-h1">허락 화살표는 페이지랭크에<br>무엇을 [[더할까요?]]</h1>' +
@@ -288,7 +290,8 @@
       '<div class="s01-rqs" id="rqs" data-in="none">' + RQS.map(function (r) {
         return '<div class="s01-rq' + '" data-k="' + r.k + '"><span class="k">' + r.k + '</span><span class="t">' + esc(r.t) + '</span><span class="s">→ ' + Deck.util.pad2(r.sec) + '</span></div>';
       }).join('') + '</div>' +
-      '<p class="s01-rq-note" id="rqnote" data-in="none">H1–H3(=RQ1–RQ3)은 만든 방식 때문에 대체로 저절로 맞아요. 진짜 시험은 <b>RQ4</b>와 <b>RQ5</b>예요.</p>',
+      '<p class="s01-rq-note" id="rqnote" data-in="none">가설 H1–H3 (= RQ1–RQ3의 예상 답)은 만든 방식 때문에 대체로 저절로 맞아요. 진짜 시험은 <b>RQ4</b>와 <b>RQ5</b>예요.' +
+        '<span class="obj">질문마다 목표가 하나씩: <b>목표 O1–O5</b> (O1 = RQ1의 목표 …) · 이뤘는지는 → 11에서 판정해요</span></p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var cards = el.querySelectorAll('.s01-player');

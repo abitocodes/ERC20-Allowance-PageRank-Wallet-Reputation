@@ -80,8 +80,12 @@
   };
   /* R§10 "AWP/EndorseRank edge ratio (derived)": edges of the two solver graphs */
   N.edgeRatio = (get(BM, 'revised.main.awp.edges', 25001216) / get(BM, 'revised.main.endorserank.edges', 11210114));
-  var TAU = get(RES, 'revised.same_window.per_proxy.endorserank.in_approve_degree', [0.6552, 0.6481, 0.6622, 0.8113]);
   var TIES = get(RES, 'revised.same_window.ties.endorserank', { distinct: 13625, zeros: 535 });
+  var TIES_AWP = get(RES, 'revised.same_window.ties.awp', { distinct: 12435, zeros: 2672 });
+  /* zero scores = contracts outside that graph + contracts whose only pairs carry amounts too small
+     for the value weight to differ from zero (thesis Ch. 4: 535 = 523 + 12, 2,672 = 2,670 + 2) */
+  N.tinyA = TIES.zeros - N.outA;
+  N.tinyT = TIES_AWP.zeros - N.outT;
 
   /* ---------------------------------------------------------------- styles */
   (function injectStyle() {
@@ -149,7 +153,13 @@
       '.s3-cap3d{position:absolute}',
       '.s3-cap3d p{position:absolute;left:0;top:0;white-space:nowrap}',
       '.s3-legend3d{display:flex;gap:36px;align-items:center;font-size:24px;line-height:34px;color:var(--ink-2)}',
-      '.s3-legend3d i{display:inline-block;width:28px;height:3px;border-radius:2px;margin-right:10px;vertical-align:middle}'
+      '.s3-legend3d i{display:inline-block;width:28px;height:3px;border-radius:2px;margin-right:10px;vertical-align:middle}',
+      '.s3-colleg{position:absolute}',
+      '.s3-colleg span{position:absolute;right:0;top:0;white-space:nowrap;font-size:24px;line-height:34px;color:var(--ink-2)}',
+      '.s3-colleg i{display:inline-block;width:56px;height:10px;border-radius:5px;margin-right:12px;vertical-align:middle}',
+      '.s3-zero{position:absolute}',
+      '.s3-zero div{position:absolute;right:0;top:0;text-align:right;white-space:nowrap}',
+      '.s3-zero b{color:var(--ink-2);font-weight:700}'
     ].join('\n');
     document.head.appendChild(st);
   })();
@@ -314,7 +324,7 @@
     notes: [
       '기록의 양부터 볼게요. 다섯 토큰에서, 연구할 계약이 한쪽 끝에 있는 기록만 셌어요. 기간은 관측 기간 33개월이에요.',
       '허락 기록은 2억 2천만 건이 넘고, 송금 기록은 11억 건이 넘어요. 숫자 뒤의 선은 달마다 쌓인 기록이에요. 아래 점 하나가 100만 건이라서, 허락은 점 225개, 송금은 점 1,149개예요.',
-      '같은 점들을 막대로 다시 쌓으면 길이 차이가 잘 보여요. 송금이 허락보다 다섯 배쯤 많아요. 허락은 한 번 해 두면 여러 번의 송금에 쓰이기 때문이에요.',
+      '같은 점들을 막대로 다시 쌓으면 길이 차이가 잘 보여요. 송금이 허락보다 다섯 배쯤 많아요. 허락은 송금보다 훨씬 드물게 일어나요.',
       '처음 계획대로 모든 토큰을 꺼냈을 때는 허락 3억 9천만 건, 송금 15억 건이었어요. 이것은 등록 분석의 숫자예요. 7월부터 9월까지의 W1 기록은 따로, 등록한 뒤에 꺼냈어요. 이 모든 질의에 든 클라우드 비용은 34.80달러로, 처음 정한 예산 50달러 안이었어요.'
     ],
     html:
@@ -1114,15 +1124,18 @@
   /* =================================================================== s03-06
      15,107개 계약을 3D로: x = log10(1 + in-approve degree), z = log10(1 +
      transfer in-degree), y = log10(EndorseRank); zero scores rest on the floor
-     plate. Colour = EndorseRank percentile (amber brightness), then AWP
-     percentile (sky brightness). No address is shown anywhere. */
+     plate. Colour = a two-stop ramp dark slate → amber on the EndorseRank
+     percentile, then dark slate → sky on the AWP percentile, drawn with normal
+     (not additive) blending so the mixed brightness along the ridge stays
+     visible in the dense core. No address is shown anywhere. Kendall's τ is
+     only named here (it is taught in s07); no interval is shown. */
   var slide6 = {
     id: 's03-06', title: '15,107개 계약을 3D로', time: 45, steps: 3,
     notes: [
       '이제 매칭 코호트의 계약 15,107개를 모두 한 화면에 올려 볼게요. 점 하나가 계약 하나예요. 지금은 모든 점이 바닥에 누워 있어요.',
-      '가로는 그 계약을 허락한 서로 다른 주인 수, 깊이는 송금을 보낸 서로 다른 주소 수, 높이는 엔도스랭크 점수예요. 셋 다 로그 눈금이라서 아주 큰 값과 작은 값을 함께 볼 수 있어요. 받은 허락이 적은 계약부터 차례로 제 높이로 올라와요. 엔도스랭크가 0점인 535개는 바닥판에 남아요.',
-      '옆에서 보면, 엔도스랭크가 허락한 주인 수를 따라 거의 한 줄로 올라가요. 켄달의 타우로 0.655예요. 이것은 점수가 재려고 한 것을 재는지 보는 의도한 구성개념 점검이에요. 검증은 아니에요.',
-      '같은 점들을 송금 쪽 점수인 AWP의 순위로 칠하면 밝은 점과 어두운 점이 능선 위에 뒤섞여요. 두 점수가 계약의 순서를 다르게 매긴다는 뜻이에요. 이 두 장면이 오늘 결과의 예고편이에요. 끌어서 돌려 볼 수도 있어요.'
+      '가로는 그 계약을 허락한 서로 다른 주인 수, 깊이는 송금을 보낸 서로 다른 주소 수, 높이는 엔도스랭크 점수예요. 엔도스랭크는 01에서 말한 ‘허락으로 걷는 점수’예요. 만드는 법은 04부터 06까지 차근차근 볼게요. 셋 다 로그 눈금이라서 아주 큰 값과 작은 값을 함께 볼 수 있어요. 높이 눈금 하나를 올라가면 점수가 100배가 돼요. 받은 허락이 적은 계약부터 차례로 제 높이로 올라와요. 점의 색은 엔도스랭크 순위예요. 순위가 낮으면 회색, 높으면 밝은 호박색이에요. 엔도스랭크가 0점인 535개는 바닥판에 남아요. 허락 그래프 밖에 있는 523개에, 금액이 너무 작아 무게가 0이 된 12개를 더한 수예요.',
+      '옆에서 보면, 엔도스랭크가 허락한 주인 수를 따라 거의 한 줄로 올라가요. 색도 아래의 회색에서 위의 밝은 호박색으로 고르게 바뀌어요. 얼마나 한 줄인지 재는 수가 있는데, 켄달의 타우라고 해요. 07에서 쌍을 세어 가며 배워요. 이것은 점수가 재려고 한 것을 재는지 보는 의도한 구성개념 점검이에요. 검증은 아니에요.',
+      '이번에는 같은 점들을 송금 쪽 점수인 AWP의 순위로 칠할게요. 순위가 낮으면 회색, 높으면 밝은 하늘색이에요. 두 점수가 순서를 똑같이 매긴다면 색이 아래에서 위로 고르게 밝아져야 해요. 그런데 밝은 점과 어두운 점이 능선의 어느 높이에서나 뒤섞여요. 두 점수가 계약의 순서를 다르게 매긴다는 뜻이에요. AWP가 0점인 계약은 2,672개예요. 송금 그래프 밖의 2,670개에, 금액이 너무 작아 무게가 0이 된 2개를 더한 수예요. 이 두 장면이 오늘 결과의 예고편이에요. 끌어서 돌려 볼 수도 있어요.'
     ],
     html:
       '<h1 class="t-h1">점 하나 = [[계약]] 하나</h1>' +
@@ -1131,14 +1144,21 @@
         '<span><i style="background:var(--c-xfer)"></i>깊이 · 송금을 보낸 주소 수</span>' +
         '<span><i style="background:var(--ink)"></i>높이 · 엔도스랭크 점수</span>' +
         '<span class="ink-3">모두 로그 눈금</span></div>' +
+      '<div class="abs s3-colleg" style="left:1180px;top:162px;width:644px;height:34px">' +
+        '<span data-step-out="3"><i style="background:linear-gradient(90deg,#363D4B,var(--c-allow))"></i>색 · 엔도스랭크 순위 (낮음 → 높음)</span>' +
+        '<span data-step="3" data-in="fade"><i style="background:linear-gradient(90deg,#363D4B,var(--c-xfer))"></i>색 · AWP 순위 (낮음 → 높음)</span></div>' +
       '<div class="abs s3-three-fade" id="three" data-in="none" style="left:0;top:204px;width:1920px;height:676px"></div>' +
       '<div class="abs s3-cap3d" style="left:96px;top:872px;width:1300px;height:52px">' +
-        '<p class="t-body-l" data-step="2" data-step-out="3" data-in="words">엔도스랭크는 ‘허락한 주인 수’를 따라 올라가요 — τ = ' + TAU[0].toFixed(3) + '</p>' +
+        '<p class="t-body-l" data-step="2" data-step-out="3" data-in="words">엔도스랭크는 ‘허락한 주인 수’를 따라 거의 한 줄로 올라가요</p>' +
         '<p class="t-body-l" data-step="3" data-in="words">AWP 색으로 칠하면 줄이 흐트러져요 — 두 점수는 순서가 달라요</p></div>' +
       '<div class="abs" style="left:96px;top:930px;display:flex;gap:16px;align-items:center" data-step="2" data-step-out="3">' +
-        '<span class="t-caption ink-2 tnum">95% 신뢰구간 [' + TAU[1].toFixed(3) + ', ' + TAU[2].toFixed(3) + '] · 켄달의 타우(τ<sub>b</sub>)</span>' + Deck.tagHTML('construct') + '</div>' +
+        '<span class="t-caption ink-2">얼마나 한 줄인지 재는 수(타우)는 07에서 배워요</span>' + Deck.tagHTML('construct') + '</div>' +
       '<div class="abs t-caption ink-2" style="left:96px;top:930px" data-step="3">뒤의 결과(08)에서 자세히 봐요 · 끌어서 돌려 볼 수 있어요</div>' +
-      '<p class="abs t-caption ink-3" style="left:1100px;top:930px;width:724px;text-align:right" data-step="1">엔도스랭크 0점 ' + n0(TIES.zeros) + '개는 바닥판에 · 서로 다른 점수 ' + n0(TIES.distinct) + '개</p>',
+      '<div class="abs s3-zero t-caption ink-3 tnum" style="left:1100px;top:898px;width:724px;height:64px">' +
+        '<div data-step="1" data-step-out="3">엔도스랭크 <b>0점 ' + n0(TIES.zeros) + '개</b>는 바닥판에 · 서로 다른 점수 ' + n0(TIES.distinct) + '개<br>' +
+          n0(TIES.zeros) + ' = 허락 그래프 밖 ' + n0(N.outA) + ' + 금액이 너무 작아 무게가 0인 ' + n0(N.tinyA) + '</div>' +
+        '<div data-step="3">AWP <b>0점 ' + n0(TIES_AWP.zeros) + '개</b> · 서로 다른 점수 ' + n0(TIES_AWP.distinct) + '개<br>' +
+          n0(TIES_AWP.zeros) + ' = 송금 그래프 밖 ' + n0(N.outT) + ' + 금액이 너무 작아 무게가 0인 ' + n0(N.tinyT) + '</div></div>',
     build: function (el, ctx) {
       var K = Comp.data.contracts(); if (!K) return;
       var n = K.n, i;
@@ -1155,15 +1175,18 @@
       var LY0 = Math.floor(lmin), LY1 = Math.ceil(lmax);          /* -8 … -1 */
       function yOf(l) { return (l - LY0) / (LY1 - LY0) * HY; }
       var flat = new Float32Array(n * 3), up = new Float32Array(n * 3), cER = new Float32Array(n * 3), cAWP = new Float32Array(n * 3);
-      var ca = Comp.rgb(C.allow), cx = Comp.rgb(C.xfer), grey = Comp.rgb(C.ink3);
+      /* low end of both ramps: a dark slate, so low and high ranks differ clearly in brightness */
+      var ca = Comp.rgb(C.allow), cx = Comp.rgb(C.xfer), grey = Comp.rgb('#363D4B');
       for (i = 0; i < n; i++) {
         var X = xa[i] * SX - SPAN / 2, Z = zt[i] * SZ - SPAN / 2, l2 = ler[i];
         flat[i * 3] = X; flat[i * 3 + 1] = FLOOR + 0.03; flat[i * 3 + 2] = Z;
         up[i * 3] = X; up[i * 3 + 1] = l2 === l2 ? yOf(l2) : FLOOR + 0.03; up[i * 3 + 2] = Z;
-        var b1 = 0.22 + 0.78 * pER[i], zero1 = !(l2 === l2);
-        cER[i * 3] = zero1 ? grey[0] * 0.6 : ca[0] * b1; cER[i * 3 + 1] = zero1 ? grey[1] * 0.6 : ca[1] * b1; cER[i * 3 + 2] = zero1 ? grey[2] * 0.6 : ca[2] * b1;
-        var zero2 = K.log10.awp ? !(K.log10.awp[i] === K.log10.awp[i]) : false, b2 = 0.22 + 0.78 * pAWP[i];
-        cAWP[i * 3] = zero2 ? grey[0] * 0.6 : cx[0] * b2; cAWP[i * 3 + 1] = zero2 ? grey[1] * 0.6 : cx[1] * b2; cAWP[i * 3 + 2] = zero2 ? grey[2] * 0.6 : cx[2] * b2;
+        /* two-stop ramps: dark slate (low rank) → full hue (high rank); zero scores darker still */
+        var zero1 = !(l2 === l2), zero2 = K.log10.awp ? !(K.log10.awp[i] === K.log10.awp[i]) : false;
+        for (var c3 = 0; c3 < 3; c3++) {
+          cER[i * 3 + c3] = zero1 ? grey[c3] * 0.8 : lerp(grey[c3], ca[c3], pER[i]);
+          cAWP[i * 3 + c3] = zero2 ? grey[c3] * 0.8 : lerp(grey[c3], cx[c3], pAWP[i]);
+        }
       }
       /* rising order: by in-approve degree (value order stagger) */
       var order = new Array(n); for (i = 0; i < n; i++) order[i] = i;
@@ -1177,7 +1200,7 @@
       Comp.axes3d(ctx, Tz, { origin: O, length: [SPAN + 0.9, HY + 0.9, SPAN + 0.9], colors: [C.allow, C.ink, C.xfer], headRadius: 0.07, headLength: 0.24 });
       g.axLab = [
         Tz.label('허락한 주인 수 (로그)', [O[0] + SPAN + 1.0, O[1], O[2]], { className: 's3-ax3d', anchor: 'left', dx: 14 }),
-        Tz.label('엔도스랭크 점수 (로그)', [O[0], O[1] + HY + 0.9, O[2]], { className: 's3-ax3d', anchor: 'left', dx: 18, dy: 6 }),
+        Tz.label('엔도스랭크 점수 (로그 · 눈금 하나 = 100배)', [O[0], O[1] + HY + 0.9, O[2]], { className: 's3-ax3d', anchor: 'left', dx: 18, dy: 6 }),
         Tz.label('송금을 보낸 주소 수 (로그)', [O[0], O[1], O[2] + SPAN + 1.0], { className: 's3-ax3d', anchor: 'right', dx: -14 })
       ];
       g.axLab[0].el.style.color = C.allow; g.axLab[1].el.style.color = C.ink; g.axLab[2].el.style.color = C.xfer;
@@ -1188,9 +1211,10 @@
         if (lx <= SPAN / 2) g.ticks.push(Tz.label(tv[1], [lx, FLOOR, O[2] - 0.35], { className: 's3-tick3d' }));
         if (lz <= SPAN / 2) { var zl = Tz.label(tv[1], [O[0] - 0.35, FLOOR, lz], { className: 's3-tick3d' }); g.ticks.push(zl); g.zTicks.push(zl); }
       });
-      var sup = function (k) { var m = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' }; return String(k).split('').map(function (ch) { return m[ch] || ch; }).join(''); };
-      for (var e = LY0 + 1; e <= LY1; e += 2) g.ticks.push(Tz.label('10' + sup(e), [O[0] - 0.25, yOf(e), O[2]], { className: 's3-tick3d', anchor: 'right' }));
-      g.cloud = Comp.cloud(ctx, Tz, { positions: flat, colors: cER, size: 3, opacity: 0.62 });
+      /* height ticks in words, not negative powers of ten (10^-7 = 1천만분의 1); one tick = 100x */
+      var FRAC = { '-1': '10분의 1', '-2': '100분의 1', '-3': '1천분의 1', '-4': '1만분의 1', '-5': '10만분의 1', '-6': '100만분의 1', '-7': '1천만분의 1', '-8': '1억분의 1', '-9': '10억분의 1' };
+      for (var e = LY0 + 1; e <= LY1; e += 2) g.ticks.push(Tz.label(FRAC[String(e)] || ('10^' + e), [O[0] - 0.25, yOf(e), O[2]], { className: 's3-tick3d', anchor: 'right' }));
+      g.cloud = Comp.cloud(ctx, Tz, { positions: flat, colors: cER, size: 3, opacity: 0.85, additive: false });
       /* labels that project into the caption band at the bottom of the viewport fade out (the view
          auto-rotates and can be dragged, so this is checked every frame) */
       var allLabs = g.axLab.concat(g.ticks);

@@ -13,7 +13,9 @@
        (revised digest R§D amounts.unlimited_share 0.4578, amounts.unlimited_allowances,
         amounts.latest_allowances_tobs = DECK_DATA.scale.revised.amounts; thesis App. D, Ch. 4)
      block 513,216,506 = experiments/data/1-raw-blockchain-extracts/cohort/candidate_account_types.json
-       block_number (thesis Ch. 3, "Account type")
+       block_number (thesis Ch. 3, "Account type"): the eth_getCode block of the cohort candidates only;
+       holdout spenders and GMX accounts outside the candidates were read at later blocks within
+       three hours. Said in the notes of s02-04 only (the slide keeps the plain idea).
      chain ID 42161 = DECK_DATA.params.chain.id (config/contract_reputation.yaml chain_id)
      1,000 / 500 USDC on s02-02 are 예시 (made up for the explanation).
 
@@ -55,6 +57,7 @@
     '.s02-codes{position:absolute;left:984px;top:788px;display:flex;flex-wrap:wrap;gap:12px 14px;align-items:center;width:860px}',
     '.s02-codes .c{font-family:var(--font-mono);font-size:21px;line-height:30px;padding:6px 14px;border-radius:10px;background:var(--bg-3);color:var(--ink);letter-spacing:0;position:relative}',
     '.s02-codes .c i{font-style:normal;color:var(--ink-3)}',
+    '.s02-codes .c .ext{font-family:var(--font-sans);font-size:20px;margin-left:6px}',
     '.s02-codes .lb{font-size:22px;color:var(--ink-3)}',
     '.s02-codes .grp{display:inline-flex;gap:10px;align-items:center;white-space:nowrap}',
     '.s02-bottom{position:absolute;left:96px;top:880px;font-size:36px;line-height:50px;font-weight:600}',
@@ -71,15 +74,14 @@
     '.s02-warn .big{display:flex;align-items:baseline;gap:16px;margin-top:6px}',
     '.s02-warn .big .n{font-size:84px;line-height:88px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}',
     '.s02-warn .big .u{font-size:24px;line-height:32px;color:var(--ink-2)}',
-    '.s02-src{font-family:var(--font-mono);font-size:17px;line-height:24px;color:var(--ink-3);letter-spacing:0;margin-top:8px}',
+    '.s02-src{font-family:var(--font-mono);font-size:20px;line-height:28px;color:var(--ink-3);letter-spacing:0;margin-top:8px}',
     /* s02-04 */
     '.s02-l{position:absolute;left:96px;width:780px;font-size:30px;line-height:46px}',
     '.s02-l .note{color:var(--ink-2)}',
     '.s02-l .wallet{position:relative;white-space:nowrap}',
     '.s02-l .wallet sup{font-size:.6em;color:var(--ink-3);margin-left:2px}',
-    '.s02-small{position:absolute;left:96px;top:846px;width:780px;font-size:22px;line-height:34px;color:var(--ink-3)}',
-    '.s02-small code{font-size:20px}',
-    '.s02-legend{position:absolute;left:964px;top:904px;display:flex;gap:30px;align-items:center;font-size:21px;color:var(--ink-2)}',
+    '.s02-small{position:absolute;left:96px;top:846px;width:780px;font-size:24px;line-height:36px;color:var(--ink-2)}',
+    '.s02-legend{position:absolute;left:964px;top:904px;display:flex;gap:30px;align-items:center;font-size:22px;color:var(--ink-2)}',
     '.s02-legend span{display:inline-flex;align-items:center;gap:10px}',
     /* s02-05 */
     '.s02-scene{position:absolute;left:740px;top:150px;width:1000px;height:760px;perspective:1700px;perspective-origin:50% 40%}',
@@ -219,7 +221,7 @@
     notes: [
       '두 가지 기록을 나란히 놓고 볼게요. 왼쪽은 송금, 오른쪽은 허락이에요.',
       '송금은 토큰이 실제로 옮겨 가는 일이에요. 보낸 쪽에서 받는 쪽으로 동전이 흘러가요.',
-      '허락은 달라요. 토큰 주인이 어떤 계약에게 "내 토큰을 얼마까지 꺼내 써도 돼요"라고 약속해 두는 거예요. ERC-20 규칙에서는 approve 함수나 서명으로 하는 permit으로 허락하고, 그때마다 Approval이라는 기록이 남아요. 그래서 이 화살표는 흐르지 않고 가만히 남아 있어요. 1,000 USDC는 설명을 위한 예시예요.',
+      '허락은 달라요. 토큰 주인이 어떤 계약에게 "내 토큰을 얼마까지 꺼내 써도 돼요"라고 약속해 두는 거예요. ERC-20 규칙의 approve 함수로, 또는 그 확장(EIP-2612)인 서명 허락 permit으로 허락하고, 어느 쪽이든 Approval이라는 같은 기록이 남아요. 그래서 이 화살표는 흐르지 않고 가만히 남아 있어요. 1,000 USDC는 설명을 위한 예시예요.',
       '나중에 스펜더 계약은 transferFrom으로 허락받은 만큼 주인의 토큰을 실제로 옮길 수 있어요. 이 연구가 쓰는 값은 마지막 허락 기록에 적힌 금액이에요.',
       '같은 주인과 같은 계약, 같은 토큰이면 가장 최근 허락이 앞의 것을 덮어써요. 그래서 이 연구는 주인–스펜더–토큰마다 마지막 허락 하나만 화살표로 써요.',
       '금액을 0으로 허락하면 거두는 것이 돼요. 거둔 허락은 화살표로 남지 않아요.'
@@ -239,7 +241,7 @@
         '<svg class="fig" width="' + P_W + '" height="300" viewBox="0 0 ' + P_W + ' 300"></svg>' +
       '</div>' +
       '<div class="s02-codes" id="codes" data-in="none">' +
-        '<span class="c">approve(spender, amount)</span><span class="c">permit(<i>서명</i>)</span>' +
+        '<span class="c">approve(spender, amount)</span><span class="c">permit(<i>서명</i>)<i class="ext">확장 EIP-2612</i></span>' +
         '<span class="grp"><span class="lb">거두기 =</span><span class="c" id="revoke">approve(spender, 0)</span></span></div>' +
       '<p class="s02-bottom" data-step="4" data-in="words">가장 최근 허락이 앞의 허락을 [[덮어써요]]</p>',
     build: function (el, ctx) {
@@ -259,7 +261,7 @@
       g.spender = Comp.contract(ctx, fr, { x: X1, y: Y, size: 84, label: '스펜더 계약' });
       g.allow = Comp.arrow(ctx, fr, { from: [X0, Y], to: [X1, Y], kind: 'allow', width: 5, head: 18, shorten: [30, 56], hidden: true,
         label: '1,000 USDC까지', labelOffset: 30, labelSize: 28 });
-      g.ex = svgEl('text', { x: (X0 + X1) / 2, y: Y - 74, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'svg-mono' }, fr);
+      g.ex = svgEl('text', { x: (X0 + X1) / 2, y: Y - 74, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 20, 'class': 'svg-mono' }, fr);
       g.ex.textContent = '예시';
       gsap.set(g.ex, { autoAlpha: 0 });
       /* transferFrom: a thin dashed sky path under the allowance, one coin pulled along it */
@@ -465,17 +467,17 @@
       '여기서 꼭 짚고 넘어갈 것이 있어요. 그래프에는 두 종류의 주소가 섞여 있어요. 동그라미는 사람이 개인 키로 움직이는 외부 소유 계정, 곧 EOA이고, 네모는 스마트 계약이에요.',
       '이 연구가 점수를 매기고 평가한 주소는 모두 스마트 계약이에요. EOA는 그래프에 주인이나 보낸 쪽, 받는 쪽으로만 나오고 점수를 받지 않아요.',
       '논문 제목은 승인받은 대로 "지갑 평판"이지만, 내용은 계약 평판이라고 이해해 주세요.',
-      '어떤 주소가 계약인지는 한 블록에서 그 주소에 코드가 있는지로 확인했어요. 블록 513,216,506에서 eth_getCode를 불렀고, EIP-7702 위임 표시만 있는 주소는 EOA로 셌어요.'
+      '어떤 주소가 계약인지는 그 주소에 프로그램 코드가 있는지로 확인했어요. 코호트 후보는 블록 ' + fmt(GETCODE_BLOCK) + '에서, 나머지 홀드아웃 스펜더와 GMX 계정은 세 시간 안의 뒤 블록에서 eth_getCode로 코드가 있는지 봤어요. 코드 자리에 EIP-7702 위임 표시만 있는 주소는 EOA로 셌어요.'
     ],
     html:
       '<h1 class="t-h1">점수를 받는 것: [[스마트 계약]]</h1>' +
       '<p class="s02-l" style="top:236px" data-step="2">외부 소유 계정(EOA, 개인 키로 움직이는 지갑)은 화살표의 끝점으로만 나와요 — 주인, 보낸 쪽, 받는 쪽</p>' +
-      '<p class="s02-l note" style="top:430px" data-step="2">제목은 \'<span class="wallet" id="wl">지갑 평판<sup>*</sup></span>\'이지만, 이 연구가 점수를 매긴 대상은 <b class="ink">계약</b>이에요</p>' +
-      '<p class="s02-l" id="fn" style="top:534px;font-size:24px;line-height:34px" data-step="2"><span class="ink-3">* 점수 배지는 네모(계약)에만 붙어요</span></p>' +
-      '<p class="s02-small" data-step="3">계약인지 확인: <code>eth_getCode</code> (블록 ' + fmt(GETCODE_BLOCK) + ') · EIP-7702 위임 표시가 있으면 EOA로 셈</p>' +
+      '<p class="s02-l note" style="top:430px" data-step="2">제목은 \'<span class="wallet" id="wl">지갑 평판<sup>*</sup></span>\'이지만,<br>이 연구가 점수를 매긴 대상은 <b class="ink">계약</b>이에요</p>' +
+      '<p class="s02-l" id="fn" style="top:578px;font-size:24px;line-height:34px" data-step="2"><span class="ink-3">* 점수 배지는 네모(계약)에만 붙어요</span></p>' +
+      '<p class="s02-small" data-step="3">계약인지 확인: 그 주소에 프로그램 코드가 있는지 봤어요</p>' +
       '<svg id="g4" class="abs" data-in="none" style="left:964px;top:178px;overflow:visible" width="860" height="720" viewBox="0 0 860 720"></svg>' +
       '<div class="s02-legend" id="leg">' +
-        '<span><svg width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="#677083" stroke-width="2.5"/></svg>EOA</span>' +
+        '<span><svg width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="' + C.ink3 + '" stroke-width="2.5"/></svg>EOA</span>' +
         '<span><svg width="26" height="26"><rect x="2" y="2" width="22" height="22" rx="5" fill="#10151F" stroke="#A3ADBF" stroke-width="2"/></svg>계약</span>' +
         '<span><svg width="44" height="10"><line x1="2" y1="5" x2="42" y2="5" stroke="#F5B43C" stroke-width="3"/></svg>허락</span>' +
         '<span><svg width="44" height="10"><line x1="2" y1="5" x2="42" y2="5" stroke="#3CC4FF" stroke-width="3"/></svg>송금</span>' +
@@ -595,7 +597,7 @@
       svgEl('ellipse', { cx: cx, cy: top, rx: rx, ry: ry, fill: C.bg3, stroke: C.ink2, 'stroke-width': 2 }, bg);
       var t1 = svgEl('text', { x: cx, y: top + H + ry + 40, 'text-anchor': 'middle', fill: C.ink, 'font-size': 24, 'font-weight': 700 }, bg);
       t1.textContent = '공개 로그';
-      var t2 = svgEl('text', { x: cx, y: top + H + ry + 68, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 18, 'class': 'svg-mono' }, bg);
+      var t2 = svgEl('text', { x: cx, y: top + H + ry + 70, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 20, 'class': 'svg-mono' }, bg);
       t2.textContent = 'BigQuery 공개 데이터';
       g.barrel = b; g.barrelTop = [1480 + cx, 650 + top];
       gsap.set(b, { autoAlpha: 0 });
