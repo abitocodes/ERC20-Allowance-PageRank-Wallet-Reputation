@@ -8,7 +8,6 @@
 |------|------|
 | `proposal/` | 연구계획서(승인·고정): LaTeX 정본, 교수·심사위원 피드백, 발표 자료, DOCX 도구. 명시적인 요청 없이는 고치지 않습니다 |
 | `dissertation/overleaf-github/` | 논문 원고(영문, UNISA 양식 LaTeX). 서브모듈 `phd-dissertation-draft-en`(Overleaf가 `main`을 읽음). 투고 원고 `manuscripts/`와 보조 분석 `analysis/`도 이 저장소에 있습니다 |
-| `dissertation/overleaf-github-ko/` | 원고를 쉬운 한국어로 옮긴 번역본(LaTeX, `main.pdf`) |
 | `dissertation/presentation/` | 학위논문 발표 자료(한국어 HTML 슬라이드 59장: 3D 데이터 시각화, 중학생 눈높이의 수식 유도, 모션 그래픽). `index.html`을 브라우저로 열면 오프라인에서도 돌아갑니다. [`README.md`](dissertation/presentation/README.md) 참고 |
 | `dissertation/notes/` | 원고를 쓸 때 지키는 규칙과 메모(`_writing-brief.md`, `_claims.md`, `_revision-context.md`, `_todo.md`). 빌드에 들어가지 않습니다 |
 | `experiments/` | BigQuery 추출, 점수 계산, 평가 코드와 데이터 |
@@ -39,7 +38,6 @@
 ## 결과 한눈에
 
 - 원고: `dissertation/overleaf-github/main.pdf` (수정 분석이 주 결과). 빌드는 `dissertation/overleaf-github/`에서 xelatex → biber → xelatex 두 번(`build.ps1`)이며, MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
-- 한국어판: `dissertation/overleaf-github-ko/main.pdf`.
 - 수치: `experiments/data/3-published-results-for-thesis/results_digest.md` (모든 수치와 그 JSON 경로), `SHA256SUMS.txt`.
 - 사전 고정: 분석 계획 `43d8045`(2026-10-09 13:41 UTC, 1차 추출 10초 전), W1 등록 `0d3a057`(같은 날 16:49 UTC, 2차 추출 8초 전).
 - BigQuery 비용: 등록 분석 USD 29.71, 수정 분석을 더해 USD 34.80 (`experiments/data/bq_ledger.json`).
