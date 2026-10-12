@@ -132,6 +132,9 @@
    Deck.setReduced(bool|null)   null = follow the system setting
    Deck.scale, Deck.pixelRatio()   current stage scale and the backing-store ratio for canvases
                        (window event 'deck:resize' {scale, pixelRatio} fires after every re-layout)
+   Deck.lang           'ko' or 'en', from <html lang> (index.html = Korean, index.en.html = English);
+                       it switches only the engine's own words (help, notes panel, toasts, status tags)
+   Deck.t(key, vars)   one of those words in Deck.lang; '{name}' in it is replaced by vars.name
    Deck.tex(src, display), Deck.renderMath(el), Deck.tagHTML(key), Deck.TAGS, Deck.COLORS,
    Deck.D, Deck.E, Deck.util { rng, fmt, pad2, splitWords, esc, lambdaColor }
    window.__deckErrors  runtime errors (window errors, rejections, slide callbacks, KaTeX)
@@ -151,6 +154,41 @@
   var doc = global.document;
   var gsap = global.gsap;
   var errors = global.__deckErrors = global.__deckErrors || [];
+
+  /* language of the engine's own words; slide text lives in the section files
+     (js/sections/ = Korean, js/sections-en/ = English) */
+  var LANG = /^en\b/i.test(doc.documentElement.getAttribute('lang') || '') ? 'en' : 'ko';
+  var UI = {
+    ko: {
+      keys: '키', kNext: '다음 단계 · 다음 장', kPrev: '이전 단계', kSlide: '다음 장 · 이전 장', kEnds: '처음 · 끝',
+      kGoto: '12번째 장으로', kNotes: '발표 노트 (같은 창, 연습용)', kPresenter: '발표자 창 (노트·다음·시간, 따로 띄워요)',
+      kOverview: '전체 보기', kReduced: '움직임 줄이기', kFull: '전체 화면', kClose: '닫기',
+      noNotes: '(노트 없음)', seconds: '{n}초', step: '단계 {a} / {b}', noSteps: '단계 없음',
+      nextStep: '다음: <b>단계 {a} / {b}</b>', thenSlide: ' · 그다음 장: {t}', nextSlide: '다음 장: <b>{t}</b>', lastSlide: '마지막 장이에요',
+      ovHelp: 'O 또는 Esc로 닫기 · 카드를 누르면 그 장으로 가요',
+      reducedOn: '움직임 줄이기: 켬', reducedOff: '움직임 줄이기: 끔',
+      popupBlocked: '발표자 창이 막혔어요 · 팝업을 허용해 주세요', presenterOpened: '발표자 창을 열었어요',
+      presenterTitle: '발표자 화면 · ', noWebGL: '3D 장면을 그릴 수 없어요 (WebGL 없음)',
+      example: '예시', met: '충족 ✓', notMet: '미충족 ×', derive: '유도'
+    },
+    en: {
+      keys: 'Keys', kNext: 'next step · next slide', kPrev: 'previous step', kSlide: 'next slide · previous slide', kEnds: 'first · last',
+      kGoto: 'go to slide 12', kNotes: 'speaker notes (this window, for rehearsal)', kPresenter: 'presenter window (notes, next, timer; opens separately)',
+      kOverview: 'overview', kReduced: 'reduce motion', kFull: 'full screen', kClose: 'close',
+      noNotes: '(no notes)', seconds: '{n} s', step: 'Step {a} / {b}', noSteps: 'No build steps',
+      nextStep: 'Next: <b>step {a} / {b}</b>', thenSlide: ' · then: {t}', nextSlide: 'Next slide: <b>{t}</b>', lastSlide: 'This is the last slide',
+      ovHelp: 'O or Esc to close · click a card to go to that slide',
+      reducedOn: 'Reduced motion: on', reducedOff: 'Reduced motion: off',
+      popupBlocked: 'The presenter window was blocked · please allow pop-ups', presenterOpened: 'Presenter window opened',
+      presenterTitle: 'Presenter · ', noWebGL: 'Cannot draw the 3D scene (no WebGL)',
+      example: 'Example', met: 'Met ✓', notMet: 'Not met ×', derive: 'Derivation'
+    }
+  };
+  function t(key, vars) {
+    var s = (UI[LANG] && UI[LANG][key] != null) ? UI[LANG][key] : (UI.ko[key] != null ? UI.ko[key] : key);
+    if (vars) s = s.replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; });
+    return s;
+  }
 
   /* identical errors in a row (e.g. thrown every frame by a tween callback) are counted, not repeated */
   function record(rec) {
@@ -216,23 +254,23 @@
     sigma: SVG_ICON('<path d="M14.5 4.5h-9l5 5.5-5 5.5h9"/>')
   };
   var TAGS = {
-    'plan':                { ko: '미리 정함(계획)', icon: 'lock' },
-    'registered':          { ko: '등록함(W1)', icon: 'seal' },
-    'reanalysis':          { ko: '재분석', icon: 'loop' },
-    'posthoc':             { ko: '사후(라벨 본 뒤)', icon: 'eye' },
-    'exploratory':         { ko: '탐색적', icon: 'compass' },
-    'construct':           { ko: '의도한 구성개념 점검', icon: 'mirror' },
-    'registered-analysis': { ko: '등록 분석', icon: 'hollow', ghost: true },
-    'example':             { ko: '예시', icon: 'pencil', ghost: true },
-    'thesis-example':      { ko: '논문 2장 예시', icon: 'pencil', ghost: true },
-    'calc':                { ko: '계산', icon: 'sigma', ghost: true }
+    'plan':                { ko: '미리 정함(계획)', en: 'Fixed in advance (plan)', icon: 'lock' },
+    'registered':          { ko: '등록함(W1)', en: 'Registered (W1)', icon: 'seal' },
+    'reanalysis':          { ko: '재분석', en: 'Re-analysis', icon: 'loop' },
+    'posthoc':             { ko: '사후(라벨 본 뒤)', en: 'Post hoc (after the labels)', icon: 'eye' },
+    'exploratory':         { ko: '탐색적', en: 'Exploratory', icon: 'compass' },
+    'construct':           { ko: '의도한 구성개념 점검', en: 'Intended-construct check', icon: 'mirror' },
+    'registered-analysis': { ko: '등록 분석', en: 'Registered analysis', icon: 'hollow', ghost: true },
+    'example':             { ko: '예시', en: 'Example', icon: 'pencil', ghost: true },
+    'thesis-example':      { ko: '논문 2장 예시', en: 'Example from Chapter 2', icon: 'pencil', ghost: true },
+    'calc':                { ko: '계산', en: 'Calculated', icon: 'sigma', ghost: true }
   };
   var TAG_ALIASES = { 'w1': 'registered', 'G': 'registered-analysis', 'check': 'construct', 'post-hoc': 'posthoc' };
   function tagHTML(key) {
     var t = typeof key === 'object' ? key : TAGS[TAG_ALIASES[key] || key];
     if (!t) { pushError('tag', new Error('unknown status tag: ' + key)); t = { ko: String(key), icon: 'hollow' }; }
     return '<span class="pill' + (t.ghost ? ' pill-ghost' : '') + '" data-tag="' + esc(String(key.key || key)) + '">' +
-      (ICONS[t.icon] || '') + '<span>' + esc(t.ko) + '</span></span>';
+      (ICONS[t.icon] || '') + '<span>' + esc(t[LANG] || t.ko) + '</span></span>';
   }
 
   /* ------------------------------------------------------------ utils */
@@ -443,12 +481,12 @@
     dom.jump = el('div', '', body); dom.jump.id = 'deck-jump';
     dom.toast = el('div', '', body); dom.toast.id = 'deck-toast';
     dom.help = el('div', '', body); dom.help.id = 'deck-help';
-    dom.help.innerHTML = '<div class="help-card"><h4>키</h4>' +
-      '<div><kbd>→</kbd><kbd>Space</kbd>다음 단계 · 다음 장</div><div><kbd>←</kbd>이전 단계</div>' +
-      '<div><kbd>↓</kbd><kbd>↑</kbd>다음 장 · 이전 장</div><div><kbd>Home</kbd><kbd>End</kbd>처음 · 끝</div>' +
-      '<div><kbd>12</kbd><kbd>Enter</kbd>12번째 장으로</div><div><kbd>N</kbd>발표 노트 (같은 창, 연습용)</div>' +
-      '<div><kbd>P</kbd>발표자 창 (노트·다음·시간, 따로 띄워요)</div><div><kbd>O</kbd>전체 보기</div>' +
-      '<div><kbd>M</kbd>움직임 줄이기</div><div><kbd>F</kbd>전체 화면</div><div><kbd>Esc</kbd>닫기</div></div>';
+    dom.help.innerHTML = '<div class="help-card"><h4>' + t('keys') + '</h4>' +
+      '<div><kbd>→</kbd><kbd>Space</kbd>' + t('kNext') + '</div><div><kbd>←</kbd>' + t('kPrev') + '</div>' +
+      '<div><kbd>↓</kbd><kbd>↑</kbd>' + t('kSlide') + '</div><div><kbd>Home</kbd><kbd>End</kbd>' + t('kEnds') + '</div>' +
+      '<div><kbd>12</kbd><kbd>Enter</kbd>' + t('kGoto') + '</div><div><kbd>N</kbd>' + t('kNotes') + '</div>' +
+      '<div><kbd>P</kbd>' + t('kPresenter') + '</div><div><kbd>O</kbd>' + t('kOverview') + '</div>' +
+      '<div><kbd>M</kbd>' + t('kReduced') + '</div><div><kbd>F</kbd>' + t('kFull') + '</div><div><kbd>Esc</kbd>' + t('kClose') + '</div></div>';
     buildCarrier();
     buildProgress();
   }
@@ -628,7 +666,7 @@
     var wrap = el('div', 'three-wrap' + (opts.orbit === false ? '' : ' orbit'), container);
     var renderer = THREE ? acquireRenderer() : null;
     if (!renderer) {
-      wrap.innerHTML = '<div class="three-fallback">3D 장면을 그릴 수 없어요 (WebGL 없음)</div>';
+      wrap.innerHTML = '<div class="three-fallback">' + t('noWebGL') + '</div>';
       if (!THREE) pushError('three', new Error('lib/three.min.js is missing'));
       var stub = { THREE: THREE, wrap: wrap, failed: true, scene: null, camera: null, render: function () {}, onFrame: function () {},
         cameraTo: function () { return gsap.to({}, { duration: 0 }); }, label: function () { return { el: el('div'), set: function () {}, show: function () {}, hide: function () {} }; },
@@ -1239,7 +1277,7 @@
   }
   /* notes: one paragraph per build step; the current one is marked (▶), bright, and kept in view */
   function renderNotesBody(body, inst) {
-    var n = inst.slide.notes, arr = Array.isArray(n), paras = arr ? n : [n || '(노트 없음)'];
+    var n = inst.slide.notes, arr = Array.isArray(n), paras = arr ? n : [n || t('noNotes')];
     body.innerHTML = paras.map(function (p, i) {
       var on = arr && i === inst.step;
       return '<p class="np' + (on ? ' on' : '') + (arr ? '' : ' single') + '">' + (on ? '▶ ' : '') + esc(p) + '</p>';
@@ -1253,14 +1291,14 @@
   function updateNotes() {
     if (!dom.notes || !cur) return;
     var s = cur.slide, nxt = slides[cur.index + 1];
-    dom.notes.querySelector('.nh-pos').textContent = (cur.index + 1) + ' / ' + slides.length + ' · ' + s.id + (s.time ? ' · ' + s.time + '초' : '');
+    dom.notes.querySelector('.nh-pos').textContent = (cur.index + 1) + ' / ' + slides.length + ' · ' + s.id + (s.time ? ' · ' + t('seconds', { n: s.time }) : '');
     dom.notes.querySelector('.notes-title').textContent = s.title || s.id;
-    dom.notes.querySelector('.notes-step').textContent = s.steps ? '단계 ' + cur.step + ' / ' + s.steps : '단계 없음';
+    dom.notes.querySelector('.notes-step').textContent = s.steps ? t('step', { a: cur.step, b: s.steps }) : t('noSteps');
     dom.notes.querySelector('.notes-steps').innerHTML = s.steps ? new Array(s.steps + 1).join('.').split('').map(function (_, i) { return '<i class="' + (i < cur.step ? 'on' : '') + '"></i>'; }).join('') : '';
     renderNotesBody(dom.notes.querySelector('.notes-body'), cur);
     var nextHTML;
-    if (cur.step < s.steps) nextHTML = '다음: <b>단계 ' + (cur.step + 1) + ' / ' + s.steps + '</b>' + (nxt ? ' · 그다음 장: ' + esc(nxt.title || nxt.id) : '');
-    else nextHTML = nxt ? '다음 장: <b>' + esc(nxt.title || nxt.id) + '</b>' : '마지막 장이에요';
+    if (cur.step < s.steps) nextHTML = t('nextStep', { a: cur.step + 1, b: s.steps }) + (nxt ? t('thenSlide', { t: esc(nxt.title || nxt.id) }) : '');
+    else nextHTML = nxt ? t('nextSlide', { t: esc(nxt.title || nxt.id) }) : t('lastSlide');
     dom.notes.querySelector('.notes-next').innerHTML = nextHTML;
   }
   function tickTimer() {
@@ -1509,7 +1547,7 @@
 
   /* ------------------------------------------------------------ overview / notes / misc */
   function renderOverview() {
-    var h = '<div class="ov-help">O 또는 Esc로 닫기 · 카드를 누르면 그 장으로 가요</div>';
+    var h = '<div class="ov-help">' + t('ovHelp') + '</div>';
     sections.forEach(function (s) {
       h += '<h3>' + pad2(s.num) + '<b>' + esc(s.title) + '</b></h3><div class="ov-grid">';
       s.slides.forEach(function (sl) {
@@ -1544,7 +1582,7 @@
   }
   function setReduced(v) {
     state.reducedUser = v == null ? null : !!v;
-    toast(reduced() ? '움직임 줄이기: 켬' : '움직임 줄이기: 끔');
+    toast(reduced() ? t('reducedOn') : t('reducedOff'));
     if (cur) rebuild(cur.index, cur.step);
   }
   function fullscreen() {
@@ -1575,9 +1613,9 @@
     var url = global.location.href.split('#')[0] + '#presenter';
     var w = null;
     try { w = global.open(url, 'deck-presenter', 'popup=yes,width=1280,height=800'); } catch (e) { pushError('presenter open', e); }
-    if (!w) { toast('발표자 창이 막혔어요 · 팝업을 허용해 주세요'); return; }
+    if (!w) { toast(t('popupBlocked')); return; }
     state.presenterWin = w;
-    toast('발표자 창을 열었어요');
+    toast(t('presenterOpened'));
   }
   /* commands shared by the keyboard, clicks, swipes and the presenter window */
   function runCmd(cmd, arg) {
@@ -1697,7 +1735,7 @@
       /* presenter window: notes panel always open beside a live copy of the current slide */
       doc.body.classList.add('presenter', 'notes-open');
       state.notes = true;
-      doc.title = '발표자 화면 · ' + doc.title;
+      doc.title = t('presenterTitle') + doc.title;
       setInterval(presenterHello, 2000);
     }
     layout();
@@ -1778,6 +1816,7 @@
     get reduced() { return reduced(); },
     toggleNotes: toggleNotes, toggleOverview: toggleOverview, openPresenter: openPresenter,
     get presenter() { return state.presenter; },
+    lang: LANG, t: t,
     tex: tex, renderMath: renderMath, tagHTML: tagHTML,
     TAGS: TAGS, ICONS: ICONS, COLORS: COLORS, D: D, E: E, TEX_MACROS: TEX_MACROS,
     STAGE: { w: STAGE_W, h: STAGE_H },

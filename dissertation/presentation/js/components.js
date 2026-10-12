@@ -19,7 +19,7 @@
    Comp.color(kind) / Comp.lambdaColor(λ) / Comp.rgb(hex) -> [r,g,b] 0..1 (sRGB)
    Comp.tag(key) -> <span class="pill">   (status tag G11; keys: plan, registered, reanalysis,
                     posthoc, exploratory, construct, registered-analysis, example, calc, thesis-example)
-   Comp.example(text='예시') -> small grey label element
+   Comp.example(text=Deck.t('example')) -> small grey label element ('예시' / 'Example')
    Comp.canvas(ctx, parent, {w, h, x, y, onResize}) -> {canvas, g (2D context in design px), w, h, clear(), resize()}
                     backing store follows the stage scale (sharp at any window size); redraw in onResize
 
@@ -32,7 +32,7 @@
    Comp.contract(ctx, svg, {x, y, size:56, label, sub, hidden})  -> G4 {g, pop(), badge(text), flash()}
    Comp.eoa(ctx, svg, {x, y, r:14, label, hidden})               -> G5 {g, pop(), tag(text)}
    Comp.walker(ctx, svg, {x, y, r:7, trail:5})                   -> G6 {g, moveTo(x,y,opts), along(pathEl,opts), pulse(), hide(), show()}
-   Comp.tally(ctx, svg, {x, y, size:44, count:0})                -> G8 {g, add(k,opts), set(n)}
+   Comp.tally(ctx, svg, {x, y, size:44, count:0, style})         -> G8 {g, add(k,opts), set(n)}  (style 'zheng' 正 / 'bars')
    Comp.stamp(ctx, parent, {ok:true, text, x, y})                -> G10 {el, slam()}
    Comp.pin(ctx, svg, {x, y0, y1, label, color})                 -> G12 {g, drop()}
    Comp.dial(ctx, parent, {value:1, size:260, snap:[0,.25,.5,.75,1], interactive, onChange})
@@ -111,7 +111,7 @@
   Comp.rgb = rgb;
   Comp.svgEl = s;
   Comp.tag = function (key) { var w = h('span'); w.innerHTML = Deck.tagHTML(key); return w.firstChild; };
-  Comp.example = function (text) { return h('span', 'example-mark', null, text || '예시'); };
+  Comp.example = function (text) { return h('span', 'example-mark', null, text || Deck.t('example')); };
 
   Comp.svg = function (ctx, parent, o) {
     o = o || {};
@@ -355,7 +355,7 @@
     return W;
   };
 
-  /* -------------------------------------------------------------- G8 tally (正) */
+  /* -------------------------------------------------------------- G8 tally (正; tally bars in the English deck) */
   Comp.tally = function (ctx, svg, o) {
     o = o || {};
     var S = o.size || 44, x0 = o.x || 0, y0 = o.y || 0;
@@ -363,9 +363,13 @@
     var border = s('rect', { x: -10, y: -10, width: S + 20, height: S + 20, rx: 10, fill: 'none', stroke: COL.deg, 'stroke-width': 1.5, 'stroke-dasharray': '4 5', opacity: 0.7 }, g);
     var strokes = [];
     var T = { g: g, count: 0, border: border, strokes: strokes };
-    /* stroke order of 正: top bar, centre stem, middle right bar, left stem, base */
+    /* stroke order of 正: top bar, centre stem, middle right bar, left stem, base.
+       English deck (o.style 'bars', default when Deck.lang is 'en'): four bars and a diagonal cross stroke */
+    var bars = (o.style || (Deck.lang === 'en' ? 'bars' : 'zheng')) === 'bars';
     function glyph(ix) {
       var ox = ix * (S + 18), u = S / 40;
+      if (bars) return [[ox + 8 * u, 4 * u, ox + 8 * u, 37 * u], [ox + 16 * u, 4 * u, ox + 16 * u, 37 * u], [ox + 24 * u, 4 * u, ox + 24 * u, 37 * u],
+              [ox + 32 * u, 4 * u, ox + 32 * u, 37 * u], [ox + 2 * u, 31 * u, ox + 38 * u, 10 * u]];
       return [[ox + 4 * u, 4 * u, ox + 36 * u, 4 * u], [ox + 20 * u, 4 * u, ox + 20 * u, 37 * u], [ox + 20 * u, 20 * u, ox + 33 * u, 20 * u],
               [ox + 8 * u, 18 * u, ox + 8 * u, 37 * u], [ox + 2 * u, 37 * u, ox + 38 * u, 37 * u]];
     }
@@ -400,7 +404,7 @@
   Comp.stamp = function (ctx, parent, o) {
     o = o || {};
     var ok = o.ok !== false;
-    var el = h('div', 'stamp' + (ok ? '' : ' fail'), parent, Deck.util.esc(o.text || (ok ? '충족 ✓' : '미충족 ×')));
+    var el = h('div', 'stamp' + (ok ? '' : ' fail'), parent, Deck.util.esc(o.text || (ok ? Deck.t('met') : Deck.t('notMet'))));
     if (o.x != null) { el.style.position = 'absolute'; el.style.left = o.x + 'px'; el.style.top = o.y + 'px'; }
     gsap.set(el, { autoAlpha: 0 });
     return {
@@ -959,7 +963,7 @@
     o = o || {};
     var lines = o.lines || [];
     var el = h('div', 'derive eq-panel' + (o.className ? ' ' + o.className : ''), parent);
-    var head = h('div', 'eq-head', el, '<span>' + Deck.util.esc(o.head || '유도') + '</span><span class="derive-count tnum"></span>');
+    var head = h('div', 'eq-head', el, '<span>' + Deck.util.esc(o.head || Deck.t('derive')) + '</span><span class="derive-count tnum"></span>');
     var count = head.querySelector('.derive-count');
     var Dv = { el: el, total: lines.length, k: 0, lines: [] };
     lines.forEach(function (ln, i) {
@@ -973,7 +977,7 @@
       gsap.set(row, { autoAlpha: 0 });
       Dv.lines.push({ row: row, F: F, data: ln });
     });
-    function setCount(k) { if (o.counter !== false) count.textContent = '단계 ' + k + ' / ' + lines.length; }
+    function setCount(k) { if (o.counter !== false) count.textContent = Deck.t('step', { a: k, b: lines.length }); }
     setCount(0);
     Dv.show = function (k, opt) {
       opt = opt || {};
