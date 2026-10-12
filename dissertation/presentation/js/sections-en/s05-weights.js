@@ -335,8 +335,8 @@
       gsap.set(g.W.node('D').g, { opacity: 0.3 });
       g.AB = g.W.edge('A', 'B'); g.AC = g.W.edge('A', 'C');
       if (g.AB.label) {                                              /* EN: lift the A→B label off the thick arrow of step 2 */
-        g.AB.label.setAttribute('x', +g.AB.label.getAttribute('x') - 8);
-        g.AB.label.setAttribute('y', +g.AB.label.getAttribute('y') - 12);
+        g.AB.label.setAttribute('x', +g.AB.label.getAttribute('x') - 16);
+        g.AB.label.setAttribute('y', +g.AB.label.getAttribute('y') - 14);
       }
       g.r3 = q(el, '#r3');
       gsap.set(g.r3, { autoAlpha: 0 });

@@ -1444,7 +1444,7 @@
         return { fill: C.bg2, stroke: C.hi, lw: 1.8 };
       } });
       g.F = Comp.forest(ctx, q(el, '#fp'), { w: 1728, rowH: 86, labelWidth: 470, valueWidth: 300, domain: [-0.05, 0.06], ticks: [-0.04, -0.02, 0, 0.02, 0.04, 0.06], hidden: true,
-        tickFormat: function (t) { return t === 0 ? '0' : sfmt(t, 2); }, axisLabel: 'Paired difference Δτ (← raw count better · walk score better →)',
+        tickFormat: function (t) { return t === 0 ? '0' : sfmt(t, 2); }, axisLabel: 'Δτ (← raw count better · walk score better →)',
         rows: [
           { label: 'AWP − transfer in-degree', sub: 'W0 · new senders', est: 0.043, lo: 0.038, hi: 0.048, color: 'xfer', text: '+0.043 [0.038, 0.048]', ghost: { est: 0.038, lo: 0.035, hi: 0.042 } },
           { label: 'AWP − transfer in-degree', sub: 'W1 · new senders', est: 0.022, lo: 0.017, hi: 0.027, color: 'xfer', text: '+0.022 [0.017, 0.027]', ghost: { est: 0.020, lo: 0.016, hi: 0.023 } },
