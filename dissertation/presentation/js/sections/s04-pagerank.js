@@ -12,7 +12,7 @@
    s04-03  오래 걸으면: 균형식            walker bursts into water; one pour; r_v = Σ r_u P_{u,v}
    s04-04  표로 한 번에: 이동 행렬         4×4 table; arrows fly into cells; 3D flip about the diagonal = Pᵀ
    s04-05  두 가지 문제                  leak at the dangling node (1 → 0.75 → 0.25 → 0); D ⇄ E trap
-   s04-06  고치기: 감쇠 d와 다시 출발      three pieces of Eq. pagerank fill r^(1) = (0.0906, 0.2323, 0.1615, 0.5156)
+   s04-06  고치기: 감쇠 계수 d와 다시 출발  three pieces of Eq. pagerank fill r^(1) = (0.0906, 0.2323, 0.1615, 0.5156)
    s04-07  거듭제곱 반복                 23 iterations to ε = 1e-8; 69 / 92 on the real graphs; live d slider
 
    Numbers and sources
@@ -350,7 +350,7 @@
       '<text x="16" y="27" text-anchor="middle" fill="' + C.ink3 + '" font-size="12">u</text><text x="176" y="27" text-anchor="middle" fill="' + C.ink2 + '" font-size="12">v</text></svg>';
   }
   function artOut() {
-    return '<svg width="190" height="60" viewBox="0 0 190 60"><circle cx="20" cy="30" r="9" fill="none" stroke="' + C.ink3 + '" stroke-width="2.5"/>' +
+    return '<svg width="222" height="60" viewBox="0 0 222 60"><circle cx="20" cy="30" r="9" fill="none" stroke="' + C.ink3 + '" stroke-width="2.5"/>' +
       '<path d="M32,26 L128,8" stroke="' + C.allow + '" stroke-width="5" stroke-linecap="round"/><path d="M32,34 L128,52" stroke="' + C.allow + '" stroke-width="3" stroke-linecap="round"/>' +
       '<text x="84" y="10" fill="' + C.allow + '" font-size="16" font-weight="700">2</text><text x="84" y="60" fill="' + C.allow + '" font-size="16" font-weight="700">1</text>' +
       '<text x="140" y="36" fill="' + C.ink + '" font-size="18" font-weight="700">2 + 1 = 3</text></svg>';
@@ -475,7 +475,7 @@
       g.W = makeWorld(ctx, el, { hidden: true, cupLabels: false });
       g.W.edges.forEach(function (A) { A.lbl = A.label; A.label = null; gsap.set(A.lbl, { autoAlpha: 0 }); });
       g.wCard = card(ctx, el, { tex: 'w(u,v)', desc: 'u에서 v로 가는 화살표의 무게', art: artArrow('2'), x: 96, y: 840 });
-      g.oCard = card(ctx, el, { tex: 'o(u)', desc: 'u에서 나가는 무게의 합', art: artOut(), x: 580, y: 840 });
+      g.oCard = card(ctx, el, { tex: 'o(u)', desc: 'u에서 나가는 무게의 합', art: artOut(), x: 562, y: 840 });
       g.of = Comp.formula(ctx, q(el, '#ofx'), 'o(u)=\\part{s}{\\sum_{v}} w(u,v)', { display: false });
       /* Σ card inside the panel, under the o-table */
       g.sCard = Comp.symbolCard(ctx, el, { className: 's4-sc', tex: '\\sum_{v}', x: 984, y: 878,
@@ -652,9 +652,9 @@
       '이 사람이 아주 오래 걸으면, 각 점에 머문 시간의 비율이 일정해져요. 페이지랭크는 바로 이 비율을 그 점의 점수로 써요.',
       '사람 한 명 대신 물 1리터를 생각해 볼게요. 사람이 아주 많이 쪼개져 물방울이 됐다고 생각해도 돼요. 처음에는 네 컵에 4분의 1씩, 0.25씩 나눠 담아요. 점 v의 컵에 든 물을 r_v라고 쓰고, 이것이 그 점의 몫, 곧 점수예요.',
       '이제 한 번 부어요. 각 컵의 물을 나가는 화살표의 확률만큼 나눠 부어요. A의 물은 2대 1로 B와 C에, B와 C의 물은 모두 D로 가요. 그런데 D의 물은 나갈 길이 없어서 흘러 버려요. 이 문제는 두 장 뒤에 다시 봐요.',
-      '물이 더 이상 움직이지 않는 균형 상태를 생각해요. 그때는 내 컵의 물이 나에게 들어오는 물과 같아요. B에는 A의 3분의 2, C에는 A의 3분의 1, D에는 B와 C의 물이 모두 들어와요. 아무도 A를 가리키지 않으니 A는 0이에요.',
+      '이렇게 계속 부으면 언젠가 컵마다 물의 양이 더는 바뀌지 않는 때가 와요. 이것을 균형이라고 해요. 물이 멈춘 게 아니에요. 물은 계속 흐르지만, 나가는 만큼 다시 들어와서 양이 그대로예요. 그래서 균형에서는 내 컵의 물이 나에게 들어오는 물과 같아요. B에는 A의 3분의 2, C에는 A의 3분의 1, D에는 B와 C의 물이 모두 들어와요. 아무도 A를 가리키지 않으니 A는 0이에요.',
       '한 줄로 쓰면 이래요. 내 몫은 나를 가리키는 점들이 나눠 주는 몫의 합이에요. 시그마 아래의 u 화살표 v는 v를 가리키는 점 u만 더한다는 뜻이에요. 이것을 균형식이라고 해요.',
-      '그런데 이 식대로라면 A는 0이 되고, 물은 전부 D로 몰렸다가 갈 곳이 없어져요. 다음 두 장에서 이 문제를 고쳐요.'
+      '그런데 이 식을 끝까지 풀어 보면 이상해요. A가 0이니까 B는 0 곱하기 3분의 2라서 0, C도 0이에요. 그러면 D는 0 더하기 0이라서 0이에요. 균형식의 답은 "모두 0"뿐이에요. 물이 D에서 전부 새어 버린다는 뜻이에요. 다음 두 장에서 이 문제를 고쳐요.'
     ],
     html: '<h1 class="t-h1">오래 걸으면, 점마다 [[머무는 비율]]이 정해져요</h1>' + panelBg(3) +
       '<div class="s4-pn">' +
@@ -662,13 +662,14 @@
         '<div class="s4-l" data-step="1">생각을 바꿔요: 사람 한 명 → <b>물 1리터</b>를 나눠 붓기</div>' +
         '<div id="dv" data-in="none" style="margin-top:20px"></div>' +
         '<div data-step="4" style="margin-top:18px"><div class="s4-key">내 몫 = 나를 가리키는 점들이 나눠 주는 몫의 합</div><div id="gen" class="s4-tx" style="margin-top:10px"></div></div>' +
-        '<div class="s4-q" data-step="5" style="margin-top:16px">그런데 이대로면 A는 0, 물은 D로 몰려서… 갈 곳이 없어요</div>' +
+        '<div data-step="5" style="margin-top:12px"><div class="s4-q">그런데 풀어 보면: <span id="zch">$r_A=0\\;\\Rightarrow\\;r_B=r_C=0\\;\\Rightarrow\\;r_D=0+0=0$</span></div>' +
+          '<div class="s4-note">균형식의 답은 <b class="ink">‘모두 0’</b>뿐 — 물이 D에서 전부 새어 버려요</div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       g.W = makeWorld(ctx, el, { cupAlpha: 0.35, cupLabels: false, dangling: true });
       g.PL = Particles(ctx, el);
-      g.dv = Comp.derive(ctx, q(el, '#dv'), { head: '균형: 컵의 물 = 그 컵으로 들어오는 물', lines: [
+      g.dv = Comp.derive(ctx, q(el, '#dv'), { head: '균형: 물은 계속 흘러도 컵마다 양은 그대로 → 컵의 물 = 들어오는 물', lines: [
         { tex: 'r_B=r_A\\cdot\\tfrac{2}{3}', display: false, note: 'B로 들어오는 물: A의 몫 중 2/3' },
         { tex: 'r_C=r_A\\cdot\\tfrac{1}{3}', display: false },
         { tex: 'r_D=r_B\\cdot 1+r_C\\cdot 1', display: false },
@@ -728,8 +729,17 @@
       if (i === 4) {
         tl.call(function () { ctx.add(function () { var t2 = gsap.timeline(); t2.add(g.gen.mark('s')); t2.add(g.gen.unmark('s'), 2.2); }); }, null, 0.8);
       }
-      if (i === 5) {
-        tl.add(pulseNode(W.node('D')), 0.2);
+      if (i === 5) {                                                  /* the balance equations only solve to "all zero": the cups drain */
+        /* two more pours of the same rule (computed): 0.75 → 0.25 → 0 */
+        tl.add(pulseNode(W.node('A')), 0.2);
+        tl.call(function () { dangling(W, true); }, null, 0.4);
+        tl.add(PL.emit({ n: 40, duration: 1.1, path: pourPath(W, 'B', 'D'), seed: 13 }), 0.4);
+        tl.add(PL.emit({ n: 20, duration: 1.1, path: pourPath(W, 'C', 'D'), seed: 14 }), 0.4);
+        tl.add(PL.emit({ n: 120, duration: 1.1, path: spillPath('D'), seed: 15, color: C.hi, jitter: 10 }), 0.5);
+        tl.add(setCups(W, LEAK.hist[2], { duration: 0.6 }), 1.2);
+        tl.add(PL.emit({ n: 60, duration: 1.1, path: spillPath('D'), seed: 16, color: C.hi, jitter: 10 }), 1.9);
+        tl.add(setCups(W, LEAK.hist[3], { duration: 0.6 }), 2.4);
+        tl.add(pulseNode(W.node('D')), 2.4);
       }
     },
     tags: ['thesis-example']
@@ -775,7 +785,7 @@
       '<div class="s4-vec" id="vec" data-in="none"></div>' +
       '<div class="s4-vec" id="res" data-in="none"></div>' +
       '<div class="abs" id="eqs" style="left:984px;top:742px;width:800px">' +
-        '<div class="s4-tx" data-step="1" data-in="fade">$P_{u,v}=\\begin{cases} w(u,v)/o(u) & o(u)>0\\text{ 이면}\\\\ 0 & \\text{그 밖에는}\\end{cases}$ <span class="source" style="margin-left:14px">논문 식 transition-impl</span></div>' +
+        '<div class="s4-tx" data-step="1" data-in="fade">$P_{u,v}=\\begin{cases} w(u,v)/o(u) & o(u)>0\\text{ 이면}\\\\ 0 & \\text{그 밖에는}\\end{cases}$ <span class="source" style="margin-left:14px">논문 식 (3.2)</span></div>' +
         '<div data-step="4" style="margin-top:6px"><div class="s4-tx">$\\mathbf r^{(t+1)}=P^{\\top}\\mathbf r^{(t)}$ <span class="s4-note" style="margin-left:12px">(t) = t번째 붓기 뒤</span></div>' +
         '<div class="s4-tx" id="dline">$(P^{\\top}\\mathbf r)_D=0\\cdot r_A+1\\cdot r_B+1\\cdot r_C+0\\cdot r_D=r_B+r_C$</div></div>' +
       '</div>',
@@ -998,14 +1008,14 @@
   var P2 = P1.map(function (v) { return v + DANG; });                              /* = r(1) */
   var CLOUD = [330, -24];
   var s6 = {
-    id: 's04-06', title: '고치기: 감쇠 d와 다시 출발', time: 60, steps: 7,
+    id: 's04-06', title: '고치기: 감쇠 계수 d와 다시 출발', time: 60, steps: 7,
     notes: [
-      '두 문제를 한꺼번에 고치는 방법이 감쇠 계수와 다시 출발이에요.',
+      '두 문제를 한꺼번에 고치는 방법이 감쇠 계수 d와 다시 출발이에요.',
       '걷는 사람은 100번 중 85번은 화살표를 따라가고, 15번은 아무 점으로나 순간 이동해요. 이 0.85를 감쇠 계수 d라고 해요. 돌림판 바깥 고리가 그 비율이에요. 매달린 점 D에 도착하면 언제나 순간 이동해요. 그래서 D에서는 네 점 모두로, D 자신까지 점선이 퍼져요.',
       '지금 몫이 모두 0.25라고 하고, 새 몫을 세 조각으로 채워 볼게요. 첫째 조각은 다시 출발 몫이에요. 매번 모든 점에 고르게, 0.15를 4로 나눈 0.0375씩 내려요. 다시 출발할 곳의 비율을 π라고 쓰는데, 엔도스랭크는 모든 점에 똑같이 4분의 1이에요. |V|는 점의 개수예요.',
       '둘째 조각은 화살표를 따라 온 몫이에요. 앞에서 만든 균형식과 같지만 0.85를 곱해서 물줄기가 조금 가늘어요.',
-      '셋째 조각은 매달린 점에서 모아 다시 나눠 주는 몫이에요. D의 물을 구름처럼 모아서 모든 점에 고르게 내려요. 1_dang은 매달린 점이면 1, 아니면 0인 목록이라서, r과 곱하면 매달린 점들이 가진 몫의 합이 돼요. 작은 세계에서는 r_D 하나예요. 세 조각을 다 채우면 논문 2장의 r(1)과 똑같은 값이 돼요.',
-      '점 하나씩 쓰면 논문 2장의 식이 돼요. A를 가리키는 화살표는 없으니까 A의 몫은 D에서 모아 온 몫과 다시 출발 몫뿐이에요. 0.2125 곱하기 r_D 더하기 0.0375예요.',
+      '셋째 조각은 매달린 점에서 모아 다시 나눠 주는 몫이에요. D의 물을 구름처럼 모아서 모든 점에 고르게 내려요. 1_dang은 매달린 점이면 1, 아니면 0인 목록이에요. r 위에 붙은 T는 세로 목록을 가로로 눕힌다는 뜻이고, 가로 목록과 세로 목록을 곱하면 칸끼리 곱해서 모두 더해요. 0 곱하기 0.25가 세 번, 1 곱하기 0.25가 한 번이라서 합은 0.25, 곧 r_D예요. 매달린 점의 몫만 남는 거예요. 여기에 0.85와 4분의 1을 곱하면 0.0531이에요. 세 조각을 다 채우면 논문 2장의 r(1)과 똑같은 값이 돼요.',
+      '점 하나씩 쓰면 논문 2장의 식이 돼요. 앞에서 쓴 글자 u, v 그대로 썼어요. 논문은 같은 식을 i, j로 쓰고, E는 화살표 전체를 뜻해요. A를 가리키는 화살표는 없으니까 A의 몫은 D에서 모아 온 몫과 다시 출발 몫뿐이에요. 0.2125 곱하기 r_D 더하기 0.0375예요.',
       '세 조각을 더하면 전체 물이 언제나 1로 유지돼요. 다시 출발 몫이 1 빼기 d를 가져가고, 나머지 두 조각이 d를 나눠 갖기 때문이에요. 지금 예에서는 0.15, 0.6375, 0.2125를 더해 딱 1이에요. 물이 새지 않아요.',
       '앞 장의 함정도 고친 규칙으로 다시 돌려 볼게요. 갇혔던 물이 조금씩 빠져나와 출렁임이 잦아들고 값이 멈춰요. D는 0.4619, E는 0.4226이에요. 지금까지 만든 식이 논문 3장의 페이지랭크 식 그대로예요.'
     ],
@@ -1025,9 +1035,12 @@
             '<div class="s4-tx" style="font-size:26px">$\\text{예: } 0.85\\times0.25\\times\\tfrac23=0.1417\\;(A\\to B)$</div></div>' +
           '<div data-step="4" data-step-out="5"><div class="s4-tx"><span class="s4-circ">3</span>$d\\,\\bigl(\\mathbf r^{(t)\\top}\\mathbf 1_{\\mathrm{dang}}\\bigr)\\,\\boldsymbol\\pi=d\\,r_D\\,\\tfrac14$</div>' +
             '<div class="s4-note">매달린 점들이 가진 몫의 합을 모아 다시 고르게 나눠요 · 여기서는 $r_D$ 하나</div>' +
+            '<div class="s4-note" style="margin-top:10px">$\\mathbf r^{(t)\\top}\\mathbf 1_{\\mathrm{dang}}$ = <b class="ink">칸끼리 곱해 더하기</b> (매달린 점 몫만 남아요)</div>' +
+            '<div class="s4-tx" id="dotp" style="font-size:24px;line-height:36px;margin-top:4px"></div>' +
             '<div class="s4-tx" style="font-size:26px">$0.85\\times0.25\\times\\tfrac14=0.0531$ · 새 몫 = $(0.0906,\\,0.2323,\\,0.1615,\\,0.5156)$</div></div>' +
-          '<div data-step="5" data-step-out="6"><div class="s4-note">점 하나씩 쓰면 (논문 식 pagerank-node)</div>' +
-            '<div class="s4-tx" style="font-size:28px">$$r_j=d\\!\\!\\sum_{i:(i\\to j)\\in E}\\! r_i\\,\\frac{w_{ij}}{o_i}+\\frac{d}{|V|}\\sum_{i:\\,o_i=0} r_i+\\frac{1-d}{|V|}$$</div>' +
+          '<div data-step="5" data-step-out="6"><div class="s4-note">점 하나씩 쓰면 · 논문 식 (2.3)</div>' +
+            '<div class="s4-tx" style="font-size:28px">$$r_v=d\\!\\!\\sum_{u:\\,u\\to v}\\! r_u\\,\\frac{w(u,v)}{o(u)}+\\frac{d}{|V|}\\sum_{u:\\,o(u)=0}\\! r_u+\\frac{1-d}{|V|}$$</div>' +
+            '<div class="s4-note">논문은 같은 식을 $i\\to j$, $w_{ij}$, $o_i$로 써요 ($i, j$ = $u, v$ · $E$ = 화살표 전체)</div>' +
             '<div class="s4-note">A의 줄: 아무도 A를 가리키지 않아서 첫 항은 0</div>' +
             '<div class="s4-tx">$r_A=\\tfrac{0.85}{4}\\,r_D+\\tfrac{0.15}{4}=0.2125\\,r_D+0.0375$</div></div>' +
           '<div data-step="6" data-step-out="7"><div class="s4-L">물이 새지 않아요</div>' +
@@ -1064,6 +1077,12 @@
       gsap.set(g.ga.el, { autoAlpha: 0 });
       /* hero formula with the three named parts */
       g.hero = Comp.formula(ctx, q(el, '#hero'), '\\mathbf r^{(t+1)}=\\part{a}{(1-d)\\,\\boldsymbol\\pi}+\\part{b}{d\\,P^{\\top}\\mathbf r^{(t)}}+\\part{c}{d\\,\\bigl(\\mathbf r^{(t)\\top}\\mathbf 1_{\\mathrm{dang}}\\bigr)\\,\\boldsymbol\\pi}');
+      /* piece ③ worked: a row times a column = multiply cell by cell and add */
+      var dotp = q(el, '#dotp');
+      Comp.formula(ctx, H('div', '', dotp), '(0.25,\\,0.25,\\,0.25,\\,0.25)\\cdot(0,\\,0,\\,0,\\,1)', { display: false });
+      g.dot = Comp.formula(ctx, H('div', '', dotp),
+        '=\\part{p0}{0\\times0.25}+\\part{p1}{0\\times0.25}+\\part{p2}{0\\times0.25}+\\part{p3}{1\\times0.25}\\part{res}{\\,=0.25=r_D}', { display: false });
+      g.dotParts = ['p0', 'p1', 'p2', 'p3', 'res'].map(function (nm) { return g.dot.parts(nm); });
       var pls = q(el, '#pls');
       g.pl = [['1', '다시 출발 몫'], ['2', '화살표를 따라 온 몫'], ['3', '매달린 점 몫']].map(function (p) { return H('span', 'pl', pls, '<i>' + p[0] + '</i>' + p[1]); });
       g.cards = [
@@ -1073,7 +1092,7 @@
       ];
       /* trap window (step 7) */
       g.T = trapGraph(ctx, el, { hidden: true });
-      g.T.host.style.top = '728px';
+      g.T.host.style.top = '706px';
       g.T.host.style.transformOrigin = '0 0'; g.T.host.style.transform = 'scale(.74)';
       g.T.host.style.left = '1040px';
     },
@@ -1130,6 +1149,13 @@
         tl.add(setCups(W, P2, { duration: 0.6 }), 2.1);
         tl.add(g.cards[2].pop(), 1.0);
         tl.to(g.cloud, { autoAlpha: 0.35, duration: 0.5 }, 2.4);
+        /* the four cell products drop in one by one; only D's (1 × 0.25) survives */
+        g.dotParts.forEach(function (ps, k) {
+          tl.fromTo(ps, { autoAlpha: 0, y: -18 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: E.out }, 0.7 + k * 0.28);
+          if (k < 3) tl.to(ps, { opacity: 0.4, duration: 0.3 }, 1.0 + k * 0.28);
+        });
+        tl.call(function () { ctx.add(function () { g.dot.mark('p3', { pad: 4 }); }); }, null, 2.0);
+        tl.add(pulseNode(W.node('D')), 2.0);
       }
       if (i === 5) {
         tl.call(function () { pls.forEach(function (p) { p.classList.remove('on'); }); ctx.add(function () { g.hero.unmark(); }); }, null, 0);
@@ -1169,8 +1195,8 @@
     id: 's04-07', title: '되풀이하면 멈춰요: 거듭제곱 반복', time: 60, steps: 4,
     notes: [
       '실제로는 이 식을 한 번에 풀지 않고, 같은 계산을 되풀이해요. 이것을 거듭제곱 반복이라고 해요. 처음에는 모든 점에 4분의 1씩 줘요.',
-      '식을 한 번 적용하면 D 쪽으로 몫이 기울어요. A는 0.0375에 0.2125 곱하기 0.25를 더해서 0.0906이 돼요. 얼마나 바뀌었는지는 칸마다 차이의 크기를 모두 더해서 재요. 첫 번에는 0.531이에요. 오른쪽 그래프의 점이 그 변화량이에요. 세로 눈금은 한 칸마다 100배씩 작아져요.',
-      '되풀이할수록 바뀌는 양이 줄어들고, 23번째에 변화량이 1억분의 1보다 작아져서 멈춰요. 아무리 길어도 300번에서는 멈추게 정해 두었어요. 최종 순서는 D, B, C, A예요. D는 두 금고에게서 보증을 받고, 그 금고들도 A에게서 보증을 받았기 때문이에요. A의 몫 0.1375는 다시 출발 몫 0.0375와 D에서 모아 온 0.1000을 더한 값이에요.',
+      '식을 한 번 적용하면 D 쪽으로 몫이 기울어요. A는 0.0375에 0.2125 곱하기 0.25를 더해서 0.0906이 돼요. 얼마나 바뀌었는지는 칸마다 차이의 크기를 모두 더해서 재요. 빼기 표시는 떼고 크기만 더해요. 이것을 두 줄 막대 기호로 써요. 첫 번에는 0.531이에요. 오른쪽 그래프의 점이 그 변화량이에요. 세로 눈금은 한 칸 내려갈 때마다 100분의 1로 작아져요. 1, 0.01, 0.0001, 100만분의 1, 1억분의 1이에요.',
+      '되풀이할수록 바뀌는 양이 줄어들고, 23번째에 변화량이 1억분의 1보다 작아져서 멈춰요. 이 기준을 엡실론이라고 써요. 아무리 길어도 300번에서는 멈추게 정해 두었어요. 최종 순서는 D, B, C, A예요. D는 두 금고에게서 보증을 받고, 그 금고들도 A에게서 보증을 받았기 때문이에요. A의 몫 0.1375는 다시 출발 몫 0.0375와 D에서 모아 온 0.1000을 더한 값이에요.',
       '실제 허락 그래프에서는 69번, 송금 그래프에서는 92번 만에 멈췄어요. 한 번 되풀이할 때 화살표 하나마다 곱셈 한 번을 하니까, 걸리는 시간은 화살표 수를 따라가요. 이것은 10번째 부분에서 다시 나와요.',
       'd를 직접 바꿔 볼게요. d가 0이면 화살표를 전혀 따라가지 않아서 모두 4분의 1이에요. d가 커질수록 화살표가 중요해져서 D가 커지고 A가 작아지고, 멈추기까지 되풀이도 많아져요. 이 값들은 브라우저가 그 자리에서 계산한 거예요.'
     ],
@@ -1182,9 +1208,10 @@
         '<div class="s4-slot" id="slot" style="min-height:220px;margin-top:6px">' +
           '<div data-step="1" data-step-out="2"><div class="s4-tx" style="font-size:26px">$r^{(1)}_A=0.0375+0.2125\\times0.25=0.0906$</div>' +
             '<div class="s4-tx" style="font-size:26px">$\\lVert\\mathbf r^{(1)}-\\mathbf r^{(0)}\\rVert_1=0.1594+0.0177+0.0885+0.2656=0.531$</div>' +
-            '<div class="s4-note">변화량 = 칸마다 차이의 크기를 모두 더한 값</div></div>' +
+            '<div class="s4-note">변화량 = 칸마다 차이의 크기(부호 떼기)를 모두 더한 값 · 기호 $\\lVert\\;\\rVert_1$</div></div>' +
           '<div data-step="2" data-step-out="3"><div class="s4-l"><b>23번 뒤</b>: (0.1375, 0.2154, 0.1765, 0.4706) — <b>D, B, C, A</b> 순</div>' +
-            '<div class="s4-l">$\\lVert\\mathbf r^{(t+1)}-\\mathbf r^{(t)}\\rVert_1<\\varepsilon=10^{-8}$이면 멈춰요 · 최대 $I_{\\max}=300$번</div>' +
+            '<div class="s4-l">$\\lVert\\mathbf r^{(t+1)}-\\mathbf r^{(t)}\\rVert_1<\\varepsilon$이면 멈춰요 · 최대 $I_{\\max}=300$번</div>' +
+            '<div class="s4-note">$\\varepsilon$ = 1억분의 1 ($10^{-8}$) · 변화량이 이보다 작으면 거의 안 바뀐 거예요</div>' +
             '<div class="s4-note">A의 몫 = 다시 출발 0.0375 + D에서 모아 온 $d\\,r_D/4=0.1000$</div></div>' +
           '<div data-step="3" data-step-out="4"><div class="s4-note">실제 그래프에서는 (수정 분석, T<sub>obs</sub>)</div><div class="s4-real">' +
             '<div class="it"><span class="n c-allow" id="r1">' + IT_ER + '</span><span class="k">엔도스랭크 · 허락 그래프</span></div>' +
@@ -1197,6 +1224,7 @@
     build: function (el, ctx) {
       var g = ctx.g = {};
       g.W = makeWorld(ctx, el, { cupAlpha: 1, cups: P2, dangling: true });
+      g.nCard = card(ctx, el, { tex: '\\lVert\\,\\square\\,\\rVert_1', desc: '칸마다 크기(부호 떼기)를 모두 더하기<br>예: |−0.1594| = 0.1594', x: 96 });
       /* bars A..D */
       var bars = q(el, '#bars');
       var bsvg = Comp.svg(ctx, bars, { w: 796, h: 196 });
@@ -1213,21 +1241,22 @@
       /* change chart (log10 scale) */
       var chart = q(el, '#chart');
       var csvg = Comp.svg(ctx, chart, { w: 796, h: 210 });
-      var X0 = 96, X1 = 770, Y0 = 14, Y1 = 176, NMAX = 30;
+      var X0 = 132, X1 = 770, Y0 = 14, Y1 = 176, NMAX = 30;
+      var TICK = { '0': '1', '-2': '0.01', '-4': '0.0001', '-6': '100만분의 1', '-8': '1억분의 1' };
       g.cx = function (t) { return X0 + (t - 1) / (NMAX - 1) * (X1 - X0); };
       g.cy = function (v) { var L = Math.log(Math.max(v, 1e-10)) / Math.LN10; return Y0 + (0 - L) / 10 * (Y1 - Y0); };
       [0, -2, -4, -6, -8].forEach(function (L) {
         var y = g.cy(Math.pow(10, L));
         S('line', { x1: X0, x2: X1, y1: y, y2: y, 'class': 'gridline' }, csvg);
-        var tt = S('text', { x: X0 - 12, y: y + 6, 'text-anchor': 'end', fill: C.ink3, 'font-size': 17, 'class': 'svg-mono' }, csvg);
-        tt.textContent = L === 0 ? '1' : '1e' + L;
+        var tt = S('text', { x: X0 - 12, y: y + 6, 'text-anchor': 'end', fill: C.ink3, 'font-size': 17, 'class': L >= -4 ? 'svg-mono' : null }, csvg);
+        tt.textContent = TICK[String(L)];
       });
       [1, 10, 20, 30].forEach(function (t) {
         var tx = S('text', { x: g.cx(t), y: Y1 + 26, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'svg-mono' }, csvg); tx.textContent = t === 30 ? '30번' : t;
       });
       var yl = S('text', { x: X1, y: Y0 + 6, 'text-anchor': 'end', fill: C.ink3, 'font-size': 18 }, csvg); yl.textContent = '변화량 · 눈금 한 칸 = 100배';
       g.thr = S('line', { x1: X0, x2: X1, y1: g.cy(TOL), y2: g.cy(TOL), stroke: C.ink2, 'stroke-width': 2, 'stroke-dasharray': '7 6' }, csvg);
-      var thl = S('text', { x: X0 + 10, y: g.cy(TOL) + 24, fill: C.ink2, 'font-size': 18 }, csvg); thl.textContent = 'ε = 10⁻⁸ · 이 선 아래로 내려가면 멈춰요';
+      var thl = S('text', { x: X0 + 10, y: g.cy(TOL) + 24, fill: C.ink2, 'font-size': 18 }, csvg); thl.textContent = 'ε = 1억분의 1 (10⁻⁸) · 이 선 아래로 내려가면 멈춰요';
       g.thrL = thl;
       g.line = S('path', { d: '', fill: 'none', stroke: C.ink2, 'stroke-width': 1.5, 'stroke-opacity': 0.6 }, csvg);
       g.dots = S('g', {}, csvg);
@@ -1268,6 +1297,7 @@
     step: function (el, i, ctx) {
       var g = ctx.g, tl = ctx.tl();
       if (i === 1) {
+        tl.add(g.nCard.pop(), 0.9);
         for (var k = 1; k <= 7; k++) (function (kk) { tl.call(function () { ctx.add(function () { renderIter(ctx, PR, kk); }); }, null, 0.1 + (kk - 1) * 0.42); })(k);
       }
       if (i === 2) {
@@ -1278,6 +1308,7 @@
         tl.fromTo(q(el, '#it'), { scale: 1.25, transformOrigin: '0% 70%' }, { scale: 1, duration: 0.5, ease: E.stamp }, tEnd);
       }
       if (i === 3) {
+        tl.to(g.nCard.el, { autoAlpha: 0, duration: 0.3 }, 0);
         renderIter(ctx, PR, PR.iters, true);
         tl.add(ctx.count(q(el, '#r1'), 0, IT_ER, { decimals: 0, duration: 1.2 }), 0.3);
         tl.add(ctx.count(q(el, '#r2'), 0, IT_AWP, { decimals: 0, duration: 1.4 }), 0.45);

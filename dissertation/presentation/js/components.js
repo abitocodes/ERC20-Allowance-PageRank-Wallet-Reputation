@@ -968,7 +968,7 @@
       var body = h('div', 'derive-body', row);
       var F = null;
       if (ln.tex) { var tx = h('div', 'derive-tex', body); F = Comp.formula(ctx, tx, ln.tex, { display: ln.display !== false }); }
-      if (ln.note) h('span', 'derive-note', body, ln.note);
+      if (ln.note) { var nt = h('span', 'derive-note', body, ln.note); if (ln.note.indexOf('$') >= 0) Deck.renderMath(nt); }
       if (ln.html) h('div', 'derive-html', body, ln.html);
       gsap.set(row, { autoAlpha: 0 });
       Dv.lines.push({ row: row, F: F, data: ln });

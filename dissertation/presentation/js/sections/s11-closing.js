@@ -9,8 +9,9 @@
    s11-02  새로 보탠 다섯 가지   bento of five tiles, each with one small motion (G1, G8, closed form,
                                  G13 dial, a waffle of the W1 traders)
    s11-03  한계                  eight lines with icons, four per click
-   s11-04  지갑 창과 다음 일     the brandless wallet window of s01-01 opens again at the same place
-                                 (DeckParts.wallet), now with "N명"; the cursor rests on 허락 without
+   s11-04  지갑 창과 다음 일     the brandless wallet window of s01-01 opens again (DeckParts.wallet; 46 px
+                                 lower than in s01-01 so it clears the title), now with "주인 주소 N개"
+                                 (owners are addresses, not people); the cursor rests on 허락 without
                                  pressing; two lines; four next steps, the first tagged 가설
    s11-05  감사합니다            the small world as a constellation; the allowance arrow underlines
                                  the thanks; then everything stops for the questions
@@ -216,15 +217,19 @@
   /* the five thumbnails: real data where the picture is data */
   function drawThumbs(ctx, g) {
     var W = 290, H = 128;
-    /* RQ1: rank scatter, EndorseRank percentile × AWP percentile, all 15,107 contracts */
+    /* RQ1: rank scatter, EndorseRank percentile × AWP percentile, all 15,107 contracts;
+       amber where EndorseRank ranks the contract higher, sky where AWP does (as in s08-02) */
     var K = Comp.canvas(ctx, g.ths[0], { w: W, h: H, onResize: function (k) { scatter(k); } });
     function scatter(k) {
       var c = k.g; k.clear();
       var cd = Comp.data.contracts();
       if (!cd) return;
       var a = cd.pct.endorserank, b = cd.pct.awp;
-      c.fillStyle = 'rgba(167,139,250,.32)';
-      for (var i = 0; i < a.length; i++) c.fillRect(14 + a[i] * (W - 28), H - 12 - b[i] * (H - 24), 1.4, 1.4);
+      var AMB = 'rgba(245,180,60,.35)', SKY = 'rgba(60,196,255,.35)';
+      for (var i = 0; i < a.length; i++) {
+        c.fillStyle = b[i] > a[i] ? SKY : AMB;
+        c.fillRect(14 + a[i] * (W - 28), H - 12 - b[i] * (H - 24), 1.4, 1.4);
+      }
       c.strokeStyle = 'rgba(233,237,245,.25)'; c.lineWidth = 1;
       c.strokeRect(13.5, 11.5, W - 27, H - 23);
     }
@@ -352,7 +357,7 @@
   /* ================================================================ s11-03 limits */
   function ico(body) { return '<svg viewBox="0 0 40 40" fill="none" stroke="#A3ADBF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' + body + '</svg>'; }
   var LIMITS = [
-    { i: ico('<circle cx="13" cy="20" r="7"/><path d="M20 20h16M30 20v6M35 20v4"/>'), t: '블록체인 밖 정보가 없어요 — <span>허락한 주인들이 서로 다른 사람인지 몰라요</span>' },
+    { i: ico('<circle cx="13" cy="20" r="7"/><path d="M20 20h16M30 20v6M35 20v4"/>'), t: '가격과 토큰 목록 말고는 블록체인 밖 정보가 없어요 — <span>허락한 주인들이 서로 다른 사람인지 몰라요</span>' },
     { i: ico('<path d="M14 11l-9 9 9 9M26 11l9 9-9 9M23 8l-6 24"/>'), t: '계약의 평판일 뿐, <span>코드가 안전한지는 말하지 않아요</span>' },
     { i: '<svg viewBox="0 0 40 40" fill="none"><rect x="5" y="5" width="30" height="30" rx="8" stroke="#A3ADBF" stroke-width="2.4"/><text x="20" y="21" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="13" class="svg-mono">{ }</text></svg>', t: '점수를 받은 것은 계약이에요 — <span>제목의 \'지갑\'은 EOA 점수가 아니에요</span>' },
     { i: Deck.ICONS.loop, t: '수정 분석은 등록 분석의 결과를 본 뒤 정했어요 → <span>판정은 재분석</span>' },
@@ -365,7 +370,7 @@
     id: 's11-03', title: '한계', time: 35, steps: 2,
     notes: [
       '한계도 분명히 말씀드릴게요.',
-      '이 점수는 블록체인 밖 정보를 쓰지 않아서, 허락한 주인들이 정말 서로 다른 사람인지 알 수 없어요. 계약의 평판일 뿐 코드가 안전한지는 말하지 않아요. 점수를 받은 것은 계약이고, 제목의 지갑은 EOA 점수를 뜻하지 않아요. 본문의 수정 분석은 등록 분석의 결과를 본 뒤에 정했으니, 그 판정은 재분석이에요.',
+      '이 점수는 하루 가격과 토큰 목록 말고는 블록체인 밖 정보를 쓰지 않아서, 허락한 주인들이 정말 서로 다른 사람인지 알 수 없어요. 계약의 평판일 뿐 코드가 안전한지는 말하지 않아요. 점수를 받은 것은 계약이고, 제목의 지갑은 EOA 점수를 뜻하지 않아요. 본문의 수정 분석은 등록 분석의 결과를 본 뒤에 정했으니, 그 판정은 재분석이에요.',
       '센 수와의 비교와 활발함 다시 출발 변형은 라벨을 본 뒤에 한 비교예요. 그리고 코호트에 닿는 화살표만 모은 에고 네트워크, 다섯 토큰, 아비트럼 원 한 체인, 이 기간만 본 결과예요. 트레이더 표본은 W1 70개, W0 88개로 작고, 고르게 다시 출발하는 점수는 닫힌 농장에 약해요.'
     ],
     html: function () {
@@ -385,8 +390,9 @@
   var WP = (window.DeckParts || {}).wallet || null;
   var WG = WP ? WP.GEOM : { left: 550, top: 150, w: 820, h: 520, yes: [1065, 579] };
   var WS = 0.78, WX = 96, WY = 196;                    /* window after it steps aside */
+  var WT = Math.max(WG.top, 196), WDY = WT - WG.top;    /* opens at the content top, clear of the title */
   function fallbackWallet() {
-    return '<div class="s01-win" id="win" data-in="none" style="left:' + WG.left + 'px;top:' + WG.top + 'px;position:absolute;width:820px;height:520px;background:#121826;border:1px solid #2A3345;border-radius:24px;overflow:hidden">' +
+    return '<div class="s01-win" id="win" data-in="none" style="left:' + WG.left + 'px;top:' + WT + 'px;position:absolute;width:820px;height:520px;background:#121826;border:1px solid #2A3345;border-radius:24px;overflow:hidden">' +
       '<div class="q" style="position:absolute;left:40px;right:40px;top:262px;text-align:center;font-size:30px;line-height:42px;font-weight:600">이 계약이 내 USDC를 꺼내 써도 되도록 허락할까요?</div>' +
       '<div class="cd" style="position:absolute;left:0;right:0;top:318px;text-align:center"></div>' +
       '<div class="btns" style="position:absolute;left:0;right:0;top:396px;display:flex;justify-content:center;gap:20px"><div class="btn no">거절</div><div class="btn yes">허락</div></div></div>';
@@ -402,12 +408,12 @@
     carrier: false,
     notes: [
       '그러면 처음의 그 창에는 무엇을 보여 줄 수 있을까요?',
-      '처음에 본 창이 같은 자리에 다시 열려요. 이번에는 한 줄이 더 있어요. 이 계약을 허락한 서로 다른 주인의 수예요. 이 연구의 결과로 보면, 이 수는 어떤 서비스든 페이지랭크 없이 계산할 수 있는 공개 신호이고, 엔도스랭크도 기간 밖에서 이 수를 넘지 못했어요. 화면의 N은 자리 표시이고 특정 계약을 가리키지 않아요.',
+      '처음에 본 창이 다시 열려요. 이번에는 한 줄이 더 있어요. 이 계약을 허락한 서로 다른 주인 주소의 수예요. 주인은 사람이 아니라 주소라서, 몇 명이 아니라 몇 개라고 세요. 이 연구의 결과로 보면, 이 수는 어떤 서비스든 페이지랭크 없이 계산할 수 있는 공개 신호이고, 엔도스랭크도 기간 밖에서 이 수를 넘지 못했어요. 화면의 N은 자리 표시이고 특정 계약을 가리키지 않아요.',
       '다만 이 수는 얼마나 널리 허락받았는지일 뿐이에요. 낮으면 더 살펴볼 이유가 되지만, 높다고 서명할 이유가 되지는 않아요. 그래서 커서는 허락 버튼 위에 머물기만 해요.',
       '다음 연구로는 네 가지를 생각하고 있어요. 활발함 다시 출발 변형을 새 기간에 미리 등록하고 센 수와 시험하는 것, 이것은 아직 가설이에요. 수정 분석 자체를 등록 시험으로 다시 하는 것, 믿을 만한 씨앗에서만 다시 출발하게 해서 농장을 막는 것, 그리고 실제 계약 위험 라벨과 견주는 것이에요.'
     ],
     html: function () {
-      var win = WP ? WP.html({ id: 'win', question: '이 계약이 내 USDC를 꺼내 써도 되도록 허락할까요?', code: '' }) : fallbackWallet();
+      var win = WP ? WP.html({ id: 'win', top: WT, question: '이 계약이 내 USDC를 꺼내 써도 되도록 허락할까요?', code: '' }) : fallbackWallet();
       return '<h1 class="t-h1">그 창에 보여 줄 수 있는 것</h1>' + win +
         '<div class="s01-spark" id="sp1" data-in="none" style="position:absolute;left:0;top:0;width:14px;height:14px;border-radius:8px;background:#fff;box-shadow:0 0 14px 3px rgba(255,255,255,.75)"></div>' +
         '<div class="s01-spark" id="sp2" data-in="none" style="position:absolute;left:0;top:0;width:14px;height:14px;border-radius:8px;background:#fff;box-shadow:0 0 14px 3px rgba(255,255,255,.75)"></div>' +
@@ -430,7 +436,7 @@
       var cd = q(g.win, '.cd');
       cd.innerHTML = '<span class="s11-nl" id="nl"></span>';
       g.nl = q(cd, '#nl');
-      g.nlText = '이 계약을 허락한 서로 다른 주인: ';
+      g.nlText = '이 계약을 허락한 서로 다른 주인 주소: ';
       var ns = h('div', 's11-ns', g.win, '얼마나 널리 허락받았는지일 뿐 — 안전하다는 뜻은 아니에요');
       g.ns = ns;
       gsap.set([g.win, ns, q(el, '#sp1'), q(el, '#sp2'), q(el, '#nnote'), q(el, '#two'), q(el, '#nx')], { autoAlpha: 0 });
@@ -441,30 +447,30 @@
     step: function (el, i, ctx) {
       var g = ctx.g, tl = ctx.tl();
       if (i === 1) {
-        /* the same window, at the same place, opened the same way: point → line → window */
+        /* the same window, opened the same way (46 px lower, clear of the title): point → line → window */
         var A = q(el, '#sp1'), B = q(el, '#sp2');
-        var cx = WG.left + WG.w / 2, cy = WG.top + WG.h / 2;
+        var cx = WG.left + WG.w / 2, cy = WT + WG.h / 2;
         tl.set(g.win, { autoAlpha: 1, clipPath: 'inset(50% 0% 50% 0% round 24px)' }, 0);
         tl.fromTo([A, B], { x: cx - 7, y: cy - 7, width: 14, height: 14, scale: 0, autoAlpha: 1 }, { scale: 1, duration: 0.3, ease: 'back.out(2)' }, 0.05);
         tl.to([A, B], { x: WG.left, width: WG.w, height: 2, y: cy - 1, duration: 0.36, ease: 'power3.inOut' }, 0.4);
         tl.to(g.win, { clipPath: 'inset(0% 0% 0% 0% round 24px)', duration: 0.55, ease: 'power3.out' }, 0.78);
-        tl.to(A, { y: WG.top - 1, duration: 0.55, ease: 'power3.out' }, 0.78);
-        tl.to(B, { y: WG.top + WG.h - 1, duration: 0.55, ease: 'power3.out' }, 0.78);
+        tl.to(A, { y: WT - 1, duration: 0.55, ease: 'power3.out' }, 0.78);
+        tl.to(B, { y: WT + WG.h - 1, duration: 0.55, ease: 'power3.out' }, 0.78);
         tl.to([A, B], { autoAlpha: 0, duration: 0.35 }, 1.25);
         /* typewriter: the new line */
         var st = { n: 0 }, full = g.nlText;
         tl.to(st, { n: full.length, duration: 1.1, ease: 'none', onUpdate: function () {
           g.nl.innerHTML = esc(full.slice(0, Math.round(st.n))) + '<span class="s11-caret"></span>';
-        }, onComplete: function () { g.nl.innerHTML = esc(full) + '<b>N</b>명'; } }, 1.45);
+        }, onComplete: function () { g.nl.innerHTML = esc(full) + '<b>N</b>개'; } }, 1.45);
         tl.fromTo(g.ns, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 2.65);
         /* the cursor comes to rest on 허락 — and does not press */
         tl.set(g.cursor.g, { autoAlpha: 1 }, 2.7);
         tl.call(function () { g.cursor.set(760, 760); }, null, 2.69);
-        tl.add(g.cursor.moveTo(WG.yes[0] + 30, WG.yes[1] + 14, { duration: 0.9, ease: 'power3.out' }), 2.7);
+        tl.add(g.cursor.moveTo(WG.yes[0] + 30, WG.yes[1] + WDY + 14, { duration: 0.9, ease: 'power3.out' }), 2.7);
       }
       if (i === 2) {
         var yx = WX + (WG.yes[0] - WG.left) * WS, yy = WY + (WG.yes[1] - WG.top) * WS;
-        tl.to(g.win, { x: WX - WG.left, y: WY - WG.top, scale: WS, transformOrigin: '0 0', duration: 1.0, ease: E.io }, 0);
+        tl.to(g.win, { x: WX - WG.left, y: WY - WT, scale: WS, transformOrigin: '0 0', duration: 1.0, ease: E.io }, 0);
         tl.add(g.cursor.moveTo(yx + 24, yy + 12, { duration: 1.0, ease: E.io }), 0);
         tl.fromTo(q(el, '#nnote'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 0.9);
         var two = q(el, '#two');

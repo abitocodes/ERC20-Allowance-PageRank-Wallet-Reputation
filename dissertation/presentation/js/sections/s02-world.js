@@ -79,7 +79,7 @@
     '.s02-l{position:absolute;left:96px;width:780px;font-size:30px;line-height:46px}',
     '.s02-l .note{color:var(--ink-2)}',
     '.s02-l .wallet{position:relative;white-space:nowrap}',
-    '.s02-l .wallet sup{font-size:.6em;color:var(--ink-3);margin-left:2px}',
+    '.s02-l .wallet sup{font-size:.7em;color:var(--ink-3);margin-left:2px}',
     '.s02-small{position:absolute;left:96px;top:846px;width:780px;font-size:24px;line-height:36px;color:var(--ink-2)}',
     '.s02-legend{position:absolute;left:964px;top:904px;display:flex;gap:30px;align-items:center;font-size:22px;color:var(--ink-2)}',
     '.s02-legend span{display:inline-flex;align-items:center;gap:10px}',

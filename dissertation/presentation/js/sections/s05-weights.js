@@ -221,7 +221,7 @@
     });
     (o.groups || []).forEach(function (gp) {
       var row = H('div', 's5-dl sum', null);
-      H('div', 'no', row, gp.from + '–' + gp.to);
+      H('div', 'no', row, gp.from === gp.to ? String(gp.from) : gp.from + '–' + gp.to);
       H('div', 'b', row, gp.summary);
       el.insertBefore(row, D.rows[gp.from - 1].el);
       row.style.display = 'none';
@@ -300,7 +300,7 @@
     s += '<rect x="10" y="12" width="230" height="14" fill="rgba(233,237,245,.08)"/><line x1="10" x2="240" y1="26" y2="26" stroke="' + C.ink2 + '" stroke-width="1.5" stroke-dasharray="5 5"/>';
     s += '<text x="244" y="31" fill="' + C.ink2 + '" font-size="16">1</text>';
     s += '<path d="' + d + '" fill="none" stroke="' + C.ink2 + '" stroke-width="2.5"/>';
-    s += '<circle cx="' + X(5) + '" cy="' + (104 - V(5, BA) * 78) + '" r="6" fill="' + C.ink + '"/><text x="' + (X(5) + 10) + '" y="' + (104 - V(5, BA) * 78 - 10) + '" fill="' + C.ink2 + '" font-size="16">5달러</text>';
+    s += '<circle cx="' + X(5) + '" cy="' + (104 - V(5, BA) * 78) + '" r="6" fill="' + C.ink + '"/><text x="' + (X(5) - 2) + '" y="' + (104 - V(5, BA) * 78 - 14) + '" fill="' + C.ink2 + '" font-size="16" text-anchor="end">5달러</text>';
     s += '<circle cx="' + X(5000) + '" cy="' + (104 - V(5000, BA) * 78) + '" r="6" fill="' + C.ink + '"/><text x="' + (X(5000) - 8) + '" y="' + (104 - V(5000, BA) * 78 + 26) + '" fill="' + C.ink2 + '" font-size="16" text-anchor="end">5,000달러</text>';
     return s + '</svg>';
   }
@@ -492,7 +492,7 @@
         { tex: 's=k\\,(\\Delta t-t_0)', display: false, note: '벌점 s: 180일보다 얼마나 오래됐나 · 예: Δt = 0이면 s = 0.01 × (0 − 180) = −1.8', html: sline },
         { tex: 'e^{-1.8}=\\frac{1}{e^{1.8}}=\\frac{1}{6.05}\\approx0.165', display: false, note: '지수가 음수면 1 ÷ (양수 지수) · 그래서 eˢ는 언제나 0보다 커요', html: etab },
         { tex: '\\sigma=\\frac{1}{1+e^{s}}', note: '분모 1 + eˢ는 언제나 1보다 커요 → σ는 0과 1 사이 ✓ · s = 0 → 1/(1+1) = 1/2 ✓ · s가 크면 → 0 ✓ · s가 아주 큰 음수면 → 1 ✓ (s = −5 → e⁻⁵ = 0.007 → σ = 0.993) · Δt = 0 → 1/(1+0.165) = 0.858' },
-        { tex: '\\part{f}{\\sigma(\\Delta t)=\\frac{1}{1+\\exp\\bigl(k(\\Delta t-t_0)\\bigr)}}', note: 'exp(□) = e<sup>□</sup> (같은 뜻 · 지수가 길 때 쓰는 표기) · k = 0.01, t₀ = 180일 · 논문 식 logistic-decay', mark: 'f' },
+        { tex: '\\part{f}{\\sigma(\\Delta t)=\\frac{1}{1+\\exp\\bigl(k(\\Delta t-t_0)\\bigr)}}', note: 'exp(□) = e<sup>□</sup> (같은 뜻 · 지수가 길 때 쓰는 표기) · k = 0.01, t₀ = 180일 · 논문 식 (3.3)', mark: 'f' },
         { tex: '1-\\sigma=\\frac{1+e^{s}-1}{1+e^{s}}=\\frac{e^{s}}{1+e^{s}}', tex2: '\\frac{\\sigma}{1-\\sigma}=\\frac{1}{e^{s}}=e^{-s}=e^{-k(\\Delta t-t_0)}', note: 'k × 100 = 1 → 100일마다 \'남은 : 사라진\' 비가 e ≈ 2.7배씩 줄어요<br>0, 100, 200, 300일: ' + [0, 100, 200, 300].map(function (a) { return fmt(sigma(a) / (1 - sigma(a)), 2); }).join(' → ') + ' (막대: 채운 칸 = 남은, 점선 칸 = 사라진)' }
       ], groups: [
         { from: 1, to: 3, at: 4, summary: '직선은 음수 ✕ → 벌점 $s$ → $e^{s}>0$ (음수 지수 = 1 ÷ 양수 지수)' },
@@ -666,17 +666,18 @@
       });
       gsap.set(g.coins, { autoAlpha: 0 });
       g.unl = S('g', {}, P.over);
-      for (var k2 = 0; k2 < 9; k2++) S('ellipse', { cx: P.r + 48, cy: P.b - 10 - k2 * 9, rx: 16, ry: 5.5, fill: C.bg3, stroke: C.ink2, 'stroke-width': 1.5 }, g.unl);
-      txt(g.unl, P.r + 48, P.b + 32, '무제한', { anchor: 'middle', size: 18, fill: C.ink2 });
-      S('circle', { cx: P.r + 48, cy: P.py(1) + 10, r: 7, fill: C.ink }, g.unl);
-      S('line', { x1: P.r + 48, x2: P.r + 48, y1: P.b - 92, y2: P.py(1) + 20, stroke: C.ink3, 'stroke-width': 1.5, 'stroke-dasharray': '3 5' }, g.unl);
+      var UX = P.r + 64;                                             /* clear of the '500' tick label */
+      for (var k2 = 0; k2 < 9; k2++) S('ellipse', { cx: UX, cy: P.b - 10 - k2 * 9, rx: 16, ry: 5.5, fill: C.bg3, stroke: C.ink2, 'stroke-width': 1.5 }, g.unl);
+      txt(g.unl, UX, P.b + 32, '무제한', { anchor: 'middle', size: 18, fill: C.ink2 });
+      S('circle', { cx: UX, cy: P.py(1) + 10, r: 7, fill: C.ink }, g.unl);
+      S('line', { x1: UX, x2: UX, y1: P.b - 92, y2: P.py(1) + 20, stroke: C.ink3, 'stroke-width': 1.5, 'stroke-dasharray': '3 5' }, g.unl);
       gsap.set(g.unl, { autoAlpha: 0 });
       /* main curve and the morphing grey curve (registered setting) */
       g.curve = S('path', { d: curvePath(P, function (z) { return V(z, BA); }, 0, 500, 200), fill: 'none', stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, P.main);
       gsap.set(g.curve, { autoAlpha: 0 });
       g.grey = S('path', { d: '', fill: 'none', stroke: C.ink2, 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-dasharray': '1 10' }, P.main);
       gsap.set(g.grey, { autoAlpha: 0 });
-      g.greyL = txt(P.over, P.px(14), P.py(0.62), '계획대로: 원래 단위, b = 1', { size: 20, fill: C.ink2, weight: 600 });
+      g.greyL = txt(P.over, P.px(14), P.py(0.93), '계획대로: 원래 단위, b = 1', { size: 20, fill: C.ink2, weight: 600 });
       gsap.set(g.greyL, { autoAlpha: 0 });
       /* derivation with a y-ball */
       var xline = '<svg width="620" height="70" viewBox="0 0 620 70" style="display:block;overflow:visible">' +
@@ -685,7 +686,7 @@
         '<text x="310" y="62" text-anchor="middle" fill="' + C.ink3 + '" font-size="17">y = e^(−bz)</text>' +
         '<circle class="xball" cx="590" cy="30" r="11" fill="' + C.ink + '"/><text class="xz svg-mono" x="608" y="22" fill="' + C.ink2 + '" font-size="17">z = 0</text></svg>';
       g.dv = Deriv(ctx, q(el, '#dv'), { head: '정리하기', lines: [
-        { tex: 'V(z)=\\frac{2}{1+e^{-bz}}-1', note: '논문 식 value-transform' },
+        { tex: 'V(z)=\\frac{2}{1+e^{-bz}}-1', note: '논문 식 (3.4)' },
         { tex: 'y=e^{-bz}\\;\\Rightarrow\\;V=\\frac{2}{1+y}-1', tex2: '=\\frac{2-(1+y)}{1+y}=\\part{f}{\\frac{1-y}{1+y}}', markOn2: true, note: 'z = 0이면 y = 1, z가 커지면 y → 0', html: xline, mark: 'f' },
         { tex: 'z=0:\\ \\tfrac{1-1}{1+1}=0,\\qquad z\\to\\infty:\\ \\tfrac{1-0}{1+0}=1', display: false, note: '그래서 V는 0 이상이고 1을 넘지 않아요 · 무제한 허락은 금액이 너무 커서 컴퓨터 계산으로 딱 1' }
       ] });
@@ -730,6 +731,9 @@
         draw();
         tl.set(g.grey, { autoAlpha: 1 }, 0);
         tl.to(g.curve, { opacity: 0.35, duration: 0.4 }, 0);
+        /* the y-ball picture has done its job: fold it so the registered-analysis box fits the panel */
+        var hx = q(el, '#dv .hx');
+        if (hx) { gsap.set(hx, { overflow: 'hidden' }); tl.to(hx, { height: 0, autoAlpha: 0, duration: 0.4, ease: E.io }, 0); }
         tl.to(st2, { m: 1, duration: 1.0, ease: E.io, onUpdate: draw, onComplete: function () { st2.m = 1; draw(); } }, 0.2);
         tl.fromTo(g.greyL, { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.4 }, 1.1);
       }
@@ -841,7 +845,7 @@
         { tex: 'e^{-bm}=\\tfrac13\\;\\Leftrightarrow\\;\\part{e}{e^{bm}=3}', display: false, note: 'y를 원래대로 되돌려요 · $e^{-a}=1\\div e^{a}$ → $1\\div e^{bm}=\\tfrac13$ → $e^{bm}=3$', mark: 'e' },
         { tex: 'bm=\\ln 3\\approx1.0986', display: false, note: 'e를 몇 제곱해야 3이 될까? 그 답을 ln 3이라고 써요', html: ePic },
         { tex: '\\boxed{\\,b=\\dfrac{\\ln 3}{m}\\,}', note: '양변을 m으로 나눠요' },
-        { tex: 'z=2m:\\;\\; e^{b\\cdot 2m}=(e^{bm})^2=3^2=9\\;\\Rightarrow\\; y=\\tfrac19,\\;\\; V=\\tfrac{1-1/9}{1+1/9}=0.8', tex2: 'z=\\tfrac m2:\\;\\; e^{bm/2}=\\sqrt3\\approx1.732\\;\\Rightarrow\\; y\\approx0.577,\\;\\; V\\approx0.27', display: false, note: '$e^{bm/2}$를 두 번 곱하면 $e^{bm}=3$ → 그래서 $\\sqrt3$ · $y=1\\div\\sqrt3$ · 확인: 중앙값 0.5, 두 배 0.8, 절반 0.27' }
+        { tex: '\\begin{aligned} z=2m:&\\;\\; e^{b\\cdot 2m}=(e^{bm})^2=3^2=9\\\\ &\\Rightarrow\\; y=\\tfrac19,\\;\\; V=\\tfrac{1-1/9}{1+1/9}=0.8 \\end{aligned}', tex2: '\\begin{aligned} z=\\tfrac m2:&\\;\\; e^{bm/2}=\\sqrt3\\approx1.732\\\\ &\\Rightarrow\\; y\\approx0.577,\\;\\; V\\approx0.27 \\end{aligned}', display: false, note: '$e^{bm/2}$를 두 번 곱하면 $e^{bm}=3$ → 그래서 $\\sqrt3$ · $y=1\\div\\sqrt3$ · 확인: 중앙값 0.5, 두 배 0.8, 절반 0.27' }
       ], groups: [
         { from: 2, to: 4, at: 6, summary: '분모를 없애고 정리하면 → $y=\\tfrac13$' },
         { from: 5, to: 7, at: 9, summary: '$y=\\tfrac13\\;\\to\\;e^{bm}=3\\;\\to\\;bm=\\ln 3$' }
@@ -1077,7 +1081,7 @@
       '<div class="s5-panel" id="pn" data-in="none">' +
         '<div class="s5-l">C-PR의 두 층은 <b>V 없이</b> 달러 그대로 더해요</div>' +
         '<div class="s5-tx" style="font-size:26px">$$\\tilde w_A(u,v)=\\sum_{\\mathrm{token}}\\min\\bigl(a^{\\star},\\,\\ch{U}\\bigr),\\qquad \\tilde w_T(u,v)=\\sum_{e:\\,u\\to v}x_e\\,\\sigma(\\Delta t_e)$$</div>' +
-        '<div class="s5-note">논문 식 raw-layers · min(a, U) = 둘 중 작은 것: 무제한이면 U, 500달러면 500</div>' +
+        '<div class="s5-note">논문 식 (3.8) · min(a, U) = 둘 중 작은 것: 무제한이면 U, 500달러면 500</div>' +
         '<div data-step="3"><div class="s5-L">허락 하나는 최대 <span class="c-hi">U = ' + n0(U) + '달러</span>로 세요</div>' +
           '<div class="s5-note">U = t₁(3월 31일)까지 송금 한 건 금액의 99번째 백분위 (' + n0(P99T) + '달러)를 두 자리로 반올림</div>' +
           '<div class="s5-tx" style="font-size:26px;margin-top:6px">$\\frac{20{,}000}{20{,}000+500}=0.976,\\qquad \\frac{500}{20{,}500}=0.024$</div></div>' +

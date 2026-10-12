@@ -12,8 +12,9 @@
    s09-04  등록 분석과 수정 분석       three reasons (flat V curve, 12-digit ladder, spam token) +
                                      two-column table, "=" between the verdicts
    s09-05  R1–R3                      70 W1 traders as a dot grid (37 recipients, 9 liquidated); outcome
-                                     definition; P and Q with 95 % bars and 97.5 % brackets; the
-                                     registered sentences typed out; R3 profit-share bars
+                                     definition; P and Q (W1) with 95 % bars and 97.5 % brackets; the
+                                     registered sentences typed out; R3 profit-share bars (W1).
+                                     W0 values (P, Q, 88 traders, 40/40, 75.0 %) are in the narration only
 
    Numbers and sources (R = revised digest, the thesis's main analysis; G = registered digest)
      13:41:27 / 13:41:37            G§D timing.plan_commit_43d8045_utc / timing.scan_a created
@@ -131,6 +132,8 @@
     '.s9-fl .ds{font-size:20px;line-height:28px;color:var(--ink-3)}',
     '.s9-fx{font-size:22px;line-height:32px;color:var(--ink-2)}',
     '.s9-fx .katex{font-size:24px}',
+    '.s9-cap{font-size:20px;line-height:28px;color:var(--ink-3);white-space:nowrap}',
+    '.s9-cap i{display:inline-block;width:28px;height:7px;border-radius:4px;background:var(--c-cpr, #A78BFA);margin-right:10px;vertical-align:4px}',
     '.s9-inset{position:absolute;left:1180px;top:660px;width:644px;height:200px;border-radius:20px;background:rgba(16,21,31,.97);border:1px solid #39435A;box-shadow:0 18px 50px rgba(0,0,0,.5)}',
     '.s9-inset .hd{position:absolute;left:20px;top:12px;font-size:18px;line-height:24px;color:var(--ink-3);font-family:var(--font-mono);letter-spacing:0}',
     '.s9-inset svg{position:absolute;left:0;top:0;overflow:visible}',
@@ -231,7 +234,7 @@
       '같은 날 코호트와 라벨을 만들고, 같은 기간과 W0 결과를 계산해서 규칙 A를 판정했어요.',
       '그 W0 결과를 본 다음, W1에서 무엇을 시험할지를 등록했어요. 16시 49분 32초 커밋이에요. 1초 뒤에 추출 기록서가 쓰이기 시작했고, 8초 뒤에 7월부터 9월까지의 기록을 꺼냈어요. 추출 스크립트는 등록 커밋이 없으면 돌지 않고, 기록서에는 두 파일의 SHA-256과 예외를 쓰지 않았다는 기록이 남아 있어요.',
       '여기까지가 등록 분석이에요. 이 선 아래부터는 등록 분석의 결과를 알고 있었어요.',
-      '다음 날 저는 금액 단위에 문제가 있다는 것을 알고 금액을 달러로 고쳤어요. 이것은 등록 결과를 본 뒤의 변경이에요. 그래서 자물쇠가 속이 비어 있어요. 다만 수정 문서, 다섯 토큰, 상한 U를 차례로 커밋한 다음에야 질의와 점수 계산을 돌렸어요. 마지막 커밋 56초 뒤에 첫 수정 점수의 입력이 만들어졌어요.',
+      '다음 날 저는 금액 단위에 문제가 있다는 것을 알고 금액을 달러로 고쳤어요. 이것은 등록 결과를 본 뒤의 변경이에요. 그래서 자물쇠가 속이 비어 있어요. 수정 문서와 다섯 토큰을 커밋하고, 달러 중앙값과 백분위를 계산한 뒤 상한 U의 정의를 고쳐 커밋했어요. 쌍 표·지표·라벨과 수정 점수는 모두 마지막 커밋(11:24:01) 뒤에 만들었어요 — 마지막 커밋 56초 뒤에 첫 쌍 표가 나왔어요.',
       '그래서 계획과 등록은 데이터보다 먼저였고, 이것이 등록 분석이에요. 수정은 등록 결과를 본 뒤였지만 수정 점수를 계산하기 전에 커밋했어요. 이것이 수정 분석이고, 여기에 등록 규칙을 적용한 판정은 모두 재분석이라고 불러요.'
     ],
     html: function () {
@@ -385,9 +388,9 @@
   ];
   var slide2 = {
     id: 's09-02', title: '규칙 A (분석 계획, 추출 전에 정함)', time: 45, steps: 5,
-    tags: function (s) { return s >= 5 ? ['plan', 'reanalysis', 'registered-analysis'] : s >= 4 ? ['plan', 'reanalysis'] : ['plan']; },
+    tags: function (s) { return s >= 5 ? ['plan', 'reanalysis', 'registered-analysis'] : s >= 1 ? ['plan', 'reanalysis'] : ['plan']; },
     notes: [
-      '규칙 A는 데이터를 꺼내기 전에 분석 계획에 적어 둔 규칙이에요. 두 화살표를 섞은 C-PR이 W0에서 허락 층만 걷는 것보다 나쁘지 않고, 동시에 송금 층만 걷는 것보다 나아야 해요. 같은 기간 부분도 있어요.',
+      '규칙 A는 데이터를 꺼내기 전에 분석 계획에 적어 둔 규칙이에요. 두 화살표를 섞은 C-PR이 W0에서 허락 층만 걷는 것보다 나쁘지 않고, 동시에 송금 층만 걷는 것보다 나아야 해요. 같은 기간 부분도 있어요. 화면의 숫자는 수정 점수에 이 규칙을 그대로 적용한 재분석이에요.',
       '첫째 조건이에요. 새 허락 쌍에서 C-PR에서 허락 층만 걷기를 짝지어 빼면 0.029, 구간이 0보다 위라서 맞았어요.',
       '둘째 조건에서는 C-PR이 송금 층보다 오히려 0.034 낮았어요. 구간 전체가 0 왼쪽이라서 맞지 않아요.',
       '같은 기간 부분도 세 가지 모두 맞지 않았어요. 송금 가족과 허락 가족에서 C-PR은 더 나은 층의 구간 안에 들지 못했고, 시빌 안정성에서는 두 층보다 위에 있어야 하는데 송금 층보다 낮았어요.',
@@ -406,7 +409,7 @@
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax2'), X = lin(A2.d[0], A2.d[1], A2.x0, A2.x1);
-      txt(sv, A2.x0, 214, '짝지은 차이 Δτ (W0)', { fill: C.ink2, 'font-size': 22, 'font-weight': 700 });
+      txt(sv, A2.x0, 214, '짝지은 차이 Δτ (W0) · 수정 분석', { fill: C.ink2, 'font-size': 22, 'font-weight': 700 });
       txt(sv, X(0) - 10, 240, '← 층만 걷기가 나음', { 'text-anchor': 'end', fill: C.ink3, 'font-size': 17 });
       txt(sv, X(0) + 10, 240, 'C-PR이 나음 →', { 'text-anchor': 'start', fill: C.ink3, 'font-size': 17 });
       axis(sv, { scale: X, domain: A2.d, ticks: [-0.04, -0.02, 0, 0.02, 0.04], y0: 250, y1: 470, signed: true });
@@ -497,9 +500,9 @@
   ] };
   var slide3 = {
     id: 's09-03', title: '규칙 B (W1, 추출 전에 등록)', time: 50, steps: 5,
-    tags: function (s) { return s >= 5 ? ['registered', 'reanalysis', 'registered-analysis'] : s >= 4 ? ['registered', 'reanalysis'] : ['registered']; },
+    tags: function (s) { return s >= 5 ? ['registered', 'reanalysis', 'registered-analysis'] : s >= 1 ? ['registered', 'reanalysis'] : ['registered']; },
     notes: [
-      '규칙 B는 W0 결과를 본 뒤, W1 기록을 꺼내기 전에 등록한 규칙이에요. C-PR이 송금 층만 걷는 것을 개선했다고 말하려면 세 가지가 모두 맞아야 해요. 세 줄 모두 C-PR에서 송금 층만 걷기를 짝지어 뺀 값이에요. 장미색 빗금이 허용 폭 0.01이에요.',
+      '규칙 B는 W0 결과를 본 뒤, W1 기록을 꺼내기 전에 등록한 규칙이에요. C-PR이 송금 층만 걷는 것을 개선했다고 말하려면 세 가지가 모두 맞아야 해요. 세 줄 모두 C-PR에서 송금 층만 걷기를 짝지어 뺀 값이에요. 장미색 빗금이 허용 폭 0.01이에요. 숫자는 수정 분석의 값이고, 등록한 규칙을 그대로 적용한 재분석이에요.',
       '새 허락 쌍에서는 분명히 나았어요. 0.110이고 구간이 0보다 훨씬 위예요. W0에서 본 이득이 새 기간에서도 다시 나타난 거예요.',
       '새 송금자에서는 −0.028로, 허용 폭 0.01보다 더 많이 뒤졌어요. 구간 전체가 빗금보다 왼쪽이에요.',
       '트레이더의 청산 없이 닫은 비율에서는 두 점수가 똑같았어요. 가운데 값이 0이에요. 그런데 구간의 아래 끝을 크게 늘려 보면 −0.014로, 허용 폭 −0.010을 0.004만큼 넘었어요. 아슬아슬하게 미충족이에요.',
@@ -508,16 +511,14 @@
     ],
     html:
       '<h1 class="t-h1">규칙 B: C-PR이 송금 층만 걷기를 [[개선]]할까?</h1>' +
-      '<p class="abs s9-fx" style="left:96px;top:160px;width:1728px">세 줄 모두 $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ · F1 우월성: 95% 구간 &gt; 0 · F2·F3 비열등성: 아래 끝 &gt; $-\\delta$, $\\delta=0.01$ · 셋 다 맞아야 해요</p>' +
+      '<p class="abs s9-fx" style="left:96px;top:160px;width:1728px">세 줄 모두 $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ · 우월성 = 0보다 확실히 위 · 비열등성 = 뒤지더라도 $\\delta=0.01$ 안쪽 · 셋 다 맞아야 해요</p>' +
+      '<p class="abs s9-cap" id="cap3" data-in="none" style="left:96px;top:198px"><i></i>색 막대 = 수정 분석(재분석) · 규칙과 허용 폭은 등록 그대로</p>' +
       B3.rows.map(function (r, k) { return '<div class="s9-fl" data-r="' + k + '" data-in="none" style="top:' + (r.y - 34) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
       '<svg class="abs" id="ax3" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
       '<div class="s9-inset" id="ins" data-in="none"><div class="hd">F3 아래 끝 · 10배 확대</div><svg id="inssv" width="644" height="200" viewBox="0 0 644 200"></svg></div>' +
       '<div class="abs s9-verd" id="verd" data-in="none" style="left:96px;top:676px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span></div>' +
-      '<div class="abs s9-tiny" id="sm" data-in="none" style="left:96px;top:770px;width:1060px">' +
-        '<div>허용 폭 0.01 = 등록 분석 W0의 같은 비교 구간 반폭(<b>0.0040</b>)을 두 자리로 올린 값</div>' +
-        '<div>AWP와 비교하면(민감도 분석) F2 <b>−0.067 [−0.072, −0.061]</b> · 미충족</div>' +
-        '<div>F3: 두 점수 모두 <b>0.350 [0.236, 0.461]</b></div>' +
-        '<div style="margin-top:6px">' + pill('registered-analysis') + '등록 분석에서도 미충족: F1 <b>+0.101</b> · F2 <b>−0.025</b> · F3 <b>−0.044</b> (회색 빈 점)</div></div>',
+      '<div class="abs s9-tiny" id="sm" data-in="none" style="left:96px;top:776px;width:1060px">' +
+        '<div>' + pill('registered-analysis') + '등록 분석에서도 미충족: F1 <b>+0.101</b> · F2 <b>−0.025</b> · F3 <b>−0.044</b> (회색 빈 점)</div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax3'), X = lin(B3.d[0], B3.d[1], B3.x0, B3.x1);
@@ -558,9 +559,9 @@
       g.zlab = txt(ins, Z(-0.014), 128, '아래 끝 −0.014', { 'text-anchor': 'middle', fill: C.cpr, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' });
       g.zv = txt(ins, 604, 54, '아슬아슬하게 미충족', { 'text-anchor': 'end', fill: C.hi, 'font-size': 20, 'font-weight': 800 });
       gsap.set([g.zgapL, g.zgapT, g.zv], { autoAlpha: 0 });
-      g.ins = q(el, '#ins'); g.verd = q(el, '#verd'); g.reTag = q(el, '#reTag'); g.sm = q(el, '#sm');
+      g.ins = q(el, '#ins'); g.verd = q(el, '#verd'); g.reTag = q(el, '#reTag'); g.sm = q(el, '#sm'); g.cap = q(el, '#cap3');
       g.stamp = Comp.stamp(ctx, q(el, '#stampHost'), { ok: false, text: '규칙 B 미충족 ✕' });
-      gsap.set([g.ins, g.verd, g.reTag, g.sm], { autoAlpha: 0 });
+      gsap.set([g.ins, g.verd, g.reTag, g.sm, g.cap], { autoAlpha: 0 });
       gsap.set(g.fl, { autoAlpha: 0.35 });
     },
     enter: function (el, ctx) {
@@ -578,7 +579,7 @@
         tl.add(ctx.count(R.est, 0, R.d.est, { decimals: 3, final: estOf(B3.rows[k].v), format: function (v) { return sfmt(v, 3); }, duration: d || 0.8 }), at + 0.1);
         popIn(tl, R.mk, at + (d || 0.8) + 0.1, 0.35);
       }
-      if (i === 1) row(0, 0.05);
+      if (i === 1) { tl.fromTo(g.cap, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: dur(ctx, 0.4), ease: E.out }, 0); row(0, 0.05); }
       if (i === 2) row(1, 0.05);
       if (i === 3) {
         row(2, 0.05, 0.8);
@@ -682,10 +683,9 @@
   /* ================================================================ s09-05 R1–R3 on trader outcomes */
   var P5 = { x0: 1150, x1: 1560, d: [-0.45, 0.4], vX: 1586 };
   var ROW5 = {
-    P: { y: 436, w0y: 474, k: 'P = 받은 허락 수 − 송금 입차수', s: 'W1 · 개수 수준', v: '+0.084 [−0.013, 0.176]', outer: [-0.026, 0.188], vt: '+0.084', vo: '97.5% [−0.026, 0.188]',
-         w0: { est: 0.182, lo: 0.052, hi: 0.314, outer: [0.032, 0.338], t: 'W0 +0.182 [0.032, 0.338]' } },
-    Q: { y: 588, w0y: 626, k: 'Q = 엔도스랭크(활동 재시작) − AWP', s: 'W1 · 페이지랭크 수준', v: '−0.041 [−0.135, 0.050]', outer: [-0.148, 0.064], vt: '−0.041', vo: '97.5% [−0.148, 0.064]',
-         w0: { est: -0.014, lo: -0.147, hi: 0.130, outer: [-0.161, 0.151], t: 'W0 −0.014 [−0.161, 0.151]' } }
+    /* W1 only on screen; W0 (P +0.182, 97.5 % [0.032, 0.338]; Q −0.014, 97.5 % [−0.161, 0.151]) is in the narration */
+    P: { y: 436, k: 'P = 받은 허락 수 − 송금 입차수', s: 'W1 · 개수 수준', v: '+0.084 [−0.013, 0.176]', outer: [-0.026, 0.188], vt: '+0.084', vo: '97.5% [−0.026, 0.188]' },
+    Q: { y: 588, k: 'Q = 엔도스랭크(활동 재시작) − AWP', s: 'W1 · 페이지랭크 수준', v: '−0.041 [−0.135, 0.050]', outer: [-0.148, 0.064], vt: '−0.041', vo: '97.5% [−0.148, 0.064]' }
   };
   var R3ROWS = [
     { y: 744, k: 'P · 이익 낸 닫기 비율', v: '−0.196 [−0.364, −0.046]' },
@@ -698,14 +698,14 @@
       '마지막 규칙은 두 화살표 어디에도 담기지 않은 결과에서의 비교예요. GMX V2에서 거래하는 계약 트레이더가 다음 석 달 동안 어떻게 포지션을 닫았는지 봤어요.',
       'W1의 트레이더는 70개예요. 호박색 고리는 동결일까지 허락을 받은 37개이고, 장미색은 석 달 동안 한 번이라도 청산된 9개예요.',
       '결과는 청산 없이 닫은 비율이에요. 1에서 청산으로 끝난 닫기의 비율을 뺀 값이라서, 많이 거래한다고 저절로 높아지지 않아요.',
-      '허락한 주인 수에서 송금 입차수를 뺀 차이 P는 0.084였지만, 97.5% 구간이 0을 품어요. 그래서 미리 등록한 문장 그대로, 개수 수준에서 허락이 송금보다 앞선다는 증거는 없다는 결론이 나와요.',
-      '페이지랭크끼리의 비교 Q도 −0.041로 구간이 0을 품어서 가려지지 않았어요.',
+      '허락한 주인 수에서 송금 입차수를 뺀 차이 P는 W1에서 0.084였지만, 97.5% 구간이 0을 품어요. 규칙에는 W0에서 P가 0보다 클 것도 들어 있었고, W0의 P는 0.182로 그 조건은 맞았어요. 하지만 W1 조건이 맞지 않아서, 미리 등록한 문장 그대로, 개수 수준에서 허락이 송금보다 앞선다는 증거는 없다는 결론이 나와요.',
+      '페이지랭크끼리의 비교 Q도 W1에서 −0.041로 구간이 0을 품어서 가려지지 않았어요. W0에서도 Q는 −0.014였어요.',
       'R3은 해당해요. 이익을 낸 비율이나 손실이 아닌 비율에서는 허락 쪽이 오히려 낮았어요. 그러니 신호가 있다면 그것은 강제 청산을 피하는 것에 관한 것이지 거래 실력이 아니에요.',
-      '허락을 받은 트레이더가 두 기간 모두 한 번도 청산되지 않은 것은 눈에 띄지만, 표본이 70개와 88개뿐이고 송금 쪽 수도 이 결과를 0.310으로 꽤 맞혀서, 여기서 더 말할 수는 없어요. 이 판정들도 재분석이고, 처음 등록한 분석에서도 같았어요.'
+      '허락을 받은 트레이더는 W1에서 37개 모두, W0에서도 40개 모두 한 번도 청산되지 않았어요. 나머지 트레이더는 72.7%와 75.0%만 청산이 없었어요. 눈에 띄지만, 표본이 70개와 88개뿐이고 송금 입차수도 이 결과를 0.310으로 꽤 맞혀서, 여기서 더 말할 수는 없어요. 이 판정들도 재분석이고, 처음 등록한 분석에서도 같았어요.'
     ],
     html:
       '<h1 class="t-h1">청산에서는 허락 쪽이 [[앞선다는 증거가 없어요]]</h1>' +
-      '<p class="abs s9-line" id="wcap" data-in="none" style="left:96px;top:192px;width:620px">GMX V2에서 거래하는 계약 트레이더 · W1 <b>70</b>개 (W0 <b>88</b>개)</p>' +
+      '<p class="abs s9-line" id="wcap" data-in="none" style="left:96px;top:192px;width:620px">GMX V2에서 거래하는 계약 트레이더 · W1 <b>70</b>개</p>' +
       '<svg class="abs" id="wf5" data-in="none" width="620" height="400" viewBox="0 0 620 400" style="left:96px;top:240px;overflow:visible"></svg>' +
       '<div class="abs s9-wl" id="wleg" data-in="none" style="left:96px;top:640px;width:640px">' +
         '<div><i style="background:#E9EDF5;box-shadow:0 0 0 3px #F5B43C"></i>허락을 받은 트레이더 <b class="ink">37</b> · 모두 청산 없음</div>' +
@@ -715,7 +715,7 @@
       '<div class="abs s9-rule" id="r1t" data-in="none" style="left:760px;top:494px"><span class="s9-v no">R1 미충족</span> <span class="typed" id="r1s"></span></div>' +
       '<div class="abs s9-rule" id="r2t" data-in="none" style="left:760px;top:646px"><span class="s9-v no">R2 미충족</span> <span class="typed" id="r2s"></span></div>' +
       '<div class="abs s9-rule" id="r3t" data-in="none" style="left:760px;top:868px"><span class="s9-v">R3 해당</span> <span class="typed" id="r3s"></span></div>' +
-      '<div class="abs s9-tiny" id="sm5" data-in="none" style="left:96px;top:742px;width:620px">허락을 받은 트레이더는 <b>37개 중 37개</b>(W1), <b>40개 중 40개</b>(W0)가 청산 없음 — 나머지는 <b>72.7%</b>, <b>75.0%</b>. 하지만 표본이 작고, 송금 입차수도 이 결과를 <b>0.310 [0.184, 0.425]</b>로 맞혀요.<div style="margin-top:8px">' + pill('registered-analysis') + '등록 분석에서도 같은 판정이에요</div></div>',
+      '<div class="abs s9-tiny" id="sm5" data-in="none" style="left:96px;top:742px;width:620px">허락을 받은 트레이더 37개가 모두 청산되지 않은 것은 눈에 띄지만, 표본이 작고 송금 입차수도 이 결과를 <b>0.310</b>으로 맞혀요 — 여기서 더 말할 수 없어요<div style="margin-top:8px">' + pill('registered-analysis') + '등록 분석에서도 같은 판정이에요</div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       /* 70 W1 traders from DECK_DATA.traders (37 recipients, 9 liquidated); fall back to the digest counts */
@@ -748,13 +748,11 @@
         txt(gl, 760, R.y - 2, R.k, { fill: C.ink, 'font-size': 23, 'font-weight': 700 });
         txt(gl, 760, R.y + 24, R.s, { fill: C.ink3, 'font-size': 17 });
         var B = ivBar(ax, { scale: X, y: R.y, est: d.est, lo: d.lo, hi: d.hi, outer: R.outer, color: C.ink, width: 7, r: 12 });
-        var W = ivBar(ax, { scale: X, y: R.w0y, est: R.w0.est, lo: R.w0.lo, hi: R.w0.hi, outer: R.w0.outer, color: C.ink2, width: 3, r: 6, opacity: 0.8 });
         var vt = svgEl('text', { x: P5.vX, y: R.y + 2, 'font-size': 24, 'class': 'tnum' }, ax);
         var e1 = svgEl('tspan', { fill: C.ink, 'font-weight': 800 }, vt); e1.textContent = R.vt;
         var vt2 = txt(ax, P5.vX, R.y + 26, R.vo, { fill: C.ink3, 'font-size': 17, 'class': 'tnum' });
-        var w0t = txt(ax, P5.vX, R.w0y + 6, R.w0.t, { fill: C.ink3, 'font-size': 16, 'class': 'tnum' });
-        gsap.set([gl, vt, vt2, w0t], { autoAlpha: 0 });
-        g.rows[k] = { gl: gl, B: B, W: W, vt: vt, vt2: vt2, w0t: w0t, est: e1, d: d };
+        gsap.set([gl, vt, vt2], { autoAlpha: 0 });
+        g.rows[k] = { gl: gl, B: B, vt: vt, vt2: vt2, est: e1, d: d };
       });
       g.r3 = R3ROWS.map(function (r) {
         var d = iv(r.v), gl = svgEl('g', {}, ax);
@@ -798,8 +796,6 @@
         tl.add(R.B.grow(ctx, { duration: 0.8 }), 0.3);
         tl.set([R.vt, R.vt2], { autoAlpha: 1 }, 0.35);
         tl.add(ctx.count(R.est, 0, R.d.est, { decimals: 3, final: ROW5.P.vt, format: function (v) { return sfmt(v, 3); }, duration: 0.8 }), 0.35);
-        tl.add(R.W.grow(ctx, { duration: 0.6 }), 1.0);
-        tl.set(R.w0t, { autoAlpha: 1 }, 1.2);
         tl.set(g.r1t, { autoAlpha: 1 }, 1.5);
         tl.fromTo(q(g.r1t, '.s9-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 1.5);
         tl.add(typeIn(ctx, g.r1s, '‘개수 수준에서 허락이 송금보다 앞선다는 증거는 없어요’'), 1.8);
@@ -810,8 +806,6 @@
         tl.add(Rq.B.grow(ctx, { duration: 0.8 }), 0.1);
         tl.set([Rq.vt, Rq.vt2], { autoAlpha: 1 }, 0.15);
         tl.add(ctx.count(Rq.est, 0, Rq.d.est, { decimals: 3, final: ROW5.Q.vt, format: function (v) { return sfmt(v, 3); }, duration: 0.8 }), 0.15);
-        tl.add(Rq.W.grow(ctx, { duration: 0.6 }), 0.8);
-        tl.set(Rq.w0t, { autoAlpha: 1 }, 1.0);
         tl.set(g.r2t, { autoAlpha: 1 }, 1.3);
         tl.fromTo(q(g.r2t, '.s9-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 1.3);
         tl.add(typeIn(ctx, g.r2s, '‘페이지랭크끼리는 가려지지 않아요’'), 1.6);

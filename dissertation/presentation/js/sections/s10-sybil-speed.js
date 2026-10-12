@@ -9,14 +9,20 @@
                               derivation of r_t = c(1 + d f)/(1 − d²); a log bar compares f = 10
                               with the cohort's median, 90th percentile and top
    s10-03  꼭대기까지         3D tower of the 15,107 matched-cohort contracts on a log EndorseRank
-                              axis (real data); the target climbs while the farm grows
-                              0 → 22 → 2,074 → ≈135,895 points (one point per fake address)
+                              axis (real data); the target climbs: one partner (the pair, 2 approvals)
+                              → 22 → 2,074 → ≈135,895 fake addresses (one pink point per 5 addresses,
+                              27,179 points at the top, so the scene stays light)
    s10-04  속도와 |E|         small world: one iteration = one multiplication per edge; edge piles;
-                              a 4× race 10.29 s vs 22.37 s; 2.17 ≈ 2.23; C-PR and S-PR; stage chart
+                              a 4× race 10.29 s vs 22.37 s; 2.17 ≈ 2.23; C-PR and S-PR; then, as its
+                              own last step with the rest dimmed, the small-sample stage chart
 
    Numbers and sources (R = revised digest = the thesis's main analysis)
-     |V| 6,219,063, |E| 11,210,114 (EndorseRank graph at T_obs)      R§8 graph.nodes / graph.edges
-     r_D 0.3824 → 0.382; farm factor 2.0648 / 3.1671 / 8.6819 at d = 0.75 / 0.85 / 0.95
+     |V| 6,219,063, |E| 11,210,114 (EndorseRank solver graph at T_obs) R§8 graph.nodes / graph.edges
+     6,221,665 / 7,884,602 (graphs as counted in s03)                 R§1 graph.allowance/transfer.nodes
+     2,602 = 6,221,665 − 6,219,063 and 2,246 = 7,884,602 − 7,882,356: addresses touched only by
+       pairs whose value weight is zero (left out of the solver graphs)  calc; thesis Ch. 4 §dataset
+     r_dang (the thesis's r_D: the total share of all dangling nodes) 0.3824 → 0.382;
+       farm factor 2.0648 / 3.1671 / 8.6819 at d = 0.75 / 0.85 / 0.95
                                                                        R§8 damping.*.farm_factor
      ring of 20: 3.1671                                                R§8 ring20 collects times share
      c = 7.639e-8                                                      R§8 b common
@@ -25,7 +31,10 @@
      cohort quantiles p50 1.881e-7, p90 5.278e-6, p99 4.855e-4, top 0.0318 and farm sizes
        0 / 21.38 (→ 22) / 2,073.9 (→ 2,074) / 135,894.8 (→ about 135,895)
                                                                        R§8 farm size to reach cohort quantile
-     2f approvals per window 0 / 44 / 4,148 / 271,790; pair score c/(1−d) = 5.09e-7;
+     median: the formula gives f ≤ 0 ("no farm"), but the target still needs one partner that it
+       approves and that approves it (thesis Ch. 5: "two addresses that approve each other already
+       score c/(1−d)") → shown as 1 fake address and 2 approvals; f = 1 in the star formula
+     2f approvals per window 2 (the pair) / 44 / 4,148 / 271,790; pair score c/(1−d) = 5.09e-7;
        box heights r_t(f); 1 − d² = 0.2775; 0.0318 / c > 400,000      calc (DECK_DATA.sybil.revised)
      tower points: log10 EndorseRank of the 15,107 contracts           D: cohort_scores.part000.parquet
      benchmark: EndorseRank 10.294 s (SD 0.601), 879.7 MB, 69 it., |V| 6,219,063, |E| 11,210,114;
@@ -95,6 +104,9 @@
       ceil: pick(KP, [k, 'farm_addresses_ceil'], dflt[2]), appr: pick(KP, [k, 'approvals_per_window'], dflt[3]) };
   });
   var PAIR = SYR.pair_score || CC / (1 - DAMP);
+  /* graph sizes as s03 counts them (R§1); the solver graphs leave out the zero-value-weight addresses */
+  var G_ALLOW_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'allowance', 'nodes'], 6221665);
+  var G_XFER_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'transfer', 'nodes'], 7884602);
   /* display strings, written as in the digest / thesis (checked against the data below) */
   var S = {
     rD: '0.382', ff: { '0.75': '2.06', '0.85': '3.17', '0.95': '8.68' }, ring20: '3.17',
@@ -168,7 +180,7 @@
     '.s10-sum{font-size:24px;line-height:34px;color:var(--ink)}',
     '.s10-sum .r{color:var(--c-hi);font-weight:700}',
     /* s10-03 */
-    '.s10-3d{position:absolute;overflow:hidden}',
+    '.s10-3d{position:absolute;overflow:hidden;-webkit-mask-image:linear-gradient(#000 88%,transparent);mask-image:linear-gradient(#000 88%,transparent)}',
     '.s10-cnt .k{font-size:24px;line-height:32px;color:var(--ink-2)}',
     '.s10-cnt .v{font-size:112px;line-height:118px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}',
     '.s10-cnt .v .u{font-size:44px;font-weight:700;margin-left:10px;color:var(--ink-2)}',
@@ -213,6 +225,8 @@
     '.s10-mul{position:absolute;padding:1px 9px;border-radius:10px;background:var(--bg-3);border:1px solid var(--c-allow);color:var(--ink);',
     '  font-size:17px;line-height:24px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;pointer-events:none}',
     '.s10-swc{font-size:22px;line-height:30px;color:var(--ink-2);white-space:nowrap}',
+    '.s10-cn{display:inline-block;min-width:21px;height:21px;padding:0 3px;border-radius:11px;border:1.5px solid currentColor;text-align:center;line-height:18px;',
+    '  font-size:14px;font-weight:700;font-family:var(--font-mono);letter-spacing:0;vertical-align:1px;margin-left:3px}',
     '.s10-swc b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}',
     '.s10-ct{font-size:20px;line-height:26px;color:var(--ink);font-weight:600}',
     '.s10-ct small{display:block;font-size:18px;line-height:24px;color:var(--ink-2);font-weight:500}'
@@ -235,6 +249,8 @@
   var F1 = { x: 96, y: 262 };                                  /* figure svg origin (stage px) */
   var RING = { cx: 380, cy: 318, r: 200, dot: 15, wall: 250 }; /* svg px */
   var TANK = { x: 862, y: 132, w: 60, h: 392, max: 9 };        /* svg px */
+  var OUTA = [-42, -24, -6];                                   /* the teleport outflow: three arrows (deg) */
+  var OUTL = { x: 704, y: 196 };                               /* … and their label (svg px), clear of the gauge */
   function tankY(v) { return TANK.y + TANK.h - Math.max(0, Math.min(TANK.max, v)) / TANK.max * TANK.h; }
 
   var slide1 = {
@@ -242,13 +258,13 @@
     className: 's10',
     tags: ['calc'],
     notes: [
-      '이제 이 점수를 속이는 데 얼마가 드는지 볼게요. 가짜 주소를 많이 만들어 평판을 부풀리는 것을 시빌 공격이라고 해요. 허락은 그 토큰을 하나도 갖고 있지 않아도 할 수 있어서, 드는 돈은 거의 수수료뿐이에요. 4장에서 본 \'서로만 가리키는 두 점\'의 함정이 바로 이 농장의 씨앗이에요. 가짜 주소 20개가 다음 주소를 하나씩 허락해서 고리를 만들었어요.',
-      '농장 위로 비가 내려요. 모든 점은 매번 다시 출발 몫과, 매달린 점에서 고르게 나눠 주는 몫을 똑같이 받아요. 농장에 들어온 몫은 화살표를 따라 고리를 돌기만 하고, 밖으로 나가는 화살표가 없어서 새지 않아요. 이것을 닫힌 농장이라고 불러요.',
-      '식으로 따라가 볼게요. 점 하나가 매번 똑같이 받는 몫을 c라고 해요. 다시 출발 몫 1 빼기 d와, 매달린 점들이 가진 몫 r_D에 d를 곱한 것을 더해서 점의 개수 |V|로 나눈 값이에요. 비 한 방울이라고 생각하면 돼요.',
-      '농장 전체가 가진 몫을 M이라고 해요. 한 번 돌 때 농장에 들어오는 것은 두 가지예요. 주소마다 내리는 비, 곧 |S| 곱하기 c, 그리고 화살표를 따라 고리 안에 남은 d 곱하기 M이에요. 화살표로 밖에 나가는 몫은 없어요.',
-      '값이 멈춘 상태에서는 가진 만큼이 곧 들어오는 만큼이에요. 그래서 M은 d M 더하기 |S| c와 같고, 양쪽에서 d M을 빼면 1 빼기 d 곱하기 M이 |S| c가 돼요.',
+      '이제 이 점수를 속이는 데 얼마가 드는지 볼게요. 가짜 주소를 많이 만들어 평판을 부풀리는 것을 시빌 공격이라고 해요. 허락은 그 토큰을 하나도 갖고 있지 않아도 할 수 있어서, 드는 돈은 거의 수수료뿐이에요. 앞의 04, 페이지랭크 유도에서 본 \'서로만 가리키는 두 점\'의 함정이 바로 이 농장의 씨앗이에요. 가짜 주소 20개가 다음 주소를 하나씩 허락해서 고리를 만들었어요.',
+      '농장 위로 비가 내려요. 모든 점은 매번 다시 출발 몫과, 매달린 점에서 고르게 나눠 주는 몫을 똑같이 받아요. 농장에 들어온 몫은 화살표를 따라 고리를 돌기만 하고, 밖으로 나가는 화살표가 없어서 화살표로는 새지 않아요. 이것을 닫힌 농장이라고 불러요.',
+      '식으로 따라가 볼게요. 점 하나가 매번 똑같이 받는 몫을 c라고 해요. 다시 출발 몫 1 빼기 d에, 매달린 점들이 가진 몫을 모두 더한 값 r_dang을 d만큼 곱해 더하고, 점의 개수 |V|로 나눈 값이에요. r_dang은 04의 셋째 조각에서 매달린 점들에게서 모아 다시 나눠 준 물이에요. 그 작은 세계에서는 매달린 점이 D 하나뿐이라 r_D와 같았지만, 실제 그래프에는 매달린 점이 아주 많아서 그 몫을 모두 더해요. 비 한 방울이라고 생각하면 돼요.',
+      '농장 전체가 가진 몫을 M이라고 해요. 한 번 돌 때 농장에 들어오는 것은 두 가지예요. 주소마다 내리는 비, 곧 |S| 곱하기 c, 그리고 화살표를 따라 고리 안에 남은 d 곱하기 M이에요. 화살표로 밖에 나가는 몫은 없어요. 그러면 나머지 1 빼기 d 곱하기 M은 어디로 갈까요? 걷는 사람이 순간 이동하는 몫이라서, 그래프의 모든 점으로 고르게 흩어져요. 농장에서 나가는 길은 이 순간 이동 하나뿐이에요. 농장으로 되돌아오는 몫은 비에 이미 들어 있어요.',
+      '값이 멈춘 상태에서는 나가는 만큼 들어와요. 순간 이동으로 나가는 1 빼기 d 곱하기 M이, 새로 내리는 비 |S| 곱하기 c와 같아요. 식으로 쓰면 M은 d M 더하기 |S| c이고, 양쪽에서 d M을 빼면 1 빼기 d 곱하기 M이 |S| c가 돼요.',
       '양쪽을 1 빼기 d로 나누고 c를 풀어 쓰면 논문 5장의 식이 나와요. 앞의 분수 |S| 나누기 |V|는 농장의 인구 비율, 곧 공평하게 나누면 받을 몫이고, 뒤의 분수는 농장이 그 몇 배를 모으는지예요. 매달린 점이 없으면 뒤의 분수는 1이에요.',
-      '실제 허락 그래프에서 매달린 점들이 가진 몫 r_D는 0.382예요. 넣어 보면 0.15 더하기 0.85 곱하기 0.382를 0.15로 나눠서 3.17배가 나와요. d가 0.75면 2.06배, 0.95면 8.68배예요. 아래 단추를 누르면 계기가 바뀌어요. 주소 20개짜리 고리를 실제 그래프에 넣고 같은 코드로 계산해도 3.17배였어요. 모두 수정 분석의 그래프에서 계산한 값이에요.'
+      '실제 허락 그래프에서 매달린 점들이 가진 몫을 모두 더한 r_dang은 0.382예요. 넣어 보면 0.15 더하기 0.85 곱하기 0.382를 0.15로 나눠서 3.17배가 나와요. d가 0.75면 2.06배, 0.95면 8.68배예요. 아래 단추를 누르면 계기가 바뀌어요. 주소 20개짜리 고리를 실제 그래프에 넣고 같은 코드로 계산해도 3.17배였어요. 모두 수정 분석의 그래프에서 계산한 값이에요. 이 계산에 쓴 풀이 그래프의 점은 6,219,063개로, 03에서 본 허락 그래프의 6,221,665개보다 2,602개 적어요. 금액이 아주 작아서 금액 무게가 0이 되는 쌍만 가진 주소는 풀이 그래프에서 빼기 때문이에요.'
     ],
     html: function () {
       var chips = ['0.75', '0.85', '0.95'].map(function (k) {
@@ -258,13 +274,15 @@
         '<div class="s10-lead"><p><b>시빌 공격</b>: 가짜 주소를 많이 만들어 평판을 부풀리기</p>' +
         '<p>허락은 잔고가 없어도 할 수 있어요 → 드는 돈은 거의 <b>가스(수수료)</b>뿐</p></div>' +
         '<svg class="abs" id="fig" data-in="none" width="1000" height="600" viewBox="0 0 1000 600" style="left:' + F1.x + 'px;top:' + F1.y + 'px;overflow:visible"></svg>' +
-        '<div class="s10-lbl" id="pairlbl" data-in="none" style="left:' + (F1.x + RING.cx - 230) + 'px;top:' + (F1.y + RING.cy + 64) + 'px;width:460px;text-align:center">4장의 함정: 서로만 가리키는 두 점</div>' +
+        '<div class="s10-lbl" id="pairlbl" data-in="none" style="left:' + (F1.x + RING.cx - 290) + 'px;top:' + (F1.y + RING.cy + 64) + 'px;width:580px;text-align:center">04(페이지랭크 유도)에서 본 함정: 서로만 가리키는 두 점</div>' +
+        '<div class="s10-lbl" id="outlbl" data-in="none" style="left:' + (F1.x + OUTL.x) + 'px;top:' + (F1.y + OUTL.y) + 'px;color:#BFE8FF;white-space:normal;width:124px;padding:2px 10px;border-radius:10px;background:rgba(10,13,20,.82)">$(1-d)\\,M$<br>순간 이동</div>' +
         '<div class="s10-lbl" id="walllbl" data-in="none" style="left:' + (F1.x + RING.cx - RING.wall + 10) + 'px;top:' + (F1.y + RING.cy - RING.wall - 36) + 'px">닫힌 농장 $\\mathcal S$ · 밖으로 나가는 화살표 <b class="ink">0개</b></div>' +
         '<div class="s10-gh" id="gh" data-in="none" style="left:' + (F1.x + TANK.x + TANK.w / 2 - 120) + 'px;top:' + (F1.y + 40) + 'px">인구 비율의 몇 배?</div>' +
         '<div class="s10-gv" id="gv" data-in="none" style="left:' + (F1.x + TANK.x + TANK.w / 2 - 120) + 'px;top:' + (F1.y + 70) + 'px">?</div>' +
-        '<p class="abs s10-cap" id="cap" data-in="none" style="left:96px;top:834px;width:1000px"><b>닫힌 농장</b>: 다시 출발 몫과 매달린 점 몫이 계속 들어오고, 나가지 않아요</p>' +
+        '<p class="abs s10-cap" id="cap" data-in="none" style="left:96px;top:834px;width:1000px"><b>닫힌 농장</b>: 다시 출발 몫과 매달린 점 몫이 계속 들어오고, 화살표로는 나가지 않아요</p>' +
         '<div class="abs s10-chips" id="chips" data-in="none" style="left:96px;top:880px">' + chips + '</div>' +
-        '<p class="abs s10-foot" id="foot" data-in="none" style="left:96px;top:938px;width:1000px">실제 그래프에 주소 20개짜리 고리를 넣어 확인해도 <b>' + S.ring20 + '배</b><br>수정 분석의 엔도스랭크 그래프 · 점 ' + S.nodes + '개 · 화살표 ' + S.edges + '개</p>' +
+        '<p class="abs s10-foot" id="foot" data-in="none" style="left:96px;top:938px;width:1000px">실제 그래프에 주소 20개짜리 고리를 넣어 확인해도 <b>' + S.ring20 + '배</b><br>수정 분석의 엔도스랭크 풀이 그래프 · 점 ' + S.nodes + '개 · 화살표 ' + S.edges + '개</p>' +
+        '<p class="abs s10-foot" id="vnote" data-in="none" style="left:1124px;top:902px;width:700px">점 ' + S.nodes + '개: 03의 허락 그래프(' + fmt(G_ALLOW_V, 0) + '개)에서 금액 무게가 0인 아주 작은 금액만 가진 주소 <b>' + fmt(G_ALLOW_V - NODES, 0) + '개</b>를 뺀 풀이 그래프예요</p>' +
         '<div class="abs s10-d" id="dv" style="left:1124px;top:168px;width:700px"></div>';
     },
     build: function (el, ctx) {
@@ -335,6 +353,15 @@
       });
       g.pairLbl = q(el, '#pairlbl');
       gsap.set(g.pairLbl, { autoAlpha: 0 });
+      /* the only way out: (1 − d) M leaves by teleport (dashed, the colour of the rain it becomes) */
+      var outL = svgEl('g', {}, svg);
+      g.out = OUTA.map(function (deg) {
+        var a = deg * Math.PI / 180, r0 = RING.r + RING.dot + 6, r1 = RING.wall + 62;
+        return Comp.arrow(ctx, outL, { from: [RING.cx + Math.cos(a) * r0, RING.cy + Math.sin(a) * r0], to: [RING.cx + Math.cos(a) * r1, RING.cy + Math.sin(a) * r1],
+          kind: 'plain', color: '#BFE8FF', dashed: true, width: 2.5, head: 11, hidden: true });
+      });
+      g.outLbl = q(el, '#outlbl');
+      gsap.set(g.outLbl, { autoAlpha: 0 });
       /* rain drops */
       var targets = g.farm.positions.map(function (p) { return [p[0], p[1] - RING.dot]; }).concat(g.bg.map(function (p) { return [p[0], p[1] - 7]; }));
       var dropL = svgEl('g', {}, svg);
@@ -361,8 +388,8 @@
       g.tankSt = { v: 0 };
       g.gh = q(el, '#gh'); g.gv = q(el, '#gv');
       gsap.set([gL, g.gh, g.gv], { autoAlpha: 0 });
-      g.cap = q(el, '#cap'); g.chips = q(el, '#chips'); g.foot = q(el, '#foot'); g.walllbl = q(el, '#walllbl');
-      gsap.set([g.cap, g.chips, g.foot, g.walllbl], { autoAlpha: 0 });
+      g.cap = q(el, '#cap'); g.chips = q(el, '#chips'); g.foot = q(el, '#foot'); g.walllbl = q(el, '#walllbl'); g.vnote = q(el, '#vnote');
+      gsap.set([g.cap, g.chips, g.foot, g.walllbl, g.vnote], { autoAlpha: 0 });
       /* the d buttons */
       Array.prototype.forEach.call(g.chips.querySelectorAll('.s10-chip'), function (b) {
         ctx.on(b, 'click', function (e) {
@@ -374,11 +401,11 @@
       });
       /* derivation */
       g.dv = derivePanel(ctx, q(el, '#dv'), [
-        { tex: 'c=\\dfrac{1-d+d\\,r_D}{|V|}', note: '비 한 방울: 모든 점이 매번 똑같이 받는 몫 (다시 출발 + 매달린 점 몫)' },
-        { tex: '\\text{들어옴}=\\underbrace{|\\mathcal S|\\,c}_{\\text{새 비}}+\\underbrace{d\\,M}_{\\text{고리에 남은 몫}}', note: '$M=\\sum_{i\\in\\mathcal S} r_i$: 농장 전체의 몫 · 화살표로 나가는 몫은 0' },
-        { tex: 'M=d\\,M+|\\mathcal S|\\,c\\;\\Rightarrow\\;(1-d)\\,M=|\\mathcal S|\\,c', note: '멈춘 상태: 가진 만큼 = 들어오는 만큼' },
-        { tex: '\\sum_{i\\in\\mathcal S} r_i=\\part{share}{\\frac{|\\mathcal S|}{|V|}}\\cdot\\part{factor}{\\frac{1-d+d\\,r_D}{1-d}}', note: '인구 비율 × 몇 배 (논문 5장 식 closed-cluster)', mark: 'factor' },
-        { tex: '\\frac{0.15+0.85\\times' + S.rD + '}{0.15}=' + S.ff['0.85'], note: '$d=0.85$, $r_D=' + S.rD + '$ (매달린 점들이 가진 몫)' }
+        { tex: 'c=\\dfrac{1-d+d\\,r_{\\mathrm{dang}}}{|V|}', note: '비 한 방울: 모든 점이 매번 똑같이 받는 몫<br>$r_{\\mathrm{dang}}=\\sum_{\\text{매달린 }u} r_u$: 매달린 점들의 몫의 합 (04의 조각 ③에서 모은 물)' },
+        { tex: '\\text{들어옴}=\\underbrace{|\\mathcal S|\\,c}_{\\text{새 비}}+\\underbrace{d\\,M}_{\\text{고리에 남은 몫}}', note: '$M=\\sum_{i\\in\\mathcal S} r_i$: 농장 전체의 몫 · 화살표로 나가는 몫은 0<br>나머지 $(1-d)\\,M$은 순간 이동으로 밖에 나가요' },
+        { tex: 'M=d\\,M+|\\mathcal S|\\,c\\;\\Rightarrow\\;\\underbrace{(1-d)\\,M}_{\\text{나감}}=\\underbrace{|\\mathcal S|\\,c}_{\\text{들어옴}}', note: '멈춘 상태: 순간 이동으로 나가는 몫 = 새로 내리는 비' },
+        { tex: '\\sum_{i\\in\\mathcal S} r_i=\\part{share}{\\frac{|\\mathcal S|}{|V|}}\\cdot\\part{factor}{\\frac{1-d+d\\,r_{\\mathrm{dang}}}{1-d}}', note: '인구 비율 × 몇 배 · 논문 식 (5.6)', mark: 'factor' },
+        { tex: '\\frac{0.15+0.85\\times' + S.rD + '}{0.15}=' + S.ff['0.85'], note: '$d=0.85$, $r_{\\mathrm{dang}}=' + S.rD + '$ (실제 그래프의 매달린 점들이 가진 몫의 합)' }
       ], '유도 · 닫힌 농장');
     },
     enter: function (el, ctx) {
@@ -428,11 +455,17 @@
         tl.call(function () { ctx.add(function () { startFlow(ctx, g); }); }, null, 2.7);
       }
       if (i >= 2 && i <= 5) tl.add(g.dv.show(i - 1), 0);
+      if (i === 3) {
+        /* (1 − d) M: the only way out of the closed farm is the teleport */
+        g.out.forEach(function (A, k) { tl.add(A.draw({ duration: 0.6 }), 0.5 + k * 0.12); });
+        tl.fromTo(g.outLbl, { autoAlpha: 0, x: -8 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: E.out }, 1.0);
+      }
       if (i === 6) {
         tl.add(g.dv.show(5), 0);
         tl.add(setTank(ctx, g, FF['0.85'], S.ff['0.85'] + '배', 1.6, 1), 0.5);
         tl.fromTo(g.chips, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, 1.6);
         tl.fromTo(g.foot, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 2.0);
+        tl.fromTo(g.vnote, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 2.2);
       }
     }
   };
@@ -594,11 +627,13 @@
   var TW = { lmin: -7.35, lmax: -1.25, H: 10, R: 1.7, ringR: 2.05 };
   function ty(l) { return (l - TW.lmin) / (TW.lmax - TW.lmin) * TW.H; }
   var FARM_N = Q[3].ceil || 135895;
+  var FARM_PER = 5, FARM_PTS = Math.ceil(FARM_N / FARM_PER);   /* one pink point = 5 fake addresses (27,179 points) */
+  function farmPts(f) { return Math.max(0, Math.min(FARM_PTS, Math.ceil(f / FARM_PER - 1e-9))); }
   var CAMS = [
     { theta: 0.62, phi: 1.40, radius: 9.6, target: [0, 1.75, 0] },
     { theta: 0.66, phi: 1.40, radius: 9.6, target: [0, 1.85, 0] },
     { theta: 0.78, phi: 1.38, radius: 10.4, target: [0, 3.0, 0] },
-    { theta: 0.92, phi: 1.36, radius: 12.6, target: [0, 4.9, 0] },
+    { theta: 0.92, phi: 1.36, radius: 15.5, target: [0, 4.3, 0] },
     { theta: 1.08, phi: 1.34, radius: 21.5, target: [0, 5.9, 0] },
     { theta: 1.08, phi: 1.34, radius: 21.5, target: [0, 5.9, 0] }
   ];
@@ -615,10 +650,10 @@
     tags: ['calc'],
     notes: [
       '그러면 이 사다리를 오르는 데 가짜 주소가 몇 개 필요할까요? 왼쪽 탑의 점 하나하나가 매칭 코호트의 계약 하나예요. 높이는 엔도스랭크 점수이고, 로그 눈금이라 한 칸 오를 때마다 점수가 열 배씩 커져요. 대부분의 계약이 바닥 가까이에 몰려 있어요. 가운데 상자가 점수를 올리려는 목표 계약이에요. 처음에는 아무도 허락하지 않은 주소의 점수 c에 있어요.',
-      '중앙값은 아주 싸요. 두 주소가 서로 허락하기만 해도 c 나누기 1 빼기 d, 곧 5.09 곱하기 10의 마이너스 7제곱이 돼서 중앙값을 넘어요. 그래서 식으로 풀면 필요한 가짜 주소는 0개예요.',
+      '중앙값은 아주 싸요. 목표 계약과 가짜 주소 하나, 이렇게 두 주소가 서로 허락하기만 하면 돼요. 그림의 분홍 점선 동그라미가 그 짝이고, 허락은 두 번이에요. 별 모양 식에 f = 1을 넣으면 c 곱하기 1 더하기 d를 1 빼기 d 제곱으로 나눈 값이에요. 1 빼기 d 제곱은 1 빼기 d 곱하기 1 더하기 d라서, 약분하면 c 나누기 1 빼기 d, 곧 5.09 곱하기 10의 마이너스 7제곱이에요. 중앙값보다 높아요. 식을 f에 대해 풀면 f가 0 이하로 나와서, 논문은 농장이 없어도 된다고 써요. 하지만 서로 허락할 짝은 하나 있어야 하니까, 실제로 만드는 가짜 주소는 1개예요.',
       '90번째 백분위는 가짜 주소 22개면 넘어요. 한 기간에 허락 44번이에요.',
       '99번째 백분위는 2,074개예요. 숫자가 빨리 커지기 시작해요.',
-      '꼭대기까지 가려면 13만 개가 넘게, 약 135,895개가 필요해요. 한 기간에 허락이 27만 번이 넘어요. 탑을 덮은 분홍 안개의 점 하나가 가짜 주소 하나예요. 다만 이 계산은 농장이 이만큼 커지면 전체 점 수도 커져서 c가 줄어드는 효과를 빼고 한 거예요.',
+      '꼭대기까지 가려면 13만 개가 넘게, 약 135,895개가 필요해요. 한 기간에 허락이 27만 번이 넘어요. 탑을 덮은 분홍 안개의 점 하나가 가짜 주소 다섯 개예요. 다만 이 계산은 농장이 이만큼 커지면 전체 점 수도 커져서 c가 줄어드는 효과를 빼고 한 거예요.',
       '꼭대기가 이렇게 비싼 까닭은 보증이 몰려 있기 때문이에요. 꼭대기 계약이 그래프 전체 몫의 3% 정도를 가지는데, 이것은 c의 40만 배가 넘어요. 정리하면, 평범해 보이기는 싸고 꼭대기는 비싸요. 그래서 이 연구의 어떤 점수도 혼자서 경고를 띄우거나 보상을 정하는 데 쓰면 안 된다고 결론지었어요. 토큰을 다섯 개로 줄였어도, 공격하는 쪽은 그 토큰을 허락하는 데 돈이 더 들지 않으니 공격 비용은 그대로예요. 오른쪽의 막대를 끌면 f에 따라 상자 높이와 분홍 점의 수가 식대로 바뀌어요.'
     ],
     html: function () {
@@ -626,14 +661,14 @@
         { r: 4, q: '꼭대기', n: '약 ' + fmt(Q[3].ceil, 0) + '개' },
         { r: 3, q: '99번째 백분위', n: fmt(Q[2].ceil, 0) + '개' },
         { r: 2, q: '90번째 백분위', n: fmt(Q[1].ceil, 0) + '개' },
-        { r: 1, q: '중앙값', n: fmt(Q[0].ceil, 0) + '개', d: '서로 허락하는 두 주소면 충분' }
+        { r: 1, q: '중앙값', n: '짝 1개', d: '목표와 짝 1개가 서로 허락 (허락 2번) · 식의 답은 $f\\le 0$, 곧 농장 없이<br>$f=1$: $c(1+d)/(1-d^2)=c/(1-d)=$ ' + sciH(S.pair) }
       ];
       return '<h1 class="t-h1">평범해 보이기는 [[싸고]], 꼭대기는 비싸요</h1>' +
         '<div class="s10-3d" id="tw" data-in="none" style="left:96px;top:196px;width:1084px;height:764px"></div>' +
-        '<p class="abs s10-leg" id="leg" style="left:96px;top:166px;width:1100px"><i style="background:#F5B43C"></i>계약 하나 (매칭 코호트 ' + fmt(pick(DATA, ['contracts', 'meta', 'n'], 15107), 0) + '개) &nbsp; <i style="background:#FF6B8A"></i>가짜 주소 하나 &nbsp; · 높이 = 엔도스랭크 (로그 눈금, 한 칸 위 = 10배)</p>' +
+        '<p class="abs s10-leg" id="leg" style="left:96px;top:166px;width:1100px"><i style="background:#F5B43C"></i>계약 하나 (매칭 코호트 ' + fmt(pick(DATA, ['contracts', 'meta', 'n'], 15107), 0) + '개) &nbsp; <i style="background:#FF6B8A"></i>가짜 주소 ' + FARM_PER + '개 &nbsp; · 높이 = 엔도스랭크 (로그 눈금, 한 칸 위 = 10배)</p>' +
         '<p class="abs s10-foot" id="foot" style="left:110px;top:966px;width:1040px">상자 높이 = 논문 식 $r_t=c\\,(1+d f)/(1-d^2)$ · 농장이 커지면 $|V|$도 커져 $c$가 줄어드는 효과는 빼고 계산</p>' +
         '<div class="abs s10-cnt" id="cnt" style="left:1196px;top:176px;width:640px">' +
-          '<div class="k">필요한 가짜 주소 <span class="ink-3">(식으로 푼 f)</span></div>' +
+          '<div class="k">필요한 가짜 주소 <span class="ink-3">(식으로 푼 f를 올림 · 중앙값은 짝 1개)</span></div>' +
           '<div class="v"><span class="pre" id="pre" style="display:none">약</span><span id="fN">0</span><span class="u">개</span></div>' +
           '<div class="s">기간마다 허락 <b id="aN">0</b>번 <span class="ink-3">(주소마다 2번)</span></div></div>' +
         '<div class="abs s10-rungs" id="rungs" style="left:1196px;top:440px;width:628px">' + rungs.map(function (r) {
@@ -658,6 +693,24 @@
       g.f = 1; g.st = { f: 0 };
       if (T.failed) return;
       var THREE = T.THREE;
+      /* the heaviest scene of the deck: at most one backing pixel per stage pixel … */
+      function capPR() {
+        if (T.disposed) return;
+        var pr = Math.min(1, Deck.pixelRatio());
+        if (T.renderer.getPixelRatio() !== pr) { T.renderer.setPixelRatio(pr); T.renderer.setSize(T.width, T.height, false); }
+      }
+      var resize0 = T._resize;
+      T._resize = function () { resize0(); capPR(); T.render(); };
+      capPR();
+      /* … and once this instance is leaving (next slide, or a step back), stop drawing it every frame:
+         the last frame stays on the canvas while the exit fades it out */
+      var tick0 = T._tick, frozen = false;
+      T._tick = function (dt) {
+        if (frozen) return;
+        var cur = Deck._cur && Deck._cur();
+        if (cur && cur.ctx !== ctx) { frozen = true; T.frameFns.length = 0; return; }
+        tick0(dt);
+      };
       /* cohort points: real log10 EndorseRank of the 15,107 contracts (zero scores on the floor) */
       var cd = Comp.data.contracts();
       var L = cd && cd.log10.endorserank, n = L ? L.length : 0;
@@ -693,16 +746,16 @@
         var lab = T.label('<span class="s10-rl">' + d.html + '</span>', [TW.ringR + 0.2, y, 0], { anchor: 'left', dx: 10 });
         g.rings.push({ y: y, line: ln, lab: lab });
       });
-      /* the farm: one point per fake address, filling a growing ball around the target */
-      var N = FARM_N, fp = new Float32Array(N * 3), fc = new Float32Array(N * 3), rose = Comp.rgb(C.hi), r2 = ctx.rng(77);
-      var r0 = 0.34, rm = 3.5;
+      /* the farm: one point per FARM_PER fake addresses, filling a growing ball around the target */
+      var N = FARM_PTS, fp = new Float32Array(N * 3), fc = new Float32Array(N * 3), rose = Comp.rgb(C.hi), r2 = ctx.rng(77);
+      var r0 = 0.5, rm = 3.5;     /* r0: the first points sit just outside the target box */
       for (var j = 0; j < N; j++) {
         var u = r2() * 2 - 1, ph = r2() * Math.PI * 2, s = Math.sqrt(1 - u * u);
         var rad = (r0 + (rm - r0) * Math.pow((j + 1) / N, 1 / 3)) * (0.86 + 0.28 * r2());
         fp[j * 3] = s * Math.cos(ph) * rad; fp[j * 3 + 1] = u * rad * 0.55; fp[j * 3 + 2] = s * Math.sin(ph) * rad;
         fc[j * 3] = rose[0]; fc[j * 3 + 1] = rose[1]; fc[j * 3 + 2] = rose[2];
       }
-      g.farm = Comp.cloud(ctx, T, { positions: fp, colors: fc, size: 2.4, opacity: 0.5 });
+      g.farm = Comp.cloud(ctx, T, { positions: fp, colors: fc, size: 5.5, opacity: 0.85 });   /* few points: large; smaller as the farm grows */
       g.farmG = new THREE.Group();
       g.farmG.add(g.farm.points);
       T.scene.add(g.farmG);
@@ -748,7 +801,8 @@
         tl.fromTo(g.pairTxt.el.firstChild, { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.4 }, 1.2);
         tl.add(moveBox(g, ty(lg(PAIR)), 0.9), 0.5);
         tl.call(function () { lightRing(g, 1); lightRung(g, 1); }, null, 1.0);
-        tl.call(function () { g.fN.textContent = '0'; g.aN.textContent = '0'; }, null, 0.6);
+        /* count what is drawn: one partner, two approvals (the formula's f is ≤ 0: "no farm") */
+        tl.call(function () { g.fN.textContent = '1'; g.aN.textContent = '2'; }, null, 0.6);
       }
       if (i >= 2 && i <= 4) {
         var tgt = Q[i - 1].ceil, f0 = i === 2 ? 1 : Q[i - 2].ceil;
@@ -763,7 +817,8 @@
           if (i === 4) g.pre.style.display = '';
         } }, 0.3);
         tl.call(function () { lightRing(g, i); lightRung(g, i); }, null, 0.3 + dd);
-        if (i === 4) tl.to(g.farm.material, { opacity: 0.42, size: 2.0, duration: 1.0 }, 0.3 + dd * 0.6);
+        if (i === 3) tl.to(g.farm.material, { size: 4, duration: 1.0 }, 0.3 + dd * 0.5);
+        if (i === 4) tl.to(g.farm.material, { opacity: 0.5, size: 2.2, duration: 1.0 }, 0.3 + dd * 0.6);
       }
       if (i === 5) {
         tl.fromTo(g.con.children, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.25, ease: E.out }, 0.2);
@@ -778,7 +833,7 @@
     g.boxY = ty(lg(r));
     if (g.box) g.box.pos.y = g.boxY;
     if (g.farmG) g.farmG.position.y = g.boxY;
-    if (g.farm && g.farm.geometry) g.farm.geometry.setDrawRange(0, Math.max(0, Math.min(FARM_N, Math.round(f))));
+    if (g.farm && g.farm.geometry) g.farm.geometry.setDrawRange(0, farmPts(f));
     if (fromUser) {
       for (var k = 1; k <= 4; k++) {
         lightRing(g, k, r >= Q[k - 1].score);
@@ -808,14 +863,15 @@
   var SWX = 1206, SWY = 180, SWS = 0.5;
 
   var slide4 = {
-    id: 's10-04', title: '속도는 화살표 수에서 와요 (RQ3)', time: 45, steps: 4,
+    id: 's10-04', title: '속도는 화살표 수에서 와요 (RQ3)', time: 45, steps: 5,
     className: 's10',
     notes: [
-      '계산 속도도 봤어요. 4장에서 말씀드린 것처럼, 페이지랭크를 한 번 되풀이할 때는 화살표 하나마다 곱하기를 한 번 해요. 이 작은 세계라면 화살표가 네 개니까 곱하기 네 번이에요.',
-      '그러면 두 그래프의 화살표 수부터 볼게요. 같은 계약을 두고 허락 그래프에는 화살표가 11,210,114개, 송금 그래프에는 25,001,216개 있어요. 송금 쪽이 2.23배 많아요. 행렬을 만드는 일도 화살표마다 한 번씩이라, 일의 양은 화살표 수에 비례해요.',
+      '계산 속도도 봤어요. 앞의 04에서 말씀드린 것처럼, 페이지랭크를 한 번 되풀이할 때는 화살표 하나마다 곱하기를 한 번 해요. 이 작은 세계라면 화살표가 네 개니까 곱셈 1번부터 4번까지, 네 번이에요. 동그라미 숫자는 곱셈의 차례이고, 화살표의 무게가 아니에요.',
+      '그러면 두 그래프의 화살표 수부터 볼게요. 같은 계약을 두고 허락 그래프에는 화살표가 11,210,114개, 송금 그래프에는 25,001,216개 있어요. 송금 쪽이 2.23배 많아요. 행렬을 만드는 일도 화살표마다 한 번씩이라, 일의 양은 화살표 수에 비례해요. 비례한다는 것은 화살표가 두 배면 일도 두 배라는 뜻이에요. 아래 작은 글씨처럼, 풀이 그래프의 점 수는 03에서 본 그래프 크기보다 조금 적어요. 금액 무게가 0이 되는 아주 작은 금액만 가진 주소, 허락 쪽 2,602개와 송금 쪽 2,246개를 풀이 프로그램이 빼기 때문이에요.',
       '이제 두 계산을 같은 풀이 프로그램으로 동시에 출발시켜요. 화면은 실제보다 4배 빠르게 보여 드리고, 시계는 실제 초를 보여 줘요. 준비 실행을 한 번 하고, 시간을 잰 실행 다섯 번의 평균이에요. 엔도스랭크는 10.29초, AWP는 22.37초에 끝났어요.',
       'AWP가 2.17배 오래 걸렸는데, 화살표는 2.23배 많아요. 반복 횟수는 69번과 92번으로 조금 다르지만, 시간 비가 화살표 비에 거의 붙어 있어요. 그러니 엔도스랭크가 빠른 것은 알고리즘이 좋아서가 아니라 허락 그래프가 듬성듬성하기 때문이에요.',
-      '송금 층도 함께 걷는 C-PR과 S-PR은 AWP보다도 오래 걸렸어요. C-PR은 두 그래프를 합친 화살표 31,552,359개를 걷고, S-PR은 허락 걷기로 출발점을 정한 뒤 송금 그래프를 다시 걸어요. 그리고 오른쪽 아래처럼 작은 표본에서는 시간 비가 화살표 비를 잘 따르지 않았고, 계약 1만 개 이상의 큰 두 단계에서만 가까웠다는 점도 함께 말씀드려요. 이 단계들은 한 코호트의 부분 표본이라 그보다 큰 그래프에 대해서는 말하지 않아요.'
+      '송금 층도 함께 걷는 C-PR과 S-PR은 AWP보다도 오래 걸렸어요. C-PR은 두 그래프를 합친 화살표 31,552,359개를 걷고, S-PR은 허락 걷기로 출발점을 정한 뒤 송금 그래프를 다시 걸어요.',
+      '마지막으로 한계도 함께 말씀드려요. 코호트에서 계약을 1,000개, 2,000개, 5,000개, 1만 개만 뽑은 작은 표본에서도 시간을 쟀어요. 실선이 시간 비, 점선이 화살표 비예요. 작은 표본에서는 두 선이 꽤 떨어져 있어서, 시간 비가 화살표 비를 잘 따르지 않았어요. 계약 1만 개 이상의 큰 두 단계, 곧 상자 안에서만 두 선이 가까웠어요. 이 단계들은 한 코호트의 부분 표본이라, 그보다 큰 그래프에 대해서는 말하지 않아요.'
     ],
     html: function () {
       function detail(b) { return '점 ' + fmt(b.v, 0) + ' · 반복 ' + b.it + '번 · 메모리 ' + fmt(b.mb, 1) + ' MB'; }
@@ -838,9 +894,10 @@
         '<div class="abs s10-ratio" id="ratio" data-in="none" style="left:96px;top:744px;width:1100px"><span class="k">시간 </span><span class="num" id="rt">' + fmt(R_TIME, 2) + '배</span>' +
           '<span class="ap" id="ap">≈</span><span class="k">화살표 </span><span class="num" id="re">' + fmt(R_EDGE, 2) + '배</span></div>' +
         '<p class="abs s10-frac" id="frac" data-in="none" style="left:96px;top:812px;width:1100px">$' + fracTeX + '$</p>' +
+        '<p class="abs s10-foot" id="vfoot" style="left:96px;top:946px;width:1100px;font-size:19px;line-height:26px">점 수: 풀이 그래프는 금액 무게가 0인 아주 작은 금액만 가진 주소(허락 ' + fmt(G_ALLOW_V - B_ER.v, 0) + '개, 송금 ' + fmt(G_XFER_V - B_AWP.v, 0) + '개)를 빼서 ' + fmt(B_ER.v, 0) + '개 / ' + fmt(B_AWP.v, 0) + '개예요 <span class="ink-3">(03의 ' + fmt(G_ALLOW_V, 0) + '개 / ' + fmt(G_XFER_V, 0) + '개와의 차이)</span></p>' +
         '<p class="abs s10-cap" id="small" data-in="none" style="left:96px;top:892px;width:1100px;font-size:23px;line-height:34px">C-PR ' + fmt(B_CPR.s, 2) + '초 (화살표 ' + fmt(B_CPR.e, 0) + '개) · S-PR ' + fmt(B_SPR.s, 2) + '초 — 송금 층을 걸으면 그 화살표 값을 치러요</p>' +
         /* right column */
-        '<div class="abs s10-swc" id="swc" style="left:1600px;top:' + (SWY + 66) + 'px;width:230px;white-space:normal">반복 한 번 =<br>화살표마다<br>곱하기 한 번<br><span class="ink-3">이 작은 세계:</span> <b id="mulN">0</b>번</div>' +
+        '<div class="abs s10-swc" id="swc" style="left:1600px;top:' + (SWY + 52) + 'px;width:230px;white-space:normal">반복 한 번 =<br>화살표마다<br>곱하기 한 번<br><span class="ink-3">이 작은 세계:</span> <b id="mulN">0</b>번<br><span class="ink-3" style="font-size:18px"><span class="s10-cn">1</span>–<span class="s10-cn">4</span>는 곱셈 차례예요<br>(화살표 무게가 아니에요)</span></div>' +
         '<div class="abs s10-d" id="dv" style="left:1214px;top:446px;width:610px"></div>' +
         '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">작은 표본에서는 시간 비가 화살표 비를 잘 안 따라요<small>큰 두 단계(계약 1만 개 이상)에서만 가까워요 · 단계별 비는 계산</small></div>' +
         '<svg class="abs" id="chart" data-in="none" width="610" height="140" viewBox="0 0 610 140" style="left:1214px;top:862px;overflow:visible"></svg>';
@@ -852,9 +909,9 @@
       g.sw.wrap.setAttribute('data-in', 'none');
       g.mul = g.sw.edges.map(function (A, k) {
         var p = A.pointAt(0.5);
-        var m = h('div', 's10-mul', el, '× ' + (k + 1));
-        m.style.left = (SWX + p.x * SWS - 22) + 'px'; m.style.top = (SWY + p.y * SWS - 30) + 'px';
-        gsap.set(m, { autoAlpha: 0 });
+        var m = h('div', 's10-mul', el, '곱셈<span class="s10-cn">' + (k + 1) + '</span>');
+        m.style.left = (SWX + p.x * SWS) + 'px'; m.style.top = (SWY + p.y * SWS - 30) + 'px';
+        gsap.set(m, { xPercent: -50, autoAlpha: 0 });
         return m;
       });
       g.mulN = q(el, '#mulN');
@@ -909,7 +966,7 @@
       /* derivation */
       g.dv = derivePanel(ctx, q(el, '#dv'), [
         { tex: 'r^{\\text{새}}_v\\;\\leftarrow\\;r^{\\text{새}}_v+d\\,r_u\\,P_{u,v}', note: '화살표 $(u\\to v)$마다 곱하기 한 번 → 한 번 돌 때 $|E|$번' },
-        { tex: 'T\\;\\approx\\;\\underbrace{\\text{행렬 만들기}}_{\\propto|E|}+\\;I\\times\\underbrace{\\text{한 번 돌기}}_{\\propto|E|}', note: '$I$: 반복 횟수 · 두 일 모두 화살표 수에 비례' },
+        { tex: 'T\\;\\approx\\;\\underbrace{\\text{행렬 만들기}}_{\\text{화살표 수에 비례}}+\\;I\\times\\underbrace{\\text{한 번 돌기}}_{\\text{화살표 수에 비례}}', note: '$I$: 반복 횟수 · 비례 = 화살표가 두 배면 일도 두 배' },
         { tex: '\\frac{T_{\\text{AWP}}}{T_{\\text{ER}}}\\;\\approx\\;\\frac{|E|_{\\text{AWP}}}{|E|_{\\text{ER}}}', note: '같은 풀이 프로그램이니까 · 측정: ' + fmt(R_TIME, 2) + ' ≈ ' + fmt(R_EDGE, 2) }
       ], '유도 · 시간과 화살표 수');
       /* stage chart */
@@ -939,6 +996,9 @@
       g.chLbl = [la, lb2];
       g.ctt = q(el, '#ctt');
       gsap.set([ch, g.ctt], { autoAlpha: 0 });
+      /* what steps back for the last step */
+      g.dimmable = ['.s10-lead', '#pile', '#ph', '#pkE', '#pkA', '#pnE', '#pnA', '#pleg', '#race', '#clock', '#ratio', '#frac', '#small', '#vfoot', '#swc', '#dv']
+        .map(function (sel) { return q(el, sel); }).concat([g.pbr, g.sw.wrap], g.mul).filter(Boolean);
     },
     enter: function (el, ctx) {
       var g = ctx.g, tl = ctx.tl();
@@ -992,18 +1052,21 @@
         }, onComplete: function () { rows2.forEach(function (r) { r.bar.setAttribute('width', rx(r.b.s) - rx(0)); }); g.clk.textContent = fmt(B_CPR.s, 2); } }, 0.4);
         rows2.forEach(function (r) { tl.fromTo(r.val, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.4 + r.b.s / sp2); });
         tl.fromTo(g.small, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, 1.0);
-        /* stage chart */
-        tl.fromTo(g.ctt, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: E.out }, 1.4);
-        tl.set(g.chart, { autoAlpha: 1 }, 1.6);
+      }
+      if (i === 5) {
+        /* the small-sample stage chart, on its own: everything else steps back */
+        tl.to(g.dimmable, { opacity: 0.16, duration: 0.6, ease: E.io }, 0);
+        tl.fromTo(g.ctt, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: E.out }, 0.3);
+        tl.set(g.chart, { autoAlpha: 1 }, 0.5);
         [g.lE, g.lT].forEach(function (Ln, k) {
           var L = 0; try { L = Ln.p.getTotalLength(); } catch (e) { L = 600; }
           var dash = k === 0 ? '7 6' : null;
           tl.fromTo(Ln.p, { strokeDasharray: L + ' ' + L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 1.1, ease: E.io,
-            onComplete: function () { Ln.p.style.strokeDasharray = dash || ''; Ln.p.style.strokeDashoffset = ''; } }, 1.7 + k * 0.3);
-          tl.fromTo(Ln.dots, { autoAlpha: 0, scale: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.25, stagger: 0.2, ease: E.stamp }, 1.7 + k * 0.3);
+            onComplete: function () { Ln.p.style.strokeDasharray = dash || ''; Ln.p.style.strokeDashoffset = ''; } }, 0.6 + k * 0.3);
+          tl.fromTo(Ln.dots, { autoAlpha: 0, scale: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.25, stagger: 0.2, ease: E.stamp }, 0.6 + k * 0.3);
         });
-        tl.fromTo(g.chLbl, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 2.6);
-        tl.fromTo(g.band, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 2.9);
+        tl.fromTo(g.chLbl, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 1.5);
+        tl.fromTo(g.band, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 1.8);
       }
     }
   };

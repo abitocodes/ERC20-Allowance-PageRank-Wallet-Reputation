@@ -32,6 +32,7 @@
              0.217 [0.209, 0.225]          G§3 inter_method.endorserank_vs_awp (registered analysis)
              points: DECK_DATA.contracts pct.endorserank / pct.awp (mid-rank percentiles, all 15,107)
      s08-03  17,050 · 2,070 · 1,695        R§6 spenders / gained_new_approvals / gained_new_senders
+             both labels 1,173 (W0) / 1,023 (W1): counted from revised-usd/{holdout-w0,window-w1}/spender_scores.part000.parquet
              (12.1 %, 9.9 % = quotients, as in thesis Ch. 4); 18,152 · 1,616 · 1,533  R§7
      s08-04  0.346 · 0.303 · +0.043        R§6 taus.awp / taus.t1_in_degree (new senders) / contrasts_after[4]
              0.330 · 0.308 · +0.022        R§7 spender_taus.awp / .in_degree / endorserank_results.awp_minus_degree_send
@@ -478,7 +479,7 @@
       '두 점수가 같은 계약을 같은 순서로 세우는지 볼게요. 앞 장의 두 줄이 점으로 부서져서 계약 15,107개의 구름이 돼요. 이 구름을 위에서 내려다보면 납작한 그림이 돼요. 가로는 엔도스랭크로 센 순위, 세로는 AWP로 센 순위를 백분위로 바꾼 거예요. 호박색 점은 엔도스랭크가 더 높게 세운 계약, 하늘색 점은 AWP가 더 높게 세운 계약이에요.',
       '두 순위가 같다면 점들이 이 대각선 위에 모여야 해요. 그런데 넓게 퍼져 있죠. 켄달의 타우는 0.174예요. 0보다는 분명히 크고 1과는 멀어요. 관련은 있지만 같은 순서는 아니라는 뜻이에요.',
       '계약 쌍은 1억 1천만 개가 넘어요. 그중 96.7%는 두 점수가 모두 순서를 정한 쌍인데, 그 가운데 41.2%는 순서가 반대였어요. 지금 번쩍이는 서른 쌍은 설명을 위한 것이고, 멈춘 값이 전체 쌍의 결과예요. 관련은 있지만, 서로 바꿔 쓸 수는 없어요.',
-      '왼쪽 끝의 세로줄은 엔도스랭크가 0점인 계약 535개, 아래쪽 가로줄은 AWP가 0점인 계약 2,672개예요. 그래프 밖 계약을 외톨이 점으로 두는 규칙으로 바꿔도 타우는 0.174 그대로였어요. 두 그래프를 만든 방식이 다르니 순서가 달라지는 것은 어느 정도 예상된 결과예요. 처음 등록한 분석에서는 0.217이었어요.'
+      '왼쪽 끝의 세로줄은 엔도스랭크가 0점인 계약 535개, 아래쪽 가로줄은 AWP가 0점인 계약 2,672개예요. 0점인 계약은 모두 동점이라서, 맨 아래 순위 칸들을 함께 나눠 쓰고 그 가운데에 놓여요. 그래서 AWP 0점 줄은 0이 아니라 약 9에, 엔도스랭크 0점 줄은 약 2에 있어요. 그래프 밖 계약을 외톨이 점으로 두는 규칙으로 바꿔도 타우는 0.174 그대로였어요. 두 그래프를 만든 방식이 다르니 순서가 달라지는 것은 어느 정도 예상된 결과예요. 처음 등록한 분석에서는 0.217이었어요.'
     ],
     html:
       '<h1 class="t-h1">엔도스랭크와 AWP는 [[다른 순서]]로 세워요</h1>' +
@@ -659,6 +660,14 @@
           var t1a = txt(lay3, pl.x - 64, pl.y - 12, '엔도스랭크', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700 });
           var t1b = txt(lay3, pl.x - 64, pl.y + 18, '0점 535개', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
           var t1l = svgEl('line', { x1: pl.x - 58, x2: pl.x - 16, y1: pl.y + 2, y2: pl.y + 2, stroke: C.ink2, 'stroke-width': 1.5 }, lay3);
+          var t1c = txt(lay3, pl.x - 64, pl.y + 46, '→ 가운데 약 2', { 'text-anchor': 'end', fill: C.ink2, 'font-size': 18, 'class': 'tnum' });
+          /* ties: every zero shares the bottom ranks, so the block sits at its mid-rank percentile
+             (AWP (2,672 + 1)/2 − 1 over 15,106 ≈ 8.8; EndorseRank ≈ 1.8), not at 0 */
+          var ya = p2pt(g, 0, AWP_ZERO.pct);
+          var tk = svgEl('line', { x1: ya.x - 24, x2: ya.x - 12, y1: ya.y, y2: ya.y, stroke: C.ink, 'stroke-width': 2 }, lay3);
+          var tkt = txt(lay3, ya.x - 30, ya.y + 6, '≈ 9', { 'text-anchor': 'end', fill: C.ink, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' });
+          var tc = p2pt(g, 0.17, 0.133);
+          var tie = txt(lay3, tc.x, tc.y + 6, '모두 동점 → 맨 아래 칸들을 함께 써서 가운데(약 9)에 놓여요', { 'text-anchor': 'start', fill: C.ink, 'font-size': 18, 'font-weight': 600, stroke: '#0E1119', 'stroke-width': 6, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
           var t2 = txt(lay3, b1.x + 22, b0.y + 7, 'AWP 0점 2,672개', { 'text-anchor': 'start', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
           var t3 = txt(lay3, b1.x + 22, b0.y + 40, '외톨이 점 규칙으로', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19 });
           var t4 = txt(lay3, b1.x + 22, b0.y + 66, '바꿔도 τ = 0.174', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19, 'class': 'tnum' });
@@ -667,6 +676,7 @@
           tl.fromTo(bandR, { autoAlpha: 0, scaleX: 0.3, transformOrigin: '0% 50%' }, { autoAlpha: 1, scaleX: 1, duration: dur(ctx, 0.5), ease: E.out }, 0.35);
           tl.fromTo([t1a, t1b, t1l, t2], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, stagger: 0.1 }, 0.6);
           tl.fromTo([t3, t4], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, stagger: 0.1 }, 1.1);
+          tl.fromTo([tk, tkt, tie, t1c], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, stagger: 0.12 }, 1.5);
         }
         fadeUp(tl, g.ghost, 1.4, 0.5);
       }
@@ -702,19 +712,20 @@
   var AX3 = { left: 96, top: 176, w: 1728, h: 250, axisY: 196 };
   var STRIP = [{ x: 180, h: 52 }, { x: 340, h: 30, a: 1 }, { x: 500, h: 68 }, { x: 660, h: 44, a: 2, s: 1 }, { x: 820, h: 22, s: 1 }];
   var slide3 = {
-    id: 's08-03', title: '기간 밖 시험: 점수를 얼리고 기다려요', time: 40, steps: 3,
+    id: 's08-03', title: '기간 밖 시험(시간 홀드아웃): 점수를 얼리고 기다려요', time: 40, steps: 3,
     tags: [],
     notes: [
-      '이제 진짜 시험이에요. 3년의 달력이 다시 나왔어요. 호박색 띠는 달마다 생긴 허락 기록, 하늘색 띠는 송금 기록이에요.',
-      '3월 31일에 점수를 얼려요. 이날까지의 기록만으로 점수를 만들고, 그 뒤로는 손대지 않아요. 이 시험의 스펜더 계약은 17,050개예요.',
-      '그다음 4월부터 6월 사이에 각 스펜더 계약에 새로 생긴 일로 채점해요. 라벨은 두 가지예요. 하나는 동결일에는 없던 주인과 스펜더 사이의 허락이 새로 생긴 수, 다른 하나는 처음으로 송금을 보내온 주소의 수예요. 새 허락 쌍을 얻은 계약은 2,070개, 12.1%이고, 새 송금자를 얻은 계약은 1,695개, 9.9%예요. 라벨이 있는 계약은 열에 하나 정도라서, 결과는 이 적은 계약들을 얼마나 잘 위로 세우는지에 크게 달려 있어요.',
-      '같은 시험을 6월 30일에 얼리고 7월부터 9월로 한 번 더 했어요. 이 석 달의 기록은 규칙을 등록한 다음에야 꺼냈어요. 스펜더 계약은 18,152개예요.'
+      '이제 진짜 시험, 기간 밖 시험이에요. 논문에서는 시간 홀드아웃이라고 불러요. 3년의 달력이 다시 나왔어요. 호박색 띠는 달마다 생긴 허락 기록, 하늘색 띠는 송금 기록이에요.',
+      '3월 31일에 점수를 얼려요. 이날까지의 기록만으로 점수를 만들고, 그 뒤로는 손대지 않아요. 나중 기간을 떼어 두고 맞혀 보는 이 첫 번째 시간 홀드아웃이 홀드아웃 W0이에요. 이 시험의 스펜더 계약은 17,050개예요.',
+      '그다음 4월부터 6월 사이에 각 스펜더 계약에 새로 생긴 일로 채점해요. 라벨은 두 가지예요. 하나는 동결일에는 없던 주인과 스펜더 사이의 허락이 새로 생긴 수, 다른 하나는 처음으로 송금을 보내온 주소의 수예요. 새 허락 쌍을 얻은 계약은 2,070개, 12.1%로 호박색 점이고, 새 송금자를 얻은 계약은 1,695개, 9.9%로 하늘색 고리예요. 두 라벨을 모두 얻은 계약도 1,173개로 많아서, 고리를 두른 호박색 점이 많아요. 라벨이 있는 계약은 열에 하나 정도라서, 결과는 이 적은 계약들을 얼마나 잘 위로 세우는지에 크게 달려 있어요.',
+      '같은 시험을 6월 30일에 얼리고 7월부터 9월로 한 번 더 했어요. 이것이 등록 기간 W1이에요. 이 석 달의 기록은 규칙을 등록한 다음에야 꺼냈어요. 스펜더 계약은 18,152개예요.'
     ],
     html:
       '<h1 class="t-h1">점수를 [[얼리고]], 그 뒤에 생긴 일로 채점해요</h1>' +
+      '<p class="abs s8-small" style="left:96px;top:154px;color:var(--ink-3)">기간 밖 시험 = 시간 홀드아웃 · 나중 기간을 떼어 두고 맞혀 보는 시험</p>' +
       '<div class="abs" id="cal" data-in="none" style="left:' + AX3.left + 'px;top:' + AX3.top + 'px;width:' + AX3.w + 'px;height:' + AX3.h + 'px"></div>' +
-      '<div class="abs s8-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>3월 31일 동결 → 4–6월 · 스펜더 계약 <b class="tnum">17,050</b>개</span></div>' +
-      '<div class="abs s8-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>6월 30일 동결 → 7–9월 · 스펜더 계약 <b class="tnum">18,152</b>개</span>' + LOCK_SVG + '<span style="font-size:22px;color:var(--ink-2);font-weight:500">등록한 뒤 추출</span></div>' +
+      '<div class="abs s8-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>홀드아웃 · 3월 31일 동결 → 4–6월 · 스펜더 계약 <b class="tnum">17,050</b>개</span></div>' +
+      '<div class="abs s8-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>등록 기간 · 6월 30일 동결 → 7–9월 · 스펜더 계약 <b class="tnum">18,152</b>개</span>' + LOCK_SVG + '<span style="font-size:22px;color:var(--ink-2);font-weight:500">등록한 뒤 추출</span></div>' +
       '<p class="abs s8-small" id="stripcap" data-in="none" style="left:96px;top:566px;color:var(--ink-3)">스펜더 계약 · 점수는 얼린 채 · 예시</p>' +
       '<svg class="abs" id="strip" data-in="none" width="960" height="280" viewBox="0 0 960 280" style="left:0;top:600px;overflow:visible"></svg>' +
       '<div class="s8-month" id="mon" data-in="none" style="left:868px;top:566px">4월</div>' +
@@ -723,7 +734,7 @@
         '<div><b class="c-xfer">새 송금자</b> — 처음으로 송금을 보내온 주소</div></div>' +
       '<div class="abs" id="wbox" data-in="none" style="left:1040px;top:466px;width:784px;height:480px">' +
         '<div class="s8-wt" id="wt">W0 스펜더 계약 <span class="tnum">17,050</span>개<small>점 하나 = 계약 10개</small></div>' +
-        '<div class="s8-wc" id="wc"><span><i style="background:#F5B43C"></i>새 허락 쌍 <b id="wa">0</b>개 <span id="wap">(12.1%)</span></span><span><i style="background:#3CC4FF"></i>새 송금자 <b id="ws">0</b>개 <span id="wsp">(9.9%)</span></span></div>' +
+        '<div class="s8-wc" id="wc"><span><i style="background:#F5B43C"></i>새 허락 쌍 <b id="wa">0</b>개 <span id="wap">(12.1%)</span></span><span><i style="background:transparent;box-shadow:inset 0 0 0 2.5px #3CC4FF"></i>새 송금자 <b id="ws">0</b>개 <span id="wsp">(9.9%)</span></span><span><i style="background:#F5B43C;box-shadow:0 0 0 2.5px #3CC4FF"></i>둘 다</span></div>' +
         '<div id="wf" style="position:absolute;left:0;top:92px"></div>' +
       '</div>',
     build: function (el, ctx) {
@@ -791,15 +802,29 @@
       g.mon = q(el, '#mon'); g.defs = q(el, '#defs'); g.i0 = q(el, '#i0'); g.i1 = q(el, '#i1');
       g.wbox = q(el, '#wbox'); g.wt = q(el, '#wt'); g.wa = q(el, '#wa'); g.ws = q(el, '#ws'); g.wap = q(el, '#wap'); g.wsp = q(el, '#wsp');
       gsap.set([g.mon, g.defs, g.i0, g.i1, g.wbox], { autoAlpha: 0 });
-      /* waffle: W0 1,705 dots (17,050 / 10), 207 amber (2,070 / 10), sprinkled (seeded) */
+      /* waffle: one dot = 10 spenders; mark 1 = new approval pair only (amber dot), 2 = new sender only
+         (sky ring), 3 = both (amber dot with a sky ring). Positions are seeded; the counts are not:
+         W0 1,705 dots: both 1,173 → 117, approval only 897 → 90 (amber 207 = 2,070 / 10), sender only 522 → 53 (sky 170 ≈ 1,695 / 10)
+         W1 1,815 dots: both 1,023 → 102, approval only 593 → 60 (amber 162 ≈ 1,616 / 10), sender only 510 → 51 (sky 153 = 1,533 / 10)
+         overlap = spenders with future_new_approvers > 0 and future_new_transfer_senders > 0 in
+         experiments/data/2-processed-tables-and-evaluations/revised-usd/{holdout-w0,window-w1}/spender_scores.part000.parquet */
       var rnd = Deck.util.rng(7);
-      function pick(n, k) { var idx = [], i, mark = new Uint8Array(n); for (i = 0; i < n; i++) idx.push(i); for (i = n - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)), t = idx[i]; idx[i] = idx[j]; idx[j] = t; } for (i = 0; i < k; i++) mark[idx[i]] = 1; return mark; }
-      g.mark0 = pick(1705, 207); g.mark1 = pick(1815, 162);
+      function pick(n, both, aOnly, sOnly) {
+        var idx = [], i, mark = new Uint8Array(n);
+        for (i = 0; i < n; i++) idx.push(i);
+        for (i = n - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)), t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
+        for (i = 0; i < both + aOnly + sOnly; i++) mark[idx[i]] = i < both ? 3 : i < both + aOnly ? 1 : 2;
+        return mark;
+      }
+      g.mark0 = pick(1705, 117, 90, 53); g.mark1 = pick(1815, 102, 60, 51);
       g.wmark = g.mark0;
       g.W = waffle(ctx, q(el, '#wf'), { n: 1705, max: 1860, cols: 62, gap: 12.6, r: 4.3, style: function (i, hq) {
         var m = g.wmark[i];
-        if (m && hq > 0) return { fill: C.allow, scale: 1 + 0.25 * hq };
-        return { fill: '#3A4458' };
+        if (!m || hq <= 0) return { fill: '#3A4458' };
+        var sc = 1 + 0.25 * hq;
+        if (m === 1) return { fill: C.allow, scale: sc };
+        if (m === 2) return { fill: '#3A4458', stroke: C.xfer, lw: 2, scale: sc };
+        return { fill: C.allow, stroke: C.xfer, lw: 2, scale: sc };
       } });
     },
     enter: function (el, ctx) {
@@ -1092,7 +1117,7 @@
     tags: function (s) { return s >= 1 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
       '그렇다면 무엇을 바꾸면 센 수를 넘을까요?',
-      '다시 출발 규칙만 AWP처럼 바꿔 봤어요. 허락을 활발하게 하는 주인에서 더 자주 다시 출발하게 한 거예요. 걷는 길은 그대로이고 출발점의 비율만 달라져요. 왼쪽 그림의 비가 순간 이동이에요. 활발한 주인에게 더 굵게 내려요.',
+      '다시 출발 규칙만 AWP처럼 바꿔 봤어요. 허락을 활발하게 하는 주인에서 더 자주 다시 출발하게 한 거예요. 주인의 활발함 X_u는 그 주인이 허락한 스펜더마다 가장 최근 허락의 시간 무게를 더한 값이에요. AWP가 송금으로 재는 활동량을 허락에 똑같이 적용한 거예요. 걷는 길은 그대로이고 출발점의 비율만 달라져요. 왼쪽 그림의 비가 순간 이동이에요. 활발한 주인에게 더 굵게 내려요.',
       'W0에서 이 변형은 0.308로, 받은 허락 수 0.250을 넘었어요. 차이는 0.059예요. 점선 테두리가 변형 표시이고, 작은 빈 고리가 원래 엔도스랭크 자리예요.',
       'W1에서도 0.027만큼 넘었어요.',
       '하지만 이 비교는 라벨을 본 다음에 고른 것이라서 발견이라고 할 수 없어요. 그래서 판정 도장이 아니라 ‘가설’ 꼬리표를 붙여요. 다음 연구에서 새 기간을 등록하고 시험해 볼 첫 번째 후보예요.',
@@ -1101,10 +1126,10 @@
     html:
       '<h1 class="t-h1">다시 출발을 AWP처럼 바꾸면 센 수를 넘었어요 — 하지만 [[가설]]이에요</h1>' + BOARD_HTML +
       '<div class="s8-fig" id="rain" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">순간 이동 비: 활발한 주인에게 더 굵게</div><span class="ex example-mark">예시</span><svg id="rainsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
-      '<div class="abs s8-reason" id="def" data-in="none" style="left:700px;top:612px;width:1124px"><b class="c-allow">엔도스랭크(활동 재시작)</b>: 허락을 활발하게 하는 주인에서 더 자주 다시 출발해요 · $\\pi_u=X_u\\big/\\sum_v X_v$</div>' +
-      '<div class="s8-hyp" id="hyp" data-in="none" style="left:700px;top:690px"><svg width="240" height="84" viewBox="0 0 240 84"></svg></div>' +
-      '<div class="abs s8-reason" id="hyptx" data-in="none" style="left:964px;top:694px;width:860px">라벨을 본 뒤에 고른 비교라서 발견이 아니라 가설이에요<br><span style="font-size:22px;color:var(--ink-3)">→ 다음 등록 시험에서 확인할 일</span></div>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:808px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
+      '<div class="abs s8-reason" id="def" data-in="none" style="left:700px;top:612px;width:1124px"><b class="c-allow">엔도스랭크(활동 재시작)</b>: 허락을 활발하게 하는 주인에서 더 자주 다시 출발해요 · $\\pi_u=X_u\\big/\\sum_v X_v$<br><span style="font-size:21px;line-height:30px;color:var(--ink-3)">$X_u$ = 주인 u가 허락한 스펜더마다 가장 최근 허락의 시간 무게를 더한 것 (AWP의 활동량을 허락에 적용)</span></div>' +
+      '<div class="s8-hyp" id="hyp" data-in="none" style="left:700px;top:706px"><svg width="240" height="84" viewBox="0 0 240 84"></svg></div>' +
+      '<div class="abs s8-reason" id="hyptx" data-in="none" style="left:964px;top:710px;width:860px">라벨을 본 뒤에 고른 비교라서 발견이 아니라 가설이에요<br><span style="font-size:22px;color:var(--ink-3)">→ 다음 등록 시험에서 확인할 일</span></div>' +
+      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:818px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
         '<div>대신 같은 기간 허락 가족 일치는 <b>0.585 → 0.426 [0.418, 0.435]</b>로 낮아져요</div>' +
         '<div>분석 계획은 이 변형을 ‘함께 보고’하라고만 했어요 — 센 수와의 비교는 정하지 않았어요</div>' +
         '<div>AWP 쪽은 다시 출발 규칙을 바꿔 시험하지 않았어요</div></div>',
@@ -1196,9 +1221,9 @@
     tags: function (s) { return s === 5 ? ['example'] : s >= 6 ? ['thesis-example', 'example'] : ['thesis-example']; },
     notes: [
       '왜 엔도스랭크가 그냥 센 수를 못 이겼는지, 식으로 들여다볼게요. 다시 작은 세계예요. 컵의 물은 오래 걸었을 때 각 점에 머무는 몫이에요.',
-      'A처럼 들어오는 화살표가 없는 점은 다시 출발 몫과 매달린 점 몫만 받아요. 그래서 이런 점은 모두 같은 점수 c를 받아요. 작은 세계에서 c는 0.15 더하기 0.85 곱하기 0.4706을 4로 나눈 0.1375이고, A의 컵과 같아요.',
-      '대부분의 스펜더는 허락을 받지 않는 주인들에게서만 허락을 받아요. 그런 스펜더의 균형식에서, 주인 u의 몫 r_u 자리에 c를 넣어요.',
-      'c로 묶으면, c 곱하기 괄호 1 더하기 d 곱하기 델타라는 짧은 식이 돼요. 델타는 주인마다 자기 허락 무게 가운데 이 스펜더에게 간 조각을 더한 것이에요. B로 확인해 볼게요. A는 무게 3 가운데 2를 B에 줬으니 3분의 2, 그래서 0.2154가 나와요.',
+      '먼저 c부터 정할게요. c는 모든 점이 매번 똑같이 받는 몫이에요. 다시 출발 몫과 매달린 점 몫을 더한 거예요. A처럼 들어오는 화살표가 없는 점은 이것만 받으니까 점수가 바로 c예요. 작은 세계에서 c는 0.15 더하기 0.85 곱하기 0.4706을 4로 나눈 0.1375이고, A의 컵과 같아요.',
+      '모든 점의 균형식은 c에서 시작하고, 화살표로 들어온 몫을 더해요. 대부분의 스펜더는 허락을 받지 않는 주인들에게서만 허락을 받아요. 그런 주인의 점수는 c니까, 스펜더의 균형식에서 주인 u의 몫 r_u 자리에 c를 넣어요.',
+      'c는 모든 주인에게 같으니까 합 밖으로 꺼낼 수 있어요. 그러면 c 더하기 c 곱하기 d 곱하기 델타가 되고, c로 묶으면 c 곱하기 괄호 1 더하기 d 곱하기 델타라는 짧은 식이 돼요. 델타는 주인마다 자기 허락 무게 가운데 이 스펜더에게 간 조각을 더한 것이에요. B로 확인해 볼게요. A는 무게 3 가운데 2를 B에 줬으니 3분의 2, 그래서 0.2154가 나와요.',
       'C도 0.1765로 맞아요. 그런데 D는 이 식이 안 맞아요. D의 주인 B와 C가 허락을 받으니까, 한 단계 더 퍼진 몫이 들어와요. 그래서 D는 균형식 그대로 계산해서 0.4706이에요.',
       '델타를 예로 볼게요. 주인 셋이 각각 스펜더 1곳, 2곳, 4곳을 허락했다면, 그냥 센 수는 3이지만 델타는 1 더하기 2분의 1 더하기 4분의 1, 1.75예요.',
       'c와 d는 모든 한 단계 스펜더에 같으니까, 점수의 순서는 델타의 순서와 같아요. d가 얼마든 상관없어요. 그러니까 엔도스랭크는 사실상 주인 수를, 주인이 허락한 곳의 무게로 나눠 센 값이에요. 그런 스펜더에게는 나이와 금액 무게, 그리고 이 나눗셈 말고는 센 수와 다를 것이 거의 없어요. 퍼뜨려서 더할 정보가 없는 셈이에요. 실제 같은 기간 그래프에서 c는 7.64 곱하기 10의 마이너스 8제곱이에요.'
@@ -1237,9 +1262,9 @@
       g.chipA = chip('A', 'c', 0, C.ink); g.chipA.parentNode.setAttribute('transform', 'translate(' + (A.x - 66) + ',' + A.y + ')');
       /* derivation panel */
       g.D = Comp.derive(ctx, q(el, '#eq'), { head: '닫힌 식 만들기 · 논문 5장', lines: [
-        { tex: 'c=\\dfrac{1-d+d\\,r_D}{|V|}', note: '들어오는 화살표가 없는 점: 다시 출발 몫 + 매달린 점 몫만 → 모두 같은 값 c<br>작은 세계: $c=\\tfrac{0.15+0.85\\times0.4706}{4}=0.1375=r_A$ ✓' },
-        { tex: 'r_v=c+d\\sum_{u}\\part{rc}{c}\\,\\dfrac{w(u,v)}{o(u)}', note: '주인 u가 모두 그런 점이면: 균형식의 $r_u$ 자리에 c를 넣어요', mark: 'rc' },
-        { tex: 'r_v=c\\,\\bigl(1+d\\,\\part{dl}{\\delta(v)}\\bigr),\\qquad \\delta(v)=\\sum_{u}\\dfrac{w(u,v)}{o(u)}', note: 'c로 묶어요 · 논문 식 closed-form', mark: 'dl' },
+        { tex: 'c=\\dfrac{1-d+d\\,r_D}{|V|}', note: 'c = 모든 점이 매번 똑같이 받는 몫(다시 출발 몫 + 매달린 점 몫)<br>들어오는 화살표가 없는 점은 이것만 받아요 → 점수 = c<br>작은 세계: $c=\\tfrac{0.15+0.85\\times0.4706}{4}=0.1375=r_A$ ✓' },
+        { tex: 'r_v=c+d\\sum_{u}\\part{rc}{c}\\,\\dfrac{w(u,v)}{o(u)}', note: '모든 점: c + 화살표로 들어온 몫 · 주인 u가 모두 그런 점이면 $r_u$ 자리에 c를 넣어요', mark: 'rc' },
+        { tex: 'r_v=c+c\\,d\\,\\part{dl}{\\delta(v)}=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)', note: 'c는 모든 u에 같아서 합 밖으로 → 남은 합 $\\delta(v)=\\sum_u w(u,v)/o(u)$ → c로 묶어요', mark: 'dl' },
         { tex: 'r_B=0.1375\\times\\bigl(1+0.85\\times\\part{f}{\\tfrac23}\\bigr)=0.2154\\ \\checkmark', note: 'B의 주인은 A 하나: A의 무게 3 가운데 2가 B로', mark: 'f' },
         { tex: '\\begin{aligned}r_C&=0.1375\\times\\bigl(1+0.85\\times\\tfrac13\\bigr)=0.1765\\ \\checkmark\\\\ r_D&=c+d\\,(r_B+r_C)=0.4706\\end{aligned}', note: 'D는 식이 안 맞아요: 주인 B, C가 허락을 받으니까 → 한 단계 더 퍼진 몫' },
         { tex: '\\text{점수 순서}=\\delta(v)\\ \\text{순서}', note: 'c와 d는 모든 한 단계 스펜더에 같아요 → d가 얼마든 순서는 δ가 정해요', mark: null }
@@ -1247,7 +1272,7 @@
       ctx.katex(q(el, '#eq'));
       /* symbol cards */
       var syms = q(el, '#syms');
-      g.symC = Comp.symbolCard(ctx, syms, { tex: 'c', desc: '들어오는 화살표가 없는 점이 모두 받는 같은 점수' });
+      g.symC = Comp.symbolCard(ctx, syms, { tex: 'c', desc: '모든 점이 매번 똑같이 받는 몫 · 화살표가 안 들어오는 점의 점수' });
       g.symD = Comp.symbolCard(ctx, syms, { tex: '\\delta(v)', desc: '주인마다 나눠 준 조각의 합' });
       g.syms = syms;
       /* pie example (step 5) */

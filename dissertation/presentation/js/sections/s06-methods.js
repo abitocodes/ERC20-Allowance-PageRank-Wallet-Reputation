@@ -6,10 +6,10 @@
                                         distinct owners / senders; "can PageRank clear the bar?")
    s06-03  C-PR: 두 갈림길 표를 섞어요  (two 100 % row bars squash by λ and 1−λ into one mixed row;
                                         dial sweep; one-layer node renormalised by D_λ; final formula)
-   s06-04  λ를 돌리면 (대표 장면)       (three.js: 15,107 contracts, height = C-PR percentile,
-                                        five λ values, HUD τ counters, draggable snapping dial)
+   s06-04  λ를 돌리면 (대표 장면)       (three.js: 15,107 contracts, height = C-PR percentile, shadows on
+                                        the two back walls, five λ values, plain τ meters, draggable dial)
    s06-05  S-PR                         (teleport rain follows the allowance halos; two post hoc
-                                        interval bars)
+                                        verdicts in words — the numbers wait for s07/s08)
 
    Numbers and sources (revised digest = R, experiments/data/3-published-results-for-thesis/revised-usd/results_digest.md)
      6,221,665 nodes / 11,210,114 edges   R§1 graph.allowance.nodes / .edges  (DECK_DATA.results.revised.same_window.graph)
@@ -103,6 +103,9 @@
     '.s6-defs .d{display:flex;align-items:baseline;gap:18px;margin-bottom:10px}',
     '.s6-defs .d .k{flex:0 0 150px;font-size:22px;line-height:32px;color:var(--c-deg);font-weight:600}',
     '.s6-defs .d .katex{font-size:27px}',
+    '.s6-defs .d .w{font-size:25px;line-height:32px;color:var(--ink)}',
+    '.s6-defs .d .w b{font-weight:700;color:var(--ink)}',
+    '.s6-defs .d .w .katex{font-size:26px}',
     '.s6-defs .mi{font-size:18px;line-height:26px;color:var(--ink-3);margin-top:4px}',
     '.s6-bottom{font-size:30px;line-height:44px;font-weight:600}',
     '.s6-chip{position:absolute;padding:6px 16px;border-radius:18px;font-size:22px;line-height:30px;font-weight:700;background:var(--bg-3);border:2px solid currentColor;white-space:nowrap}',
@@ -110,6 +113,10 @@
     '.s6-lbl{position:absolute;white-space:nowrap;font-size:24px;line-height:32px;font-weight:600}',
     '.s6-lbl .katex{font-size:26px}',
     '.s6-callout{position:absolute;font-size:28px;line-height:40px;font-weight:600;white-space:nowrap}',
+    '.s6-kick{font-size:24px;line-height:32px;color:var(--ink-2);white-space:nowrap}',
+    '.s6-kick b{font-weight:700}',
+    '.s6-dotnote{font-size:18px;font-weight:500;color:var(--ink-3);margin-left:6px}',
+    '.s6-xnote{position:absolute;white-space:nowrap;font-size:22px;line-height:30px;font-weight:600;color:var(--c-xfer)}',
     '.s6-d3 .eq-panel{padding:26px 30px 18px}',
     '.s6-d3 .derive-line{padding:7px 0}',
     '.s6-d3 .derive-tex .katex{font-size:27px}',
@@ -129,12 +136,21 @@
     '.s6-halo{paint-order:stroke;stroke:#0A0D14;stroke-width:6px;stroke-linejoin:round}',
     '.s6-cap{font-size:22px;line-height:32px;color:var(--ink-2)}',
     /* s06-04 */
-    '.s6-hudp{padding:16px 22px;border-radius:18px;background:rgba(10,13,20,.78);border:1px solid var(--line);pointer-events:none}',
-    '.s6-hudp .r{display:flex;align-items:baseline;gap:14px;margin:4px 0;white-space:nowrap}',
-    '.s6-hudp .k{flex:0 0 auto;font-size:22px;line-height:30px;width:230px}',
-    '.s6-hudp .v{font-size:40px;line-height:48px;font-weight:700;font-variant-numeric:tabular-nums;width:110px}',
-    '.s6-hudp .ci{font-family:var(--font-mono);font-size:18px;color:var(--ink-3);letter-spacing:0}',
-    '.s6-hudp .z{margin-top:6px;padding-top:8px;border-top:1px solid var(--line);font-size:20px;line-height:28px;color:var(--ink-2)}',
+    '.s6-hudp{padding:16px 22px;border-radius:18px;background:rgba(10,13,20,.82);border:1px solid var(--line);pointer-events:none}',
+    '.s6-hudp .q{font-size:22px;line-height:30px;font-weight:600;color:var(--ink);margin-bottom:8px}',
+    '.s6-hudp .m{display:flex;align-items:center;gap:12px;margin:8px 0;white-space:nowrap}',
+    '.s6-hudp .k{flex:0 0 auto;font-size:21px;line-height:28px;width:122px;font-weight:600}',
+    '.s6-hudp .bar{position:relative;flex:0 0 auto;width:170px;height:22px;background:repeating-linear-gradient(90deg,rgba(233,237,245,.12) 0 15px,transparent 15px 17px)}',
+    '.s6-hudp .bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:repeating-linear-gradient(90deg,currentColor 0 15px,transparent 15px 17px)}',
+    '.s6-hudp .v{font-size:28px;line-height:34px;font-weight:700;font-variant-numeric:tabular-nums}',
+    '.s6-hudp .sc{display:flex;justify-content:space-between;margin-left:134px;width:170px;font-size:16px;line-height:22px;color:var(--ink-3)}',
+    '.s6-hudp .nt{margin-top:6px;font-size:18px;line-height:26px;color:var(--ink-3)}',
+    '.s6-hudp .z{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:20px;line-height:28px;color:var(--ink-2)}',
+    '.s6-read{padding:14px 18px;border-radius:16px;background:rgba(10,13,20,.82);border:1px solid var(--line);pointer-events:none}',
+    '.s6-read .hd{font-size:18px;line-height:24px;color:var(--ink-3);margin-bottom:4px}',
+    '.s6-read .r{display:grid;grid-template-columns:86px 1fr;font-size:18px;line-height:25px;color:var(--ink-2);margin-top:5px;white-space:nowrap}',
+    '.s6-read .r b{color:var(--ink);font-weight:700}',
+    '.s6-wall3d{font-size:19px;line-height:26px;font-weight:600;white-space:nowrap;padding:2px 10px;border-radius:10px;background:rgba(10,13,20,.7)}',
     '.s6-hudp .z b{font-variant-numeric:tabular-nums;color:var(--ink)}',
     '.s6-ax3d{font-size:22px;line-height:30px;font-weight:600}',
     '.s6-tick3d{font-size:17px;line-height:22px;color:var(--ink-3);font-family:var(--font-mono);letter-spacing:0}',
@@ -148,6 +164,10 @@
     '.s6-eq5 .katex{font-size:34px}',
     '.s6-eq5 .nt{font-size:21px;line-height:30px;color:var(--ink-2);margin-top:4px}',
     '.s6-fhead{display:flex;align-items:center;gap:14px;font-size:22px;line-height:30px;color:var(--ink-2);margin-bottom:6px}',
+    '.s6-verd{display:flex;align-items:center;gap:18px;margin-top:12px;padding:12px 20px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line);font-size:28px;line-height:38px;font-weight:600}',
+    '.s6-verd b{font-weight:700;margin-right:14px}',
+    '.s6-verd .ic{flex:0 0 auto;width:44px;height:44px;border-radius:22px;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700}',
+    '.s6-fnote{margin-top:10px;font-size:20px;line-height:28px;color:var(--ink-3)}',
     '.s6-concl{font-size:30px;line-height:44px;font-weight:600;padding:14px 22px;border-left:4px solid var(--c-cpr);background:var(--c-cpr-soft);border-radius:0 14px 14px 0}'
   ].join('\n');
   (function inject() {
@@ -228,7 +248,7 @@
     tags: function (step) { return step >= 2 ? ['thesis-example', 'example'] : ['thesis-example']; },
     notes: [
       '이제 네 가지 점수를 소개할게요. 첫째가 이 논문이 제안한 엔도스랭크예요. 04에서 만든 작은 세계를 다시 가져왔어요. 이번에는 화살표가 모두 허락 화살표라서 호박색이에요. 걷는 사람은 100번 중 85번은 화살표를 따라가고, 15번은 아무 점으로나 순간 이동해요.',
-      '엔도스랭크는 허락 그래프 위에서 지금까지 만든 페이지랭크를 그대로 돌린 거예요. 화살표는 주인에서 스펜더 계약으로 가고, 토큰마다 마지막 허락 하나만 써요. 무게는 AWP와 같은 시간 무게 곱하기 금액 무게이고, 다시 출발은 모든 점에서 똑같이 해요. 점수를 받는 쪽은 허락을 받은 계약이에요. 주인 A는 화살표의 출발점일 뿐 점수를 받지 않아요. B, C, D 위의 숫자는 논문 2장의 예에서 나온 값이에요.',
+      '엔도스랭크는 허락 그래프 위에서 지금까지 만든 페이지랭크를 그대로 돌린 거예요. 화살표는 주인에서 스펜더 계약으로 가고, 토큰마다 마지막 허락 하나만 써요. 무게는 AWP와 같은 시간 무게 곱하기 금액 무게이고, 다시 출발은 모든 점 v에서 똑같이 1/|V|씩 해요. 평가하는 쪽은 허락을 받은 계약이에요. 주인 A도 걷기에서는 몫을 갖지만(0.1375), 이 연구는 계약의 점수만 평가하고 보고해요. B, C, D 위의 숫자와 A의 몫은 논문 2장의 예에서 나온 값이에요.',
       '이제 작은 세계에서 실제 허락 그래프로 물러나 볼게요. 점 네 개짜리 세계가 점점 작아져서, 수많은 점 가운데 하나가 돼요. 실제 허락 그래프에는 점이 6,221,665개, 화살표가 11,210,114개 있어요. 여기 보이는 별자리 모양은 설명을 위한 그림이고, 개수만 실제 값이에요.',
       '한 가지 조심할 점이 있어요. 화살표가 담는 것은 마지막 허락의 금액과 시점이에요. 그 뒤에 계약이 토큰을 꺼내 써서 줄어든 허락 액수나, 2023년 10월 전에 한 허락은 보이지 않아요.'
     ],
@@ -240,12 +260,12 @@
         '<span class="k">화살표</span><span class="a">4 →</span><span class="v" id="re">4</span></div>' +
       '<div class="abs s6-fcard" id="fcard" style="left:1080px;top:190px;width:744px">' +
         '<div class="hd">정의 · 논문 3장</div><div id="fhost"></div>' +
-        '<div class="nt">04의 페이지랭크 식에 허락 무게 $\\ca{w_A}$와 고른 $\\boldsymbol\\pi$를 넣어요</div></div>' +
+        '<div class="nt">04의 식에 허락 무게 $\\ca{w_A}$와, 모든 점에 같은 다시 출발을 넣어요</div></div>' +
       '<div class="abs s6-sum" id="sum" data-in="none" style="left:1080px;top:436px;width:744px">' +
         '<div class="ln"><span class="no">1</span><span class="tx">화살표: 주인 → 스펜더 계약<small>토큰마다 마지막 허락 · 다섯 토큰 · 달러</small></span></div>' +
         '<div class="ln"><span class="no">2</span><span class="tx">무게: AWP와 같은 σ × V<small>시간 무게 × 금액 무게 (05에서 만든 식)</small></span></div>' +
-        '<div class="ln"><span class="no">3</span><span class="tx">다시 출발: 모든 점에 똑같이<small>$\\boldsymbol\\pi = 1/|V|$, 감쇠 계수 $d = ' + DAMP + '$</small></span></div>' +
-        '<div class="ln"><span class="no">4</span><span class="tx">점수를 받는 쪽: 허락을 받은 계약<small>주인(EOA)은 화살표의 끝점일 뿐이에요</small></span></div>' +
+        '<div class="ln"><span class="no">3</span><span class="tx">다시 출발: 모든 점에 똑같이<small>모든 점 $v$에 $\\pi_v = 1/|V|$ · 감쇠 계수 $d = ' + DAMP + '$</small></span></div>' +
+        '<div class="ln"><span class="no">4</span><span class="tx">평가 대상: 허락을 받은 계약<small>주인(EOA)도 걷기에서 몫을 갖지만, 평가·보고하지 않아요</small></span></div>' +
       '</div>' +
       '<div class="abs s6-caution" data-step="3" style="left:1080px;top:842px;width:744px">' + ICON_WARN +
         '<span>화살표는 ‘마지막 허락의 금액과 시점’이에요 — 지금 남은 허락 액수가 아니에요</span></div>',
@@ -262,7 +282,7 @@
       g.lab.innerHTML = '작은 세계 (점 4개)<small>예시 별자리 · 개수만 실제 값</small>';
       zoom.appendChild(g.dot); zoom.appendChild(g.lab);
       gsap.set([g.dot, g.lab], { autoAlpha: 0 });
-      g.F = Comp.formula(ctx, q(el, '#fhost'), '\\mathbf s_{\\mathrm{ER}}=\\mathrm{PageRank}\\bigl(\\part{g}{\\ca{G_{\\mathrm{approve}}}},\\ \\part{pi}{\\boldsymbol\\pi=\\tfrac{1}{|V|}\\mathbf 1},\\ \\part{d}{d=' + DAMP + '}\\bigr)', { display: true });
+      g.F = Comp.formula(ctx, q(el, '#fhost'), '\\mathbf s_{\\mathrm{ER}}=\\mathrm{PageRank}\\bigl(\\part{g}{\\ca{G_{\\mathrm{approve}}}},\\ \\part{pi}{\\pi_v=\\tfrac{1}{|V|}},\\ \\part{d}{d=' + DAMP + '}\\bigr)', { display: true });
       g.F.el.style.textAlign = 'left';
       g.lines = Array.prototype.slice.call(el.querySelectorAll('.s6-sum .ln'));
       gsap.set(g.lines, { autoAlpha: 0 });
@@ -317,14 +337,22 @@
           tl.fromTo(d.c, { autoAlpha: 0, attr: { cy: d.y0 } }, { autoAlpha: 0.85, attr: { cy: d.y1 }, duration: 0.5, ease: 'power2.in' }, t);
           tl.to(d.c, { autoAlpha: 0, duration: 0.2 }, t + 0.5);
         });
-        /* 4: who gets a score: contracts B, C, D (thesis Ch. 2 example values), never the owner A */
+        /* 4: who is evaluated: contracts B, C, D (thesis Ch. 2 example values). The owner A also holds a
+              stationary share (0.1375) but the study neither evaluates nor reports EOA scores. */
         var WE = ((DATA.params || {}).worked_example || {}).thesis_values || {};
         var st = WE.stationary || [0.1375, 0.2154, 0.1765, 0.4706];
         tl.add(g.F.unmark('pi'), T0 + 2.85);
         ['B', 'C', 'D'].forEach(function (id, k) {
           tl.add(g.W.node(id).badge(fmt(st[k + 1], 4), { color: C.allow }), T0 + 2.95 + k * 0.12);
         });
-        tl.add(g.W.node('A').tag('점수 안 받음'), T0 + 3.3);
+        var NA = g.W.node('A');
+        tl.add(NA.tag('평가 대상 아님'), T0 + 3.3);
+        NA.tagT.setAttribute('text-anchor', 'end'); NA.tagT.setAttribute('x', NA.r + 6);
+        if (!g.aShare) {
+          g.aShare = svgEl('text', { x: NA.r + 6, y: -NA.r - 38, 'text-anchor': 'end', fill: C.ink3, 'font-size': 20, 'font-weight': 700, 'class': 'tnum' }, NA.g);
+          g.aShare.textContent = '몫 ' + fmt(st[0], 4);
+        }
+        tl.fromTo(g.aShare, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.4 }, T0 + 3.3);
       }
       if (i === 2) {
         /* powers-of-ten pull-back */
@@ -359,7 +387,7 @@
     notes: [
       '둘째는 비교 대상인 AWP와, 그냥 센 수예요.',
       'AWP는 송금 그래프 위의 페이지랭크예요. Do와 동료들이 2023년에 만든 점수이고, 화살표는 송금이라서 동전이 흘러가요. 다시 출발하는 곳이 엔도스랭크와 달라요. 최근에 여러 상대에게 송금한 활발한 주소일수록 후광이 크고, 그만큼 더 자주 다시 출발해요. 그래프는 설명용 예시예요.',
-      '그리고 이 연구에서 아주 중요한 비교 상대가 하나 더 있어요. 바로 화살표를 그냥 센 수예요. 허락 쪽은 그 계약에 마지막 허락이 0보다 큰 서로 다른 주인 수예요. 같은 주인이 두 번 허락해도 한 번만 세요. 송금 쪽은 송금을 보내온 서로 다른 주소 수예요. 시험 기간의 기준선은 자기 자신이 보낸 송금을 빼고 세요.',
+      '그리고 이 연구에서 아주 중요한 비교 상대가 하나 더 있어요. 바로 화살표를 그냥 센 수예요. 계약을 v라고 부를게요. 허락 쪽은 v에 마지막 허락을 0보다 크게 남긴 서로 다른 주인 수예요. 같은 주인이 두 번 허락해도 한 번만 세요. 송금 쪽은 v에 송금을 보내온 서로 다른 주소 수예요. 시험 기간의 기준선은 자기 자신이 보낸 송금을 빼고 세요.',
       '페이지랭크는 결국 이 수를 매끄럽게 다듬은 값이라서, 그냥 센 수보다 나은 무엇을 주는지를 꼭 따져 봐야 해요. 이 질문은 결과 장에서 그대로 답할게요.'
     ],
     html:
@@ -374,8 +402,8 @@
         '<div class="hd">기준선 = 그냥 센 수<small>원시 차수</small></div>' +
         '<svg id="gr" width="' + S2.R.w + '" height="430" style="left:0;top:96px"></svg>' +
         '<div class="s6-defs" id="defs" style="top:506px">' +
-          '<div class="d"><span class="k">받은 허락 수</span>$\\mathrm{in\\_approve\\_degree}(w)=\\bigl|\\{\\,u : a^{\\star}(u,w,\\cdot)>0\\,\\}\\bigr|$</div>' +
-          '<div class="d"><span class="k">송금 입차수</span>$\\mathrm{in\\_degree}(w)=\\bigl|\\{\\,u_e : e\\in\\mathcal T_{\\mathrm{in}}(w)\\,\\}\\bigr|$</div>' +
+          '<div class="d"><span class="k">받은 허락 수</span><span class="w">$v$에 0보다 큰 마지막 허락을 남긴 <b>서로 다른 주인</b> 수</span></div>' +
+          '<div class="d"><span class="k">송금 입차수</span><span class="w">$v$에 송금을 보낸 <b>서로 다른 주소</b> 수</span></div>' +
           '<div class="mi">시험 기간(W0·W1)의 기준선은 자기 자신이 보낸 송금을 빼고 세요 · 논문 3장</div>' +
         '</div>' +
       '</div>' +
@@ -402,7 +430,7 @@
       gsap.set([q(el, '#pl .hd'), q(el, '#pl .sb')], { autoAlpha: 0 });
       /* right: one contract, owners (allowance) and senders (transfer), two tallies */
       var W = { x: 470, y: 200 };
-      g.W = Comp.contract(ctx, gr, { x: W.x, y: W.y, size: 84, label: '계약 w' });
+      g.W = Comp.contract(ctx, gr, { x: W.x, y: W.y, size: 84, label: '계약 v' });
       var ow = [30, 86, 142, 198], se = [266, 322, 378];
       svgEl('text', { x: 36, y: 122, fill: C.allow, 'font-size': 22, 'font-weight': 600 }, gr).textContent = '주인';
       svgEl('text', { x: 36, y: 330, fill: C.xfer, 'font-size': 22, 'font-weight': 600 }, gr).textContent = '보낸 주소';
@@ -506,19 +534,20 @@
     id: 's06-03', title: 'C-PR: 두 갈림길 표를 섞어요', time: 60, steps: 6,
     tags: function (step) { return step >= 4 && step < 6 ? ['example', 'plan'] : ['example']; },
     notes: [
-      '셋째 점수는 두 화살표를 한 번에 걷는 결합 점수 C-PR이에요. 주인 u 하나를 볼게요. u에서는 허락 화살표 둘과 송금 화살표 둘이 나가요.',
-      '먼저 허락 쪽 갈림길 표의 줄이에요. 05에서 본 상한 예 그대로, 무제한 허락은 2만 달러, 다른 하나는 500달러라서 0.9756과 0.0244로 나뉘어요. 합은 1이에요.',
+      '셋째 점수는 C-PR, 곧 결합 페이지랭크예요. 두 그래프를 함께 걷는 점수예요. 주인 u 하나를 볼게요. u에서는 허락 화살표 둘과 송금 화살표 둘이 나가요.',
+      '먼저 허락 쪽 갈림길 표의 줄이에요. P 아래의 A는 허락 층, u는 출발점, 마지막 점은 모든 도착점 자리라는 뜻이에요. 05에서 본 상한 예 그대로, 무제한 허락은 2만 달러, 다른 하나는 500달러라서 0.9756과 0.0244로 나뉘어요. 합은 1이에요.',
       '송금 쪽 줄도 만들어요. 오늘 보낸 1,000달러는 시간 무게 0.858을 곱해 858, 180일 전 300달러는 0.5를 곱해 150이에요. 그래서 0.8512와 0.1488이에요. 이것도 합이 1이에요. 금액은 모두 설명용 예시예요.',
       '이 두 줄을 섞어요. 다이얼 람다가 0.5면 허락 줄을 반으로, 송금 줄도 반으로 줄여서 이어 붙여요. S1은 0.4878, S2는 두 조각을 더해 0.0866, R은 0.4256이에요. 람다 곱하기 1 더하기 1 빼기 람다 곱하기 1은 언제나 1이라서, 섞은 줄의 합도 1이에요.',
       '다이얼을 돌려 볼게요. 람다가 1이면 허락 줄과 똑같아지고, 0이면 송금 줄과 똑같아져요. 주된 값 0.5와 민감도 값 0.25, 0.75는 데이터를 꺼내기 전에 분석 계획에 적어 두었어요.',
-      '그런데 u에게 송금 화살표가 없으면 어떻게 될까요? 섞은 줄의 합이 람다, 곧 0.5밖에 안 돼요. 그래서 람다로 나눠 다시 1로 맞춰요. 이 나눗수를 D 람다라고 써요. 결국 그 점은 허락 길을 100% 따라가요.',
+      '그런데 u에게 송금 화살표가 없으면 어떻게 될까요? 그러면 송금 줄은 비어요. 섞은 줄의 합이 람다, 곧 0.5밖에 안 돼요. 그래서 람다로 나눠 다시 1로 맞춰요. 이 나눗수를 D 람다라고 써요. 결국 그 점은 허락 길을 100% 따라가요.',
       '이것이 논문 3장의 결합 식이에요. 스위치 1은 그 층에 나가는 화살표가 있으면 1, 없으면 0이에요. 표로 정리하면, 둘 다 있으면 람다와 1 빼기 람다, 한쪽만 있으면 그쪽이 1, 둘 다 없으면 매달린 점이라 다시 출발로 가요. 람다가 1이면 허락 층만, 0이면 송금 층만 걷는 것과 같아요. 다시 출발은 고르게, d는 0.85예요.'
     ],
     html:
       '<h1 class="t-h1" style="font-size:58px;line-height:70px">한 점의 줄 = λ × 허락 줄 + (1 − λ) × 송금 줄</h1>' +
+      '<p class="abs s6-kick" style="left:96px;top:146px"><b class="c-cpr">C-PR</b>(결합 페이지랭크) · 두 그래프를 함께 걷는 점수</p>' +
       '<svg class="abs" id="g3" width="470" height="520" style="left:96px;top:196px;overflow:visible" data-in="none"></svg>' +
       '<svg class="abs" id="b3" width="520" height="560" style="left:' + B3.x + 'px;top:' + B3.y + 'px;overflow:visible" data-in="none"></svg>' +
-      '<div class="abs s6-lbl c-allow" id="tA" data-in="none" style="left:' + (B3.x + B3.x0) + 'px;top:' + (B3.y + B3.rows[0] - 44) + 'px">허락 줄 $\\ca{P_{A,u,\\cdot}}$</div>' +
+      '<div class="abs s6-lbl c-allow" id="tA" data-in="none" style="left:' + (B3.x + B3.x0) + 'px;top:' + (B3.y + B3.rows[0] - 44) + 'px">허락 줄 $\\ca{P_{A,u,\\cdot}}$ <span class="s6-dotnote">‘·’ 자리 = 모든 도착점</span></div>' +
       '<div class="abs s6-lbl c-xfer" id="tT" data-in="none" style="left:' + (B3.x + B3.x0) + 'px;top:' + (B3.y + B3.rows[1] - 44) + 'px">송금 줄 $\\ct{P_{T,u,\\cdot}}$</div>' +
       '<div class="abs s6-lbl c-cpr" id="tM" data-in="none" style="left:' + (B3.x + B3.x0) + 'px;top:' + (B3.y + B3.rows[2] - 44) + 'px">섞은 줄 $\\cc{P^{(\\lambda)}_{u,\\cdot}}$</div>' +
       '<div class="abs s6-callout" id="call" data-in="none" style="left:' + (B3.x + B3.x0) + 'px;top:' + (B3.y + 534) + 'px">한쪽 길만 있으면 그 길을 [[100%]]</div>' +
@@ -526,7 +555,7 @@
       '<div class="abs" id="lcard" data-in="none" style="left:372px;top:756px"></div>' +
       '<p class="abs s6-cap" id="lcap" data-in="none" style="left:372px;top:900px;width:700px">λ = 0.5 (주) · 0.25 · 0.75 (민감도) — 분석 계획이 데이터를 꺼내기 전에 정했어요</p>' +
       '<div class="abs s6-d3" id="d3" data-in="none" style="left:1104px;top:186px;width:720px"></div>' +
-      '<div class="abs s6-final" id="fin" data-in="none" style="left:1104px;top:186px;width:720px"><div class="hd"><span>완성 식 · 논문 3장 식 coupled-transition</span></div>' +
+      '<div class="abs s6-final" id="fin" data-in="none" style="left:1104px;top:186px;width:720px"><div class="hd"><span>완성 식 · 논문 식 (3.9)</span></div>' +
         '$$\\begin{aligned}\\cc{P^{(\\lambda)}_{u,\\cdot}}&=\\alpha_A(u)\\,\\ca{P_{A,u,\\cdot}}+\\alpha_T(u)\\,\\ct{P_{T,u,\\cdot}}\\\\[4pt] \\alpha_A(u)&=\\frac{\\lambda\\,\\mathbf 1[o_A(u)>0]}{D_{\\lambda}(u)},\\qquad \\alpha_T(u)=\\frac{(1-\\lambda)\\,\\mathbf 1[o_T(u)>0]}{D_{\\lambda}(u)}\\\\[4pt] D_{\\lambda}(u)&=\\lambda\\,\\mathbf 1[o_A(u)>0]+(1-\\lambda)\\,\\mathbf 1[o_T(u)>0]\\end{aligned}$$' +
         '<div class="lg">$\\mathbf 1[\\text{조건}]$ 조건이 맞으면 1, 아니면 0 — 스위치<br>$D_\\lambda(u)$ 섞은 줄의 합을 다시 1로 맞추는 나눗수 · $o_A, o_T$ 나가는 무게의 합</div></div>' +
       '<div class="abs" id="cases" data-in="none" style="left:1104px;top:556px;width:720px">' +
@@ -589,6 +618,7 @@
       g.tS2r.setAttribute('width', ROWT.S2 * L); g.tRr.setAttribute('x', x0 + ROWT.S2 * L); g.tRr.setAttribute('width', ROWT.R * L);
       var lT1 = lab(g.rowT, x0, yT + H + 34, 'S2', C.xfer); lT1.v.textContent = fmt(ROWT.S2, 4);
       var lT2 = lab(g.rowT, x0 + L, yT + H + 34, 'R', C.xfer, 'end'); lT2.v.textContent = fmt(ROWT.R, 4);
+      g.lT1 = lT1; g.lT2 = lT2;
       g.sumA = svgEl('text', { x: x0 + L + 16, y: yA + 30, fill: C.ink2, 'font-size': 21, 'class': 'tnum' }, g.rowA); g.sumA.textContent = '= 1';
       g.sumT = svgEl('text', { x: x0 + L + 16, y: yT + 30, fill: C.ink2, 'font-size': 21, 'class': 'tnum' }, g.rowT); g.sumT.textContent = '= 1';
       /* mixed row */
@@ -625,6 +655,10 @@
       gsap.set(g.D.el, { autoAlpha: 0 });
       g.fin = q(el, '#fin'); g.cases = q(el, '#cases');
       gsap.set([g.fin, g.cases], { autoAlpha: 0 });
+      g.xnote = document.createElement('div'); g.xnote.className = 's6-xnote';
+      g.xnote.style.left = (B3.x + B3.x0 + 40) + 'px'; g.xnote.style.top = (B3.y + B3.rows[1] + 7) + 'px';
+      g.xnote.textContent = '송금 화살표 없음 → 이 줄은 비어요';
+      el.appendChild(g.xnote); gsap.set(g.xnote, { autoAlpha: 0 });
     },
     enter: function (el, ctx) {
       var g = ctx.g, tl = ctx.tl();
@@ -686,6 +720,11 @@
         tl.add(g.tS2.cut(), 0);
         tl.add(g.tR.cut(), 0.1);
         tl.to([g.lS2b, g.lR], { autoAlpha: 0, duration: 0.3 }, 0.1);
+        /* the transfer row empties with its arrows: o_T(u) = 0, nothing to share out */
+        tl.to([g.tS2r, g.tRr], { scaleX: 0, svgOrigin: B3.x0 + ' ' + B3.rows[1], duration: 0.6, ease: E.io }, 0.2);
+        tl.call(function () { g.lT1.v.textContent = '0'; g.lT2.v.textContent = '0'; g.sumT.textContent = '= 0'; g.sumT.setAttribute('fill', C.hi); }, null, 0.6);
+        tl.set(g.fT, { attr: { 'stroke-dasharray': '7 6' } }, 0.6);
+        tl.fromTo(g.xnote, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: E.out }, 0.7);
         tl.to(g.mix, { t: 0, duration: 0.7, ease: E.io, onUpdate: g.render }, 0.5);
         tl.set(g.fM, { attr: { stroke: C.hi, 'stroke-dasharray': '7 6' } }, 1.2);
         tl.fromTo(g.sumM, { scale: 1.5, transformOrigin: '0% 50%' }, { scale: 1, duration: 0.4, ease: E.stamp, immediateRender: false }, 1.2);
@@ -701,6 +740,7 @@
         tl.fromTo(g.cases, { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: E.out }, 0.55);
         tl.fromTo(g.cases.querySelectorAll('tr'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, stagger: 0.12 }, 0.7);
         tl.to(g.D.el, { autoAlpha: 0, y: -16, duration: 0.4, ease: E['in'] }, 0);
+        tl.to([g.rowA, g.rowT, g.rowM, q(el, '#tA'), q(el, '#tT'), q(el, '#tM'), q(el, '#call'), g.xnote, g.lcard.el, g.lcap], { autoAlpha: 0.2, duration: 0.5, ease: E.io }, 0.1);
       }
     }
   };
@@ -738,12 +778,12 @@
     id: 's06-04', title: 'λ를 돌리면: 15,107개 계약이 움직여요', time: 70, steps: 6,
     tags: ['construct'],
     notes: [
-      '이 장면이 이 발표의 대표 그림이에요. 실제 계약 15,107개를 모두 올렸어요. 가로는 허락한 주인 수, 깊이는 송금을 보낸 주소 수, 높이는 C-PR 점수의 순위예요. 순위를 백분위로 바꿔서, 람다마다 점수의 크기가 달라도 같은 눈금으로 비교할 수 있게 했어요. 지금 다이얼은 1, 곧 허락 층만 걷는 점수예요.',
-      '람다를 0에 두면 송금 층만 걸어요. 점수는 송금 쪽 수를 따라 서고, 송금 그래프에 없는 2,670개는 바닥으로 떨어져요. 위의 숫자를 보면 송금 입차수와의 타우가 0.689, 받은 허락 수와는 0.262예요.',
-      '람다를 0.25로 올리면 크게 바뀌어요. 바닥에 있던 계약 대부분이 솟아오르고, 두 그래프 어디에도 없는 80개만 남아요. 능선이 두 축 사이로 비스듬해져요.',
+      '이 장면이 이 발표의 대표 그림이에요. 실제 계약 15,107개를 모두 올렸어요. 가로는 받은 허락 수, 깊이는 송금 입차수예요. 둘 다 로그 눈금이라서 눈금 한 칸이 10배예요. 높이는 C-PR 점수의 백분위, 곧 점수 순위를 0에서 100으로 바꾼 값이고 맨 위가 100이에요. 순위로 바꾸면 람다마다 점수의 크기가 달라도 같은 눈금으로 비교할 수 있어요. 뒤의 두 벽에는 구름의 그림자를 비췄어요. 오른쪽 벽은 받은 허락 수와 점수, 왼쪽 벽은 송금 입차수와 점수예요. 그림자가 가는 띠면 점수가 그 수를 잘 따라가고, 퍼진 구름이면 잘 따라가지 않아요. 지금 다이얼은 1, 곧 허락 층만 걷는 점수라서 허락 벽의 그림자가 띠에 가까워요. 오른쪽 위 막대는 점수 순서가 각 수와 얼마나 같은지 보여 줘요. 0이면 상관없고 1이면 같은 순서예요. 재는 법은 07에서 설명할게요.',
+      '람다를 0에 두면 송금 층만 걸어요. 이번에는 왼쪽 송금 벽의 그림자가 띠에 가까워지고, 허락 벽의 그림자는 퍼져요. 송금 그래프에 없는 2,670개는 바닥으로 떨어져요. 막대로 보면 송금 입차수와는 0.689, 받은 허락 수와는 0.262예요.',
+      '람다를 0.25로 올리면 크게 바뀌어요. 바닥에 있던 계약 대부분이 솟아오르고, 두 그래프 어디에도 없는 80개만 남아요. 두 벽의 그림자가 모두 반쯤 퍼지고, 두 막대도 중간쯤에서 만나요.',
       '0.5에서는 거의 움직이지 않아요. 0.25와 비슷해요.',
       '0.75에서도 조금만 움직여요.',
-      '1에서 다시 크게 뛰어 허락 쪽 수를 따라 서요. 받은 허락 수와의 타우는 0.654예요. 허락 그래프에 없는 523개가 바닥으로 가요.',
+      '1에서 다시 크게 뛰어 허락 쪽 수를 따라 서요. 허락 벽의 그림자가 다시 띠에 가까워지고, 받은 허락 수와는 0.654예요. 허락 그래프에 없는 523개가 바닥으로 가요.',
       '끝에서 크게 뛰는 이유는, 람다가 정확히 0이나 1이면 한 층만 걸어서 점의 모임 자체가 달라지기 때문이에요. 0과 1 사이에서는 한쪽 화살표만 가진 점도 그 길을 100% 따라가니까요. 그래서 이 식은 끝에서 연속이 아니에요. 그리고 이 숫자들은 같은 기간의 점검이라서, 만든 방식 때문에 어느 정도는 저절로 맞는다는 점도 기억해 주세요. 다이얼을 끌면 계산된 다섯 값 사이를 오갈 수 있고, 구름은 끌어서 돌려 볼 수 있어요.'
     ],
     html:
@@ -752,11 +792,17 @@
       '<div class="abs" id="dialbox" data-shared="lambda-dial" data-in="none" style="left:96px;top:176px;width:240px;height:180px"></div>' +
       '<div class="abs s6-cap" id="dialcap" style="left:96px;top:366px;width:300px">λ = 0 송금 층만 · λ = 1 허락 층만<br><span class="ink-3" style="font-size:18px">다이얼을 끌어 보세요 (다섯 값만)</span></div>' +
       '<div class="abs s6-hudp" id="hudp" style="left:1384px;top:176px;width:440px">' +
-        '<div class="r"><span class="k c-xfer">τ(송금 입차수)</span><span class="v c-xfer" id="vd">0.183</span></div>' +
-        '<div class="r" style="margin-top:-6px"><span class="k"></span><span class="ci" id="cd">[0.171, 0.195]</span></div>' +
-        '<div class="r"><span class="k c-allow">τ(받은 허락 수)</span><span class="v c-allow" id="va">0.654</span></div>' +
-        '<div class="r" style="margin-top:-6px"><span class="k"></span><span class="ci" id="ca">[0.647, 0.660]</span></div>' +
+        '<div class="q">점수 순서가 이 수와 얼마나 같을까?</div>' +
+        '<div class="m"><span class="k c-allow">받은 허락 수</span><span class="bar c-allow"><i id="ma"></i></span><span class="v c-allow" id="va">0.654</span></div>' +
+        '<div class="m"><span class="k c-xfer">송금 입차수</span><span class="bar c-xfer"><i id="md"></i></span><span class="v c-xfer" id="vd">0.183</span></div>' +
+        '<div class="sc"><span>0 상관없음</span><span>1 같은 순서</span></div>' +
+        '<div class="nt">켄달의 타우 · 재는 법은 07에서</div>' +
         '<div class="z">0점이라 바닥판에 있는 계약 <b id="vz">523</b>개</div></div>' +
+      '<div class="abs s6-read" id="read" style="left:96px;top:440px;width:370px">' +
+        '<div class="hd">읽는 법</div>' +
+        '<div class="r"><b>백분위</b><span>점수 순위 0~100 (맨 위 100)</span></div>' +
+        '<div class="r"><b>로그 눈금</b><span>10 → 100 → 1천, 한 칸 = 10배</span></div>' +
+        '<div class="r"><b>벽 그림자</b><span>가는 띠 = 그 수를 잘 따라가요<br>퍼진 구름 = 잘 안 따라가요</span></div></div>' +
       '<p class="abs s6-capline" id="cap0" style="left:96px;top:930px;width:1180px">점 하나 = 계약 하나 · 가로 <b class="c-allow">받은 허락 수</b> · 깊이 <b class="c-xfer">송금 입차수</b> (둘 다 로그) · 높이 <b class="c-cpr">C-PR 점수의 백분위</b></p>' +
       '<p class="abs s6-capline" id="cap6" data-in="none" style="left:96px;top:912px;width:1240px;color:var(--ink)">끝에서 크게 뛰어요: λ = 0과 1은 ‘한 층만 걷기’라서 점의 모임이 달라져요 — 연속이 아니에요</p>' +
       '<div class="abs s6-mini ink-2" id="mini" style="left:1384px;top:902px;width:440px;text-align:right">$P^{(\\lambda)}_{u,\\cdot}=\\alpha_A(u)\\,\\ca{P_{A,u,\\cdot}}+\\alpha_T(u)\\,\\ct{P_{T,u,\\cdot}}$</div>',
@@ -768,7 +814,9 @@
         var j = Comp.data.lambdas.indexOf(v); if (j < 0) return;
         ctx.add(function () { setLambda(ctx, j, false); });
       } });
-      g.vd = q(el, '#vd'); g.va = q(el, '#va'); g.cd = q(el, '#cd'); g.ca = q(el, '#ca'); g.vz = q(el, '#vz');
+      g.vd = q(el, '#vd'); g.va = q(el, '#va'); g.vz = q(el, '#vz'); g.md = q(el, '#md'); g.ma = q(el, '#ma');
+      var L0 = LAM[4];   /* the cloud and the HUD start at λ = 1 */
+      gsap.set(g.ma, { width: nums(L0.a)[0] * 100 + '%' }); gsap.set(g.md, { width: nums(L0.d)[0] * 100 + '%' });
       g.cap6 = q(el, '#cap6'); gsap.set(g.cap6, { autoAlpha: 0 });
       var K = Comp.data.contracts(); if (!K) return;
       var n = K.n, i, keys = Comp.data.lambdaKeys, lams = Comp.data.lambdas;
@@ -789,6 +837,23 @@
         }
         return { p: p, c: col };
       });
+      /* shadows on the two back walls: (allowance count, percentile) on the wall z = WZ and
+         (transfer count, percentile) on the wall x = WX. A contract with score 0 casts no shadow
+         (black under additive blending). */
+      var WX = -SPAN / 2 - 0.3, WZ = -SPAN / 2 - 0.3, ca = Comp.rgb(C.allow), cx = Comp.rgb(C.xfer);
+      g.shadow = keys.map(function (k, j) {
+        var a = new Float32Array(n * 3), t = new Float32Array(n * 3), cA = new Float32Array(n * 3), cT = new Float32Array(n * 3), pc = K.pct[k];
+        for (var i3 = 0; i3 < n; i3++) {
+          var f = K.flags[i3], zero = lams[j] === 1 ? (f & 1) : lams[j] === 0 ? (f & 2) : f === 3;
+          var yy = zero ? FLOOR + 0.03 : pc[i3] * HY, on = zero ? 0 : 1;
+          a[i3 * 3] = xa[i3] * SX - SPAN / 2; a[i3 * 3 + 1] = yy; a[i3 * 3 + 2] = WZ + 0.03;
+          t[i3 * 3] = WX + 0.03; t[i3 * 3 + 1] = yy; t[i3 * 3 + 2] = zt[i3] * SZ - SPAN / 2;
+          cA[i3 * 3] = ca[0] * on; cA[i3 * 3 + 1] = ca[1] * on; cA[i3 * 3 + 2] = ca[2] * on;
+          cT[i3 * 3] = cx[0] * on; cT[i3 * 3 + 1] = cx[1] * on; cT[i3 * 3 + 2] = cx[2] * on;
+        }
+        return { a: a, t: t, ca: cA, ct: cT };
+      });
+      g.geo = { WX: WX, WZ: WZ, SPAN: SPAN, HY: HY, FLOOR: FLOOR };
       g.delays = new Float32Array(n);
       for (i = 0; i < n; i++) g.delays[i] = xa[i] / mxA;
       var rnd = Deck.util.rng(42);
@@ -811,7 +876,7 @@
         if (lx <= SPAN / 2) g.labs.push(T.label(tv[1], [lx, FLOOR, O[2] - 0.4], { className: 's6-tick3d' }));
         if (lz <= SPAN / 2) g.labs.push(T.label(tv[1], [O[0] - 0.4, FLOOR, lz], { className: 's6-tick3d' }));
       });
-      [[0, '0'], [0.5, '0.5'], [1, '1']].forEach(function (tv) { g.labs.push(T.label(tv[1], [O[0] - 0.3, tv[0] * HY, O[2]], { className: 's6-tick3d', anchor: 'right' })); });
+      [[0, '0'], [0.5, '50'], [1, '100']].forEach(function (tv) { g.labs.push(T.label(tv[1], [O[0] - 0.3, tv[0] * HY, O[2]], { className: 's6-tick3d', anchor: 'right' })); });
       g.labs.push(T.label('0점 = 바닥판', [SPAN / 2 + 0.2, FLOOR, SPAN / 2 + 0.6], { className: 's6-tick3d', anchor: 'left' }));
       /* emission point: in front of the camera, under the dial needle tip (λ = 1 points right) */
       var THREE = T.THREE, cam = T.camera;
@@ -824,6 +889,28 @@
       for (i = 0; i < n; i++) {
         g.emit[i * 3] = o.x + (rnd() - 0.5) * 0.12; g.emit[i * 3 + 1] = o.y + (rnd() - 0.5) * 0.12; g.emit[i * 3 + 2] = o.z + (rnd() - 0.5) * 0.12;
       }
+      /* the two back walls (translucent screens) and their shadows */
+      var WW = SPAN + 0.3, WH = HY + 0.42 + 0.25, wy = FLOOR + WH / 2;
+      g.walls = [];
+      [[C.allow, [WX + WW / 2, wy, WZ], 0], [C.xfer, [WX, wy, WZ + WW / 2], Math.PI / 2]].forEach(function (w) {
+        var grp = new THREE.Group();
+        var pl = new THREE.Mesh(new THREE.PlaneGeometry(WW, WH), new THREE.MeshBasicMaterial({ color: new THREE.Color(C.bg3), transparent: true, opacity: 0.32, depthWrite: false, side: THREE.DoubleSide }));
+        var fr = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(WW, WH)), new THREE.LineBasicMaterial({ color: new THREE.Color(w[0]), transparent: true, opacity: 0.35 }));
+        grp.add(pl); grp.add(fr);
+        grp.position.set(w[1][0], w[1][1], w[1][2]); grp.rotation.y = w[2];
+        T.scene.add(grp);
+        g.walls.push({ g: grp, mats: [pl.material, fr.material], o: [0.32, 0.35] });
+        pl.material.opacity = 0; fr.material.opacity = 0;
+      });
+      g.shA = Comp.cloud(ctx, T, { positions: g.shadow[4].a, colors: g.shadow[4].ca, size: 2.2, opacity: 0.5 });
+      g.shT = Comp.cloud(ctx, T, { positions: g.shadow[4].t, colors: g.shadow[4].ct, size: 2.2, opacity: 0.5 });
+      if (g.shA.material) { g.shA.material.opacity = 0; g.shT.material.opacity = 0; }
+      g.wallLabs = [
+        T.label('뒤 벽 그림자 · 받은 허락 수와 점수', [WX + WW * 0.62, FLOOR + WH + 0.18, WZ], { className: 's6-wall3d' }),
+        T.label('뒤 벽 그림자 · 송금 입차수와 점수', [WX, FLOOR + WH + 0.18, WZ + WW * 0.62], { className: 's6-wall3d' })
+      ];
+      g.wallLabs[0].el.style.color = C.allow; g.wallLabs[1].el.style.color = C.xfer;
+      g.wallLabs.forEach(function (L) { L.el.style.opacity = '0'; });
       g.cloud = Comp.cloud(ctx, T, { positions: g.emit, colors: g.sets[4].c, size: 3, opacity: 0.62 });
       if (g.cloud.points) g.cloud.points.visible = false;   /* shown when the burst from the needle tip starts */
       g.labs.forEach(function (L) { L.el.innerHTML = '<span class="s6-lin">' + L.el.innerHTML + '</span>'; L.el.style.opacity = '0'; });
@@ -833,6 +920,7 @@
         for (var k = 0; k < g.labs.length; k++) {
           var pr = T.project(g.labs[k].pos), o = Math.max(0, Math.min(1, (lim - pr.y) / 50)), inn = g.labs[k].el.firstChild;
           if ((pr.x > T.width - 560 || pr.x < 430) && pr.y < 300) o = 0;   /* under the HUD panel or the dial */
+          if (pr.x < 640 && pr.y > 280 && pr.y < 480) o = 0;                 /* under the reading guide */
           if (inn && inn.__o !== o) { inn.style.opacity = o.toFixed(2); inn.__o = o; }
         }
       });
@@ -847,6 +935,9 @@
       tl.call(function () { if (g.cloud.points) g.cloud.points.visible = true; }, null, t0);
       tl.add(g.cloud.morph(g.sets[4].p, { duration: 1.3, delays: g.rdel, spread: 1.2, ease: 'power3.out' }), t0);
       tl.to(g.labs.map(function (L) { return L.el; }), { opacity: 1, duration: 0.6, stagger: 0.02 }, t0 + 1.2);
+      g.walls.forEach(function (w) { w.mats.forEach(function (m, k) { tl.to(m, { opacity: w.o[k], duration: 0.7 }, t0 + 1.3); }); });
+      if (g.shA.material) tl.to([g.shA.material, g.shT.material], { opacity: 0.5, duration: 0.9 }, t0 + 1.5);
+      tl.to(g.wallLabs.map(function (L) { return L.el; }), { opacity: 1, duration: 0.5, stagger: 0.15 }, t0 + 1.8);
     },
     step: function (el, i, ctx) {
       var g = ctx.g;
@@ -860,12 +951,13 @@
       }
     }
   };
+  /* the camera leans towards the wall whose shadow should tighten, but both walls stay in view */
   var CAM4 = [
-    { theta: 1.40, phi: 1.16, radius: 19.4, target: [0.0, 1.45, 0.2] },   /* λ = 0: look along x, the sky axis runs across */
+    { theta: 1.02, phi: 1.14, radius: 18.8, target: [0.1, 1.6, 0.1] },   /* λ = 0: the transfer wall turns towards us */
     { theta: 0.78, phi: 1.12, radius: 18.2, target: [0.3, 1.7, 0] },
     { theta: 0.78, phi: 1.12, radius: 18.2, target: [0.3, 1.7, 0] },
     { theta: 0.78, phi: 1.12, radius: 18.2, target: [0.3, 1.7, 0] },
-    { theta: 0.16, phi: 1.16, radius: 19.4, target: [0.2, 1.45, 0] }      /* λ = 1: look along z, the amber axis runs across */
+    { theta: 0.56, phi: 1.14, radius: 18.8, target: [0.2, 1.6, 0.1] }    /* λ = 1: the allowance wall turns towards us */
   ];
   function setLambda(ctx, j, fromStep) {
     var g = ctx.g, tl = ctx.tl(), prev = g.j == null ? 4 : g.j;
@@ -875,13 +967,19 @@
     if (g.cloud) {
       tl.add(g.cloud.morph(g.sets[j].p, { duration: 1.4, delays: g.delays, spread: 0.7, ease: E.io }), 0.1);
       tl.add(g.cloud.recolor(g.sets[j].c, { duration: 1.0, delays: g.delays, spread: 0.5 }), 0.1);
+      tl.add(g.shA.morph(g.shadow[j].a, { duration: 1.4, delays: g.delays, spread: 0.7, ease: E.io }), 0.1);
+      tl.add(g.shT.morph(g.shadow[j].t, { duration: 1.4, delays: g.delays, spread: 0.7, ease: E.io }), 0.1);
+      tl.add(g.shA.recolor(g.shadow[j].ca, { duration: 0.8, delays: g.delays, spread: 0.5 }), 0.1);
+      tl.add(g.shT.recolor(g.shadow[j].ct, { duration: 0.8, delays: g.delays, spread: 0.5 }), 0.1);
       if (fromStep && (prev !== j)) tl.add(g.T.cameraTo(CAM4[j], { duration: 1.8 }), 0.15);
     }
+    /* τ_b point values only (digest strings); the intervals come in s07 */
     var a0 = nums(Lp.d), a1 = nums(Ln.d), b0 = nums(Lp.a), b1 = nums(Ln.a);
     tl.add(ctx.count(g.vd, a0[0], a1[0], { decimals: 3, final: fmt(a1[0], 3), duration: 1.2 }), 0.3);
     tl.add(ctx.count(g.va, b0[0], b1[0], { decimals: 3, final: fmt(b1[0], 3), duration: 1.2 }), 0.3);
+    tl.fromTo(g.md, { width: a0[0] * 100 + '%' }, { width: a1[0] * 100 + '%', duration: 1.2, ease: E.io }, 0.3);
+    tl.fromTo(g.ma, { width: b0[0] * 100 + '%' }, { width: b1[0] * 100 + '%', duration: 1.2, ease: E.io }, 0.3);
     tl.add(ctx.count(g.vz, Lp.zeros, Ln.zeros, { decimals: 0, final: fmt(Ln.zeros, 0), duration: 1.2 }), 0.3);
-    tl.call(function () { g.cd.textContent = '[' + Ln.d.split('[')[1]; g.ca.textContent = '[' + Ln.a.split('[')[1]; }, null, 0.9);
   }
 
   /* ================================================================ s06-05
@@ -900,10 +998,10 @@
     id: 's06-05', title: 'S-PR: 허락은 \'출발점\'만 정해요', time: 45, steps: 4,
     tags: function (step) { return step >= 3 ? ['example', 'posthoc'] : ['example']; },
     notes: [
-      '넷째는 빼 보기 실험인 S-PR이에요. 송금 그래프를 걷는 점수인데, 순간 이동하는 곳이 달라요. 지금은 다시 출발하는 비가 모든 점에 고르게 내려요.',
+      '넷째는 S-PR, 곧 보증 씨앗 페이지랭크예요. S-PR은 빼 보기 실험이에요. 송금 그래프를 걷는 점수인데, 순간 이동하는 곳이 달라요. 지금은 다시 출발하는 비가 모든 점에 고르게 내려요.',
       '이제 비가 허락 점수가 있는 곳, 곧 호박색 후광이 있는 점에만 몰려 내려요. 후광이 클수록 비도 굵어요. 허락 점수가 없는 점에는 비가 내리지 않아요. 웹 스팸을 막는 TrustRank와 같은 꼴인데, 사람이 고른 씨앗 대신 허락 점수를 씨앗으로 써요.',
       '식으로 쓰면, 송금 그래프의 점마다 허락 층만 걸은 점수를 합이 1이 되게 다시 나눈 것이 다시 출발 비율이에요.',
-      '결과를 조금 미리 보면, W0에서 S-PR은 새 송금자는 송금 층만 걸을 때와 거의 같게 맞혔지만, 새 허락 쌍은 허락 층만 걸을 때보다 못 맞혔어요. 이 두 비교는 라벨을 본 뒤에 계산한 사후 비교예요.',
+      '결과를 조금 미리 보면, W0에서 S-PR은 새 송금자는 송금 층만 걸을 때와 거의 같게 맞혔지만, 새 허락 쌍은 허락 층만 걸을 때보다 못 맞혔어요. 이 두 비교는 라벨을 본 뒤에 계산한 사후 비교예요. 차이를 어떻게 재는지는 07에서 볼게요.',
       '그러니까 허락 화살표는 실제로 그 위를 걸을 때 도움이 되고, 출발점만 정할 때는 별 도움이 안 된다는 뜻이에요.'
     ],
     html:
@@ -916,7 +1014,10 @@
         '$$\\cc{\\pi_u}=\\frac{\\ca{r_{A,u}}}{\\sum_{v\\in V_T}\\ca{r_{A,v}}}\\qquad(u\\in V_T)$$' +
         '<div class="nt">송금 그래프의 점들에서, 허락 점수 $\\ca{\\mathbf r_A}$를 합이 1이 되게 다시 나눈 것 · 허락 그래프에 없는 점은 0</div></div>' +
       '<div class="abs" id="fp5" data-in="none" style="left:1060px;top:640px;width:764px">' +
-        '<div class="s6-fhead"><span>미리 보기 · W0 · 짝지은 차이 Δτ</span>' + Deck.tagHTML('posthoc') + '</div><div id="fhost5"></div></div>' +
+        '<div class="s6-fhead"><span>미리 보기 · W0 · 라벨을 본 뒤 계산한 비교</span>' + Deck.tagHTML('posthoc') + '</div>' +
+        '<div class="s6-verd" id="v5a"><span class="ic c-xfer">≈</span><span><b class="c-xfer">새 송금자</b>송금 층만 걸을 때와 거의 같아요</span></div>' +
+        '<div class="s6-verd" id="v5b"><span class="ic c-hi">↓</span><span><b class="c-allow">새 허락 쌍</b>허락 층만 걸을 때보다 못해요</span></div>' +
+        '<div class="s6-fnote">차이를 재는 법은 07에서 봐요</div></div>' +
       '<p class="abs s6-concl" data-step="4" style="left:96px;top:922px;width:1220px">허락 화살표는 ‘걸을 때’ 도움이 되고, ‘출발점만 정할 때’는 별 도움이 안 돼요</p>',
     build: function (el, ctx) {
       var g = ctx.g = { w: N5.map(function () { return 1 / N5.length; }) };
@@ -947,15 +1048,10 @@
       for (var r = 0; r < 14; r++) g.rip.push({ el: svgEl('ellipse', { cx: 0, cy: 0, rx: 0, ry: 0, fill: 'none', stroke: '#CFE9FF', 'stroke-width': 1.5, opacity: 0 }, g.rainG), t: 1 });
       g.ripN = 0;
       g.rain = { on: 0 };
-      /* forest: two post hoc contrasts (R§6 contrasts_after[2], [1]) */
-      var a = nums(SPR_SEND), b = nums(SPR_APPR);
-      g.F = Comp.forest(ctx, q(el, '#fhost5'), { w: 764, rowH: 82, labelWidth: 210, valueWidth: 290, domain: [-0.08, 0.02], ticks: [-0.08, -0.06, -0.04, -0.02, 0, 0.02],
-        tickFormat: function (t) { return mfmt(t, 2); }, hidden: true, top: 12,
-        rows: [
-          { label: '새 송금자', sub: 'S-PR − 송금 층만 (λ = 0)', est: a[0], lo: a[1], hi: a[2], color: 'cpr', text: SPR_SEND },
-          { label: '새 허락 쌍', sub: 'S-PR − 허락 층만 (λ = 1)', est: b[0], lo: b[1], hi: b[2], color: 'cpr', text: SPR_APPR }
-        ] });
+      /* two post hoc verdicts in words (R§6 contrasts_after[2]: SPR_SEND, interval covers 0 → '거의 같아요';
+         contrasts_after[1]: SPR_APPR, interval below 0 → '못해요'). Δτ and intervals are taught only in s07. */
       g.fp = q(el, '#fp5'); gsap.set(g.fp, { autoAlpha: 0 });
+      g.v5 = [q(el, '#v5a'), q(el, '#v5b')]; gsap.set(g.v5, { autoAlpha: 0 });
       /* static rain for reduced motion */
       g.static = svgEl('g', {}, svg);
       gsap.set(g.static, { autoAlpha: 0 });
@@ -980,8 +1076,8 @@
       }
       if (i === 3) {
         tl.fromTo(g.fp, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, 0);
-        tl.add(g.F.show(0), 0.3);
-        tl.add(g.F.show(1), 0.75);
+        tl.fromTo(g.v5, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: E.out, stagger: 0.45 }, 0.3);
+        tl.fromTo(g.v5.map(function (v) { return v.querySelector('.ic'); }), { scale: 0.4 }, { scale: 1, duration: 0.4, ease: E.stamp, stagger: 0.45 }, 0.45);
       }
     }
   };

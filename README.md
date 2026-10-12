@@ -9,6 +9,7 @@
 | `proposal/` | 연구계획서(승인·고정): LaTeX 정본, 교수·심사위원 피드백, 발표 자료, DOCX 도구. 명시적인 요청 없이는 고치지 않습니다 |
 | `dissertation/overleaf-github/` | 논문 원고(영문, UNISA 양식 LaTeX). 서브모듈 `phd-dissertation-draft-en`(Overleaf가 `main`을 읽음). 투고 원고 `manuscripts/`와 보조 분석 `analysis/`도 이 저장소에 있습니다 |
 | `dissertation/overleaf-github-ko/` | 원고를 쉬운 한국어로 옮긴 번역본(LaTeX, `main.pdf`) |
+| `dissertation/presentation/` | 학위논문 발표 자료(한국어 HTML 슬라이드 59장: 3D 데이터 시각화, 중학생 눈높이의 수식 유도, 모션 그래픽). `index.html`을 브라우저로 열면 오프라인에서도 돌아갑니다. [`README.md`](dissertation/presentation/README.md) 참고 |
 | `dissertation/notes/` | 원고를 쓸 때 지키는 규칙과 메모(`_writing-brief.md`, `_claims.md`, `_revision-context.md`, `_todo.md`). 빌드에 들어가지 않습니다 |
 | `experiments/` | BigQuery 추출, 점수 계산, 평가 코드와 데이터 |
 | `archive/` | 2026-10-11 이전의 지갑 평판 연구 자료(실험 코드와 데이터, 한국어판, 로컬 원고 자료, 어린이 책·오디오북, 피드백 정리). [`archive/README.md`](archive/README.md) 참고 |
