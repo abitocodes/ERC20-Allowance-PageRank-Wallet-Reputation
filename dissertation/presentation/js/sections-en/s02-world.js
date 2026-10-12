@@ -51,7 +51,7 @@
     '.s02-panel > svg.frame{position:absolute;left:0;top:0;overflow:visible}',
     '.s02-panel .hd{position:absolute;left:44px;top:34px;font-size:46px;line-height:56px;font-weight:700;letter-spacing:-.02em}',
     '.s02-panel .hd small{font-size:26px;font-weight:500;color:var(--ink-3);margin-left:12px;letter-spacing:0}',
-    '.s02-panel .tx{position:absolute;left:44px;right:40px;top:112px;font-size:30px;line-height:44px;color:var(--ink)}',
+    '.s02-panel .tx{position:absolute;left:44px;right:40px;top:112px;font-size:28px;line-height:44px;color:var(--ink)}',
     '.s02-panel .tx .sub{display:block;color:var(--ink-2);margin-top:6px}',
     '.s02-panel svg.fig{position:absolute;left:0;top:214px;overflow:visible}',
     '.s02-codes{position:absolute;left:984px;top:788px;display:flex;flex-wrap:wrap;gap:12px 14px;align-items:center;width:860px}',
@@ -132,20 +132,20 @@
 
   /* ================================================================ s02-01 */
   var slide1 = {
-    id: 's02-01', title: '디파이를 한 장으로', time: 30, steps: 2,
+    id: 's02-01', title: 'DeFi in one picture', time: 30, steps: 2,
     notes: [
-      '디파이는 탈중앙 금융이라는 뜻이에요. 은행 창구 직원 대신 프로그램이 돈을 바꾸고, 맡아 굴리고, 빌려줘요.',
-      '오늘 이야기에 나오는 라우터, 금고, 대출 풀이 모두 이런 프로그램이에요. 라우터는 내 토큰을 다른 토큰으로 바꿔 주고, 금고는 맡긴 토큰을 굴려 주고, 대출 풀은 빌려주고 빌려요.',
-      '이런 프로그램을 스마트 계약이라고 하고, 블록체인 위에서 정해진 규칙대로 저절로 실행돼요. 그리고 이 계약들이 사용자의 토큰을 움직이려면 먼저 사용자의 허락이 필요해요. 그 허락이 다음 장의 주인공이에요.'
+      'DeFi means decentralized finance. In place of a clerk at a bank counter, programs exchange money, hold it and put it to work, and lend it.',
+      'The routers, vaults and lending pools in today\'s talk are all programs of this kind. A router swaps my tokens for other tokens, a vault puts the tokens I deposit to work, and in a lending pool people lend and borrow.',
+      'Such a program is called a smart contract. It runs by itself on the blockchain, following fixed rules. Before these contracts can move a user\'s tokens, they first need the user\'s permission, an allowance. That allowance is the main character of the next slide.'
     ],
     html:
-      '<h1 class="t-h1">디파이 = 은행 창구 대신 [[프로그램]]</h1>' +
+      '<h1 class="t-h1">DeFi = [[programs]] instead of a bank counter</h1>' +
       '<div class="s02-cards" id="cards" data-in="none">' +
-        '<div class="s02-card"><svg width="544" height="270" viewBox="0 0 544 270"></svg><div class="nm">라우터</div><div class="ds">토큰 교환을 대신 해 줘요</div></div>' +
-        '<div class="s02-card"><svg width="544" height="270" viewBox="0 0 544 270"></svg><div class="nm">금고</div><div class="ds">맡긴 토큰을 굴려 줘요</div></div>' +
-        '<div class="s02-card"><svg width="544" height="270" viewBox="0 0 544 270"></svg><div class="nm">대출 풀</div><div class="ds">빌려주고 빌려요</div></div>' +
+        '<div class="s02-card"><svg width="544" height="270" viewBox="0 0 544 270"></svg><div class="nm">Router</div><div class="ds">Swaps one token for another</div></div>' +
+        '<div class="s02-card"><svg width="544" height="270" viewBox="0 0 544 270"></svg><div class="nm">Vault</div><div class="ds">Puts deposited tokens to work</div></div>' +
+        '<div class="s02-card"><svg width="544" height="270" viewBox="0 0 544 270"></svg><div class="nm">Lending pool</div><div class="ds">Lend and borrow</div></div>' +
       '</div>' +
-      '<p class="s02-line" style="top:822px" data-step="2">이 프로그램들을 <b>스마트 계약</b>이라고 해요. 블록체인 위에서 저절로 실행돼요.</p>',
+      '<p class="s02-line" style="top:822px" data-step="2">These programs are called <b>smart contracts</b>. They run by themselves on the blockchain.</p>',
     build: function (el, ctx) {
       var g = ctx.g = { cards: el.querySelectorAll('.s02-card'), boxes: [], mini: [] };
       var svgs = Array.prototype.map.call(g.cards, function (c) { return c.querySelector('svg'); });
@@ -214,34 +214,34 @@
   /* ================================================================ s02-02 */
   var P_L = 96, P_R = 984, P_W = 840, P_H = 572;
   var slide2 = {
-    id: 's02-02', title: '송금과 허락은 다른 일이에요', time: 45, steps: 5,
+    id: 's02-02', title: 'Transfers and allowances differ', time: 45, steps: 5,
     tags: function (step) { return step >= 2 ? ['example'] : []; },
     notes: [
-      '두 가지 기록을 나란히 놓고 볼게요. 왼쪽은 송금, 오른쪽은 허락이에요.',
-      '송금은 토큰이 실제로 옮겨 가는 일이에요. 보낸 쪽에서 받는 쪽으로 동전이 흘러가요.',
-      '허락은 달라요. 토큰 주인이 어떤 계약에게 "내 토큰을 얼마까지 꺼내 써도 돼요"라고 약속해 두는 거예요. ERC-20 규칙의 approve 함수로, 또는 그 확장(EIP-2612)인 서명 허락 permit으로 허락하고, 어느 쪽이든 Approval이라는 같은 기록이 남아요. 그래서 이 화살표는 흐르지 않고 가만히 남아 있어요. 1,000 USDC는 설명을 위한 예시예요.',
-      '나중에 스펜더 계약은 transferFrom으로 허락받은 만큼 주인의 토큰을 실제로 옮길 수 있어요. 이 연구가 쓰는 값은 마지막 허락 기록에 적힌 금액이에요.',
-      '같은 주인과 같은 계약, 같은 토큰이면 가장 최근 허락이 앞의 것을 덮어써요. 그래서 이 연구는 주인–스펜더–토큰마다 마지막 허락 하나만 화살표로 써요.',
-      '금액을 0으로 허락하면 거두는 것이 돼요. 거둔 허락은 화살표로 남지 않아요.'
+      'Let me put two kinds of record side by side. On the left is a transfer, on the right an allowance.',
+      'A transfer is tokens actually moving. The coins flow from the sender to the recipient.',
+      'An allowance is different. The token owner promises a contract: "you may take up to this much of my tokens." The owner grants it with the approve function of the ERC-20 standard, or with permit, the signature-based approval of its extension EIP-2612, and either way the same record, an Approval event, is left behind. So this arrow does not flow; it just stays in place. The 1,000 USDC is an example for the explanation.',
+      'Later, the spender contract can call transferFrom to actually move the owner\'s tokens, up to the approved amount. The value this study uses is the amount written in the latest approval record.',
+      'For the same owner, the same contract and the same token, the most recent approval overwrites the earlier one. So for each owner, spender and token, this study uses only the latest allowance as an edge.',
+      'Approving an amount of zero revokes the allowance. A revoked allowance leaves no edge.'
     ],
     html:
-      '<h1 class="t-h1">송금과 허락은 다른 일이에요</h1>' +
+      '<h1 class="t-h1">Transfers and allowances are different</h1>' +
       '<div class="s02-panel" id="pl" data-in="none" style="left:' + P_L + 'px">' +
         '<svg class="frame" width="' + P_W + '" height="' + P_H + '"></svg>' +
-        '<div class="hd c-xfer">송금<small>Transfer</small></div>' +
-        '<div class="tx">토큰이 실제로 옮겨 가요<span class="sub">보낸 쪽 → 받는 쪽</span></div>' +
+        '<div class="hd c-xfer">Transfer<small>Transfer event</small></div>' +
+        '<div class="tx">Tokens actually move<span class="sub">sender → recipient</span></div>' +
         '<svg class="fig" width="' + P_W + '" height="300" viewBox="0 0 ' + P_W + ' 300"></svg>' +
       '</div>' +
       '<div class="s02-panel" id="pr" data-in="none" style="left:' + P_R + 'px">' +
         '<svg class="frame" width="' + P_W + '" height="' + P_H + '"></svg>' +
-        '<div class="hd c-allow">허락<small>Approval</small></div>' +
-        '<div class="tx">\'이 계약이 내 토큰을 얼마까지 꺼내 써도 돼요\'라는 약속<span class="sub">주인 → 스펜더 계약</span></div>' +
+        '<div class="hd c-allow">Allowance<small>Approval event</small></div>' +
+        '<div class="tx">A promise: ‘you may spend up to this much of my tokens’<span class="sub">owner → spender contract</span></div>' +
         '<svg class="fig" width="' + P_W + '" height="300" viewBox="0 0 ' + P_W + ' 300"></svg>' +
       '</div>' +
       '<div class="s02-codes" id="codes" data-in="none">' +
-        '<span class="c">approve(spender, amount)</span><span class="c">permit(<i>서명</i>)<i class="ext">확장 EIP-2612</i></span>' +
-        '<span class="grp"><span class="lb">거두기 =</span><span class="c" id="revoke">approve(spender, 0)</span></span></div>' +
-      '<p class="s02-bottom" data-step="4" data-in="words">가장 최근 허락이 앞의 허락을 [[덮어써요]]</p>',
+        '<span class="c">approve(spender, amount)</span><span class="c">permit(<i>signature</i>)<i class="ext">extension EIP-2612</i></span>' +
+        '<span class="grp"><span class="lb">revoke =</span><span class="c" id="revoke">approve(spender, 0)</span></span></div>' +
+      '<p class="s02-bottom" data-step="4" data-in="words">The latest approval [[overwrites]] the earlier one</p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var pl = el.querySelector('#pl'), pr = el.querySelector('#pr');
@@ -251,30 +251,30 @@
       var fl = pl.querySelector('svg.fig'), fr = pr.querySelector('svg.fig');
       var Y = 130, X0 = 130, X1 = 700;
       /* left: sender -> receiving contract, G2 */
-      Comp.eoa(ctx, fl, { x: X0, y: Y, r: 20, label: '보낸 쪽' });
-      Comp.contract(ctx, fl, { x: X1, y: Y, size: 84, label: '받는 계약' });
+      Comp.eoa(ctx, fl, { x: X0, y: Y, r: 20, label: 'sender' });
+      Comp.contract(ctx, fl, { x: X1, y: Y, size: 84, label: 'receiving contract' });
       g.xfer = Comp.arrow(ctx, fl, { from: [X0, Y], to: [X1, Y], kind: 'xfer', width: 5, head: 18, shorten: [30, 56], hidden: true });
       /* right: owner -> spender, G1 */
-      g.owner = Comp.eoa(ctx, fr, { x: X0, y: Y, r: 20, label: '주인' });
-      g.spender = Comp.contract(ctx, fr, { x: X1, y: Y, size: 84, label: '스펜더 계약' });
+      g.owner = Comp.eoa(ctx, fr, { x: X0, y: Y, r: 20, label: 'owner' });
+      g.spender = Comp.contract(ctx, fr, { x: X1, y: Y, size: 84, label: 'spender contract' });
       g.allow = Comp.arrow(ctx, fr, { from: [X0, Y], to: [X1, Y], kind: 'allow', width: 5, head: 18, shorten: [30, 56], hidden: true,
-        label: '1,000 USDC까지', labelOffset: 30, labelSize: 28 });
+        label: 'up to 1,000 USDC', labelOffset: 30, labelSize: 28 });
       g.ex = svgEl('text', { x: (X0 + X1) / 2, y: Y - 74, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 20, 'class': 'svg-mono' }, fr);
-      g.ex.textContent = '예시';
+      g.ex.textContent = 'Example';
       gsap.set(g.ex, { autoAlpha: 0 });
       /* transferFrom: a thin dashed sky path under the allowance, one coin pulled along it */
       var mid = (X0 + X1) / 2;
       g.tf = svgEl('path', { d: 'M' + (X0 + 26) + ',' + (Y + 16) + ' Q' + mid + ',' + (Y + 170) + ' ' + (X1 - 52) + ',' + (Y + 24), fill: 'none', stroke: C.xfer, 'stroke-width': 2, 'stroke-dasharray': '6 8', opacity: 0.85 }, fr);
       g.tfLbl = svgEl('text', { x: mid, y: Y + 128, 'text-anchor': 'middle', fill: C.xfer, 'font-size': 20, 'class': 'svg-mono' }, fr);
-      g.tfLbl.textContent = '나중에: transferFrom';
+      g.tfLbl.textContent = 'later: transferFrom';
       g.tfCoin = svgEl('circle', { r: 9, fill: C.xfer, stroke: C.bg, 'stroke-width': 2 }, fr);
       g.tfNote = svgEl('text', { x: mid, y: Y + 174, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 21 }, fr);
-      g.tfNote.textContent = '꼬리표 = 마지막 허락 기록의 금액 (이 연구가 쓰는 값)';
+      g.tfNote.textContent = 'Tag = amount of the latest approval (the value this study uses)';
       gsap.set([g.tf, g.tfLbl, g.tfCoin, g.tfNote], { autoAlpha: 0 });
       /* after a revoke: a ghost of the arrow */
       g.ghost = svgEl('line', { x1: X0 + 30, y1: Y, x2: X1 - 56, y2: Y, stroke: C.ink3, 'stroke-width': 2, 'stroke-dasharray': '3 9', opacity: 0.6 }, fr);
       g.ghostLbl = svgEl('text', { x: mid, y: Y - 22, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 22 }, fr);
-      g.ghostLbl.textContent = '거둔 허락 → 화살표 없음';
+      g.ghostLbl.textContent = 'revoked allowance → no edge';
       gsap.set([g.ghost, g.ghostLbl], { autoAlpha: 0 });
       g.codes = el.querySelector('#codes');
       g.revoke = el.querySelector('#revoke');
@@ -317,7 +317,7 @@
         /* a new approval overwrites the old one: only the amount on the tag changes */
         tl.to([g.tf, g.tfLbl, g.tfNote], { autoAlpha: 0.35, duration: 0.3 }, 0);
         tl.fromTo(g.allow.key, { scale: 1.9, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.5, ease: 'power3.out', immediateRender: false }, 0.1);
-        tl.add(g.allow.setLabel('500 USDC까지'), 0.25);
+        tl.add(g.allow.setLabel('up to 500 USDC'), 0.25);
       }
       if (i === 5) {
         /* revoke = approve(spender, 0): the arrow breaks off from the spender end */
@@ -341,24 +341,24 @@
     return pts;
   }
   var slide3 = {
-    id: 's02-03', title: '허락은 믿음처럼 보여요 — 하지만', time: 40, steps: 3,
+    id: 's02-03', title: 'Allowances look like trust, but', time: 40, steps: 3,
     notes: [
-      '허락은 내 토큰을 맡기는 행동이라서, 받는 계약에 대한 믿음처럼 읽을 수 있어요. 웹에서 링크가 인용처럼 읽히는 것과 비슷해요.',
-      '많은 주인이 한 계약을 허락하면, 그 계약은 많은 보증을 받은 것처럼 보여요.',
-      '하지만 조심해야 해요. 피싱 사이트에 속아서 누른 허락도 정직한 허락과 똑같은 기록을 남겨요. 화살표만 보면 두 상자는 구별되지 않아요.',
-      '사람들은 그냥 편해서 허락을 누르기도 해요. 이 연구의 데이터에서도 관측 기간 끝의 마지막 허락 1,259만 개 가운데 45.8%가 무제한 허락이었어요. 그래서 이 논문은 허락을 확실한 믿음의 증거가 아니라, 보증으로 "읽을 수 있는" 신호로 다뤄요.'
+      'An approval entrusts my tokens to a contract, so it can be read as trust in the contract that receives it. It is like the way a link on the web can be read as a citation.',
+      'When many owners approve one contract, that contract looks as if it has received many endorsements.',
+      'But we have to be careful. An approval clicked by someone tricked by a phishing site leaves exactly the same record as an honest one. From the arrows alone, the two boxes cannot be told apart.',
+      'People also approve simply because it is convenient. In this study\'s data, too, 45.8% of the 12.59 million latest allowances at the end of the observation window were unlimited approvals. So this thesis treats an allowance not as firm evidence of trust but as a signal that "can be read" as an endorsement.'
     ],
     html:
-      '<h1 class="t-h1">허락 = 내 토큰을 [[맡기는]] 행동</h1>' +
-      '<p class="s02-sub">그래서 \'보증(믿고 맡김)의 화살표\'로 읽을 수 있어요. 웹 페이지의 링크가 인용처럼 읽히듯이요.</p>' +
+      '<h1 class="t-h1">Approval = [[entrusting]] my tokens</h1>' +
+      '<p class="s02-sub">So it can be read as an edge of endorsement (trust placed in the contract), the way a link on a web page is read as a citation.</p>' +
       '<svg id="fig" class="abs" data-in="none" style="left:96px;top:250px;overflow:visible" width="1040" height="700" viewBox="0 0 1040 700"></svg>' +
-      '<div class="s02-claim" id="claim"><div class="k">허락 화살표 =</div><div class="v" id="belief">믿음의 증거</div></div>' +
+      '<div class="s02-claim" id="claim"><div class="k">Allowance edge =</div><div class="v" id="belief">Evidence of trust</div></div>' +
       '<div class="s02-warn" id="warn" data-in="none">' +
-        '<div class="w">' + ICON.hand + '<div class="t">편해서 누르기도 해요</div></div>' +
-        '<div class="w">' + ICON.hook + '<div class="t">속아서 누른 허락도 똑같은 기록을 남겨요</div></div>' +
-        '<div class="w">' + ICON.inf + '<div><div class="t">무제한 허락이 흔해요</div>' +
-          '<div class="big"><span class="n" id="pct">' + fmt(UNL_SHARE * 100, 1) + '%</span><span class="u">마지막 허락 가운데</span></div>' +
-          '<div class="s02-src">' + fmt(UNL) + ' / ' + fmt(LATEST) + ' · T_obs의 양수인 마지막 허락</div></div></div>' +
+        '<div class="w">' + ICON.hand + '<div class="t">Some approve just for convenience</div></div>' +
+        '<div class="w">' + ICON.hook + '<div class="t">A tricked approval leaves the same record</div></div>' +
+        '<div class="w">' + ICON.inf + '<div><div class="t">Unlimited approvals are common</div>' +
+          '<div class="big"><span class="n" id="pct">' + fmt(UNL_SHARE * 100, 1) + '%</span><span class="u">of latest allowances</span></div>' +
+          '<div class="s02-src">' + fmt(UNL) + ' / ' + fmt(LATEST) + '<br>positive latest allowances at T_obs</div></div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -388,11 +388,11 @@
       var qt = svgEl('text', { x: 0, y: 2, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: C.ink, 'font-size': 28, 'font-weight': 800 }, qc);
       qt.textContent = '?';
       g.qText = svgEl('text', { x: (A[0] + B[0]) / 2, y: 62, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 26 }, g.q);
-      g.qText.textContent = '두 상자의 화살표는 똑같아 보여요';
+      g.qText.textContent = 'The arrows of the two boxes look the same';
       g.lblA = svgEl('text', { x: A[0], y: A[1] + 290, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 24, 'font-weight': 600 }, svg);
-      g.lblA.textContent = '정직한 계약';
+      g.lblA.textContent = 'honest contract';
       g.lblB = svgEl('text', { x: B[0], y: B[1] + 290, 'text-anchor': 'middle', fill: C.hi, 'font-size': 24, 'font-weight': 600 }, svg);
-      g.lblB.textContent = '피싱 계약 (속여서 허락받음)';
+      g.lblB.textContent = 'phishing contract (approved by deception)';
       gsap.set([g.q, g.lblA, g.lblB], { autoAlpha: 0 });
       g.warn = el.querySelectorAll('#warn .w');
       gsap.set(el.querySelector('#warn'), { autoAlpha: 1 });
@@ -428,8 +428,8 @@
         tl.fromTo(g.qText, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 2.6);
       }
       if (i === 3) {
-        /* 믿음 -> 보증으로 읽기: strike and rewrite; then the three cautions; 45.8 % counts up */
-        tl.add(Comp.strike(ctx, g.belief, '보증으로 <b>읽기</b><small>확실한 증거는 아니에요</small>'), 0);
+        /* evidence of trust -> read as endorsement: strike and rewrite; then the three cautions; 45.8 % counts up */
+        tl.add(Comp.strike(ctx, g.belief, '<b>Read</b> as endorsement<small>Not firm evidence</small>'), 0);
         tl.fromTo(g.warn, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power3.out', stagger: 0.16 }, 1.2);
         tl.add(ctx.count(el.querySelector('#pct'), 0, UNL_SHARE * 100, { decimals: 1, suffix: '%', final: fmt(UNL_SHARE * 100, 1) + '%', duration: 1.4 }), 1.55);
       }
@@ -460,24 +460,24 @@
       ' M' + (x - h + a) + ',' + (y + h) + ' H' + (x - h) + ' V' + (y + h - a);
   }
   var slide4 = {
-    id: 's02-04', title: '점수를 받는 쪽은 계약이에요', time: 35, steps: 3,
+    id: 's02-04', title: 'The scored objects are contracts', time: 35, steps: 3,
     notes: [
-      '여기서 꼭 짚고 넘어갈 것이 있어요. 그래프에는 두 종류의 주소가 섞여 있어요. 동그라미는 사람이 개인 키로 움직이는 외부 소유 계정, 곧 EOA이고, 네모는 스마트 계약이에요.',
-      '이 연구가 점수를 매기고 평가한 주소는 모두 스마트 계약이에요. EOA는 그래프에 주인이나 보낸 쪽, 받는 쪽으로만 나오고 점수를 받지 않아요.',
-      '점수 배지는 네모, 곧 계약에만 붙어요. 동그라미에는 끝점이라는 표시만 남아요.',
-      '어떤 주소가 계약인지는 그 주소에 프로그램 코드가 있는지로 확인했어요. 코호트 후보는 블록 ' + fmt(GETCODE_BLOCK) + '에서, 나머지 홀드아웃 스펜더와 GMX 계정은 세 시간 안의 뒤 블록에서 eth_getCode로 코드가 있는지 봤어요. 코드 자리에 EIP-7702 위임 표시만 있는 주소는 EOA로 셌어요.'
+      'There is one thing I must point out here. The graph mixes two kinds of address. A circle is an externally owned account, an EOA, which a person controls with a private key, and a square is a smart contract.',
+      'Every address this study scored and evaluated is a smart contract. EOAs appear in the graph only as owners, senders or recipients, and they receive no score.',
+      'Score badges go only on the squares, that is, on contracts. The circles keep only the mark "endpoint".',
+      'Whether an address is a contract was checked by whether program code sits at that address. With eth_getCode we looked for code at block ' + fmt(GETCODE_BLOCK) + ' for the cohort candidates, and at later blocks within three hours for the remaining holdout spenders and GMX accounts. An address whose code is only an EIP-7702 delegation designator was counted as an EOA.'
     ],
     html:
-      '<h1 class="t-h1">점수를 받는 것: [[스마트 계약]]</h1>' +
-      '<p class="s02-l" style="top:236px" data-step="2">외부 소유 계정(EOA, 개인 키로 움직이는 계정)은 화살표의 끝점으로만 나와요 — 주인, 보낸 쪽, 받는 쪽</p>' +
-      '<p class="s02-l note" id="fn" style="top:430px" data-step="2"><span>점수 배지는 네모(<b class="ink">계약</b>)에만 붙어요</span></p>' +
-      '<p class="s02-small" data-step="3">계약인지 확인: 그 주소에 프로그램 코드가 있는지 봤어요</p>' +
+      '<h1 class="t-h1">What gets scored: [[smart contracts]]</h1>' +
+      '<p class="s02-l" style="top:236px" data-step="2">Externally owned accounts (EOAs, accounts controlled by a private key) appear only as endpoints of edges: owners, senders, recipients</p>' +
+      '<p class="s02-l note" id="fn" style="top:430px" data-step="2"><span>Score badges go only on squares (<b class="ink">contracts</b>)</span></p>' +
+      '<p class="s02-small" data-step="3">Contract check: we looked for program code at the address</p>' +
       '<svg id="g4" class="abs" data-in="none" style="left:964px;top:178px;overflow:visible" width="860" height="720" viewBox="0 0 860 720"></svg>' +
       '<div class="s02-legend" id="leg">' +
         '<span><svg width="24" height="24"><circle cx="12" cy="12" r="9" fill="none" stroke="' + C.ink3 + '" stroke-width="2.5"/></svg>EOA</span>' +
-        '<span><svg width="26" height="26"><rect x="2" y="2" width="22" height="22" rx="5" fill="#10151F" stroke="#A3ADBF" stroke-width="2"/></svg>계약</span>' +
-        '<span><svg width="44" height="10"><line x1="2" y1="5" x2="42" y2="5" stroke="#F5B43C" stroke-width="3"/></svg>허락</span>' +
-        '<span><svg width="44" height="10"><line x1="2" y1="5" x2="42" y2="5" stroke="#3CC4FF" stroke-width="3"/></svg>송금</span>' +
+        '<span><svg width="26" height="26"><rect x="2" y="2" width="22" height="22" rx="5" fill="#10151F" stroke="#A3ADBF" stroke-width="2"/></svg>contract</span>' +
+        '<span><svg width="44" height="10"><line x1="2" y1="5" x2="42" y2="5" stroke="#F5B43C" stroke-width="3"/></svg>allowance</span>' +
+        '<span><svg width="44" height="10"><line x1="2" y1="5" x2="42" y2="5" stroke="#3CC4FF" stroke-width="3"/></svg>transfer</span>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -491,7 +491,7 @@
       /* tags of the EOAs: under the dot for the bottom row (their arrows go up) */
       Object.keys(g.G.nodes).forEach(function (id) {
         var N = g.G.nodes[id]; if (N.kind !== 'eoa') return;
-        N.tag('끝점'); gsap.set(N.tagT, { autoAlpha: 0 });
+        N.tag('endpoint'); gsap.set(N.tagT, { autoAlpha: 0 });
         if (N.y > 500) N.tagT.setAttribute('y', N.r + 30);
       });
       g.shiftEls = [svg, el.querySelector('#leg')];
@@ -521,9 +521,9 @@
             gsap.set(lock, { autoAlpha: 0 });
             tl.set(lock, { autoAlpha: 1 }, t + 0.22);
             tl.fromTo(lock, { scale: 1.25, svgOrigin: N.x + ' ' + N.y }, { scale: 1, duration: 0.25, ease: 'back.out(2)', immediateRender: false }, t + 0.22);
-            tl.add(N.badge('점수', { color: C.ink }), t + 0.3);
+            tl.add(N.badge('score', { color: C.ink }), t + 0.3);
           } else {
-            tl.add(N.tag('끝점'), t + 0.22);
+            tl.add(N.tag('endpoint'), t + 0.22);
           }
           t += 0.3;
         });
@@ -550,28 +550,28 @@
 
   /* ================================================================ s02-05 */
   var slide5 = {
-    id: 's02-05', title: '무대: 아비트럼 원', time: 30, steps: 3,
+    id: 's02-05', title: 'The setting: Arbitrum One', time: 30, steps: 3,
     notes: [
-      '연구의 무대는 아비트럼 원이에요.',
-      '아비트럼 원은 이더리움 위에서 돌아가는 롤업이에요. 거래를 묶어서 이더리움에 올리기 때문에 수수료가 낮고, 그래서 사람들이 자주 거래해요. 체인 ID는 42161이에요.',
-      '여기서 일어난 모든 허락과 송금 기록은 구글 빅쿼리의 공개 데이터로 누구나 읽을 수 있어요. 호박색 점이 허락 기록, 하늘색 점이 송금 기록이에요.',
-      '체인을 하나만 본 이유도 있어요. 한 사람이 여러 체인에 같은 주소를 가지면 서로 다른 점으로 보이기 때문에, 한 체인 안에서만 비교하는 편이 깔끔해요. 이제 이 판을 옆으로 눕혀서, 시간 축으로 바꿔 볼게요.'
+      'The study takes place on Arbitrum One.',
+      'Arbitrum One is a rollup that runs on top of Ethereum. It bundles transactions and posts them to Ethereum together, so fees are low, and so people transact often. Its chain ID is 42161.',
+      'Every approval and transfer record here can be read by anyone in the public data of Google BigQuery. The amber dots are approval records and the sky-blue dots are transfer records.',
+      'There is also a reason for looking at only one chain. If one person holds the same address on several chains, it shows up as separate nodes, so comparing within one chain is cleaner. Now I will lay this plate on its side and turn it into a time axis.'
     ],
     html:
-      '<h1 class="t-h1">무대: 아비트럼 원 <span class="ink-3" style="font-weight:500">(Arbitrum One)</span></h1>' +
+      '<h1 class="t-h1">The setting: Arbitrum One</h1>' +
       '<div class="s02-pts" id="pts">' +
-        '<div class="p" data-step="1"><span class="ic"></span><span>이더리움 위에서 돌아가는 <b>롤업</b> · 체인 ID <span class="mono">' + CHAIN_ID + '</span></span></div>' +
-        '<div class="p" data-step="1"><span class="ic"></span><span>수수료가 낮아 자주 거래해요</span></div>' +
-        '<div class="p" data-step="2"><span class="ic"></span><span>모든 기록: 공개된 <b>빅쿼리(BigQuery)</b> 로그</span></div>' +
-        '<div class="p" data-step="3"><span class="ic"></span><span>한 체인만 봐요 → 한 주인의 여러 체인 주소가 섞이지 않아요</span></div>' +
+        '<div class="p" data-step="1"><span class="ic"></span><span>A <b>rollup</b> that runs on Ethereum · chain ID <span class="mono">' + CHAIN_ID + '</span></span></div>' +
+        '<div class="p" data-step="1"><span class="ic"></span><span>Low fees, so people transact often</span></div>' +
+        '<div class="p" data-step="2"><span class="ic"></span><span>All records: public <b>BigQuery</b> logs</span></div>' +
+        '<div class="p" data-step="3"><span class="ic"></span><span>One chain only → one owner’s addresses on several chains do not get mixed</span></div>' +
       '</div>' +
       '<div class="s02-scene" id="scene" data-in="none"><div class="s02-world" id="world">' +
         '<div class="s02-plate eth" id="eth"><i class="s02-mark" style="left:0;top:0"></i></div>' +
         '<div class="s02-plate arb" id="arb"><i class="s02-mark" style="right:0;top:0"></i><i class="s02-mark" style="right:0;bottom:0"></i><i class="s02-mark" style="left:0;bottom:0"></i></div>' +
         '<div class="s02-batch" id="batch"></div>' +
       '</div></div>' +
-      '<div class="s02-plbl" id="lblArb" data-in="none">아비트럼 원<small>롤업 · ' + CHAIN_ID + '</small></div>' +
-      '<div class="s02-plbl ink-2" id="lblEth" data-in="none">이더리움</div>' +
+      '<div class="s02-plbl" id="lblArb" data-in="none">Arbitrum One<small>rollup · ' + CHAIN_ID + '</small></div>' +
+      '<div class="s02-plbl ink-2" id="lblEth" data-in="none">Ethereum</div>' +
       '<svg id="barrel" class="abs" data-in="none" style="left:1480px;top:650px;overflow:visible" width="240" height="250" viewBox="0 0 240 250"></svg>' +
       '<div id="parts" class="abs" data-in="none" style="left:740px;top:150px"></div>' +
       '<div class="s02-axis" id="axis" data-shared="time-axis" data-in="none"></div>',
@@ -593,9 +593,9 @@
       });
       svgEl('ellipse', { cx: cx, cy: top, rx: rx, ry: ry, fill: C.bg3, stroke: C.ink2, 'stroke-width': 2 }, bg);
       var t1 = svgEl('text', { x: cx, y: top + H + ry + 40, 'text-anchor': 'middle', fill: C.ink, 'font-size': 24, 'font-weight': 700 }, bg);
-      t1.textContent = '공개 로그';
+      t1.textContent = 'Public logs';
       var t2 = svgEl('text', { x: cx, y: top + H + ry + 70, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 20, 'class': 'svg-mono' }, bg);
-      t2.textContent = 'BigQuery 공개 데이터';
+      t2.textContent = 'BigQuery public data';
       g.barrel = b; g.barrelTop = [1480 + cx, 650 + top];
       gsap.set(b, { autoAlpha: 0 });
       gsap.set([el.querySelector('#lblArb'), el.querySelector('#lblEth')], { autoAlpha: 0 });
@@ -703,5 +703,5 @@
     }
   };
 
-  Deck.section({ id: 's02-world', title: '허락과 송금', slides: [slide1, slide2, slide3, slide4, slide5] });
+  Deck.section({ id: 's02-world', title: 'Allowances and transfers', slides: [slide1, slide2, slide3, slide4, slide5] });
 })();

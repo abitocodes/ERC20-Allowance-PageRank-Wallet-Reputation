@@ -139,7 +139,7 @@
   var CX = [96, 446, 796, 1146, 1496];
   var CARDS = [
     { k: 'RQ1', q: 'Do the two scores order contracts differently?', a: 'Yes: τ = ' + fmt(TAU[0], 3), sb: 'They order the same contracts quite differently (neither 0 nor 1)', tags: [plainPill('Largely by construction')] },
-    { k: 'RQ2', q: 'What does each score agree with?', a: 'The proxies of its own edges', sb: 'EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b>', tags: [Deck.tagHTML('construct')] },
+    { k: 'RQ2', q: 'What does each score agree with?', a: 'The proxies of its own edges', sb: '<span style="font-size:20px;letter-spacing:-.01em;white-space:nowrap">EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b></span>', tags: [Deck.tagHTML('construct')] },
     { k: 'RQ3', q: 'How long does each take?', a: 'Time follows the edge count', sb: 'Time <b>' + fmt(R_TIME, 2) + '×</b> ≈ edges <b>' + fmt(R_EDGE, 2) + '×</b><br>Same solver', tags: [] },
     { k: 'RQ4', q: 'Do they predict later events? Better than the count?', a: 'Every score predicts', sb: 'On transfers AWP beats the count; on allowances <span class="em" id="em4">the count beats EndorseRank</span>', tags: [Deck.tagHTML('posthoc')] },
     { k: 'RQ5', q: 'Does mixing both edge types help?', a: 'No', sb: 'Rules A and B both not met<br>Same in the registered analysis', tags: [Deck.tagHTML('reanalysis')] }
@@ -171,7 +171,7 @@
       var och = OCH.map(function (o, i) { return '<div class="s11-oc ' + o.cls + '" data-in="none" style="left:' + CX[i] + 'px">' + o.html + '</div>'; }).join('');
       return '<h1 class="t-h1">Five questions, [[five answers]]</h1>' + cards + och +
         '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[2] + 326 - CX[0] - 40) + 'px"><span>All three largely by construction</span></div>' +
-        '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1500px"><span><b>Outcome in neither edge type</b> (liquidation avoidance): no evidence that the allowance side leads · PageRank pair not resolved</span>' + Deck.tagHTML('reanalysis') + '</div>';
+        '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1728px"><span><b>Outcome in neither edge type</b> (liquidation avoidance): no evidence that the allowance side leads · PageRank versions not resolved</span>' + Deck.tagHTML('reanalysis') + '</div>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -285,7 +285,7 @@
         tile(1, '<svg class="vis" id="v2" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
           '<div class="tx">Every score set against the raw count<small>Same window · two holdouts (W0, W1)</small></div>') +
         tile(2, '<div class="vis fx" id="v3" style="top:62px;text-align:center">$r_v=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)$</div>' +
-          '<div class="tx">Closed form at a depth-one spender:<br>EndorseRank = owner-split approval count</div>') +
+          '<div class="tx">Closed form at a depth-one spender:<br>EndorseRank = split approval count</div>') +
         tile(3, '<div class="vis" id="v4" style="top:28px;height:170px"></div>' +
           '<div class="tx">C-PR mixes both edge types, tested<br>by rules fixed in advance <span class="ink-2">(not met)</span></div>') +
         tile(4, '<svg class="vis" id="v5" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
@@ -302,13 +302,13 @@
       g.c1 = Comp.contract(ctx, v1, { x: 470, y: 170, size: 104, label: 'spender contract' });
       g.c1.label.setAttribute('y', 92); g.c1.label.setAttribute('font-size', 24);
       g.a1s = [[110, 60], [110, 170], [110, 280]].map(function (p, k) {
-        return Comp.arrow(ctx, v1, { from: p, to: [470, 170], kind: 'allow', width: k === 1 ? 6 : 4, head: k === 1 ? 22 : 17, shorten: [38, 70], label: k === 1 ? 'allowance' : null, labelOffset: 30, labelSize: 26, hidden: true });
+        return Comp.arrow(ctx, v1, { from: p, to: [470, 170], kind: 'allow', width: k === 1 ? 6 : 4, head: k === 1 ? 22 : 17, shorten: [38, 70], label: k === 1 ? 'allowance' : null, labelOffset: 22, labelSize: 24, hidden: true });
       });
       /* ② the count beside the walk: tally + three windows */
       var v2 = q(el, '#v2');
       g.tally = Comp.tally(ctx, v2, { x: 36, y: 34, size: 56 });
-      [['same window', 224], ['W0', 360], ['W1', 446]].forEach(function (b, k) {
-        var w = k ? 70 : 124;
+      [['same window', 212], ['W0', 364], ['W1', 448]].forEach(function (b, k) {
+        var w = k ? 70 : 140;
         var r = svgEl('rect', { x: b[1], y: 52, width: w, height: 40, rx: 10, fill: 'none', stroke: k ? C.ink2 : C.ink3, 'stroke-width': 2, 'stroke-dasharray': k ? null : '5 5' }, v2);
         var t = svgEl('text', { x: b[1] + w / 2, y: 78, 'text-anchor': 'middle', fill: C.ink, 'font-size': 19, 'font-weight': 600 }, v2); t.textContent = b[0];
         void r;
@@ -321,8 +321,9 @@
       var v4 = q(el, '#v4');
       g.dial = Comp.dial(ctx, v4, { value: 1, size: 220 });
       g.dial.el.style.position = 'absolute'; g.dial.el.style.left = '60px'; g.dial.el.style.top = '0px';
-      g.stamp = Comp.stamp(ctx, v4, { ok: false, text: 'Rules A · B not met', x: 290, y: 64 });
+      g.stamp = Comp.stamp(ctx, v4, { ok: false, text: 'Rules A · B\nnot met', x: 300, y: 50 });
       g.stamp.el.style.fontSize = '24px';
+      g.stamp.el.style.whiteSpace = 'pre-line'; g.stamp.el.style.textAlign = 'center'; g.stamp.el.style.lineHeight = '1.15';
       /* ⑤ waffle: one dot per W1 trader contract */
       var v5 = q(el, '#v5');
       g.waf = [];
@@ -397,7 +398,7 @@
       '<div class="cd" style="position:absolute;left:0;right:0;top:318px;text-align:center"></div>' +
       '<div class="btns" style="position:absolute;left:0;right:0;top:396px;display:flex;justify-content:center;gap:20px"><div class="btn no">Reject</div><div class="btn yes">Approve</div></div></div>';
   }
-  var WQ = 'Allow this contract to spend my USDC?';
+  var WQ = 'Allow this contract to spend your USDC?';
   var NEXT = [
     { t: 'Register the activity-restart variant on a new window and test it against the count', s: 'Depth-one and deeper spenders reported separately', hyp: true },
     { t: 'A registered test of the revised analysis itself', s: 'e.g. registered before the October–December 2026 logs are extracted' },
@@ -424,7 +425,7 @@
           '<div>High count <span class="ne" id="ne">≠</span> [[reason to sign]]</div></div>' +
         '<div class="abs s11-nx" id="nx" data-in="none" style="left:820px;top:196px;width:1004px"><h2 class="t-h2">Next steps</h2>' +
           NEXT.map(function (n, i) {
-            return '<div class="s11-nc"><span class="n">' + (i + 1) + '</span><span class="t">' + esc(n.t) + '<small>' + esc(n.s) + '</small></span>' +
+            return '<div class="s11-nc"><span class="n">' + (i + 1) + '</span><span class="t"' + (n.hyp ? ' style="padding-right:260px"' : '') + '>' + esc(n.t) + '<small>' + esc(n.s) + '</small></span>' +
               (n.hyp ? '<span class="s11-hyp" id="hyp">' + Deck.tagHTML({ en: 'Hypothesis · post hoc', icon: 'eye', key: 'hypothesis' }) + '</span>' : '') + '</div>';
           }).join('') + '</div>' +
         '<svg class="abs" id="lay" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible;pointer-events:none"></svg>';

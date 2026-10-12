@@ -379,7 +379,7 @@
       g.D = Comp.derive(ctx, q(el, '#d2'), { head: 'Derivation', lines: [
         { tex: 'n_0=\\frac{n(n-1)}{2}=\\frac{5\\times4}{2}=10', note: '5 people × 4 handshakes = 20 · each one counted twice, so ÷ 2' },
         { tex: 'n_c=8,\\qquad \\ch{n_d}=1', note: 'C and D have the same label (a tie) → counted as neither' },
-        { tex: '\\tau_a=\\frac{\\part{num}{n_c-n_d}}{n_0}=\\frac{8-1}{10}=0.7', note: '(concordant − discordant) ÷ all pairs · $\\tau_a$ = the basic τ, with no special handling of ties', mark: 'num' }
+        { tex: '\\tau_a=\\frac{\\part{num}{n_c-n_d}}{n_0}=\\frac{8-1}{10}=0.7', note: '(concordant − discordant) ÷ all pairs · $\\tau_a$ = basic τ, no tie correction', mark: 'num' }
       ] });
       gsap.set(g.D.el, { autoAlpha: 0 });
       g.R = buildRuler(ctx, q(el, '#rul'));
@@ -649,7 +649,7 @@
       '<svg class="abs" id="ov" data-in="none" width="1160" height="900" style="left:0;top:0;overflow:visible;pointer-events:none"></svg>' +
       '<div class="abs s7-cnt" id="cnt" data-in="none" style="left:' + HIST.x + 'px;top:' + (HIST.y - 70) + 'px">Sample <b id="cn">0</b>/ ' + fmt(B, 0) + ' · stacking τ values</div>' +
       '<svg class="abs" id="hist" data-in="none" width="' + HIST.w + '" height="' + HIST.h + '" style="left:' + HIST.x + 'px;top:' + HIST.y + 'px;overflow:visible"></svg>' +
-      '<div class="abs s7-res" id="res" data-in="none" style="left:' + HIST.x + 'px;top:' + (HIST.y + HIST.base + 190) + 'px;width:' + HIST.w + 'px"><span>EndorseRank × allowance family · 95% interval</span><b>' + FAM_ER_A + '</b><small>family τ = mean τ of its 2 proxies (in-approve degree · in-approve value)</small></div>' +
+      '<div class="abs s7-res" id="res" data-in="none" style="left:' + HIST.x + 'px;top:' + (HIST.y + HIST.base + 190) + 'px;width:' + HIST.w + 'px"><span>EndorseRank × allowance family · 95% interval</span><b>' + FAM_ER_A + '</b><small>family τ = mean τ of its 2 proxies<br>(in-approve degree · in-approve value)</small></div>' +
       '<div class="abs s7-foot" id="foot" data-in="none" style="left:96px;top:868px;width:1040px">' +
         '<div>95% interval = about the 10th to the 390th of the ' + fmt(B, 0) + ' resampled τ values, sorted</div>' +
         '<small>With only ' + fmt(B, 0) + ' resamples, another seed can move the interval ends slightly in the third decimal</small></div>' +
@@ -874,7 +874,9 @@
         tickFormat: function (t) { return mfmt(t, 2); }, hidden: true, top: 14,
         rows: [{ label: 'Paired difference Δτ', sub: 'EndorseRank − in-approve degree', est: d[0], lo: d[1], hi: d[2], color: 'ink', text: W0_DIFF }] });
       gsap.set(g.F2.svg, { autoAlpha: 0 });
-      g.gap = svgEl('text', { x: g.F2.x(-0.005), y: 14 + 40 - 22, 'text-anchor': 'middle', fill: C.ink, 'font-size': 22, 'font-weight': 800 }, g.F2.svg); g.gap.textContent = 'separate';
+      /* English: the longer sub-label would touch the axis at 20px */
+      if (g.F2.rows[0].sub) g.F2.rows[0].sub.setAttribute('font-size', 18);
+      g.gap = svgEl('text', { x: g.F2.x(-0.005), y: 14 + 40 - 22, 'text-anchor': 'middle', fill: C.ink, 'font-size': 22, 'font-weight': 800 }, g.F2.svg); g.gap.textContent = 'apart';
       g.gapA = svgEl('path', { d: 'M' + g.F2.x(d[2]) + ',' + (14 + 40 + 16) + ' L' + g.F2.x(0) + ',' + (14 + 40 + 16), stroke: C.ink, 'stroke-width': 2, fill: 'none', 'marker-end': null }, g.F2.svg);
       gsap.set([g.gap, g.gapA], { autoAlpha: 0 });
       /* joint scatter of 400 illustrative pairs (τ_A, τ_B), one per resample */
@@ -945,11 +947,11 @@
       g.wQ = svgEl('path', { d: wedge(A5 / 2, A5), fill: C.hi, 'fill-opacity': 0.6 }, bs);
       var pl = svgEl('text', { x: cx, y: cy + R + 30, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 }, bs); pl.textContent = '5% error budget';
       g.chP = svgEl('g', {}, bs); gsap.set(g.chP, { x: 176, y: 22 });
-      svgEl('rect', { x: 0, y: 0, width: 150, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chP);
-      var tP = svgEl('text', { x: 75, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 700 }, g.chP); tP.textContent = 'verdict 1 · 2.5%';
+      svgEl('rect', { x: 0, y: 0, width: 168, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chP);
+      var tP = svgEl('text', { x: 84, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 19, 'font-weight': 700 }, g.chP); tP.textContent = 'verdict 1 · 2.5%';
       g.chQ = svgEl('g', {}, bs); gsap.set(g.chQ, { x: 176, y: 78 });
-      svgEl('rect', { x: 0, y: 0, width: 150, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chQ);
-      var tQ = svgEl('text', { x: 75, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 700 }, g.chQ); tQ.textContent = 'verdict 2 · 2.5%';
+      svgEl('rect', { x: 0, y: 0, width: 168, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chQ);
+      var tQ = svgEl('text', { x: 84, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 19, 'font-weight': 700 }, g.chQ); tQ.textContent = 'verdict 2 · 2.5%';
       g.bfTx = h('div', 's7-rule', bf, '$1-\\dfrac{0.05}{2}=0.975$<br>→ a <b>97.5%</b> interval for each<small>Two verdicts share the 5% error budget (they appear as P and Q in 09) · these two use ' + fmt(B2, 0) + ' resamples</small>');
       g.bfTx.style.position = 'absolute'; g.bfTx.style.left = '350px'; g.bfTx.style.top = '0px'; g.bfTx.style.width = '344px';
       Deck.renderMath(g.bfTx);

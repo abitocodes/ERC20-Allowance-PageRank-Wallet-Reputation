@@ -146,8 +146,9 @@
     '.s8-p2 .concl{font-size:32px;line-height:44px;font-weight:700;color:var(--ink)}',
     '.s8-p2 .gh{display:flex;gap:12px;align-items:center;font-size:21px;color:var(--ink-3)}',
     /* s08-03 */
-    '.s8-info{font-size:28px;line-height:40px;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:center;white-space:nowrap}',
+    '.s8-info{font-size:26px;line-height:40px;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:center;white-space:nowrap}',
     '.s8-info .mono{font-size:24px;color:var(--ink-2)}',
+    '.s8-defs .lk{display:inline-block;vertical-align:-4px;margin-right:8px;color:var(--ink-2)}',
     '.s8-info svg{color:var(--ink-2)}',
     '.s8-wt{font-size:24px;line-height:34px;font-weight:600;color:var(--ink)}',
     '.s8-wt small{font-size:19px;font-weight:500;color:var(--ink-3);margin-left:10px}',
@@ -473,38 +474,38 @@
   }
   function p2pt(g, e, a) { var L = P2.L; return g.T.project([(e - 0.5) * L, P2.FLOOR + 0.02, -(a - 0.5) * L]); }
   var slide2 = {
-    id: 's08-02', title: '두 점수는 순서가 달라요', time: 45, steps: 3,
+    id: 's08-02', title: 'The two scores give different orders', time: 45, steps: 3,
     tags: [H1TAG],
     notes: [
-      '두 점수가 같은 계약을 같은 순서로 세우는지 볼게요. 앞 장의 두 줄이 점으로 부서져서 계약 15,107개의 구름이 돼요. 이 구름을 위에서 내려다보면 납작한 그림이 돼요. 가로는 엔도스랭크로 센 순위, 세로는 AWP로 센 순위를 백분위로 바꾼 거예요. 호박색 점은 엔도스랭크가 더 높게 세운 계약, 하늘색 점은 AWP가 더 높게 세운 계약이에요.',
-      '두 순위가 같다면 점들이 이 대각선 위에 모여야 해요. 그런데 넓게 퍼져 있죠. 켄달의 타우는 0.174예요. 0보다는 분명히 크고 1과는 멀어요. 관련은 있지만 같은 순서는 아니라는 뜻이에요.',
-      '계약 쌍은 1억 1천만 개가 넘어요. 그중 96.7%는 두 점수가 모두 순서를 정한 쌍인데, 그 가운데 41.2%는 순서가 반대였어요. 지금 번쩍이는 서른 쌍은 설명을 위한 것이고, 멈춘 값이 전체 쌍의 결과예요. 관련은 있지만, 서로 바꿔 쓸 수는 없어요.',
-      '왼쪽 끝의 세로줄은 엔도스랭크가 0점인 계약 535개, 아래쪽 가로줄은 AWP가 0점인 계약 2,672개예요. 0점인 계약은 모두 동점이라서, 맨 아래 순위 칸들을 함께 나눠 쓰고 그 가운데에 놓여요. 그래서 AWP 0점 줄은 0이 아니라 약 9에, 엔도스랭크 0점 줄은 약 2에 있어요. 그래프 밖 계약을 외톨이 점으로 두는 규칙으로 바꿔도 타우는 0.174 그대로였어요. 두 그래프를 만든 방식이 다르니 순서가 달라지는 것은 어느 정도 예상된 결과예요. 처음 등록한 분석에서는 0.217이었어요.'
+      'Do the two scores put the same contracts in the same order? The two rows of the previous slide break into points and become a cloud of 15,107 contracts. Seen from above, the cloud becomes a flat picture. Across is the rank by EndorseRank and up is the rank by AWP, both turned into percentiles. Amber points are contracts that EndorseRank ranks higher, sky-blue points contracts that AWP ranks higher.',
+      'If the two ranks were the same, the points would gather on this diagonal. But they are spread widely. Kendall’s tau is 0.174. That is clearly above 0 and far from 1. The two orders are related, but they are not the same order.',
+      'There are more than 110 million contract pairs. 96.7% of them are ordered by both scores, and of those, 41.2% are in the opposite order. The thirty pairs flashing now are only an illustration; the value where it stops is the result over all pairs. Related, but not interchangeable.',
+      'The column at the left edge is the 535 contracts with an EndorseRank of zero, and the row at the bottom is the 2,672 contracts with an AWP of zero. All zero-score contracts are tied, so they share the lowest ranks and sit in the middle of them. That is why the AWP zero row is at about 9, not at 0, and the EndorseRank zero column at about 2. With the rule that keeps contracts outside a graph as isolated nodes, tau stayed at 0.174. The two graphs are built differently, so different orders are partly expected. In the registered analysis it was 0.217.'
     ],
     html:
-      '<h1 class="t-h1">엔도스랭크와 AWP는 [[다른 순서]]로 세워요</h1>' +
+      '<h1 class="t-h1">EndorseRank and AWP put contracts in [[different orders]]</h1>' +
       '<div class="abs" data-shared="s8-row-er" data-shared-mode="manual" style="left:96px;top:' + G1.yER + 'px;width:1724px;height:150px;visibility:hidden"></div>' +
       '<div class="abs" data-shared="s8-row-awp" data-shared-mode="manual" style="left:96px;top:' + G1.yAWP + 'px;width:1724px;height:150px;visibility:hidden"></div>' +
       '<div class="abs" id="p3" data-in="none" style="left:0;top:' + P2.top + 'px;width:' + P2.w + 'px;height:' + P2.h + 'px"></div>' +
       '<svg class="abs s8-ov" id="ov" data-in="none" width="' + P2.w + '" height="' + P2.h + '" viewBox="0 0 ' + P2.w + ' ' + P2.h + '" style="left:0;top:' + P2.top + 'px"></svg>' +
       '<div class="abs s8-p2" id="panel" data-in="none" style="left:1300px;top:186px;width:524px;height:780px">' +
-        '<div class="abs lg" id="lg" style="left:0;top:0;width:524px"><div>점 하나 = 계약 하나 · <b class="tnum ink">15,107</b>개</div>' +
-          '<div><i style="background:#F5B43C"></i>엔도스랭크가 더 높게 세운 계약</div><div><i style="background:#3CC4FF"></i>AWP가 더 높게 세운 계약</div></div>' +
+        '<div class="abs lg" id="lg" style="left:0;top:0;width:524px"><div>One point = one contract · <b class="tnum ink">15,107</b> contracts</div>' +
+          '<div><i style="background:#F5B43C"></i>Ranked higher by EndorseRank</div><div><i style="background:#3CC4FF"></i>Ranked higher by AWP</div></div>' +
         '<div class="abs" id="b1" style="left:0;top:126px;width:524px">' +
-          '<div class="k">켄달의 τ<sub>b</sub> (엔도스랭크 vs AWP)</div>' +
+          '<div class="k">Kendall’s τ<sub>b</sub> (EndorseRank vs AWP)</div>' +
           '<div style="display:flex;align-items:baseline;gap:16px"><span class="tau" id="tau">0.000</span><span class="ci" id="tauci">[0.163, 0.185]</span></div>' +
           '<svg id="rul" width="500" height="72" style="overflow:visible;display:block;margin-top:2px"></svg>' +
-          '<div class="ln" id="tauln">0도 아니고 1도 아니에요</div>' +
+          '<div class="ln" id="tauln">Neither 0 nor 1</div>' +
           '<div class="gh" id="ghost" style="margin-top:6px">' + pill('registered-analysis') + '<span class="tnum">0.217 [0.209, 0.225]</span></div>' +
                   '</div>' +
         '<div class="abs" id="b2" style="left:0;top:418px;width:524px">' +
-          '<div class="ln">계약 쌍 <b id="pairs">114,103,171</b>개</div>' +
-          '<div class="ln">두 점수가 모두 순서를 정한 쌍 <b id="both">96.7%</b></div>' +
-          '<div class="ln" style="margin-top:6px">그중 반대 순서</div>' +
-          '<div style="display:flex;align-items:baseline;gap:14px"><span class="big" id="disc">0.0%</span><span class="ln" id="discnote" style="font-size:19px;color:var(--ink-3)">번쩍이는 쌍 0 / 30</span></div>' +
+          '<div class="ln">Contract pairs <b id="pairs">114,103,171</b></div>' +
+          '<div class="ln">Pairs ordered by both scores <b id="both">96.7%</b></div>' +
+          '<div class="ln" style="margin-top:6px">Of these, in opposite order</div>' +
+          '<div style="display:flex;align-items:baseline;gap:14px"><span class="big" id="disc">0.0%</span><span class="ln" id="discnote" style="font-size:19px;color:var(--ink-3)">Flashing pairs 0 / 30</span></div>' +
           '<div class="s8-gauge"><b id="gfill"></b></div>' +
         '</div>' +
-        '<div class="abs concl" id="b3" style="left:0;top:660px;width:524px">관련은 있지만, 바꿔 쓸 수는 없어요</div>' +
+        '<div class="abs concl" id="b3" style="left:0;top:660px;width:524px">Related, but not interchangeable</div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -604,7 +605,7 @@
           var dg = svgEl('line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: C.ink, 'stroke-width': 2.5, 'stroke-dasharray': '8 8', opacity: 0.9 }, g.ov);
           var L = Math.hypot(b.x - a.x, b.y - a.y);
           tl.fromTo(dg, { strokeDasharray: L + ' ' + L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: dur(ctx, 0.9), ease: E.io, onComplete: function () { dg.style.strokeDasharray = '8 8'; dg.style.strokeDashoffset = '0'; } }, 0);
-          var lab = txt(g.ov, b.x - 12, b.y - 14, '같은 순위', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700 });
+          var lab = txt(g.ov, b.x - 12, b.y - 14, 'Same rank', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700 });
           tl.fromTo(lab, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 0.8);
         }
         fadeUp(tl, g.b1, 0.3, 0.5);
@@ -635,14 +636,14 @@
               if (pr[2]) st.c++; else st.d++;
               var r = st.d / (st.c + st.d);
               g.disc.textContent = fmt(r * 100, 1) + '%';
-              g.discnote.textContent = '번쩍이는 쌍 ' + (st.c + st.d) + ' / 30 · 설명용';
+              g.discnote.textContent = 'Flashing pairs ' + (st.c + st.d) + ' / 30 · illustration';
               ctx.add(function () { gsap.to(g.gfill, { width: (r * 100).toFixed(1) + '%', duration: ctx.reduced ? 0.01 : 0.12 }); });
             }, null, at + 0.05);
           });
         }
         var tEnd = t0 + 30 * per + 0.3;
         tl.call(function () {
-          g.discnote.textContent = '멈춘 값 = 1억 1천만 쌍 전체의 결과';
+          g.discnote.textContent = 'Final value = all 110 million pairs';
           ctx.add(function () { gsap.to(g.gfill, { width: '41.2%', duration: ctx.reduced ? 0.01 : 0.8, ease: E.io }); });
         }, null, tEnd);
         tl.add(ctx.count(g.disc, 40, 41.2, { decimals: 1, suffix: '%', final: '41.2%', duration: 0.8 }), tEnd + 0.01);
@@ -657,20 +658,20 @@
           var colR = svgEl('rect', { x: c0.x - 11, y: c1.y - 10, width: 22, height: c0.y - c1.y + 20, rx: 11, fill: 'rgba(233,237,245,.08)', stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '6 5' }, lay3);
           var bandR = svgEl('rect', { x: b0.x - 10, y: b0.y - 11, width: b1.x - b0.x + 20, height: 22, rx: 11, fill: 'rgba(233,237,245,.08)', stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '6 5' }, lay3);
           var pl = p2pt(g, ER_ZERO.pct, 0.74);
-          var t1a = txt(lay3, pl.x - 64, pl.y - 12, '엔도스랭크', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700 });
-          var t1b = txt(lay3, pl.x - 64, pl.y + 18, '0점 535개', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
+          var t1a = txt(lay3, pl.x - 64, pl.y - 12, 'EndorseRank', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700 });
+          var t1b = txt(lay3, pl.x - 64, pl.y + 18, '535 at zero', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
           var t1l = svgEl('line', { x1: pl.x - 58, x2: pl.x - 16, y1: pl.y + 2, y2: pl.y + 2, stroke: C.ink2, 'stroke-width': 1.5 }, lay3);
-          var t1c = txt(lay3, pl.x - 64, pl.y + 46, '→ 가운데 약 2', { 'text-anchor': 'end', fill: C.ink2, 'font-size': 18, 'class': 'tnum' });
+          var t1c = txt(lay3, pl.x - 64, pl.y + 46, '→ middle ≈ 2', { 'text-anchor': 'end', fill: C.ink2, 'font-size': 18, 'class': 'tnum' });
           /* ties: every zero shares the bottom ranks, so the block sits at its mid-rank percentile
              (AWP (2,672 + 1)/2 − 1 over 15,106 ≈ 8.8; EndorseRank ≈ 1.8), not at 0 */
           var ya = p2pt(g, 0, AWP_ZERO.pct);
           var tk = svgEl('line', { x1: ya.x - 24, x2: ya.x - 12, y1: ya.y, y2: ya.y, stroke: C.ink, 'stroke-width': 2 }, lay3);
           var tkt = txt(lay3, ya.x - 30, ya.y + 6, '≈ 9', { 'text-anchor': 'end', fill: C.ink, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' });
           var tc = p2pt(g, 0.17, 0.133);
-          var tie = txt(lay3, tc.x, tc.y + 6, '모두 동점 → 맨 아래 칸들을 함께 써서 가운데(약 9)에 놓여요', { 'text-anchor': 'start', fill: C.ink, 'font-size': 18, 'font-weight': 600, stroke: '#0E1119', 'stroke-width': 6, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
-          var t2 = txt(lay3, b1.x + 22, b0.y + 7, 'AWP 0점 2,672개', { 'text-anchor': 'start', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
-          var t3 = txt(lay3, b1.x + 22, b0.y + 40, '외톨이 점 규칙으로', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19 });
-          var t4 = txt(lay3, b1.x + 22, b0.y + 66, '바꿔도 τ = 0.174', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19, 'class': 'tnum' });
+          var tie = txt(lay3, tc.x, tc.y + 6, 'All tied → they share the lowest ranks and sit at their middle (≈ 9)', { 'text-anchor': 'start', fill: C.ink, 'font-size': 18, 'font-weight': 600, stroke: '#0E1119', 'stroke-width': 6, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
+          var t2 = txt(lay3, b1.x + 22, b0.y + 7, 'AWP: 2,672 at zero', { 'text-anchor': 'start', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
+          var t3 = txt(lay3, b1.x + 22, b0.y + 40, 'Isolated-node rule:', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19 });
+          var t4 = txt(lay3, b1.x + 22, b0.y + 66, 'τ still 0.174', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19, 'class': 'tnum' });
           if (g.pairLay) tl.to(g.pairLay, { opacity: 0.25, duration: 0.4 }, 0);
           tl.fromTo(colR, { autoAlpha: 0, scaleY: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scaleY: 1, duration: dur(ctx, 0.5), ease: E.out }, 0.1);
           tl.fromTo(bandR, { autoAlpha: 0, scaleX: 0.3, transformOrigin: '0% 50%' }, { autoAlpha: 1, scaleX: 1, duration: dur(ctx, 0.5), ease: E.out }, 0.35);
@@ -699,8 +700,8 @@
         svgEl('line', { x1: py.x - off - 6, x2: py.x - off + 6, y1: py.y, y2: py.y, stroke: C.ink3, 'stroke-width': 1.5 }, ax);
         txt(ax, py.x - off - 12, py.y + 6, t[1], { 'text-anchor': 'end', fill: C.ink2, 'font-size': 18, 'class': 'tnum' });
       });
-      txt(ax, (o.x + xr.x) / 2, o.y + off + 58, '엔도스랭크 백분위 →', { 'text-anchor': 'middle', fill: C.allow, 'font-size': 22, 'font-weight': 700 });
-      txt(ax, yt.x - off, yt.y - 24, '↑ AWP 백분위', { 'text-anchor': 'start', fill: C.xfer, 'font-size': 22, 'font-weight': 700 });
+      txt(ax, (o.x + xr.x) / 2, o.y + off + 58, 'EndorseRank percentile →', { 'text-anchor': 'middle', fill: C.allow, 'font-size': 22, 'font-weight': 700 });
+      txt(ax, yt.x - off, yt.y - 24, '↑ AWP percentile', { 'text-anchor': 'start', fill: C.xfer, 'font-size': 22, 'font-weight': 700 });
       tl.fromTo(ax, { autoAlpha: 0 }, { autoAlpha: 1, duration: dur(ctx, 0.6) }, 0);
     }
     tl.fromTo(g.lg, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: dur(ctx, 0.5), ease: E.out }, 0.2);
@@ -712,29 +713,30 @@
   var AX3 = { left: 96, top: 176, w: 1728, h: 250, axisY: 196 };
   var STRIP = [{ x: 180, h: 52 }, { x: 340, h: 30, a: 1 }, { x: 500, h: 68 }, { x: 660, h: 44, a: 2, s: 1 }, { x: 820, h: 22, s: 1 }];
   var slide3 = {
-    id: 's08-03', title: '기간 밖 시험(시간 홀드아웃): 점수를 얼리고 기다려요', time: 40, steps: 3,
+    id: 's08-03', title: 'Out-of-window test (temporal holdout): freeze and wait', time: 40, steps: 3,
     tags: [],
     notes: [
-      '이제 진짜 시험, 기간 밖 시험이에요. 논문에서는 시간 홀드아웃이라고 불러요. 3년의 달력이 다시 나왔어요. 호박색 띠는 달마다 생긴 허락 기록, 하늘색 띠는 송금 기록이에요.',
-      '3월 31일에 점수를 얼려요. 이날까지의 기록만으로 점수를 만들고, 그 뒤로는 손대지 않아요. 나중 기간을 떼어 두고 맞혀 보는 이 첫 번째 시간 홀드아웃이 홀드아웃 W0이에요. 이 시험의 스펜더 계약은 17,050개예요.',
-      '그다음 4월부터 6월 사이에 각 스펜더 계약에 새로 생긴 일로 채점해요. 라벨은 두 가지예요. 하나는 동결일에는 없던 주인과 스펜더 사이의 허락이 새로 생긴 수, 다른 하나는 처음으로 송금을 보내온 주소의 수예요. 새 허락 쌍을 얻은 계약은 2,070개, 12.1%로 호박색 점이고, 새 송금자를 얻은 계약은 1,695개, 9.9%로 하늘색 고리예요. 두 라벨을 모두 얻은 계약도 1,173개로 많아서, 고리를 두른 호박색 점이 많아요. 라벨이 있는 계약은 열에 하나 정도라서, 결과는 이 적은 계약들을 얼마나 잘 위로 세우는지에 크게 달려 있어요.',
-      '같은 시험을 6월 30일에 얼리고 7월부터 9월로 한 번 더 했어요. 이것이 등록 기간 W1이에요. 이 연구는 규칙을 등록한 다음에야 이 석 달의 기록을 꺼냈어요. 스펜더 계약은 18,152개예요.'
+      'Now the real test, the out-of-window test. The thesis calls it a temporal holdout. The three-year calendar is back. The amber stream is the allowance records of each month, and the sky-blue stream the transfer records.',
+      'On 31 March we freeze the scores. We build them only from the records up to that day and do not touch them afterwards. This first temporal holdout, which sets a later period aside and checks the scores against it, is holdout W0. This test has 17,050 spender contracts.',
+      'Then we grade each spender contract by what newly happened to it from April to June. There are two labels. One is the number of new allowances between an owner and the spender that did not exist on the freeze date; the other is the number of addresses that sent it a transfer for the first time. 2,070 contracts, 12.1%, gained new approval pairs: the amber dots. 1,695 contracts, 9.9%, gained new transfer senders: the sky-blue rings. Many contracts, 1,173, gained both labels, so many amber dots wear a ring. Only about one contract in ten has a label, so the results depend heavily on how well a score ranks these few contracts near the top.',
+      'We ran the same test once more, freezing on 30 June and labeling July to September. This is the registered window W1. This study extracted the logs of these three months only after it had registered the rules. There are 18,152 spender contracts.'
     ],
     html:
-      '<h1 class="t-h1">점수를 [[얼리고]], 그 뒤에 생긴 일로 채점해요</h1>' +
-      '<p class="abs s8-small" style="left:96px;top:154px;color:var(--ink-3)">기간 밖 시험 = 시간 홀드아웃 · 나중 기간을 떼어 두고 맞혀 보는 시험</p>' +
+      '<h1 class="t-h1">[[Freeze]] the scores, then grade them on what comes next</h1>' +
+      '<p class="abs s8-small" style="left:96px;top:154px;color:var(--ink-3)">Out-of-window test = temporal holdout · set a later period aside and predict it</p>' +
       '<div class="abs" id="cal" data-in="none" style="left:' + AX3.left + 'px;top:' + AX3.top + 'px;width:' + AX3.w + 'px;height:' + AX3.h + 'px"></div>' +
-      '<div class="abs s8-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>홀드아웃 · 3월 31일 동결 → 4–6월 · 스펜더 계약 <b class="tnum">17,050</b>개</span></div>' +
-      '<div class="abs s8-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>등록 기간 · 6월 30일 동결 → 7–9월 · 스펜더 계약 <b class="tnum">18,152</b>개</span>' + LOCK_SVG + '<span style="font-size:22px;color:var(--ink-2);font-weight:500">등록한 뒤 추출</span></div>' +
-      '<p class="abs s8-small" id="stripcap" data-in="none" style="left:96px;top:566px;color:var(--ink-3)">스펜더 계약 · 점수는 얼린 채 · 예시</p>' +
+      '<div class="abs s8-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>Holdout · freeze 31 Mar → Apr–Jun · <b class="tnum">17,050</b> spenders</span></div>' +
+      '<div class="abs s8-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>Registered window · freeze 30 Jun → Jul–Sep · <b class="tnum">18,152</b> spenders</span>' + LOCK_SVG + '</div>' +
+      '<p class="abs s8-small" id="stripcap" data-in="none" style="left:96px;top:566px;color:var(--ink-3)">Spender contracts · scores stay frozen · example</p>' +
       '<svg class="abs" id="strip" data-in="none" width="960" height="280" viewBox="0 0 960 280" style="left:0;top:600px;overflow:visible"></svg>' +
-      '<div class="s8-month" id="mon" data-in="none" style="left:868px;top:566px">4월</div>' +
+      '<div class="s8-month" id="mon" data-in="none" style="left:868px;top:566px">Apr</div>' +
       '<div class="abs s8-defs" id="defs" data-in="none" style="left:96px;top:872px;width:880px">' +
-        '<div><b class="c-allow">새 허락 쌍</b> — 동결 때는 없던 주인–스펜더 허락이 새로 생김</div>' +
-        '<div><b class="c-xfer">새 송금자</b> — 처음으로 송금을 보내온 주소</div></div>' +
+        '<div><b class="c-allow">New approval pairs</b>: owner–spender allowances that did not exist at the freeze</div>' +
+        '<div><b class="c-xfer">New transfer senders</b>: addresses that sent a transfer for the first time</div>' +
+        '<div data-step="3"><span class="lk">' + LOCK_SVG + '</span><b>W1</b>: logs extracted after the registration</div></div>' +
       '<div class="abs" id="wbox" data-in="none" style="left:1040px;top:466px;width:784px;height:480px">' +
-        '<div class="s8-wt" id="wt">W0 스펜더 계약 <span class="tnum">17,050</span>개<small>점 하나 = 계약 10개</small></div>' +
-        '<div class="s8-wc" id="wc"><span><i style="background:#F5B43C"></i>새 허락 쌍 <b id="wa">0</b>개 <span id="wap">(12.1%)</span></span><span><i style="background:transparent;box-shadow:inset 0 0 0 2.5px #3CC4FF"></i>새 송금자 <b id="ws">0</b>개 <span id="wsp">(9.9%)</span></span><span><i style="background:#F5B43C;box-shadow:0 0 0 2.5px #3CC4FF"></i>둘 다</span></div>' +
+        '<div class="s8-wt" id="wt">W0 spender contracts <span class="tnum">17,050</span><small>one dot = 10 contracts</small></div>' +
+        '<div class="s8-wc" id="wc"><span><i style="background:#F5B43C"></i>New approval pairs <b id="wa">0</b> <span id="wap">(12.1%)</span></span><span><i style="background:transparent;box-shadow:inset 0 0 0 2.5px #3CC4FF"></i>New senders <b id="ws">0</b> <span id="wsp">(9.9%)</span></span><span><i style="background:#F5B43C;box-shadow:0 0 0 2.5px #3CC4FF"></i>Both</span></div>' +
         '<div id="wf" style="position:absolute;left:0;top:92px"></div>' +
       '</div>',
     build: function (el, ctx) {
@@ -753,12 +755,12 @@
       svgEl('rect', { x: xs, y: 14, width: x1 - xs, height: AX3.axisY - 16, fill: 'url(#s8-frost)', rx: 6 }, g.frost);
       svgEl('line', { x1: x1, x2: x1, y1: 14, y2: AX3.axisY - 2, stroke: '#E9EDF5', 'stroke-width': 2, opacity: 0.7 }, g.frost);
       gsap.set(g.frost, { autoAlpha: 0 });
-      g.pin0 = TL.pin('2026-03-31', { y0: 8, label: 't₁ · 3월 31일 동결', color: 'ink', labelSize: 19 });
-      g.pin1 = TL.pin('2026-06-30', { y0: 8, label: 'T_obs · 6월 30일', color: 'ink', labelSize: 19 });
+      g.pin0 = TL.pin('2026-03-31', { y0: 8, label: 't₁ · freeze 31 Mar', color: 'ink', labelSize: 19 });
+      g.pin1 = TL.pin('2026-06-30', { y0: 8, label: 'T_obs · 30 Jun', color: 'ink', labelSize: 19 });
       g.pin0.label.setAttribute('text-anchor', 'end'); g.pin0.label.setAttribute('x', TL.x('2026-03-31') - 22); g.pin0.label.setAttribute('y', 14);
       g.pin1.label.setAttribute('text-anchor', 'start'); g.pin1.label.setAttribute('x', TL.x('2026-06-30') + 22); g.pin1.label.setAttribute('y', 14);
-      g.band0 = TL.band('2026-04-01', '2026-06-30', { label: 'W0 라벨', y0: 40, color: 'ink2' });
-      g.band1 = TL.band('2026-07-01', '2026-09-30', { label: 'W1 라벨', y0: 40, color: 'ink2' });
+      g.band0 = TL.band('2026-04-01', '2026-06-30', { label: 'W0 labels', y0: 40, color: 'ink2' });
+      g.band1 = TL.band('2026-07-01', '2026-09-30', { label: 'W1 labels', y0: 40, color: 'ink2' });
       [g.band0, g.band1].forEach(function (B) { if (B.label) { B.label.setAttribute('y', 66); B.label.setAttribute('font-size', 18); } });
       var kids = Array.prototype.slice.call(TL.axis.childNodes);
       g.axisLine = kids[0]; g.ticks = kids.slice(1);
@@ -849,9 +851,9 @@
       if (i === 2) {
         tl.add(g.band0.show(), 0);
         tl.set(g.mon, { autoAlpha: 0.22 }, 0.2);
-        tl.call(function () { g.mon.textContent = '4월'; }, null, 0.2);
-        tl.call(function () { g.mon.textContent = '5월'; }, null, 0.95);
-        tl.call(function () { g.mon.textContent = '6월'; }, null, 1.7);
+        tl.call(function () { g.mon.textContent = 'Apr'; }, null, 0.2);
+        tl.call(function () { g.mon.textContent = 'May'; }, null, 0.95);
+        tl.call(function () { g.mon.textContent = 'Jun'; }, null, 1.7);
         g.arr.forEach(function (R, k) {
           var at = 0.35 + k * 0.32;
           tl.add(R.N.pop(), at);
@@ -869,10 +871,10 @@
         tl.add(g.pin1.drop(), 0);
         tl.add(g.band1.show(), 0.4);
         fadeUp(tl, g.i1, 0.6, 0.5);
-        tl.call(function () { g.mon.textContent = '7월'; }, null, 0.6);
-        tl.call(function () { g.mon.textContent = '8월'; }, null, 1.1);
-        tl.call(function () { g.mon.textContent = '9월'; }, null, 1.6);
-        tl.add(Comp.swap(ctx, g.wt, 'W1 스펜더 계약 <span class="tnum">18,152</span>개<small>점 하나 ≈ 계약 10개</small>'), 0.5);
+        tl.call(function () { g.mon.textContent = 'Jul'; }, null, 0.6);
+        tl.call(function () { g.mon.textContent = 'Aug'; }, null, 1.1);
+        tl.call(function () { g.mon.textContent = 'Sep'; }, null, 1.6);
+        tl.add(Comp.swap(ctx, g.wt, 'W1 spender contracts <span class="tnum">18,152</span><small>one dot ≈ 10 contracts</small>'), 0.5);
         tl.call(function () {
           g.wap.textContent = ''; g.wsp.textContent = '';
           g.wmark = g.mark1; g.W.n = 1815; g.W.st.p = 0; g.W.st.q = 0; g.W.draw();
@@ -887,7 +889,7 @@
   /* ================================================================ locked board (s08-04 … s08-06) */
   var BD = { tx0: 540, tx1: 1040, td: [0.15, 0.40], tticks: [0.15, 0.2, 0.25, 0.3, 0.35, 0.4], vX: 1062,
     dx0: 1344, dx1: 1800, dd: [-0.06, 0.09], dticks: [-0.05, 0, 0.05],
-    groups: [{ top: 252, name: 'W0', s1: '3월 31일 동결', s2: '4–6월 라벨' }, { top: 400, name: 'W1', s1: '6월 30일 동결', s2: '7–9월 라벨' }],
+    groups: [{ top: 252, name: 'W0', s1: 'freeze 31 Mar', s2: 'Apr–Jun labels' }, { top: 400, name: 'W1', s1: 'freeze 30 Jun', s2: 'Jul–Sep labels' }],
     gh: 128, rowOff: [34, 94], gridTop: 246, gridBot: 538, tickY: 566 };
   function bx(v) { return BD.tx0 + (v - BD.td[0]) / (BD.td[1] - BD.td[0]) * (BD.tx1 - BD.tx0); }
   function dxs(v) { return BD.dx0 + (v - BD.dd[0]) / (BD.dd[1] - BD.dd[0]) * (BD.dx1 - BD.dx0); }
@@ -895,15 +897,15 @@
     '<svg class="abs s8-bars" id="bars" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>';
   function drawBoard(svg) {
     var hd = { fill: C.ink2, 'font-size': 22, 'font-weight': 700 };
-    txt(svg, BD.tx0, 214, 'τ — 나중 일을 얼마나 잘 맞혔나', hd);
-    txt(svg, BD.dx0, 214, '짝지은 차이 Δτ', hd);
-    txt(svg, dxs(0) - 10, 240, '← 그냥 센 수가 나음', { 'text-anchor': 'end', fill: C.ink3, 'font-size': 17 });
-    txt(svg, dxs(0) + 10, 240, '걷는 점수가 나음 →', { 'text-anchor': 'start', fill: C.ink3, 'font-size': 17 });
+    txt(svg, BD.tx0, 214, 'τ: how well it predicted what came later', hd);
+    txt(svg, BD.dx0, 214, 'Paired difference Δτ', hd);
+    txt(svg, dxs(0) - 10, 240, '← raw count better', { 'text-anchor': 'end', fill: C.ink3, 'font-size': 17 });
+    txt(svg, dxs(0) + 10, 240, 'walk score better →', { 'text-anchor': 'start', fill: C.ink3, 'font-size': 17 });
     BD.groups.forEach(function (G) {
       svgEl('rect', { x: 96, y: G.top, width: 1728, height: BD.gh, rx: 16, fill: 'rgba(233,237,245,.028)', stroke: 'rgba(233,237,245,.05)' }, svg);
       txt(svg, 120, G.top + 50, G.name, { fill: C.ink, 'font-size': 30, 'font-weight': 800, 'class': 'svg-mono' });
-      txt(svg, 120, G.top + 82, G.s1, { fill: C.ink3, 'font-size': 17 });
-      txt(svg, 120, G.top + 106, G.s2, { fill: C.ink3, 'font-size': 17 });
+      txt(svg, 120, G.top + 82, G.s1, { fill: C.ink3, 'font-size': 16 });
+      txt(svg, 120, G.top + 106, G.s2, { fill: C.ink3, 'font-size': 16 });
     });
     BD.tticks.forEach(function (t) {
       svgEl('line', { x1: bx(t), x2: bx(t), y1: BD.gridTop, y2: BD.gridBot, stroke: 'rgba(233,237,245,.07)', 'stroke-width': 1 }, svg);
@@ -999,27 +1001,27 @@
 
   /* ================================================================ s08-04 transfer side */
   var slide4 = {
-    id: 's08-04', title: '송금 쪽: AWP가 그냥 센 수를 이겨요', time: 40, steps: 4,
+    id: 's08-04', title: 'Transfer side: AWP beats the raw count', time: 40, steps: 4,
     tags: function (s) { return s >= 4 ? ['posthoc', 'registered-analysis'] : ['posthoc']; },
     notes: [
-      '먼저 송금 쪽이에요. 왼쪽 판은 각 점수가 나중 일을 얼마나 잘 맞혔는지, 오른쪽 판은 두 점수를 같은 계약에서 짝지어 뺀 차이예요. 차이가 0 오른쪽이면 걷는 점수가, 왼쪽이면 그냥 센 수가 나은 거예요.',
-      '나중에 새로 송금을 보내올 주소를 맞히는 데서, W0의 AWP는 0.346, 송금을 보낸 주소를 그냥 센 송금 입차수는 0.303이에요.',
-      '짝지어 빼면 0.043이고, 구간 전체가 0 오른쪽에 있어요.',
-      'W1에서도 AWP가 0.022 높았고, 역시 구간이 0보다 위에 있어요. 송금 쪽에서는 시간과 금액 무게, 그리고 활발한 송신자에서 다시 출발하는 걷기가, 그냥 센 수에 없는 정보를 더한 거예요.',
-      '송금을 받은 적이 있는 계약 14,094개만 따로 봐도 차이가 0.056으로 그대로였어요. 회색 빈 점은 처음 등록한 분석의 값인데 방향이 같아요. 다만 이 비교들은 계획에도 등록에도 없었고, 라벨을 본 뒤에 계산한 것이에요.'
+      'First, the transfer side. The left panel shows how well each score predicted what happened later. The right panel shows the difference between the two scores, paired on the same contracts. If the difference lies right of 0, the walk score is better; if it lies left of 0, the plain count is better.',
+      'In predicting the addresses that will newly send transfers, AWP reaches 0.346 in W0, and the transfer in-degree, which simply counts the addresses that sent transfers, reaches 0.303.',
+      'The paired difference is 0.043, and the whole interval lies right of 0.',
+      'In W1, AWP was again 0.022 higher, and again the interval lies above 0. On the transfer side, the time and value weights and a walk that restarts at active senders added information that the plain count does not have.',
+      'Looking only at the 14,094 contracts that had received a transfer, the difference held, at 0.056. The gray hollow dots are the values of the registered analysis, and they point the same way. But these comparisons were in neither the plan nor the registration; they were computed after the labels were known.'
     ],
     html:
-      '<h1 class="t-h1">새 송금자 맞히기: AWP가 [[센 수]]를 이겨요</h1>' + BOARD_HTML +
-      '<p class="abs s8-concl" id="concl" data-in="none" style="left:96px;top:720px;width:1500px">송금 쪽에서는 걷기(시간·금액 무게, 활동 재시작)가 센 수에 정보를 더했어요</p>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:96px;top:800px;width:1600px">' + pill('posthoc') + '<span>계획에도 등록에도 없던 비교예요 — 라벨을 본 뒤 계산 · 새 송금자 라벨 · 스펜더 W0 17,050개, W1 18,152개</span></div>' +
-      '<div class="abs s8-tiny" id="gleg" data-in="none" style="left:96px;top:850px;width:1600px">' + pill('registered-analysis') + '<span>회색 빈 점 = 처음 등록한 분석(원래 단위, 모든 토큰): <b>+0.038 [0.035, 0.042]</b> · <b>+0.020 [0.016, 0.023]</b> — 방향이 같아요</span></div>',
+      '<h1 class="t-h1">Predicting new senders: AWP beats [[the count]]</h1>' + BOARD_HTML +
+      '<p class="abs s8-concl" id="concl" data-in="none" style="left:96px;top:720px;width:1728px">On the transfer side, the walk (time and value weights, activity restarts) added information to the count</p>' +
+      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:96px;top:800px;width:1728px">' + pill('posthoc') + '<span>In neither the plan nor the registration: computed after the labels were known · new-sender label · spenders W0 17,050, W1 18,152</span></div>' +
+      '<div class="abs s8-tiny" id="gleg" data-in="none" style="left:96px;top:850px;width:1728px">' + pill('registered-analysis') + '<span>Gray hollow dots = registered analysis (raw base units, all tokens): <b>+0.038 [0.035, 0.042]</b> · <b>+0.020 [0.016, 0.023]</b>: same direction</span></div>',
     build: function (el, ctx) {
       var g = boardBuild(el, ctx), svg = g.bars;
-      var rowsW0 = [{ label: 'AWP', color: C.xfer, val: '0.346 [0.336, 0.356]' }, { label: '송금 입차수', color: C.deg, dashed: true, val: '0.303 [0.292, 0.315]' }];
-      var rowsW1 = [{ label: 'AWP', color: C.xfer, val: '0.330 [0.321, 0.340]' }, { label: '송금 입차수', color: C.deg, dashed: true, val: '0.308 [0.299, 0.319]' }];
+      var rowsW0 = [{ label: 'AWP', color: C.xfer, val: '0.346 [0.336, 0.356]' }, { label: 'Transfer in-degree', color: C.deg, dashed: true, val: '0.303 [0.292, 0.315]' }];
+      var rowsW1 = [{ label: 'AWP', color: C.xfer, val: '0.330 [0.321, 0.340]' }, { label: 'Transfer in-degree', color: C.deg, dashed: true, val: '0.308 [0.299, 0.319]' }];
       g.G0 = boardGroup(svg, 0, rowsW0, { val: '+0.043 [0.038, 0.048]', ghost: '+0.038 [0.035, 0.042]' });
       g.G1 = boardGroup(svg, 1, rowsW1, { val: '+0.022 [0.017, 0.027]', ghost: '+0.020 [0.016, 0.023]' });
-      g.ex = extraRow(svg, 640, '송금을 받은 적 있는 계약만', '+0.056 [0.049, 0.064]', C.ink, 'W0 · 14,094개 · 새 송금자');
+      g.ex = extraRow(svg, 640, 'Only prior transfer recipients', '+0.056 [0.049, 0.064]', C.ink, 'W0 · 14,094 contracts · new senders');
       g.concl = q(el, '#concl'); g.tiny = q(el, '#tiny'); g.gleg = q(el, '#gleg');
       gsap.set([g.concl, g.tiny, g.gleg], { autoAlpha: 0 });
     },
@@ -1039,30 +1041,30 @@
 
   /* ================================================================ s08-05 allowance side */
   var slide5 = {
-    id: 's08-05', title: '허락 쪽: 그냥 센 수가 이겨요', time: 50, steps: 5,
+    id: 's08-05', title: 'Allowance side: the raw count wins', time: 50, steps: 5,
     tags: function (s) { return s >= 5 ? ['posthoc', 'registered-analysis'] : s >= 4 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
-      '이제 허락 쪽이에요. 여기서는 결과를 있는 그대로 말씀드릴게요. 판은 앞 장과 같아요.',
-      '나중에 새 허락 쌍을 얻을 계약을 맞히는 데서, W0의 받은 허락 수는 0.250, 엔도스랭크는 0.231이에요.',
-      '짝지어 빼면 −0.019, 구간 전체가 0 왼쪽이에요. 엔도스랭크는 그 계약을 허락한 주인 수를 그냥 센 것보다 못했어요.',
-      'W1에서도 0.034만큼 낮았고, 역시 0보다 아래예요. 두 기간 모두 그냥 센 수가 이겼어요.',
-      '이미 주인이 많은 계약이 새 주인도 더 많이 얻어요. 그냥 센 수가 이 점을 가장 직접 잡기 때문이에요. 왼쪽 그림은 설명을 위한 예시예요.',
-      '그래도 허락 쪽 점수가 새 허락 쌍을 송금 쪽 점수인 AWP보다는 잘 맞혔어요. W0에서 0.035, W1에서 0.065 높아요. 이 비교들도 모두 라벨을 본 뒤에 계산했고, 처음 등록한 분석에서도 방향이 같았어요.'
+      'Now the allowance side. Here I will report the result just as it is. The panels are the same as on the previous slide.',
+      'In predicting which contracts will gain new approval pairs, the in-approve degree reaches 0.250 in W0, and EndorseRank 0.231.',
+      'The paired difference is −0.019, and the whole interval lies left of 0. EndorseRank did worse than simply counting the owners that approved the contract.',
+      'In W1 it was also lower, by 0.034, and again below 0. In both windows the plain count won.',
+      'Contracts that already have many owners also gain more new owners, and the plain count captures this most directly. The picture on the left is an illustrative example.',
+      'Still, the allowance-side score predicted new approval pairs better than AWP, the transfer-side score: 0.035 higher in W0 and 0.065 higher in W1. These comparisons, too, were all computed after the labels were known, and the registered analysis points the same way.'
     ],
     html:
-      '<h1 class="t-h1">새 허락 쌍 맞히기: <span class="s8-hl" id="hl">그냥 센 수</span>가 이겼어요</h1>' + BOARD_HTML +
-      '<div class="s8-fig" id="rich" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">부익부: 주인이 많을수록 새 주인도 많이</div><span class="ex example-mark">예시</span><svg id="richsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
-      '<p class="abs s8-concl" id="concl" data-in="none" style="left:700px;top:716px;width:1124px">고르게 다시 출발하는 엔도스랭크는 ‘허락한 주인 수’를 못 이겼어요</p>' +
-      '<p class="abs s8-reason" id="reason" data-in="none" style="left:700px;top:796px;width:1124px">주인이 많은 계약이 새 주인도 더 많이 얻어요 — <b>센 수가 이걸 바로 잡아요</b></p>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:870px;width:1124px">' + pill('posthoc') + '<span>받은 쪽만 봐도 <b>−0.013 [−0.020, −0.006]</b> · 등록 분석 <b>−0.011</b>, <b>−0.029</b> (회색)</span></div>',
+      '<h1 class="t-h1">Predicting new approval pairs: <span class="s8-hl" id="hl">the count</span> won</h1>' + BOARD_HTML +
+      '<div class="s8-fig" id="rich" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">Rich get richer: owners attract owners</div><span class="ex example-mark">Example</span><svg id="richsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
+      '<p class="abs s8-concl" id="concl" data-in="none" style="left:700px;top:716px;width:1124px">EndorseRank with uniform restarts did not beat the owner count</p>' +
+      '<p class="abs s8-reason" id="reason" data-in="none" style="left:700px;top:796px;width:1124px">Contracts with many owners gain more new owners: <b>the count captures this directly</b></p>' +
+      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:870px;width:1124px">' + pill('posthoc') + '<span>Transfer recipients: <b>−0.013 [−0.020, −0.006]</b> · registered analysis <b>−0.011</b>, <b>−0.029</b> (gray)</span></div>',
     build: function (el, ctx) {
       var g = boardBuild(el, ctx), svg = g.bars;
-      var rowsW0 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.250 [0.237, 0.262]' }, { label: '엔도스랭크', color: C.allow, val: '0.231 [0.220, 0.242]' }];
-      var rowsW1 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.268 [0.257, 0.279]' }, { label: '엔도스랭크', color: C.allow, val: '0.234 [0.222, 0.244]' }];
+      var rowsW0 = [{ label: 'In-approve degree', color: C.deg, dashed: true, val: '0.250 [0.237, 0.262]' }, { label: 'EndorseRank', color: C.allow, val: '0.231 [0.220, 0.242]' }];
+      var rowsW1 = [{ label: 'In-approve degree', color: C.deg, dashed: true, val: '0.268 [0.257, 0.279]' }, { label: 'EndorseRank', color: C.allow, val: '0.234 [0.222, 0.244]' }];
       g.G0 = boardGroup(svg, 0, rowsW0, { val: '−0.019 [−0.026, −0.011]', ghost: '−0.011 [−0.016, −0.006]' });
       g.G1 = boardGroup(svg, 1, rowsW1, { val: '−0.034 [−0.038, −0.029]', ghost: '−0.029 [−0.032, −0.025]' });
-      g.ex0 = extraRow(svg, 606, '엔도스랭크 − AWP', '+0.035 [0.019, 0.051]', C.allow, 'W0 · 새 허락 쌍');
-      g.ex1 = extraRow(svg, 662, '엔도스랭크 − AWP', '+0.065 [0.051, 0.081]', C.allow, 'W1 · 새 허락 쌍');
+      g.ex0 = extraRow(svg, 606, 'EndorseRank − AWP', '+0.035 [0.019, 0.051]', C.allow, 'W0 · new approval pairs');
+      g.ex1 = extraRow(svg, 662, 'EndorseRank − AWP', '+0.065 [0.051, 0.081]', C.allow, 'W1 · new approval pairs');
       g.hl = q(el, '#hl'); g.rich = q(el, '#rich'); g.concl = q(el, '#concl'); g.reason = q(el, '#reason'); g.tiny = q(el, '#tiny');
       gsap.set([g.rich, g.concl, g.reason, g.tiny], { autoAlpha: 0 });
       /* rich-get-richer: two spenders, owners around them, new owners drift in (3 : 1) */
@@ -1072,7 +1074,7 @@
       function ring(cx, cy, k, R) { for (var i = 0; i < k; i++) { var a = -Math.PI / 2 + i / k * Math.PI * 2; own.push(Comp.eoa(ctx, rs, { x: cx + Math.cos(a) * R, y: cy + Math.sin(a) * R, r: 9 })); } }
       ring(160, 196, 7, 92); ring(410, 196, 2, 92);
       g.own = own;
-      g.cnt = [txt(rs, 160, 316, '주인 7', { 'text-anchor': 'middle', fill: C.deg, 'font-size': 20, 'font-weight': 700 }), txt(rs, 410, 316, '주인 2', { 'text-anchor': 'middle', fill: C.deg, 'font-size': 20, 'font-weight': 700 })];
+      g.cnt = [txt(rs, 160, 316, '7 owners', { 'text-anchor': 'middle', fill: C.deg, 'font-size': 20, 'font-weight': 700 }), txt(rs, 410, 316, '2 owners', { 'text-anchor': 'middle', fill: C.deg, 'font-size': 20, 'font-weight': 700 })];
       g.news = [];
       [[160, 196, -150], [160, 196, -30], [160, 196, 160], [410, 196, 20]].forEach(function (p, k) {
         var a = p[2] * Math.PI / 180, R = 60;
@@ -1099,8 +1101,8 @@
           tl.fromTo(N.el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, at);
           tl.to(N.el, { attr: { cx: N.tx, cy: N.ty }, duration: dur(ctx, 0.7), ease: 'power2.inOut' }, at + 0.1);
         });
-        tl.add(ctx.count(g.cnt[0], 7, 10, { decimals: 0, format: function (v) { return '주인 ' + Math.round(v); }, final: '주인 10 (+3)', duration: 1.0 }), 1.0);
-        tl.add(ctx.count(g.cnt[1], 2, 3, { decimals: 0, format: function (v) { return '주인 ' + Math.round(v); }, final: '주인 3 (+1)', duration: 0.6 }), 1.7);
+        tl.add(ctx.count(g.cnt[0], 7, 10, { decimals: 0, format: function (v) { return Math.round(v) + ' owners'; }, final: '10 owners (+3)', duration: 1.0 }), 1.0);
+        tl.add(ctx.count(g.cnt[1], 2, 3, { decimals: 0, format: function (v) { return Math.round(v) + ' owners'; }, final: '3 owners (+1)', duration: 0.6 }), 1.7);
         fadeUp(tl, g.reason, 0.4, 0.5);
       }
       if (i === 5) {
@@ -1113,30 +1115,30 @@
 
   /* ================================================================ s08-06 restart rule only (post hoc hypothesis) */
   var slide6 = {
-    id: 's08-06', title: '다시 출발 규칙만 바꾸면? (사후 — 가설)', time: 45, steps: 5,
+    id: 's08-06', title: 'Change only the restart rule? (post hoc, hypothesis)', time: 45, steps: 5,
     tags: function (s) { return s >= 1 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
-      '그렇다면 무엇을 바꾸면 센 수를 넘을까요?',
-      '다시 출발 규칙만 AWP처럼 바꿔 봤어요. 허락을 활발하게 하는 주인에서 더 자주 다시 출발하게 한 거예요. 주인의 활발함 X_u는 그 주인이 허락한 스펜더마다 가장 최근 허락의 시간 무게를 더한 값이에요. AWP가 송금으로 재는 활동량을 허락에 똑같이 적용한 거예요. 걷는 길은 그대로이고 출발점의 비율만 달라져요. 왼쪽 그림의 비가 순간 이동이에요. 활발한 주인에게 더 굵게 내려요.',
-      'W0에서 이 변형은 0.308로, 받은 허락 수 0.250을 넘었어요. 차이는 0.059예요. 점선 테두리가 변형 표시이고, 작은 빈 고리가 원래 엔도스랭크 자리예요.',
-      'W1에서도 0.027만큼 넘었어요.',
-      '하지만 이 비교는 라벨을 본 다음에 고른 것이라서 발견이라고 할 수 없어요. 그래서 판정 도장이 아니라 ‘가설’ 꼬리표를 붙여요. 다음 연구에서 새 기간을 등록하고 시험해 볼 첫 번째 후보예요.',
-      '분석 계획은 이 변형을 함께 보고하라고만 했지, 센 수와 비교하라고 정하지는 않았어요. 게다가 이 변형은 같은 기간의 허락 지표와는 덜 맞아요. 0.585에서 0.426으로 내려가요. 그리고 AWP 쪽은 다시 출발 규칙을 바꿔서 시험해 보지 않았어요.'
+      'So what would we have to change to beat the count?',
+      'We changed only the restart rule, to AWP’s. The walk now restarts more often at owners that approve actively. An owner’s activity X_u is the sum, over the spenders that owner approved, of the time weight of the latest approval. It is the activity that AWP measures on transfers, applied in the same way to allowances. The paths of the walk stay the same; only the shares of the starting points change. The rain in the picture on the left is the teleportation. It falls more heavily on active owners.',
+      'In W0 this variant reaches 0.308, above the in-approve degree at 0.250. The difference is 0.059. The dashed outline marks the variant, and the small hollow ring is where the original EndorseRank sat.',
+      'In W1 it was also ahead, by 0.027.',
+      'But we chose this comparison after we had seen the labels, so it cannot count as a finding. That is why it gets a hypothesis tag, not a verdict stamp. It is the first candidate to register and test on a new window in the next study.',
+      'The analysis plan only said to report this variant alongside; it did not fix a comparison with the count. This variant also agrees less with the same-window allowance proxies: it drops from 0.585 to 0.426. And on the AWP side, we did not test a change of restart rule.'
     ],
     html:
-      '<h1 class="t-h1">다시 출발을 AWP처럼 바꾸면 센 수를 넘었어요 — 하지만 [[가설]]이에요</h1>' + BOARD_HTML +
-      '<div class="s8-fig" id="rain" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">순간 이동 비: 활발한 주인에게 더 굵게</div><span class="ex example-mark">예시</span><svg id="rainsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
-      '<div class="abs s8-reason" id="def" data-in="none" style="left:700px;top:612px;width:1124px"><b class="c-allow">엔도스랭크(활동 재시작)</b>: 허락을 활발하게 하는 주인에서 더 자주 다시 출발해요 · $\\pi_u=X_u\\big/\\sum_v X_v$<br><span style="font-size:21px;line-height:30px;color:var(--ink-3)">$X_u$ = 주인 u가 허락한 스펜더마다 가장 최근 허락의 시간 무게를 더한 것 (AWP의 활동량을 허락에 적용)</span></div>' +
+      '<h1 class="t-h1">With AWP’s restarts it beat the count, but it is a [[hypothesis]]</h1>' + BOARD_HTML +
+      '<div class="s8-fig" id="rain" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">Teleport rain: heavier on active owners</div><span class="ex example-mark">Example</span><svg id="rainsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
+      '<div class="abs s8-reason" id="def" data-in="none" style="left:700px;top:612px;width:1124px"><b class="c-allow">EndorseRank (activity restarts)</b>: restarts more often at active owners · $\\pi_u=X_u\\big/\\sum_v X_v$<br><span style="font-size:21px;line-height:30px;color:var(--ink-3)">$X_u$ = sum of the time weights of u’s latest approvals, one per spender (AWP’s activity, applied to allowances)</span></div>' +
       '<div class="s8-hyp" id="hyp" data-in="none" style="left:700px;top:706px"><svg width="240" height="84" viewBox="0 0 240 84"></svg></div>' +
-      '<div class="abs s8-reason" id="hyptx" data-in="none" style="left:964px;top:710px;width:860px">라벨을 본 뒤에 고른 비교라서 발견이 아니라 가설이에요<br><span style="font-size:22px;color:var(--ink-3)">→ 다음 등록 시험에서 확인할 일</span></div>' +
+      '<div class="abs s8-reason" id="hyptx" data-in="none" style="left:964px;top:710px;width:860px">Chosen after seeing the labels: a hypothesis, not a finding<br><span style="font-size:22px;color:var(--ink-3)">→ to be checked in the next registered test</span></div>' +
       '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:818px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
-        '<div>대신 같은 기간 허락 가족 일치는 <b>0.585 → 0.426 [0.418, 0.435]</b>로 낮아져요</div>' +
-        '<div>분석 계획은 이 변형을 ‘함께 보고’하라고만 했어요 — 센 수와의 비교는 정하지 않았어요</div>' +
-        '<div>AWP 쪽은 다시 출발 규칙을 바꿔 시험하지 않았어요</div></div>',
+        '<div>In exchange, same-window agreement with the allowance family drops: <b>0.585 → 0.426 [0.418, 0.435]</b></div>' +
+        '<div>The analysis plan only said to ‘report’ this variant alongside; it fixed no comparison with the count</div>' +
+        '<div>On the AWP side, no change of restart rule was tested</div></div>',
     build: function (el, ctx) {
       var g = boardBuild(el, ctx), svg = g.bars;
-      var rowsW0 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.250 [0.237, 0.262]' }, { label: '엔도스랭크 변형', color: C.allow, dashed: true, val: '0.308 [0.299, 0.319]', from: 0.231 }];
-      var rowsW1 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.268 [0.257, 0.279]' }, { label: '엔도스랭크 변형', color: C.allow, dashed: true, val: '0.295 [0.285, 0.304]', from: 0.234 }];
+      var rowsW0 = [{ label: 'In-approve degree', color: C.deg, dashed: true, val: '0.250 [0.237, 0.262]' }, { label: 'EndorseRank variant', color: C.allow, dashed: true, val: '0.308 [0.299, 0.319]', from: 0.231 }];
+      var rowsW1 = [{ label: 'In-approve degree', color: C.deg, dashed: true, val: '0.268 [0.257, 0.279]' }, { label: 'EndorseRank variant', color: C.allow, dashed: true, val: '0.295 [0.285, 0.304]', from: 0.234 }];
       g.G0 = boardGroup(svg, 0, rowsW0, { val: '+0.059 [0.050, 0.067]', color: C.ink });
       g.G1 = boardGroup(svg, 1, rowsW1, { val: '+0.027 [0.021, 0.034]', color: C.ink });
       /* where the uniform-restart EndorseRank sat (0.231 / 0.234): small hollow amber ring */
@@ -1144,7 +1146,7 @@
         var y = BD.groups[p[0]].top + BD.rowOff[1];
         var gg = svgEl('g', {}, svg);
         svgEl('circle', { cx: bx(p[1]), cy: y, r: 7, fill: 'none', stroke: C.allow, 'stroke-width': 2, opacity: 0.8 }, gg);
-        txt(gg, bx(p[1]), y + 30, '원래 ' + fmt(p[1], 3), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 16, 'class': 'tnum' });
+        txt(gg, bx(p[1]), y + 30, 'original ' + fmt(p[1], 3), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 16, 'class': 'tnum' });
         gsap.set(gg, { autoAlpha: 0 });
         return gg;
       });
@@ -1153,8 +1155,8 @@
       /* hypothesis tag: hollow outline, drawn slowly (not a stamp) */
       var hs = q(g.hyp, 'svg');
       g.hypRect = svgEl('rect', { x: 3, y: 3, width: 234, height: 78, rx: 16, fill: 'none', stroke: C.hi, 'stroke-width': 3, 'stroke-dasharray': '10 7' }, hs);
-      g.hypText = txt(hs, 120, 54, '가설', { 'text-anchor': 'middle', fill: C.hi, 'font-size': 38, 'font-weight': 800 });
-      var eye = svgEl('g', { transform: 'translate(30,26) scale(1.6)', fill: 'none', stroke: C.hi, 'stroke-width': 1.6 }, hs);
+      g.hypText = txt(hs, 142, 53, 'Hypothesis', { 'text-anchor': 'middle', fill: C.hi, 'font-size': 30, 'font-weight': 800 });
+      var eye = svgEl('g', { transform: 'translate(14,27) scale(1.5)', fill: 'none', stroke: C.hi, 'stroke-width': 1.6 }, hs);
       eye.innerHTML = '<path d="M1.8 10S5 4.6 10 4.6 18.2 10 18.2 10 15 15.4 10 15.4 1.8 10 1.8 10z"/><circle cx="10" cy="10" r="2.6"/>';
       /* restart rain: six owners, rain proportional to activeness X_u */
       var rs = q(el, '#rainsv');
@@ -1174,7 +1176,7 @@
           g.drops.push({ el: dr, d: delay, k: k });
         }
       });
-      g.pin = txt(rs, 280, 318, '굵은 고리 = 활발한 주인 = 순간 이동 비가 많이', { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17 });
+      g.pin = txt(rs, 280, 318, 'Thick ring = active owner = more teleport rain', { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17 });
       ctx.katex(g.def);
     },
     enter: boardEnter,

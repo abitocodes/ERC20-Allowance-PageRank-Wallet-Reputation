@@ -212,7 +212,7 @@
         var lt = T(lab, 0, r[0], r[1], { fill: r[2], 'font-size': 24, 'font-weight': 700 });
         var sp = S('tspan', { dx: 14, fill: C.ink2, 'font-size': 20, 'font-weight': 500 }, lt); sp.textContent = 'per month';
       });
-      T(lab, 0, 360, 'Each band is scaled to its own maximum', { fill: C.ink3, 'font-size': 18 });
+      T(lab, 0, 360, 'Bands scaled separately', { fill: C.ink3, 'font-size': 18 });
       gsap.set(lab, { autoAlpha: 0 });
       /* freeze pins and label windows */
       g.p1 = TL.pin('2026-04-01', { label: 't₁', y0: 40 });
@@ -344,7 +344,7 @@
         '<div class="s3-card"><div class="s3-card-h"><span>Plan stage · all tokens</span>' + Deck.tagHTML('registered-analysis') + '</div>' +
           '<div class="s3-row"><span class="k">Approvals</span><span>' + n0(N.regAppr) + '</span></div>' +
           '<div class="s3-row"><span class="k">Transfers</span><span>' + n0(N.regXfer) + '</span></div></div>' +
-        '<div class="s3-card"><div class="s3-card-h"><span>W1 · Jul–Sep 2026</span><span class="t-caption ink-3">extracted after registration</span></div>' +
+        '<div class="s3-card"><div class="s3-card-h"><span style="white-space:nowrap">W1 · Jul–Sep 2026</span><span class="t-caption ink-3" style="white-space:nowrap;font-size:22px">extracted after registration</span></div>' +
           '<div class="s3-row"><span class="k">Approvals</span><span>' + n0(N.w1Appr) + '</span></div>' +
           '<div class="s3-row"><span class="k">Transfers</span><span>' + n0(N.w1Xfer) + '</span></div></div>' +
         '<div class="s3-card"><div class="s3-card-h"><span>Total BigQuery cost</span></div>' +

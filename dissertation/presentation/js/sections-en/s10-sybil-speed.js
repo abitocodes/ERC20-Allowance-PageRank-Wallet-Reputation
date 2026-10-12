@@ -282,7 +282,7 @@
         '<p class="abs s10-cap" id="cap" data-in="none" style="left:96px;top:834px;width:1000px"><b>Closed farm</b>: restart and dangling shares keep flowing in; no edge leads out</p>' +
         '<div class="abs s10-chips" id="chips" data-in="none" style="left:96px;top:880px">' + chips + '</div>' +
         '<p class="abs s10-foot" id="foot" data-in="none" style="left:96px;top:938px;width:1000px">A ring of 20 addresses added to the real graph also gives <b>' + S.ring20 + '×</b><br>EndorseRank solver graph of the revised analysis · ' + S.nodes + ' nodes · ' + S.edges + ' edges</p>' +
-        '<p class="abs s10-foot" id="vnote" data-in="none" style="left:1124px;top:902px;width:700px">' + S.nodes + ' nodes: the solver graph is the allowance graph of 03 (' + fmt(G_ALLOW_V, 0) + ') minus <b>' + fmt(G_ALLOW_V - NODES, 0) + '</b> addresses whose amounts are all so small that their value weight is 0</p>' +
+        '<p class="abs s10-foot" id="vnote" data-in="none" style="left:1124px;top:902px;width:700px">' + S.nodes + ' nodes: the allowance graph of 03 (' + fmt(G_ALLOW_V, 0) + ') minus <b>' + fmt(G_ALLOW_V - NODES, 0) + '</b> addresses whose tiny amounts all have value weight 0</p>' +
         '<div class="abs s10-d" id="dv" style="left:1124px;top:168px;width:700px"></div>';
     },
     build: function (el, ctx) {
@@ -297,6 +297,7 @@
         var x = 26 + rnd() * 760, y = 26 + rnd() * 516;
         if (Math.hypot(x - RING.cx, y - RING.cy) < RING.wall + 34) continue;
         if (y < 64 && x < 640) continue;   /* keep the two labels of the top band clear */
+        if (x > 722 && y > 450 && y < 500) continue;   /* … and the gauge's "1 = fair share" label */
         if (g.bg.some(function (p) { return Math.hypot(p[0] - x, p[1] - y) < 50; })) continue;
         g.bg.push([x, y]);
       }
@@ -401,11 +402,11 @@
       });
       /* derivation */
       g.dv = derivePanel(ctx, q(el, '#dv'), [
-        { tex: 'c=\\dfrac{1-d+d\\,r_{\\mathrm{dang}}}{|V|}', note: 'One raindrop: the share every node gets each time<br>$r_{\\mathrm{dang}}=\\sum_{\\text{dangling }u} r_u$: total share of the dangling nodes (the water collected in piece ③ of 04)' },
+        { tex: 'c=\\dfrac{1-d+d\\,r_{\\mathrm{dang}}}{|V|}', note: 'One raindrop: the share every node gets each time<br>$r_{\\mathrm{dang}}=\\sum_{\\text{dangling }u} r_u$: total share of the dangling nodes<br>(the water collected in piece ③ of 04)' },
         { tex: '\\text{in}=\\underbrace{|\\mathcal S|\\,c}_{\\text{new rain}}+\\underbrace{d\\,M}_{\\text{share kept in the ring}}', note: '$M=\\sum_{i\\in\\mathcal S} r_i$: share of the whole farm · share leaving along edges: 0<br>The rest, $(1-d)\\,M$, leaves by teleportation' },
         { tex: 'M=d\\,M+|\\mathcal S|\\,c\\;\\Rightarrow\\;\\underbrace{(1-d)\\,M}_{\\text{out}}=\\underbrace{|\\mathcal S|\\,c}_{\\text{in}}', note: 'Steady state: share leaving by teleportation = new rain' },
         { tex: '\\sum_{i\\in\\mathcal S} r_i=\\part{share}{\\frac{|\\mathcal S|}{|V|}}\\cdot\\part{factor}{\\frac{1-d+d\\,r_{\\mathrm{dang}}}{1-d}}', note: 'population share × how many times · thesis Eq. (5.6)', mark: 'factor' },
-        { tex: '\\frac{0.15+0.85\\times' + S.rD + '}{0.15}=' + S.ff['0.85'], note: '$d=0.85$, $r_{\\mathrm{dang}}=' + S.rD + '$ (sum of the shares held by the dangling nodes of the real graph)' }
+        { tex: '\\frac{0.15+0.85\\times' + S.rD + '}{0.15}=' + S.ff['0.85'], note: '$d=0.85$, $r_{\\mathrm{dang}}=' + S.rD + '$ (sum over the real graph’s dangling nodes)' }
       ], 'Derivation · closed farm');
     },
     enter: function (el, ctx) {
@@ -515,7 +516,7 @@
         '<div class="abs s10-fc" id="fc" style="left:96px;top:236px">f =<b id="fn">0</b><span class="ink-3"> · </span><b id="an" style="font-size:30px">0</b><span class="ink-3">approvals / window</span></div>' +
         '<svg class="abs" id="fig" data-in="none" width="1000" height="520" viewBox="0 0 1000 520" style="left:' + F2.x + 'px;top:' + F2.y + 'px;overflow:visible"></svg>' +
         '<p class="abs s10-cap" id="leg" style="left:96px;top:744px;width:1000px">$c$: the rain on every address (previous slide) · $d = 0.85$ · every arrow is an approval</p>' +
-        '<p class="abs s10-sum" id="sum" data-in="none" style="left:96px;top:796px;width:1040px"><span class="r">f = ' + STAR_M + ' → ' + sciH(S.star) + '</span> : above the median, about half the 90th percentile, about 1/12,000 of the top</p>' +
+        '<p class="abs s10-sum" id="sum" data-in="none" style="left:96px;top:796px;width:1040px"><span class="r">f = ' + STAR_M + ' → ' + sciH(S.star) + '</span> : above the median, ≈ half the 90th percentile, ≈ 1/12,000 of the top</p>' +
         '<svg class="abs" id="logb" data-in="none" width="' + LOGB.w + '" height="150" viewBox="0 0 ' + LOGB.w + ' 150" style="left:' + LOGB.x + 'px;top:' + LOGB.y + 'px;overflow:visible"></svg>' +
         '<div class="abs s10-d" id="dv" style="left:1124px;top:166px;width:700px"></div>';
     },
@@ -584,7 +585,7 @@
         { tex: 'r_t=c+d\\sum_{a} r_a', note: 'share of the target = rain + shares sent by the $f$ fake addresses' },
         { tex: '\\begin{aligned}r_t&=c+d\\sum_a\\bigl(c+d\\,r_t P_{t,a}\\bigr)\\\\&=c+d\\,f\\,c+d^2 r_t\\part{sum}{\\textstyle\\sum_a P_{t,a}}\\end{aligned}', note: 'Put 2 into 3 · the target\'s row sums to one: $\\sum_a P_{t,a}=1$', mark: 'sum' },
         { tex: '\\begin{aligned}r_t-d^2r_t&=c\\,(1+d f)\\\\ \\Rightarrow\\ r_t&=\\part{hero}{\\dfrac{c\\,(1+d f)}{1-d^2}}\\end{aligned}', note: 'each extra address adds $+\\,\\dfrac{d\\,c}{1-d^2}$ · 2 approvals', mark: 'hero' },
-        { tex: '\\begin{aligned}1-d^2&=1-0.7225=0.2775\\\\ r_t&=\\frac{' + sciT(S.c) + '\\times(1+8.5)}{0.2775}=' + sciT(S.star) + '\\end{aligned}', note: '$f=' + STAR_M + '$ · the same value as computed with the star added to the real graph' }
+        { tex: '\\begin{aligned}1-d^2&=1-0.7225=0.2775\\\\ r_t&=\\frac{' + sciT(S.c) + '\\times(1+8.5)}{0.2775}=' + sciT(S.star) + '\\end{aligned}', note: '$f=' + STAR_M + '$ · same value when the star is added to the real graph' }
       ], 'Derivation · star-shaped farm');
     },
     enter: function (el, ctx) {
@@ -661,23 +662,23 @@
         { r: 4, q: 'top', n: 'about ' + fmt(Q[3].ceil, 0) },
         { r: 3, q: '99th percentile', n: fmt(Q[2].ceil, 0) },
         { r: 2, q: '90th percentile', n: fmt(Q[1].ceil, 0) },
-        { r: 1, q: 'median', n: '1 partner', d: 'target and 1 partner approve each other (2 approvals) · the formula gives $f\\le 0$, i.e. no farm<br>$f=1$: $c(1+d)/(1-d^2)=c/(1-d)=$ ' + sciH(S.pair) }
+        { r: 1, q: 'median', n: '1 partner', d: 'target and 1 partner approve each other (2 approvals)<br>the formula gives $f\\le 0$, i.e. no farm<br>$f=1$: $c(1+d)/(1-d^2)=c/(1-d)=$ ' + sciH(S.pair) }
       ];
       return '<h1 class="t-h1">Looking ordinary is [[cheap]]; the top is expensive</h1>' +
         '<div class="s10-3d" id="tw" data-in="none" style="left:96px;top:196px;width:1084px;height:764px"></div>' +
         '<p class="abs s10-leg" id="leg" style="left:96px;top:166px;width:1100px"><i style="background:#F5B43C"></i>one contract (matched cohort, ' + fmt(pick(DATA, ['contracts', 'meta', 'n'], 15107), 0) + ') &nbsp; <i style="background:#FF6B8A"></i>' + FARM_PER + ' fake addresses &nbsp; · height = EndorseRank (log scale, one level up = 10×)</p>' +
         '<p class="abs s10-foot" id="foot" style="left:110px;top:966px;width:1040px">box height = thesis formula $r_t=c\\,(1+d f)/(1-d^2)$ · leaves out that a bigger farm also enlarges $|V|$ and so lowers $c$</p>' +
         '<div class="abs s10-cnt" id="cnt" style="left:1196px;top:176px;width:640px">' +
-          '<div class="k">Fake addresses needed <span class="ink-3">(f from the formula, rounded up · median: 1 partner)</span></div>' +
+          '<div class="k">Fake addresses needed <span class="ink-3">(f rounded up · median: 1 partner)</span></div>' +
           '<div class="v"><span class="pre" id="pre" style="display:none">about</span><span id="fN">0</span></div>' +
           '<div class="s"><b id="aN">0</b> approvals per window <span class="ink-3">(2 per address)</span></div></div>' +
         '<div class="abs s10-rungs" id="rungs" style="left:1196px;top:440px;width:628px">' + rungs.map(function (r) {
           return '<div class="s10-rung" data-r="' + r.r + '"><span class="ck">' + CHECK + '</span><span class="q">' + r.q + '</span><span class="n">' + r.n + '</span>' +
             (r.d ? '<span class="dd">' + r.d + '</span>' : '') + '</div>';
         }).join('') + '</div>' +
-        '<div class="abs s10-con" id="con" data-in="none" style="left:1196px;top:790px;width:628px">' +
+        '<div class="abs s10-con" id="con" data-in="none" style="left:1196px;top:800px;width:628px">' +
           '<p>The top contract holds <b>about 3%</b> of the whole share: more than <b>400,000 times</b> $c$</p>' +
-          '<p class="big">So no score should set a warning or a reward on its own</p>' +
+          '<p class="big" style="font-size:25px">So no score should set a warning or reward alone</p>' +
           '<p style="font-size:21px;line-height:30px">Keeping only five tokens leaves the attack cost unchanged</p></div>' +
         '<div class="abs s10-range no-advance" id="rng" data-in="none" style="left:1196px;top:384px;width:628px">' +
           '<span>Try it: f</span><input type="range" min="0" max="1000" step="1" value="1000" aria-label="number of fake addresses f"><span class="tnum" id="rv"></span></div>';
@@ -899,7 +900,7 @@
         /* right column */
         '<div class="abs s10-swc" id="swc" style="left:1600px;top:' + (SWY + 52) + 'px;width:230px;white-space:normal">one iteration =<br>one multiplication<br>per edge<br><span class="ink-3">this small world:</span> <b id="mulN">0</b><br><span class="ink-3" style="font-size:18px"><span class="s10-cn">1</span>–<span class="s10-cn">4</span> = order of the<br>multiplications<br>(not edge weights)</span></div>' +
         '<div class="abs s10-d" id="dv" style="left:1214px;top:446px;width:610px"></div>' +
-        '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">Small samples: the time ratio strays from the edge ratio<small>close only in the two large stages (10,000+ contracts) · stage ratios computed</small></div>' +
+        '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">Small samples: the time ratio strays from the edge ratio<small>close only in the two large stages (10,000+ contracts) · ratios computed</small></div>' +
         '<svg class="abs" id="chart" data-in="none" width="610" height="140" viewBox="0 0 610 140" style="left:1214px;top:862px;overflow:visible"></svg>';
     },
     build: function (el, ctx) {

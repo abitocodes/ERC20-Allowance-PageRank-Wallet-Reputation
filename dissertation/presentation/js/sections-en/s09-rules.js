@@ -232,7 +232,7 @@
       'What I cared about most in this study is the order of events. This stem puts the commits to the public repository and the data extractions in time order. The wavy marks are where time is folded.',
       'At 13:41:27 UTC on 9 October, before this study had extracted any data, I committed the analysis plan to the public repository. The lock clicks shut. If we zoom in to seconds on the right, the first extraction started exactly 10 seconds later.',
       'The same day I built the cohort and the labels, computed the same-window and W0 results, and judged rule A.',
-      'After seeing those W0 results, I registered what would be tested in W1. That is the commit at 16:49:32. One second later the extraction manifest started, and 8 seconds later the extraction of the July to September logs started. The extraction script does not run without the registration commit, and the manifest records the SHA-256 of both files and that the override was not used.',
+      'After seeing those W0 results, I registered what would be tested in W1. That is the commit at 16:49:32. One second later the extraction manifest began to be written, and 8 seconds after the commit the extraction of the July to September logs started. The extraction script does not run without the registration commit, and the manifest records the SHA-256 of both files and that the override was not used.',
       'Up to here is the registered analysis. Below this line, I knew the results of the registered analysis.',
       'The next day I found a problem with the units of the amounts, and I revised the amounts to US dollars. This change came after seeing the registered results, so these locks are hollow. I committed the revision document and the five tokens, computed the dollar medians and percentiles, and then amended the definition of the cap U and committed it. The pair tables, proxies, labels and revised scores were all built after the last commit, at 11:24:01. The first pair table was finished 56 seconds after that commit.',
       'So the plan and the registration came before this study\'s data extraction, and that is the registered analysis. The revision came after the registered results, but it was committed before any revised score was computed. That is the revised analysis, and I call every verdict that applies the registered rules to it a re-analysis.'
@@ -248,11 +248,11 @@
         s += '<div class="s9-node' + (n.small ? ' small' : '') + '" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.html.replace('</span><span class="note">', '</span><span class="re">' + LOOP_SVG + '</span><span class="note">') + (n.lock === 'hollow' && n.html.indexOf('class="note"') < 0 ? '<span class="re">' + LOOP_SVG + '</span>' : '') + '</div>';
       });
       s += '<div class="s9-sep" id="sep" data-in="none" style="top:616px"></div>';
-      s += '<div class="s9-septx" id="septx" data-in="none" style="left:760px;top:600px">From here on, the registered results were known</div>';
+      s += '<div class="s9-septx" id="septx" data-in="none" style="left:680px;top:600px">Registered results known from here on</div>';
       s += '<div class="s9-zoom" id="zoom" data-in="none"><div class="hd" id="zhd">Zoomed to seconds</div><div class="clk" id="clk">13:41:27</div><div class="gap" id="zgap">0 s</div>' +
         '<svg id="zr" width="584" height="150" viewBox="0 0 584 150"></svg><div class="cap" id="zcap"></div></div>';
-      s += '<div class="abs s9-bot" id="bot1" data-in="none" style="left:96px;top:846px;width:1728px"><b>Plan and registration before this study\'s data extraction</b> → registered analysis &nbsp;·&nbsp; <b>Revision after the registered results, but committed before any revised score</b> → revised analysis (re-analysis)</div>';
-      s += '<div class="abs s9-small" id="bot2" data-in="none" style="left:96px;top:894px;width:1728px">The extraction script does not run without the registration commit · the manifest records the SHA-256 of both files and “override not used” · commit times from the repository record (git log), query times from the BigQuery ledger</div>';
+      s += '<div class="abs s9-bot" id="bot1" data-in="none" style="left:96px;top:846px;width:1728px"><b>Plan and registration came before this study\'s data extraction</b> → registered analysis<br><b>The revision came after the registered results, but was committed before any revised score</b> → revised analysis (re-analysis)</div>';
+      s += '<div class="abs s9-small" id="bot2" data-in="none" style="left:96px;top:934px;width:1728px">The extraction script does not run without the registration commit · the manifest records the SHA-256 of both files and “override not used” · commit times from git log, query times from the BigQuery ledger</div>';
       return s;
     },
     build: function (el, ctx) {
@@ -401,7 +401,7 @@
       '<h1 class="t-h1">Rule A: does C-PR (λ = 0.5) beat [[both]] layers?</h1>' +
       '<div class="s9-card" id="ca1" data-in="none" style="top:196px;height:132px"><div class="hd">① W0 · new approval pairs</div><div class="ds">No worse than the allowance layer alone (λ = 1)</div><div class="fx">95% interval of $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=1}$ contains 0 or lies above 0</div><div class="s9-mark" id="m1"></div></div>' +
       '<div class="s9-card" id="ca2" data-in="none" style="top:342px;height:132px"><div class="hd">② W0 · new transfer senders</div><div class="ds">Better than the transfer layer alone (λ = 0)</div><div class="fx">95% interval of $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ lies above 0</div><div class="s9-mark" id="m2"></div></div>' +
-      '<div class="s9-card" id="ca3" data-in="none" style="top:530px;height:132px"><div class="hd">③ Same-window part</div><div class="ds">Transfer, allowance: inside the better layer\'s 95% interval</div><div class="ds">Sybil stability: above both layers</div><div class="s9-mark" id="m3"></div></div>' +
+      '<div class="s9-card" id="ca3" data-in="none" style="top:530px;height:132px"><div class="hd">③ Same-window part</div><div class="ds">Transfer, allowance: in the better layer\'s 95% interval</div><div class="ds">Sybil stability: above both layers</div><div class="s9-mark" id="m3"></div></div>' +
       '<svg class="abs" id="ax2" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
       '<div class="abs" id="sw2" data-in="none" style="left:800px;top:530px;width:1024px;height:132px"></div>' +
       '<div class="abs s9-verd" id="verd" data-in="none" style="left:96px;top:712px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span><span class="s9-line" id="reTx">The rule fixed in advance, applied to the revised scores. Not a registered test.</span></div>' +
@@ -507,17 +507,17 @@
       'On new transfer senders it was −0.028, behind by more than the margin of 0.01. The whole interval lies left of the hatching.',
       'On the traders\' liquidation-free close rate the two scores were exactly equal. The point estimate is 0. But if we zoom in on the lower end of the interval, it is −0.014, past the margin of −0.010 by 0.004. Narrowly not met.',
       'So rule B is not met either. This too is a re-analysis: the registered rule applied to the revised scores.',
-      'The margin of 0.01 is the half-width of the interval of the same contrast in W0 of the registered analysis, 0.0040, rounded up to two decimals. In the sensitivity analysis with AWP as the comparator, F2 was not met either, at −0.067, and on F3 the two scores were both 0.350. In the registered analysis, rule B was not met either.'
+      'The margin of 0.01 is the half-width of the interval of the same contrast in W0 of the registered analysis, 0.0040, rounded up to two decimals. In the sensitivity analysis with AWP as the comparator, F2 was also not met, at −0.067, and on F3 the two scores were both 0.350. Rule B was not met in the registered analysis either.'
     ],
     html:
-      '<h1 class="t-h1">Rule B: does C-PR [[improve]] on the transfer layer walked alone?</h1>' +
+      '<h1 class="t-h1">Rule B: does C-PR [[improve]] on the transfer layer alone?</h1>' +
       '<p class="abs s9-fx" style="left:96px;top:160px;width:1728px">Every row: $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ · superiority = clearly above 0 · non-inferiority = any shortfall stays within $\\delta=0.01$ · all three must hold</p>' +
       '<p class="abs s9-cap" id="cap3" data-in="none" style="left:96px;top:198px"><i></i>Colored bars = revised analysis (re-analysis) · rule and margin exactly as registered</p>' +
       B3.rows.map(function (r, k) { return '<div class="s9-fl" data-r="' + k + '" data-in="none" style="top:' + (r.y - 34) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
       '<svg class="abs" id="ax3" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
       '<div class="s9-inset" id="ins" data-in="none"><div class="hd">F3 lower end · zoomed ×10</div><svg id="inssv" width="644" height="200" viewBox="0 0 644 200"></svg></div>' +
       '<div class="abs s9-verd" id="verd" data-in="none" style="left:96px;top:676px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span></div>' +
-      '<div class="abs s9-tiny" id="sm" data-in="none" style="left:96px;top:776px;width:1060px">' +
+      '<div class="abs s9-tiny" id="sm" data-in="none" style="left:96px;top:776px;width:1076px">' +
         '<div>' + pill('registered-analysis') + 'Also not met in the registered analysis: F1 <b>+0.101</b> · F2 <b>−0.025</b> · F3 <b>−0.044</b> (gray hollow dots)</div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -641,9 +641,9 @@
       '<p class="abs s9-line" id="rhd" data-in="none" style="left:96px;top:196px;color:var(--ink);font-weight:700">Three reasons for the revision <span class="s9-tiny">(found after the registered results were known)</span></p>' +
       '<div class="s9-rs" id="r1" data-in="none" style="top:244px">' + ICO4.flat + '<div class="t">① In raw base units almost every amount weighs 1 → the amount played no part<small>Registered analysis: 99.78% of allowances · 99.52% of transfers are 10 units or more → weight ≈ 1</small></div></div>' +
       '<div class="s9-rs" id="r2" data-in="none" style="top:404px">' + ICO4.ladder + '<div class="t">② C-PR added tokens whose units differ by 12 digits, and an unlimited approval took a whole row<small>1 USDC = 10⁶ units · 1 WETH = 10¹⁸ units · unlimited = 2²⁵⁶ − 1</small></div></div>' +
-      '<div class="s9-rs" id="r3" data-in="none" style="top:552px">' + ICO4.spam + '<div class="t">③ Any token could write logs in another address\'s name<small>A spam token\'s log is no evidence that the named owner approved anything</small></div></div>' +
+      '<div class="s9-rs" id="r3" data-in="none" style="top:552px">' + ICO4.spam + '<div class="t">③ Any token could write logs in any address\'s name<small>A spam token\'s log is no evidence that the named owner approved anything</small></div></div>' +
       '<div class="s9-th" id="th1" data-in="none" style="left:1180px;width:280px;text-align:right"><div class="nm" style="color:var(--ink-3)">Registered analysis</div><div class="ds">As fixed in advance · raw base units · every token · b = 1</div></div>' +
-      '<div class="s9-th" id="th2" data-in="none" style="left:1550px;width:274px"><div class="nm">Revised analysis</div><div class="ds">Set after the registered results · USD · five tokens · b = ln 3 / m · cap U</div></div>' +
+      '<div class="s9-th" id="th2" data-in="none" style="left:1550px;width:274px"><div class="nm">Revised analysis</div><div class="ds">Set after registered results · USD · five tokens · b = ln 3 / m · cap U</div></div>' +
       TR4.map(function (r, k) {
         return '<div class="s9-tr' + (r[3] ? ' vd' : '') + '" data-r="' + k + '" data-in="none" style="top:' + (330 + k * 48) + 'px"><span class="l">' + r[0] + '</span><span class="a">' + r[1] + '</span><span class="eq">' + (r[3] ? '=' : '→') + '</span><span class="b">' + r[2] + '</span></div>';
       }).join('') +
@@ -710,7 +710,7 @@
       '<div class="abs s9-wl" id="wleg" data-in="none" style="left:96px;top:640px;width:640px">' +
         '<div><i style="background:#E9EDF5;box-shadow:0 0 0 3px #F5B43C"></i>Traders with approvals <b class="ink">37</b> · none liquidated</div>' +
         '<div><i style="background:#E9EDF5"></i>Other 33 · no liquidation <b class="ink">24</b> <i style="background:#FF6B8A;margin-left:14px"></i>liquidated <b class="ink">9</b></div></div>' +
-      '<div class="s9-def" id="def" data-in="none"><span class="k">Outcome · liquidation-free close rate</span><span>$=1-\\dfrac{\\text{closes ended by liquidation}}{\\text{all closes}}$</span><span class="s9-tiny">Trading more does not raise it by itself</span></div>' +
+      '<div class="s9-def" id="def" data-in="none"><span class="k">Outcome · liquidation-free close rate</span><span style="white-space:nowrap">$=1-\\dfrac{\\text{liquidated closes}}{\\text{all closes}}$</span><span class="s9-tiny">Trading more does not raise it by itself</span></div>' +
       '<svg class="abs" id="ax5" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
       '<div class="abs s9-rule" id="r1t" data-in="none" style="left:760px;top:494px"><span class="s9-v no">R1 not met</span> <span class="typed" id="r1s"></span></div>' +
       '<div class="abs s9-rule" id="r2t" data-in="none" style="left:760px;top:646px"><span class="s9-v no">R2 not met</span> <span class="typed" id="r2s"></span></div>' +

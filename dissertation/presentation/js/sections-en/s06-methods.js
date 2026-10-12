@@ -265,7 +265,7 @@
         '<div class="ln"><span class="no">1</span><span class="tx">Edges: owner → spender contract<small>latest allowance per token · five tokens · USD</small></span></div>' +
         '<div class="ln"><span class="no">2</span><span class="tx">Weights: σ × V, as in AWP<small>time weight × value weight (the formula from 05)</small></span></div>' +
         '<div class="ln"><span class="no">3</span><span class="tx">Restarts: the same at every node<small>every node $v$ gets $\\pi_v = 1/|V|$ · damping factor $d = ' + DAMP + '$</small></span></div>' +
-        '<div class="ln"><span class="no">4</span><span class="tx">Evaluated: contracts that receive approvals<small>Owners (EOAs) also hold a share in the walk, but are not evaluated or reported</small></span></div>' +
+        '<div class="ln"><span class="no">4</span><span class="tx">Evaluated: contracts that receive approvals<small>Owners (EOAs) hold a share too, but are not evaluated or reported</small></span></div>' +
       '</div>' +
       '<div class="abs s6-caution" data-step="3" style="left:1080px;top:842px;width:744px">' + ICON_WARN +
         '<span>An edge holds the amount and time of the latest allowance, not the allowance left today</span></div>',
@@ -564,7 +564,7 @@
         '<tr><td>allowance only</td><td class="c">$\\lambda/\\lambda=1$</td><td class="c">0</td></tr>' +
         '<tr><td>transfer only</td><td class="c">0</td><td class="c">$(1-\\lambda)/(1-\\lambda)=1$</td></tr>' +
         '<tr><td>neither</td><td class="c" colspan="2">dangling node → restart</td></tr></table>' +
-        '<p class="s6-cap" style="margin-top:14px">λ = 1 walks the allowance layer alone, λ = 0 the transfer layer alone · uniform restarts, $d = ' + DAMP + '$</p></div>',
+        '<p class="s6-cap" style="margin-top:14px">λ = 1 walks the allowance layer alone, λ = 0 the transfer layer alone<br>uniform restarts, $d = ' + DAMP + '$</p></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       /* graph: owner u with two allowance and two transfer arrows */
@@ -586,7 +586,8 @@
       }
       g.lS1 = tag(S1.x - 40, S1.y - 34, 'unlimited → cap 20,000 USD', C.allow);
       g.lS2a = tag(S2n.x - 46, S2n.y - 40, '500 USD', C.allow);
-      g.lS2b = tag(S2n.x - 30, S2n.y + 46, '300 USD · 180 days ago', C.xfer);
+      g.lS2b = tag(S2n.x - 30, S2n.y + 46, '300 USD', C.xfer);
+      svgEl('tspan', { x: S2n.x - 30, dy: 23 }, g.lS2b).textContent = '180 days ago';   /* two lines: one line would run into the label of u */
       g.lR = tag(Rn.x - 40, Rn.y + 52, '1,000 USD · today', C.xfer);
       gsap.set([g.u.g, g.s1.g, g.s2.g, g.r.g], { autoAlpha: 0 });
       /* bars */
@@ -657,7 +658,7 @@
       gsap.set([g.fin, g.cases], { autoAlpha: 0 });
       g.xnote = document.createElement('div'); g.xnote.className = 's6-xnote';
       g.xnote.style.left = (B3.x + B3.x0 + 40) + 'px'; g.xnote.style.top = (B3.y + B3.rows[1] + 7) + 'px';
-      g.xnote.textContent = 'No transfer edges → this row is empty';
+      g.xnote.textContent = 'No transfer edges → empty row';
       el.appendChild(g.xnote); gsap.set(g.xnote, { autoAlpha: 0 });
     },
     enter: function (el, ctx) {
@@ -802,7 +803,7 @@
         '<div class="hd">How to read</div>' +
         '<div class="r"><b>Percentile</b><span>score rank 0–100 (100 at the top)</span></div>' +
         '<div class="r"><b>Log scale</b><span>10 → 100 → 1,000: one step = ×10</span></div>' +
-        '<div class="r"><b>Wall shadow</b><span>thin band = score follows the count<br>wide cloud = it does not</span></div></div>' +
+        '<div class="r"><b>Wall shadow</b><span>thin band = follows the count<br>wide cloud = does not follow</span></div></div>' +
       '<p class="abs s6-capline" id="cap0" style="left:96px;top:930px;width:1270px">One dot = one contract · across <b class="c-allow">in-approve degree</b> · depth <b class="c-xfer">transfer in-degree</b> (both log) · height <b class="c-cpr">C-PR percentile</b></p>' +
       '<p class="abs s6-capline" id="cap6" data-in="none" style="left:96px;top:912px;width:1240px;color:var(--ink)">Big jumps at the ends: λ = 0 and 1 walk one layer alone, so the node set changes. Not continuous.</p>' +
       '<div class="abs s6-mini ink-2" id="mini" style="left:1384px;top:902px;width:440px;text-align:right">$P^{(\\lambda)}_{u,\\cdot}=\\alpha_A(u)\\,\\ca{P_{A,u,\\cdot}}+\\alpha_T(u)\\,\\ct{P_{T,u,\\cdot}}$</div>',

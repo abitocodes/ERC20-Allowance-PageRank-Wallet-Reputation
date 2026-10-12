@@ -75,7 +75,7 @@
     '.s5-note b{color:var(--ink)}',
     '.s5-tx{font-size:30px;line-height:44px}',
     '.s5-tx .katex-display{margin:0;text-align:left}.s5-tx .katex-display>.katex{text-align:left}',
-    '.s5-read{font-family:var(--font-mono);font-size:22px;line-height:32px;color:var(--ink-2);letter-spacing:0;padding:10px 14px;border-radius:12px;background:var(--bg-3);white-space:nowrap}',
+    '.s5-read{font-family:var(--font-mono);font-size:21px;line-height:32px;color:var(--ink-2);letter-spacing:0;padding:10px 14px;border-radius:12px;background:var(--bg-3);white-space:nowrap}',   /* EN: 21px so "Δt = 1,100 days → …" fits the panel */
     '.s5-read b{color:var(--ink);font-weight:700}',
     '.s5-read .hl2{color:var(--c-hi)}',
     /* custom derivation list that can fold finished steps */
@@ -109,7 +109,7 @@
     '.s5-row{position:absolute;left:96px;width:930px;display:flex;gap:26px;align-items:flex-start}',
     '.s5-row .ic{flex:0 0 auto;width:72px;height:72px}',
     '.s5-row .tt{flex:1 1 auto}',
-    '.s5-row .h{font-size:34px;line-height:46px;font-weight:700;letter-spacing:-.01em}',
+    '.s5-row .h{font-size:32px;line-height:46px;font-weight:700;letter-spacing:-.01em}',   /* EN: 32px keeps each heading on one line */
     '.s5-row .s{font-size:26px;line-height:38px;color:var(--ink-2);margin-top:4px}',
     '.s5-row .s b{color:var(--ink)}',
     '.s5-row .mini{flex:0 0 auto}',
@@ -319,7 +319,7 @@
       '<div class="s5-row" id="r1" data-step="1" style="top:258px">' + clockIcon() + '<div class="tt"><div class="h">Approved yesterday vs <span id="old">2 years ago</span></div>' +
         '<div class="s">Older counts less → <b>time weight σ</b></div></div>' + miniSigma() + '</div>' +
       '<div class="s5-row" id="r2" data-step="2" style="top:452px">' + coinIcon() + '<div class="tt"><div class="h">5 USD vs 5,000 USD approved</div>' +
-        '<div class="s">Larger counts more · never above 1 → <b>value weight V</b></div></div>' + miniV() + '</div>' +
+        '<div class="s">Larger counts more · up to 1 → <b>value weight V</b></div></div>' + miniV() + '</div>' +
       '<div class="abs" id="r3" data-in="none" style="left:96px;top:650px;width:900px">' +
         '<div class="s5-l" style="color:var(--ink)">Weight of one event = time weight σ × value weight V</div>' +
         '<div style="display:flex;align-items:center;margin-top:16px"><span class="s5-chip" id="cs">$\\sigma(\\Delta t)$</span><span class="s5-times" id="cx">×</span><span class="s5-chip" id="cv">$V(z)$</span>' +
@@ -429,7 +429,7 @@
         txt(tg, 0, 34, a === MAX_AGE ? '1,004 days' : a === 0 ? '0 days' : String(a), { anchor: 'middle', size: 20, fill: C.ink2, cls: 'svg-mono s5-halo' });
         return { g: tg, a: a };
       });
-      g.xTitle = txt(P.grid, P.r, P.b + 64, 'Δt = days before the anchor date', { anchor: 'end', size: 20, fill: C.ink2 });
+      g.xTitle = txt(P.grid, P.r, P.b + 64, 'Δt = age in days', { anchor: 'end', size: 20, fill: C.ink2 });
       /* σ curve, points, ratio bars */
       var d = curvePath(P, sigma, 0, 1100, 220);
       g.curve = S('path', { d: d, fill: 'none', stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, P.main);
@@ -445,7 +445,7 @@
         var v = p[0] === 180 ? '0.5' : p[0] === MAX_AGE ? fmt(sigma(p[0]), 4) : fmt(sigma(p[0]), 3);
         var lab = p[1] + ' ' + v;
         if (p[2] === 'r') txt(pg, x + 14, y - 10, lab, { size: 19, fill: p[0] === 180 ? C.hi : C.ink, weight: 600, cls: 's5-halo' });
-        else txt(pg, x, y - 18, lab, { anchor: p[0] === MAX_AGE ? 'end' : 'middle', size: 19, fill: C.ink, weight: 600, cls: 's5-halo' });
+        else txt(pg, x, y - (p[0] === MAX_AGE ? 42 : 18), lab, { anchor: p[0] === MAX_AGE ? 'end' : 'middle', size: 19, fill: C.ink, weight: 600, cls: 's5-halo' });   /* EN: 1,004-day label raised, clear of the 2-year label */
         gsap.set(pg, { autoAlpha: 0 });
         return pg;
       });
@@ -490,8 +490,8 @@
         }).join('') +
         '<text x="0" y="14" fill="' + C.ink3 + '" font-size="16">← close to 0, but never 0 · grows fast to the right →</text></svg>';
       g.dv = Deriv(ctx, q(el, '#dv'), { head: 'Derivation', lines: [
-        { tex: '1-\\frac{\\Delta t}{360}', display: false, note: 'Try a straight line · 180 days → 1 − 1/2 = 1/2 ✓ · but 400 days → 1 − 400/360 ≈ −0.11 <b style="color:var(--c-hi)">✕ negative!</b>' },
-        { tex: 's=k\\,(\\Delta t-t_0)', display: false, note: 'Penalty s: how much older than 180 days · e.g. Δt = 0 gives s = 0.01 × (0 − 180) = −1.8', html: sline },
+        { tex: '1-\\frac{\\Delta t}{360}', display: false, note: 'Try a straight line · 180 days → 1 − 1/2 = 1/2 ✓ · but 400 days → 1&nbsp;−&nbsp;400/360&nbsp;≈&nbsp;−0.11 <b style="color:var(--c-hi)">✕ negative!</b>' },
+        { tex: 's=k\\,(\\Delta t-t_0)', display: false, note: 'Penalty s: how much older than 180 days · e.g. Δt&nbsp;=&nbsp;0 gives s&nbsp;=&nbsp;0.01&nbsp;×&nbsp;(0&nbsp;−&nbsp;180)&nbsp;=&nbsp;−1.8', html: sline },
         { tex: 'e^{-1.8}=\\frac{1}{e^{1.8}}=\\frac{1}{6.05}\\approx0.165', display: false, note: 'Negative exponent: 1 ÷ (positive exponent) · so eˢ is always above 0', html: etab },
         { tex: '\\sigma=\\frac{1}{1+e^{s}}', note: 'The denominator 1 + eˢ is always above 1 → σ lies between 0 and 1 ✓ · s = 0 → 1/(1+1) = 1/2 ✓ · large s → 0 ✓ · very negative s → 1 ✓ (s = −5 → e⁻⁵ = 0.007 → σ = 0.993) · Δt = 0 → 1/(1+0.165) = 0.858' },
         { tex: '\\part{f}{\\sigma(\\Delta t)=\\frac{1}{1+\\exp\\bigl(k(\\Delta t-t_0)\\bigr)}}', note: 'exp(□) = e<sup>□</sup> (same meaning · used when the exponent is long) · k = 0.01, t₀ = 180 days · thesis Eq. (3.3)', mark: 'f' },
@@ -861,7 +861,7 @@
       g.zx = function (z) { return X0 + z / 600 * (X1 - X0); };
       S('line', { x1: X0, x2: X1, y1: 24, y2: 24, stroke: C.line, 'stroke-width': 6, 'stroke-linecap': 'round' }, ssvg);
       g.zKnob = S('circle', { cx: g.zx(MT), cy: 24, r: 14, fill: C.bg, stroke: C.ink, 'stroke-width': 3, style: 'cursor:ew-resize' }, ssvg);
-      g.zText = S('text', { x: X0, y: 76, fill: C.ink, 'font-size': 22, 'class': 'svg-mono' }, ssvg);
+      g.zText = S('text', { x: X0, y: 76, fill: C.ink, 'font-size': 20, 'class': 'svg-mono' }, ssvg);   /* EN: 20px so the readout ends before the panel */
       g.zGuide = S('line', { x1: 0, x2: 0, y1: P.t, y2: P.b, stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 5' }, P.over);
       var drag = false;
       function pick(e) { var p = ctx.toStage(e), r = ctx.rect(ssvg); var z = (p.x - r.x - X0) / (X1 - X0) * 600; setZ(ctx, Math.max(0, Math.min(600, Math.round(z)))); }
@@ -916,39 +916,39 @@
   }
 
   /* ================================================================ s05-05 */
-  var EV_T = [[0, 400, '오늘'], [180, 200, '180일 전'], [365, 100, '1년 전']];      /* 예시: (age, dollars) */
-  var EV_A = [['USDC', 30, Infinity, '무제한 · 30일 전'], ['WETH', 400, MA, '62달러 · 400일 전']];
+  var EV_T = [[0, 400, 'today'], [180, 200, '180 days ago'], [365, 100, '1 year ago']];      /* example: (age, dollars) */
+  var EV_A = [['USDC', 30, Infinity, 'unlimited · 30 days ago'], ['WETH', 400, MA, '62 USD · 400 days ago']];
   function w4(v) { return f4(v); }
   var s5 = {
-    id: 's05-05', title: '두 그래프의 무게와 다시 출발', time: 55, steps: 4,
+    id: 's05-05', title: 'Weights and restarts of the two graphs', time: 55, steps: 4,
     notes: [
-      '두 그래프는 같은 무게 식을 쓰지만, 쌓는 방법과 다시 출발하는 곳이 조금 달라요.',
-      '송금 그래프는 u가 v에게 보낸 모든 송금마다 시간 무게와 금액 무게를 곱해 더해요. 예를 들어 오늘 400달러, 180일 전 200달러, 1년 전 100달러를 보냈다면 0.6865, 0.25, 0.0364를 더해 약 0.973이에요.',
-      '허락 그래프는 토큰마다 가장 최근 허락 하나만 써요. 허락은 새로 하면 앞의 것을 덮어쓰기 때문이에요. USDC 무제한 허락을 30일 전에 했다면 0.8176, WETH 62달러 허락을 400일 전에 했다면 0.0499, 더해서 약 0.867이에요.',
-      '다시 출발하는 곳도 달라요. AWP는 최근에 여러 상대에게 송금한 활발한 주소에서 더 자주 다시 출발해요. 받는 상대마다 가장 최근 송금의 시간 무게를 더한 것을 활발함 X라고 해요. 같은 상대에게 여러 번 보내도 가장 최근 한 번만 세요. 이 예에서 u는 v 한 곳에만 세 번 보냈으니, 오늘 보낸 송금의 0.8581 하나만 세요. 그래서 X_u는 0.8581이에요. 엔도스랭크는 모든 점에서 똑같이 다시 출발해요.',
-      '왜 똑같이 했을까요? 허락을 많이 해 준 주인을 높이는 것이 아니라, 허락을 받은 계약을 재려는 것이기 때문이에요. 이 선택은 이 연구가 데이터를 꺼내기 전에 분석 계획에 적어 두었고, AWP식 다시 출발을 쓴 변형도 함께 보고하기로 했어요.'
+      'Both graphs use the same weight formula, but they add the weights up differently and restart in slightly different places.',
+      'The transfer graph adds, for every transfer that u sent to v, the time weight times the value weight. For example, if u sent 400 dollars today, 200 dollars 180 days ago and 100 dollars a year ago, we add 0.6865, 0.25 and 0.0364, about 0.973.',
+      'The allowance graph uses only the latest approval of each token, because a new approval overwrites the earlier one. If u made an unlimited USDC approval 30 days ago, that gives 0.8176, and a 62-dollar WETH approval 400 days ago gives 0.0499, together about 0.867.',
+      'The restarts differ too. AWP restarts more often at active addresses that recently sent to many counterparties. Adding up, over the recipients, the time weight of the latest transfer to each gives the activeness X. Several transfers to the same recipient count only once, by the latest one. In this example u sent three times, all to v, so only today\'s transfer counts, 0.8581. So X_u is 0.8581. EndorseRank restarts uniformly, from every node alike.',
+      'Why uniformly? Because we want to measure the contracts that receive approvals, not to raise the owners who grant many approvals. This study wrote this choice into the analysis plan before it extracted any data, and the plan also said to report the variant with AWP-style restarts beside it.'
     ],
-    html: '<h1 class="t-h1">같은 무게 식, 쌓는 법과 다시 출발은 달라요</h1>' +
+    html: '<h1 class="t-h1">Same weight formula, different sums and restarts</h1>' +
       '<div class="s5-two" id="pl" style="left:96px">' +
-        '<div class="s5-kind c-xfer"><i style="background:var(--c-xfer)"></i>송금 · AWP</div>' +
-        '<div class="s5-l">송금마다 <b>σ × V</b>를 모두 더해요</div>' +
+        '<div class="s5-kind c-xfer"><i style="background:var(--c-xfer)"></i>Transfers · AWP</div>' +
+        '<div class="s5-l">Add up <b>σ × V</b> over every transfer</div>' +
         '<div class="s5-tx">$w_T(u,v)=\\sum_{e:\\,u\\to v}\\sigma(\\Delta t_e)\\,V(x_e)$</div>' +
-        '<div class="s5-sym"><span>$x_e$ 송금 e의 달러 금액</span></div>' +
+        '<div class="s5-sym"><span>$x_e$ USD amount of transfer e</span></div>' +
         '<div id="figT" style="position:relative;height:250px"></div>' +
-        '<div id="rsT" data-in="none"><div class="s5-l">다시 출발: <b>활발한</b> 송신자일수록 자주 ($\\pi_u\\propto X_u$)</div>' +
-          '<div class="s5-tx" style="font-size:24px">$X_u=\\sum_{v\\neq u}\\max_{e:\\,u\\to v}\\sigma(\\Delta t_e)$ · 받는 상대마다 <b>가장 최근 한 번만</b></div>' +
-          '<div class="s5-note" id="xmax">예: v 한 곳에만 세 번 → $X_u=\\max(0.8581,\\,0.5,\\,0.1359)=0.8581$</div></div>' +
+        '<div id="rsT" data-in="none"><div class="s5-l">Restart: more often at <b>active</b> senders ($\\pi_u\\propto X_u$)</div>' +
+          '<div class="s5-tx" style="font-size:24px">$X_u=\\sum_{v\\neq u}\\max_{e:\\,u\\to v}\\sigma(\\Delta t_e)$ · per recipient, <b>only the latest</b></div>' +
+          '<div class="s5-note" id="xmax">e.g. three transfers, all to v → $X_u=\\max(0.8581,\\,0.5,\\,0.1359)=0.8581$</div></div>' +
       '</div>' +
       '<div class="s5-two" id="pr" style="left:984px">' +
-        '<div class="s5-kind c-allow"><i style="background:var(--c-allow)"></i>허락 · 엔도스랭크</div>' +
-        '<div class="s5-l">토큰마다 <b>마지막 허락 하나만</b>, σ × V</div>' +
+        '<div class="s5-kind c-allow"><i style="background:var(--c-allow)"></i>Allowances · EndorseRank</div>' +
+        '<div class="s5-l"><b>Only the latest allowance</b> per token, σ × V</div>' +
         '<div class="s5-tx">$w_A(u,v)=\\sum_{\\mathrm{token}}\\sigma\\bigl(\\Delta t^{\\star}\\bigr)\\,V\\bigl(a^{\\star}\\bigr)$</div>' +
-        '<div class="s5-sym"><span>$a^{\\star}$ 마지막 허락의 달러 금액</span><span>$\\Delta t^{\\star}$ 그 허락이 며칠 전인지</span></div>' +
+        '<div class="s5-sym"><span>$a^{\\star}$ USD amount of the latest allowance</span><span>$\\Delta t^{\\star}$ its age in days</span></div>' +
         '<div id="figA" style="position:relative;height:250px"></div>' +
-        '<div id="rsA" data-in="none"><div class="s5-l">다시 출발: 모든 점에 [[똑같이]] ($\\pi_u=1/|V|$)</div>' +
-          '<div class="s5-note">허락을 많이 해 준 주인에게 몫을 더 주지 않아요</div></div>' +
+        '<div id="rsA" data-in="none"><div class="s5-l">Restart: [[uniform]] over all nodes ($\\pi_u=1/|V|$)</div>' +
+          '<div class="s5-note">Owners who grant many approvals get no extra share</div></div>' +
       '</div>' +
-      '<div class="s5-bottom" data-step="4" data-in="words">왜 똑같이? 허락을 많이 <span class="ink-2">‘해 준’</span> 주인보다, 허락을 <span class="c-allow">‘받은’</span> 계약을 재고 싶어서요</div>',
+      '<div class="s5-bottom" data-step="4" data-in="words">Why uniform? To measure the contracts that <span class="c-allow">‘receive’</span> approvals, not the owners who <span class="ink-2">‘grant’</span> many</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       /* transfer figure */
@@ -958,9 +958,9 @@
       void uT; void vT;
       g.evT = EV_T.map(function (ev, k) {
         var s0 = sigma(ev[0]), v0 = V(ev[1], BT), eg = S('g', {}, fT);
-        var x = 150 + k * 190;
+        var x = 140 + k * 200;                                         /* EN: wider spacing for the longer labels */
         var dot = S('circle', { cx: x, cy: 70, r: 15, fill: C.bg3, stroke: C.xfer, 'stroke-width': 2.5 }, eg);
-        txt(eg, x, 36, ev[2] + ' · ' + ev[1] + '달러', { anchor: 'middle', size: 18, fill: C.ink2 });
+        txt(eg, x, 36, ev[2] + ' · ' + ev[1] + ' USD', { anchor: 'middle', size: 18, fill: C.ink2 });
         txt(eg, x, 116, fmt(s0, 4) + ' × ' + (ev[1] === 400 ? '0.8' : ev[1] === 200 ? '0.5' : fmt(v0, 4)), { anchor: 'middle', size: 18, fill: C.ink, cls: 'svg-mono' });
         txt(eg, x, 140, '= ' + w4(s0 * v0), { anchor: 'middle', size: 18, fill: C.xfer, cls: 'svg-mono', weight: 700 });
         gsap.set(eg, { autoAlpha: 0 });
@@ -977,12 +977,12 @@
         var dt = ev[1], s0 = sigma(dt), v0 = ev[2] === Infinity ? 1 : V(ev[2], BA), eg = S('g', {}, fA), x = 230 + k * 250;
         /* older approvals of the same token, struck out */
         var old = S('g', {}, eg);
-        S('rect', { x: x - 58, y: 8, width: 116, height: 30, rx: 8, fill: C.bg3, stroke: C.ink3, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, old);
-        txt(old, x, 29, '예전 허락', { anchor: 'middle', size: 16, fill: C.ink3 });
-        var strike = S('line', { x1: x - 62, x2: x + 62, y1: 23, y2: 23, stroke: C.hi, 'stroke-width': 3, 'stroke-linecap': 'round' }, old);
+        S('rect', { x: x - 68, y: 8, width: 136, height: 30, rx: 8, fill: C.bg3, stroke: C.ink3, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, old);
+        txt(old, x, 29, 'old approval', { anchor: 'middle', size: 16, fill: C.ink3 });
+        var strike = S('line', { x1: x - 72, x2: x + 72, y1: 23, y2: 23, stroke: C.hi, 'stroke-width': 3, 'stroke-linecap': 'round' }, old);
         var chip = S('g', {}, eg);
-        S('rect', { x: x - 58, y: 52, width: 116, height: 36, rx: 10, fill: C.bg3, stroke: C.allow, 'stroke-width': 2 }, chip);
-        txt(chip, x, 77, ev[0] + ' 마지막', { anchor: 'middle', size: 18, fill: C.ink, weight: 700 });
+        S('rect', { x: x - 68, y: 52, width: 136, height: 36, rx: 10, fill: C.bg3, stroke: C.allow, 'stroke-width': 2 }, chip);
+        txt(chip, x, 77, ev[0] + ' latest', { anchor: 'middle', size: 18, fill: C.ink, weight: 700 });
         txt(eg, x, 112, ev[3], { anchor: 'middle', size: 17, fill: C.ink2 });
         txt(eg, x, 136, fmt(s0, 4) + ' × ' + (ev[2] === Infinity ? '1' : '0.5') + ' = ' + w4(s0 * v0), { anchor: 'middle', size: 18, fill: C.allow, cls: 'svg-mono', weight: 700 });
         gsap.set(eg, { autoAlpha: 0 });
@@ -991,7 +991,7 @@
       g.barA = mkBar(fA, 170, C.allow, 1.0, 'w_A');
       g.haloA = halos(fA, 216, [0.5, 0.5, 0.5, 0.5, 0.5], C.allow);
       gsap.set([g.haloT.g, g.haloA.g, q(el, '#rsT'), q(el, '#rsA')], { autoAlpha: 0 });
-      g.ex = H('div', 'example-mark abs', el, '예시 · 금액·날짜·토큰은 설명용, 무게는 계산'); g.ex.setAttribute('data-in', 'none');
+      g.ex = H('div', 'example-mark abs', el, 'Example · amounts, dates, tokens illustrative · weights computed'); g.ex.setAttribute('data-in', 'none');
       g.ex.style.cssText += ';left:130px;top:836px';
     },
     step: function (el, i, ctx) {
@@ -1011,7 +1011,7 @@
         g.evA.forEach(function (ev, k) {
           var t0 = 0.2 + k * 1.2;
           tl.fromTo(ev.g, { autoAlpha: 0, y: -26 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, t0);
-          var L = 120;
+          var L = 150;                                                  /* strike line is 144 px long in English */
           tl.fromTo(ev.strike, { strokeDasharray: L + ' ' + L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 0.35, ease: 'power2.in' }, t0 + 0.5);
           tl.to(ev.old, { opacity: 0.25, duration: 0.3 }, t0 + 0.85);
           var from = acc2; acc2 += ev.w;
@@ -1050,11 +1050,11 @@
       }
     };
   }
-  /* restart halos: five points; halo radius ∝ restart share (예시 shares) */
+  /* restart halos: five points; halo radius ∝ restart share (example shares) */
   function halos(svg, y, shares, col) {
     var g = S('g', {}, svg), hs = [];
     var tot = shares.reduce(function (a, b) { return a + b; }, 0);
-    txt(g, 40, y + 6, '다시 출발', { size: 18, fill: C.ink2 });
+    txt(g, 40, y + 6, 'restart', { size: 18, fill: C.ink2 });
     shares.forEach(function (s, k) {
       var x = 210 + k * 110, r = 6 + 28 * Math.sqrt(s / tot * shares.length / 2.2);
       var h = S('circle', { cx: x, cy: y, r: r, fill: col, 'fill-opacity': 0.18, stroke: col, 'stroke-width': 1.5, 'stroke-opacity': 0.6 }, g);
@@ -1065,39 +1065,39 @@
   }
 
   /* ================================================================ s05-06 */
-  var S1 = U, S2 = 500;                                              /* 예시: one owner, two spenders */
+  var S1 = U, S2 = 500;                                              /* example: one owner, two spenders */
   var s6 = {
-    id: 's05-06', title: '달러로 바꾸기와 상한 U (C-PR용)', time: 45, steps: 4,
+    id: 's05-06', title: 'USD amounts and the cap U (for C-PR)', time: 45, steps: 4,
     notes: [
-      '결합 점수 C-PR에 쓰는 무게는 조금 달라요. C-PR은 금액에 V를 씌우지 않고 달러를 그대로 더해요.',
-      '먼저 금액을 달러로 바꿔요. 기본 단위는 토큰의 가장 작은 조각이고, 그 개수를 n이라고 써요. n에 10의 마이너스 소수 자릿수 제곱을 곱하고, 그날 가격을 곱해요. 10의 마이너스 6제곱을 곱한다는 것은 1,000,000으로 나눈다는 뜻이에요. USDC는 소수 자릿수가 6이라서 1,000,000 기본 단위가 1 USDC, 약 1달러예요.',
-      '그런데 무제한 허락은 기본 단위로 2의 256제곱에 가까운 엄청난 수라서, 그대로 두면 한 주인의 허락 줄 전체를 혼자 차지해 버려요. 같은 주인의 500달러짜리 허락은 보이지도 않아요.',
-      '그래서 허락 하나는 최대 2만 달러까지만 세도록 상한 U를 두었어요. 둘 중 작은 값을 쓰는 거예요. 그러면 무제한 허락은 2만 달러, 500달러 허락은 500달러로 세서, 줄을 97.6%와 2.4%로 나눠요. 2만 달러는 3월 31일까지 송금 한 건 금액의 99번째 백분위, 20,266달러를 두 자리로 반올림한 값이에요.',
-      '실제로 마지막 허락의 45.8%가 무제한이고, 53.8%가 상한 이상이에요. 무제한과 유한한 허락을 함께 가진 주인도 79만 7,852명이에요. 처음에는 상한을 유한한 허락의 99번째 백분위로 정했는데, 그 값이 10의 47제곱 달러쯤이라 상한 구실을 못 했어요. 그래서 수정 점수를 하나도 계산하기 전에 이 정의를 고쳐서 커밋했어요.'
+      'The weights of the coupled score C-PR are a little different. C-PR does not put V on the amounts; it adds the dollars as they are.',
+      'First we convert amounts to dollars. A base unit is the smallest piece of a token, and we write their number as n. We multiply n by 10 to the power minus the number of decimals, and then by the price of that day. Multiplying by 10 to the minus 6 means dividing by 1,000,000. USDC has 6 decimals, so 1,000,000 base units are 1 USDC, about 1 dollar.',
+      'But an unlimited approval is a huge number of base units, close to 2 to the 256th, so if we left it as it is, it would take the whole allowance row of an owner on its own. The same owner\'s 500-dollar approval does not even show.',
+      'So we set a cap U: a single allowance counts at most 20,000 dollars. We take the smaller of the two. Then the unlimited approval counts 20,000 dollars and the 500-dollar approval 500 dollars, which splits the row 97.6% to 2.4%. 20,000 dollars is the 99th percentile of single transfer amounts up to 31 March, 20,266 dollars, rounded to two significant digits.',
+      'In the data, 45.8% of latest allowances are unlimited, and 53.8% are at or above the cap. 797,852 owners hold unlimited and finite allowances side by side. At first the cap was defined as the 99th percentile of the finite allowances, but that value was around 10 to the 47th dollars, so it could not work as a cap. So this definition was amended and committed before any revised score was computed.'
     ],
-    html: '<h1 class="t-h1">무제한 허락이 줄 전체를 [[삼키지]] 않게</h1>' +
+    html: '<h1 class="t-h1">Keep an unlimited approval from [[swallowing]] the row</h1>' +
       '<div class="s5-amt" data-step="1">' +
-        '<div class="s5-l"><b>달러 금액</b> = 기본 단위 × 10<sup>−소수 자릿수</sup> × 그날 가격 &nbsp; $x_e=n\\cdot10^{-q}\\cdot p$</div>' +
-        '<div class="s5-slots" id="slots"><span class="ink-2">예: 1 USDC</span><span class="sl">1,000,000</span><span class="op">×</span><span class="sl">10⁻⁶</span><span class="op">×</span><span class="sl">1</span><span class="op">=</span><span class="sl" style="color:var(--ink)">1달러</span><span class="example-mark">예시 · 가격 1달러로 둠</span></div>' +
-        '<div class="s5-note" style="margin-top:8px">$n$ = 기본 단위의 개수 · $q$ = 소수 자릿수 (USDC는 6) · $p$ = 그날 가격 · $10^{-6}$ = ÷ 1,000,000</div>' +
+        '<div class="s5-l"><b>USD amount</b> = base units × 10<sup>−decimals</sup> × daily price &nbsp; $x_e=n\\cdot10^{-q}\\cdot p$</div>' +
+        '<div class="s5-slots" id="slots"><span class="ink-2">e.g. 1 USDC</span><span class="sl">1,000,000</span><span class="op">×</span><span class="sl">10⁻⁶</span><span class="op">×</span><span class="sl">1</span><span class="op">=</span><span class="sl" style="color:var(--ink)">1 USD</span><span class="example-mark">Example · price 1 USD</span></div>' +
+        '<div class="s5-note" style="margin-top:8px">$n$ = number of base units · $q$ = decimals (USDC: 6) · $p$ = daily price · $10^{-6}$ = ÷ 1,000,000</div>' +
       '</div>' +
       '<div class="s5-panel" id="pn" data-in="none">' +
-        '<div class="s5-l">C-PR의 두 층은 <b>V 없이</b> 달러 그대로 더해요</div>' +
+        '<div class="s5-l">The two layers of C-PR add plain USD, <b>without V</b></div>' +
         '<div class="s5-tx" style="font-size:26px">$$\\tilde w_A(u,v)=\\sum_{\\mathrm{token}}\\min\\bigl(a^{\\star},\\,\\ch{U}\\bigr),\\qquad \\tilde w_T(u,v)=\\sum_{e:\\,u\\to v}x_e\\,\\sigma(\\Delta t_e)$$</div>' +
-        '<div class="s5-note">논문 식 (3.8) · min(a, U) = 둘 중 작은 것: 무제한이면 U, 500달러면 500</div>' +
-        '<div data-step="3"><div class="s5-L">허락 하나는 최대 <span class="c-hi">U = ' + n0(U) + '달러</span>로 세요</div>' +
-          '<div class="s5-note">U = t₁(3월 31일)까지 송금 한 건 금액의 99번째 백분위 (' + n0(P99T) + '달러)를 두 자리로 반올림</div>' +
+        '<div class="s5-note">thesis Eq. (3.8) · min(a, U) = the smaller of the two: U if unlimited, 500 if 500 USD</div>' +
+        '<div data-step="3"><div class="s5-L">Cap each allowance at <span class="c-hi">U = ' + n0(U) + ' USD</span></div>' +
+          '<div class="s5-note">U = 99th percentile of single transfer amounts up to t₁ (31 March), ' + n0(P99T) + ' USD, rounded to two significant digits</div>' +
           '<div class="s5-tx" style="font-size:26px;margin-top:6px">$\\frac{20{,}000}{20{,}000+500}=0.976,\\qquad \\frac{500}{20{,}500}=0.024$</div></div>' +
         '<div data-step="4" style="margin-top:22px;padding-top:16px;border-top:1px solid var(--line)">' +
-          '<div class="s5-note">마지막 허락 중 무제한 <b>' + pct(UNL) + '</b> · 상한 이상 <b>' + pct(ATCAP) + '</b> · 무제한과 유한을 함께 가진 주인 <b>' + n0(BOTH) + '명</b></div>' +
-          '<div class="s5-note" style="margin-top:8px">처음 정의 (유한 허락의 99번째 백분위)는 약 <b>10⁴⁷달러</b> → 상한 구실을 못 해서, 수정 점수를 계산하기 전에 고쳤어요 <span class="mono ink-3">(2705b28)</span></div></div>' +
+          '<div class="s5-note">Latest allowances: unlimited <b>' + pct(UNL) + '</b> · at or above the cap <b>' + pct(ATCAP) + '</b> · owners holding both unlimited and finite ones <b>' + n0(BOTH) + '</b></div>' +
+          '<div class="s5-note" style="margin-top:8px">The first definition (99th percentile of finite allowances) was about <b>10⁴⁷ USD</b> → no use as a cap, so it was amended before any revised score was computed <span class="mono ink-3">(2705b28)</span></div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       /* bar chart: two spenders, linear dollars 0 … 25,000; S1 runs off the top */
       var P = g.P = plot(ctx, el, { x: 96, y: 380, w: 380, h: 560, l: 92, r: 360, t: 70, b: 440, xd: [0, 1], yd: [0, 25000] });
       yAxis(P, [[0, '0'], [10000, '10,000'], [20000, '20,000']], '');
-      txt(P.grid, P.l - 86, P.t + 6, '달러', { size: 18, fill: C.ink2 });
+      txt(P.grid, P.l - 86, P.t + 6, 'USD', { size: 18, fill: C.ink2 });
       S('line', { x1: P.l, x2: P.r, y1: P.b, y2: P.b, stroke: C.ink3, 'stroke-width': 1.5 }, P.grid);
       var bw = 70, x1 = P.px(0.3), x2 = P.px(0.75);
       g.clipId = uid('cut');
@@ -1105,12 +1105,12 @@
       g.clipRect = S('rect', { x: 0, y: -400, width: 600, height: 1200 }, cp);
       g.s1 = S('rect', { x: x1 - bw / 2, y: P.t - 60, width: bw, height: P.b - P.t + 60, fill: C.allow, 'fill-opacity': 0.8, 'clip-path': 'url(#' + g.clipId + ')' }, P.main);
       g.s1top = S('path', { d: 'M' + (x1 - bw / 2) + ',' + (P.t - 60) + ' l12,-14 l12,14 l12,-14 l12,14 l12,-14 l10,14', fill: 'none', stroke: C.allow, 'stroke-width': 2.5 }, P.main);
-      g.s1lab = txt(P.main, x1 + bw / 2 + 10, P.t - 40, '↑ 약 10⁷¹달러', { size: 18, fill: C.allow, weight: 700 });
+      g.s1lab = txt(P.main, x1 + bw / 2 + 10, P.t - 40, '↑ about 10⁷¹ USD', { size: 18, fill: C.allow, weight: 700 });
       g.s2 = S('rect', { x: x2 - bw / 2, y: P.py(S2), width: bw, height: P.b - P.py(S2), fill: C.allow, 'fill-opacity': 0.8 }, P.main);
       txt(P.main, x2, P.py(S2) - 12, '500', { anchor: 'middle', size: 18, fill: C.allow, weight: 700, cls: 'svg-mono' });
-      txt(P.grid, x1, P.b + 30, 'S1 무제한', { anchor: 'middle', size: 19, fill: C.ink2 });
+      txt(P.grid, x1, P.b + 30, 'S1 unlimited', { anchor: 'middle', size: 19, fill: C.ink2 });
       txt(P.grid, x2, P.b + 30, 'S2', { anchor: 'middle', size: 19, fill: C.ink2 });
-      txt(P.grid, (x1 + x2) / 2, P.b + 58, '한 주인의 두 허락 · 예시', { anchor: 'middle', size: 17, fill: C.ink3 });
+      txt(P.grid, (x1 + x2) / 2, P.b + 58, 'One owner, two allowances · example', { anchor: 'middle', size: 17, fill: C.ink3 });
       /* the cap line U, the falling cut-off piece, the zigzag */
       g.uLine = S('g', {}, P.over);
       S('line', { x1: P.l - 10, x2: P.r + 6, y1: 0, y2: 0, stroke: C.hi, 'stroke-width': 2.5, 'stroke-dasharray': '8 6' }, g.uLine);
@@ -1128,8 +1128,8 @@
       host.style.cssText = 'position:absolute;left:530px;top:470px;width:480px;height:360px';
       var rs = g.rs = Comp.svg(ctx, host, { w: 480, h: 360 });
       g.rowHost = host;
-      txt(rs, 0, 24, '한 주인의 허락 줄 = 100%', { size: 22, fill: C.ink, weight: 700 });
-      g.rowLab = txt(rs, 0, 56, '(가) 원래 단위 그대로', { size: 20, fill: C.ink2 });
+      txt(rs, 0, 24, 'One owner\'s allowance row = 100%', { size: 22, fill: C.ink, weight: 700 });
+      g.rowLab = txt(rs, 0, 56, '(a) raw units as they are', { size: 20, fill: C.ink2 });
       var RX = 0, RW = 470, RY = 86, RH = 64;
       S('rect', { x: RX, y: RY, width: RW, height: RH, rx: 10, fill: 'none', stroke: C.ink3, 'stroke-width': 1.5 }, rs);
       g.segA = S('rect', { x: RX, y: RY, width: RW, height: RH, rx: 10, fill: C.allow, 'fill-opacity': 0.85 }, rs);
@@ -1137,7 +1137,8 @@
       g.tA = txt(rs, RX + 16, RY + 41, 'S1  100%', { size: 22, fill: C.bg, weight: 800, cls: 'svg-mono' });
       g.tB = txt(rs, RX + RW, RY + RH + 34, 'S2  0.000…%', { anchor: 'end', size: 20, fill: C.ink2, cls: 'svg-mono' });
       g.RW = RW; g.RX = RX;
-      txt(rs, 0, 268, '걷는 사람이 이 주인에게서 S2로 갈 확률 = S2의 몫', { size: 18, fill: C.ink3 });
+      txt(rs, 0, 268, 'The walker\'s chance of going from this owner', { size: 18, fill: C.ink3 });
+      txt(rs, 0, 292, 'to S2 = the share of S2', { size: 18, fill: C.ink3 });
       gsap.set([P.host, host], { autoAlpha: 0 });
     },
     enter: function (el, ctx) {
@@ -1162,7 +1163,7 @@
         tl.set(g.zig, { autoAlpha: 1 }, 0.6);
         tl.to([g.s1top, g.s1lab], { autoAlpha: 0, duration: 0.3 }, 0.6);
         tl.to(g.piece, { y: 260, rotation: 14, svgOrigin: (P.px(0.3)) + ' ' + P.py(U), autoAlpha: 0, duration: 0.9, ease: 'power2.in' }, 0.65);
-        tl.add(Comp.swap(ctx, g.rowLab, '(나) 달러 + 상한 U'), 1.0);
+        tl.add(Comp.swap(ctx, g.rowLab, '(b) USD + cap U'), 1.0);
         tl.to(g.segA, { attr: { width: g.RW * (1 - frac) }, duration: 1.0, ease: E.io }, 1.2);
         tl.to(g.segB, { attr: { x: g.RX + g.RW * (1 - frac), width: g.RW * frac }, duration: 1.0, ease: E.io }, 1.2);
         tl.call(function () { g.tA.textContent = 'S1  ' + fmt((1 - frac) * 100, 1) + '%'; g.tB.textContent = 'S2  ' + fmt(frac * 100, 1) + '%'; }, null, 1.6);
@@ -1170,13 +1171,16 @@
       if (i === 4) {
         var st = { e: 4 };
         tl.set(g.ladder, { autoAlpha: 1 }, 0.2);
-        tl.to(st, { e: 47, duration: 1.4, ease: 'power2.in', onUpdate: function () { g.ladder.textContent = '10' + sup(Math.round(st.e)) + '달러'; } }, 0.2);
+        tl.to(st, { e: 47, duration: 1.4, ease: 'power2.in', onUpdate: function () { g.ladder.textContent = '10' + sup(Math.round(st.e)) + ' USD'; } }, 0.2);
         tl.to(g.ladder, { y: -16, duration: 0.15, yoyo: true, repeat: 1 }, 1.6);
-        tl.call(function () { g.ladder.textContent = '처음 정의: 약 10' + sup(47) + '달러'; g.ladder.setAttribute('font-size', 18); }, null, 1.9);
+        tl.call(function () {                                     /* English: two right-aligned lines, clear of the row on the right */
+          g.ladder.textContent = ''; g.ladder.setAttribute('font-size', 18); g.ladder.setAttribute('text-anchor', 'end');
+          [['First definition:', -22], ['about 10' + sup(47) + ' USD', 0]].forEach(function (ln) { S('tspan', { x: P.r + 6, y: P.t + 30 + ln[1] }, g.ladder).textContent = ln[0]; });
+        }, null, 1.9);
       }
     },
     tags: ['example']
   };
 
-  Deck.section({ id: 's05-weights', title: '화살표의 무게', slides: [s1, s2, s3, s4, s5, s6] });
+  Deck.section({ id: 's05-weights', title: 'Edge weights', slides: [s1, s2, s3, s4, s5, s6] });
 })();

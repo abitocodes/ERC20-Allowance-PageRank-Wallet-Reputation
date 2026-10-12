@@ -260,11 +260,13 @@
   };
 
   /* ------------------------------------------------------------ s01-02 */
+  /* RQ wording: English thesis, Chapter 1, "Research questions", shortened as the Korean slide shortens it;
+     '\n' forces a line break, other chips wrap balanced */
   var RQS = [
     { k: 'RQ1', t: 'Do the two scores order the contracts differently?', sec: 8 },
     { k: 'RQ2', t: 'How closely does each score agree with the checks?', sec: 8 },
     { k: 'RQ3', t: 'What does each score cost to compute?', sec: 10 },
-    { k: 'RQ4', t: 'Do the scores predict what comes later? Better than the raw degree?', sec: 8, test: true },
+    { k: 'RQ4', t: 'Do the scores predict what comes later?\nBetter than the raw degree?', sec: 8, test: true },
     { k: 'RQ5', t: 'Does one walk over both edge types do better?', sec: 9, test: true }
   ];
   var slide2 = {
@@ -284,7 +286,7 @@
         '<div class="s01-player"><svg width="304" height="180" viewBox="0 0 304 180"></svg><div class="nm c-deg">Just counting</div><div class="sb">Raw degree<br>(edges counted)</div></div>' +
       '</div>' +
       '<div class="s01-rqs" id="rqs" data-in="none">' + RQS.map(function (r) {
-        return '<div class="s01-rq' + '" data-k="' + r.k + '"><span class="k">' + r.k + '</span><span class="t">' + esc(r.t) + '</span><span class="s">→ ' + Deck.util.pad2(r.sec) + '</span></div>';
+        return '<div class="s01-rq' + '" data-k="' + r.k + '"><span class="k">' + r.k + '</span><span class="t">' + r.t.split('\n').map(esc).join('<br>') + '</span><span class="s">→ ' + Deck.util.pad2(r.sec) + '</span></div>';
       }).join('') + '</div>' +
       '<p class="s01-rq-note" id="rqnote" data-in="none">Hypotheses H1–H3 (= the expected answers to RQ1–RQ3) hold largely by construction. The real tests are <b>RQ4</b> and <b>RQ5</b>.' +
         '<span class="obj">One objective per question: <b>objectives O1–O5</b> (O1 = the objective of RQ1 …) · whether each was met is judged in → 11</span></p>',

@@ -475,7 +475,7 @@
       g.W = makeWorld(ctx, el, { hidden: true, cupLabels: false });
       g.W.edges.forEach(function (A) { A.lbl = A.label; A.label = null; gsap.set(A.lbl, { autoAlpha: 0 }); });
       g.wCard = card(ctx, el, { tex: 'w(u,v)', desc: 'weight of the arrow u → v', art: artArrow('2'), x: 96, y: 840 });
-      g.oCard = card(ctx, el, { tex: 'o(u)', desc: 'sum of the weights<br>leaving u', art: artOut(), x: 562, y: 840 });
+      g.oCard = card(ctx, el, { tex: 'o(u)', desc: 'total weight leaving u', art: artOut(), x: 562, y: 840 });
       g.of = Comp.formula(ctx, q(el, '#ofx'), 'o(u)=\\part{s}{\\sum_{v}} w(u,v)', { display: false });
       /* Σ card inside the panel, under the o-table */
       g.sCard = Comp.symbolCard(ctx, el, { className: 's4-sc', tex: '\\sum_{v}', x: 984, y: 878,
@@ -588,7 +588,7 @@
         { tex: 'P_{A,B}=\\frac{w(A,B)}{o(A)}=\\part{f}{\\frac{2}{3}}', note: 'Of A\'s total weight 3, 2 points to B → to B 2 times in 3', mark: 'f' },
         { tex: '\\part{g}{P_{u,v}=\\dfrac{w(u,v)}{o(u)}}', note: 'General form · weight of the arrow ÷ sum of the weights leaving u', mark: 'g' },
         { tex: 'P_{A,C}=\\tfrac{1}{3},\\quad P_{B,D}=\\tfrac{3}{3}=1,\\quad P_{C,D}=\\tfrac{1}{1}=1' },
-        { tex: '\\tfrac{2}{3}+\\tfrac{1}{3}=1', note: 'The probabilities leaving a node add up to 1 · except D (nothing to add)' }
+        { tex: '\\tfrac{2}{3}+\\tfrac{1}{3}=1', note: 'Probabilities leaving a node sum to 1 · except D (nothing to add)' }
       ] });
       g.pCard = card(ctx, el, { tex: 'P_{u,v}', desc: 'probability of going from u to v', art: artArrow('2/3', 'p'), x: 96, y: 840 });
       g.bub = H('div', 's4-bubble', el, '?'); g.bub.setAttribute('data-in', 'none');
@@ -917,7 +917,7 @@
     notes: [
       'If we just apply the balance equation over and over, two problems appear. Let me start again with 0.25 in each of the four cups.',
       'First, water that goes into the dangling node D has nowhere to go, so it disappears. If we actually compute it, the total water shrinks from 1 to 0.75, then 0.25, then 0. After three pours no water is left at all.',
-      'Second, if two nodes point only at each other, the water that goes in is trapped forever. To show this, I added one more node, E, where D and E approve each other. With five nodes we start with 0.2 each. After two pours all the water is in D and E, and from then on it sloshes back and forth between 0.4 and 0.6. The values never stop changing. We say it does not converge.',
+      'Second, if two nodes point only at each other, the water that goes in is trapped forever. To show this, I added one more node, E. D and E approve each other. With five nodes we start with 0.2 each. After two pours all the water is in D and E, and from then on it sloshes back and forth between 0.4 and 0.6. The values never stop changing. We say it does not converge.',
       'E is a node I added for this explanation. This shape, addresses that approve each other, comes back in part 10, where we talk about the cost of attacks.'
     ],
     html: '<h1 class="t-h1">Problem 1 · water [[leaks]] at the dangling node</h1>' + panelBg(5) +
@@ -1210,9 +1210,9 @@
             '<div class="s4-tx" style="font-size:26px">$\\lVert\\mathbf r^{(1)}-\\mathbf r^{(0)}\\rVert_1=0.1594+0.0177+0.0885+0.2656=0.531$</div>' +
             '<div class="s4-note">change = the sizes of all the cell differences (signs dropped), added up · symbol $\\lVert\\;\\rVert_1$</div></div>' +
           '<div data-step="2" data-step-out="3"><div class="s4-l"><b>After 23</b>: (0.1375, 0.2154, 0.1765, 0.4706) · order <b>D, B, C, A</b></div>' +
-            '<div class="s4-l">Stop when $\\lVert\\mathbf r^{(t+1)}-\\mathbf r^{(t)}\\rVert_1<\\varepsilon$ · at most $I_{\\max}=300$</div>' +
+            '<div class="s4-l">Stop when $\\lVert\\mathbf r^{(t+1)}-\\mathbf r^{(t)}\\rVert_1<\\varepsilon$ · at most $I_{\\max}=300$ iterations</div>' +
             '<div class="s4-note">$\\varepsilon$ = one hundred-millionth ($10^{-8}$) · a smaller change means almost nothing changed</div>' +
-            '<div class="s4-note">A’s share = restart 0.0375 + $d\\,r_D/4=0.1000$ collected from D</div></div>' +
+            '<div class="s4-note">A\'s share = restart 0.0375 + $d\\,r_D/4=0.1000$ collected from D</div></div>' +
           '<div data-step="3" data-step-out="4"><div class="s4-note">On the real graphs (revised analysis, T<sub>obs</sub>)</div><div class="s4-real">' +
             '<div class="it"><span class="n c-allow" id="r1">' + IT_ER + '</span><span class="k">EndorseRank · allowance graph</span></div>' +
             '<div class="it"><span class="n c-xfer" id="r2">' + IT_AWP + '</span><span class="k">AWP · transfer graph</span></div></div>' +
