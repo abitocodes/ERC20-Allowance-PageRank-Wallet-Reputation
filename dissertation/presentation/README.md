@@ -9,6 +9,7 @@
 - 이 연구가 점수를 매긴 대상은 **스마트 계약**이에요. EOA는 화살표의 끝점으로만 나와요(`s02-04`).
 - 모든 수식은 그림 → 작은 예 → 기호 → 식 순서로, 중학생도 따라올 수 있게 한 단계씩 끌어내요.
 - 줄거리와 슬라이드마다의 화면 글, 움직임, 숫자 출처는 `STORYBOARD.md`에 있어요.
+- 영문판(`index.en.html`)이 따로 있고, 두 판 모두 HTML 한 파일로 묶은 것이 `dist/`에 있어요(1절).
 
 ---
 
@@ -29,6 +30,25 @@ python3 -m http.server 8000
 - 화면 비율은 16:9(설계 크기 1920×1080)예요. 창 크기에 맞춰 늘거나 줄어요. 1280×720과 1920×1080에서 확인했어요.
 - 3D 장면(WebGL)이 있으니 하드웨어 가속을 켠 크롬·엣지를 권해요. 확인은 크로미움에서만 했어요(파이어폭스·사파리는 확인하지 않았어요).
 - 운영체제에서 '동작 줄이기'를 켜 두면 움직임이 줄어든 판으로 보여요. 발표 중에는 `M` 키로 바꿀 수 있어요.
+
+### 한 파일로 열기 (한국어판, 영문판)
+
+| 파일 | 판 |
+|---|---|
+| `dist/presentation-ko.html` | 한국어판(`index.html`을 묶은 것) |
+| `dist/presentation-en.html` | 영문판(`index.en.html`을 묶은 것) |
+
+라이브러리, 글꼴, 데이터, 섹션을 모두 안에 넣은 HTML 한 파일이에요(각각 약 7MB). 이 파일 하나만 복사하거나 보내도 두 번 눌러 열면 돼요. 키, 주소로 바로 가기, 발표자 창(`P`)도 폴더 판과 똑같이 돌아요.
+
+- 영문판의 원본은 `index.en.html`이에요. 엔진, 데이터, 라이브러리는 한국어판과 같고, 화면 글과 발표 노트만 `js/sections-en/`에 따로 있어요. 엔진이 직접 쓰는 말(도움말, 노트 판, 알림, 상태 표시)은 `<html lang>`을 보고 바꿔요(`Deck.lang`, `Deck.t`).
+- 원본을 고친 뒤에는 다시 묶어요. 파이썬 표준 라이브러리만 쓰고, 원본이 같으면 바이트까지 같은 파일이 나와요.
+
+```bash
+python3 tools/build_single.py              # 두 파일 다
+python3 tools/build_single.py --lang en    # 영문판만 (ko | en | all)
+```
+
+- 슬라이드 내용을 고칠 때는 `js/sections/`(한국어)와 `js/sections-en/`(영문)의 같은 파일을 함께 고치고 다시 묶어요.
 
 ### 주소로 바로 가기
 
@@ -67,16 +87,16 @@ python3 -m http.server 8000
 
 결과 숫자에는 오른쪽 아래에 상태 표시가 붙어요.
 
-| 표시 | 뜻 |
-|---|---|
-| 미리 정함(계획) | 분석 계획(커밋 43d8045)이 이 연구의 추출 전에 정한 비교: 규칙 A |
-| 등록함(W1) | W1 등록(0d3a057)이 이 연구의 W1 추출 전에 정한 비교: 규칙 B 등 |
-| 재분석 | 그 규칙을 수정 점수에 다시 적용한 판정이에요. 등록 시험이 아니에요 |
-| 사후(라벨 본 뒤) | 라벨을 본 뒤에 계산한 비교 |
-| 탐색적 | 규칙 없이 살펴본 실행 |
-| 의도한 구성개념 점검 | 같은 기간 점검. '검증'이 아니에요 |
-| 등록 분석 | 처음 등록한 분석(등록 digest)의 값. 회색으로 보여요 |
-| 예시 / 논문 2장 예시 / 계산 | 설명용 예, 원고 2장의 예, 공식에서 계산한 값 |
+| 표시 | 영문판 표시 | 뜻 |
+|---|---|---|
+| 미리 정함(계획) | Fixed in advance (plan) | 분석 계획(커밋 43d8045)이 이 연구의 추출 전에 정한 비교: 규칙 A |
+| 등록함(W1) | Registered (W1) | W1 등록(0d3a057)이 이 연구의 W1 추출 전에 정한 비교: 규칙 B 등 |
+| 재분석 | Re-analysis | 그 규칙을 수정 점수에 다시 적용한 판정이에요. 등록 시험이 아니에요 |
+| 사후(라벨 본 뒤) | Post hoc (after the labels) | 라벨을 본 뒤에 계산한 비교 |
+| 탐색적 | Exploratory | 규칙 없이 살펴본 실행 |
+| 의도한 구성개념 점검 | Intended-construct check | 같은 기간 점검. '검증'이 아니에요 |
+| 등록 분석 | Registered analysis | 처음 등록한 분석(등록 digest)의 값. 회색으로 보여요 |
+| 예시 / 논문 2장 예시 / 계산 | Example / Example from Chapter 2 / Calculated | 설명용 예, 원고 2장의 예, 공식에서 계산한 값 |
 
 ---
 
@@ -158,6 +178,8 @@ node shoot.mjs --http                        # http://127.0.0.1로 열어서 찍
 node shoot.mjs --reduced                     # 동작 줄이기 판 → tools/shots/reduced/
 node shoot.mjs --first                       # 장마다 첫 화면만
 node shoot.mjs --memcheck 3                  # 끝나고 앞뒤로 3번 돌며 메모리 보고
+node shoot.mjs --page index.en.html          # 영문판 → tools/shots/index.en/
+node shoot.mjs --page dist/presentation-en.html   # 한 파일 판 → tools/shots/presentation-en/
 ```
 
 오류가 하나라도 있으면 종료 코드 1이에요. `tools/node_modules/`와 `tools/shots/`는 `.gitignore`에 들어 있어요.
@@ -169,14 +191,17 @@ node shoot.mjs --memcheck 3                  # 끝나고 앞뒤로 3번 돌며 �
 ## 6. 폴더 구조
 
 ```
-index.html            덱 한 장(고전 <script>만, 모듈·fetch 없음)
+index.html            덱 한 장(고전 <script>만, 모듈·fetch 없음), 한국어판
+index.en.html         영문판: 같은 엔진·데이터·라이브러리, 섹션만 js/sections-en/
 css/deck.css          디자인 토큰, 글꼴, 레이아웃
 js/deck.js            슬라이드 엔진(키, 단계, 전환, 3D·KaTeX·숫자 세기 도우미, 발표자 창)
 js/components.js      여러 섹션이 같이 쓰는 그림 부품
 js/sections/s01…s11   섹션마다 한 파일: Deck.section({ id, title, slides: [...] })
+js/sections-en/       영문판 섹션(같은 파일 이름, 같은 장 id와 단계)
+dist/                 한 파일 판: presentation-ko.html, presentation-en.html (tools/build_single.py가 만듦)
 data/*.js             window.DECK_DATA (tools/build_data.py가 만듦)
 lib/                  가져온 라이브러리와 글꼴(아래 표), lib/LICENSES.md, lib/licenses/
-tools/                build_data.py, shoot.mjs, gallery.html
+tools/                build_data.py, build_single.py, shoot.mjs, gallery.html
 STORYBOARD.md         줄거리판: 장마다 화면 글, 움직임, 수식, 숫자 출처, 노트
 ```
 
@@ -186,7 +211,7 @@ STORYBOARD.md         줄거리판: 장마다 화면 글, 움직임, 수식, 숫
 
 ## 7. 라이브러리와 라이선스
 
-모두 npm 레지스트리에서 받은 파일을 그대로 `lib/`에 넣었어요(UMD 고전 빌드). 자세한 표와 라이선스 전문은 `lib/LICENSES.md`, `lib/licenses/`에 있어요.
+모두 npm 레지스트리에서 받은 파일을 그대로 `lib/`에 넣었어요(UMD 고전 빌드). 자세한 표와 라이선스 전문은 `lib/LICENSES.md`, `lib/licenses/`에 있어요. 한 파일 판(`dist/`)은 이 표와 전문을 파일 끝의 `<script type="text/plain" id="deck-licenses">`에 함께 담아요.
 
 | 라이브러리 | 버전 | 라이선스 | 파일 |
 |---|---|---|---|
