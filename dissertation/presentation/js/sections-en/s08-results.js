@@ -1266,7 +1266,7 @@
       g.D = Comp.derive(ctx, q(el, '#eq'), { head: 'Building the closed form · thesis Ch. 5', lines: [
         { tex: 'c=\\dfrac{1-d+d\\,r_D}{|V|}', note: 'c = the equal share every node gets each step (restart share + dangling share)<br>A node with no incoming edge gets only this → score = c<br>Small world: $c=\\tfrac{0.15+0.85\\times0.4706}{4}=0.1375=r_A$ ✓' },
         { tex: 'r_v=c+d\\sum_{u}\\part{rc}{c}\\,\\dfrac{w(u,v)}{o(u)}', note: 'Every node: c + shares along in-edges · owners u without in-edges: put c for $r_u$', mark: 'rc' },
-        { tex: 'r_v=c+c\\,d\\,\\part{dl}{\\delta(v)}=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)', note: 'Same c for every u → out of the sum → rest: $\\delta(v)=\\sum_u w(u,v)/o(u)$ → factor out c', mark: 'dl' },
+        { tex: 'r_v=c+c\\,d\\,\\part{dl}{\\delta(v)}=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)', note: 'Same c for all u → out of the sum → rest $\\delta(v)=\\sum_u w(u,v)/o(u)$ → factor out c', mark: 'dl' },
         { tex: 'r_B=0.1375\\times\\bigl(1+0.85\\times\\part{f}{\\tfrac23}\\bigr)=0.2154\\ \\checkmark', note: 'B’s only owner is A: 2 of A’s weight 3 goes to B', mark: 'f' },
         { tex: '\\begin{aligned}r_C&=0.1375\\times\\bigl(1+0.85\\times\\tfrac13\\bigr)=0.1765\\ \\checkmark\\\\ r_D&=c+d\\,(r_B+r_C)=0.4706\\end{aligned}', note: 'Not for D: its owners B and C receive approvals → shares spread one more step' },
         { tex: '\\text{score order}=\\delta(v)\\ \\text{order}', note: 'c and d are equal for all depth-one spenders → for any d, δ sets the order', mark: null }
