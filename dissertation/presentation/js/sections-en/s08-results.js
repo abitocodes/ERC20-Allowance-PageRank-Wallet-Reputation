@@ -904,8 +904,8 @@
     BD.groups.forEach(function (G) {
       svgEl('rect', { x: 96, y: G.top, width: 1728, height: BD.gh, rx: 16, fill: 'rgba(233,237,245,.028)', stroke: 'rgba(233,237,245,.05)' }, svg);
       txt(svg, 120, G.top + 50, G.name, { fill: C.ink, 'font-size': 30, 'font-weight': 800, 'class': 'svg-mono' });
-      txt(svg, 120, G.top + 82, G.s1, { fill: C.ink3, 'font-size': 16 });
-      txt(svg, 120, G.top + 106, G.s2, { fill: C.ink3, 'font-size': 16 });
+      txt(svg, 120, G.top + 82, G.s1, { fill: C.ink3, 'font-size': 15 });
+      txt(svg, 120, G.top + 106, G.s2, { fill: C.ink3, 'font-size': 15 });
     });
     BD.tticks.forEach(function (t) {
       svgEl('line', { x1: bx(t), x2: bx(t), y1: BD.gridTop, y2: BD.gridBot, stroke: 'rgba(233,237,245,.07)', 'stroke-width': 1 }, svg);
