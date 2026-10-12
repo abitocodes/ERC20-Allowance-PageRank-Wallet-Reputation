@@ -1,0 +1,2066 @@
+{
+ "remote_folder": "phd_works-blockchain-data",
+ "files": [
+  {
+   "path": "contract-reputation/0-gmx-abi-for-decoding-logs/EventEmitter.json",
+   "id": "14iXxL76iZih8W48gw4K1xZL3gKno--7L",
+   "size": 66534,
+   "md5": "0ae504347b4623b37b0fb0070b9d9928"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/README.md",
+   "id": "1ectccHzkMcuL_ghDQBqTwCtQrud5Y454",
+   "size": 1978,
+   "md5": "61fc2db1773b8b2b7053747af2824669"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/chainlink_check.csv",
+   "id": "1PG_RRewjbQfYLNErStaaI2jqogmXmfiq",
+   "size": 36301,
+   "md5": "777a75ad0b8c7c75750c11b432e4dd61"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/chainlink_check.json",
+   "id": "13vwJ4wmi_GC6UDum7PYG2RuVXXLMjxxw",
+   "size": 948,
+   "md5": "8dc4712ff709da8b33890adfba1d974b"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/constants.json",
+   "id": "1UjnFbk-Xspb70ccyZHEo15jz_uReFEpf",
+   "size": 1003,
+   "md5": "5dd5f973500e49f5fdd9ace02b34f6f7"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/daily_points_raw.csv",
+   "id": "1ZS63Siig08Hn6fn-GB7Uh6vEEFqEVrqJ",
+   "size": 11807006,
+   "md5": "3d6bbe98ad5a4ad548ffb21caec87cea"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/daily_prices_usd.csv",
+   "id": "1Ja6IAFmspJvFdGpJOyrfS6tE_2-K9Zae",
+   "size": 4540507,
+   "md5": "1cfde94bfb826e395b2d0692e82f5ec6"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/listed_tokens.csv",
+   "id": "1HyudibtBwCMDOvmEv0M0js6smpN5v_W1",
+   "size": 28381,
+   "md5": "0bec86ff60383c4359f209c8885608ae"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/sources/chainlink_feeds_arbitrum_2026-10-10.json",
+   "id": "1_x9LXGm6iW_C68RtgHtvXdiml-B0PBNE",
+   "size": 3106248,
+   "md5": "5c4af005b9b14bf9a5101f1ac225f817"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/sources/token_candidates.csv",
+   "id": "1iFtqeRl3E8DXZ4AKWHSAlQxLdtjlu8ml",
+   "size": 199132,
+   "md5": "065147cb970fc954db53a39c07b3b437"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/token_candidates.csv",
+   "id": "1FqE0quAURYVNiDm32ebUeKeqwaxYKxeo",
+   "size": 201557,
+   "md5": "dad63c113cafb48d6c83c5782ce7e0e1"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/usd_inputs.json",
+   "id": "1VooztiUfKdavJNQNds4uhXqyzrh5nthR",
+   "size": 4328,
+   "md5": "03535ef19f8c3628076d474667e19fef"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/cohort/candidate_account_types.json",
+   "id": "18VDh_69CCiqGzI8JzETgagtqkVb22Nkx",
+   "size": 504,
+   "md5": "31beab9ccb1ee5c8fc31c70dff9aae89"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/cohort/candidate_account_types.part000.parquet",
+   "id": "15Gc26TDNgTG_6NmG1P3sKLqtMmoJFeRz",
+   "size": 644285,
+   "md5": "4195f0f3fcae607d508ff015f05140a4"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/cohort/holdout_spender_types.json",
+   "id": "17LQbozOTYGLyGF0Uln005jmbp3WECdtI",
+   "size": 254,
+   "md5": "669ef9cdffb2b7a5e0dfa6acd5741bbf"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/cohort/holdout_spender_types.part000.parquet",
+   "id": "19WgZlImaeaUmZBn9z2eAHi-Ys5Wf_TQR",
+   "size": 189113,
+   "md5": "f7657f1a0075863352cc8ca9be7dc164"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/cohort/spender_candidates.json",
+   "id": "1Gxmh1d3Ovhrn4_seZE_-pt9m0-bXn6Nq",
+   "size": 240,
+   "md5": "43119536c0e214f1da47b67d6b1f54da"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/cohort/spender_candidates.part000.parquet",
+   "id": "1--H-gW5OvrV0hW0Fn6DQKqWlgYigEK7v",
+   "size": 1162249,
+   "md5": "aaaf3a9119607b062941962fb4ede563"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_account_types.json",
+   "id": "1JvikPKemsp-J783XBJEUu2ZGFR5qaGCk",
+   "size": 259,
+   "md5": "f9fc1d57479c87446844417a1569ff7e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_account_types.part000.parquet",
+   "id": "10WWVc_INpvhGBX31tUlyN0bzEGJlr7H9",
+   "size": 882258,
+   "md5": "7f39f113ea351474515224760223c8e1"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_account_types_w1.json",
+   "id": "13xeR3clty4ElZ2ZQiVmBImoIQmdaiwrI",
+   "size": 254,
+   "md5": "a78d169e4f9469ee3a2b0c15c6818823"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_account_types_w1.part000.parquet",
+   "id": "1I1acbgymAIJCJNTCDA2e_mpeQSCAEQGB",
+   "size": 28852,
+   "md5": "c4638cdbbab4b71836d4c52292a1419a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_accounts_obs.json",
+   "id": "1SaF-n5Gy-M1Qtuj5dp8MAlt-gFj9jjGd",
+   "size": 234,
+   "md5": "33cd163afc225300051fb05dae34e522"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_accounts_obs.part000.parquet",
+   "id": "1R0IbB-0HN0fGFtBqcJl86EfoNZ3AA5TO",
+   "size": 5143506,
+   "md5": "f317a20285a840cec356ffc720d58b3c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_contract_closes_obs.json",
+   "id": "1Gw3VsTvbNHQRPXV1-YvT4QNySnxQt0Pq",
+   "size": 292,
+   "md5": "0e69120df5794bff221d618921733810"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_contract_closes_obs.part000.parquet",
+   "id": "1yA2MzJhsarTGv_Q_95QAiWTrPTiI9-fU",
+   "size": 6652341,
+   "md5": "228933f4dc043f7e648a300b797166fe"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_contract_closes_obs.part001.parquet",
+   "id": "1oiwJKDwKYdeQfc2UpYLiabPw3RZ9ZaEI",
+   "size": 38804506,
+   "md5": "1f4eca249ef709359e35438d62f5a334"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_contract_closes_w1.json",
+   "id": "1YhkM9kRrtL2aar6ASU57BRyZkKXiUQm0",
+   "size": 237,
+   "md5": "40a947be3c4c9ef85ebeb3cab45a751c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_contract_closes_w1.part000.parquet",
+   "id": "12thhC84W9hr2zif-mOyavfm-fj_eLBfy",
+   "size": 2174759,
+   "md5": "85e6d37572784b44b3b30f320bf897e1"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_t1.json",
+   "id": "1no0HUBGtc2ia3FPn6di2szS6yZEGiKAz",
+   "size": 361,
+   "md5": "ebde2d5a8953d6570e785ce937e2d226"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_t1.part000.parquet",
+   "id": "1UDxtjAqxz1HclZi1FiYKnVnlyDwi8PeU",
+   "size": 59238948,
+   "md5": "d273eec1eb6c56b6500082a394944acf"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_t1.part001.parquet",
+   "id": "1tglbEeNFsj0f7e2aMEXp-IdLk2Y7397j",
+   "size": 46703724,
+   "md5": "5c51c6eb942808bc3b8fb02805df3dd9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_t1.part002.parquet",
+   "id": "1GOfoMRf9E64pmxh-5jfOzgklTKtBBDE-",
+   "size": 89305829,
+   "md5": "951b1283272556d0e279f461d435c995"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_t1.part003.parquet",
+   "id": "1Lon_KUvQsVVsonvTMsbKva6qiSdbx4uL",
+   "size": 46371805,
+   "md5": "ce57946d25d1691d6e035c4dcd377958"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_tobs.json",
+   "id": "13uFANO12TQo-pEAlkeoSwwHOYHw5R_Zu",
+   "size": 453,
+   "md5": "e13bfd0d777d9025d1b92730320626e1"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_tobs.part000.parquet",
+   "id": "12mutFRjp0DgJNiWDBX3ow3tFbADjgyb9",
+   "size": 72130984,
+   "md5": "ec966880180074819ee769dd1c906371"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_tobs.part001.parquet",
+   "id": "15Ukg_T-qXMkw6BFY2APszkwcqYEXXddu",
+   "size": 69429605,
+   "md5": "8fa7305e1fe2e19ed86fadce4a79261c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_tobs.part002.parquet",
+   "id": "1kpBOjnF2SbL_nlYOIA7ial2uofzj36Zv",
+   "size": 78739363,
+   "md5": "f10d1aac867215029ad72012ca875565"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_tobs.part003.parquet",
+   "id": "1wrBOiVyniMyN3Dj0rO6A-flF3Ynq9sTT",
+   "size": 65141780,
+   "md5": "c56228b636b314bdc2f8d846b6aef770"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_tobs.part004.parquet",
+   "id": "1a9UjBCyKj7z4tB33bwP-mIhovy5vZk4j",
+   "size": 75399330,
+   "md5": "247d2b272a49fb9d08571b05469396e5"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_tobs.part005.parquet",
+   "id": "1rFuFMF9EDrWvE190eA1yL302gtY0gLnN",
+   "size": 66983469,
+   "md5": "e2b7588e35524647c94924c90bfd582e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/cohort.json",
+   "id": "1g1vwFK1irJbBKAeErGtp6BD0LmoS7Tow",
+   "size": 217,
+   "md5": "7718561fde54ce7b700cbe67d80c5693"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/cohort.part000.parquet",
+   "id": "1up4DwbxhiGCv6bjlUWaD-wSzSCvaA5SU",
+   "size": 363099,
+   "md5": "7ba8f0c4764ef65af5bf3dd9c3ddd4f3"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/labels_w0.json",
+   "id": "120H4NSMNE9wb52pVMsjuaMaS6f5ogdVR",
+   "size": 223,
+   "md5": "43978fc1f8b17d35f774299d017d848b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/labels_w0.part000.parquet",
+   "id": "18np9ZgDwRCCVhsCwQd9aP5wbJSVz_FEg",
+   "size": 455242,
+   "md5": "95bfe02ff47d4f696838e8f11eb0e9ce"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/labels_w1.json",
+   "id": "1cxhFTK5NSBBo2NOU-iH8y_SkVo2VfjPu",
+   "size": 223,
+   "md5": "87ac061e73c7549f4a97981ac5258535"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/labels_w1.part000.parquet",
+   "id": "1kwrHub-3MjivS6-naf3LSJq-bL5komTj",
+   "size": 470243,
+   "md5": "8bb718f57eef70868b1cecee6e2d0a26"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/nodes.json",
+   "id": "1l8UrATyBFiLcFrn6nvT8bwPcE4i57CgY",
+   "size": 314,
+   "md5": "9578fce111399ccb18fb2bbb013650e5"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/nodes.part000.parquet",
+   "id": "1bb8GN7aECAD-ZpP2WOdU9uIzhUHT7Co-",
+   "size": 49890616,
+   "md5": "4742f48afefc8014291c02d0cf3396f5"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/nodes.part001.parquet",
+   "id": "1pmcDjm8qRDTQbkvNCxVEZa2U8E91tRps",
+   "size": 49880748,
+   "md5": "d28272f790369b3e769190a9be0b37ce"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/nodes.part002.parquet",
+   "id": "1EJwx2gDE6N-7JLq8p7pSf1jhmtsXHqcG",
+   "size": 76600857,
+   "md5": "25ab5ef75cc5406fdc40ad56e9838665"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/nodes.part003.parquet",
+   "id": "1I6M6g5x3PgrI_kGXeohO7Dbsi-6ztSdo",
+   "size": 49726807,
+   "md5": "374620ee6d1d6b199bc39dcd9eaf518a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/proxies_tobs.json",
+   "id": "13JaPZIrt9VhIlua2vl-oSe6eDdHqcErV",
+   "size": 229,
+   "md5": "f78d66f60231f089b88b226d1ffd9424"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/proxies_tobs.part000.parquet",
+   "id": "1uC5p0n5Av81AOrd8VwLcDdqGbLurNy6P",
+   "size": 655917,
+   "md5": "94e8a8692da7480d51c8daae6a268ec6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.json",
+   "id": "1ubfqzs1NFo0soqTIchgSwCeXotL_lWUw",
+   "size": 628,
+   "md5": "3ca20f43e2ec0608fe0a376463c29a82"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part000.parquet",
+   "id": "1-q-ni3N6jeifQohqNw-ZY3meIzYAaEGa",
+   "size": 67666271,
+   "md5": "c485beedde823507edc98a50b8c008f1"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part001.parquet",
+   "id": "1Orp1CFXFhssXNJ07aWgy9MNluPhnR2Sy",
+   "size": 67667435,
+   "md5": "abfab0c997c5b525d0ab1952e80f7f26"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part002.parquet",
+   "id": "1rgiJr80VelrbFcOMIqh3-JA-SYjc921X",
+   "size": 76218493,
+   "md5": "64e93f1d3a022b50b5947c3c46c178f7"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part003.parquet",
+   "id": "1rLH9U3MS6c4QCJt_ygsAb9JYGlbUpJEp",
+   "size": 75893149,
+   "md5": "7c6c10acfc57e7f155d87ee250de5139"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part004.parquet",
+   "id": "15VqSgIa5mHKNV-8OsI98LKbWKzNspnhl",
+   "size": 72572430,
+   "md5": "65e782e7ab83eec04a1967a14f7b3463"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part005.parquet",
+   "id": "1XdBSyenMmKPaQKexr_x0i0RSj2XQXA1Q",
+   "size": 81211404,
+   "md5": "fbc1c779ee69efc65c29c2edc64a0894"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part006.parquet",
+   "id": "1BZMg2D_BbI2tMYOdCxbGbyfzzooXC0XO",
+   "size": 76853898,
+   "md5": "2e55707de80239b30ba46e4a693f426f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part007.parquet",
+   "id": "1K5AGRTSVoRbTWyCmuMJIP_0_MkbZpEdc",
+   "size": 76522053,
+   "md5": "8ae206a18b3c668efeeede9817b1c83d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part008.parquet",
+   "id": "1T5CScGoNctnc6M8m2hLAOT_Lr9swVQe7",
+   "size": 73523150,
+   "md5": "98b64335333b66b9d2bc3bf4af0ef299"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_t1.part009.parquet",
+   "id": "1GWi0YEjHobXGtDLijhVCuT1eVXgYSpy0",
+   "size": 22211849,
+   "md5": "6bb2c75b95b04ce30a22fd4803b19b7a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.json",
+   "id": "1RD34BF15RFBBkFl68NFDyIx10VkPadBv",
+   "size": 871,
+   "md5": "739c0b417789f14bc7bf99938135ef87"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part000.parquet",
+   "id": "15O278u4LEbQC-RwUdWquwZok_d2mDJVl",
+   "size": 77813161,
+   "md5": "66ef3c01ba1b9712d192abae62c235ad"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part001.parquet",
+   "id": "1ZRVnUW_WqpaqqljXjwxOkH9210t0CXeb",
+   "size": 77793658,
+   "md5": "77e3a0ee73c4c71386791e3310a6dfd7"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part002.parquet",
+   "id": "1CGemNtONtwO7YYjYbtGHuSeByCAKx2pZ",
+   "size": 76621759,
+   "md5": "430fe976aac2be4b4e88dcee92cb4b76"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part003.parquet",
+   "id": "1qIy8HtGsFjFdTp4nidEjAZg8IUKUN4et",
+   "size": 76609426,
+   "md5": "1f7aa5bc8f50ec7038f216a689e7b156"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part004.parquet",
+   "id": "1tfgVWmOyE1It60T8m9z7cImjTuKY7xQy",
+   "size": 76598517,
+   "md5": "44e57723dbfdfccb5003169381af1979"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part005.parquet",
+   "id": "1NC-RbA8abFvHwYIt2wJy_8zJTGcZQhaR",
+   "size": 76616580,
+   "md5": "d3e20ce6b68a2a6f8cac24e9f0a6bc8e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part006.parquet",
+   "id": "1zcLso0qTm-e5A4NXNdXK1kDSrSoWfOBl",
+   "size": 76616209,
+   "md5": "e6f848ae64caef496425a3310907e383"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part007.parquet",
+   "id": "1zIJ4Ab9HeVIXURb_WDoZNOMQPo7CVwRu",
+   "size": 76591856,
+   "md5": "7eb2b7ca0b330d316b077fdf8cae359b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part008.parquet",
+   "id": "1ZhvFubZ7tgV0i9IvnZ7vyBJCs3Ogs39N",
+   "size": 76444488,
+   "md5": "84450201e6419810de48afc2f770df54"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part009.parquet",
+   "id": "18SxhtUcFBzOYigSRR-3KC7byA0s3wbY_",
+   "size": 76560333,
+   "md5": "b1cd184072fc5ffed6fe98ae196d41d1"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part010.parquet",
+   "id": "1VnxnAbMW22Noq2HJ-lpQd6SqqzLGnMwD",
+   "size": 76645171,
+   "md5": "af3323aeae11ba09bbdcd7b41715e541"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part011.parquet",
+   "id": "1OsT28cfBU3BbcW8IWiJfzpeQZI475A5j",
+   "size": 76085475,
+   "md5": "c1d0ae75ef67db0846236434347602b7"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part012.parquet",
+   "id": "1oEP68ROmb9ZOMbOBM_cpzc6XcsGaNBZP",
+   "size": 73654531,
+   "md5": "d94554e7d006eaf1c99e4751831a1e51"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part013.parquet",
+   "id": "1-S_HARlmCMwNzJSL99Is_g29xZbGwKx7",
+   "size": 76543135,
+   "md5": "6634fcd8435692aec08b65dd5ce525ca"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/transfer_pairs_tobs.part014.parquet",
+   "id": "1GAeOdVinqQwAFuPfP5kUnfq-aN18IyIN",
+   "size": 55329398,
+   "md5": "40521b2017112a213a73eb66e26f1fb8"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.json",
+   "id": "14xGOnwNkWujgIYgtVOckrJnLP6bVwiLE",
+   "size": 515,
+   "md5": "104ee8a6e827d64c413e7c550ccb2576"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part000.parquet",
+   "id": "1fFEwVzkY5Uj7ERKVNhmfyVSh8wDyxGJp",
+   "size": 55376928,
+   "md5": "008498c55ed64bcfb6b9e2fa6b8b38df"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part001.parquet",
+   "id": "12E69wWKKfSiKLTdWkfiL_qWFmS9AltMB",
+   "size": 57536305,
+   "md5": "523cfb516a9c2b30942025345db0187f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part002.parquet",
+   "id": "1nHzNd_WKohdl9AinBjmyQuKubxgAqSW8",
+   "size": 63406122,
+   "md5": "5b061f5a15346ccd5121bf636ee53d18"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part003.parquet",
+   "id": "1DSk5n511VblXpMvKHLb_6O9obJoziaWy",
+   "size": 72884300,
+   "md5": "cbd4b28860c3ddd9fb00d0cd086c5657"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part004.parquet",
+   "id": "11hhS-XHGoHpRYVWqVgOpRsPbc06a6Ug5",
+   "size": 46125930,
+   "md5": "a78c5287eee7fdb8f3ac7fae58dc198d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part005.parquet",
+   "id": "188ktFwJO8j7g0FGkfV7_UsSjK3J_nfcm",
+   "size": 47921590,
+   "md5": "5b3b901ced84f64b6fd67ae30919e5ab"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part006.parquet",
+   "id": "1Ay54LYcjOoHjRRO1Aof_krgMPF0nUfH9",
+   "size": 65562873,
+   "md5": "a72252112d8c631ee8b83488fd559572"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_t1.part007.parquet",
+   "id": "16yBleKj5w2bISuQlElqw22t85fgpV-vC",
+   "size": 66784188,
+   "md5": "1b20e424aa41852c74cd353226e6f6f9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.json",
+   "id": "1hdjycuhYQyEg0CNiqRg6NjDDvGUP7NQd",
+   "size": 574,
+   "md5": "6fdb4ec5c78ceb484ff10857243b1a40"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part000.parquet",
+   "id": "137Cw_ns-P1vEZklEYbjAJ8Zm19Lo-Gtt",
+   "size": 55605004,
+   "md5": "a0107d434e66a7e8a04f100a42c0da5d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part001.parquet",
+   "id": "1CkZxdGU7f60Ty2yzbOOmrkq2JteOlaNK",
+   "size": 57227717,
+   "md5": "4d2af5972aad3eacdd72c1357ec4ece9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part002.parquet",
+   "id": "1_GkyXCA3HE7iShwWLLTSgnthlMy7kYLm",
+   "size": 64055332,
+   "md5": "f8862ceb6241eeff7304134eb27d4dae"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part003.parquet",
+   "id": "1lQpXJgqku0eSk23txkVMD84zotjHwIvs",
+   "size": 72142510,
+   "md5": "d58bb11a58114ba150402c6047395b3e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part004.parquet",
+   "id": "13jAfzcXG8Br3MhFbUSXeT9cLk2l4fKUk",
+   "size": 46512978,
+   "md5": "cf899bca69163aed5b9bbde4718605ea"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part005.parquet",
+   "id": "1o5bYyz66nbe78N-8qmuwaMX2nhe73ddL",
+   "size": 47801625,
+   "md5": "f4fa935c222fce8db0a2b62ae9f5a27d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part006.parquet",
+   "id": "1Y9YdQIAoBkZKfYqYe4amGkTrjiCKzMl5",
+   "size": 68518095,
+   "md5": "f4595b2dc82c31b3f2e5dda49e2ce093"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part007.parquet",
+   "id": "1qB64UyAfZ4Nr65IMG0D5dlJBkNa-aIFJ",
+   "size": 68020305,
+   "md5": "41de89f86cc06889f60095e4142124bb"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/allow_pairs_tobs.part008.parquet",
+   "id": "1SgUZOcXlEUaL39lZoChg1pvgr2fA3aND",
+   "size": 13456687,
+   "md5": "3e905a08f4886db6897b9b084c38b0a9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/labels_w0.json",
+   "id": "1uwJmB77PHMQATa6X1PYkb67Ok8NDlcxb",
+   "size": 221,
+   "md5": "42385690f0952798aba18974c55a9269"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/labels_w0.part000.parquet",
+   "id": "1gEAjL9Oetqzzqu0Sv-IxpN6FqPkvSJoZ",
+   "size": 845986,
+   "md5": "49f06759b5d053aa8879fdcc7eeae61b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/labels_w1.json",
+   "id": "1cur_5pvmFrGhLpf8mp6oY7ciqthlzcvX",
+   "size": 221,
+   "md5": "62e3111e73551dc42797d9ef8a29d02f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/labels_w1.part000.parquet",
+   "id": "1lVZhUzFtgkUy1JNWQPRdE9KFEef-q266",
+   "size": 859158,
+   "md5": "800bbb0a5c32fb1eceecac9ab920fdfa"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.json",
+   "id": "1rhR8GRuyKJxpvFy7-KfIYPAopgcASyoK",
+   "size": 464,
+   "md5": "834e04fbf21741e58c107222b3fa3e3f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part000.parquet",
+   "id": "1LSbkNk5uKsbfQ-XQR7xUog0fUhv4xhJx",
+   "size": 49745214,
+   "md5": "676232381bd51626fca7bc581ca11a29"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part001.parquet",
+   "id": "1YwHTSRLy2IMUPQ8LcQIbFiliy4mNYiZk",
+   "size": 49731013,
+   "md5": "e196bf94f6b30f3c1ea43b8836bbf525"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part002.parquet",
+   "id": "1apJ3gGC4k6bUFFnxaoh4x8tPfQRb3fb0",
+   "size": 76548028,
+   "md5": "a29622421d42fba56269890042a584e3"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part003.parquet",
+   "id": "1k7ZanFeTh9Fr6ZIuXAZ8BD5jR6nLuY6O",
+   "size": 76550296,
+   "md5": "eeaa1e5bc59fa586fb21f295a4a2ed25"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part004.parquet",
+   "id": "1dwzC06ACxeYdOO1k_cdg-2WyTQWOnJAl",
+   "size": 76533983,
+   "md5": "6b27369968b792cf38e7fafb940056fe"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part005.parquet",
+   "id": "1IteB6UoVYZwvJ0LX7wsNHnVDYzAFOL43",
+   "size": 76552681,
+   "md5": "9980d8890ae42e3c8281c160aa3b76ad"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part006.parquet",
+   "id": "1gtn8saJghQJkiRi-9ZxTf8wvs4qbM-rg",
+   "size": 76556493,
+   "md5": "09042c215d01188d5efb3e177892c8fa"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part007.parquet",
+   "id": "1Xl7RZO8gIXy0pu1S6CQOIdcc0F-yq__c",
+   "size": 76552469,
+   "md5": "0420b536901e1771c9df84adcd018f19"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/nodes.part008.parquet",
+   "id": "1Ck54rThSQrwFTrT36WL-0l4q1-i6VNO8",
+   "size": 64496529,
+   "md5": "51b26e6e53064fae408bf7e4b9e09e37"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/proxies_tobs.json",
+   "id": "19esXtUUbursuO4cQ9wU24b7cnEIiK7Rs",
+   "size": 228,
+   "md5": "82f37917af79c4073abb3656053a610a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/proxies_tobs.part000.parquet",
+   "id": "1-sxmzNAxh-OV3SbJq_uytmY0OgD8c4CM",
+   "size": 1197245,
+   "md5": "103400bfc159ba2a17ea1d2946f82300"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.json",
+   "id": "187ybRgexwiqoeHo0_fyyZ7FvpvHEqIVV",
+   "size": 1367,
+   "md5": "d4612f113425366cbf735fdc4bddf092"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part000.parquet",
+   "id": "1JgKMMqOTNsYUF13NAXNg8wGcOD-7OX69",
+   "size": 75132082,
+   "md5": "f693361be8c79d7d50052162a2b6263b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part001.parquet",
+   "id": "1ocBIEYkKkDiFPNDNXyPKGSEBwjiD_GeS",
+   "size": 77264210,
+   "md5": "d358277fe607679fd81d72e54447127a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part002.parquet",
+   "id": "1BMpjn4kx7fmDYwe8jPgm48Mk3diFEWAb",
+   "size": 76842293,
+   "md5": "6c0aa4ea0694f116ed850a3183d76e53"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part003.parquet",
+   "id": "1sF5V5N4mQ4H7XAG6hBfHHD5zSa-vx-jl",
+   "size": 77338488,
+   "md5": "0b3312f4dccb0cfb71285a3a032c5a85"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part004.parquet",
+   "id": "1uBYbx9HHbfI3DqaXwbq0t2bBYtSjpHV0",
+   "size": 77415156,
+   "md5": "9cd2b22e06fbc226b37dd2884cdb29bb"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part005.parquet",
+   "id": "1S6Rw882qxlsf48Ue4-I3RdxKHeDRrPOn",
+   "size": 77369075,
+   "md5": "90d71bce70586a11c77b427e5888fd4b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part006.parquet",
+   "id": "1MZHULnCyVgRQwr_rAdOEEEzX0t5IzYb4",
+   "size": 76374571,
+   "md5": "81f7931aca89f90d46aeaae25cc8d93d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part007.parquet",
+   "id": "1v0zlCGWZQllcvDVuUFa50niPgfEmdujz",
+   "size": 78801277,
+   "md5": "20108e923c3b8de0407b81c5016adac0"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part008.parquet",
+   "id": "1YlPAvNVTosjALx0tRy7aQPjd0Ho9gFbn",
+   "size": 76867989,
+   "md5": "1a1c74a296fc61a72d91928614083b81"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part009.parquet",
+   "id": "1aVyWRR1IfYr16rvLh6V6K9Xpk7HJN_rl",
+   "size": 76602747,
+   "md5": "9d74b3304a65c0a941a33d2709e8858f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part010.parquet",
+   "id": "1baRH_XnqRx2PEoCX2lPRoDjuq3b_RbTf",
+   "size": 77043453,
+   "md5": "2fe4f99a98e7bffc4c87e5b7adaeba73"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part011.parquet",
+   "id": "1JK1A6Q2ZpiYPlcq3h0SiuB_FZhNaXTb1",
+   "size": 77000640,
+   "md5": "92802e495490980f47384ff28da9f8e1"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part012.parquet",
+   "id": "12pQN3JgehoDKRYEjM4AEohrpYOFaF5SB",
+   "size": 76194347,
+   "md5": "84f9649aa2415205300d41663de359aa"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part013.parquet",
+   "id": "1nRsr7w-Ga_bx5wpOaDteE9lfY9GUXMxm",
+   "size": 76918779,
+   "md5": "acf2ddd5c45e32faa25ea012050e25dd"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part014.parquet",
+   "id": "1I_aUi0R-no1mP1drLlDM88D0xbOAf78f",
+   "size": 76651052,
+   "md5": "44365742c48c9d4b122d1fc4fb58df59"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part015.parquet",
+   "id": "1oiYyzaKuLMIZAXlCsN2XpF655Mj3IZBN",
+   "size": 77876575,
+   "md5": "22da83646053ac2786e3e619f1747095"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part016.parquet",
+   "id": "1giT5vghxH3GEupU6Gdk_k0g9p8Cb6-X1",
+   "size": 76553858,
+   "md5": "5d3cef719b3060cefc0a482083fb234b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part017.parquet",
+   "id": "1cJM5gcN2XozA8EroDBWapyfssTF2jPfR",
+   "size": 76902397,
+   "md5": "77879b78f2d9fae0f0286782bf3fc21d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part018.parquet",
+   "id": "12euj6v2p16pN7WVQxuwmLLEAfrVMVuHx",
+   "size": 76972115,
+   "md5": "77f8d73287e9bd286a9993c51e929dae"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part019.parquet",
+   "id": "1uUxqs-PUYG7nI1rTktC_fvKMKXJOqbhE",
+   "size": 76412575,
+   "md5": "6e304c307b24ccb97d47c8ead698745f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part020.parquet",
+   "id": "1isNGSb6Hi6eruq2tdqPksrT3CrPQvNoX",
+   "size": 76555128,
+   "md5": "59bfc6d46d04dac8561bf04069e1a98e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part021.parquet",
+   "id": "1xf9X5R-F1laFF6ws0yGjoTeITCljFuTI",
+   "size": 75436496,
+   "md5": "d18d7d06818fb1e6d4815a68714a6799"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part022.parquet",
+   "id": "1pAcxrHE5bOD5iqDuF4YgcVMliDXJrRXv",
+   "size": 70954288,
+   "md5": "bf9647507d606a8350857f5d9522c94d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part023.parquet",
+   "id": "11-_hCYf14v4Mqj9abXW6hmXp1ccoE_ye",
+   "size": 77568828,
+   "md5": "1b57b236ed379c0026196e8380a8a614"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part024.parquet",
+   "id": "1bdPxJNMbbyhNwM6wVfH6_oMKrHrPGpMv",
+   "size": 79165134,
+   "md5": "8b71289597cd9c3ca439d7923d9ca6a8"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part025.parquet",
+   "id": "1BRBnxFKe4WKQZXrUu_BKAEweo3oS7L13",
+   "size": 77688889,
+   "md5": "37480cd61c53f0f5d8675e0f111dc975"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part026.parquet",
+   "id": "1HoS3-fw_8_Sx4SSi2ApBxDItoTDvgk-S",
+   "size": 77788528,
+   "md5": "309cd10941522621aa8472ea7fdac73e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part027.parquet",
+   "id": "1r2GhkU74K5MeyqzHsGd7UUvuXtdMyoDP",
+   "size": 77559513,
+   "md5": "3cfccb83780eb35b2dbb93e3609c1a15"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_token_pairs.part028.parquet",
+   "id": "1rrzX4PHKP1vDyLupW6AZG2Hl04XqoxeI",
+   "size": 21038811,
+   "md5": "9c731160f712b315bab5875fe6ef29e4"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/top_tokens.csv",
+   "id": "1TycDzq1ugDFdAeOW68fFtQ3nM37tvmSQ",
+   "size": 2304,
+   "md5": "1a34c78f7ef513b47d3280cb186f7eb6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.json",
+   "id": "1ZneoKPE4dnZYPycJ6Y5_KgyZHHJOOnag",
+   "size": 1131,
+   "md5": "e03719cb0e99827e8a5bb8cce6922423"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part000.parquet",
+   "id": "1sxxueiGybMT6MLipBtOGGuAKV9mo2iYy",
+   "size": 63992436,
+   "md5": "22c7a2118c1f1ac5734b7464d84c757a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part001.parquet",
+   "id": "1ixX4Yj5ESCvcgUnXdJc2K3QOPye3Ohvj",
+   "size": 61165225,
+   "md5": "362c20b69ce537694937221ccbf4c6bd"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part002.parquet",
+   "id": "1CgsYn2hS1uug2wErLiXyItEVta5PmaBd",
+   "size": 69736576,
+   "md5": "3daee201abef1ac2ca58c3ca48da9141"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part003.parquet",
+   "id": "1TzVnGBj73-wIkjZHgbxdlwK-Nd8Olapx",
+   "size": 66576865,
+   "md5": "713de44ab958e6bbd81e7d78282fe1fc"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part004.parquet",
+   "id": "1d5c-i7pIhr2qKddrWElGI_bW64-o58EF",
+   "size": 60814039,
+   "md5": "6d37116da56cd3224eee3b82000aae89"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part005.parquet",
+   "id": "1WhOTmGCgNz9AvCbByvn-m68HusNNdDhR",
+   "size": 63824770,
+   "md5": "4c27538bc65c9c183ca43e9ae1274455"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part006.parquet",
+   "id": "15OFJts74ZN-86can_aYn5oXvljJOpthj",
+   "size": 59210442,
+   "md5": "5fafdaa10f985286b629e835deabb970"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part007.parquet",
+   "id": "1W8xyrPXi1WayHxqJtIyfTBm1zwEX22TF",
+   "size": 74594213,
+   "md5": "4781f95ead8d86972a64733f434f5694"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part008.parquet",
+   "id": "1VzpXNP3WNGAs3SWzEwkpEHHFUEXq0Rxr",
+   "size": 82606772,
+   "md5": "f3facd4469616fcb044826b2e1de79e6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part009.parquet",
+   "id": "1pDQdh36MaAy7Jn1oZkTqN_Vzv3SWM7BP",
+   "size": 79131424,
+   "md5": "53231bc87e4e661c2194e1d590069853"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part010.parquet",
+   "id": "1qBVMqK0XScWN2FSBBejPo_VhTuHW5Fmn",
+   "size": 78524403,
+   "md5": "90eeb1ce55b525d4ede595b8d278e8a9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part011.parquet",
+   "id": "1xEUVEyjEg_6awGrsFIHqntTZFhLHGboF",
+   "size": 71487533,
+   "md5": "10ae79584dbb33a01f469e394b4a43e8"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part012.parquet",
+   "id": "1GUS3IEpTuElE1UtWY92S-hMifR8AL-6J",
+   "size": 75867768,
+   "md5": "4d86a3d14b1b32af5f7aa228d178f8e7"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part013.parquet",
+   "id": "1NJI4PBTs3gTdaZzfG-HYDQ_OIr4upQf4",
+   "size": 61740434,
+   "md5": "4421c1f898d18f53370155d98b650a57"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part014.parquet",
+   "id": "1u16NC_Rp2nrwy6Zqcm_LoAeXXgu6nAVC",
+   "size": 64313444,
+   "md5": "ca370699c5d85f45ec8a0caeb84ac75e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part015.parquet",
+   "id": "1TFsY6MMs68nM7JdjRKGf17VylVa_Yahk",
+   "size": 54375432,
+   "md5": "0f599a73f87d8cd3c419cafb9ac8b119"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part016.parquet",
+   "id": "1EJhwB07AAePPQoAiL8CPrWfU-vYHCDYx",
+   "size": 54669845,
+   "md5": "cf924c04e46855cd06524772224c75ed"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part017.parquet",
+   "id": "1fh3xGN3wurxU2vtUd-nH7derEhwPyiIX",
+   "size": 76747996,
+   "md5": "c7e8e0530f0dea92bb2a071ade9fc8a6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part018.parquet",
+   "id": "1u77B_XJz4kKZuE0YtOIdFMf55JF-Mjlp",
+   "size": 78994783,
+   "md5": "94568d10e86385daaaa62f1ff4f3ba4b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part019.parquet",
+   "id": "1EqGz9BkCwGQTqWWmofzwO-uw1yrLOXug",
+   "size": 79793032,
+   "md5": "f4747743bc5c95be181e7042425f91b6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part020.parquet",
+   "id": "1EoUDAzF9nd-DJdvIj3-C_KhSRaUsSJts",
+   "size": 78500702,
+   "md5": "e240cb0be6fb037046f54027b3e4d5fd"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_t1.part021.parquet",
+   "id": "1GllqffWp6osCzv_mjUEIiCyLU9dDrd-E",
+   "size": 19825440,
+   "md5": "c283a8b84dfc4ccbdb721e713c77ea40"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.json",
+   "id": "1LSwEubXmVK942T031bpPagANLmtmJBKF",
+   "size": 1221,
+   "md5": "70148000591086a0bc8310685f2d86c9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part000.parquet",
+   "id": "1iC7pHJKAL66YGwohgT551-Ycn6uRe81E",
+   "size": 68946000,
+   "md5": "99207cba68936a40a333e13900cf91e2"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part001.parquet",
+   "id": "1MVzgeMlrDX1X_fCDVWgT-7B8XzIl-5OD",
+   "size": 68944914,
+   "md5": "50ce7db3f38bb8b0c1cb1dc3a17fd3ef"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part002.parquet",
+   "id": "1fTyMbAcCXB2hmk0kYa-zaMEgcRvURD79",
+   "size": 76290986,
+   "md5": "64433411cb691210be26c837dd59b055"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part003.parquet",
+   "id": "1ThTtmDu-jsJDWNLNJ23CbkDtZDVj2G-b",
+   "size": 76525810,
+   "md5": "5fdbc25c87c5f62df67cc78d4b1317e8"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part004.parquet",
+   "id": "1TQ6_HhY-r8thAwAGACtdsBY0ruJ8UrrF",
+   "size": 76529317,
+   "md5": "a045842a024faccb7c13335155eced83"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part005.parquet",
+   "id": "1vc9wz9ISATaWFCLnmfUtlmWKI_MmmyGu",
+   "size": 76549743,
+   "md5": "003d4fe2d324130ed62d793b7bb85165"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part006.parquet",
+   "id": "1K0jLleov1G1WysLqw1zLXsRBRW8If-PR",
+   "size": 76696589,
+   "md5": "ea85821b91fd63ca4d4a4853e2bd068e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part007.parquet",
+   "id": "1Qo9yMMLKt7L264jmCUXxwDys17n8CYo0",
+   "size": 76524721,
+   "md5": "3bda7d4c352bdf527739cd7fd6583cbc"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part008.parquet",
+   "id": "1fS3Wh7kVidI2vMfTGiTgsJ6ifnGUWqZa",
+   "size": 76686583,
+   "md5": "5472d3690ffa079726d68f6b9ae2e8a0"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part009.parquet",
+   "id": "1gWEQrJXEqn8R7ca5iYlY94-aRrgBjxmV",
+   "size": 50710331,
+   "md5": "3cb57b56945ab55820bb0e9c87f498dc"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part010.parquet",
+   "id": "1oztfnvaqIoStx4qtTuBfdAqfd9wsTnFo",
+   "size": 56021269,
+   "md5": "12b6563dd9d1a7b5ca2691239bdd6d16"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part011.parquet",
+   "id": "1k8nDFugLwrW_u65RTssu_Z7A8HsdyVOm",
+   "size": 63428865,
+   "md5": "e5ee26fc06056c6d7c7fbbf3bcf4735a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part012.parquet",
+   "id": "1ifSMMF8EHgzpYCm6foeJlBHEwDkRj18q",
+   "size": 78346338,
+   "md5": "1d2e2198de6d8a29648b7b30dda70458"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part013.parquet",
+   "id": "14NNaORiV4lgUtcNmlL5RH5voeXFBBuEb",
+   "size": 76520468,
+   "md5": "64fe5b4f5e76b5971c7178a700510697"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part014.parquet",
+   "id": "15RLVSqX25kgWtBSsJdciVFmF1_9llhbM",
+   "size": 76527698,
+   "md5": "9b840ccaab78a163a4dc093a6f757cea"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part015.parquet",
+   "id": "1PFH_ZN-TeOzi_TaqWjZYtFjn7HYQYUBf",
+   "size": 76656287,
+   "md5": "d10d58bec100f6f2273596f5588a4a28"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part016.parquet",
+   "id": "1jx1RDngMLasXGpxlt60ynG5jNpCn1pLO",
+   "size": 76608651,
+   "md5": "1df0229abd044b22d22c5c77a20c9d0c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part017.parquet",
+   "id": "1jlW4766IAkveDJXU7y-cs3foC-24fAM6",
+   "size": 76622890,
+   "md5": "1585939d8a0f8fe2c0a628553f10515b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part018.parquet",
+   "id": "1P8XoEgMYRO0wFyLlQ39QVFd232aeS5SH",
+   "size": 76636179,
+   "md5": "43a8211a9ed0faa276709e7af089839a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part019.parquet",
+   "id": "1jM_NKGFJe_Q5nXGt4mQiKYMKyue_PPjv",
+   "size": 76941178,
+   "md5": "869790184ae0bbdf8bae88742c0ea812"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part020.parquet",
+   "id": "12RFRpan-nakA12LcIMn0naSIieALOxWT",
+   "size": 59933995,
+   "md5": "aae50e80c0717e7f9ca0061c7433a2ae"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part021.parquet",
+   "id": "1zswh6BkiSNO11lluOIGtGzgxBxiFAKyn",
+   "size": 52436384,
+   "md5": "44b4faf6146e97a4b0bbbd1b5b2759bf"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables/transfer_pairs_tobs.part022.parquet",
+   "id": "16tYTmJeE_uwOjEc_NoXJhNbmSqfdhxvz",
+   "size": 41846622,
+   "md5": "1b17aaae066256f315b17b393760446c"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/benchmark/benchmark.json",
+   "id": "1CGKKmAau6_S2pPXOqzuo-o3DOjns2DpE",
+   "size": 9894,
+   "md5": "61570ca851a15c6548aa4dd4140bb405"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/cohort/matched_cohort.json",
+   "id": "1taWmYd2vq7EMr6L7FNHE22R4P5L7x1yT",
+   "size": 270,
+   "md5": "9a9abf6f14afe2b59bbd422124ca1615"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/cohort/matched_cohort.part000.parquet",
+   "id": "1R6cwHKtG7Skac7jJn1klXmZXP0nur5MQ",
+   "size": 1156623,
+   "md5": "a75152426fb725d914437fb8f6eeffb2"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/describe/describe.json",
+   "id": "1YyTNksKS1XQH49YIrCg-uipOsLIaoBTe",
+   "size": 14406,
+   "md5": "74afa0b43764c1e661e9bf72e426c409"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/gmx/gmx_contract_closes_obs_decoded.json",
+   "id": "1umUUUlSeMVC3UVs7W4whq4HJHCSiVRkI",
+   "size": 96,
+   "md5": "e8e9abd3d909831d8d59aa3341328bbe"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/gmx/gmx_contract_closes_obs_decoded.part000.parquet",
+   "id": "1hBk5pJkSRyKdY_KOrIo0P3yq-4yw1e0I",
+   "size": 5505202,
+   "md5": "385c11501ba68557a19f650ebcbaa4cc"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/gmx/gmx_contract_closes_w1_decoded.json",
+   "id": "1_6GLMrlI1m4z9dEqBnpiKINqpvlPctJY",
+   "size": 91,
+   "md5": "d7603c925e235ada8de41118c91f526e"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/gmx/gmx_contract_closes_w1_decoded.part000.parquet",
+   "id": "1AJIHw-8ID7oblNXueD9eJEXVMRnKJnrQ",
+   "size": 276659,
+   "md5": "798526a4a1d742598302d76a555c07a7"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/holdout-w0/eval_summary.json",
+   "id": "1ApIW2i0zu1MWeK6IhVt6Zcqm6OrbIPg9",
+   "size": 28126,
+   "md5": "45f9725c6d0113ed5b82fe19b938fe35"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/holdout-w0/spender_scores.part000.parquet",
+   "id": "1mL6yeb9RTBCKRjgovFpLs8dMcw1fdcTs",
+   "size": 3549964,
+   "md5": "09abe29531838e4f16e4f1f6143ad38f"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/holdout-w0/trader_scores.part000.parquet",
+   "id": "1HPt2Ww50yBxyTNSbtPogDbsOY0CI8T3s",
+   "size": 21737,
+   "md5": "d2358d1989dfb7726c12201d632b59f8"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/registered-w1/eval_summary.json",
+   "id": "1cXhBn2Sm1aDeMI9Q6fNLt3jAMzCf00Ra",
+   "size": 67827,
+   "md5": "0415c044627a6511ed9d2abebe071cf1"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/registered-w1/extraction_manifest.json",
+   "id": "1UTrKdcy5nbdk6ZLNr_VzaFJ4s-cZlWoP",
+   "size": 502,
+   "md5": "8b28fe05638df23e198d5128fa6a6686"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/registered-w1/spender_scores.part000.parquet",
+   "id": "1UxJTSIxEPRkHvYNUw1-25eGWjN3qysWc",
+   "size": 3689461,
+   "md5": "89268ea17df24133bc013e3bf423f035"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/registered-w1/trader_scores.part000.parquet",
+   "id": "1lpLn3SDfI0Xcgd4Y4Pgjz3YddBP2KJiJ",
+   "size": 20219,
+   "md5": "10ecffb4ace2324e1aa26fea477f909b"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/benchmark/benchmark.json",
+   "id": "17UIVuO27sLHByvsOU1vSsek6w7EBNuPL",
+   "size": 8771,
+   "md5": "2b7405a6f36c24fc7f762d30ce035caf"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/cohort/matched_cohort.json",
+   "id": "1V9TUMLHSRBnIXRHwKLbM80ZEPLnlhLJ4",
+   "size": 351,
+   "md5": "e58674fa123cb0ef2c4fabbb9e6dfd8b"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/cohort/matched_cohort.part000.parquet",
+   "id": "10IS5vciI8teTjJYU1EZptJ7cmDytPp6D",
+   "size": 387946,
+   "md5": "ca1a6cedc0f32db58f863b50f460b7a8"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/describe/describe.json",
+   "id": "1gLi7y7F3rY0r8cA_jmmZgFWhStlkPZqb",
+   "size": 25858,
+   "md5": "182350ed668cc9f97df29b23362b0d54"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/holdout-w0/eval_summary.json",
+   "id": "1or5M-pHV1YAw_kc9-u8SGGQwz9eLLDlx",
+   "size": 27985,
+   "md5": "e238e4e50f98d6e507d7f2a49c2fd742"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/holdout-w0/spender_scores.part000.parquet",
+   "id": "1AM-56YRR2kB9WRxqrf0We5B5kpN9XT0I",
+   "size": 1893380,
+   "md5": "501f53cc6bb09453014a2ecf8f472a7e"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/holdout-w0/trader_scores.part000.parquet",
+   "id": "14-p31Lh_MnbUGgxp88I0RwPbEIuCI5KE",
+   "size": 22136,
+   "md5": "1f5551bcd272b8b02d6a0308cb88d3d0"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/robustness/robustness.json",
+   "id": "1f2bsrpKg1zZxfaIKaivzWLuavlAbyuuE",
+   "size": 3445,
+   "md5": "d6f23377e0a7ba75cbe46496522aee1a"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/same-window/cohort_scores.part000.parquet",
+   "id": "1li5SB4hwgsJLZmpeRXlpmVKb0bUU5Uf0",
+   "size": 1667983,
+   "md5": "58b467348305013a5bfb3f6e790cfd96"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/same-window/eval_summary.json",
+   "id": "1sAe2fvNBqRk1b9bU_WOxErupjCDpdIJR",
+   "size": 37265,
+   "md5": "5d915ffad8b0b101ed4896d5f06cfe55"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/supplementary/supplementary.json",
+   "id": "1DLPx_Fgso0VlOfrP9rUMW5zgB6pmUtcf",
+   "size": 2912,
+   "md5": "4af8fcd28336ddfd208bbdc8a761c8cd"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/sybil-model/sybil_model.json",
+   "id": "1al3xITTKmXp3qrz56p7E4M5aFFx58ykA",
+   "size": 1334,
+   "md5": "e9c748dc4ef8dc4b0d4081b08b53bc5c"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/window-w1/eval_summary.json",
+   "id": "1Esvj2ZZdtzixj0EDHkvZYZ61tMISL-wo",
+   "size": 67750,
+   "md5": "4a038649fbf894ceae22f62559846cc8"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/window-w1/spender_scores.part000.parquet",
+   "id": "131urpn6rN8OcKfSehweqetJH5UPHl4VH",
+   "size": 2005197,
+   "md5": "efbd71f95643f3858d2e449c96317faf"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/window-w1/trader_scores.part000.parquet",
+   "id": "1uvZe1YBw74wKI45oKeQB_siOVoNXtOJq",
+   "size": 20538,
+   "md5": "ccf454ca02034c44b169b76a9d51bf0f"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/robustness/robustness.json",
+   "id": "1r2lgfIKgHKMkNUIPBfIAxWcAkZ5Kloeb",
+   "size": 3829,
+   "md5": "9c0ea1f801abdada30f8fa779a78d336"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/same-window/cohort_scores.part000.parquet",
+   "id": "15F5-WkZd9dhdjp4Bup4urA060EbiSK18",
+   "size": 3017058,
+   "md5": "6d0eb1b99109f1953eb4524123899a15"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/same-window/eval_summary.json",
+   "id": "17VSAiVxXkMWKPcAJDYT2GrOOAjCAsz7q",
+   "size": 37403,
+   "md5": "26505b1a68c34c29e5b6af5aba3fcd32"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/supplementary/supplementary.json",
+   "id": "1Ze782ug-JLQnlxIq_rxOUJ2iUSQY3jdv",
+   "size": 2921,
+   "md5": "1021166677f9ebe18111e8e9b548a88f"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/sybil-model/sybil_model.json",
+   "id": "1fKjKFmQmszat1kAbH2zvcA5T6jswlFPP",
+   "size": 1330,
+   "md5": "7352992bd7ba3201e3b9feb4c021f0c6"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/SHA256SUMS.txt",
+   "id": "1LfRJcUODrVa0oIWnUrILk8UUGS1TOUCo",
+   "size": 1543,
+   "md5": "19b6142c51e3ef0cc375694abcf4f14b"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/benchmark/benchmark.json",
+   "id": "191pm0-SHda3x8AatOipil7fRS_OL4QMD",
+   "size": 9894,
+   "md5": "61570ca851a15c6548aa4dd4140bb405"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/cohort/matched_cohort.json",
+   "id": "18sTcrKfQ-cM00Jyb_TX2OmaY3Nq8wTzC",
+   "size": 270,
+   "md5": "9a9abf6f14afe2b59bbd422124ca1615"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/config/contract_reputation.yaml",
+   "id": "1es7vBu1fLgwcJPkjvXkYkdD1JYvWkMOK",
+   "size": 3892,
+   "md5": "3a4ecb2fdf265835cade1fa88e098b2a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/describe/describe.json",
+   "id": "1ditLT5Ln_PbasDb1QIsXSgIemhmLbNQZ",
+   "size": 14406,
+   "md5": "74afa0b43764c1e661e9bf72e426c409"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/docs/analysis_plan.md",
+   "id": "1HOHxqsSlyvbE3vb_WnZZO9VscdNWeLgt",
+   "size": 6792,
+   "md5": "32fd4b882cb8bb3711e2e143bb792837"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/docs/registration_w1.md",
+   "id": "1sgNx-qB5hoq1Yj7szAOj7IPDxvoGezUG",
+   "size": 5289,
+   "md5": "ee1a5657a19001c3c0598040f8f3bdd1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/gmx/gmx_contract_closes_obs_decoded.json",
+   "id": "19cN2z_IoKunRnJc_UEwJIhhzbwDadldN",
+   "size": 96,
+   "md5": "e8e9abd3d909831d8d59aa3341328bbe"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/gmx/gmx_contract_closes_w1_decoded.json",
+   "id": "1QVT-v-5nXUN19a_c0jLigIkj0lmSzv99",
+   "size": 91,
+   "md5": "d7603c925e235ada8de41118c91f526e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/holdout-w0/eval_summary.json",
+   "id": "1z4_18igD3GFFb0TlbMBQfBqKKjuookog",
+   "size": 28126,
+   "md5": "45f9725c6d0113ed5b82fe19b938fe35"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/registered-w1/eval_summary.json",
+   "id": "1f89IezM_RqiN61zs-KTMJZE7yjdJfEl4",
+   "size": 67827,
+   "md5": "0415c044627a6511ed9d2abebe071cf1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/registered-w1/extraction_manifest.json",
+   "id": "1lMloZU8ZsHyLo4MIO5tWPYXYoY-TUtqb",
+   "size": 502,
+   "md5": "8b28fe05638df23e198d5128fa6a6686"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/results_digest.md",
+   "id": "14H2OQpWUo6D5TemoeuFxtGsLyh0XSRuW",
+   "size": 141505,
+   "md5": "a4add7c619b002436e396b9ff2f208d1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/SHA256SUMS.txt",
+   "id": "19iiq1gEnvVeSkOwkqTDpF1EgLV5GZob3",
+   "size": 1993,
+   "md5": "4c8366de737e9a723aa7a24308cfe8cf"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/benchmark/benchmark.json",
+   "id": "1HhZ3W5iuzfOxZXT6IZ-lG7b1XZfx71at",
+   "size": 8771,
+   "md5": "2b7405a6f36c24fc7f762d30ce035caf"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/cohort/matched_cohort.json",
+   "id": "1ssX2xv7K5PscHMOuvZArcTEylkRSSO_n",
+   "size": 351,
+   "md5": "e58674fa123cb0ef2c4fabbb9e6dfd8b"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/config/contract_reputation.yaml",
+   "id": "1qJ9YXbybtOoUaA8zm99PLvJM0RaFSk3i",
+   "size": 3892,
+   "md5": "3a4ecb2fdf265835cade1fa88e098b2a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/describe/describe.json",
+   "id": "1qbE08X2z2WrHqGvditBv2oXBosadDFNQ",
+   "size": 25858,
+   "md5": "182350ed668cc9f97df29b23362b0d54"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/docs/analysis_plan.md",
+   "id": "1a29Ubs6w-KDTj_TZG7vvV1kqvMk1VOm6",
+   "size": 6792,
+   "md5": "32fd4b882cb8bb3711e2e143bb792837"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/docs/registration_w1.md",
+   "id": "1RhdrPcORMiaeI5rCMB5d55hC3a4jw3AW",
+   "size": 5289,
+   "md5": "ee1a5657a19001c3c0598040f8f3bdd1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/docs/revision_price_weighting.md",
+   "id": "1ZzhISH8TmWImUeR_JaKQ9DioH7SO4IeN",
+   "size": 16901,
+   "md5": "5bffdf373e6afc7c2f2d615d525442b5"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/gmx/gmx_contract_closes_obs_decoded.json",
+   "id": "1JUOKcz7U8q8kBZBCB4YN3FJ5Fs491oDz",
+   "size": 96,
+   "md5": "e8e9abd3d909831d8d59aa3341328bbe"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/gmx/gmx_contract_closes_w1_decoded.json",
+   "id": "1CaDXOSFgUcatTMZ_f5I9bxkFUGT10EOO",
+   "size": 91,
+   "md5": "d7603c925e235ada8de41118c91f526e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/holdout-w0/eval_summary.json",
+   "id": "1_SMQX77SCmCTYhuMhEGrBZEsgV5TTrQ3",
+   "size": 27985,
+   "md5": "e238e4e50f98d6e507d7f2a49c2fd742"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/registered-w1/extraction_manifest.json",
+   "id": "16koVDNY38KJ-J9hyc5Y4xdSNmjbFMucq",
+   "size": 502,
+   "md5": "8b28fe05638df23e198d5128fa6a6686"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/results_digest.md",
+   "id": "12y-pybB8ScVUjRL4v_uFvTIUrvSWCwVf",
+   "size": 149529,
+   "md5": "0f9cf14fb359dad0964e3099e48ae27a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/robustness/robustness.json",
+   "id": "1p4GY4oTtiAjALuiyX2emFPsrp10KkEj2",
+   "size": 3445,
+   "md5": "d6f23377e0a7ba75cbe46496522aee1a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/same-window/eval_summary.json",
+   "id": "1oCtQsuoXAZiJQ1qa1ThAaddHXjBfyDeT",
+   "size": 37265,
+   "md5": "5d915ffad8b0b101ed4896d5f06cfe55"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/supplementary/supplementary.json",
+   "id": "1ncWJ6w23yG-HUH0Mymwp_9ztEsE9dDuk",
+   "size": 2912,
+   "md5": "4af8fcd28336ddfd208bbdc8a761c8cd"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/sybil-model/sybil_model.json",
+   "id": "1dt4D5-qyStGluOdKfPwlgpmYgwE6TB08",
+   "size": 1334,
+   "md5": "e9c748dc4ef8dc4b0d4081b08b53bc5c"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/usd/chainlink_check.json",
+   "id": "1SXypx8yCFA-bGlXIWKdlrv7XCy6OHlG7",
+   "size": 948,
+   "md5": "8dc4712ff709da8b33890adfba1d974b"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/usd/constants.json",
+   "id": "1ijjvFWGIDfHBzNw6kxSOn3S_zA1AZSqP",
+   "size": 1003,
+   "md5": "5dd5f973500e49f5fdd9ace02b34f6f7"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/usd/listed_tokens.csv",
+   "id": "1FlM8mfLggN-8QA2icR7BkPcR8K2yQ2ux",
+   "size": 28381,
+   "md5": "0bec86ff60383c4359f209c8885608ae"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/usd/usd_inputs.json",
+   "id": "12OiFQN8J9Mig6ukpC28_z_jYAdrej5bx",
+   "size": 4328,
+   "md5": "03535ef19f8c3628076d474667e19fef"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd/window-w1/eval_summary.json",
+   "id": "1zQ1Zk6Kff5x39XgkqgudM7GtZzcO54Tq",
+   "size": 67750,
+   "md5": "4a038649fbf894ceae22f62559846cc8"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/robustness/robustness.json",
+   "id": "1KLmPcyZGnOOfkYbREa6F6HvWTI8uGkVn",
+   "size": 3829,
+   "md5": "9c0ea1f801abdada30f8fa779a78d336"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/same-window/eval_summary.json",
+   "id": "1Mb4vL7u4xPmlaxFM4BqZhVHducLeKioU",
+   "size": 37403,
+   "md5": "26505b1a68c34c29e5b6af5aba3fcd32"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/supplementary/supplementary.json",
+   "id": "18MBVDA3HwaVS__87B50zDOwG3h9TzeIx",
+   "size": 2921,
+   "md5": "1021166677f9ebe18111e8e9b548a88f"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/sybil-model/sybil_model.json",
+   "id": "1TLejGGBr8XYpsxX--JwML9BiW8int1PZ",
+   "size": 1330,
+   "md5": "7352992bd7ba3201e3b9feb4c021f0c6"
+  },
+  {
+   "path": "contract-reputation/bq_ledger.json",
+   "id": "1oafnN5xwIO2G7jmPUknfyjCra37kMY8n",
+   "size": 15490,
+   "md5": "60e037bc137bb60154c767d6f08f384e"
+  },
+  {
+   "path": "wallet-reputation-archive/0-gmx-abi-for-decoding-logs/EventEmitter.json",
+   "id": "1RPK7nEFYyMBmoh9s6WHrqtiU_BlT-_Ga",
+   "size": 66534,
+   "md5": "0ae504347b4623b37b0fb0070b9d9928"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs/aave_events_2025-12.parquet",
+   "id": "1MFS_ha-j69UC2yRvj18DQB9w9k2oe2ps",
+   "size": 209665,
+   "md5": "dc31e8ec662f3b693ae28d8f5b63f568"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs/aave_events_2026-01.parquet",
+   "id": "1cbcZmnDXpFltVM5wLvA45Ui3wloehqlL",
+   "size": 302308,
+   "md5": "f7e8a3826e1dd79e5d9764a8571f83d9"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs/aave_events_2026-02.parquet",
+   "id": "1-xQCGx8n1Dx_s2CDL4czzlnRHkLN1LrI",
+   "size": 251583,
+   "md5": "a71f4e5f0c5a0dcb0475e5d78f4a2ddf"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs/aave_events_2026-03.parquet",
+   "id": "1tIWkVW7RjLxTrthrWEKocHrRgNYqu2SQ",
+   "size": 199065,
+   "md5": "0c92db4964f499333c5082a7aa203578"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs/aave_events_2026-04.parquet",
+   "id": "1-nQtFHx3mc8DWNZTuI4thY949vX3r2CG",
+   "size": 105179,
+   "md5": "debdbe560c43db49a20e65d645ba787c"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs/aave_events_2026-05.parquet",
+   "id": "1cp0aLpILwIL4TO5n01quPOUDzDGNgbXY",
+   "size": 86666,
+   "md5": "dbef775e9bb2cd87e9cfef6c8aaf37bc"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/aave-lending-logs/aave_events_arbitrum.parquet",
+   "id": "1rXv9IK8DRWaDloo3LDb6XgTyiX35W9Ab",
+   "size": 1079733,
+   "md5": "0628e91ed75c8b41359331179ec5e5b0"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_2025-12.parquet",
+   "id": "11nFkRp_tzeQgTq5BuSkz7BFRkyAcVDv0",
+   "size": 7766742,
+   "md5": "a6aa9c8ba0d6c1d93ef851cfad749089"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_2026-01.parquet",
+   "id": "1Fj0VrtQNQ85aM9NbpBRfaWS9-6T1qwp_",
+   "size": 8741469,
+   "md5": "28db2fcd7823271790f21690736afb6b"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_2026-02.parquet",
+   "id": "1mSBN0RgmwQlVsZbZFTAEIfUiBvk463Pc",
+   "size": 9114012,
+   "md5": "1eddeb9fba83ea05bd4efb627b53f8ed"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_2026-03.parquet",
+   "id": "1K-qfauxGVmAAFH0Sxeq8jYXWrQpRNeXN",
+   "size": 9327459,
+   "md5": "abd8b24e95bd817eaa73a36313b380ca"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_2026-04.parquet",
+   "id": "1wOzNNA1V7Lq9mTZGb9lI7oJFcRCC0Gb-",
+   "size": 7785316,
+   "md5": "4e244df90956b620c8b3cab902fc14ec"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_2026-05.parquet",
+   "id": "1qG-n0wSkP_hIkYF1b4RUu7VMFTHHmvEr",
+   "size": 8897980,
+   "md5": "0f866c60a05e558b856f352311bd766d"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_arbitrum.parquet",
+   "id": "1W01WNF8k_qlWw90sVt5MnpcGEp4cxEcJ",
+   "size": 49811871,
+   "md5": "467d791c34c94c61562f6d205171cb57"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-approval-logs/approvals_synthetic.parquet",
+   "id": "1UC8yBa2rQhE0uEErRimx1rk_iekwTTe5",
+   "size": 234076,
+   "md5": "afd9829f2b4764aaa499a44267d46f45"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs/transfers_2025-12.parquet",
+   "id": "1QFzFkw0Rps7_R9kGzbQTSm90EPLnXuSq",
+   "size": 44879353,
+   "md5": "d4c8a0eb9b820fd1021d462599da3eb4"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs/transfers_2026-01.parquet",
+   "id": "1o7Vj477eCMe5y-LThzDwbFX1HDvAu3jv",
+   "size": 48560099,
+   "md5": "5e9b78129dfd1469a7301cba4a1c1eaa"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs/transfers_2026-02.parquet",
+   "id": "1bJlfeKzY4nRNsgN7X5jyB-vYeUn2pQlx",
+   "size": 46691709,
+   "md5": "2021b8ce4e704e6ae62ad20349c17889"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs/transfers_2026-03.parquet",
+   "id": "1bGhaELwBLZPaoOZxeXfKeL3MdOmjgxgw",
+   "size": 48297407,
+   "md5": "79dad1bc9adf9f5f77dd68e2a656831d"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs/transfers_2026-04.parquet",
+   "id": "1vh84hftPSRJM1xR_dQbAFwk9sreFQI6_",
+   "size": 41351671,
+   "md5": "2f9a0e61cbb6365cf433a531d79fa51c"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs/transfers_2026-05.parquet",
+   "id": "1PoTwUsQP96IInrM_-Wlg7G5K5P26OObq",
+   "size": 46130804,
+   "md5": "e3eeff221d327dd56f526efdb714b6f3"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/erc20-transfer-logs/transfers_synthetic.parquet",
+   "id": "1Ay_wL_VEVBAFdpEIk-SHXgWTGj3jUQjS",
+   "size": 876213,
+   "md5": "b01fbb13ca660ab4116a623bd7926adc"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx-position-close-logs/gmx_event_logs_2025-12.parquet",
+   "id": "1oPe7roOI6QjHc7DZMOuAczfJq8mnwSs_",
+   "size": 73651943,
+   "md5": "9935b6fded3cb7e371f24373c09f683b"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx-position-close-logs/gmx_event_logs_2026-01.parquet",
+   "id": "1XsPAzcsxIBCAQK4MxbACaQ3bX6t3lJxB",
+   "size": 88314996,
+   "md5": "c3543b4abbc891765b022bb9af18f7b8"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx-position-close-logs/gmx_event_logs_2026-02.parquet",
+   "id": "10UYIsIg-cRc9pe4ecFY_8r2elyQfrInx",
+   "size": 85975673,
+   "md5": "445d5b88f0bb8ff12f3113db6c8b19c7"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx-position-close-logs/gmx_event_logs_2026-03.parquet",
+   "id": "1Jxk4U02Zt01uNP77W9VK8jsuUTKfHORu",
+   "size": 77506421,
+   "md5": "28e2763b75cbb9568ffc3386e5814db6"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx-position-close-logs/gmx_event_logs_2026-04.parquet",
+   "id": "16gc8X-zdgFr-HXd5lBhilVB7Pxx1RsR0",
+   "size": 69493445,
+   "md5": "00c23c34f792541d8ad815bdeeab684e"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/observation-window-2025-12-to-2026-05/gmx-position-close-logs/gmx_event_logs_2026-05.parquet",
+   "id": "1i_t_lobVsHM1QPH4D6dtgsjxbMuwf92I",
+   "size": 77355233,
+   "md5": "9eab8d88ccc04c30082928685f3f654e"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/erc20-approval-logs/approvals_2026-06.parquet",
+   "id": "1-g9HzoGVKOCzuVTK8EXOGtIfO-R7JM9s",
+   "size": 8760877,
+   "md5": "88c8229cdec9d6a8ec9cce416414c63e"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/erc20-approval-logs/approvals_2026-07.parquet",
+   "id": "1W649vAEDx3Bh3pLRRfGBuS2cMhcjtmlx",
+   "size": 5557566,
+   "md5": "4df9c7d00145cb6823eac42dfed4dca1"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/erc20-approval-logs/approvals_2026-08.parquet",
+   "id": "1Dr-nyOOzWtHpuEmj74roZekcPPtMoTJH",
+   "size": 5359915,
+   "md5": "e7c4a98702b7c3f0882fc6c063ca5170"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/erc20-transfer-logs/transfers_2026-06.parquet",
+   "id": "1ANuvQ2zgWVRx5Z9SCJHCaZrdfE0emnot",
+   "size": 45655140,
+   "md5": "fb0fef69d9f5f0cc7fb10267503bdf21"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/erc20-transfer-logs/transfers_2026-07.parquet",
+   "id": "1RLAspoxPvZt6YMsMm8fH6hA1MdEP6Yr0",
+   "size": 28305671,
+   "md5": "341c72df84d1d50c89c5336cc62077cd"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/erc20-transfer-logs/transfers_2026-08.parquet",
+   "id": "1DyrDQYfW4DuebJFY1cwnSnCAghZ0OUU8",
+   "size": 28812505,
+   "md5": "c42dbf56c581e5882be1094103f22a44"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/gmx-position-close-logs/gmx_event_logs_2026-06.parquet",
+   "id": "1fvRCavwhKKoy5Crin_z9BCfDiL6BVV2E",
+   "size": 78414820,
+   "md5": "829014b5a0e3c19b66258260ff0877a4"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/gmx-position-close-logs/gmx_event_logs_2026-07.parquet",
+   "id": "1iTdWzFU4jzDzy0Y9k986ZIE_BxoKUxuP",
+   "size": 49902973,
+   "md5": "1e8f66b736f1fdffe69e19ec0a972734"
+  },
+  {
+   "path": "wallet-reputation-archive/1-raw-blockchain-logs/registered-replication-2026-06-to-2026-08/gmx-position-close-logs/gmx_event_logs_2026-08.parquet",
+   "id": "1yNJ8Oq8KLLlr7KS3R_XMTtmunIy-rNjg",
+   "size": 60094260,
+   "md5": "ebf8d33b2f43fa227ed83c05b9317204"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/aave-lending-events/aave_events.parquet",
+   "id": "1dSctWj7j-4yXVoNuMlisi8-hvsdG2IQg",
+   "size": 859037,
+   "md5": "ce1526e3602ec4df86568e1c6abf403a"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/erc20-allowances-and-transfers/latest_allowances.parquet",
+   "id": "1mPc2wlmeDFxxIk-eaTwQwjxHeRyKFF9C",
+   "size": 2736922,
+   "md5": "3efe858c14ba860cd07f1431ab89405b"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/eval_summary.json",
+   "id": "11kao6AqW95pGSilGJMxt068TauPQDKH-",
+   "size": 190704,
+   "md5": "a094cc31c5df61eca79e7e36dec03976"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/extraction_manifest.json",
+   "id": "1b9OQ54s_roNsTCpoQierUzBZC0zFuxbd",
+   "size": 11242,
+   "md5": "74aeaed0627f40c89c6063220a66385b"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/extraction_wallet_set.parquet",
+   "id": "1dHKCUIiqVR6qFwOJk49V7Kdlpkw7cLdZ",
+   "size": 3799359,
+   "md5": "5c1aa5726a98f214062ad158bb59f1ac"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/gmx_decoded_events.parquet",
+   "id": "1qQKPNq7KcLb-xo7pRhqTBtnrO5hePgZy",
+   "size": 44702819,
+   "md5": "a88ee77f931ba5e032bd5889ceabbb84"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/extraction_manifest.json",
+   "id": "1boMRXHQYaBL3V6z11YmzaHlKhmP9KnVp",
+   "size": 6206,
+   "md5": "8c81b1920d5e06bc054da729fba00c4f"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/fixtures_summary.json",
+   "id": "19otD2LeiiaYAXB8z4eTeK3DnZ160dzMB",
+   "size": 68169,
+   "md5": "0e4dba02ad03c3eaa2ff6fae37c3eb82"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/fresh_holdout_summary.json",
+   "id": "1i-8hTQR-RfPwm0LXTaXJIbAusQGNwEYo",
+   "size": 72719,
+   "md5": "52da7e2f09a31d1e92f7907aa330c0ea"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/gmx_decoded_events.parquet",
+   "id": "1D09kAXpJRrxsdbk76I7T2iQgXf9fF-kK",
+   "size": 18366593,
+   "md5": "f2166bbb2a40e359779f437cec1f8126"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/posthoc_endorserank.json",
+   "id": "1WOV4c-5X1NY6zRnU8g-jDANEoXS-y408",
+   "size": 35946,
+   "md5": "1a334191d9cc312d9cd27df4e3bb7ada"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/registered-replication-2026-06-to-2026-08/spring_check.json",
+   "id": "1u75B9yPhmu-IBtEKreNmL4vrT-E0cSSE",
+   "size": 10987,
+   "md5": "a8020f76c5d7d2340365a90b847d2397"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/eval_summary.json",
+   "id": "1Ep4rrQe5092VSKL3ce0WXRZnsF81ajJw",
+   "size": 9732,
+   "md5": "9feba923aa6359365c38d2aa993148f1"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/eval_summary_matched_traders.json",
+   "id": "1Sd1SPIGCGv1Un0LBAVh6BGeGq_imfm6Y",
+   "size": 58380,
+   "md5": "d68b1b9bdad4ca41c5547010d8f09744"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/eval_summary_spenders.json",
+   "id": "1aobBwKcR976CQckwRje2St-oIlxdha-6",
+   "size": 59176,
+   "md5": "549950be6d81a683fae11077c024d352"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/spender_account_types.csv",
+   "id": "1NjZmX5F5nn0kxhXtAA0EP9X31R3rB2NQ",
+   "size": 132060,
+   "md5": "4b352d555659f3bcf9bfdf500e85dad1"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/spring-holdout-2026-03-to-2026-05/spender_account_types.json",
+   "id": "1X4paULBvFVvl3Ja6OM3_2Fe5d40sp1SO",
+   "size": 1055,
+   "md5": "1d2a8c851e3a0c078f01ae3ea67c4c16"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/supplemental_wallets.parquet",
+   "id": "1O2axLp3bWvlwoDoVUAr0EmuBhAKDler3",
+   "size": 3815206,
+   "md5": "5277d9a2851b2e48819d5564cc8ce2bd"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/supplementary_checks.json",
+   "id": "12lmmb9OsM7uJnzKZ7B5RrnOI5qtmBFen",
+   "size": 31663,
+   "md5": "1e1b21c4f0559e7e5d59049ad4172e36"
+  },
+  {
+   "path": "wallet-reputation-archive/2-processed-tables-and-evaluations/wallet_rankings.parquet",
+   "id": "1k1FBlUStalMJvx0X2sRA5qazdd2g2J2o",
+   "size": 1486598,
+   "md5": "f4019b61680fee6c21c56acaefb1fbef"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/MANIFEST.json",
+   "id": "1T-KXnX-9NdW0nm0jySmoQKWN9YU-G5L6",
+   "size": 2674,
+   "md5": "a9029bcacf798a0ea079930d83d3b8bd"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/config-copies/fresh_holdout_2026q3.yaml",
+   "id": "1RsIX0Kuiiq9rMTci_F1w1_54R87fwXHW",
+   "size": 3851,
+   "md5": "cdfa317e48955db459ed8cf4ba6dce85"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/config-copies/margin_config.yaml",
+   "id": "1lkfDzGWtWi4-9bigppCaKL2omGJSozVj",
+   "size": 9495,
+   "md5": "4a8e562e4784421de511afa10d0eed26"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/eval_summary.json",
+   "id": "1oU8ExnqX6-XB-LW5aqDqhJI-09IIyM4W",
+   "size": 190704,
+   "md5": "a094cc31c5df61eca79e7e36dec03976"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/registered-replication-2026-06-to-2026-08/extraction_manifest.json",
+   "id": "1dgfyd_oPE2rf3i1RWrtu-MUxOuaGIGZw",
+   "size": 6206,
+   "md5": "8c81b1920d5e06bc054da729fba00c4f"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/registered-replication-2026-06-to-2026-08/fresh_holdout_summary.json",
+   "id": "1nTXkZdd4rNMMHxHPLsB5uBw6e0SOfoz0",
+   "size": 72719,
+   "md5": "52da7e2f09a31d1e92f7907aa330c0ea"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/registered-replication-2026-06-to-2026-08/posthoc_endorserank.json",
+   "id": "1zthFCMal1VWc646WNAylBjxLGZT8j3yv",
+   "size": 35946,
+   "md5": "1a334191d9cc312d9cd27df4e3bb7ada"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/spring-holdout-2026-03-to-2026-05/eval_summary_matched_traders.json",
+   "id": "1G09xmWN4MoZUkOw2RqPayM4TRJPrm5B3",
+   "size": 58380,
+   "md5": "d68b1b9bdad4ca41c5547010d8f09744"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/spring-holdout-2026-03-to-2026-05/eval_summary_spenders.json",
+   "id": "1R-J9bERpyvykalHvrHT3a0UM-Dfpd3sR",
+   "size": 59176,
+   "md5": "549950be6d81a683fae11077c024d352"
+  },
+  {
+   "path": "wallet-reputation-archive/3-published-results-for-thesis/supplementary_checks.json",
+   "id": "1S3bmpXrjTksBVEKzJXxeH9Yb0vk3R4ef",
+   "size": 31663,
+   "md5": "1e1b21c4f0559e7e5d59049ad4172e36"
+  },
+  {
+   "path": "wallet-reputation-archive/4-archived-extended-baselines/method_proxy_matrix.csv",
+   "id": "1p8pF9anL7XxoaxWHJPI0ltjSYZ9lT1mg",
+   "size": 1038,
+   "md5": "ff8f4a557e41f5ce12395bb15f623271"
+  },
+  {
+   "path": "wallet-reputation-archive/4-archived-extended-baselines/six_aave_method_proxy_matrix.csv",
+   "id": "1nGM22H2xieBEx6SiQneZgbtu5H9x7c2Y",
+   "size": 811,
+   "md5": "bbc8c77b3fedbca6d8bcdeb105d84bb6"
+  },
+  {
+   "path": "wallet-reputation-archive/4-archived-extended-baselines/superseded-before-2026-09-30-sign-fix/method_proxy_matrix.csv",
+   "id": "1e0mgvs-8UioE9Tu0ZoLURN_2nL26nR_m",
+   "size": 1031,
+   "md5": "1fbb3b0d1a251350a120b8b80e10164a"
+  },
+  {
+   "path": "wallet-reputation-archive/4-archived-extended-baselines/superseded-before-2026-09-30-sign-fix/six_aave_method_proxy_matrix.csv",
+   "id": "1EoS4faMUbAHlgfHZ5wYtsj1bI3w7slAx",
+   "size": 804,
+   "md5": "358dac6785f73a5a1152b6a8e4477882"
+  },
+  {
+   "path": "wallet-reputation-archive/4-archived-extended-baselines/three_method_proxy_matrix.csv",
+   "id": "1WnetgHkdTq95efY-C-UfnbE34k9aAMfN",
+   "size": 492,
+   "md5": "03f9bc8eda19689a7d3b370b6a7d0991"
+  },
+  {
+   "path": "wallet-reputation-archive/README.md",
+   "id": "1m7duB7uLsguLNskL3EClAnAPNUqP3Rc2",
+   "size": 25946,
+   "md5": "c36c9a30490192d08b9445aab3bb7da2"
+  }
+ ],
+ "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
+ "updated_at": "2026-10-12T12:47:38+00:00",
+ "total_bytes": 10912061248
+}

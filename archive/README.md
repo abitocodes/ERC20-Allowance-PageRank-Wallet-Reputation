@@ -17,3 +17,4 @@
 - `wallet-reputation-experiments/scripts/`는 새 실험의 테스트(`../experiments/tests/conftest.py`)가 읽기 전용 기준으로 불러옵니다. 옮기거나 지우지 마세요.
 - 옛 실험 코드의 `project_paths.py`는 원고 폴더를 `archive/overleaf-github`로 찾기 때문에(없는 폴더) 새 원고를 덮어쓰지 않습니다.
 - Windows 경로 길이 때문에 폴더를 한 단계 더 깊게 넣지 않았습니다.
+- `wallet-reputation-experiments/data/`의 parquet 파일은 2026-10-12부터 GitHub에 없고 공개 Google Drive 폴더의 `wallet-reputation-archive/`에 있습니다. 데이터 문서(`data/README.md`)의 "GitHub에 올림" 설명은 그 전 기준입니다. 받으려면 `../experiments/`에서 `python scripts/drive_sync.py pull "archive/*"`를 실행합니다.

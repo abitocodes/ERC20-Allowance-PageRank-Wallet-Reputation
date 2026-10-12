@@ -57,27 +57,49 @@ CONTRACT_REP_VARIANT=usd python scripts/export_latex.py
 
 ## 데이터
 
-| 위치 | 내용 | GitHub |
-|------|------|--------|
-| `experiments/data/1-raw-blockchain-extracts/cohort`, `gmx` | 코호트 후보, 계정 종류 판정(eth_getCode), GMX 청산 원본 | 올림 |
-| `experiments/data/1-raw-blockchain-extracts/graph-tables/*.parquet` | 노드 번호표, 두 기준 시점의 허락·송금 간선표, 상위 토큰 간선표, 검증 지표, 라벨 (6.4 GB) | **올리지 않음** (`.json` 기록만 올림) |
-| `experiments/data/1-raw-blockchain-extracts/graph-tables-usd/*.parquet` | 수정 분석의 같은 표(`u_x_*`, `u_proxies_tobs`, `u_labels_*`, `u_cohort`) | **올리지 않음** (`.json` 기록만 올림) |
-| `experiments/data/0-usd-token-list-and-prices` | 토큰 후보·목록, 일별 USD 가격, 상수, Chainlink 대조 | 올림 |
-| `experiments/data/2-processed-tables-and-evaluations` | 점수, 평가 요약 JSON, 해독한 GMX 청산 | 올림 |
-| `experiments/data/3-published-results-for-thesis` | 논문 표의 근거 요약과 SHA-256 목록 | 올림 |
+parquet 데이터는 GitHub에 올리지 않고 공개 Google Drive 폴더 `phd_works-blockchain-data`(링크가 있으면 누구나 읽기)에 둡니다. json·csv·md 같은 작은 파일은 GitHub와 Drive 양쪽에 있습니다. Drive에 있는 모든 파일의 Drive id·크기·MD5는 `experiments/drive-manifest.json`(커밋됨)에 있고, 폴더 링크도 거기 `folder_url`에 있습니다.
 
-그래프 표는 BigQuery 프로젝트 `dissertation-bq`의 `contract_rep` 데이터셋에 남아 있습니다. 다시 받으려면 `experiments/`에서 다음을 실행합니다(쿼리 비용 없음, Storage Read API).
+| 위치 | 내용 | GitHub | Drive |
+|------|------|--------|-------|
+| `experiments/data/1-raw-blockchain-extracts/cohort`, `gmx` | 코호트 후보, 계정 종류 판정(eth_getCode), GMX 청산 원본 | 작은 파일만 | 전부 |
+| `experiments/data/1-raw-blockchain-extracts/graph-tables/` | 노드 번호표, 두 기준 시점의 허락·송금 간선표, 상위 토큰 간선표, 검증 지표, 라벨 (6.4 GB) | `.json` 기록만 | 전부 |
+| `experiments/data/1-raw-blockchain-extracts/graph-tables-usd/` | 수정 분석의 같은 표(`u_x_*`, `u_proxies_tobs`, `u_labels_*`, `u_cohort`, 2.6 GB) | `.json` 기록만 | 전부 |
+| `experiments/data/0-usd-token-list-and-prices` | 토큰 후보·목록, 일별 USD 가격, 상수, Chainlink 대조 | 올림 | 전부 |
+| `experiments/data/2-processed-tables-and-evaluations` | 점수, 평가 요약 JSON, 해독한 GMX 청산 | 작은 파일만 | 전부 |
+| `experiments/data/3-published-results-for-thesis` | 논문 표의 근거 요약과 SHA-256 목록 | 올림 | 전부 |
+| `archive/wallet-reputation-experiments/data` | 지갑 평판 연구(보관) 데이터 | 작은 파일만 | 전부 |
+
+`experiments/data/_work/`(검증용 임시 다운로드)는 어디에도 올리지 않습니다.
+
+### Drive에서 받기
+
+`experiments/`에서 필요한 파일만 받습니다. 패턴은 Drive 경로(`contract-reputation/...`)나 이 폴더 기준 경로에 맞춘 glob입니다. 받은 파일은 MD5를 확인합니다.
 
 ```bash
-bash scripts/download_graph_tables.sh
+python scripts/drive_sync.py pull "*graph-tables-usd/*"   # 수정 분석(주 결과)의 그래프 표
+python scripts/drive_sync.py pull "experiments/*"         # 이 논문의 데이터 전부
+python scripts/drive_sync.py pull --all                   # 보관 데이터까지 전부(약 10 GB)
+python scripts/drive_sync.py status                       # 로컬과 Drive의 차이
 ```
 
-상위 토큰 간선표(`top_token_pairs`)와 W1 라벨(`labels_w1`)은 `python scripts/download_table.py contract_rep.x_top_token_pairs data/1-raw-blockchain-extracts/graph-tables/top_token_pairs`처럼 따로 받습니다. 모든 파일은 90 MB 아래로 나뉩니다.
+rclone 리모트가 있으면 rclone으로, 없으면 HTTPS로 받습니다(파이썬 표준 라이브러리만 씀). HTTPS는 환경 변수 `GDRIVE_API_KEY`가 있으면 `www.googleapis.com`을, 없으면 `drive.usercontent.google.com`을 씁니다. Claude Code 클라우드 세션의 기본 네트워크(Trusted)는 `*.googleapis.com`만 허용하므로, 클라우드에서 받으려면 환경 설정에 `GDRIVE_API_KEY`(Drive API만 허용한 키)를 넣거나 Custom 네트워크에 `drive.usercontent.google.com`을 더합니다.
+
+### Drive에 올리기
+
+BigQuery에서 새로 받은 데이터는 `download_table.py`로 `experiments/data/` 아래에 받은 뒤 올립니다. 그래프 표를 BigQuery에서 다시 받는 방법은 `scripts/download_graph_tables.sh`와 `python scripts/download_table.py contract_rep.x_top_token_pairs data/1-raw-blockchain-extracts/graph-tables/top_token_pairs`입니다(쿼리 비용 없음, Storage Read API).
+
+```bash
+python scripts/drive_sync.py push --dry-run   # 올릴 파일 확인
+python scripts/drive_sync.py push             # 올리고 drive-manifest.json 갱신
+```
+
+그다음 `experiments/drive-manifest.json`을 커밋합니다. push는 rclone 리모트 `phd-gdrive`(개인 Google 계정, 다른 이름은 `DRIVE_SYNC_REMOTE`)를 씁니다. 새 PC에서는 `winget install Rclone.Rclone` 뒤 `rclone config create phd-gdrive drive scope=drive`로 한 번 로그인합니다. push는 Drive의 파일을 지우지 않고, 이미 있는 파일은 `--allow-overwrite` 없이는 바꾸지 않습니다(논문이 인용하는 데이터라서).
 
 ## 지킬 것
 
 - 분석 계획(`experiments/docs/analysis_plan.md`)과 설정(`experiments/config/contract_reputation.yaml`)은 이 연구의 첫 추출 전에 커밋했습니다. 1~6절을 고치지 않습니다.
-- `data/` 아래 파일은 모두 90 MB 아래로 나눠 저장합니다(GitHub 100 MB 한도).
+- `data/` 아래 파일은 모두 90 MB 아래로 나눠 저장합니다.
+- UNISA 학위논문에 쓴 데이터는 심사가 끝난 뒤에도 몇 달 동안 누구나 볼 수 있어야 합니다. Drive 폴더 `phd_works-blockchain-data`와 그 공유 설정(링크가 있는 모든 사용자 읽기)을 지우거나 바꾸지 않습니다.
 - BigQuery 비용은 `experiments/data/bq_ledger.json`에 쌓이며 전체 상한은 USD 50입니다.
 - 테스트 `experiments/tests/`는 보관 스크립트(`archive/wallet-reputation-experiments/scripts/`)를 읽기 전용 기준으로 불러옵니다. 그 폴더를 옮기거나 지우지 않습니다.
 - 원고 문장 규칙은 `dissertation/notes/_writing-brief.md`를 따릅니다.
