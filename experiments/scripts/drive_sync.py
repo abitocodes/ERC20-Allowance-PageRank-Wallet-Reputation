@@ -127,7 +127,10 @@ def rclone(*args: str, capture: bool = False) -> str:
     res = subprocess.run([exe, *args], text=True, encoding="utf-8",
                          stdout=subprocess.PIPE if capture else None)
     if res.returncode != 0:
-        raise SystemExit(f"rclone {args[0]} failed with exit code {res.returncode}")
+        # The OAuth app is in Google's "testing" state, so the Drive login lapses after 7 days.
+        raise SystemExit(f"rclone {args[0]} failed with exit code {res.returncode}. If the log above "
+                         f"says invalid_grant or token expired, log in again with: "
+                         f"rclone config reconnect {REMOTE}:")
     return res.stdout or ""
 
 

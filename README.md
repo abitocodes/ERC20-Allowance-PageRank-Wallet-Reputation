@@ -82,7 +82,7 @@ python scripts/drive_sync.py pull --all                   # 보관 데이터까�
 python scripts/drive_sync.py status                       # 로컬과 Drive의 차이
 ```
 
-rclone 리모트가 있으면 rclone으로, 없으면 HTTPS로 받습니다(파이썬 표준 라이브러리만 씀). HTTPS는 환경 변수 `GDRIVE_API_KEY`가 있으면 `www.googleapis.com`을, 없으면 `drive.usercontent.google.com`을 씁니다. Claude Code 클라우드 세션의 기본 네트워크(Trusted)는 `*.googleapis.com`만 허용하므로, 클라우드에서 받으려면 환경 설정에 `GDRIVE_API_KEY`(Drive API만 허용한 키)를 넣거나 Custom 네트워크에 `drive.usercontent.google.com`을 더합니다.
+rclone 리모트가 있으면 rclone으로, 없으면 HTTPS로 받습니다(파이썬 표준 라이브러리만 씀). HTTPS는 환경 변수 `GDRIVE_API_KEY`가 있으면 `www.googleapis.com`을, 없으면 `drive.usercontent.google.com`을 씁니다. Claude Code 클라우드 환경 `Default`는 네트워크를 '사용자 지정'(기본 목록 포함)으로 두고 `drive.usercontent.google.com`을 더해 두었으므로(2026-10-12), 클라우드 세션에서도 키 없이 받습니다. 새 환경을 만들면 같은 도메인을 더합니다.
 
 ### Drive에 올리기
 
@@ -93,7 +93,7 @@ python scripts/drive_sync.py push --dry-run   # 올릴 파일 확인
 python scripts/drive_sync.py push             # 올리고 drive-manifest.json 갱신
 ```
 
-그다음 `experiments/drive-manifest.json`을 커밋합니다. push는 rclone 리모트 `phd-gdrive`(개인 Google 계정, 다른 이름은 `DRIVE_SYNC_REMOTE`)를 씁니다. 새 PC에서는 `winget install Rclone.Rclone` 뒤 `rclone config create phd-gdrive drive scope=drive`로 한 번 로그인합니다. push는 Drive의 파일을 지우지 않고, 이미 있는 파일은 `--allow-overwrite` 없이는 바꾸지 않습니다(논문이 인용하는 데이터라서).
+그다음 `experiments/drive-manifest.json`을 커밋합니다. push는 rclone 리모트 `phd-gdrive`(개인 Google 계정, 다른 이름은 `DRIVE_SYNC_REMOTE`)를 씁니다. rclone은 GCP 프로젝트 `dissertation-bq`의 데스크톱 OAuth 클라이언트 `rclone phd-gdrive`로 로그인합니다. 이 OAuth 앱(`ds-daq`)은 '테스트 중' 상태라 로그인이 7일마다 만료되므로, 오랜만에 push할 때는 먼저 `rclone config reconnect phd-gdrive:`로 브라우저에서 다시 허용합니다. 새 PC에서는 `winget install Rclone.Rclone` 뒤 `rclone config create phd-gdrive drive scope=drive client_id=... client_secret=...`(콘솔의 그 클라이언트 값)로 한 번 로그인합니다. push는 Drive의 파일을 지우지 않고, 이미 있는 파일은 `--allow-overwrite` 없이는 바꾸지 않습니다(논문이 인용하는 데이터라서).
 
 ## 지킬 것
 
