@@ -5,7 +5,7 @@
    s06-02  AWP and raw-degree baselines (transfer graph with activeness halos; tally bars count
                                         distinct owners / senders; "can PageRank clear the bar?")
    s06-03  C-PR: mixing the two rows    (two 100 % row bars squash by λ and 1−λ into one mixed row;
-                                        dial sweep; one-layer node renormalised by D_λ; final formula)
+                                        dial sweep; one-layer node renormalized by D_λ; final formula)
    s06-04  Turning λ (key scene)        (three.js: 15,107 contracts, height = C-PR percentile, shadows on
                                         the two back walls, five λ values, plain τ meters, draggable dial)
    s06-05  S-PR                         (teleport rain follows the allowance halos; two post hoc
@@ -522,7 +522,7 @@
   /* ================================================================ s06-03
      C-PR: two 100 % rows (allowance row, transfer row) are squashed by λ and 1 − λ and
      joined into one mixed row; the dial sweeps λ; then a node with allowance arrows only
-     is renormalised by D_λ(u). Bars: example (s05-06 cap example; σ(0) = 0.8581). */
+     is renormalized by D_λ(u). Bars: example (s05-06 cap example; σ(0) = 0.8581). */
   var ROWA = { S1: 20000 / 20500, S2: 500 / 20500 };                 /* 0.9756 / 0.0244 */
   var XT = [1000 * 0.8581, 300 * 0.5];                                /* 858.1 / 150 */
   var ROWT = { S2: XT[1] / (XT[0] + XT[1]), R: XT[0] / (XT[0] + XT[1]) }; /* 0.1488 / 0.8512 */
