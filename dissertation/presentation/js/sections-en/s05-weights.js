@@ -963,7 +963,7 @@
       void uT; void vT;
       g.evT = EV_T.map(function (ev, k) {
         var s0 = sigma(ev[0]), v0 = V(ev[1], BT), eg = S('g', {}, fT);
-        var x = 140 + k * 200;                                         /* EN: wider spacing for the longer labels */
+        var x = 150 + k * 195;                                         /* EN: wider spacing for the longer labels */
         var dot = S('circle', { cx: x, cy: 70, r: 15, fill: C.bg3, stroke: C.xfer, 'stroke-width': 2.5 }, eg);
         txt(eg, x, 36, ev[2] + ' · ' + ev[1] + ' USD', { anchor: 'middle', size: 18, fill: C.ink2 });
         txt(eg, x, 116, fmt(s0, 4) + ' × ' + (ev[1] === 400 ? '0.8' : ev[1] === 200 ? '0.5' : fmt(v0, 4)), { anchor: 'middle', size: 18, fill: C.ink, cls: 'svg-mono' });

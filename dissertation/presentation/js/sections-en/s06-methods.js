@@ -907,7 +907,7 @@
       g.shT = Comp.cloud(ctx, T, { positions: g.shadow[4].t, colors: g.shadow[4].ct, size: 2.2, opacity: 0.5 });
       if (g.shA.material) { g.shA.material.opacity = 0; g.shT.material.opacity = 0; }
       g.wallLabs = [
-        T.label('Shadow: in-approve degree vs. score', [WX + WW * 0.62, FLOOR + WH + 0.18, WZ], { className: 's6-wall3d' }),
+        T.label('Shadow: in-approve degree vs. score', [WX + WW * 0.5, FLOOR + WH + 0.18, WZ], { className: 's6-wall3d' }),   /* 0.5 (Korean 0.62): the longer English label stays clear of the HUD at λ = 0 */
         T.label('Shadow: transfer in-degree vs. score', [WX, FLOOR + WH + 0.18, WZ + WW * 0.62], { className: 's6-wall3d' })
       ];
       g.wallLabs[0].el.style.color = C.allow; g.wallLabs[1].el.style.color = C.xfer;

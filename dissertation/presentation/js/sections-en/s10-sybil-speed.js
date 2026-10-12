@@ -983,7 +983,7 @@
       STAGES.forEach(function (st) {
         var t = svgEl('text', { x: cX(st.n), y: cy0 + 26, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 15, 'class': 'tnum' }, ch); t.textContent = fmt(st.n, 0);
       });
-      var tN = svgEl('text', { x: cx1 + 30, y: cy0 + 26, fill: C.ink3, 'font-size': 15 }, ch); tN.textContent = 'contracts';
+      var tN = svgEl('text', { x: cX(15107), y: cy0 + 46, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 15 }, ch); tN.textContent = 'contracts';   /* under the last stage: the English word is too wide to sit after it */
       function line(key, col, dash) {
         var d = STAGES.map(function (st, k) { return (k ? 'L' : 'M') + cX(st.n).toFixed(1) + ',' + cY(st[key]).toFixed(1); }).join(' ');
         var p = svgEl('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 3, 'stroke-dasharray': dash || null, 'stroke-linejoin': 'round' }, ch);
