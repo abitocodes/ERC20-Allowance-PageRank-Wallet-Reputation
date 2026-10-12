@@ -60,14 +60,14 @@ import pandas as pd
 
 PROJECT_REL = Path("1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation")
 COMMITS = {
-    "43d8045": "Analysis plan and configuration fixed before any log was extracted",
+    "43d8045": "Analysis plan and configuration fixed before this study extracted any log",
     "0d3a057": "W1 registration, extraction and evaluation code committed before scan B",
     "a897475": "Revision document (USD amounts, priced tokens) committed before any revised score",
     "09dfc32": "Choice of five tokens (WETH, USDC, USDT0, ARB, WBTC) and price inputs committed",
     "2705b28": "Allowance cap U = $20,000 and constants m_T, m_A committed before any revised score",
 }
 COMMITS_KO = {
-    "43d8045": "분석 계획과 설정 고정(로그 추출 전)",
+    "43d8045": "분석 계획과 설정 고정(이 연구의 로그 추출 전)",
     "0d3a057": "W1 등록 문서와 추출·평가 코드 커밋(2차 추출 전)",
     "a897475": "수정 계획 커밋: 금액을 달러로, 가격 있는 토큰만(수정 점수 계산 전)",
     "09dfc32": "다섯 토큰과 가격 입력 커밋(수정 점수 계산 전)",
@@ -136,9 +136,9 @@ NOTES = {
     "revised_ko": ("수정 분석 = 논문의 주 결과예요. 금액은 달러, 토큰은 다섯 개예요. 등록 결과를 본 뒤 정했기 "
                    "때문에 등록된 결과가 아니에요. 규칙 판정은 재분석이에요."),
     "registered": ("Registered analysis: raw base units, every ERC-20 token, b = 1. Rule A fixed in the "
-                   "plan (43d8045) before any log was extracted; rule B, P/Q and R1-R3 fixed in the W1 "
+                   "plan (43d8045) before this study extracted any log; rule B, P/Q and R1-R3 fixed in the W1 "
                    "registration (0d3a057) before scan B."),
-    "registered_ko": ("등록 분석: 원래 단위, 모든 ERC-20 토큰, b = 1이에요. 규칙 A는 로그 추출 전 계획(43d8045)에서, "
+    "registered_ko": ("등록 분석: 원래 단위, 모든 ERC-20 토큰, b = 1이에요. 규칙 A는 이 연구의 로그 추출 전 계획(43d8045)에서, "
                       "규칙 B·P/Q·R1–R3는 2차 추출 전 W1 등록(0d3a057)에서 미리 정했어요."),
     "same_window": ("Same-window agreement with the families is an intended-construct check: part of it is "
                     "built in, and it is not validation or evidence of predictive power."),
@@ -153,11 +153,10 @@ NOTES = {
     "speed": ("Same solver for every score: runtime differences follow from the edge count |E| of each "
               "graph, not from the algorithm."),
     "speed_ko": "모든 점수가 같은 풀이 프로그램을 써요. 시간 차이는 그래프의 화살표 수 |E|에서 와요. 알고리즘의 기여가 아니에요.",
-    "contracts_not_wallets": ("The study scores and evaluates smart contracts only; EOAs (wallets) enter the "
-                              "graphs as owners, senders and recipients and are never scored. The title keeps "
-                              "the approved wording 'Wallet Reputation'."),
-    "contracts_not_wallets_ko": ("이 연구는 스마트 계약만 점수를 매기고 평가해요. 일반 지갑(EOA)은 화살표의 출발점과 "
-                                 "도착점으로만 나오고 점수를 받지 않아요. 제목은 승인된 그대로 '지갑 평판'이에요."),
+    "contracts_only": ("The study scores and evaluates smart contracts only; EOAs enter the graphs as owners, "
+                       "senders and recipients and are never scored."),
+    "contracts_only_ko": ("이 연구는 스마트 계약만 점수를 매기고 평가해요. EOA는 화살표의 출발점과 "
+                          "도착점으로만 나오고 점수를 받지 않아요."),
 }
 
 
@@ -390,7 +389,7 @@ def build_contracts(c: Ctx):
             "rank_size": "[rank, score] at log-spaced ranks, scores sorted descending (heavy tail)",
             "derived": True,
             "sampling": "none: all contracts of the matched cohort",
-            "note": NOTES["contracts_not_wallets"],
+            "note": NOTES["contracts_only"],
         },
         "columns": SCORE_COLS + ["in_approve_degree", "in_degree"],
         "pct": pct,
@@ -542,8 +541,8 @@ def build_timeline(c: Ctx, digests):
              "from": "2023-10-01T00:00:00Z", "to": "2026-03-31T23:59:59Z"},
             {"id": "w0_labels", "en": "W0 labels", "ko": "W0 라벨 기간",
              "from": "2026-04-01T00:00:00Z", "to": "2026-06-30T23:59:59Z"},
-            {"id": "w1_labels", "en": "W1 labels (extracted only after the registration commit)",
-             "ko": "W1 라벨 기간(등록 커밋 뒤에만 추출)", "from": "2026-07-01T00:00:00Z", "to": "2026-09-30T23:59:59Z"},
+            {"id": "w1_labels", "en": "W1 labels (extracted by this study only after the registration commit)",
+             "ko": "W1 라벨 기간(이 연구는 등록 커밋 뒤에만 추출)", "from": "2026-07-01T00:00:00Z", "to": "2026-09-30T23:59:59Z"},
         ],
         "anchors": {"data_start": "2023-10-01T00:00:00Z", "t1": "2026-03-31T23:59:59Z",
                     "t_obs": "2026-06-30T23:59:59Z", "data_end": "2026-09-30T23:59:59Z",
@@ -1263,7 +1262,7 @@ def main(argv=None) -> int:
         "supervisor": "Prof. Ernest Mnkandla",
         "co_supervisors": ["Prof. Donatien Koulla Moulla", "Dr. David Sena Attipoe"],
         "university": "University of South Africa", "date": {"en": "October 2026", "ko": "2026년 10월"},
-        "scope": {"en": NOTES["contracts_not_wallets"], "ko": NOTES["contracts_not_wallets_ko"]},
+        "scope": {"en": NOTES["contracts_only"], "ko": NOTES["contracts_only_ko"]},
         "analyses": {"revised": {"en": "Revised analysis (main)", "ko": "수정 분석(주 결과)", "note": NOTES["revised"],
                                  "note_ko": NOTES["revised_ko"]},
                      "registered": {"en": "Registered analysis", "ko": "등록 분석", "note": NOTES["registered"],

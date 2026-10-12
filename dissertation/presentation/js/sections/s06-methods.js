@@ -538,7 +538,7 @@
       '먼저 허락 쪽 갈림길 표의 줄이에요. P 아래의 A는 허락 층, u는 출발점, 마지막 점은 모든 도착점 자리라는 뜻이에요. 05에서 본 상한 예 그대로, 무제한 허락은 2만 달러, 다른 하나는 500달러라서 0.9756과 0.0244로 나뉘어요. 합은 1이에요.',
       '송금 쪽 줄도 만들어요. 오늘 보낸 1,000달러는 시간 무게 0.858을 곱해 858, 180일 전 300달러는 0.5를 곱해 150이에요. 그래서 0.8512와 0.1488이에요. 이것도 합이 1이에요. 금액은 모두 설명용 예시예요.',
       '이 두 줄을 섞어요. 다이얼 람다가 0.5면 허락 줄을 반으로, 송금 줄도 반으로 줄여서 이어 붙여요. S1은 0.4878, S2는 두 조각을 더해 0.0866, R은 0.4256이에요. 람다 곱하기 1 더하기 1 빼기 람다 곱하기 1은 언제나 1이라서, 섞은 줄의 합도 1이에요.',
-      '다이얼을 돌려 볼게요. 람다가 1이면 허락 줄과 똑같아지고, 0이면 송금 줄과 똑같아져요. 주된 값 0.5와 민감도 값 0.25, 0.75는 데이터를 꺼내기 전에 분석 계획에 적어 두었어요.',
+      '다이얼을 돌려 볼게요. 람다가 1이면 허락 줄과 똑같아지고, 0이면 송금 줄과 똑같아져요. 주된 값 0.5와 민감도 값 0.25, 0.75는 이 연구가 데이터를 꺼내기 전에 분석 계획에 적어 두었어요.',
       '그런데 u에게 송금 화살표가 없으면 어떻게 될까요? 그러면 송금 줄은 비어요. 섞은 줄의 합이 람다, 곧 0.5밖에 안 돼요. 그래서 람다로 나눠 다시 1로 맞춰요. 이 나눗수를 D 람다라고 써요. 결국 그 점은 허락 길을 100% 따라가요.',
       '이것이 논문 3장의 결합 식이에요. 스위치 1은 그 층에 나가는 화살표가 있으면 1, 없으면 0이에요. 표로 정리하면, 둘 다 있으면 람다와 1 빼기 람다, 한쪽만 있으면 그쪽이 1, 둘 다 없으면 매달린 점이라 다시 출발로 가요. 람다가 1이면 허락 층만, 0이면 송금 층만 걷는 것과 같아요. 다시 출발은 고르게, d는 0.85예요.'
     ],
@@ -553,7 +553,7 @@
       '<div class="abs s6-callout" id="call" data-in="none" style="left:' + (B3.x + B3.x0) + 'px;top:' + (B3.y + 534) + 'px">한쪽 길만 있으면 그 길을 [[100%]]</div>' +
       '<div class="abs" id="dialbox" data-shared="lambda-dial" data-in="none" style="left:96px;top:742px;width:240px;height:180px"></div>' +
       '<div class="abs" id="lcard" data-in="none" style="left:372px;top:756px"></div>' +
-      '<p class="abs s6-cap" id="lcap" data-in="none" style="left:372px;top:900px;width:700px">λ = 0.5 (주) · 0.25 · 0.75 (민감도) — 분석 계획이 데이터를 꺼내기 전에 정했어요</p>' +
+      '<p class="abs s6-cap" id="lcap" data-in="none" style="left:372px;top:900px;width:700px">λ = 0.5 (주) · 0.25 · 0.75 (민감도) — 분석 계획이 이 연구의 추출 전에 정했어요</p>' +
       '<div class="abs s6-d3" id="d3" data-in="none" style="left:1104px;top:186px;width:720px"></div>' +
       '<div class="abs s6-final" id="fin" data-in="none" style="left:1104px;top:186px;width:720px"><div class="hd"><span>완성 식 · 논문 식 (3.9)</span></div>' +
         '$$\\begin{aligned}\\cc{P^{(\\lambda)}_{u,\\cdot}}&=\\alpha_A(u)\\,\\ca{P_{A,u,\\cdot}}+\\alpha_T(u)\\,\\ct{P_{T,u,\\cdot}}\\\\[4pt] \\alpha_A(u)&=\\frac{\\lambda\\,\\mathbf 1[o_A(u)>0]}{D_{\\lambda}(u)},\\qquad \\alpha_T(u)=\\frac{(1-\\lambda)\\,\\mathbf 1[o_T(u)>0]}{D_{\\lambda}(u)}\\\\[4pt] D_{\\lambda}(u)&=\\lambda\\,\\mathbf 1[o_A(u)>0]+(1-\\lambda)\\,\\mathbf 1[o_T(u)>0]\\end{aligned}$$' +

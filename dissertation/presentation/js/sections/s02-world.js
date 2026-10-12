@@ -78,8 +78,6 @@
     /* s02-04 */
     '.s02-l{position:absolute;left:96px;width:780px;font-size:30px;line-height:46px}',
     '.s02-l .note{color:var(--ink-2)}',
-    '.s02-l .wallet{position:relative;white-space:nowrap}',
-    '.s02-l .wallet sup{font-size:.7em;color:var(--ink-3);margin-left:2px}',
     '.s02-small{position:absolute;left:96px;top:846px;width:780px;font-size:24px;line-height:36px;color:var(--ink-2)}',
     '.s02-legend{position:absolute;left:964px;top:904px;display:flex;gap:30px;align-items:center;font-size:22px;color:var(--ink-2)}',
     '.s02-legend span{display:inline-flex;align-items:center;gap:10px}',
@@ -466,14 +464,13 @@
     notes: [
       '여기서 꼭 짚고 넘어갈 것이 있어요. 그래프에는 두 종류의 주소가 섞여 있어요. 동그라미는 사람이 개인 키로 움직이는 외부 소유 계정, 곧 EOA이고, 네모는 스마트 계약이에요.',
       '이 연구가 점수를 매기고 평가한 주소는 모두 스마트 계약이에요. EOA는 그래프에 주인이나 보낸 쪽, 받는 쪽으로만 나오고 점수를 받지 않아요.',
-      '논문 제목은 승인받은 대로 "지갑 평판"이지만, 내용은 계약 평판이라고 이해해 주세요.',
+      '점수 배지는 네모, 곧 계약에만 붙어요. 동그라미에는 끝점이라는 표시만 남아요.',
       '어떤 주소가 계약인지는 그 주소에 프로그램 코드가 있는지로 확인했어요. 코호트 후보는 블록 ' + fmt(GETCODE_BLOCK) + '에서, 나머지 홀드아웃 스펜더와 GMX 계정은 세 시간 안의 뒤 블록에서 eth_getCode로 코드가 있는지 봤어요. 코드 자리에 EIP-7702 위임 표시만 있는 주소는 EOA로 셌어요.'
     ],
     html:
       '<h1 class="t-h1">점수를 받는 것: [[스마트 계약]]</h1>' +
-      '<p class="s02-l" style="top:236px" data-step="2">외부 소유 계정(EOA, 개인 키로 움직이는 지갑)은 화살표의 끝점으로만 나와요 — 주인, 보낸 쪽, 받는 쪽</p>' +
-      '<p class="s02-l note" style="top:430px" data-step="2">제목은 \'<span class="wallet" id="wl">지갑 평판<sup>*</sup></span>\'이지만,<br>이 연구가 점수를 매긴 대상은 <b class="ink">계약</b>이에요</p>' +
-      '<p class="s02-l" id="fn" style="top:578px;font-size:24px;line-height:34px" data-step="2"><span class="ink-3">* 점수 배지는 네모(계약)에만 붙어요</span></p>' +
+      '<p class="s02-l" style="top:236px" data-step="2">외부 소유 계정(EOA, 개인 키로 움직이는 계정)은 화살표의 끝점으로만 나와요 — 주인, 보낸 쪽, 받는 쪽</p>' +
+      '<p class="s02-l note" id="fn" style="top:430px" data-step="2"><span>점수 배지는 네모(<b class="ink">계약</b>)에만 붙어요</span></p>' +
       '<p class="s02-small" data-step="3">계약인지 확인: 그 주소에 프로그램 코드가 있는지 봤어요</p>' +
       '<svg id="g4" class="abs" data-in="none" style="left:964px;top:178px;overflow:visible" width="860" height="720" viewBox="0 0 860 720"></svg>' +
       '<div class="s02-legend" id="leg">' +
@@ -535,7 +532,7 @@
       if (i === 2) {
         /* the graph glides right to make room for the words */
         tl.to(g.shiftEls, { x: 0, duration: 0.8, ease: 'power2.inOut' }, 0);
-        /* "지갑 평판*": the footnote points at a contract's score badge; every badge answers */
+        /* the badge line points at a contract's score badge; every badge answers */
         var fn = el.querySelector('#fn span'), N = g.G.nodes.C1;
         tl.add(function () {
           ctx.add(function () {

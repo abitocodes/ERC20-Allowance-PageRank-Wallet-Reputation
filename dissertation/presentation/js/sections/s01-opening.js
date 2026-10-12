@@ -49,9 +49,6 @@
     '.s01-who .name .deg{font-weight:500;color:var(--ink-2)}',
     '.s01-who .line{font-size:26px;line-height:40px;color:var(--ink-2)}',
     '.s01-who .line b{color:var(--ink);font-weight:600}',
-    '.s01-note{position:absolute;left:96px;top:860px;display:flex;align-items:center;gap:20px;padding:16px 26px 16px 18px;',
-    '  border:1px solid var(--line);border-radius:16px;background:rgba(16,21,31,.7);font-size:28px;line-height:40px;color:var(--ink-2)}',
-    '.s01-note b{color:var(--ink);font-weight:700}',
     /* s01-02 */
     '.s01-rq-sub{position:absolute;left:96px;top:252px;width:960px;font-size:28px;line-height:42px;color:var(--ink-2)}',
     '.s01-players{position:absolute;left:96px;top:420px;display:flex;gap:24px}',
@@ -152,7 +149,7 @@
     notes: [
       '(지갑 창) 디파이를 써 본 분이라면 이런 창을 본 적이 있을 거예요. 계약 하나가 내 토큰을 꺼내 써도 되는지 묻는 창이에요. 창에는 상표가 없어요. 어느 지갑 프로그램이든 비슷한 질문을 해요.',
       '(허락을 누르면) 이 버튼을 누르는 순간 주인에서 계약으로 허락 화살표가 하나 생겨요. 이때 우리는 그 계약을 믿어도 되는지 판단해야 하지만, 볼 수 있는 정보는 거의 없어요. 오늘 발표는 서명하기 전에 쓸 수 있는 공개 신호가 무엇인지, 그리고 그 신호를 페이지랭크로 다듬으면 더 나아지는지에 대한 이야기예요.',
-      '(제목) 방금 그린 허락 화살표가 이 논문의 주인공이에요. 제목은 "ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기"예요. 저는 권태홍이고, Mnkandla 교수님의 지도와 Moulla 교수님, Attipoe 박사님의 공동 지도를 받았어요. 논문 제목에는 "지갑 평판"이라고 되어 있지만, 실제로 점수를 매긴 대상은 스마트 계약이에요. 이 점은 발표 내내 분명히 말씀드릴게요.'
+      '(제목) 방금 그린 허락 화살표가 이 논문의 주인공이에요. 제목은 "ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기"예요. 저는 권태홍이고, Mnkandla 교수님의 지도와 Moulla 교수님, Attipoe 박사님의 공동 지도를 받았어요.'
     ],
     html: function () {
       var who = '<div class="name">' + esc(author.ko || '권태홍') + ' <span class="ink-2">' + esc(author.en || 'Taehong Kwon') + '</span> <span class="deg">· 컴퓨터과학 박사 학위 논문</span></div>' +
@@ -166,10 +163,6 @@
         '<div class="s01-ko" id="ko" data-in="none"><div class="ln">' + KO_LINES[0] + '</div><div class="ln">' + KO_LINES[1] + '</div></div>' +
         '<div class="s01-en" id="en" data-in="none">' + esc(title.en || 'Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring') + '</div>' +
         '<div class="s01-who" id="who" data-in="none">' + who + '</div>' +
-        '<div class="s01-note" id="note" data-in="none">' +
-          '<svg width="44" height="44" viewBox="0 0 44 44"><rect x="3" y="3" width="38" height="38" rx="9" fill="#10151F" stroke="#A3ADBF" stroke-width="2"/>' +
-          '<text x="22" y="23" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="18" class="svg-mono">{ }</text></svg>' +
-          '<span>제목은 \'지갑 평판\'이지만, 이 연구가 점수를 매긴 대상은 <b>스마트 계약</b>이에요.</span></div>' +
         '<svg class="s01-layer" id="layer" width="1920" height="1080" viewBox="0 0 1920 1080" data-in="none"></svg>';
     },
     build: function (el, ctx) {
@@ -187,7 +180,7 @@
       g.cursorPath = svgEl('path', { d: 'M690,560 C790,470 980,660 ' + (WALLET.yes[0] + 46) + ',' + (WALLET.yes[1] + 18), fill: 'none', stroke: 'none' }, g.layer);
       g.ripple = svgEl('circle', { cx: WALLET.yes[0], cy: WALLET.yes[1], r: 20, fill: 'none', stroke: C.allow, 'stroke-width': 3, opacity: 0 }, g.layer);
       /* title page parts start hidden */
-      ['#q1', '#q2', '#ko', '#en', '#who', '#note'].forEach(function (s) { gsap.set(el.querySelector(s), { autoAlpha: 0 }); });
+      ['#q1', '#q2', '#ko', '#en', '#who'].forEach(function (s) { gsap.set(el.querySelector(s), { autoAlpha: 0 }); });
       gsap.set([el.querySelector('#sparkA'), el.querySelector('#sparkB')], { autoAlpha: 0 });
       g.yes = g.win.querySelector('.btn.yes');
     },
@@ -258,7 +251,6 @@
         var who = el.querySelector('#who');
         gsap.set(who, { autoAlpha: 1 });
         tl.fromTo(who.children, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12 }, 2.0);
-        tl.fromTo(el.querySelector('#note'), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 2.75);
       }
     }
   };

@@ -15,7 +15,7 @@
       html:
         '<div class="title-block"><h1 class="t-h1">허락 화살표는 페이지랭크에 무엇을 [[더할까요?]]</h1>' +
         '<p class="sub">짧은 해요체 문장 · 강조어는 한 슬라이드에 하나</p></div>' +
-        '<p class="t-body-l abs" style="left:96px;top:330px" data-step="1" data-in="words">점수를 받는 것은 지갑이 아니라 스마트 계약이에요.</p>' +
+        '<p class="t-body-l abs" style="left:96px;top:330px" data-step="1" data-in="words">점수를 받는 것은 스마트 계약이에요.</p>' +
         '<div class="row abs" style="left:96px;top:430px" data-step="2" data-in="pop" data-stagger="0.08" id="tags"></div>' +
         '<div class="abs" style="left:96px;top:520px" data-step="3"><div class="t-stat num" id="cnt">0</div><div class="t-caption ink-2">ctx.count — 허락 기록(예시 표시용)</div></div>' +
         '<div class="abs" style="left:1000px;top:520px" data-step="4"><div class="t-stat num" id="odo">0</div><div class="t-caption ink-2">Comp.odometer</div></div>' +

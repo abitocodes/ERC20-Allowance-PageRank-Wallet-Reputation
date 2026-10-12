@@ -2,7 +2,7 @@
 
 학위논문 작업 폴더입니다. 폴더 이름 `ERC20-Allowance-PageRank-Wallet-Reputation`은 이 제목을 줄인 것입니다(전체 제목을 쓰면 Windows 경로 길이 제한 260자를 넘음).
 
-2026-10-11부터 이 폴더의 논문은 **컨트랙트 평판 연구**입니다. 점수를 매기고 평가하는 대상은 스마트 컨트랙트뿐이고, 일반 지갑(EOA)은 허락·송금 간선의 출발점과 도착점으로만 그래프에 들어갑니다. 데이터는 Arbitrum One의 2023-10-01부터 2026-09-30까지 3년입니다. 이 연구는 2026-10-09에 `1-Dissertation-Works/ERC20-Allowance-PageRank-Contract-Reputation/`에서 시작했고, 2026-10-11에 이 폴더로 옮겼습니다. 논문 제목은 승인된 연구계획서의 제목을 그대로 씁니다.
+이 연구가 점수를 매기고 평가하는 대상은 스마트 컨트랙트이고, EOA(외부 소유 계정)는 허락·송금 간선의 출발점과 도착점으로만 그래프에 들어갑니다. 데이터는 Arbitrum One의 2023-10-01부터 2026-09-30까지 3년입니다. 이 연구는 2026-10-09에 `1-Dissertation-Works/ERC20-Allowance-PageRank-Contract-Reputation/`에서 시작했고, 2026-10-11에 이 폴더로 옮겼습니다.
 
 | 폴더 | 내용 |
 |------|------|
@@ -12,7 +12,7 @@
 | `dissertation/presentation/` | 학위논문 발표 자료(한국어 HTML 슬라이드 59장: 3D 데이터 시각화, 중학생 눈높이의 수식 유도, 모션 그래픽). `index.html`을 브라우저로 열면 오프라인에서도 돌아갑니다. [`README.md`](dissertation/presentation/README.md) 참고 |
 | `dissertation/notes/` | 원고를 쓸 때 지키는 규칙과 메모(`_writing-brief.md`, `_claims.md`, `_revision-context.md`, `_todo.md`). 빌드에 들어가지 않습니다 |
 | `experiments/` | BigQuery 추출, 점수 계산, 평가 코드와 데이터 |
-| `archive/` | 2026-10-11 이전의 지갑 평판 연구 자료(실험 코드와 데이터, 한국어판, 로컬 원고 자료, 어린이 책·오디오북, 피드백 정리). [`archive/README.md`](archive/README.md) 참고 |
+| `archive/` | 보관 자료(읽기 전용). [`archive/README.md`](archive/README.md) 참고 |
 
 ## 기간
 
@@ -76,8 +76,8 @@ bash scripts/download_graph_tables.sh
 
 ## 지킬 것
 
-- 분석 계획(`experiments/docs/analysis_plan.md`)과 설정(`experiments/config/contract_reputation.yaml`)은 추출 전에 커밋했습니다. 1~6절을 고치지 않습니다.
+- 분석 계획(`experiments/docs/analysis_plan.md`)과 설정(`experiments/config/contract_reputation.yaml`)은 이 연구의 첫 추출 전에 커밋했습니다. 1~6절을 고치지 않습니다.
 - `data/` 아래 파일은 모두 90 MB 아래로 나눠 저장합니다(GitHub 100 MB 한도).
 - BigQuery 비용은 `experiments/data/bq_ledger.json`에 쌓이며 전체 상한은 USD 50입니다.
-- 테스트 `experiments/tests/`는 옛 실험 코드(`archive/wallet-reputation-experiments/scripts/`)를 읽기 전용 기준으로 불러옵니다. 그 폴더를 옮기거나 지우지 않습니다.
+- 테스트 `experiments/tests/`는 보관 스크립트(`archive/wallet-reputation-experiments/scripts/`)를 읽기 전용 기준으로 불러옵니다. 그 폴더를 옮기거나 지우지 않습니다.
 - 원고 문장 규칙은 `dissertation/notes/_writing-brief.md`를 따릅니다.

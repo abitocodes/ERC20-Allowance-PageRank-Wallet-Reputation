@@ -359,7 +359,7 @@
   var LIMITS = [
     { i: ico('<circle cx="13" cy="20" r="7"/><path d="M20 20h16M30 20v6M35 20v4"/>'), t: '가격과 토큰 목록 말고는 블록체인 밖 정보가 없어요 — <span>허락한 주인들이 서로 다른 사람인지 몰라요</span>' },
     { i: ico('<path d="M14 11l-9 9 9 9M26 11l9 9-9 9M23 8l-6 24"/>'), t: '계약의 평판일 뿐, <span>코드가 안전한지는 말하지 않아요</span>' },
-    { i: '<svg viewBox="0 0 40 40" fill="none"><rect x="5" y="5" width="30" height="30" rx="8" stroke="#A3ADBF" stroke-width="2.4"/><text x="20" y="21" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="13" class="svg-mono">{ }</text></svg>', t: '점수를 받은 것은 계약이에요 — <span>제목의 \'지갑\'은 EOA 점수가 아니에요</span>' },
+    { i: '<svg viewBox="0 0 40 40" fill="none"><rect x="5" y="5" width="30" height="30" rx="8" stroke="#A3ADBF" stroke-width="2.4"/><text x="20" y="21" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="13" class="svg-mono">{ }</text></svg>', t: '점수를 받은 것은 계약뿐이에요 — <span>EOA에 대해서는 말하지 않아요</span>' },
     { i: Deck.ICONS.loop, t: '수정 분석은 등록 분석의 결과를 본 뒤 정했어요 → <span>판정은 재분석</span>' },
     { i: Deck.ICONS.eye, t: '센 수와의 비교, 활발함 변형은 <span>사후예요</span>' },
     { i: ico('<circle cx="8" cy="10" r="3"/><circle cx="32" cy="9" r="3"/><circle cx="20" cy="22" r="3.5"/><circle cx="9" cy="32" r="3"/><circle cx="33" cy="31" r="3"/><path d="M10.5 12l7 8M29.5 11l-7 9M11 30l7-6M31 29l-8.5-5"/>'), t: '에고 네트워크(코호트에 닿는 화살표만) · 다섯 토큰 · 아비트럼 원 · <span>이 기간만</span>' },
@@ -370,7 +370,7 @@
     id: 's11-03', title: '한계', time: 35, steps: 2,
     notes: [
       '한계도 분명히 말씀드릴게요.',
-      '이 점수는 하루 가격과 토큰 목록 말고는 블록체인 밖 정보를 쓰지 않아서, 허락한 주인들이 정말 서로 다른 사람인지 알 수 없어요. 계약의 평판일 뿐 코드가 안전한지는 말하지 않아요. 점수를 받은 것은 계약이고, 제목의 지갑은 EOA 점수를 뜻하지 않아요. 본문의 수정 분석은 등록 분석의 결과를 본 뒤에 정했으니, 그 판정은 재분석이에요.',
+      '이 점수는 하루 가격과 토큰 목록 말고는 블록체인 밖 정보를 쓰지 않아서, 허락한 주인들이 정말 서로 다른 사람인지 알 수 없어요. 계약의 평판일 뿐 코드가 안전한지는 말하지 않아요. 점수를 받은 것은 계약뿐이라서, EOA에 대해서는 아무것도 말하지 않아요. 본문의 수정 분석은 등록 분석의 결과를 본 뒤에 정했으니, 그 판정은 재분석이에요.',
       '센 수와의 비교와 활발함 다시 출발 변형은 라벨을 본 뒤에 한 비교예요. 그리고 코호트에 닿는 화살표만 모은 에고 네트워크, 다섯 토큰, 아비트럼 원 한 체인, 이 기간만 본 결과예요. 트레이더 표본은 W1 70개, W0 88개로 작고, 고르게 다시 출발하는 점수는 닫힌 농장에 약해요.'
     ],
     html: function () {

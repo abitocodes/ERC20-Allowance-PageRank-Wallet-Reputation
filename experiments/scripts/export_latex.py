@@ -1061,7 +1061,7 @@ def t_holdout_diff(w0: dict, seed: int) -> None:
     if not pre:
         SKIPPED.append("holdout-diff (no contrasts)")
         return
-    first = "Rule A, primary part, fixed in the plan" if REVISED else "Fixed before the data"
+    first = "Rule A, primary part, fixed in the plan" if REVISED else "Fixed before the study extracted the data"
     lines = [f"\\multicolumn{{7}}{{l}}{{\\emph{{{first}}}}} \\\\"]
     lines += [contrast_line(_w0_label(r), r, LABEL_WORDS[r["outcome"]]) for r in pre]
     if post:
@@ -1081,9 +1081,9 @@ def t_holdout_diff(w0: dict, seed: int) -> None:
         f"Paired bootstrap differences on the spender holdout W0 ($n={fint(w0.get('spenders'))}$ contracts; "
         f"{fint(max(STATE['nboot']) if STATE['nboot'] else None)} resamples shared by $a$ and $b$, seed {seed}). The "
         + ("first block holds the two contrasts of the primary part of rule A, fixed in the analysis plan committed on "
-           "9~October~2026 before any data and applied here to the revised scores (C-PR against C-PR ($\\lambda=1$) on "
+           "9~October~2026 before the study extracted any data and applied here to the revised scores (C-PR against C-PR ($\\lambda=1$) on "
            "new approval pairs and against C-PR " if REVISED else
-           "first block holds the two contrasts fixed before the data, the primary part of rule A in the analysis "
+           "first block holds the two contrasts fixed before the study extracted the data, the primary part of rule A in the analysis "
            "plan committed on 9~October~2026 (C-PR against C-PR ($\\lambda=1$) on new approval pairs and against C-PR ")
         + "($\\lambda=0$) on new transfer senders). The second block was computed after the labels were known: the "
         "increment of C-PR ($\\lambda=1$), the allowance layer walked alone, over its raw degree at $t_1$, the same "
@@ -1464,9 +1464,9 @@ def t_neutral_contrasts(w1: dict, seed: int, cfg: dict) -> None:
         "from neither edge type ($n="
         f"{fint((w1.get('neutral_w1') or {}).get('n'))}$ traders in W1, $n={fint((w1.get('neutral_w0') or {}).get('n'))}$ "
         "in W0). The pairs, the decision contrasts P and Q with their Bonferroni 97.5\\% intervals and the stratified "
-        + ("rows were registered before the July--September logs were extracted, for the raw-unit analysis, and are "
+        + ("rows were registered before the study extracted the July--September logs, for the raw-unit analysis, and are "
            "applied here to the revised scores; W1 is the primary window and W0 the " if REVISED else
-           "rows were registered before the July--September logs were extracted; W1 is the primary window and W0 the ")
+           "rows were registered before the study extracted the July--September logs; W1 is the primary window and W0 the ")
         + f"secondary one. Paired contract bootstrap with {fint(max(STATE['nboot']) if STATE['nboot'] else None)} "
         f"resamples (seed {seed}). The stratified rows combine Kendall's $\\tau_b$ within strata of the number of "
         "label-window closes (3--4, 5--9, 10--24, 25 or more), weighted by the number of contract pairs. "
