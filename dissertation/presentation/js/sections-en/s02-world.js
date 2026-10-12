@@ -136,7 +136,7 @@
     notes: [
       'DeFi means decentralized finance. In place of a clerk at a bank counter, programs exchange money, hold it and put it to work, and lend it.',
       'The routers, vaults and lending pools in today\'s talk are all programs of this kind. A router swaps my tokens for other tokens, a vault puts the tokens I deposit to work, and in a lending pool people lend and borrow.',
-      'Such a program is called a smart contract. It runs by itself on the blockchain, following fixed rules. Before these contracts can move a user\'s tokens, they first need the user\'s permission, an allowance. That allowance is the main character of the next slide.'
+      'Such a program is called a smart contract. It runs by itself on the blockchain, following fixed rules. Before these contracts can move a user\'s tokens, they first need the user\'s permission, an allowance. That allowance is what the next slide is about.'
     ],
     html:
       '<h1 class="t-h1">DeFi = [[programs]] instead of a bank counter</h1>' +
@@ -218,7 +218,7 @@
     tags: function (step) { return step >= 2 ? ['example'] : []; },
     notes: [
       'Let me put two kinds of record side by side. On the left is a transfer, on the right an allowance.',
-      'A transfer is tokens actually moving. The coins flow from the sender to the recipient.',
+      'A transfer means tokens actually move. The coins flow from the sender to the recipient.',
       'An allowance is different. The token owner promises a contract: "you may take up to this much of my tokens." The owner grants it with the approve function of the ERC-20 standard, or with permit, the signature-based approval of its extension EIP-2612, and either way the same record, an Approval event, is left behind. So this arrow does not flow; it just stays in place. The 1,000 USDC is an example for the explanation.',
       'Later, the spender contract can call transferFrom to actually move the owner\'s tokens, up to the approved amount. The value this study uses is the amount written in the latest approval record.',
       'For the same owner, the same contract and the same token, the most recent approval overwrites the earlier one. So for each owner, spender and token, this study uses only the latest allowance as an edge.',
@@ -464,8 +464,8 @@
     notes: [
       'There is one thing I must point out here. The graph mixes two kinds of address. A circle is an externally owned account, an EOA, which a person controls with a private key, and a square is a smart contract.',
       'Every address this study scored and evaluated is a smart contract. EOAs appear in the graph only as owners, senders or recipients, and they receive no score.',
-      'Score badges go only on the squares, that is, on contracts. The circles keep only the mark "endpoint".',
-      'Whether an address is a contract was checked by whether program code sits at that address. With eth_getCode we looked for code at block ' + fmt(GETCODE_BLOCK) + ' for the cohort candidates, and at later blocks within three hours for the remaining holdout spenders and GMX accounts. An address whose code is only an EIP-7702 delegation designator was counted as an EOA.'
+      'Score badges go only on the squares, that is, on contracts. The circles get only the label "endpoint".',
+      'We decided whether an address is a contract by checking whether program code sits at that address. With eth_getCode we looked for code at block ' + fmt(GETCODE_BLOCK) + ' for the cohort candidates, and at later blocks within three hours for the remaining holdout spenders and GMX accounts. An address whose code is only an EIP-7702 delegation designator was counted as an EOA.'
     ],
     html:
       '<h1 class="t-h1">What gets scored: [[smart contracts]]</h1>' +
@@ -488,11 +488,12 @@
         showWeights: false, hidden: true
       });
       g.G.edges.forEach(function (A) { A.glow(false); });
-      /* tags of the EOAs: under the dot for the bottom row (their arrows go up) */
+      /* tags of the EOAs: under the dot for the bottom row (their arrows go up); also under E2,
+         whose wider English tag would otherwise cross its arrow up to C1 */
       Object.keys(g.G.nodes).forEach(function (id) {
         var N = g.G.nodes[id]; if (N.kind !== 'eoa') return;
         N.tag('endpoint'); gsap.set(N.tagT, { autoAlpha: 0 });
-        if (N.y > 500) N.tagT.setAttribute('y', N.r + 30);
+        if (N.y > 500 || id === 'E2') N.tagT.setAttribute('y', N.r + 30);
       });
       g.shiftEls = [svg, el.querySelector('#leg')];
       g.SHIFT = -420;
@@ -553,7 +554,7 @@
     id: 's02-05', title: 'The setting: Arbitrum One', time: 30, steps: 3,
     notes: [
       'The study takes place on Arbitrum One.',
-      'Arbitrum One is a rollup that runs on top of Ethereum. It bundles transactions and posts them to Ethereum together, so fees are low, and so people transact often. Its chain ID is 42161.',
+      'Arbitrum One is a rollup that runs on top of Ethereum. Because it bundles transactions and posts them to Ethereum together, its fees are low, and people transact often. Its chain ID is 42161.',
       'Every approval and transfer record here can be read by anyone in the public data of Google BigQuery. The amber dots are approval records and the sky-blue dots are transfer records.',
       'There is also a reason for looking at only one chain. If one person holds the same address on several chains, it shows up as separate nodes, so comparing within one chain is cleaner. Now I will lay this plate on its side and turn it into a time axis.'
     ],
@@ -626,7 +627,7 @@
         tl.to(g.batch, { autoAlpha: 0, duration: 0.4 }, 2.3);
         tl.call(function () {
           var marks = g.arb.querySelectorAll('.s02-mark');
-          place(el.querySelector('#lblArb'), marks[1], 34, -46);
+          place(el.querySelector('#lblArb'), marks[1], 24, -46);
           var lE = el.querySelector('#lblEth'), em = ctx.rect(g.eth.querySelector('.s02-mark'));
           lE.style.left = (em.x - 150) + 'px'; lE.style.top = (em.y + 26) + 'px';
         }, null, 1.3);

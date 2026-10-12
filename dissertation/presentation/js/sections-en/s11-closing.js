@@ -139,7 +139,7 @@
   var CX = [96, 446, 796, 1146, 1496];
   var CARDS = [
     { k: 'RQ1', q: 'Do the two scores order contracts differently?', a: 'Yes: τ = ' + fmt(TAU[0], 3), sb: 'They order the same contracts quite differently (neither 0 nor 1)', tags: [plainPill('Largely by construction')] },
-    { k: 'RQ2', q: 'What does each score agree with?', a: 'The proxies of its own edges', sb: '<span style="font-size:20px;letter-spacing:-.01em;white-space:nowrap">EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b></span>', tags: [Deck.tagHTML('construct')] },
+    { k: 'RQ2', q: 'What does each score agree with?', a: 'The proxies of its own edges', sb: '<span style="font-size:20px;letter-spacing:-.02em;white-space:nowrap">EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b></span>', tags: [Deck.tagHTML('construct')] },
     { k: 'RQ3', q: 'How long does each take?', a: 'Time follows the edge count', sb: 'Time <b>' + fmt(R_TIME, 2) + '×</b> ≈ edges <b>' + fmt(R_EDGE, 2) + '×</b><br>Same solver', tags: [] },
     { k: 'RQ4', q: 'Do they predict later events? Better than the count?', a: 'Every score predicts', sb: 'On transfers AWP beats the count; on allowances <span class="em" id="em4">the count beats EndorseRank</span>', tags: [Deck.tagHTML('posthoc')] },
     { k: 'RQ5', q: 'Does mixing both edge types help?', a: 'No', sb: 'Rules A and B both not met<br>Same in the registered analysis', tags: [Deck.tagHTML('reanalysis')] }

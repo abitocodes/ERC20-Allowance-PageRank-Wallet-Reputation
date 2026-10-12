@@ -140,7 +140,7 @@
       '.s3-gnums b{color:var(--ink);font-weight:700}',
       '.s3-rrow{position:relative;height:56px}',
       '.s3-rlab{position:absolute;left:0;top:10px;font-size:24px;line-height:34px;font-weight:700}',
-      '.s3-rbar{position:absolute;left:200px;top:12px;height:30px;border-radius:6px;transform-origin:0 50%}',
+      '.s3-rbar{position:absolute;left:220px;top:12px;height:30px;border-radius:6px;transform-origin:0 50%}',
       '.s3-rval{position:absolute;top:10px;font-size:24px;line-height:34px;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}',
       '.s3-rtick{position:absolute;top:4px;width:2px;height:46px;background:var(--ink)}',
       '.s3-rtickl{position:absolute;top:52px;font-size:17px;line-height:22px;color:var(--ink-2);font-family:var(--font-mono);letter-spacing:0;transform:translateX(-50%)}',
@@ -757,14 +757,14 @@
         '<div class="t-caption ink-2" style="font-weight:700">' + n0(N.leftOut) + ' left out</div>' +
         '<div class="s3-fl-small" style="font-family:var(--font-sans)">rule not met on the five tokens</div></div>' +
       '<div class="abs" style="left:1340px;top:200px;width:484px" data-step="1">' +
-        '<div class="s3-fl-cap">Spenders approved by 3 or more distinct owners</div>' +
+        '<div class="s3-fl-cap">Spenders approved by 3+ distinct owners</div>' +
         '<div class="s3-fl-num"><span id="f1"></span>' + Deck.tagHTML('registered-analysis') + '</div></div>' +
       '<div class="abs" style="left:1340px;top:404px;width:484px" data-step="2">' +
         '<div class="s3-fl-cap">Has contract code</div>' +
         '<div class="s3-fl-num"><span id="f2"></span><span class="eq">= the plan\'s cohort</span></div>' +
         '<div class="s3-fl-small" style="margin-top:2px">' + Deck.tagHTML('registered-analysis') + '</div></div>' +
       '<div class="abs" style="left:1340px;top:592px;width:484px" data-step="3">' +
-        '<div class="s3-fl-cap">3 or more owners on the five tokens alone</div>' +
+        '<div class="s3-fl-cap">3+ owners on the five tokens alone</div>' +
         '<div class="s3-fl-num"><span class="hl" id="f3"></span></div>' +
         '<div class="s3-fl-cap" style="color:var(--ink)">= matched cohort (revised analysis)</div></div>' +
       '<div class="abs" style="left:1340px;top:780px;width:484px" data-step="4">' +
@@ -999,7 +999,7 @@
     ],
     html:
       '<h1 class="t-h1">Size of the two graphs</h1>' +
-      '<p class="abs t-caption ink-3" style="left:96px;top:156px">Illustration · the shapes only explain · the ratio of node and edge counts is real (one ≈ ' + n0(GAL_DIV) + ')</p>' +
+      '<p class="abs t-caption ink-3" style="left:96px;top:156px">Illustration · the shapes are only for explanation · node and edge counts keep the real ratio (one ≈ ' + n0(GAL_DIV) + ')</p>' +
       '<div class="abs" id="galA" data-in="none" style="left:96px;top:194px;width:800px;height:400px"></div>' +
       '<div class="abs" id="galT" data-in="none" style="left:1024px;top:194px;width:800px;height:400px"></div>' +
       '<div class="abs" style="left:96px;top:606px;width:800px">' +
@@ -1014,7 +1014,7 @@
         '<div class="s3-ghostbar" id="gh1"></div><div class="s3-ghostbar" id="gh2"></div>' +
         '<div class="s3-rtick" id="tk1"></div><div class="s3-rtickl" id="tl1">1×</div>' +
         '<div class="s3-rtick" id="tk2"></div><div class="s3-rtickl" id="tl2">2×</div>' +
-        '<div class="s3-ratio" id="ratio">Transfer edges are [[' + N.edgeRatio.toFixed(2) + '×]]</div>' +
+        '<div class="s3-ratio" id="ratio">[[' + N.edgeRatio.toFixed(2) + '×]] as many transfer edges</div>' +
       '</div>' +
       '<p class="abs t-body-l" style="left:96px;top:924px" data-step="4" data-in="words">Allowance graph = a constellation of ' + n0(N.owners) + ' owners pointing to far fewer spenders</p>',
     build: function (el, ctx) {
@@ -1073,7 +1073,8 @@
       g.KT = Comp.canvas(ctx, el.querySelector('#galT'), { w: 800, h: 400, onResize: function () { g.draw(); } });
       g.draw();
       /* race geometry */
-      var W0 = 200, WMAX = 1180, fA = N.gAe / N.gTe;
+      /* English: W0 = 220 (Korean 200) leaves room for the longer row labels */
+      var W0 = 220, WMAX = 1180, fA = N.gAe / N.gTe;
       g.race = { W0: W0, WMAX: WMAX, fA: fA, wA: WMAX * fA };
       var q = function (s) { return el.querySelector(s); };
       q('#rbA').style.width = g.race.wA + 'px'; q('#rbT').style.width = WMAX + 'px';
@@ -1152,11 +1153,11 @@
       '<div class="abs s3-three-fade" id="three" data-in="none" style="left:0;top:204px;width:1920px;height:676px"></div>' +
       '<div class="abs s3-cap3d" style="left:96px;top:872px;width:1300px;height:52px">' +
         '<p class="t-body-l" data-step="2" data-step-out="3" data-in="words">EndorseRank rises almost in one line with the approving owners</p>' +
-        '<p class="t-body-l" data-step="3" data-in="words">Colored by AWP, the line breaks up: the two orders differ</p></div>' +
+        '<p class="t-body-l" data-step="3" data-in="words">Colored by AWP, the line breaks up: the two scores rank differently</p></div>' +
       '<div class="abs" style="left:96px;top:930px;display:flex;gap:16px;align-items:center" data-step="2" data-step-out="3">' +
-        '<span class="t-caption ink-2">The number that measures how close to one line (tau) comes in 07</span>' + Deck.tagHTML('construct') + '</div>' +
+        '<span class="t-caption ink-2">How close to one line is measured by tau, taught in 07</span>' + Deck.tagHTML('construct') + '</div>' +
       '<div class="abs t-caption ink-2" style="left:96px;top:930px" data-step="3">More in the results (08) · drag to rotate</div>' +
-      '<div class="abs s3-zero t-caption ink-3 tnum" style="left:1100px;top:898px;width:724px;height:64px">' +
+      '<div class="abs s3-zero t-caption ink-3 tnum" style="left:1100px;top:898px;width:724px;height:64px;font-size:21px">' +
         '<div data-step="1" data-step-out="3">EndorseRank: <b>' + n0(TIES.zeros) + ' zero scores</b> on the floor · ' + n0(TIES.distinct) + ' distinct scores<br>' +
           n0(TIES.zeros) + ' = ' + n0(N.outA) + ' outside the allowance graph + ' + n0(N.tinyA) + ' with amounts too small to weigh</div>' +
         '<div data-step="3">AWP: <b>' + n0(TIES_AWP.zeros) + ' zero scores</b> · ' + n0(TIES_AWP.distinct) + ' distinct scores<br>' +

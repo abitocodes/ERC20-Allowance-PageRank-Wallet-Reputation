@@ -164,8 +164,8 @@
     '.s6-eq5 .katex{font-size:34px}',
     '.s6-eq5 .nt{font-size:21px;line-height:30px;color:var(--ink-2);margin-top:4px}',
     '.s6-fhead{display:flex;align-items:center;gap:14px;font-size:22px;line-height:30px;color:var(--ink-2);margin-bottom:6px}',
-    '.s6-verd{display:flex;align-items:center;gap:18px;margin-top:12px;padding:12px 20px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line);font-size:28px;line-height:38px;font-weight:600}',
-    '.s6-verd b{font-weight:700;margin-right:14px}',
+    '.s6-verd{display:flex;align-items:center;gap:18px;margin-top:12px;padding:12px 20px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line);font-size:24px;line-height:38px;font-weight:600}',
+    '.s6-verd b{font-weight:700;margin-right:12px}',
     '.s6-verd .ic{flex:0 0 auto;width:44px;height:44px;border-radius:22px;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700}',
     '.s6-fnote{margin-top:10px;font-size:20px;line-height:28px;color:var(--ink-3)}',
     '.s6-concl{font-size:30px;line-height:44px;font-weight:600;padding:14px 22px;border-left:4px solid var(--c-cpr);background:var(--c-cpr-soft);border-radius:0 14px 14px 0}'
@@ -642,7 +642,7 @@
       /* dial (G13), λ symbol card, caption */
       g.dialbox = q(el, '#dialbox');
       g.dial = Comp.dial(ctx, g.dialbox, { value: 1, size: 240 });
-      g.lcard = Comp.symbolCard(ctx, q(el, '#lcard'), { tex: '\\lambda', desc: 'mixing weight (the dial)', hidden: true });
+      g.lcard = Comp.symbolCard(ctx, q(el, '#lcard'), { tex: '\\lambda', desc: 'mixing weight', hidden: true });
       g.lcap = q(el, '#lcap'); gsap.set(g.lcap, { autoAlpha: 0 });
       /* derivation */
       g.D = Comp.derive(ctx, q(el, '#d3'), { head: 'Derivation', lines: [
@@ -650,7 +650,7 @@
         { tex: '\\ct{0.1488}+\\ct{0.8512}=1', note: 'Transfer row: 300×0.5 = 150 · 1,000×0.858 = 858' },
         { tex: '\\begin{aligned}\\text{S1}&=0.5\\times\\ca{0.9756}=0.4878\\\\ \\text{S2}&=0.5\\times\\ca{0.0244}+0.5\\times\\ct{0.1488}=0.0866\\\\ \\text{R}&=0.5\\times\\ct{0.8512}=0.4256\\end{aligned}', note: 'Mixing at λ = 0.5: half of each row' },
         { tex: '\\part{s}{\\lambda\\times1+(1-\\lambda)\\times1}=1', note: 'so the mixed row always adds up to 1 as well', mark: 's' },
-        { tex: '\\frac{\\lambda\\times1+0}{\\part{dl}{\\lambda}}=1', note: 'No transfer edges: the sum is only λ → divide by λ. This divisor is $D_\\lambda(u)$', mark: 'dl' }
+        { tex: '\\frac{\\lambda\\times1+0}{\\part{dl}{\\lambda}}=1', note: 'No transfer edges: the sum is only λ → divide by λ, the divisor $D_\\lambda(u)$', mark: 'dl' }
       ] });
       Deck.renderMath(g.D.el);
       gsap.set(g.D.el, { autoAlpha: 0 });
@@ -779,8 +779,8 @@
     id: 's06-04', title: 'Turning λ: 15,107 contracts move', time: 70, steps: 6,
     tags: ['construct'],
     notes: [
-      'This scene is the key picture of this talk. All 15,107 real contracts are in it. Across is the in-approve degree, and depth is the transfer in-degree. Both are on log scales, so one step on the scale is ten times. Height is the percentile of the C-PR score, that is, the score rank turned into 0 to 100, with 100 at the top. With ranks we can compare on the same scale even though the size of the scores differs for each λ. On the two back walls we cast the shadow of the cloud. The right wall shows the in-approve degree against the score, and the left wall the transfer in-degree against the score. If a shadow is a thin band, the score follows that count closely; if it is a spread-out cloud, it does not. Right now the dial is at 1, the score that walks only the allowance layer, so the shadow on the allowance wall is close to a band. The bars at the top right show how far the score order matches each count. 0 means no relation and 1 means the same order. I will explain how this is measured in 07.',
-      'If we set λ to 0, the walk uses only the transfer layer. Now the shadow on the left, transfer wall gets close to a band, and the shadow on the allowance wall spreads out. The 2,670 contracts that are not in the transfer graph fall to the floor. On the bars, it is 0.689 with the transfer in-degree and 0.262 with the in-approve degree.',
+      'This scene is the key picture of this talk. All 15,107 real contracts are in it. Across is the in-approve degree, and depth is the transfer in-degree. Both are on log scales, so each step on the scale is ten times the one before. Height is the percentile of the C-PR score, that is, the score rank turned into 0 to 100, with 100 at the top. With ranks we can compare on the same scale even though the size of the scores differs for each λ. On the two back walls we cast the shadow of the cloud. The right wall shows the in-approve degree against the score, and the left wall the transfer in-degree against the score. If a shadow is a thin band, the score follows that count closely; if it is a spread-out cloud, it does not. Right now the dial is at 1, the score that walks only the allowance layer, so the shadow on the allowance wall is close to a band. The bars at the top right show how far the score order matches each count. 0 means no relation and 1 means the same order. I will explain how this is measured in 07.',
+      'If we set λ to 0, the walk uses only the transfer layer. Now the shadow on the left wall, the transfer wall, gets close to a band, and the shadow on the allowance wall spreads out. The 2,670 contracts that are not in the transfer graph fall to the floor. On the bars, it is 0.689 with the transfer in-degree and 0.262 with the in-approve degree.',
       'Raising λ to 0.25 changes a lot. Most of the contracts that were on the floor rise up, and only the 80 that are in neither graph stay there. The shadows on both walls are half spread out, and the two bars meet around the middle.',
       'At 0.5 almost nothing moves. It looks much like 0.25.',
       'At 0.75, too, it moves only a little.',
@@ -1010,15 +1010,15 @@
       '<svg class="abs" id="g5" data-in="none" width="' + G5.w + '" height="' + G5.h + '" style="left:' + G5.x + 'px;top:' + G5.y + 'px;overflow:visible"></svg>' +
       '<div class="abs s6-lines" style="left:1060px;top:196px;width:764px">' +
         '<p class="l">Walk the transfer layer, but let the allowance score decide where to restart</p>' +
-        '<p class="l" data-step="1">Same form as TrustRank<small>the seeds are the scores of the allowance layer walked alone, not picked by people</small></p></div>' +
+        '<p class="l" data-step="1">Same form as TrustRank<small>seeds from the allowance layer walked alone, not picked by people</small></p></div>' +
       '<div class="abs s6-eq5" data-step="2" style="left:1060px;top:400px;width:764px">' +
         '$$\\cc{\\pi_u}=\\frac{\\ca{r_{A,u}}}{\\sum_{v\\in V_T}\\ca{r_{A,v}}}\\qquad(u\\in V_T)$$' +
         '<div class="nt">On the nodes of the transfer graph, the allowance score $\\ca{\\mathbf r_A}$ divided again to sum to 1 · 0 for a node not in the allowance graph</div></div>' +
       '<div class="abs" id="fp5" data-in="none" style="left:1060px;top:640px;width:764px">' +
         '<div class="s6-fhead"><span>Preview · W0 · post hoc comparison</span>' + Deck.tagHTML('posthoc') + '</div>' +
-        '<div class="s6-verd" id="v5a"><span class="ic c-xfer">≈</span><span><b class="c-xfer">New transfer senders</b>about the same as the transfer layer alone</span></div>' +
+        '<div class="s6-verd" id="v5a"><span class="ic c-xfer">≈</span><span><b class="c-xfer">New transfer senders</b>close to the transfer layer alone</span></div>' +
         '<div class="s6-verd" id="v5b"><span class="ic c-hi">↓</span><span><b class="c-allow">New approval pairs</b>worse than the allowance layer alone</span></div>' +
-        '<div class="s6-fnote">How the difference is measured comes in 07</div></div>' +
+        '<div class="s6-fnote">How the difference is measured: see 07</div></div>' +
       '<p class="abs s6-concl" data-step="4" style="left:96px;top:922px;width:1220px">Allowance edges help as paths to walk, but little as starting points only</p>',
     build: function (el, ctx) {
       var g = ctx.g = { w: N5.map(function () { return 1 / N5.length; }) };

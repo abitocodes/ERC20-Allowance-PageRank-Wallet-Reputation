@@ -918,18 +918,18 @@
       'If we just apply the balance equation over and over, two problems appear. Let me start again with 0.25 in each of the four cups.',
       'First, water that goes into the dangling node D has nowhere to go, so it disappears. If we actually compute it, the total water shrinks from 1 to 0.75, then 0.25, then 0. After three pours no water is left at all.',
       'Second, if two nodes point only at each other, the water that goes in is trapped forever. To show this, I added one more node, E. D and E approve each other. With five nodes we start with 0.2 each. After two pours all the water is in D and E, and from then on it sloshes back and forth between 0.4 and 0.6. The values never stop changing. We say it does not converge.',
-      'E is a node I added for this explanation. This shape, addresses that approve each other, comes back in part 10, where we talk about the cost of attacks.'
+      'E is a node I added for this explanation. This shape, addresses that approve each other, comes back in section 10, where we talk about the cost of attacks.'
     ],
     html: '<h1 class="t-h1">Problem 1 · water [[leaks]] at the dangling node</h1>' + panelBg(5) +
       '<div class="s4-pn">' +
         '<div class="t-h2">Problem 2 · a trap</div>' +
-        '<div class="s4-l" data-step="2">Two nodes that point only at each other (D ⇄ E) trap all the water</div>' +
+        '<div class="s4-l" data-step="2">D ⇄ E point only at each other and trap all the water</div>' +
       '</div>' +
       '<div class="abs" data-step="2" data-in="fade" style="left:984px;top:790px;width:800px">' +
         '<div class="s4-chain"><span class="ink-2" style="font-size:24px">(D, E)</span><span class="v" id="tv">(0.2, 0.2)</span></div>' +
         '<div class="s4-q" style="margin-top:6px">The values never settle (no convergence)</div>' +
       '</div>' +
-      '<div class="abs s4-note" data-step="3" style="left:984px;top:920px;width:800px">E is added for illustration · addresses that approve each other return in <b class="ink">10 · Attack cost and speed</b></div>' +
+      '<div class="abs s4-note" data-step="3" style="left:984px;top:920px;width:800px">E is only for illustration · mutual approvals return in <b class="ink">10 · Attack cost and speed</b></div>' +
       '<div class="abs" style="left:96px;top:846px;width:800px">' +
         '<div class="s4-tx" style="font-size:26px">$\\mathbf r^{(t+1)}=P^{\\top}\\mathbf r^{(t)},\\quad \\mathbf r^{(0)}=(0.25,\\,0.25,\\,0.25,\\,0.25)$</div>' +
         '<div class="s4-chain" id="tot" style="margin-top:6px"><span class="ink-2" style="font-size:24px">Total water $\\textstyle\\sum_v r^{(t)}_v$</span>' +
@@ -1022,7 +1022,7 @@
     html: '<h1 class="t-h1">85 times in 100 along an arrow, 15 times [[anywhere]]</h1>' + panelBg(6) +
       '<div class="s4-pn">' +
         '<div class="s4-rules" id="rules" data-in="none">' +
-          '<div class="s4-rule"><span class="n" id="n85">85</span><span class="t">damping factor <b>d = 0.85</b> · probability of following an arrow</span></div>' +
+          '<div class="s4-rule"><span class="n" id="n85">85</span><span class="t">damping factor <b>d = 0.85</b> · follow an arrow</span></div>' +
           '<div class="s4-rule"><span class="n c-hi" id="n15">15</span><span class="t"><b>1 − d = 0.15</b> · teleport to any node (restart)</span></div>' +
           '<div class="s4-l" style="padding-left:114px">At a dangling node: always teleport</div>' +
         '</div>' +
@@ -1037,7 +1037,7 @@
             '<div class="s4-note">shares of the dangling nodes, pooled and spread evenly · here only $r_D$</div>' +
             '<div class="s4-note" style="margin-top:10px">$\\mathbf r^{(t)\\top}\\mathbf 1_{\\mathrm{dang}}$ = <b class="ink">multiply cell by cell, then add</b> (only dangling shares remain)</div>' +
             '<div class="s4-tx" id="dotp" style="font-size:24px;line-height:36px;margin-top:4px"></div>' +
-            '<div class="s4-tx" style="font-size:26px">$0.85\\times0.25\\times\\tfrac14=0.0531$ · new shares = $(0.0906,\\,0.2323,\\,0.1615,\\,0.5156)$</div></div>' +
+            '<div class="s4-tx" style="font-size:24px">$0.85\\times0.25\\times\\tfrac14=0.0531$ · new shares = $(0.0906,\\,0.2323,\\,0.1615,\\,0.5156)$</div></div>' +
           '<div data-step="5" data-step-out="6"><div class="s4-note">Node by node · Thesis Eq. (2.3)</div>' +
             '<div class="s4-tx" style="font-size:28px">$$r_v=d\\!\\!\\sum_{u:\\,u\\to v}\\! r_u\\,\\frac{w(u,v)}{o(u)}+\\frac{d}{|V|}\\sum_{u:\\,o(u)=0}\\! r_u+\\frac{1-d}{|V|}$$</div>' +
             '<div class="s4-note">The thesis writes it with $i\\to j$, $w_{ij}$, $o_i$ ($i, j$ = $u, v$ · $E$ = all edges)</div>' +
@@ -1197,7 +1197,7 @@
       'In practice we do not solve this equation in one go. We repeat the same calculation. This is called power iteration. At the start every node gets a quarter.',
       'Applying the equation once tilts the shares toward D. A becomes 0.0375 plus 0.2125 times 0.25, which is 0.0906. To measure how much changed, we add up the size of the difference in every cell. We drop the minus signs and add only the sizes. We write this with a double-bar symbol. The first time it is 0.531. The dots in the chart on the right are these changes. On the vertical scale, each grid line down is a hundred times smaller: 1, 0.01, 0.0001, one millionth, one hundred-millionth.',
       'With every repetition the change gets smaller, and at the 23rd iteration it falls below one hundred-millionth, so we stop. This threshold is written as epsilon. We also fixed a cap: however long it takes, we stop at 300 iterations. The final order is D, B, C, A. That is because D is endorsed by two vaults, and those vaults are in turn endorsed by A. A\'s share of 0.1375 is the restart share 0.0375 plus the 0.1000 collected from D.',
-      'On the real allowance graph it stopped after 69 iterations, and on the transfer graph after 92. Each iteration does one multiplication per edge, so the time it takes follows the number of edges. This comes back in part 10.',
+      'On the real allowance graph it stopped after 69 iterations, and on the transfer graph after 92. Each iteration does one multiplication per edge, so the time it takes follows the number of edges. This comes back in section 10.',
       'Let me change d directly. When d is 0, the walker never follows an arrow, so every node gets a quarter. As d grows, the arrows matter more: D grows, A shrinks, and it takes more iterations to settle. The browser computes these values on the spot.'
     ],
     html: '<h1 class="t-h1">[[Repeat]] the same calculation and the values settle</h1>' + panelBg(7) +
@@ -1208,15 +1208,15 @@
         '<div class="s4-slot" id="slot" style="min-height:220px;margin-top:6px">' +
           '<div data-step="1" data-step-out="2"><div class="s4-tx" style="font-size:26px">$r^{(1)}_A=0.0375+0.2125\\times0.25=0.0906$</div>' +
             '<div class="s4-tx" style="font-size:26px">$\\lVert\\mathbf r^{(1)}-\\mathbf r^{(0)}\\rVert_1=0.1594+0.0177+0.0885+0.2656=0.531$</div>' +
-            '<div class="s4-note">change = the sizes of all the cell differences (signs dropped), added up · symbol $\\lVert\\;\\rVert_1$</div></div>' +
+            '<div class="s4-note">change = sum of the cell differences, signs dropped · symbol $\\lVert\\;\\rVert_1$</div></div>' +
           '<div data-step="2" data-step-out="3"><div class="s4-l"><b>After 23</b>: (0.1375, 0.2154, 0.1765, 0.4706) · order <b>D, B, C, A</b></div>' +
             '<div class="s4-l">Stop when $\\lVert\\mathbf r^{(t+1)}-\\mathbf r^{(t)}\\rVert_1<\\varepsilon$ · at most $I_{\\max}=300$ iterations</div>' +
-            '<div class="s4-note">$\\varepsilon$ = one hundred-millionth ($10^{-8}$) · a smaller change means almost nothing changed</div>' +
+            '<div class="s4-note">$\\varepsilon$ = one hundred-millionth ($10^{-8}$) · below that, almost nothing changes</div>' +
             '<div class="s4-note">A\'s share = restart 0.0375 + $d\\,r_D/4=0.1000$ collected from D</div></div>' +
           '<div data-step="3" data-step-out="4"><div class="s4-note">On the real graphs (revised analysis, T<sub>obs</sub>)</div><div class="s4-real">' +
             '<div class="it"><span class="n c-allow" id="r1">' + IT_ER + '</span><span class="k">EndorseRank · allowance graph</span></div>' +
             '<div class="it"><span class="n c-xfer" id="r2">' + IT_AWP + '</span><span class="k">AWP · transfer graph</span></div></div>' +
-            '<div class="s4-note">One iteration = one multiplication per edge → the time follows the <b class="ink">number of edges</b></div></div>' +
+            '<div class="s4-note">One iteration = one multiplication per edge → time follows the <b class="ink">number of edges</b></div></div>' +
           '<div data-step="4"><div class="s4-l">Try changing d (bottom left)</div><div class="s4-note" id="dnote">The browser computes the values on the spot · d = 0 gives 0.25 for all</div></div>' +
         '</div>' +
       '</div>' +
@@ -1252,9 +1252,9 @@
         tt.textContent = TICK[String(L)];
       });
       [1, 10, 20, 30].forEach(function (t) {
-        var tx = S('text', { x: g.cx(t), y: Y1 + 26, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'svg-mono' }, csvg); tx.textContent = t === 30 ? '30 iter.' : t;
+        var tx = S('text', { x: g.cx(t), y: Y1 + 26, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'svg-mono' }, csvg); tx.textContent = t;
       });
-      var yl = S('text', { x: X1, y: Y0 + 6, 'text-anchor': 'end', fill: C.ink3, 'font-size': 18 }, csvg); yl.textContent = 'change · one grid step = ×100';
+      var yl = S('text', { x: X1, y: Y0 + 6, 'text-anchor': 'end', fill: C.ink3, 'font-size': 18 }, csvg); yl.textContent = 'change per iteration · one grid step = ×100';
       g.thr = S('line', { x1: X0, x2: X1, y1: g.cy(TOL), y2: g.cy(TOL), stroke: C.ink2, 'stroke-width': 2, 'stroke-dasharray': '7 6' }, csvg);
       var thl = S('text', { x: X0 + 10, y: g.cy(TOL) + 24, fill: C.ink2, 'font-size': 18 }, csvg); thl.textContent = 'ε = one hundred-millionth (10⁻⁸) · below this line we stop';
       g.thrL = thl;

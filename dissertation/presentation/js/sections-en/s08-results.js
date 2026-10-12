@@ -117,7 +117,7 @@
     '.s8-diff svg{position:absolute;left:0;top:0;overflow:visible}',
     '.s8-diff .lab{position:absolute;left:150px;top:62px;transform:translateX(-50%);white-space:nowrap;padding:6px 14px;border-radius:14px;background:var(--bg-3);border:1px solid #39435A;font-size:24px;line-height:30px;font-weight:700;color:var(--ink)}',
     '.s8-diff .lab small{font-size:18px;font-weight:500;color:var(--ink-3);margin-left:6px}',
-    '.s8-cap{font-size:30px;line-height:42px;font-weight:600;color:var(--ink)}',
+    '.s8-cap{font-size:28px;line-height:42px;font-weight:600;color:var(--ink)}',
     '.s8-cap .pill{vertical-align:4px;margin-left:12px}',
     '.s8-small{font-size:21px;line-height:30px;color:var(--ink-2)}',
     '.s8-small .katex{font-size:24px}',
@@ -184,7 +184,7 @@
     '.s8-symrow{position:absolute;display:flex;gap:18px}',
     '.s8-symrow .sym-card{min-width:0;padding:12px 18px}',
     '.s8-symrow .sym-card .sym{font-size:36px}',
-    '.s8-symrow .sym-card .sym-desc{font-size:19px;line-height:27px;max-width:330px}',
+    '.s8-symrow .sym-card .sym-desc{font-size:19px;line-height:27px;max-width:400px}',
     '.s8-pie text{font-family:var(--font-sans)}',
     '.s8-hero{font-size:28px;line-height:40px;color:var(--ink)}',
     '.s8-hero .katex{font-size:34px}',
@@ -1219,26 +1219,26 @@
   var SWX = 96, SWY = 236;
   var SWV = (PRM.worked_example || {}).stationary || [0.1375, 0.2154, 0.1765, 0.4706];
   var slide7 = {
-    id: 's08-07', title: '닫힌 식: 엔도스랭크는 사실 무엇을 계산할까', time: 60, steps: 6,
+    id: 's08-07', title: 'Closed form: what EndorseRank really computes', time: 60, steps: 6,
     tags: function (s) { return s === 5 ? ['example'] : s >= 6 ? ['thesis-example', 'example'] : ['thesis-example']; },
     notes: [
-      '왜 엔도스랭크가 그냥 센 수를 못 이겼는지, 식으로 들여다볼게요. 다시 작은 세계예요. 컵의 물은 오래 걸었을 때 각 점에 머무는 몫이에요.',
-      '먼저 c부터 정할게요. c는 모든 점이 매번 똑같이 받는 몫이에요. 다시 출발 몫과 매달린 점 몫을 더한 거예요. A처럼 들어오는 화살표가 없는 점은 이것만 받으니까 점수가 바로 c예요. 작은 세계에서 c는 0.15 더하기 0.85 곱하기 0.4706을 4로 나눈 0.1375이고, A의 컵과 같아요.',
-      '모든 점의 균형식은 c에서 시작하고, 화살표로 들어온 몫을 더해요. 대부분의 스펜더는 허락을 받지 않는 주인들에게서만 허락을 받아요. 그런 주인의 점수는 c니까, 스펜더의 균형식에서 주인 u의 몫 r_u 자리에 c를 넣어요.',
-      'c는 모든 주인에게 같으니까 합 밖으로 꺼낼 수 있어요. 그러면 c 더하기 c 곱하기 d 곱하기 델타가 되고, c로 묶으면 c 곱하기 괄호 1 더하기 d 곱하기 델타라는 짧은 식이 돼요. 델타는 주인마다 자기 허락 무게 가운데 이 스펜더에게 간 조각을 더한 것이에요. B로 확인해 볼게요. A는 무게 3 가운데 2를 B에 줬으니 3분의 2, 그래서 0.2154가 나와요.',
-      'C도 0.1765로 맞아요. 그런데 D는 이 식이 안 맞아요. D의 주인 B와 C가 허락을 받으니까, 한 단계 더 퍼진 몫이 들어와요. 그래서 D는 균형식 그대로 계산해서 0.4706이에요.',
-      '델타를 예로 볼게요. 주인 셋이 각각 스펜더 1곳, 2곳, 4곳을 허락했다면, 그냥 센 수는 3이지만 델타는 1 더하기 2분의 1 더하기 4분의 1, 1.75예요.',
-      'c와 d는 모든 한 단계 스펜더에 같으니까, 점수의 순서는 델타의 순서와 같아요. d가 얼마든 상관없어요. 그러니까 엔도스랭크는 사실상 주인 수를, 주인이 허락한 곳의 무게로 나눠 센 값이에요. 그런 스펜더에게는 나이와 금액 무게, 그리고 이 나눗셈 말고는 센 수와 다를 것이 거의 없어요. 퍼뜨려서 더할 정보가 없는 셈이에요. 실제 같은 기간 그래프에서 c는 7.64 곱하기 10의 마이너스 8제곱이에요.'
+      'Let us look with a formula at why EndorseRank did not beat the plain count. Back to the small world. The water in each cup is the share of a long walk that stays at each node.',
+      'First, c. c is the share that every node receives equally at every step: the restart share plus the dangling-node share. A node with no incoming edge, like A, receives only this, so its score is exactly c. In the small world, c is 0.15 plus 0.85 times 0.4706, divided by 4, which gives 0.1375, the same as A’s cup.',
+      'The balance equation of every node starts at c and adds the shares that come in along edges. Most spenders receive approvals only from owners that receive no approvals themselves. Such an owner’s score is c, so in the spender’s balance equation we put c in place of the owner’s share r_u.',
+      'Because c is the same for every owner, it comes out of the sum. That gives c plus c times d times delta, and factoring out c gives a short formula: c times, in brackets, 1 plus d times delta. Delta adds up, over the owners, the piece of each owner’s allowance weight that went to this spender. Let us check with B. A gave 2 of its weight 3 to B, so two thirds, and that gives 0.2154.',
+      'C also matches, at 0.1765. But for D this formula does not hold. D’s owners, B and C, receive approvals themselves, so shares that spread one more step come in. So D is computed from the full balance equation: 0.4706.',
+      'Here is delta in an example. If three owners approved 1, 2 and 4 spenders respectively, the plain count is 3, but delta is 1 plus one half plus one quarter, 1.75.',
+      'c and d are the same for every depth-one spender, so the order of the scores is the order of delta, whatever d is. So EndorseRank in effect counts the owners, each divided by the weight of everything that owner approved. For such spenders, apart from the age and value weights and this division, little differs from the count. There is no information for the walk to add by spreading. In the real same-window graph, c is 7.64 times 10 to the minus 8.'
     ],
     html:
-      '<h1 class="t-h1">엔도스랭크 ≈ [[나눠 센]] 허락 수</h1>' +
-      '<p class="abs s8-sub" style="left:96px;top:156px">주인들이 허락을 받지 않는 스펜더(한 단계 스펜더)라면</p>' +
+      '<h1 class="t-h1">EndorseRank ≈ a [[divided]] count of approvals</h1>' +
+      '<p class="abs s8-sub" style="left:96px;top:156px">For a spender whose owners receive no approvals (a depth-one spender)</p>' +
       '<div class="abs" id="swhost" data-in="none" style="left:0;top:0;width:1px;height:1px"></div>' +
       '<svg class="abs" id="swov" data-in="none" width="900" height="760" viewBox="0 0 900 760" style="left:0;top:200px;overflow:visible"></svg>' +
       '<div class="abs s8-d" id="eq" data-in="none" style="left:980px;top:204px;width:844px"></div>' +
       '<div class="s8-symrow" id="syms" data-in="none" style="left:96px;top:832px"></div>' +
       '<svg class="abs s8-pie" id="pie" data-in="none" width="880" height="620" viewBox="0 0 880 620" style="left:96px;top:226px;overflow:visible"></svg>' +
-      '<div class="abs s8-hero" id="concl" data-in="none" style="left:96px;top:856px;width:860px">주인이 여러 곳을 허락할수록 한 곳에 가는 몫이 작아져요<br><span style="font-size:22px;color:var(--ink-3)">→ 센 수와 순서가 달라져요 · 실제 같은 기간 그래프: c = 7.64 × 10<sup>−8</sup></span></div>',
+      '<div class="abs s8-hero" id="concl" data-in="none" style="left:96px;top:856px;width:860px">The more spenders an owner approves, the smaller each share<br><span style="font-size:22px;color:var(--ink-3)">→ the order differs from the count · real same-window graph: c = 7.64 × 10<sup>−8</sup></span></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       g.W = Comp.smallWorld(ctx, q(el, '#swhost'), { x: SWX, y: SWY, cups: { dy: 92, w: 50, h: 60, max: 0.8, decimals: 4, color: C.ink }, shared: 's8-sw' });
@@ -1250,37 +1250,37 @@
       g.nodeXY = nodeXY;
       var A = nodeXY('A');
       g.ringA = svgEl('circle', { cx: A.x, cy: A.y, r: 34, fill: 'none', stroke: C.ink, 'stroke-width': 2.5, 'stroke-dasharray': '6 6' }, ov);
-      g.ringTx = txt(ov, A.x, A.y - 48, '들어오는 화살표 없음', { 'text-anchor': 'middle', fill: C.ink, 'font-size': 19, 'font-weight': 700 });
+      g.ringTx = txt(ov, A.x, A.y - 48, 'No incoming edges', { 'text-anchor': 'middle', fill: C.ink, 'font-size': 19, 'font-weight': 700 });
       gsap.set([g.ringA, g.ringTx], { autoAlpha: 0 });
       function chip(id, label, dy, col) {
         var p = nodeXY(id), gw = svgEl('g', { transform: 'translate(' + p.x + ',' + (p.y + dy) + ')' }, ov), gg = svgEl('g', {}, gw);
-        var w = label.length * 19 + 26;
+        var w = label.length * 11 + 28;
         svgEl('rect', { x: -w / 2, y: -15, width: w, height: 30, rx: 15, fill: C.bg3, stroke: col || '#39435A', 'stroke-width': 1.5 }, gg);
         txt(gg, 0, 7, label, { 'text-anchor': 'middle', fill: col || C.ink, 'font-size': 19, 'font-weight': 700 });
         gsap.set(gg, { autoAlpha: 0 });
         return gg;
       }
-      g.chipB = chip('B', '한 단계', -62, C.allow); g.chipC = chip('C', '한 단계', -62, C.allow); g.chipD = chip('D', '더 깊음', -62, C.ink2);
+      g.chipB = chip('B', 'depth one', -62, C.allow); g.chipC = chip('C', 'depth one', -62, C.allow); g.chipD = chip('D', 'deeper', -62, C.ink2);
       g.chipA = chip('A', 'c', 0, C.ink); g.chipA.parentNode.setAttribute('transform', 'translate(' + (A.x - 66) + ',' + A.y + ')');
       /* derivation panel */
-      g.D = Comp.derive(ctx, q(el, '#eq'), { head: '닫힌 식 만들기 · 논문 5장', lines: [
-        { tex: 'c=\\dfrac{1-d+d\\,r_D}{|V|}', note: 'c = 모든 점이 매번 똑같이 받는 몫(다시 출발 몫 + 매달린 점 몫)<br>들어오는 화살표가 없는 점은 이것만 받아요 → 점수 = c<br>작은 세계: $c=\\tfrac{0.15+0.85\\times0.4706}{4}=0.1375=r_A$ ✓' },
-        { tex: 'r_v=c+d\\sum_{u}\\part{rc}{c}\\,\\dfrac{w(u,v)}{o(u)}', note: '모든 점: c + 화살표로 들어온 몫 · 주인 u가 모두 그런 점이면 $r_u$ 자리에 c를 넣어요', mark: 'rc' },
-        { tex: 'r_v=c+c\\,d\\,\\part{dl}{\\delta(v)}=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)', note: 'c는 모든 u에 같아서 합 밖으로 → 남은 합 $\\delta(v)=\\sum_u w(u,v)/o(u)$ → c로 묶어요', mark: 'dl' },
-        { tex: 'r_B=0.1375\\times\\bigl(1+0.85\\times\\part{f}{\\tfrac23}\\bigr)=0.2154\\ \\checkmark', note: 'B의 주인은 A 하나: A의 무게 3 가운데 2가 B로', mark: 'f' },
-        { tex: '\\begin{aligned}r_C&=0.1375\\times\\bigl(1+0.85\\times\\tfrac13\\bigr)=0.1765\\ \\checkmark\\\\ r_D&=c+d\\,(r_B+r_C)=0.4706\\end{aligned}', note: 'D는 식이 안 맞아요: 주인 B, C가 허락을 받으니까 → 한 단계 더 퍼진 몫' },
-        { tex: '\\text{점수 순서}=\\delta(v)\\ \\text{순서}', note: 'c와 d는 모든 한 단계 스펜더에 같아요 → d가 얼마든 순서는 δ가 정해요', mark: null }
+      g.D = Comp.derive(ctx, q(el, '#eq'), { head: 'Building the closed form · thesis Ch. 5', lines: [
+        { tex: 'c=\\dfrac{1-d+d\\,r_D}{|V|}', note: 'c = the equal share every node gets each step (restart share + dangling share)<br>A node with no incoming edge gets only this → score = c<br>Small world: $c=\\tfrac{0.15+0.85\\times0.4706}{4}=0.1375=r_A$ ✓' },
+        { tex: 'r_v=c+d\\sum_{u}\\part{rc}{c}\\,\\dfrac{w(u,v)}{o(u)}', note: 'Every node: c + shares along in-edges · if each owner u is such a node, put c for $r_u$', mark: 'rc' },
+        { tex: 'r_v=c+c\\,d\\,\\part{dl}{\\delta(v)}=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)', note: 'c is the same for all u → it leaves the sum → rest: $\\delta(v)=\\sum_u w(u,v)/o(u)$ → factor out c', mark: 'dl' },
+        { tex: 'r_B=0.1375\\times\\bigl(1+0.85\\times\\part{f}{\\tfrac23}\\bigr)=0.2154\\ \\checkmark', note: 'B’s only owner is A: 2 of A’s weight 3 goes to B', mark: 'f' },
+        { tex: '\\begin{aligned}r_C&=0.1375\\times\\bigl(1+0.85\\times\\tfrac13\\bigr)=0.1765\\ \\checkmark\\\\ r_D&=c+d\\,(r_B+r_C)=0.4706\\end{aligned}', note: 'Not for D: its owners B and C receive approvals → shares spread one more step' },
+        { tex: '\\text{score order}=\\delta(v)\\ \\text{order}', note: 'c and d are equal for all depth-one spenders → for any d, δ sets the order', mark: null }
       ] });
       ctx.katex(q(el, '#eq'));
       /* symbol cards */
       var syms = q(el, '#syms');
-      g.symC = Comp.symbolCard(ctx, syms, { tex: 'c', desc: '모든 점이 매번 똑같이 받는 몫 · 화살표가 안 들어오는 점의 점수' });
-      g.symD = Comp.symbolCard(ctx, syms, { tex: '\\delta(v)', desc: '주인마다 나눠 준 조각의 합' });
+      g.symC = Comp.symbolCard(ctx, syms, { tex: 'c', desc: 'Equal share for every node at each step · score of a node with no incoming edge' });
+      g.symD = Comp.symbolCard(ctx, syms, { tex: '\\delta(v)', desc: 'Sum of the pieces each owner gives' });
       g.syms = syms;
       /* pie example (step 5) */
       var pie = q(el, '#pie');
       g.pie = pie; gsap.set(pie, { autoAlpha: 0 });
-      txt(pie, 0, 18, '예시 · 주인 셋, 스펜더 v', { fill: C.ink3, 'font-size': 18, 'class': 'svg-mono' });
+      txt(pie, 0, 18, 'Example · three owners, spender v', { fill: C.ink3, 'font-size': 18, 'class': 'svg-mono' });
       var V = { x: 560, y: 300 };
       g.vBox = Comp.contract(ctx, pie, { x: V.x, y: V.y, size: 64, label: 'v' });
       var OWN = [{ y: 120, k: 1 }, { y: 300, k: 2 }, { y: 480, k: 4 }];
@@ -1295,7 +1295,7 @@
             'M' + cx + ',' + cy + ' L' + (cx + Math.cos(a0) * R) + ',' + (cy + Math.sin(a0) * R) + ' A' + R + ',' + R + ' 0 ' + (a1 - a0 > Math.PI ? 1 : 0) + ',1 ' + (cx + Math.cos(a1) * R) + ',' + (cy + Math.sin(a1) * R) + ' Z';
           svgEl('path', { d: d, fill: s === 0 ? C.allow : '#2A3242', stroke: C.bg, 'stroke-width': 2, opacity: s === 0 ? 0.95 : 1 }, gg);
         }
-        txt(gg, cx, cy + R + 28, o.k === 1 ? '스펜더 1곳 허락' : '스펜더 ' + o.k + '곳 허락', { 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 });
+        txt(gg, cx, cy + R + 28, o.k === 1 ? 'approves 1 spender' : 'approves ' + o.k + ' spenders', { 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 });
         var frac = o.k === 1 ? '1' : '1/' + o.k;
         var A = Comp.arrow(ctx, gg, { from: [cx + R + 12, cy], to: [V.x - 40, V.y + (cy - V.y) * 0.18], kind: 'allow', width: 3, head: 12, label: frac, labelOffset: 18, labelSize: 22, hidden: true });
         var fly = svgEl('rect', { x: cx - 18, y: cy - 10, width: 36, height: 20, rx: 4, fill: C.allow, opacity: 0 }, pie);
@@ -1316,10 +1316,10 @@
         return r;
       });
       g.gT = txt(pie, GX, G0 + 36, 'δ = 0', { 'text-anchor': 'middle', fill: C.allow, 'font-size': 24, 'font-weight': 800, 'class': 'tnum' });
-      g.gT2 = txt(pie, GX, G0 + 64, '나눠 센 수', { 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 });
+      g.gT2 = txt(pie, GX, G0 + 64, 'divided count', { 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 });
       g.tal = Comp.tally(ctx, pie, { x: 800, y: G0 - 46, size: 40 });
-      g.talT = txt(pie, 820, G0 + 36, '센 수 3', { 'text-anchor': 'middle', fill: C.deg, 'font-size': 24, 'font-weight': 800 });
-      g.talT2 = txt(pie, 820, G0 + 64, '그냥 센 수', { 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 });
+      g.talT = txt(pie, 820, G0 + 36, 'count 3', { 'text-anchor': 'middle', fill: C.deg, 'font-size': 24, 'font-weight': 800 });
+      g.talT2 = txt(pie, 820, G0 + 64, 'plain count', { 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 });
       gsap.set([g.gT, g.gT2, g.tal.g, g.talT, g.talT2], { autoAlpha: 0 });
       g.GX = GX; g.G0 = G0; g.U = U;
       g.concl = q(el, '#concl'); gsap.set(g.concl, { autoAlpha: 0 });
@@ -1402,33 +1402,33 @@
   /* ================================================================ s08-08 how well the closed form fits + one-page summary */
   var CF = { spenders: 14406, d1: 12039, deeper: 2367 };
   var slide8 = {
-    id: 's08-08', title: '닫힌 식은 얼마나 맞을까, 그리고 결과 한 장', time: 45, steps: 4,
+    id: 's08-08', title: 'How well the closed form fits · results on one page', time: 45, steps: 4,
     tags: function (s) { return s >= 4 ? ['posthoc', 'registered-analysis'] : []; },
     notes: [
-      '이 식이 실제 그래프에서 얼마나 맞는지 확인했어요. 점 하나가 같은 기간 스펜더 10개예요.',
-      '같은 기간의 스펜더 14,406개 가운데 12,039개가 한 단계 스펜더였어요. 진한 호박색이 한 단계, 옅은 색과 장미색 테두리가 더 깊은 스펜더예요.',
-      '한 단계 스펜더는 하나도 빠짐없이 식과 1% 안으로 맞았어요. 나머지 더 깊은 스펜더 2,367개는 26.4%만 맞았는데, 이것은 여러 단계로 퍼지는 몫이 실제로 있다는 뜻이에요. 모두 합치면 87.9%, W0에서는 73.7%예요.',
-      '그런데 그 퍼짐이 있는데도 엔도스랭크는 그냥 센 수를 넘지 못했어요.',
-      '아래는 원시 차수와의 비교 네 개를 한 장에 모은 거예요. 송금 쪽은 걷기가 이기고 허락 쪽은 센 수가 이겨요. 처음 등록한 분석의 회색 표식도 네 방향이 모두 같아요. 네 비교 모두 라벨을 본 뒤에 계산했어요.'
+      'We checked how well this formula fits on the real graph. One dot is 10 same-window spenders.',
+      'Of the 14,406 same-window spenders, 12,039 were depth-one spenders. Dark amber is depth one; the pale dots and the dots with a rose outline are deeper spenders.',
+      'Every single depth-one spender matched the formula to within 1%. Of the remaining 2,367 deeper spenders, only 26.4% matched, which means that shares spreading over several steps really exist. Over all spenders it is 87.9%, and in W0 73.7%.',
+      'Yet even with that spreading, EndorseRank did not beat the plain count.',
+      'Below, the four comparisons with the raw degree are gathered on one page. On the transfer side the walk wins; on the allowance side the count wins. The gray markers of the registered analysis point the same way in all four. All four comparisons were computed after the labels were known.'
     ],
     html:
-      '<h1 class="t-h1">한 단계 스펜더는 [[모두]] 식대로예요</h1>' +
+      '<h1 class="t-h1">[[Every]] depth-one spender follows the formula</h1>' +
       '<div class="abs" id="top" data-in="none" style="left:0;top:0;width:1920px;height:820px">' +
-        '<div class="abs s8-leg" id="leg" style="left:96px;top:186px"><span><i style="background:#F5B43C"></i>한 단계 · 1% 안</span><span><i style="background:rgba(245,180,60,.42)"></i>더 깊음 · 1% 안</span><span><i style="background:transparent;border:2px solid #FF6B8A;width:12px;height:12px"></i>더 깊음 · 1% 밖</span><span class="ink-3">점 하나 = 스펜더 10개 · 같은 기간</span></div>' +
+        '<div class="abs s8-leg" id="leg" style="left:96px;top:186px"><span><i style="background:#F5B43C"></i>Depth one · within 1%</span><span><i style="background:rgba(245,180,60,.42)"></i>Deeper · within 1%</span><span><i style="background:transparent;border:2px solid #FF6B8A;width:12px;height:12px"></i>Deeper · outside 1%</span><span class="ink-3">One dot = 10 spenders · same window</span></div>' +
         '<div id="wf8" style="position:absolute;left:96px;top:232px"></div>' +
         '<div class="abs s8-cnt" id="cnt" style="left:1330px;top:226px;width:494px">' +
-          '<div class="row"><span>같은 기간 스펜더</span><b>14,406</b></div>' +
-          '<div class="row"><span>한 단계 <b>12,039</b>개 → 1% 안</span><span class="pc" id="c1">0%</span></div>' +
-          '<div class="row"><span>더 깊은 <b>2,367</b>개 → 1% 안</span><span class="pc" id="c2" style="color:rgba(245,180,60,.75)">0%</span></div>' +
-          '<div class="row" style="border-bottom:0"><span>모두</span><span class="pc" id="c3" style="color:var(--ink)">0%</span></div>' +
-          '<div id="w0l" style="font-size:21px;color:var(--ink-3);margin-top:6px">W0: 스펜더 <b>17,032</b>개 · 모두 <b>73.7%</b></div>' +
+          '<div class="row"><span>Same-window spenders</span><b>14,406</b></div>' +
+          '<div class="row"><span>Depth one <b>12,039</b> → within 1%</span><span class="pc" id="c1">0%</span></div>' +
+          '<div class="row"><span>Deeper <b>2,367</b> → within 1%</span><span class="pc" id="c2" style="color:rgba(245,180,60,.75)">0%</span></div>' +
+          '<div class="row" style="border-bottom:0"><span>All</span><span class="pc" id="c3" style="color:var(--ink)">0%</span></div>' +
+          '<div id="w0l" style="font-size:21px;color:var(--ink-3);margin-top:6px">W0: <b>17,032</b> spenders · all <b>73.7%</b></div>' +
         '</div>' +
-        '<p class="abs s8-concl" id="concl" style="left:96px;top:700px;width:1700px">퍼짐은 있었지만, 엔도스랭크가 센 수를 넘게 해 주지는 못했어요</p>' +
+        '<p class="abs s8-concl" id="concl" style="left:96px;top:700px;width:1700px">The spreading was there, but it did not lift EndorseRank above the count</p>' +
       '</div>' +
-      '<div class="abs s8-reason" id="mini" data-in="none" style="left:720px;top:214px;width:1100px">식과 1% 안으로 맞은 스펜더(같은 기간)<br><b class="c-allow tnum">한 단계 100%</b> · <b class="tnum" style="color:rgba(245,180,60,.8)">더 깊음 26.4%</b> · <b class="tnum">모두 87.9%</b><br><span style="font-size:22px;color:var(--ink-3)">퍼짐은 있었지만, 센 수를 넘게 해 주지는 못했어요</span></div>' +
+      '<div class="abs s8-reason" id="mini" data-in="none" style="left:720px;top:214px;width:1100px">Spenders within 1% of the formula (same window)<br><b class="c-allow tnum">depth one 100%</b> · <b class="tnum" style="color:rgba(245,180,60,.8)">deeper 26.4%</b> · <b class="tnum">all 87.9%</b><br><span style="font-size:22px;color:var(--ink-3)">The spreading was there, but it did not lift the score above the count</span></div>' +
       '<div class="abs" id="sum" data-in="none" style="left:96px;top:478px;width:1728px">' +
-        '<div class="s8-sumhd">원시 차수와의 비교 넷 — 수정 분석과 등록 분석의 방향이 모두 같아요</div>' +
-        '<div class="s8-tiny" style="margin:4px 0 0">' + pill('posthoc') + '<span>모두 라벨을 본 뒤 계산 · 색 점 = 수정 분석(본 결과) · 회색 빈 점 = 등록 분석</span></div>' +
+        '<div class="s8-sumhd">Four comparisons with the raw degree: revised and registered analyses point the same way</div>' +
+        '<div class="s8-tiny" style="margin:4px 0 0">' + pill('posthoc') + '<span>All computed after the labels were known · colored dots = revised analysis (main result) · gray hollow dots = registered analysis</span></div>' +
         '<div id="fp" style="margin-top:6px"></div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -1444,12 +1444,12 @@
         return { fill: C.bg2, stroke: C.hi, lw: 1.8 };
       } });
       g.F = Comp.forest(ctx, q(el, '#fp'), { w: 1728, rowH: 86, labelWidth: 470, valueWidth: 300, domain: [-0.05, 0.06], ticks: [-0.04, -0.02, 0, 0.02, 0.04, 0.06], hidden: true,
-        tickFormat: function (t) { return t === 0 ? '0' : sfmt(t, 2); }, axisLabel: '짝지은 차이 Δτ (← 그냥 센 수가 나음 · 걷는 점수가 나음 →)',
+        tickFormat: function (t) { return t === 0 ? '0' : sfmt(t, 2); }, axisLabel: 'Paired difference Δτ (← raw count better · walk score better →)',
         rows: [
-          { label: 'AWP − 송금 입차수', sub: 'W0 · 새 송금자', est: 0.043, lo: 0.038, hi: 0.048, color: 'xfer', text: '+0.043 [0.038, 0.048]', ghost: { est: 0.038, lo: 0.035, hi: 0.042 } },
-          { label: 'AWP − 송금 입차수', sub: 'W1 · 새 송금자', est: 0.022, lo: 0.017, hi: 0.027, color: 'xfer', text: '+0.022 [0.017, 0.027]', ghost: { est: 0.020, lo: 0.016, hi: 0.023 } },
-          { label: '엔도스랭크 − 받은 허락 수', sub: 'W0 · 새 허락 쌍', est: -0.019, lo: -0.026, hi: -0.011, color: 'allow', text: '−0.019 [−0.026, −0.011]', ghost: { est: -0.011, lo: -0.016, hi: -0.006 } },
-          { label: '엔도스랭크 − 받은 허락 수', sub: 'W1 · 새 허락 쌍', est: -0.034, lo: -0.038, hi: -0.029, color: 'allow', text: '−0.034 [−0.038, −0.029]', ghost: { est: -0.029, lo: -0.032, hi: -0.025 } }
+          { label: 'AWP − transfer in-degree', sub: 'W0 · new senders', est: 0.043, lo: 0.038, hi: 0.048, color: 'xfer', text: '+0.043 [0.038, 0.048]', ghost: { est: 0.038, lo: 0.035, hi: 0.042 } },
+          { label: 'AWP − transfer in-degree', sub: 'W1 · new senders', est: 0.022, lo: 0.017, hi: 0.027, color: 'xfer', text: '+0.022 [0.017, 0.027]', ghost: { est: 0.020, lo: 0.016, hi: 0.023 } },
+          { label: 'EndorseRank − in-approve degree', sub: 'W0 · new approval pairs', est: -0.019, lo: -0.026, hi: -0.011, color: 'allow', text: '−0.019 [−0.026, −0.011]', ghost: { est: -0.011, lo: -0.016, hi: -0.006 } },
+          { label: 'EndorseRank − in-approve degree', sub: 'W1 · new approval pairs', est: -0.034, lo: -0.038, hi: -0.029, color: 'allow', text: '−0.034 [−0.038, −0.029]', ghost: { est: -0.029, lo: -0.032, hi: -0.025 } }
         ] });
     },
     enter: function (el, ctx) {
@@ -1482,7 +1482,7 @@
 
   Deck.section({
     id: 's08-results',
-    title: '결과',
+    title: 'Results',
     slides: [slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8]
   });
 })();

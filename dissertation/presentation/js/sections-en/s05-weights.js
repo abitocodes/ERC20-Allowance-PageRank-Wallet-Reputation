@@ -132,6 +132,7 @@
     '.s5-slots{display:flex;align-items:center;gap:12px;font-size:28px;line-height:44px;font-variant-numeric:tabular-nums;margin-top:10px}',
     '.s5-slots .sl{padding:2px 12px;border-radius:10px;background:var(--bg-3);font-weight:700}',
     '.s5-slots .op{color:var(--ink-3)}',
+    '.s5-slots > *{white-space:nowrap}',                         /* EN: keep each slot on one line */
     '.s5-flt{position:absolute;font-family:var(--font-mono);font-size:22px;letter-spacing:0;color:var(--ink);white-space:nowrap}'
   ].join('\n');
   (function inject() {
@@ -333,6 +334,10 @@
       dimmed.forEach(function (A) { gsap.set(A.g, { opacity: 0.22 }); });
       gsap.set(g.W.node('D').g, { opacity: 0.3 });
       g.AB = g.W.edge('A', 'B'); g.AC = g.W.edge('A', 'C');
+      if (g.AB.label) {                                              /* EN: lift the A→B label off the thick arrow of step 2 */
+        g.AB.label.setAttribute('x', +g.AB.label.getAttribute('x') - 8);
+        g.AB.label.setAttribute('y', +g.AB.label.getAttribute('y') - 12);
+      }
       g.r3 = q(el, '#r3');
       gsap.set(g.r3, { autoAlpha: 0 });
       g.example = H('div', 'example-mark abs', el, 'Example · amounts and dates are illustrative'); g.example.setAttribute('data-in', 'none');
@@ -390,7 +395,7 @@
       'Let us build the time weight first. The horizontal axis is how many days before the anchor date an event happened. The age ruler from the data section has turned around and become this axis. The oldest record is 1,004 days old.',
       'We want four things: a value between 0 and 1, a large weight for new events, a weight that shrinks smoothly as events get older, and exactly one half at 180 days.',
       'The simplest way is a straight line. Start at 1 and subtract one 360th per day, and at 180 days you get exactly one half. But after 360 days the line drops below 0. An event 400 days old gets minus 0.11. A weight cannot be negative, so the straight line does not work.',
-      'So we take another route. First we measure how much older than 180 days an event is, as a penalty s. s is k times delta t minus 180, and k is 0.01. An event from today has s of minus 1.8, one from 180 days ago has 0, and one from a year ago has 1.85.',
+      'So we take another route. First we measure how much older than 180 days an event is, as a penalty s. s is k times (delta t minus 180), and k is 0.01. An event from today has s of minus 1.8, one from 180 days ago has 0, and one from a year ago has 1.85.',
       'We put this penalty in the exponent of e. e is the natural constant, about 2.718. e to the power 1 is about 2.7, e squared is about 7.4, and e to the power 0 is 1. A negative exponent means we flip and divide: e to the minus 1 is 1 divided by e, about 0.37, and e to the minus 2 is about 0.14. So e to the s is always greater than 0, whatever s is. For an event from today it is e to the minus 1.8, that is 1 divided by 6.05, about 0.165.',
       'Now we divide 1 by 1 plus e to the s. The denominator is always greater than 1, so the result always lies between 0 and 1. When s is 0 we get 1 over 2, exactly one half, and when s is large we get close to 0. When s is a very large negative number we get close to 1. For example, at s of minus 5, e to the minus 5 is 0.007, so sigma is 0.993. All four wishes hold. So an event from today counts 0.858, one from a year ago 0.136, and one from two years ago only 0.004. The thesis also writes e to the power of something as exp. It means the same. This is the logistic decay formula in Chapter 3 of the thesis.',
       'One more thing: 1 minus sigma is e to the s divided by 1 plus e to the s. So the remaining weight divided by the vanished weight is 1 over e to the s, that is e to the minus s. Since k times 100 is 1, this ratio shrinks by a factor of e, about 2.7, every 100 days. Drag the handle below to see the weight of any day.'
@@ -493,8 +498,8 @@
         { tex: '1-\\frac{\\Delta t}{360}', display: false, note: 'Try a straight line · 180 days → 1 − 1/2 = 1/2 ✓ · but 400 days → 1&nbsp;−&nbsp;400/360&nbsp;≈&nbsp;−0.11 <b style="color:var(--c-hi)">✕ negative!</b>' },
         { tex: 's=k\\,(\\Delta t-t_0)', display: false, note: 'Penalty s: how much older than 180 days · e.g. Δt&nbsp;=&nbsp;0 gives s&nbsp;=&nbsp;0.01&nbsp;×&nbsp;(0&nbsp;−&nbsp;180)&nbsp;=&nbsp;−1.8', html: sline },
         { tex: 'e^{-1.8}=\\frac{1}{e^{1.8}}=\\frac{1}{6.05}\\approx0.165', display: false, note: 'Negative exponent: 1 ÷ (positive exponent) · so eˢ is always above 0', html: etab },
-        { tex: '\\sigma=\\frac{1}{1+e^{s}}', note: 'The denominator 1 + eˢ is always above 1 → σ lies between 0 and 1 ✓ · s = 0 → 1/(1+1) = 1/2 ✓ · large s → 0 ✓ · very negative s → 1 ✓ (s = −5 → e⁻⁵ = 0.007 → σ = 0.993) · Δt = 0 → 1/(1+0.165) = 0.858' },
-        { tex: '\\part{f}{\\sigma(\\Delta t)=\\frac{1}{1+\\exp\\bigl(k(\\Delta t-t_0)\\bigr)}}', note: 'exp(□) = e<sup>□</sup> (same meaning · used when the exponent is long) · k = 0.01, t₀ = 180 days · thesis Eq. (3.3)', mark: 'f' },
+        { tex: '\\sigma=\\frac{1}{1+e^{s}}', note: 'The denominator 1 + eˢ is always above 1 → σ lies between 0 and 1 ✓ · s = 0 → 1/(1+1) = 1/2 ✓ · large s → 0 ✓ · very negative s → 1 ✓ (s&nbsp;=&nbsp;−5 → e⁻⁵&nbsp;=&nbsp;0.007 → σ&nbsp;=&nbsp;0.993) · Δt&nbsp;=&nbsp;0 → 1/(1+0.165)&nbsp;=&nbsp;0.858' },
+        { tex: '\\part{f}{\\sigma(\\Delta t)=\\frac{1}{1+\\exp\\bigl(k(\\Delta t-t_0)\\bigr)}}', note: 'exp(□) = e<sup>□</sup> (same meaning · used when the exponent is long) · k&nbsp;=&nbsp;0.01, t₀&nbsp;=&nbsp;180&nbsp;days · thesis Eq.&nbsp;(3.3)', mark: 'f' },
         { tex: '1-\\sigma=\\frac{1+e^{s}-1}{1+e^{s}}=\\frac{e^{s}}{1+e^{s}}', tex2: '\\frac{\\sigma}{1-\\sigma}=\\frac{1}{e^{s}}=e^{-s}=e^{-k(\\Delta t-t_0)}', note: 'k × 100 = 1 → every 100 days the ratio \'remaining : gone\' shrinks by a factor e ≈ 2.7<br>0, 100, 200, 300 days: ' + [0, 100, 200, 300].map(function (a) { return fmt(sigma(a) / (1 - sigma(a)), 2); }).join(' → ') + ' (bars: filled = remaining, dashed = gone)' }
       ], groups: [
         { from: 1, to: 3, at: 4, summary: 'Straight line goes negative ✕ → penalty $s$ → $e^{s}>0$ (negative exponent = 1 ÷ positive exponent)' },
@@ -640,7 +645,7 @@
         '<div id="vs" data-step="3" style="margin-top:14px;padding:14px 20px;border-radius:16px;border:1px dashed var(--ink-3)">' +
           '<div class="s5-note" style="display:flex;align-items:center;gap:12px"><span id="ptag"></span><span>Under the plan (raw units, b = 1)</span></div>' +
           '<div class="s5-l" style="margin-top:6px"><b>' + pct2(GE10T) + '</b> of transfers and <b>' + pct2(GE10A) + '</b> of latest allowances had at least 10 base units</div>' +
-          '<div class="s5-note">Base unit = smallest piece of a token (1 USDC = 1,000,000 base units)</div>' +
+          '<div class="s5-note">Base unit = smallest piece of a token (1 USDC = 1,000,000 units)</div>' +
           '<div class="s5-note">→ $V(10)\\approx0.99991$: less than 1/10,000 below 1 → the amount played no part</div>' +
         '</div>' +
       '</div>' +
@@ -668,7 +673,7 @@
       });
       gsap.set(g.coins, { autoAlpha: 0 });
       g.unl = S('g', {}, P.over);
-      var UX = P.r + 64;                                             /* clear of the '500' tick label */
+      var UX = P.r + 76;                                             /* clear of the '500' tick label (EN: 'unlimited' is wider) */
       for (var k2 = 0; k2 < 9; k2++) S('ellipse', { cx: UX, cy: P.b - 10 - k2 * 9, rx: 16, ry: 5.5, fill: C.bg3, stroke: C.ink2, 'stroke-width': 1.5 }, g.unl);
       txt(g.unl, UX, P.b + 32, 'unlimited', { anchor: 'middle', size: 18, fill: C.ink2 });
       S('circle', { cx: UX, cy: P.py(1) + 10, r: 7, fill: C.ink }, g.unl);
@@ -688,7 +693,7 @@
         '<text x="310" y="62" text-anchor="middle" fill="' + C.ink3 + '" font-size="17">y = e^(−bz)</text>' +
         '<circle class="xball" cx="590" cy="30" r="11" fill="' + C.ink + '"/><text class="xz svg-mono" x="608" y="22" fill="' + C.ink2 + '" font-size="17">z = 0</text></svg>';
       g.dv = Deriv(ctx, q(el, '#dv'), { head: 'Rewriting V', lines: [
-        { tex: 'V(z)=\\frac{2}{1+e^{-bz}}-1', note: 'thesis Eq. (3.4)' },
+        { tex: 'V(z)=\\frac{2}{1+e^{-bz}}-1', note: 'thesis Eq.&nbsp;(3.4)' },
         { tex: 'y=e^{-bz}\\;\\Rightarrow\\;V=\\frac{2}{1+y}-1', tex2: '=\\frac{2-(1+y)}{1+y}=\\part{f}{\\frac{1-y}{1+y}}', markOn2: true, note: 'z = 0 gives y = 1; as z grows, y → 0', html: xline, mark: 'f' },
         { tex: 'z=0:\\ \\tfrac{1-1}{1+1}=0,\\qquad z\\to\\infty:\\ \\tfrac{1-0}{1+0}=1', display: false, note: 'So V is at least 0 and never above 1 · an unlimited approval is so large that computer arithmetic gives exactly 1' }
       ] });
@@ -1078,19 +1083,19 @@
     html: '<h1 class="t-h1">Keep an unlimited approval from [[swallowing]] the row</h1>' +
       '<div class="s5-amt" data-step="1">' +
         '<div class="s5-l"><b>USD amount</b> = base units × 10<sup>−decimals</sup> × daily price &nbsp; $x_e=n\\cdot10^{-q}\\cdot p$</div>' +
-        '<div class="s5-slots" id="slots"><span class="ink-2">e.g. 1 USDC</span><span class="sl">1,000,000</span><span class="op">×</span><span class="sl">10⁻⁶</span><span class="op">×</span><span class="sl">1</span><span class="op">=</span><span class="sl" style="color:var(--ink)">1 USD</span><span class="example-mark">Example · price 1 USD</span></div>' +
+        '<div class="s5-slots" id="slots"><span class="ink-2">1 USDC:</span><span class="sl">1,000,000</span><span class="op">×</span><span class="sl">10⁻⁶</span><span class="op">×</span><span class="sl">1</span><span class="op">=</span><span class="sl" style="color:var(--ink)">1 USD</span><span class="example-mark">Example · price 1 USD</span></div>' +
         '<div class="s5-note" style="margin-top:8px">$n$ = number of base units · $q$ = decimals (USDC: 6) · $p$ = daily price · $10^{-6}$ = ÷ 1,000,000</div>' +
       '</div>' +
       '<div class="s5-panel" id="pn" data-in="none">' +
         '<div class="s5-l">The two layers of C-PR add plain USD, <b>without V</b></div>' +
         '<div class="s5-tx" style="font-size:26px">$$\\tilde w_A(u,v)=\\sum_{\\mathrm{token}}\\min\\bigl(a^{\\star},\\,\\ch{U}\\bigr),\\qquad \\tilde w_T(u,v)=\\sum_{e:\\,u\\to v}x_e\\,\\sigma(\\Delta t_e)$$</div>' +
-        '<div class="s5-note">thesis Eq. (3.8) · min(a, U) = the smaller of the two: U if unlimited, 500 if 500 USD</div>' +
-        '<div data-step="3"><div class="s5-L">Cap each allowance at <span class="c-hi">U = ' + n0(U) + ' USD</span></div>' +
-          '<div class="s5-note">U = 99th percentile of single transfer amounts up to t₁ (31 March), ' + n0(P99T) + ' USD, rounded to two significant digits</div>' +
+        '<div class="s5-note">thesis Eq.&nbsp;(3.8) · min(a, U) = the smaller of the two: U if unlimited, 500&nbsp;if&nbsp;500&nbsp;USD</div>' +
+        '<div data-step="3"><div class="s5-L">Cap each allowance at <span class="c-hi">U&nbsp;=&nbsp;' + n0(U) + '&nbsp;USD</span></div>' +
+          '<div class="s5-note">U = 99th percentile of single transfer amounts up to t₁ (31&nbsp;March), ' + n0(P99T) + '&nbsp;USD, rounded to two significant digits</div>' +
           '<div class="s5-tx" style="font-size:26px;margin-top:6px">$\\frac{20{,}000}{20{,}000+500}=0.976,\\qquad \\frac{500}{20{,}500}=0.024$</div></div>' +
         '<div data-step="4" style="margin-top:22px;padding-top:16px;border-top:1px solid var(--line)">' +
           '<div class="s5-note">Latest allowances: unlimited <b>' + pct(UNL) + '</b> · at or above the cap <b>' + pct(ATCAP) + '</b> · owners holding both unlimited and finite ones <b>' + n0(BOTH) + '</b></div>' +
-          '<div class="s5-note" style="margin-top:8px">The first definition (99th percentile of finite allowances) was about <b>10⁴⁷ USD</b> → no use as a cap, so it was amended before any revised score was computed <span class="mono ink-3">(2705b28)</span></div></div>' +
+          '<div class="s5-note" style="margin-top:8px">The first definition (99th percentile of finite allowances) was about <b>10⁴⁷&nbsp;USD</b> → no use as a cap, so it was amended before any revised score was computed <span class="mono ink-3">(2705b28)</span></div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};

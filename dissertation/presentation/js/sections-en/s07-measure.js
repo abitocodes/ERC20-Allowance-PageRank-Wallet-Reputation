@@ -947,11 +947,11 @@
       g.wQ = svgEl('path', { d: wedge(A5 / 2, A5), fill: C.hi, 'fill-opacity': 0.6 }, bs);
       var pl = svgEl('text', { x: cx, y: cy + R + 30, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 18 }, bs); pl.textContent = '5% error budget';
       g.chP = svgEl('g', {}, bs); gsap.set(g.chP, { x: 176, y: 22 });
-      svgEl('rect', { x: 0, y: 0, width: 168, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chP);
-      var tP = svgEl('text', { x: 84, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 19, 'font-weight': 700 }, g.chP); tP.textContent = 'verdict 1 · 2.5%';
+      svgEl('rect', { x: 0, y: 0, width: 158, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chP);
+      var tP = svgEl('text', { x: 79, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 18, 'font-weight': 700 }, g.chP); tP.textContent = 'verdict 1 · 2.5%';
       g.chQ = svgEl('g', {}, bs); gsap.set(g.chQ, { x: 176, y: 78 });
-      svgEl('rect', { x: 0, y: 0, width: 168, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chQ);
-      var tQ = svgEl('text', { x: 84, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 19, 'font-weight': 700 }, g.chQ); tQ.textContent = 'verdict 2 · 2.5%';
+      svgEl('rect', { x: 0, y: 0, width: 158, height: 40, rx: 20, fill: C.bg3, stroke: C.ink2 }, g.chQ);
+      var tQ = svgEl('text', { x: 79, y: 27, 'text-anchor': 'middle', fill: C.ink, 'font-size': 18, 'font-weight': 700 }, g.chQ); tQ.textContent = 'verdict 2 · 2.5%';
       g.bfTx = h('div', 's7-rule', bf, '$1-\\dfrac{0.05}{2}=0.975$<br>→ a <b>97.5%</b> interval for each<small>Two verdicts share the 5% error budget (they appear as P and Q in 09) · these two use ' + fmt(B2, 0) + ' resamples</small>');
       g.bfTx.style.position = 'absolute'; g.bfTx.style.left = '350px'; g.bfTx.style.top = '0px'; g.bfTx.style.width = '344px';
       Deck.renderMath(g.bfTx);

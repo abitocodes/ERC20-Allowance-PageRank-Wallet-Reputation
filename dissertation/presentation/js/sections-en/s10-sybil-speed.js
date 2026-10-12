@@ -583,7 +583,7 @@
         { tex: 'P_{a,t}=1', note: 'Fake address $a$ approves only target $t$ → only one way out' },
         { tex: 'r_a=c+d\\,r_t\\,P_{t,a}', note: 'share of $a$ = rain + share the target hands to $a$' },
         { tex: 'r_t=c+d\\sum_{a} r_a', note: 'share of the target = rain + shares sent by the $f$ fake addresses' },
-        { tex: '\\begin{aligned}r_t&=c+d\\sum_a\\bigl(c+d\\,r_t P_{t,a}\\bigr)\\\\&=c+d\\,f\\,c+d^2 r_t\\part{sum}{\\textstyle\\sum_a P_{t,a}}\\end{aligned}', note: 'Put 2 into 3 · the target\'s row sums to one: $\\sum_a P_{t,a}=1$', mark: 'sum' },
+        { tex: '\\begin{aligned}r_t&=c+d\\sum_a\\bigl(c+d\\,r_t P_{t,a}\\bigr)\\\\&=c+d\\,f\\,c+d^2 r_t\\part{sum}{\\textstyle\\sum_a P_{t,a}}\\end{aligned}', note: 'Put 2 into 3 · the target’s row sums to one: $\\sum_a P_{t,a}=1$', mark: 'sum' },
         { tex: '\\begin{aligned}r_t-d^2r_t&=c\\,(1+d f)\\\\ \\Rightarrow\\ r_t&=\\part{hero}{\\dfrac{c\\,(1+d f)}{1-d^2}}\\end{aligned}', note: 'each extra address adds $+\\,\\dfrac{d\\,c}{1-d^2}$ · 2 approvals', mark: 'hero' },
         { tex: '\\begin{aligned}1-d^2&=1-0.7225=0.2775\\\\ r_t&=\\frac{' + sciT(S.c) + '\\times(1+8.5)}{0.2775}=' + sciT(S.star) + '\\end{aligned}', note: '$f=' + STAR_M + '$ · same value when the star is added to the real graph' }
       ], 'Derivation · star-shaped farm');
@@ -677,7 +677,7 @@
             (r.d ? '<span class="dd">' + r.d + '</span>' : '') + '</div>';
         }).join('') + '</div>' +
         '<div class="abs s10-con" id="con" data-in="none" style="left:1196px;top:800px;width:628px">' +
-          '<p>The top contract holds <b>about 3%</b> of the whole share: more than <b>400,000 times</b> $c$</p>' +
+          '<p>The top contract holds <b>about 3%</b> of the whole share:<br>more than <b>400,000 times</b> $c$</p>' +
           '<p class="big" style="font-size:25px">So no score should set a warning or reward alone</p>' +
           '<p style="font-size:21px;line-height:30px">Keeping only five tokens leaves the attack cost unchanged</p></div>' +
         '<div class="abs s10-range no-advance" id="rng" data-in="none" style="left:1196px;top:384px;width:628px">' +
@@ -898,7 +898,7 @@
         '<p class="abs s10-foot" id="vfoot" style="left:96px;top:946px;width:1100px;font-size:19px;line-height:26px">Nodes: the solver graphs leave out addresses whose amounts are all so small that their value weight is 0 (allowance ' + fmt(G_ALLOW_V - B_ER.v, 0) + ', transfer ' + fmt(G_XFER_V - B_AWP.v, 0) + '), so they have ' + fmt(B_ER.v, 0) + ' / ' + fmt(B_AWP.v, 0) + ' nodes <span class="ink-3">(the gap to ' + fmt(G_ALLOW_V, 0) + ' / ' + fmt(G_XFER_V, 0) + ' in 03)</span></p>' +
         '<p class="abs s10-cap" id="small" data-in="none" style="left:96px;top:892px;width:1100px;font-size:23px;line-height:34px">C-PR ' + fmt(B_CPR.s, 2) + ' s (' + fmt(B_CPR.e, 0) + ' edges) · S-PR ' + fmt(B_SPR.s, 2) + ' s · walking the transfer layer means paying for its edges</p>' +
         /* right column */
-        '<div class="abs s10-swc" id="swc" style="left:1600px;top:' + (SWY + 52) + 'px;width:230px;white-space:normal">one iteration =<br>one multiplication<br>per edge<br><span class="ink-3">this small world:</span> <b id="mulN">0</b><br><span class="ink-3" style="font-size:18px"><span class="s10-cn">1</span>–<span class="s10-cn">4</span> = order of the<br>multiplications<br>(not edge weights)</span></div>' +
+        '<div class="abs s10-swc" id="swc" style="left:1600px;top:' + (SWY + 52) + 'px;width:230px;white-space:normal">one iteration =<br>one multiplication<br>per edge<br><span class="ink-3">this small world:</span> <b id="mulN">0</b><br><span class="ink-3" style="font-size:18px"><span class="s10-cn">1</span>–<span class="s10-cn">4</span> = their order,<br>not edge weights</span></div>' +
         '<div class="abs s10-d" id="dv" style="left:1214px;top:446px;width:610px"></div>' +
         '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">Small samples: the time ratio strays from the edge ratio<small>close only in the two large stages (10,000+ contracts) · ratios computed</small></div>' +
         '<svg class="abs" id="chart" data-in="none" width="610" height="140" viewBox="0 0 610 140" style="left:1214px;top:862px;overflow:visible"></svg>';
@@ -910,7 +910,7 @@
       g.sw.wrap.setAttribute('data-in', 'none');
       g.mul = g.sw.edges.map(function (A, k) {
         var p = A.pointAt(0.5);
-        var m = h('div', 's10-mul', el, 'multiply<span class="s10-cn">' + (k + 1) + '</span>');
+        var m = h('div', 's10-mul', el, 'mult.<span class="s10-cn">' + (k + 1) + '</span>');
         m.style.left = (SWX + p.x * SWS) + 'px'; m.style.top = (SWY + p.y * SWS - 30) + 'px';
         gsap.set(m, { xPercent: -50, autoAlpha: 0 });
         return m;
@@ -967,7 +967,7 @@
       /* derivation */
       g.dv = derivePanel(ctx, q(el, '#dv'), [
         { tex: 'r^{\\text{new}}_v\\;\\leftarrow\\;r^{\\text{new}}_v+d\\,r_u\\,P_{u,v}', note: 'one multiplication per edge $(u\\to v)$ → $|E|$ per sweep' },
-        { tex: 'T\\;\\approx\\;\\underbrace{\\text{build the matrix}}_{\\text{proportional to }|E|}+\\;I\\times\\underbrace{\\text{one sweep}}_{\\text{proportional to }|E|}', note: '$I$: number of iterations · proportional: twice the edges, twice the work' },
+        { tex: 'T\\;\\approx\\;\\underbrace{\\text{build the matrix}}_{\\text{proportional to }|E|}+\\;I\\times\\underbrace{\\text{one sweep}}_{\\text{proportional to }|E|}', note: '$I$: number of iterations · proportional: 2× edges = 2× work' },
         { tex: '\\frac{T_{\\text{AWP}}}{T_{\\text{ER}}}\\;\\approx\\;\\frac{|E|_{\\text{AWP}}}{|E|_{\\text{ER}}}', note: 'same solver · measured: ' + fmt(R_TIME, 2) + ' ≈ ' + fmt(R_EDGE, 2) }
       ], 'Derivation · time and edge count');
       /* stage chart */
