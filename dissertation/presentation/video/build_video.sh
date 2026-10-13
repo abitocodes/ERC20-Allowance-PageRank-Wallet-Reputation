@@ -21,6 +21,7 @@ if [ ! -f "$W/tts/model/onnx/vocoder.onnx" ]; then
 fi
 # 3. speech, checked by ear (Whisper)
 python3 "$HERE/tts.py" --lang "$LANG_" --scripts "$HERE/scripts" --model "$W/tts/model" --out "$W/audio" --whisper-dir "$W/whisper"
+python3 "$HERE/recheck.py" --lang "$LANG_" --model "$W/tts/model" --out "$W/audio" --whisper-dir "$W/whisper"
 # 4. music (once for both languages)
 [ -f "$W/music/m4.wav" ] || python3 "$HERE/music.py" "$W/music"
 # 5. plan, picture, sound
