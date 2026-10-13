@@ -7,7 +7,7 @@
 SCRIPTDIR/<lang>/u01.json ... (the narration scripts). Each line becomes AUDIODIR/<lang>/<n>.wav
 (44.1 kHz mono float; silence trimmed to 60 ms at each end). The line is transcribed back with
 faster-whisper and compared with what it should say (letters only, digits and symbols dropped on both
-sides); when the character error rate is above 0.12 the line is spoken again with a new noise sample,
+sides); when the character error rate is above 0.2 the line is spoken again with a new noise sample,
 up to --retries times, and the best take is kept. AUDIODIR/<lang>/lines.json lists every line with its
 id, text, file, duration and error rate; lines still above 0.2 are listed at the end for review.
 Model: https://huggingface.co/Supertone/supertonic-2 (OpenRAIL-M); its helper.py from
@@ -32,9 +32,9 @@ ap.add_argument('--model', required=True, help='folder with onnx/ and voice_styl
 ap.add_argument('--out', required=True)
 ap.add_argument('--voice', default='F3')
 ap.add_argument('--speed', type=float, default=None)
-ap.add_argument('--steps', type=int, default=10)
+ap.add_argument('--steps', type=int, default=8)
 ap.add_argument('--asr', default='small')
-ap.add_argument('--retries', type=int, default=3)
+ap.add_argument('--retries', type=int, default=2)
 ap.add_argument('--only', default=None)
 ap.add_argument('--whisper-dir', default=None)
 A = ap.parse_args()
@@ -134,7 +134,7 @@ for n, (lid, ln) in enumerate(lines):
         e = min(cer(text, heard), cer(ln.get('sub', text), heard))
         if best is None or e < best[0]:
             best = (e, w, heard)
-        if e <= 0.12:
+        if e <= 0.2:
             break
     e, w, heard = best
     sf.write(os.path.join(outdir, fname), w, SR, subtype='FLOAT')
