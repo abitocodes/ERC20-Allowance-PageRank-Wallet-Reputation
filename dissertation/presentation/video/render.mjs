@@ -185,6 +185,8 @@ async function renderChunk(D, si) {
 
   ff.stdin.end();
   await ffDone;
+  fs.writeFileSync(base + '.json', JSON.stringify({ slide: S.id, frames: frame, fps: FPS, lines: log }));
+  return frame;
   } catch (e) {
     /* a dead page: stop the encoder and drop its half-written file, so the chunk is rendered again */
     try { ff.stdin.destroy(); } catch { /* closed */ }
@@ -192,8 +194,6 @@ async function renderChunk(D, si) {
     try { fs.unlinkSync(base + '.mp4'); } catch { /* none */ }
     throw e;
   }
-  fs.writeFileSync(base + '.json', JSON.stringify({ slide: S.id, frames: frame, fps: FPS, lines: log }));
-  return frame;
 }
 
 let browser = await chromium.launch({ executablePath: findChrome() });
