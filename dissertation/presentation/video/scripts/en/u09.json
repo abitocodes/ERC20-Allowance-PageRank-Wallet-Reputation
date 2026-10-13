@@ -1,0 +1,906 @@
+{
+ "unit": "u09",
+ "lang": "en",
+ "chapter": {
+  "title": "Four scores",
+  "subtitle": "Four ways to score a contract",
+  "sub": "Chapter six: four scores. Let's meet the scores this study compares.",
+  "tts": "Chapter six, four scores. Let's meet the scores this study compares."
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s06-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "The first of the four is EndorseRank, the score this thesis proposes.",
+     "tts": "The first of the four is EndorseRank, the score this thesis proposes.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Here is the small world we built in chapter 4, back again.",
+     "tts": "Here is the small world we built in chapter four, back again.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This time every edge is an allowance edge, so they are all amber.",
+     "tts": "This time every edge is an allowance edge, so they are all amber.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The walker follows an edge 85 times out of 100, and teleports to any node the other 15 times.",
+     "tts": "The walker follows an edge eighty-five times out of one hundred, and teleports to any node the other fifteen times.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "EndorseRank takes the PageRank we have built so far and runs it on the allowance graph.",
+     "tts": "EndorseRank takes the PageRank we have built so far and runs it on the allowance graph.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Edges go from an owner to a spender contract, and only the latest allowance per token is used.",
+     "tts": "Edges go from an owner to a spender contract, and only the latest allowance per token is used.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The weight is the same as in AWP: time weight σ times value weight V.",
+     "tts": "The weight is the same as in A W P, time weight sigma times value weight V.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Restarts are the same at every node v, 1/|V| each.",
+     "tts": "Restarts are the same at every node v, one over the number of nodes each.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "What we evaluate are the contracts that received approvals.",
+     "tts": "What we evaluate are the contracts that received approvals.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The numbers above B, C and D are each contract's share of the walk.",
+     "tts": "The numbers above B, C and D are each contract's share of the walk.",
+     "focus": [
+      "a7",
+      "a28",
+      "a18"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Owner A also holds a share in the walk, 0.1375,",
+     "tts": "Owner A also holds a share in the walk, zero point one three seven five,",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "but this study evaluates and reports only the scores of contracts.",
+     "tts": "but this study evaluates and reports only the scores of contracts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "These numbers, and the share of A, come from the example in Chapter 2 of the thesis.",
+     "tts": "These numbers, and the share of A, come from the example in Chapter two of the thesis.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Now let's pull back from the small world to the real allowance graph.",
+     "tts": "Now let's pull back from the small world to the real allowance graph.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The four-node world gets smaller and smaller until it is one node among a great many.",
+     "tts": "The four-node world gets smaller and smaller until it is one node among a great many.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The real allowance graph has 6,221,665 nodes",
+     "tts": "The real allowance graph has six million two hundred twenty-one thousand six hundred sixty-five nodes",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "and 11,210,114 edges.",
+     "tts": "and eleven million two hundred ten thousand one hundred fourteen edges.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The constellation you see here is a picture for explanation; only the counts are real.",
+     "tts": "The constellation you see here is a picture for explanation. Only the counts are real.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "One point needs care.",
+     "tts": "One point needs care.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "An edge holds the amount and the time of the latest allowance.",
+     "tts": "An edge holds the amount and the time of the latest allowance.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "If the contract has since spent tokens from it, the allowance has shrunk, but the edge does not show that.",
+     "tts": "If the contract has since spent tokens from it, the allowance has shrunk, but the edge does not show that.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In other words, it is not the allowance left today.",
+     "tts": "In other words, it is not the allowance left today.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And it does not show approvals made before October 2023.",
+     "tts": "And it does not show approvals made before October twenty twenty-three.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "The second score is AWP, the one we compare against.",
+     "tts": "The second score is A W P, the one we compare against.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "AWP is on the left, and on the right are the plain counts, called the raw degree.",
+     "tts": "A W P is on the left, and on the right are the plain counts, called the raw degree.",
+     "focus": [
+      "a5",
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "AWP is PageRank on the transfer graph, proposed by Do and colleagues in 2023.",
+     "tts": "A W P is PageRank on the transfer graph, proposed by Do and colleagues in twenty twenty-three.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Its edges are transfers, so coins flow along them.",
+     "tts": "Its edges are transfers, so coins flow along them.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Where it restarts is different from EndorseRank.",
+     "tts": "Where it restarts is different from EndorseRank.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "As we saw in chapter 5, an active address, one that sent to many counterparties recently, has a bigger halo,",
+     "tts": "As we saw in chapter five, an active address, one that sent to many counterparties recently, has a bigger halo,",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "and the walk restarts there more often.",
+     "tts": "and the walk restarts there more often.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is the formula below: activeness X_u over the total.",
+     "tts": "That is the formula below, activeness X of u over the total.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The graph is an illustrative example.",
+     "tts": "The graph is an illustrative example.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "And there is one more comparator that matters a great deal in this study: simply counting the edges.",
+     "tts": "And there is one more comparator that matters a great deal in this study. Simply counting the edges.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Let me call the contract v.",
+     "tts": "Let me call the contract v.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In-degree here means how many different addresses point at the contract.",
+     "tts": "In-degree here means how many different addresses point at the contract.",
+     "focus": [
+      "a12",
+      "a20"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the allowance side, it is the number of distinct owners whose latest allowance to v is above zero.",
+     "tts": "On the allowance side, it is the number of distinct owners whose latest allowance to v is above zero.",
+     "focus": [
+      "a24",
+      "a25"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "If the same owner approves twice, it still counts once.",
+     "tts": "If the same owner approves twice, it still counts once.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the transfer side, it is the number of distinct addresses that sent transfers to v.",
+     "tts": "On the transfer side, it is the number of distinct addresses that sent transfers to v.",
+     "focus": [
+      "a28",
+      "a29"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Here, that gives 4 and 3.",
+     "tts": "Here, that gives four and three.",
+     "focus": [
+      "a14",
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the test windows, the baseline leaves out the transfers a contract sent to itself.",
+     "tts": "In the test windows, the baseline leaves out the transfers a contract sent to itself.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "PageRank is, in the end, a smoothed version of these counts,",
+     "tts": "PageRank is, in the end, a smoothed version of these counts,",
+     "focus": [
+      "a36"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "so we must ask what it gives beyond the plain count.",
+     "tts": "so we must ask what it gives beyond the plain count.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the picture at the bottom right: can EndorseRank and AWP clear the plain count?",
+     "tts": "In the picture at the bottom right, can EndorseRank and A W P clear the plain count?",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "I will answer exactly this question in chapter 8, on the results.",
+     "tts": "I will answer exactly this question in chapter eight, on the results.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "The third score is C-PR, coupled PageRank, a score that walks both graphs together.",
+     "tts": "The third score is C P R, coupled PageRank, a score that walks both graphs together.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Let's look at one owner, u.",
+     "tts": "Let's look at one owner, u.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Two allowance edges and two transfer edges leave this owner; we'll draw them one kind at a time.",
+     "tts": "Two allowance edges and two transfer edges leave this owner. We'll draw them one kind at a time.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The dial at the bottom left is λ; for now it is at 1.",
+     "tts": "The dial at the bottom left is lambda. For now it is at one.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": {
+      "title": "Mixing weight λ",
+      "body": "Weight on the allowance row; the transfer row gets 1 − λ"
+     }
+    }
+   ]
+  },
+  {
+   "slide": "s06-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First, the row of u on the allowance side: its row in the transition matrix.",
+     "tts": "First, the row of u on the allowance side, its row in the transition matrix.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Remember, a row lists the chance of stepping from that node to each other node.",
+     "tts": "Remember, a row lists the chance of stepping from that node to each other node.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The A under P means the allowance layer, and the u next to it is the starting node.",
+     "tts": "The A under P means the allowance layer, and the u next to it is the starting node.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The last place, the dot, stands for every destination.",
+     "tts": "The last place, the dot, stands for every destination.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "As in the cap example from chapter 5, the unlimited allowance counts as 20,000 USD and the other one as 500 USD.",
+     "tts": "As in the cap example from chapter five, the unlimited allowance counts as twenty thousand dollars and the other one as five hundred dollars.",
+     "focus": [
+      "a7",
+      "a21"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So the row splits into 0.9756 and 0.0244. They add up to 1.",
+     "tts": "So the row splits into zero point nine seven five six and zero point zero two four four. They add up to one.",
+     "focus": [
+      "a18",
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "We build the transfer row too.",
+     "tts": "We build the transfer row too.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The 1,000 USD sent today, times the time weight 0.858, gives 858.",
+     "tts": "The one thousand dollars sent today, times the time weight zero point eight five eight, gives eight hundred fifty-eight.",
+     "focus": [
+      "a36"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The 300 USD sent 180 days ago, times 0.5, gives 150.",
+     "tts": "The three hundred dollars sent one hundred eighty days ago, times zero point five, gives one hundred fifty.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So R gets 0.8512 and S2 gets 0.1488, and this row also adds up to 1.",
+     "tts": "So R gets zero point eight five one two and S two gets zero point one four eight eight, and this row also adds up to one.",
+     "focus": [
+      "a32",
+      "a33"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "All the amounts are illustrative examples.",
+     "tts": "All the amounts are illustrative examples.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Now we mix the two rows, with the dial λ at 0.5.",
+     "tts": "Now we mix the two rows, with the dial lambda at zero point five.",
+     "focus": [
+      "a58"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We shrink the allowance row to half, shrink the transfer row to half as well, and join them.",
+     "tts": "We shrink the allowance row to half, shrink the transfer row to half as well, and join them.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "S1 gets 0.4878, and R gets 0.4256.",
+     "tts": "S one gets zero point four eight seven eight, and R gets zero point four two five six.",
+     "focus": [
+      "a46",
+      "a48"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "S2 gets the two pieces added together, 0.0866.",
+     "tts": "S two gets the two pieces added together, zero point zero eight six six.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Each row adds up to 1, so the allowance part brings λ and the transfer part brings 1 minus λ. Together, that is always 1.",
+     "tts": "Each row adds up to one, so the allowance part brings lambda and the transfer part brings one minus lambda. Together, that is always one.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-03",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "What happens if we turn the dial?",
+     "tts": "What happens if we turn the dial?",
+     "focus": [
+      "a50"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "At λ = 1, the mixed row is the same as the allowance row, and at 0, it is the same as the transfer row.",
+     "tts": "At lambda equals one, the mixed row is the same as the allowance row, and at zero, it is the same as the transfer row.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The primary value 0.5 and the sensitivity values 0.25 and 0.75",
+     "tts": "The primary value zero point five, and the sensitivity values zero point two five and zero point seven five,",
+     "focus": [
+      "a59"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "were written into the analysis plan before this study extracted any data.",
+     "tts": "were written into the analysis plan before this study extracted any data.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Sensitivity values check how much the results depend on that choice.",
+     "tts": "Sensitivity values check how much the results depend on that choice.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-03",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "But what if this owner has no transfer edges?",
+     "tts": "But what if this owner has no transfer edges?",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Then the transfer row is empty.",
+     "tts": "Then the transfer row is empty.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The mixed row adds up to only λ, that is 0.5.",
+     "tts": "The mixed row adds up to only lambda, that is zero point five.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So we divide by λ to bring it back to 1.",
+     "tts": "So we divide by lambda to bring it back to one.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We write this divisor as D_λ.",
+     "tts": "We write this divisor as D lambda.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the end, that node follows its allowance edges 100% of the time.",
+     "tts": "In the end, that node follows its allowance edges one hundred percent of the time.",
+     "focus": [
+      "a54"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-03",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "This is the coupled formula in Chapter 3 of the thesis.",
+     "tts": "This is the coupled formula in Chapter three of the thesis.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The switch, the bold 1, is 1 if the node has outgoing edges in that layer, and 0 if not.",
+     "tts": "The switch, the bold one, is one if the node has outgoing edges in that layer, and zero if not.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the table, if both kinds are there, the weights are λ and 1 minus λ.",
+     "tts": "In the table, if both kinds are there, the weights are lambda and one minus lambda.",
+     "focus": [
+      "a38",
+      "a39",
+      "a40"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "If only one kind is there, that kind gets the full weight, 1;",
+     "tts": "If only one kind is there, that kind gets the full weight, one.",
+     "focus": [
+      "a43",
+      "a44",
+      "a45",
+      "a49",
+      "a50",
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "if neither is there, the node is dangling, and its mass, its share of the walk, goes to the restart.",
+     "tts": "If neither is there, the node is dangling, and its mass, its share of the walk, goes to the restart.",
+     "focus": [
+      "a56",
+      "a57"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So again, setting λ to 1 walks the allowance layer alone, and setting it to 0 walks the transfer layer alone.",
+     "tts": "So again, setting lambda to one walks the allowance layer alone, and setting it to zero walks the transfer layer alone.",
+     "focus": [
+      "a62"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Restarts are uniform, and d is 0.85.",
+     "tts": "Restarts are uniform, and d is zero point eight five.",
+     "focus": [
+      "a64"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Next, let's see what this dial does on the real data.",
+     "tts": "Next, let's see what this dial does on the real data.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

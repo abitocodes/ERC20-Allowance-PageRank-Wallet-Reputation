@@ -1,0 +1,755 @@
+{
+ "unit": "u04",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s03-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "With the data in place, this funnel shows how I chose the contracts to be scored.",
+     "tts": "With the data in place, this funnel shows how I chose the contracts to be scored.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A cohort is simply the group of contracts we study.",
+     "tts": "A cohort is simply the group of contracts we study.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Look at the small label at the top. One particle is about 10 contracts.",
+     "tts": "Look at the small label at the top. One particle is about ten contracts.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First, I collected the spenders approved by at least 3 distinct owners in the observation window.",
+     "tts": "First, I collected the spenders approved by at least three distinct owners in the observation window.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Distinct means each owner is counted only once.",
+     "tts": "Distinct means each owner is counted only once.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "There were 29,022 of them, filling the top layer.",
+     "tts": "There were twenty-nine thousand and twenty-two of them, filling the top layer.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This number comes from the registered analysis, counted on all tokens, as the analysis plan said.",
+     "tts": "This number comes from the registered analysis, counted on all tokens, as the analysis plan said.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Next, I read the code at each of these addresses.",
+     "tts": "Next, I read the code at each of these addresses.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "1,121 had no code, and 57 carried an EIP-7702 delegation designator.",
+     "tts": "One thousand one hundred and twenty-one had no code, and fifty-seven carried an E I P seventy-seven oh two delegation designator.",
+     "focus": [
+      "a9",
+      "a10"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Both count as EOAs, controlled by a private key, so they were taken out. They sit here on the left.",
+     "tts": "Both count as E O A's, controlled by a private key, so they were taken out. They sit here on the left.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The remaining 27,844 are the cohort of the analysis plan.",
+     "tts": "The remaining twenty-seven thousand eight hundred and forty-four are the cohort of the analysis plan.",
+     "focus": [
+      "a12",
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "The revised analysis applied the same three-owner rule to the five tokens alone.",
+     "tts": "The revised analysis applied the same three-owner rule to the five tokens alone.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "15,107 contracts pass, and we call them the matched cohort.",
+     "tts": "Fifteen thousand one hundred and seven contracts pass, and we call them the matched cohort.",
+     "focus": [
+      "a16",
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": {
+      "title": "Matched cohort",
+      "body": "The 15,107 contracts that every score is given to and compared on"
+     }
+    },
+    {
+     "sub": "The other 12,737 cannot reach 3 owners on the five tokens.",
+     "tts": "The other twelve thousand seven hundred and thirty-seven cannot reach three owners on the five tokens.",
+     "focus": [
+      "a18",
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Every score is given to these same contracts.",
+     "tts": "Every score is given to these same contracts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So differences between the scores do not come from differences in the sample.",
+     "tts": "So differences between the scores do not come from differences in the sample.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Still, some contracts are missing from one of the two graphs, the allowance graph or the transfer graph.",
+     "tts": "Still, some contracts are missing from one of the two graphs, the allowance graph or the transfer graph.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "523 are outside the allowance graph, the amber group.",
+     "tts": "Five hundred and twenty-three are outside the allowance graph, the amber group.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "2,670 are outside the transfer graph, in sky blue, and 80 of them are outside both.",
+     "tts": "Two thousand six hundred and seventy are outside the transfer graph, in sky blue, and eighty of them are outside both.",
+     "focus": [
+      "a31",
+      "a18"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Such a contract gets 0 under the score of that graph.",
+     "tts": "Such a contract gets zero under the score of that graph.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is why they sit below the dotted floor line.",
+     "tts": "That is why they sit below the dotted floor line.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "From the allowance and transfer records, I built two graphs.",
+     "tts": "From the allowance and transfer records, I built two graphs.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A node is an address, and an edge is an allowance or a transfer.",
+     "tts": "A node is an address, and an edge is an allowance or a transfer.",
+     "focus": [
+      "a3",
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": {
+      "title": "Node and edge",
+      "body": "Node: an address. Edge: an allowance or transfer linking two of them"
+     }
+    },
+    {
+     "sub": "Amber on the left is the allowance graph, and sky blue on the right is the transfer graph.",
+     "tts": "Amber on the left is the allowance graph, and sky blue on the right is the transfer graph.",
+     "focus": [
+      "a5",
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "For now, the nodes are just scattered.",
+     "tts": "For now, the nodes are just scattered.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "In the allowance graph on the left, a great many owners point to a few spender contracts.",
+     "tts": "In the allowance graph on the left, a great many owners point to a few spender contracts.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So you see a few bright hubs, with many lines running into each.",
+     "tts": "So you see a few bright hubs, with many lines running into each.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The transfer graph on the right is a denser mesh.",
+     "tts": "The transfer graph on the right is a denser mesh.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The shapes are only illustrations.",
+     "tts": "The shapes are only illustrations.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "What does match the real graphs is the ratio of nodes to edges.",
+     "tts": "What does match the real graphs is the ratio of nodes to edges.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Here are the real sizes.",
+     "tts": "Here are the real sizes.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The allowance graph has about 6.22 million nodes and 11.21 million edges.",
+     "tts": "The allowance graph has about six point two two million nodes and eleven point two one million edges.",
+     "focus": [
+      "a7",
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The transfer graph has about 7.88 million nodes and 25 million edges.",
+     "tts": "The transfer graph has about seven point eight eight million nodes and twenty-five million edges.",
+     "focus": [
+      "a11",
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Let me put the edge counts side by side, amber for allowances and sky blue for transfers.",
+     "tts": "Let me put the edge counts side by side, amber for allowances and sky blue for transfers.",
+     "focus": [
+      "a15",
+      "a19"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Lay the allowance bar along the transfer bar twice, and there is still a little left over.",
+     "tts": "Lay the allowance bar along the transfer bar twice, and there is still a little left over.",
+     "focus": [
+      "a21",
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "There are 2.23 times as many transfer edges as allowance edges.",
+     "tts": "There are two point two three times as many transfer edges as allowance edges.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The time it takes to compute a score follows the number of edges.",
+     "tts": "The time it takes to compute a score follows the number of edges.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So later on, this gap alone explains the difference in computing speed.",
+     "tts": "So later on, this gap alone explains the difference in computing speed.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-05",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Almost every node in the allowance graph is an owner who granted an allowance.",
+     "tts": "Almost every node in the allowance graph is an owner who granted an allowance.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It looks like a constellation of about 6.21 million owners pointing to far fewer spenders.",
+     "tts": "It looks like a constellation of about six point two one million owners pointing to far fewer spenders.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-06",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Now let me put all 15,107 contracts of the matched cohort on one screen.",
+     "tts": "Now let me put all fifteen thousand one hundred and seven contracts of the matched cohort on one screen.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "One dot is one contract.",
+     "tts": "One dot is one contract.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Right now, every dot is lying on the floor.",
+     "tts": "Right now, every dot is lying on the floor.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-06",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Across is the number of distinct owners that approved the contract.",
+     "tts": "Across is the number of distinct owners that approved the contract.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Depth is the number of distinct addresses that sent it transfers.",
+     "tts": "Depth is the number of distinct addresses that sent it transfers.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Height is the EndorseRank score.",
+     "tts": "Height is the EndorseRank score.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank is the \"score that walks along allowances\", which I mentioned in chapter 1.",
+     "tts": "EndorseRank is the score that walks along allowances, which I mentioned in chapter one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We will build it step by step in chapters 4 to 6.",
+     "tts": "We will build it step by step in chapters four to six.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "All three axes are on log scales, so very large and very small values can be seen together.",
+     "tts": "All three axes are on log scales, so very large and very small values can be seen together.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "One tick up the height means the score is 100 times larger.",
+     "tts": "One tick up the height means the score is one hundred times larger.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The contracts with the fewest approvals rise to their height first, and the rest follow in order.",
+     "tts": "The contracts with the fewest approvals rise to their height first, and the rest follow in order.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A dot's color shows its rank under EndorseRank. Grey means a low rank, bright amber a high one.",
+     "tts": "A dot's color shows its rank under EndorseRank. Grey means a low rank, bright amber a high one.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The 535 contracts with an EndorseRank of 0 stay on the floor plate.",
+     "tts": "The five hundred and thirty-five contracts with an EndorseRank of zero stay on the floor plate.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is the 523 outside the allowance graph, plus 12 whose amounts are so small that their edge weight, explained in chapter 5, becomes 0.",
+     "tts": "That is the five hundred and twenty-three outside the allowance graph, plus twelve whose amounts are so small that their edge weight, explained in chapter five, becomes zero.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-06",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Seen from the side, EndorseRank rises almost in a single line with the number of approving owners.",
+     "tts": "Seen from the side, EndorseRank rises almost in a single line with the number of approving owners.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Follow the dots from the lower left up to the upper right.",
+     "tts": "Follow the dots from the lower left up to the upper right.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The color also changes evenly, from grey at the bottom to bright amber at the top.",
+     "tts": "The color also changes evenly, from grey at the bottom to bright amber at the top.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A number called Kendall's tau measures how close this is to a single line.",
+     "tts": "A number called Kendall's tau measures how close this is to a single line.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "We will learn it in chapter 7, by counting pairs.",
+     "tts": "We will learn it in chapter seven, by counting pairs.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This is an intended-construct check.",
+     "tts": "This is an intended-construct check.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": {
+      "title": "Intended-construct check",
+      "body": "Asks if a score measures what it set out to measure; not validation"
+     }
+    },
+    {
+     "sub": "It asks whether the score measures what it was meant to measure. It is not a validation.",
+     "tts": "It asks whether the score measures what it was meant to measure. It is not a validation.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-06",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Now I color the same dots by the rank of AWP, the transfer-side score.",
+     "tts": "Now I color the same dots by the rank of A W P, the transfer-side score.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Grey means a low rank, and bright sky blue a high one.",
+     "tts": "Grey means a low rank, and bright sky blue a high one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "If the two scores ordered the contracts the same way, the color would brighten evenly from bottom to top.",
+     "tts": "If the two scores ordered the contracts the same way, the color would brighten evenly from bottom to top.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Instead, bright and dark dots are mixed at every height of the ridge.",
+     "tts": "Instead, bright and dark dots are mixed at every height of the ridge.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This means the two scores order the contracts differently.",
+     "tts": "This means the two scores order the contracts differently.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "2,672 contracts have an AWP of 0.",
+     "tts": "Two thousand six hundred and seventy-two contracts have an A W P of zero.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is the 2,670 outside the transfer graph, plus 2 whose amounts are so small that their edge weight becomes 0.",
+     "tts": "That is the two thousand six hundred and seventy outside the transfer graph, plus two whose amounts are so small that their edge weight becomes zero.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "These two scenes are a preview of the main results, which come in chapter 8.",
+     "tts": "These two scenes are a preview of the main results, which come in chapter eight.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

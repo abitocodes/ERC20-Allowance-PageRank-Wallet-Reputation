@@ -1,0 +1,768 @@
+{
+ "unit": "u19",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s10-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So how many fake addresses does it take to climb this ladder, from the median up to the top?",
+     "tts": "So how many fake addresses does it take to climb this ladder, from the median up to the top?",
+     "focus": [
+      "a14",
+      "a17",
+      "a20",
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each point of the tower on the left is one contract of the matched cohort.",
+     "tts": "Each point of the tower on the left is one contract of the matched cohort.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The height is the EndorseRank score on a log scale, so each level up means a score ten times larger.",
+     "tts": "The height is the EndorseRank score on a log scale, so each level up means a score ten times larger.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Most contracts sit close to the floor.",
+     "tts": "Most contracts sit close to the floor.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The box in the middle is the target contract, whose score the attacker wants to raise.",
+     "tts": "The box in the middle is the target contract, whose score the attacker wants to raise.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It starts at c, the score of an address that nobody approves. That is 7.64 × 10⁻⁸.",
+     "tts": "It starts at c, the score of an address that nobody approves. That is seven point six four times ten to the minus eight.",
+     "focus": [
+      "a33"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The counter on the right will show how many fake addresses are needed.",
+     "tts": "The counter on the right will show how many fake addresses are needed.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First rung: the median. It is very cheap.",
+     "tts": "First rung, the median. It is very cheap.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is enough for two addresses, the target contract and one fake address, to approve each other.",
+     "tts": "It is enough for two addresses, the target contract and one fake address, to approve each other.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The pink dashed circle is that partner, and the pair needs two approvals, one each way.",
+     "tts": "The pink dashed circle is that partner, and the pair needs two approvals, one each way.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the star formula from the last slide, f counts the fake addresses and d is the damping factor.",
+     "tts": "In the star formula from the last slide, f counts the fake addresses and d is the damping factor.",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Putting f = 1 into that formula gives c(1 + d) / (1 − d²).",
+     "tts": "Putting f equals one into that formula gives c times the quantity one plus d, divided by the quantity one minus the square of d.",
+     "focus": [
+      "a39",
+      "a40"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Since 1 − d² = (1 − d)(1 + d), the factor (1 + d) cancels, leaving c / (1 − d).",
+     "tts": "Since one minus the square of d is the product of one minus d and one plus d, the factor one plus d cancels, leaving c divided by the quantity one minus d.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is 5.09 × 10⁻⁷, which is above the median.",
+     "tts": "That is five point zero nine times ten to the minus seven, which is above the median.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Solving the formula for f gives f ≤ 0, so the thesis says that no farm is needed.",
+     "tts": "Solving the formula for f gives f less than or equal to zero, so the thesis says that no farm is needed.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But approving each other takes a partner, so in practice the attacker creates 1 fake address.",
+     "tts": "But approving each other takes a partner, so in practice the attacker creates one fake address.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Next rung: the 90th percentile is passed with 22 fake addresses.",
+     "tts": "Next rung. The ninetieth percentile is passed with twenty-two fake addresses.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is 44 approvals per window.",
+     "tts": "That is forty-four approvals per window.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the tower, the target box has climbed to the 90th-percentile ring.",
+     "tts": "In the tower, the target box has climbed to the ninetieth-percentile ring.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "The 99th percentile takes 2,074 fake addresses.",
+     "tts": "The ninety-ninth percentile takes two thousand and seventy-four fake addresses.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "At two approvals per address, that makes 4,148 per window.",
+     "tts": "At two approvals per address, that makes four thousand one hundred and forty-eight per window.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The pink points now gather around the target box.",
+     "tts": "The pink points now gather around the target box.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The numbers start to grow fast.",
+     "tts": "The numbers start to grow fast.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-03",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Reaching the top takes more than 130,000 fake addresses.",
+     "tts": "Reaching the top takes more than one hundred thirty thousand fake addresses.",
+     "focus": [
+      "a8",
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The counter reads about 135,895.",
+     "tts": "The counter reads about one hundred thirty-five thousand eight hundred ninety-five.",
+     "focus": [
+      "a8",
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is more than 270,000 approvals per window.",
+     "tts": "That is more than two hundred seventy thousand approvals per window.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Each point of the pink haze covering the tower stands for five fake addresses.",
+     "tts": "Each point of the pink haze covering the tower stands for five fake addresses.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Note that this calculation leaves out one effect.",
+     "tts": "Note that this calculation leaves out one effect.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A farm this large would also raise the total number of nodes, and so lower c.",
+     "tts": "A farm this large would also raise the total number of nodes, and so lower c.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-03",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Why is the top this expensive? Because endorsement is concentrated.",
+     "tts": "Why is the top this expensive? Because endorsement is concentrated.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The top contract holds about 3% of the whole graph's share, more than 400,000 times c.",
+     "tts": "The top contract holds about three percent of the whole graph's share, more than four hundred thousand times c.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In short, looking ordinary is cheap, and the top is expensive.",
+     "tts": "In short, looking ordinary is cheap, and the top is expensive.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is why this study concludes that none of its scores should be used on its own to raise a warning or to set a reward.",
+     "tts": "That is why this study concludes that none of its scores should be used on its own to raise a warning or to set a reward.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Cutting the tokens down to five does not change the attack cost.",
+     "tts": "Cutting the tokens down to five does not change the attack cost.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is because approving one of those tokens costs the attacker no more than approving any other token.",
+     "tts": "That is because approving one of those tokens costs the attacker no more than approving any other token.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the interactive version of these slides, a slider on the right sets f, and the box height and the number of pink points follow the formula.",
+     "tts": "In the interactive version of these slides, a slider on the right sets f, and the box height and the number of pink points follow the formula.",
+     "focus": [
+      "a16",
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So much for attack cost. We also measured how fast the scores compute, as part of the revised analysis.",
+     "tts": "So much for attack cost. We also measured how fast the scores compute, as part of the revised analysis.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "As I said in chapter 4, one PageRank iteration does one multiplication per edge.",
+     "tts": "As I said in chapter four, one PageRank iteration does one multiplication per edge.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Look at the small world at the top right. It has four edges.",
+     "tts": "Look at the small world at the top right. It has four edges.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So one iteration is multiplications 1 to 4, four in all.",
+     "tts": "So one iteration is multiplications one to four, four in all.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The circled numbers are the order of the multiplications, not edge weights.",
+     "tts": "The circled numbers are the order of the multiplications, not edge weights.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The derivation box below says the same in symbols.",
+     "tts": "The derivation box below says the same in symbols.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "So first, the edge counts of the two graphs.",
+     "tts": "So first, the edge counts of the two graphs.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the same contracts, the allowance graph, which EndorseRank walks, has 11,210,114 edges.",
+     "tts": "On the same contracts, the allowance graph, which EndorseRank walks, has eleven million two hundred ten thousand one hundred fourteen edges.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The transfer graph, which AWP walks, has 25,001,216, which is 2.23 times as many.",
+     "tts": "The transfer graph, which A W P walks, has twenty-five million one thousand two hundred sixteen, which is two point two three times as many.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each small arrow stands for 50,000 edges.",
+     "tts": "Each small arrow stands for fifty thousand edges.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Building the matrix also takes one step per edge, so the amount of work is proportional to the number of edges.",
+     "tts": "Building the matrix also takes one step per edge, so the amount of work is proportional to the number of edges.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Proportional means that twice the edges is twice the work.",
+     "tts": "Proportional means that twice the edges is twice the work.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "As we saw at the start of this chapter, the solver graphs have slightly fewer nodes than in chapter 3.",
+     "tts": "As we saw at the start of this chapter, the solver graphs have slightly fewer nodes than in chapter three.",
+     "focus": [
+      "a62"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The solver leaves out addresses whose amounts are all so small that their value weight is zero.",
+     "tts": "The solver leaves out addresses whose amounts are all so small that their value weight is zero.",
+     "focus": [
+      "a62"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is 2,602 on the allowance side and 2,246 on the transfer side.",
+     "tts": "That is two thousand six hundred and two on the allowance side, and two thousand two hundred and forty-six on the transfer side.",
+     "focus": [
+      "a62"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Now we start both computations at the same time, with the same solver.",
+     "tts": "Now we start both computations at the same time, with the same solver.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The screen runs 4 times faster than real time, and the clock shows real seconds.",
+     "tts": "The screen runs four times faster than real time, and the clock shows real seconds.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each time is the mean of five timed runs after one warm-up run.",
+     "tts": "Each time is the mean of five timed runs after one warm-up run.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank finished in 10.29 seconds.",
+     "tts": "EndorseRank finished in ten point two nine seconds.",
+     "focus": [
+      "a22",
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "AWP finished in 22.37 seconds.",
+     "tts": "A W P finished in twenty-two point three seven seconds.",
+     "focus": [
+      "a22",
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "AWP took 2.17 times as long, and it has 2.23 times as many edges.",
+     "tts": "A W P took two point one seven times as long, and it has two point two three times as many edges.",
+     "focus": [
+      "a68",
+      "a70"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The iteration counts differ a little, 69 and 92.",
+     "tts": "The iteration counts differ a little, sixty-nine and ninety-two.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But the time ratio stays very close to the edge ratio.",
+     "tts": "But the time ratio stays very close to the edge ratio.",
+     "focus": [
+      "a66"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So EndorseRank is faster not because its algorithm is better, but because the allowance graph is sparse.",
+     "tts": "So EndorseRank is faster not because its algorithm is better, but because the allowance graph is sparse.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": {
+      "title": "Sparse graph",
+      "body": "A graph with few edges for its number of nodes"
+     }
+    }
+   ]
+  },
+  {
+   "slide": "s10-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "C-PR and S-PR, which also walk the transfer layer, took even longer than AWP.",
+     "tts": "C P R and S P R, which also walk the transfer layer, took even longer than A W P.",
+     "focus": [
+      "a50",
+      "a60"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "C-PR, at λ = 0.5, took 36.16 seconds, and S-PR 34.42 seconds.",
+     "tts": "C P R, at lambda equals zero point five, took thirty-six point one six seconds, and S P R thirty-four point four two seconds.",
+     "focus": [
+      "a50",
+      "a60"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "C-PR walks the 31,552,359 edges of the two graphs combined.",
+     "tts": "C P R walks the thirty-one million five hundred fifty-two thousand three hundred fifty-nine edges of the two graphs combined.",
+     "focus": [
+      "a53"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "S-PR first sets its restart points with the allowance walk, and then walks the transfer graph.",
+     "tts": "S P R first sets its restart points with the allowance walk, and then walks the transfer graph.",
+     "focus": [
+      "a61"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-04",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Finally, one limitation.",
+     "tts": "Finally, one limitation.",
+     "focus": [
+      "a83"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We also timed small samples drawn from the cohort: 1,000, 2,000, 5,000 and 10,000 contracts.",
+     "tts": "We also timed small samples drawn from the cohort, one thousand, two thousand, five thousand and ten thousand contracts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The solid line is the time ratio, and the dashed line is the edge ratio.",
+     "tts": "The solid line is the time ratio, and the dashed line is the edge ratio.",
+     "focus": [
+      "a87",
+      "a91"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the small samples the two lines are quite far apart, so the time ratio did not follow the edge ratio well.",
+     "tts": "In the small samples the two lines are quite far apart, so the time ratio did not follow the edge ratio well.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The two lines come close only in the shaded box on the right: the two large stages, with 10,000 contracts or more.",
+     "tts": "The two lines come close only in the shaded box on the right, the two large stages, with ten thousand contracts or more.",
+     "focus": [
+      "a96",
+      "a97"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "These stages are subsamples of one cohort, so they say nothing about graphs larger than the cohort itself.",
+     "tts": "These stages are subsamples of one cohort, so they say nothing about graphs larger than the cohort itself.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

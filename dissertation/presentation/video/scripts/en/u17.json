@@ -1,0 +1,779 @@
+{
+ "unit": "u17",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s09-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Rule B is the rule I registered after seeing the W0 results, and before this study extracted the W1 logs.",
+     "tts": "Rule B is the rule I registered after seeing the W zero results, and before this study extracted the W one logs.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "To say that C-PR improves on the transfer layer walked alone, all three conditions must hold.",
+     "tts": "To say that C P R improves on the transfer layer walked alone, all three conditions must hold.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Every row is the paired difference: C-PR minus the transfer layer walked alone.",
+     "tts": "Every row is the paired difference, C P R minus the transfer layer walked alone.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The first row, F1, needs an interval above 0. F2 and F3 below it may fall short, but only within the margin.",
+     "tts": "The first row, F one, needs an interval above zero. F two and F three below it may fall short, but only within the margin.",
+     "focus": [
+      "a8",
+      "a10",
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The rose hatching is that margin of 0.01.",
+     "tts": "The rose hatching is that margin of zero point zero one.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The numbers coming up are from the revised analysis, a re-analysis that applies the registered rule unchanged.",
+     "tts": "The numbers coming up are from the revised analysis, a re-analysis that applies the registered rule unchanged.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "On new approval pairs, C-PR was clearly better: +0.110.",
+     "tts": "On new approval pairs, C P R was clearly better, plus zero point one one zero.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Its interval lies well above 0.",
+     "tts": "Its interval lies well above zero.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The gain we saw in W0 showed up again in the new window.",
+     "tts": "The gain we saw in W zero showed up again in the new window.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "On new transfer senders it was −0.028, behind by more than the margin of 0.01.",
+     "tts": "On new transfer senders it was minus zero point zero two eight, behind by more than the margin of zero point zero one.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The whole interval lies left of the hatching.",
+     "tts": "The whole interval lies left of the hatching.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "On the traders' liquidation-free close rate, the share of their closes that did not end in liquidation, the two scores were exactly equal.",
+     "tts": "On the traders' liquidation-free close rate, the share of their closes that did not end in liquidation, the two scores were exactly equal.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": {
+      "title": "Liquidation-free rate",
+      "body": "One minus the share of closes that ended in liquidation"
+     }
+    },
+    {
+     "sub": "The point estimate is 0.",
+     "tts": "The point estimate is zero.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But look closer at the lower end of the interval, in the zoomed box at the bottom right.",
+     "tts": "But look closer at the lower end of the interval, in the zoomed box at the bottom right.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Its lower end is −0.014.",
+     "tts": "Its lower end is minus zero point zero one four.",
+     "focus": [
+      "a32"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is past the margin of −0.010, by 0.004.",
+     "tts": "That is past the margin of minus zero point zero one zero, by zero point zero zero four.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Narrowly not met.",
+     "tts": "Narrowly not met.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-03",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "So rule B is not met either.",
+     "tts": "So rule B is not met either.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This too is a re-analysis: the registered rule applied to the revised scores.",
+     "tts": "This too is a re-analysis, the registered rule applied to the revised scores.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-03",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "The margin comes from W0 of the registered analysis.",
+     "tts": "The margin comes from W zero of the registered analysis.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "There, the interval for this same difference had a half-width of 0.0040. Rounded up to two decimals, that is 0.01.",
+     "tts": "There, the interval for this same difference had a half-width of zero point zero zero four zero. Rounded up to two decimals, that is zero point zero one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the sensitivity analysis, where AWP takes the place of the transfer layer, F2 was also not met, at −0.067.",
+     "tts": "In the sensitivity analysis, where A W P takes the place of the transfer layer, F two was also not met, at minus zero point zero six seven.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And on F3, C-PR and AWP scored the same: 0.350 each.",
+     "tts": "And on F three, C P R and A W P scored the same, zero point three five zero each.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Rule B was not met in the registered analysis either, shown by the gray hollow dots.",
+     "tts": "Rule B was not met in the registered analysis either, shown by the gray hollow dots.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So this thesis has two analyses.",
+     "tts": "So this thesis has two analyses.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the title tells you how it ends: the same verdicts.",
+     "tts": "And the title tells you how it ends, the same verdicts.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The registered analysis is exactly as fixed in advance.",
+     "tts": "The registered analysis is exactly as fixed in advance.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It counts amounts in raw base units, the smallest piece of each token, and it keeps every token.",
+     "tts": "It counts amounts in raw base units, the smallest piece of each token, and it keeps every token.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "After seeing the registered results, the revised analysis changed the amounts to US dollars and the tokens to five.",
+     "tts": "After seeing the registered results, the revised analysis changed the amounts to U S dollars and the tokens to five.",
+     "focus": [
+      "a4",
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The results in the main text of the thesis come from the revised one.",
+     "tts": "The results in the main text of the thesis come from the revised one.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "There were three reasons for the revision, all found after the registered results were known.",
+     "tts": "There were three reasons for the revision, all found after the registered results were known.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "First, in raw base units, almost every value weight was 1, so the amount played no part.",
+     "tts": "First, in raw base units, almost every value weight was one, so the amount played no part.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Second, C-PR, the coupled score, simply added amounts, although 1 USDC is 10⁶ base units and 1 WETH is 10¹⁸.",
+     "tts": "Second, C P R, the coupled score, simply added amounts, although one U S D C is ten to the sixth base units and one wrapped ether is ten to the eighteenth.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And an unlimited approval took over a whole row.",
+     "tts": "And an unlimited approval took over a whole row.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Third, a spam token could write logs in the name of any address.",
+     "tts": "Third, a spam token could write logs in the name of any address.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "What matters is that every verdict was the same in both analyses.",
+     "tts": "What matters is that every verdict was the same in both analyses.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The cohorts shrank to about half, as the top rows show.",
+     "tts": "The cohorts shrank to about half, as the top rows show.",
+     "focus": [
+      "a15",
+      "a19",
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But not one verdict changed: rule A, rule B, and the three rules R1 to R3 that come next.",
+     "tts": "But not one verdict changed. Rule A, rule B, and the three rules R one to R three that come next.",
+     "focus": [
+      "a36",
+      "a42",
+      "a47",
+      "a51",
+      "a55"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Still, let me be clear: the verdicts of the revised analysis are a re-analysis, not registered tests.",
+     "tts": "Still, let me be clear. The verdicts of the revised analysis are a re-analysis, not registered tests.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Both analyses used the same rules and the same thresholds, and the registered results are published unchanged.",
+     "tts": "Both analyses used the same rules and the same thresholds, and the registered results are published unchanged.",
+     "focus": [
+      "a57"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "The last rules, R1 to R3, compare the two edge types on outcomes built from neither of them.",
+     "tts": "The last rules, R one to R three, compare the two edge types on outcomes built from neither of them.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This is the top rung of the comparison ladder we saw earlier, the strictest test.",
+     "tts": "This is the top rung of the comparison ladder we saw earlier, the strictest test.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I looked at how contract traders on GMX V2 closed their positions over the next three months.",
+     "tts": "I looked at how contract traders on G M X V two closed their positions over the next three months.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "W1 has 70 traders.",
+     "tts": "W one has seventy traders.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The amber rings are the 37 that had received approvals by the freeze date.",
+     "tts": "The amber rings are the thirty-seven that had received approvals by the freeze date.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The rose dots are the 9 that were liquidated at least once in the three months.",
+     "tts": "The rose dots are the nine that were liquidated at least once in the three months.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Being liquidated means a position was closed by force.",
+     "tts": "Being liquidated means a position was closed by force.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The outcome is the liquidation-free close rate.",
+     "tts": "The outcome is the liquidation-free close rate.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It is 1 minus the share of closes that ended in liquidation.",
+     "tts": "It is one minus the share of closes that ended in liquidation.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Because it is a rate, it does not go up just because a contract trades more.",
+     "tts": "Because it is a rate, it does not go up just because a contract trades more.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "P works at the count level: the tau of the number of owners that approve, minus the tau of the transfer in-degree.",
+     "tts": "P works at the count level, the tau of the number of owners that approve, minus the tau of the transfer in-degree.",
+     "focus": [
+      "a14",
+      "a16"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Right of 0 means the allowance side did better.",
+     "tts": "Right of zero means the allowance side did better.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In W1, P was +0.084, but its 97.5% interval contains 0.",
+     "tts": "In W one, P was plus zero point zero eight four, but its ninety-seven point five percent interval contains zero.",
+     "focus": [
+      "a15",
+      "a17"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The rule also asked for P above 0 in W0. There, P was 0.182, so that condition held.",
+     "tts": "The rule also asked for P above zero in W zero. There, P was zero point one eight two, so that condition held.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But the W1 condition failed.",
+     "tts": "But the W one condition failed.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So R1 is not met. In the wording registered in advance: there is no count-level lead of allowance over transfer.",
+     "tts": "So R one is not met. In the wording registered in advance, there is no count-level lead of allowance over transfer.",
+     "focus": [
+      "a18",
+      "a19"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-05",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "The PageRank comparison Q was −0.041 in W1, and its interval contains 0.",
+     "tts": "The PageRank comparison Q was minus zero point zero four one in W one, and its interval contains zero.",
+     "focus": [
+      "a21",
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So R2 is not met either: the PageRank versions are not resolved.",
+     "tts": "So R two is not met either. The PageRank versions are not resolved.",
+     "focus": [
+      "a26",
+      "a27"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In W0, Q was −0.014.",
+     "tts": "In W zero, Q was minus zero point zero one four.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-05",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "R3, the specificity rule, applies.",
+     "tts": "R three, the specificity rule, applies.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the profitable share and the non-loss share, the allowance side was actually lower.",
+     "tts": "On the profitable share and the non-loss share, the allowance side was actually lower.",
+     "focus": [
+      "a31",
+      "a33"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Both gray dots sit left of 0.",
+     "tts": "Both gray dots sit left of zero.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So if there is a signal, it concerns avoiding forced liquidation, not trading success.",
+     "tts": "So if there is a signal, it concerns avoiding forced liquidation, not trading success.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-05",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "The traders with approvals were never liquidated.",
+     "tts": "The traders with approvals were never liquidated.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "All 37 in W1, and all 40 in W0 as well.",
+     "tts": "All thirty-seven in W one, and all forty in W zero as well.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Of the other traders, only 72.7% in W1 and 75.0% in W0 had no liquidation.",
+     "tts": "Of the other traders, only seventy-two point seven percent in W one and seventy-five point zero percent in W zero had no liquidation.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That stands out, but the samples are only 70 and 88 traders.",
+     "tts": "That stands out, but the samples are only seventy and eighty-eight traders.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the transfer in-degree also ranks this outcome fairly well, at 0.310, so I cannot say more here.",
+     "tts": "And the transfer in-degree also ranks this outcome fairly well, at zero point three one zero, so I cannot say more here.",
+     "focus": [
+      "a36"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "These verdicts are a re-analysis too, and the registered analysis reached the same ones.",
+     "tts": "These verdicts are a re-analysis too, and the registered analysis reached the same ones.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

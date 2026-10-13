@@ -1,0 +1,862 @@
+{
+ "unit": "u08",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s05-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So how do we set the slope b?",
+     "tts": "So how do we set the slope b?",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the revised analysis, we set it so that the middle amount, the median, gets exactly half the weight.",
+     "tts": "In the revised analysis, we set it so that the middle amount, the median, gets exactly half the weight.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The dashed line on the chart marks that goal.",
+     "tts": "The dashed line on the chart marks that goal.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The median is the value in the middle when you line the amounts up from smallest to largest.",
+     "tts": "The median is the value in the middle when you line the amounts up from smallest to largest.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In this example it is the fifth of nine, circled in pink: 62 USD.",
+     "tts": "In this example it is the fifth of nine, circled in pink, sixty-two dollars.",
+     "focus": [
+      "a4",
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So what we want is V(m) = 1/2.",
+     "tts": "So what we want is V of m equals one half.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "On the previous slide, we rewrote V as a fraction: 1 − y on top and 1 + y below, where y stands for e to the −bm.",
+     "tts": "On the previous slide, we rewrote V as a fraction, one minus why on top and one plus why below, where why stands for e to the minus b m.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We just need to solve the equation that says this fraction equals one half.",
+     "tts": "We just need to solve the equation that says this fraction equals one half.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Multiply both sides by 2(1 + y) to clear the denominators.",
+     "tts": "Multiply both sides by two times the sum, one plus why, to clear the denominators.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Now no fractions are left.",
+     "tts": "Now no fractions are left.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Expanding the brackets, 2 − 2y = 1 + y.",
+     "tts": "Expanding the brackets, two minus two times why, equals one plus why.",
+     "focus": [
+      "a32"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The 2 outside multiplies both terms inside.",
+     "tts": "The two outside multiplies both terms inside.",
+     "focus": [
+      "a32"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Collect y on one side: 1 = 3y.",
+     "tts": "Collect why on one side, one equals three why.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So y is one third.",
+     "tts": "So why is one third.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "Now put y back, so e to the −bm is one third.",
+     "tts": "Now put why back, so e to the minus b m is one third.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A negative exponent means 1 divided by the positive exponent, so 1 ÷ e to the bm is one third.",
+     "tts": "A negative exponent means one divided by the positive exponent, so one divided by e to the b m is one third.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So e to the bm is 3.",
+     "tts": "So e to the b m is three.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I fold the finished steps into one line up top.",
+     "tts": "I fold the finished steps into one line up top.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 7,
+   "lines": [
+    {
+     "sub": "To what power must we raise e to get 3?",
+     "tts": "To what power must we raise e to get three?",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The number e is about 2.7 and e squared about 7.4, so the answer lies between 1 and 2, about 1.0986.",
+     "tts": "The number e is about two point seven, and e squared about seven point four, so the answer lies between one and two, about one point zero nine eight six.",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We write this answer as ln 3, so b times m is ln 3.",
+     "tts": "We write this answer as the natural log of three, so b times m is the natural log of three.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 8,
+   "lines": [
+    {
+     "sub": "Divide both sides by m, and b is ln 3 divided by m.",
+     "tts": "Divide both sides by m, and b is the natural log of three, divided by m.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That box is our answer: the slope that gives the median a weight of 1/2.",
+     "tts": "That box is our answer, the slope that gives the median a weight of one half.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-04",
+   "step": 9,
+   "lines": [
+    {
+     "sub": "Let me check.",
+     "tts": "Let me check.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "At twice the median, e to the 2bm is 3 times 3, which is 9, so y is one ninth.",
+     "tts": "At twice the median, e to the two b m is three times three, which is nine, so why is one ninth.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Then V is eight ninths divided by ten ninths, 0.8.",
+     "tts": "Then V is eight ninths divided by ten ninths, zero point eight.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "At half the median, e to the power of half bm, times itself, must give 3, so it is the square root of 3, about 1.732.",
+     "tts": "At half the median, e to the power of half b m, times itself, must give three, so it is the square root of three, about one point seven three two.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So y is about 0.577, and V about 0.27.",
+     "tts": "So why is about zero point five seven seven, and V about zero point two seven.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the curves: 0.27 at half the median, 0.5 at the median, 0.8 at twice the median.",
+     "tts": "On the curves, zero point two seven at half the median, zero point five at the median, zero point eight at twice the median.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Differences in amount show up evenly in the weight.",
+     "tts": "Differences in amount show up evenly in the weight.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "For transfers the median, rounded to two significant digits, was 200 USD; for allowances, 62 USD.",
+     "tts": "For transfers the median, rounded to two significant digits, was two hundred dollars, for allowances, sixty-two dollars.",
+     "focus": [
+      "a41",
+      "a44"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "These values come only from records up to 31 March, so no information from the test period enters them.",
+     "tts": "These values come only from records up to the thirty-first of March, so no information from the test period enters them.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "With both weights in hand, let's see how the two graphs use them.",
+     "tts": "With both weights in hand, let's see how the two graphs use them.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Both graphs use the same weight formula, but they add the weights up differently and restart in slightly different places.",
+     "tts": "Both graphs use the same weight formula, but they add the weights up differently and restart in slightly different places.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the left, transfers and AWP. On the right, allowances and EndorseRank.",
+     "tts": "On the left, transfers and A W P. On the right, allowances and EndorseRank.",
+     "focus": [
+      "a4",
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The transfer graph adds, for every transfer from u to v, the time weight times the value weight.",
+     "tts": "The transfer graph adds, for every transfer from u to v, the time weight times the value weight.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Say the transfers from u to v were 400 USD today, 200 USD from 180 days ago, and 100 USD from a year ago.",
+     "tts": "Say the transfers from u to v were four hundred dollars today, two hundred dollars from one hundred eighty days ago, and one hundred dollars from a year ago.",
+     "focus": [
+      "a20",
+      "a21",
+      "a22"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We add 0.6865, 0.25 and 0.0364, about 0.973.",
+     "tts": "We add zero point six eight six five, zero point two five and zero point zero three six four, about zero point nine seven three.",
+     "focus": [
+      "a32",
+      "a33",
+      "a34",
+      "a36"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The allowance graph uses only the latest approval of each token, because a new approval overwrites the earlier one.",
+     "tts": "The allowance graph uses only the latest approval of each token, because a new approval overwrites the earlier one.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The old ones are crossed out.",
+     "tts": "The old ones are crossed out.",
+     "focus": [
+      "a20",
+      "a21"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "An unlimited USDC approval 30 days ago gives 0.8176.",
+     "tts": "An unlimited U S D C approval thirty days ago gives zero point eight one seven six.",
+     "focus": [
+      "a35",
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A 62 USD WETH approval 400 days ago gives 0.0499.",
+     "tts": "A sixty-two dollar wrapped ether approval four hundred days ago gives zero point zero four nine nine.",
+     "focus": [
+      "a36",
+      "a42"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Together, about 0.867.",
+     "tts": "Together, about zero point eight six seven.",
+     "focus": [
+      "a46"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "The restarts differ too. A restart is where the walker lands when it jumps.",
+     "tts": "The restarts differ too. A restart is where the walker lands when it jumps.",
+     "focus": [
+      "a47",
+      "a48"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "AWP restarts more often at active addresses that recently sent to many counterparties.",
+     "tts": "A W P restarts more often at active addresses that recently sent to many counterparties.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "To get the activeness X, we take the latest transfer to each recipient and add up their time weights.",
+     "tts": "To get the activeness X, we take the latest transfer to each recipient and add up their time weights.",
+     "focus": [
+      "a57"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": {
+      "title": "Activeness X",
+      "body": "High when an address recently sent to many counterparties"
+     }
+    },
+    {
+     "sub": "Several transfers to the same recipient count only once, by the latest one.",
+     "tts": "Several transfers to the same recipient count only once, by the latest one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Here all three transfers from u went to v, so only today's transfer counts: X_u is 0.8581.",
+     "tts": "Here all three transfers from u went to v, so only today's transfer counts, and X of u is zero point eight five eight one.",
+     "focus": [
+      "a60"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank restarts uniformly, from every node alike.",
+     "tts": "EndorseRank restarts uniformly, from every node alike.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-05",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Why uniformly?",
+     "tts": "Why uniformly?",
+     "focus": [
+      "a62"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Because we want to measure the contracts that receive approvals, not to give the owners who grant many approvals an extra share of the restarts.",
+     "tts": "Because we want to measure the contracts that receive approvals, not to give the owners who grant many approvals an extra share of the restarts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This study wrote this choice into the analysis plan before it extracted any data.",
+     "tts": "This study wrote this choice into the analysis plan before it extracted any data.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The plan also said to report the variant with AWP-style restarts beside it.",
+     "tts": "The plan also said to report the variant with A W P style restarts beside it.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-06",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "The weights of the coupled score, C-PR, are a little different.",
+     "tts": "The weights of the coupled score, C P R, are a little different.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We meet C-PR properly in the next chapter. Here, look at its two layers, one for allowances and one for transfers.",
+     "tts": "We meet C P R properly in the next chapter. Here, look at its two layers, one for allowances and one for transfers.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "C-PR does not pass the amounts through V. It adds the dollars as they are.",
+     "tts": "C P R does not pass the amounts through V. It adds the dollars as they are.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-06",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First we convert amounts to dollars.",
+     "tts": "First we convert amounts to dollars.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Remember, a base unit is the smallest piece of a token. We write their number as n.",
+     "tts": "Remember, a base unit is the smallest piece of a token. We write their number as n.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We multiply n by 10 to the power of minus the number of decimals, and then by the price of that day.",
+     "tts": "We multiply n by ten to the power of minus the number of decimals, and then by the price of that day.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Multiplying by 10⁻⁶ means dividing by 1,000,000.",
+     "tts": "Multiplying by ten to the minus six means dividing by one million.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "USDC has 6 decimals, so 1,000,000 base units are 1 USDC, about 1 dollar.",
+     "tts": "U S D C has six decimals, so one million base units are one U S D C, about one dollar.",
+     "focus": [
+      "a10",
+      "a11",
+      "a13",
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-06",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "But an unlimited approval is a huge number of base units, close to 2²⁵⁶, which on the chart is about 10⁷¹ USD.",
+     "tts": "But an unlimited approval is a huge number of base units, close to two to the two hundred fifty-sixth, which on the chart is about ten to the seventy-first dollars.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Left as it is, the unlimited approval to S1 would take the owner's whole allowance row on its own.",
+     "tts": "Left as it is, the unlimited approval to S one would take the owner's whole allowance row on its own.",
+     "focus": [
+      "a33"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The same owner's 500 USD approval, to S2, does not even show.",
+     "tts": "The same owner's five hundred dollar approval, to S two, does not even show.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "S2's share here is the walker's chance of going from this owner to S2.",
+     "tts": "S two's share here is the walker's chance of going from this owner to S two.",
+     "focus": [
+      "a36",
+      "a37"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-06",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "So we set a cap U. A single allowance counts at most 20,000 USD.",
+     "tts": "So we set a cap U. A single allowance counts at most twenty thousand dollars.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We take the smaller of the two.",
+     "tts": "We take the smaller of the two.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The unlimited approval counts 20,000 USD and the other one 500, which splits the row 97.6% to 2.4%.",
+     "tts": "The unlimited approval counts twenty thousand dollars and the other one five hundred, which splits the row ninety-seven point six percent to two point four percent.",
+     "focus": [
+      "a37",
+      "a38"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The cap comes from single transfer amounts up to 31 March. Their 99th percentile was 20,266 USD.",
+     "tts": "The cap comes from single transfer amounts up to the thirty-first of March. Their ninety-ninth percentile was twenty thousand two hundred sixty-six dollars.",
+     "focus": [
+      "a32"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is, 99 in 100 single transfers were no larger than that.",
+     "tts": "That is, ninety-nine in one hundred single transfers were no larger than that.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Rounded to two significant digits, that gives 20,000 USD.",
+     "tts": "Rounded to two significant digits, that gives twenty thousand dollars.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-06",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "In the data, 45.8% of latest allowances are unlimited, and 53.8% are at or above the cap.",
+     "tts": "In the data, forty-five point eight percent of latest allowances are unlimited, and fifty-three point eight percent are at or above the cap.",
+     "focus": [
+      "a42",
+      "a43"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "797,852 owners hold unlimited and finite allowances side by side.",
+     "tts": "Seven hundred ninety-seven thousand eight hundred fifty-two owners hold unlimited and finite allowances side by side.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "At first, the cap was defined as the 99th percentile of the finite allowances, but that came to around 10⁴⁷ USD, no use as a cap.",
+     "tts": "At first, the cap was defined as the ninety-ninth percentile of the finite allowances, but that came to around ten to the forty-seventh dollars, no use as a cap.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So this definition was amended and committed, that is, saved with a time stamp, before any revised score was computed.",
+     "tts": "So this definition was amended and committed, that is, saved with a time stamp, before any revised score was computed.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

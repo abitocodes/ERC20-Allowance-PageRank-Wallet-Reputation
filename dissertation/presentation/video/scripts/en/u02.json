@@ -1,0 +1,788 @@
+{
+ "unit": "u02",
+ "lang": "en",
+ "chapter": {
+  "title": "Allowances and transfers",
+  "subtitle": "What an approval really records",
+  "sub": "Chapter two: allowances and transfers. Let's look at the records this whole study is built on.",
+  "tts": "Chapter two. Allowances and transfers. Let's look at the records this whole study is built on."
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s02-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "We begin with DeFi, short for decentralized finance.",
+     "tts": "We begin with DeFi, short for decentralized finance.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In place of a clerk at a bank counter, programs exchange money, hold it and put it to work, and lend it.",
+     "tts": "In place of a clerk at a bank counter, programs exchange money, hold it and put it to work, and lend it.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The routers, vaults and lending pools in this video are all programs of this kind.",
+     "tts": "The routers, vaults and lending pools in this video are all programs of this kind.",
+     "focus": [
+      "a3",
+      "a4",
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "spot",
+     "card": null
+    },
+    {
+     "sub": "On the left, a router swaps my tokens for other tokens.",
+     "tts": "On the left, a router swaps my tokens for other tokens.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the middle, a vault puts the tokens I deposit to work.",
+     "tts": "In the middle, a vault puts the tokens I deposit to work.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And on the right, in a lending pool, people lend and borrow.",
+     "tts": "And on the right, in a lending pool, people lend and borrow.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Such a program is called a smart contract.",
+     "tts": "Such a program is called a smart contract.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": {
+      "title": "Smart contract",
+      "body": "A program on the blockchain that runs by itself under fixed rules"
+     }
+    },
+    {
+     "sub": "It runs by itself on the blockchain, following fixed rules.",
+     "tts": "It runs by itself on the blockchain, following fixed rules.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Before these contracts can move a user's tokens, they first need the user's permission, an allowance.",
+     "tts": "Before these contracts can move a user's tokens, they first need the user's permission, an allowance.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That allowance is what the next slide is about.",
+     "tts": "That allowance is what the next slide is about.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Let me put two kinds of record side by side.",
+     "tts": "Let me put two kinds of record side by side.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the left, in blue, is a transfer.",
+     "tts": "On the left, in blue, is a transfer.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the right, in amber, is an allowance.",
+     "tts": "On the right, in amber, is an allowance.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "A transfer means tokens actually move.",
+     "tts": "A transfer means tokens actually move.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Follow the blue arrow: the coins flow from the sender to the recipient.",
+     "tts": "Follow the blue arrow. The coins flow from the sender to the recipient.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "An allowance is different.",
+     "tts": "An allowance is different.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The token owner promises a contract: “you may take up to this much of my tokens.”",
+     "tts": "The token owner promises a contract, you may take up to this much of my tokens.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The owner grants it with the approve function of the ERC-20 token standard.",
+     "tts": "The owner grants it with the approve function of the E R C twenty token standard.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Or with permit, the signature-based approval of its extension, EIP-2612.",
+     "tts": "Or with permit, the signature-based approval of its extension, E I P twenty-six twelve.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Either way, the same record is left behind: an Approval event.",
+     "tts": "Either way, the same record is left behind, an Approval event.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So this amber arrow does not flow. It just stays in place.",
+     "tts": "So this amber arrow does not flow. It just stays in place.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The 1,000 USDC on it is only an example for the explanation.",
+     "tts": "The one thousand U S D C on it is only an example for the explanation.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Later, the spender contract can call transferFrom to actually move the owner's tokens, up to the approved amount.",
+     "tts": "Later, the spender contract can call transfer from to actually move the owner's tokens, up to the approved amount.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The value this study uses is the amount written in the latest approval record.",
+     "tts": "The value this study uses is the amount written in the latest approval record.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-02",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Now the owner approves the same contract again, this time up to 500 USDC.",
+     "tts": "Now the owner approves the same contract again, this time up to five hundred U S D C.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "For the same owner, contract and token, the most recent approval overwrites the earlier one.",
+     "tts": "For the same owner, contract and token, the most recent approval overwrites the earlier one.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So for each owner, spender and token, this study uses only the latest allowance as an edge, an arrow in the graph.",
+     "tts": "So for each owner, spender and token, this study uses only the latest allowance as an edge, an arrow in the graph.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-02",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Approving an amount of 0 revokes the allowance.",
+     "tts": "Approving an amount of zero revokes the allowance.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A revoked allowance leaves no edge, so the arrow is gone.",
+     "tts": "A revoked allowance leaves no edge, so the arrow is gone.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "An approval entrusts my tokens to a contract.",
+     "tts": "An approval entrusts my tokens to a contract.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So it can be read as trust in the contract that receives it, an edge of endorsement.",
+     "tts": "So it can be read as trust in the contract that receives it, an edge of endorsement.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It is like the way a link on the web can be read as a citation.",
+     "tts": "It is like the way a link on the web can be read as a citation.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The box on the right sums up this first reading: an allowance edge as evidence of trust.",
+     "tts": "The box on the right sums up this first reading, an allowance edge as evidence of trust.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Now many owners approve one contract.",
+     "tts": "Now many owners approve one contract.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "With all these arrows coming in, it looks as if it has received many endorsements.",
+     "tts": "With all these arrows coming in, it looks as if it has received many endorsements.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "But we have to be careful.",
+     "tts": "But we have to be careful.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Next to the first contract, in the middle of the screen, is a phishing contract.",
+     "tts": "Next to the first contract, in the middle of the screen, is a phishing contract.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "When a phishing site tricks someone into approving, the record left behind is exactly the same as an honest one.",
+     "tts": "When a phishing site tricks someone into approving, the record left behind is exactly the same as an honest one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "From the arrows alone, the two boxes cannot be told apart.",
+     "tts": "From the arrows alone, the two boxes cannot be told apart.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "People also approve simply because it is convenient.",
+     "tts": "People also approve simply because it is convenient.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In this study's data, too, 45.8% of the latest allowances were unlimited approvals.",
+     "tts": "In this study's data, too, forty-five point eight percent of the latest allowances were unlimited approvals.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is out of 12.59 million non-zero latest allowances at the end of the observation window.",
+     "tts": "That is out of twelve point five nine million non-zero latest allowances at the end of the observation window.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Unlimited means no cap on the amount.",
+     "tts": "Unlimited means no cap on the amount.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So this thesis treats an allowance not as firm evidence of trust, but as a signal that “can be read” as an endorsement.",
+     "tts": "So this thesis treats an allowance not as firm evidence of trust, but as a signal that can be read as an endorsement.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "There is one thing I must point out here. The graph mixes two kinds of address.",
+     "tts": "There is one thing I must point out here. The graph mixes two kinds of address.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A circle is an externally owned account, an EOA, which a person controls with a private key.",
+     "tts": "A circle is an externally owned account, an E O A, which a person controls with a private key.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": {
+      "title": "EOA",
+      "body": "An ordinary address that a person controls with a private key"
+     }
+    },
+    {
+     "sub": "And a square is a smart contract.",
+     "tts": "And a square is a smart contract.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Every address this study scored and evaluated is a smart contract.",
+     "tts": "Every address this study scored and evaluated is a smart contract.",
+     "focus": [
+      "a6",
+      "a7",
+      "a10",
+      "a13"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "An EOA appears in the graph only as an owner, a sender or a recipient, and it receives no score.",
+     "tts": "An E O A appears in the graph only as an owner, a sender or a recipient, and it receives no score.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Score badges go only on the squares, that is, on contracts.",
+     "tts": "Score badges go only on the squares, that is, on contracts.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The circles get only the label “endpoint”.",
+     "tts": "The circles get only the label endpoint.",
+     "focus": [
+      "a7",
+      "a16",
+      "a19"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "We decided whether an address is a contract by checking whether program code sits at that address.",
+     "tts": "We decided whether an address is a contract by checking whether program code sits at that address.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "For the cohort candidates, which the next chapter introduces, we looked for code at one fixed block.",
+     "tts": "For the cohort candidates, which the next chapter introduces, we looked for code at one fixed block.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "For the remaining holdout spenders and GMX accounts, which come up later in the video, we looked at later blocks within three hours.",
+     "tts": "For the remaining holdout spenders and G M X accounts, which come up later in the video, we looked at later blocks within three hours.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Under EIP-7702, an ordinary account can carry a short pointer to a contract's code, called a delegation designator.",
+     "tts": "Under E I P seventy-seven oh two, an ordinary account can carry a short pointer to a contract's code, called a delegation designator.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "An address whose code was only such a pointer was counted as an EOA.",
+     "tts": "An address whose code was only such a pointer was counted as an E O A.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So where does all of this happen?",
+     "tts": "So where does all of this happen?",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The study takes place on Arbitrum One.",
+     "tts": "The study takes place on Arbitrum One.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Arbitrum One is a rollup that runs on top of Ethereum.",
+     "tts": "Arbitrum One is a rollup that runs on top of Ethereum.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the right, Arbitrum One is the upper plate, sitting on Ethereum below.",
+     "tts": "On the right, Arbitrum One is the upper plate, sitting on Ethereum below.",
+     "focus": [
+      "a9",
+      "a11"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Because it bundles transactions and posts them to Ethereum together, its fees are low, and people transact often.",
+     "tts": "Because it bundles transactions and posts them to Ethereum together, its fees are low, and people transact often.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Its chain ID is 42161.",
+     "tts": "Its chain ID is four two one six one.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Every approval and transfer record here can be read by anyone in the public data of Google BigQuery.",
+     "tts": "Every approval and transfer record here can be read by anyone in the public data of Google Big Query.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Watch the dots dropping into the database: the amber dots are approval records, and the sky-blue dots are transfer records.",
+     "tts": "Watch the dots dropping into the database. The amber dots are approval records, and the sky-blue dots are transfer records.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s02-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "There is also a reason for looking at only one chain.",
+     "tts": "There is also a reason for looking at only one chain.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "If one person holds the same address on several chains, it shows up as separate nodes, separate points in the graph.",
+     "tts": "If one person holds the same address on several chains, it shows up as separate nodes, separate points in the graph.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So comparing within one chain is cleaner.",
+     "tts": "So comparing within one chain is cleaner.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I have now laid that plate on its side. This line will be our time axis.",
+     "tts": "I have now laid that plate on its side. This line will be our time axis.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

@@ -1,0 +1,1134 @@
+{
+ "unit": "u06",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s04-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Before we fix that, let's tidy up. With millions of nodes, we cannot write the equations one by one.",
+     "tts": "Before we fix that, let's tidy up. With millions of nodes, we cannot write the equations one by one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So we collect all the forks in one table.",
+     "tts": "So we collect all the forks in one table.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The rows, down the left, are the nodes we leave from.",
+     "tts": "The rows, down the left, are the nodes we leave from.",
+     "focus": [
+      "a29",
+      "a40",
+      "a56",
+      "a68"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The columns, along the top, are the nodes we arrive at.",
+     "tts": "The columns, along the top, are the nodes we arrive at.",
+     "focus": [
+      "a12",
+      "a14",
+      "a16",
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "In each cell we write the probability of taking that arrow.",
+     "tts": "In each cell we write the probability of taking that arrow.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Row A has two thirds in column B, and one third in column C.",
+     "tts": "Row A has two thirds in column B, and one third in column C.",
+     "focus": [
+      "a24",
+      "a28"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The arrow from A to B weighs 2, and the one from A to C weighs 1, so B gets two of the three parts.",
+     "tts": "The arrow from A to B weighs two, and the one from A to C weighs one, so B gets two of the three parts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Rows B and C have 1 in column D.",
+     "tts": "Rows B and C have one in column D.",
+     "focus": [
+      "a50",
+      "a75"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Cells without an arrow are 0.",
+     "tts": "Cells without an arrow are zero.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This table is the transition matrix P.",
+     "tts": "This table is the transition matrix P.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": {
+      "title": "Transition matrix P",
+      "body": "A table of the chance of stepping from each node to each other node"
+     }
+    }
+   ]
+  },
+  {
+   "slide": "s04-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Look at row D, at the bottom. It is all zeros, an empty row.",
+     "tts": "Look at row D, at the bottom. It is all zeros, an empty row.",
+     "focus": [
+      "a91"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is because D has no outgoing arrow.",
+     "tts": "That is because D has no outgoing arrow.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A node like this is called a dangling node, as if it just hangs there.",
+     "tts": "A node like this is called a dangling node, as if it just hangs there.",
+     "focus": [
+      "a110"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Now I flip this table about its diagonal.",
+     "tts": "Now I flip this table about its diagonal.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The flipped table is called P transpose, written as P with a T on top.",
+     "tts": "The flipped table is called P transpose, written as P with a T on top.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "What was row A, two thirds and one third, now runs down column A.",
+     "tts": "What was row A, two thirds and one third, now runs down column A.",
+     "focus": [
+      "a41",
+      "a66"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Now each row collects everything that flows into that node.",
+     "tts": "Now each row collects everything that flows into that node.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "I call the list of the four shares, stacked in a column, r.",
+     "tts": "I call the list of the four shares, stacked in a column, r.",
+     "focus": [
+      "a33",
+      "a57",
+      "a87",
+      "a114"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Multiplying r by the flipped table adds up, for every arrival node at once, all the shares that flow in.",
+     "tts": "Multiplying r by the flipped table adds up, for every arrival node at once, all the shares that flow in.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Look at row D.",
+     "tts": "Look at row D.",
+     "focus": [
+      "a102",
+      "a112"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "0 times r_A, plus 1 times r_B, plus 1 times r_C, plus 0 times r_D, gives r_B plus r_C.",
+     "tts": "Zero times r of A, plus one times r of B, plus one times r of C, plus zero times r of D, gives r of B plus r of C.",
+     "focus": [
+      "a136"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is exactly the balance equation I wrote by hand on the last slide.",
+     "tts": "That is exactly the balance equation I wrote by hand on the last slide.",
+     "focus": [
+      "a121"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So one pour is one multiplication by the table.",
+     "tts": "So one pour is one multiplication by the table.",
+     "focus": [
+      "a131"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "If we just apply the balance equation over and over, two problems appear.",
+     "tts": "If we just apply the balance equation over and over, two problems appear.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Let me start again with 0.25 in each of the four cups.",
+     "tts": "Let me start again with zero point two five in each of the four cups.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The tall bar in the middle, next to the graph, tracks the total water.",
+     "tts": "The tall bar in the middle, next to the graph, tracks the total water.",
+     "focus": [
+      "a8",
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First, water that goes into the dangling node D has nowhere to go, so it disappears.",
+     "tts": "First, water that goes into the dangling node D has nowhere to go, so it disappears.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "If we actually compute it, the total water shrinks from 1 to 0.75, then 0.25, then 0.",
+     "tts": "If we actually compute it, the total water shrinks from one to zero point seven five, then zero point two five, then zero.",
+     "focus": [
+      "a30",
+      "a36"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "After three pours, no water is left at all.",
+     "tts": "After three pours, no water is left at all.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Second, if two nodes point only at each other, the water that goes in is trapped forever.",
+     "tts": "Second, if two nodes point only at each other, the water that goes in is trapped forever.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "To show this, I added one more node, called E. Now D and E approve each other.",
+     "tts": "To show this, I added one more node, called E. Now D and E approve each other.",
+     "focus": [
+      "a24",
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "With five nodes, we start with 0.2 each.",
+     "tts": "With five nodes, we start with zero point two each.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "After two pours, all the water is in D and E.",
+     "tts": "After two pours, all the water is in D and E.",
+     "focus": [
+      "a35",
+      "a36"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "From then on, it sloshes back and forth between 0.4 and 0.6.",
+     "tts": "From then on, it sloshes back and forth between zero point four and zero point six.",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The values never stop changing. We say it does not converge.",
+     "tts": "The values never stop changing. We say it does not converge.",
+     "focus": [
+      "a44"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": {
+      "title": "Converge",
+      "body": "Settle down, so repeating the calculation no longer changes the values"
+     }
+    }
+   ]
+  },
+  {
+   "slide": "s04-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Remember, E is only here for illustration.",
+     "tts": "Remember, E is only here for illustration.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This shape, addresses that approve each other, comes back in chapter 10, where we talk about the cost of attacks.",
+     "tts": "This shape, addresses that approve each other, comes back in chapter ten, where we talk about the cost of attacks.",
+     "focus": [
+      "a57"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Back to our two problems. The way to fix both at once is the damping factor d, together with restarts.",
+     "tts": "Back to our two problems. The way to fix both at once is the damping factor d, together with restarts.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The walker's spinners are back, one next to each node.",
+     "tts": "The walker's spinners are back, one next to each node.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The walker follows an arrow 85 times out of 100, and 15 times teleports to any node at all.",
+     "tts": "The walker follows an arrow eighty-five times out of one hundred, and fifteen times teleports to any node at all.",
+     "focus": [
+      "a10",
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This 0.85 is called the damping factor d.",
+     "tts": "This zero point eight five is called the damping factor d.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": {
+      "title": "Damping factor d",
+      "body": "The share of steps that follow an arrow; the rest are jumps"
+     }
+    },
+    {
+     "sub": "The outer ring of each spinner shows that ratio.",
+     "tts": "The outer ring of each spinner shows that ratio.",
+     "focus": [
+      "a15",
+      "a16",
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When the walker reaches the dangling node D, it always teleports.",
+     "tts": "When the walker reaches the dangling node D, it always teleports.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So from D, dashed lines spread to all four nodes, D itself included.",
+     "tts": "So from D, dashed lines spread to all four nodes, D itself included.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Say the current shares are all 0.25, and let us fill in the new shares in three pieces.",
+     "tts": "Say the current shares are all zero point two five, and let us fill in the new shares in three pieces.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The first piece is the restart share.",
+     "tts": "The first piece is the restart share.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Every time, it falls evenly on every node, 0.15 divided by 4, which is 0.0375 each.",
+     "tts": "Every time, it falls evenly on every node, zero point one five divided by four, which is zero point zero three seven five each.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "I write how the restarts are spread over the nodes as π.",
+     "tts": "I write how the restarts are spread over the nodes as pi.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "For EndorseRank, it is the same quarter for every node.",
+     "tts": "For EndorseRank, it is the same quarter for every node.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the V between two bars is the number of nodes, here 4.",
+     "tts": "And the V between two bars is the number of nodes, here four.",
+     "focus": [
+      "a50"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "The second piece is the share that comes along the arrows.",
+     "tts": "The second piece is the share that comes along the arrows.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the same as the balance equation we built earlier, but multiplied by 0.85.",
+     "tts": "It is the same as the balance equation we built earlier, but multiplied by zero point eight five.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So the streams are a little thinner. Watch the cups in the graph fill up.",
+     "tts": "So the streams are a little thinner. Watch the cups in the graph fill up.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "The third piece is the share collected from the dangling nodes and handed out again.",
+     "tts": "The third piece is the share collected from the dangling nodes and handed out again.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We gather D's water like a cloud, drawn above the graph, and let it fall evenly on every node.",
+     "tts": "We gather D's water like a cloud, drawn above the graph, and let it fall evenly on every node.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The list 1_dang has a 1 for each dangling node and a 0 everywhere else.",
+     "tts": "The list one-dang has a one for each dangling node and a zero everywhere else.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The T on r means we lay the column list down as a row.",
+     "tts": "The T on r means we lay the column list down as a row.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Multiplying a row list by a column list means multiplying cell by cell and adding it all up.",
+     "tts": "Multiplying a row list by a column list means multiplying cell by cell and adding it all up.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Three terms are 0 times 0.25, and the last is 1 times 0.25.",
+     "tts": "Three terms are zero times zero point two five, and the last is one times zero point two five.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So the sum is 0.25, which is r_D. Only the share of the dangling node is left.",
+     "tts": "So the sum is zero point two five, which is r of D. Only the share of the dangling node is left.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Multiplying by 0.85 and by one quarter gives 0.0531.",
+     "tts": "Multiplying by zero point eight five and by one quarter gives zero point zero five three one.",
+     "focus": [
+      "a54"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "With all three pieces filled in, we get exactly r(1), the shares after one pour, as in Chapter 2 of the thesis.",
+     "tts": "With all three pieces filled in, we get exactly r one, the shares after one pour, as in Chapter two of the thesis.",
+     "focus": [
+      "a55"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Written node by node, this becomes the equation given in that same chapter of the thesis.",
+     "tts": "Written node by node, this becomes the equation given in that same chapter of the thesis.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "I kept the letters u and v, as before.",
+     "tts": "I kept the letters u and v, as before.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The thesis writes the same equation with i and j, and E means the set of all edges.",
+     "tts": "The thesis writes the same equation with i and j, and E means the set of all edges.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "No arrow points to node A, so its share is only the share collected from D plus the restart share.",
+     "tts": "No arrow points to node A, so its share is only the share collected from D plus the restart share.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That is 0.2125 times r_D, plus 0.0375.",
+     "tts": "That is zero point two one two five times r of D, plus zero point zero three seven five.",
+     "focus": [
+      "a54"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "When we add the three pieces, the total water always stays at 1.",
+     "tts": "When we add the three pieces, the total water always stays at one.",
+     "focus": [
+      "a10",
+      "a45"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The restart share takes 1 minus d, and the other two pieces split d between them.",
+     "tts": "The restart share takes one minus d, and the other two pieces split d between them.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In this example, 0.15, 0.6375 and 0.2125 add up to exactly 1.",
+     "tts": "In this example, zero point one five, zero point six three seven five and zero point two one two five add up to exactly one.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "No water leaks.",
+     "tts": "No water leaks.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-06",
+   "step": 7,
+   "lines": [
+    {
+     "sub": "Let me also run the trap from the last slide again, with the fixed rule.",
+     "tts": "Let me also run the trap from the last slide again, with the fixed rule.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The trapped water slowly gets out, the sloshing dies down, and the values settle.",
+     "tts": "The trapped water slowly gets out, the sloshing dies down, and the values settle.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "D is 0.4619 and E is 0.4226.",
+     "tts": "D is zero point four six one nine, and E is zero point four two two six.",
+     "focus": [
+      "a43",
+      "a44"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The equation we have built is exactly the PageRank equation of Chapter 3 of the thesis.",
+     "tts": "The equation we have built is exactly the PageRank equation of Chapter three of the thesis.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-07",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "In practice, we do not solve this equation in one go. We repeat the same calculation.",
+     "tts": "In practice, we do not solve this equation in one go. We repeat the same calculation.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This is called power iteration.",
+     "tts": "This is called power iteration.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "At the start, every node gets a quarter, as the four equal bars show.",
+     "tts": "At the start, every node gets a quarter, as the four equal bars show.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-07",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Applying the equation once tilts the shares toward D.",
+     "tts": "Applying the equation once tilts the shares toward D.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Node A becomes 0.0375 plus 0.2125 times 0.25.",
+     "tts": "Node A becomes zero point zero three seven five, plus zero point two one two five times zero point two five.",
+     "focus": [
+      "a46"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is 0.0906.",
+     "tts": "That is zero point zero nine zero six.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "To measure how much changed, we add up the size of the difference in every cell.",
+     "tts": "To measure how much changed, we add up the size of the difference in every cell.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We drop the minus signs and add only the sizes.",
+     "tts": "We drop the minus signs and add only the sizes.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We write this with a double-bar symbol.",
+     "tts": "We write this with a double-bar symbol.",
+     "focus": [
+      "a50"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The first time, it is 0.531.",
+     "tts": "The first time, it is zero point five three one.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The dots in the chart on the right are these changes.",
+     "tts": "The dots in the chart on the right are these changes.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the vertical scale, each grid line down is a hundred times smaller.",
+     "tts": "On the vertical scale, each grid line down is a hundred times smaller.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "1, 0.01, 0.0001, one millionth, one hundred-millionth.",
+     "tts": "One, zero point zero one, zero point zero zero zero one, one millionth, one hundred-millionth.",
+     "focus": [
+      "a31",
+      "a40"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-07",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "With every repetition the change gets smaller, and at the 23rd iteration it falls below one hundred-millionth, so we stop.",
+     "tts": "With every repetition the change gets smaller, and at the twenty-third iteration it falls below one hundred-millionth, so we stop.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This threshold is written as ε, the dashed line in the chart.",
+     "tts": "This threshold is written as epsilon, the dashed line in the chart.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "We also fixed a cap. However long it takes, we stop at 300 iterations.",
+     "tts": "We also fixed a cap. However long it takes, we stop at three hundred iterations.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The final order is D, B, C, A.",
+     "tts": "The final order is D, B, C, A.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is because D is endorsed by two vaults, and those vaults are in turn endorsed by A.",
+     "tts": "That is because D is endorsed by two vaults, and those vaults are in turn endorsed by A.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The share of node A, 0.1375, has two parts.",
+     "tts": "The share of node A, zero point one three seven five, has two parts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The restart share, 0.0375, plus 0.1 collected from D.",
+     "tts": "The restart share, zero point zero three seven five, plus zero point one collected from D.",
+     "focus": [
+      "a59"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-07",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Now the real graphs, from the revised analysis at T_obs.",
+     "tts": "Now the real graphs, from the revised analysis at T obs.",
+     "focus": [
+      "a46"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the allowance graph it stopped after 69 iterations, and on the transfer graph after 92.",
+     "tts": "On the allowance graph it stopped after sixty-nine iterations, and on the transfer graph after ninety-two.",
+     "focus": [
+      "a49",
+      "a50"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each iteration does one multiplication per edge, so the time it takes follows the number of edges.",
+     "tts": "Each iteration does one multiplication per edge, so the time it takes follows the number of edges.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Keep this in mind for chapter 10, on attack cost and speed.",
+     "tts": "Keep this in mind for chapter ten, on attack cost and speed.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-07",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "The slider at the bottom left sets d, which is now at 0.85.",
+     "tts": "The slider at the bottom left sets d, which is now at zero point eight five.",
+     "focus": [
+      "a49",
+      "a52",
+      "a55"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When d is 0, the walker never follows an arrow, so every node gets a quarter.",
+     "tts": "When d is zero, the walker never follows an arrow, so every node gets a quarter.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "As d grows, the arrows matter more. D grows, A shrinks, and it takes more iterations to settle.",
+     "tts": "As d grows, the arrows matter more. D grows, A shrinks, and it takes more iterations to settle.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the original slides the slider is interactive, and the values are computed on the spot.",
+     "tts": "In the original slides the slider is interactive, and the values are computed on the spot.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

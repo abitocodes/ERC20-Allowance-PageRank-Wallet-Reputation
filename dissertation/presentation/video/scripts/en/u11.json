@@ -1,0 +1,801 @@
+{
+ "unit": "u11",
+ "lang": "en",
+ "chapter": {
+  "title": "How we measure",
+  "subtitle": "What to compare with, and how to count",
+  "sub": "Chapter seven: how we measure. What do we compare a score with, and how do we count agreement?",
+  "tts": "Chapter seven. How we measure. What do we compare a score with, and how do we count agreement?"
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s07-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "We have our scores. But before we measure whether a score is right, we have to decide what to compare it with.",
+     "tts": "We have our scores. But before we measure whether a score is right, we have to decide what to compare it with.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Look at the ladder on the left: the higher the rung, the stricter the comparison.",
+     "tts": "Look at the ladder on the left. The higher the rung, the stricter the comparison.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Let's start at the bottom rung, the easiest comparison: proxies from the same window.",
+     "tts": "Let's start at the bottom rung, the easiest comparison, proxies from the same window.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A proxy is a simple stand-in measure.",
+     "tts": "A proxy is a simple stand-in measure.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But these proxies are computed from the very records the score was built from, so part of the agreement is to be expected.",
+     "tts": "But these proxies are computed from the very records the score was built from, so part of the agreement is to be expected.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That is why I do not call this validation.",
+     "tts": "That is why I do not call this validation.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "I call it an intended-construct check.",
+     "tts": "I call it an intended-construct check.",
+     "focus": [
+      "a21",
+      "a22"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The construct is what the score set out to measure, and the check asks whether the score really measures it.",
+     "tts": "The construct is what the score set out to measure, and the check asks whether the score really measures it.",
+     "focus": [
+      "a24",
+      "a37"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "See the little mirror icon: the score is, in a sense, looking at itself in a mirror.",
+     "tts": "See the little mirror icon. The score is, in a sense, looking at itself in a mirror.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "One rung up is a stricter test: the out-of-window test.",
+     "tts": "One rung up is a stricter test, the out-of-window test.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It freezes the score and asks whether it predicts what happened afterwards.",
+     "tts": "It freezes the score and asks whether it predicts what happened afterwards.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The labels, the later outcomes we grade it against, are the new approval pairs and the new transfer senders.",
+     "tts": "The labels, the later outcomes we grade it against, are the new approval pairs and the new transfer senders.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "The strictest rung, at the top, is an outcome that neither edge type contains.",
+     "tts": "The strictest rung, at the top, is an outcome that neither edge type contains.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Its icon shows the amber allowance arrow and the blue transfer arrow, both crossed out.",
+     "tts": "Its icon shows the amber allowance arrow and the blue transfer arrow, both crossed out.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In this study, that is the liquidation of contract traders on GMX V2, where a liquidation means a position closed by force.",
+     "tts": "In this study, that is the liquidation of contract traders on G M X V two, where a liquidation means a position closed by force.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-01",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "The same-window check has three proxy families, listed on the right.",
+     "tts": "The same-window check has three proxy families, listed on the right.",
+     "focus": [
+      "a16",
+      "a23",
+      "a31"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The transfer family, in blue, uses transfer in-degree and in-value.",
+     "tts": "The transfer family, in blue, uses transfer in-degree and in-value.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The allowance family, in amber, uses in-approve degree and in-approve value, with the cap U.",
+     "tts": "The allowance family, in amber, uses in-approve degree and in-approve value, with the cap U.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Then comes the Sybil-stability family. A Sybil attack means creating many fake addresses to inflate a reputation.",
+     "tts": "Then comes the Sybil-stability family. A Sybil attack means creating many fake addresses to inflate a reputation.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This family looks at whether a contract traded over a long time, steadily and with many counterparties.",
+     "tts": "This family looks at whether a contract traded over a long time, steadily and with many counterparties.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "It is a weak check, so no hypothesis rests on it.",
+     "tts": "It is a weak check, so no hypothesis rests on it.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "How well a score agrees with later outcomes is measured with Kendall's τ.",
+     "tts": "How well a score agrees with later outcomes is measured with Kendall's tau.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": {
+      "title": "Kendall's τ",
+      "body": "Agreement of two rankings, counted pair by pair, from −1 to +1"
+     }
+    },
+    {
+     "sub": "Let me build a small example with five contracts.",
+     "tts": "Let me build a small example with five contracts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the top right, four counters start at 0.",
+     "tts": "In the top right, four counters start at zero.",
+     "focus": [
+      "a3",
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Here are the five contracts. The amber bars are the scores, and the white bars are the outcome labels we grade them against later.",
+     "tts": "Here are the five contracts. The amber bars are the scores, and the white bars are the outcome labels we grade them against later.",
+     "focus": [
+      "a3",
+      "a11"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "First, let's count the pairs.",
+     "tts": "First, let's count the pairs.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Think of the contracts as people who each shake hands once with everyone else.",
+     "tts": "Think of the contracts as people who each shake hands once with everyone else.",
+     "focus": [
+      "a53"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Contract A shakes hands with the 4 others.",
+     "tts": "Contract A shakes hands with the four others.",
+     "focus": [
+      "a53"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "All five shake 4 hands each, so 5 times 4 is 20.",
+     "tts": "All five shake four hands each, so five times four is twenty.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "But contract A shaking hands with B, and B shaking hands with A, is the same handshake.",
+     "tts": "But contract A shaking hands with B, and B shaking hands with A, is the same handshake.",
+     "focus": [
+      "a55"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So we counted every handshake twice. Dividing by 2 gives 10.",
+     "tts": "So we counted every handshake twice. Dividing by two gives ten.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "As a formula: n times (n − 1), all divided by 2, where n is the number of contracts.",
+     "tts": "As a formula, n times the quantity n minus one, all divided by two, where n is the number of contracts.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Now look at each pair.",
+     "tts": "Now look at each pair.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "If the contract with the higher score also has the higher label, the pair is concordant, which means in agreement.",
+     "tts": "If the contract with the higher score also has the higher label, the pair is concordant, which means in agreement.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "If it is the other way round, it is discordant.",
+     "tts": "If it is the other way round, it is discordant.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Take A and B. Contract A has the higher score, 5 against 4, but B has the higher label, 4 against 3.",
+     "tts": "Take A and B. Contract A has the higher score, five against four, but B has the higher label, four against three.",
+     "focus": [
+      "a3",
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So they are discordant: the red line in the picture.",
+     "tts": "So they are discordant, the red line in the picture.",
+     "focus": [
+      "a57",
+      "a61"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Contract A is concordant with C, with D and with E.",
+     "tts": "Contract A is concordant with C, with D and with E.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Counting the rest, there are 8 concordant pairs and 1 discordant pair.",
+     "tts": "Counting the rest, there are eight concordant pairs and one discordant pair.",
+     "focus": [
+      "a58"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "C and D have the same label, so they count as neither. That is the dashed line.",
+     "tts": "C and D have the same label, so they count as neither. That is the dashed line.",
+     "focus": [
+      "a67",
+      "a68"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Take the concordant pairs minus the discordant pairs and divide by all the pairs.",
+     "tts": "Take the concordant pairs minus the discordant pairs and divide by all the pairs.",
+     "focus": [
+      "a59"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "8 minus 1 is 7, and 7 over 10 gives 0.7.",
+     "tts": "Eight minus one is seven, and seven over ten gives zero point seven.",
+     "focus": [
+      "a59"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We write this as τ_a. It is the basic tau, which does not treat ties separately.",
+     "tts": "We write this as tau A. It is the basic tau, which does not treat ties separately.",
+     "focus": [
+      "a62"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the scale below, 1 means the order is exactly the same, 0 means no relation, and −1 means exactly the opposite.",
+     "tts": "On the scale below, one means the order is exactly the same, zero means no relation, and minus one means exactly the opposite.",
+     "focus": [
+      "a71"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-02",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "An aside: when there are no ties, 1 plus τ, all divided by 2, is the probability that a randomly chosen pair is in the same order in both rankings.",
+     "tts": "An aside. When there are no ties, one plus tau, all divided by two, is the probability that a randomly chosen pair is in the same order in both rankings.",
+     "focus": [
+      "a81"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In the actual matched cohort, there are 114,103,171 contract pairs, more than 110 million.",
+     "tts": "In the actual matched cohort, there are one hundred fourteen million one hundred three thousand one hundred seventy-one contract pairs, more than a hundred and ten million.",
+     "focus": [
+      "a84"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Back to C and D. A pair with the same label, a tie, is neither right nor wrong.",
+     "tts": "Back to C and D. A pair with the same label, a tie, is neither right nor wrong.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "When there are many ties, the formula we just used cannot reach 1, however well the score predicts.",
+     "tts": "When there are many ties, the formula we just used cannot reach one, however well the score predicts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So the divisor, the number we divide by, should keep only the truly ordered pairs, and three new counters keep track of the ties.",
+     "tts": "So the divisor, the number we divide by, should keep only the truly ordered pairs, and three new counters keep track of the ties.",
+     "focus": [
+      "a13",
+      "a23"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Let's count the tied pairs first.",
+     "tts": "Let's count the tied pairs first.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A tie group of size 2 gives 1 pair, and a group of size 3 gives 3 pairs, just like the handshakes.",
+     "tts": "A tie group of size two gives one pair, and a group of size three gives three pairs, just like the handshakes.",
+     "focus": [
+      "a55",
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So for a group of size t, we take t times (t − 1), all divided by 2.",
+     "tts": "So for a group of size t, we take t times the quantity t minus one, all divided by two.",
+     "focus": [
+      "a57"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In this example the scores have no ties, so n₁ is 0.",
+     "tts": "In this example the scores have no ties, so n one is zero.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The labels have one group, C and D, so n₂ is 1.",
+     "tts": "The labels have one group, C and D, so n two is one.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Take the tied pairs away from all 10: the score ranking puts 10 pairs in order, and the label ranking puts 9 in order.",
+     "tts": "Take the tied pairs away from all ten. The score ranking puts ten pairs in order, and the label ranking puts nine in order.",
+     "focus": [
+      "a53"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Instead of picking one of the two numbers, picture a rectangle 10 wide and 9 high, and take the square with the same area.",
+     "tts": "Instead of picking one of the two numbers, picture a rectangle ten wide and nine high, and take the square with the same area.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Its side is called the geometric mean: the square root of 90, about 9.487.",
+     "tts": "Its side is called the geometric mean, the square root of ninety, about nine point four eight seven.",
+     "focus": [
+      "a55"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "So τ_b is 7 divided by 9.487, which is 0.738.",
+     "tts": "So tau b is seven divided by nine point four eight seven, which is zero point seven three eight.",
+     "focus": [
+      "a57"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": {
+      "title": "τ_b",
+      "body": "Kendall's τ corrected for ties; every τ in this thesis is τ_b"
+     }
+    },
+    {
+     "sub": "On the scale, it sits just above the τ_a of 0.7.",
+     "tts": "On the scale, it sits just above the tau A of zero point seven.",
+     "focus": [
+      "a65",
+      "a70"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Without ties, n₁ and n₂ are 0, so τ_b equals the τ_a from before.",
+     "tts": "Without ties, n one and n two are zero, so tau b equals the tau A from before.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Every τ in this thesis is τ_b.",
+     "tts": "Every tau in this thesis is tau b.",
+     "focus": [
+      "a76"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The correction matters because plain counts and later labels are integers, and many contracts have zero, so there are a great many ties.",
+     "tts": "The correction matters because plain counts and later labels are integers, and many contracts have zero, so there are a great many ties.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-03",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "We also report Spearman's ρ, shown in this aside.",
+     "tts": "We also report Spearman's rho, shown in this aside.",
+     "focus": [
+      "a50"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Put the ranks from the two rankings side by side: the smaller the rank differences, the closer the value is to 1.",
+     "tts": "Put the ranks from the two rankings side by side. The smaller the rank differences, the closer the value is to one.",
+     "focus": [
+      "a65",
+      "a70",
+      "a74",
+      "a79"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In this example it is 0.872.",
+     "tts": "In this example it is zero point eight seven two.",
+     "focus": [
+      "a80"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "C and D have the same label, so they share rank 2.5, halfway between 2nd and 3rd.",
+     "tts": "C and D have the same label, so they share rank two point five, halfway between second and third.",
+     "focus": [
+      "a77",
+      "a78"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A more advanced note: without ties, ρ = 1 minus a fraction: 6 times the sum of the squared differences, over n times (n² − 1).",
+     "tts": "A more advanced note. Without ties, rho equals one minus a fraction. Six times the sum of the squared differences, over n times the quantity n squared minus one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The 6 is a constant of the formula, and I skip its derivation.",
+     "tts": "The six is a constant of the formula, and I skip its derivation.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Here the squared differences add up to 2.5, so the formula gives 0.875.",
+     "tts": "Here the squared differences add up to two point five, so the formula gives zero point eight seven five.",
+     "focus": [
+      "a81",
+      "a86"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But there are ties, so the thesis computes the correlation of the mid-ranks, the shared ranks like 2.5, and that value is 0.872.",
+     "tts": "But there are ties, so the thesis computes the correlation of the mid-ranks, the shared ranks like two point five, and that value is zero point eight seven two.",
+     "focus": [
+      "a80"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Spearman's ρ mostly tells the same story as τ.",
+     "tts": "Spearman's rho mostly tells the same story as tau.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}
