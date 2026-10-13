@@ -123,10 +123,23 @@ async function renderChunk(D, si) {
       hadCard = true; curKey = 'card';
       return;
     }
-    if (hadCard) { await act(() => __vx.cardOut(0.35)); hadCard = false; curKey = ''; }
+    if (hadCard) {
+      /* the card leaves; the shrunken slide comes back to full size unless the camera moves on anyway */
+      await act(k => { __vx.cardOut(0.35); if (!k) __vx.camHome(0.7); }, key);
+      hadCard = false; curKey = '';
+      if (!key) return;
+    }
     if (key === curKey) return;
+    if (!key) {
+      /* nothing to point at: drop the highlight; pull the camera back only for a longer line, so that a
+         short aside between two close-ups does not pump the camera out and in again */
+      if (curKey === '' || curKey === 'marks-only') return;
+      const homeToo = L.dur >= 4.0;
+      await act(h => { __vx.clearMarks(0.3); if (h) __vx.camHome(0.7); }, homeToo);
+      curKey = homeToo ? '' : 'marks-only';
+      return;
+    }
     curKey = key;
-    if (!key) { await act(() => { __vx.clearMarks(0.3); __vx.camHome(0.7); }); return; }
     await act(L => { __vx.clearMarks(0.25); __vx.camTo(L.boxes, L.zoom || 'none', 0.8); }, L);
     await F(9);
     await act(L => __vx.marks(L.boxes, L.mark || 'ring'), L);
@@ -152,7 +165,7 @@ async function renderChunk(D, si) {
     }
     await F(Math.round(0.4 * FPS));
     if (!(await idle())) await F(Math.round(6 * FPS), r => r.idle);
-    if (curKey || hadCard) {
+    if (curKey || hadCard || !(await ev(() => __vx.isHome()))) {
       await act(() => { __vx.clearMarks(0.3); __vx.cardOut(0.35); __vx.camHome(0.6); });
       curKey = ''; hadCard = false;
       await F(Math.round(0.7 * FPS));
