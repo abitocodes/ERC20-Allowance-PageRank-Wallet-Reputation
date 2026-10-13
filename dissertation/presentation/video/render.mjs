@@ -4,7 +4,7 @@
    Frames that cannot have changed (nothing animating, camera at rest) reuse the last capture.
 
    Usage (from video/, after `npm install` in ../tools):
-     node render.mjs --plan PLAN.json --out DIR [--workers 3] [--only 0,1,38] [--crf 18] [--preset medium]
+     node render.mjs --plan PLAN.json --out DIR [--workers 3] [--only 0,1,38] [--crf 20] [--preset faster]
    PLAN.json (written by plan.py):
      { lang, fps, gap, meta: {...card texts...}, intro: [{id, dur}], outro: [{id, dur}],
        slides: [{ index, id, lastStep, chapter: [{id, dur}] | null,
@@ -22,7 +22,7 @@ const ROOT = path.resolve(HERE, '..');
 const require = createRequire(path.join(ROOT, 'tools', 'package.json'));
 const { chromium } = require('playwright-core');
 
-const A = { plan: null, out: null, workers: 3, only: null, crf: 18, preset: 'medium', force: false, quality: 92 };
+const A = { plan: null, out: null, workers: 3, only: null, crf: 20, preset: 'faster', force: false, quality: 92 };
 for (let i = 2; i < process.argv.length; i++) {
   const k = process.argv[i];
   if (k === '--plan') A.plan = path.resolve(process.argv[++i]);
