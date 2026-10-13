@@ -80,6 +80,8 @@ async function renderChunk(D, si) {
     '-c:v', 'libx264', '-preset', A.preset, '-crf', String(A.crf), '-pix_fmt', 'yuv420p', '-r', String(FPS), '-g', String(FPS * 10),
     '-movflags', '+faststart', base + '.mp4'], { stdio: ['pipe', 'inherit', 'inherit'] });
   const ffDone = new Promise((res, rej) => ff.on('close', c => c === 0 ? res() : rej(new Error('ffmpeg exit ' + c))));
+  ffDone.catch(() => {});
+  try {
   let frame = 0, last = null, wasDyn = true, force = 2;
   const log = [];
   const shot = async () => Buffer.from((await cdp.send('Page.captureScreenshot', { format: 'jpeg', quality: A.quality, optimizeForSpeed: true })).data, 'base64');
@@ -183,29 +185,45 @@ async function renderChunk(D, si) {
 
   ff.stdin.end();
   await ffDone;
+  } catch (e) {
+    /* a dead page: stop the encoder and drop its half-written file, so the chunk is rendered again */
+    try { ff.stdin.destroy(); } catch { /* closed */ }
+    ff.kill('SIGKILL');
+    try { fs.unlinkSync(base + '.mp4'); } catch { /* none */ }
+    throw e;
+  }
   fs.writeFileSync(base + '.json', JSON.stringify({ slide: S.id, frames: frame, fps: FPS, lines: log }));
   return frame;
 }
 
-const browser = await chromium.launch({ executablePath: findChrome() });
+let browser = await chromium.launch({ executablePath: findChrome() });
 const queue = plan.slides.map((s, i) => i).filter(i => !A.only || A.only.includes(i));
 const t0 = Date.now();
 let failed = 0;
+/* every chunk gets a fresh page (a long-lived page slowly fills up with dead slides and three.js
+   renderers, and a crashed one would fail every later chunk); a failed chunk is tried twice more */
 async function worker(w) {
-  const D = await openDeck(browser);
   for (;;) {
     const si = queue.shift();
     if (si === undefined) break;
-    const t = Date.now();
-    try {
-      const r = await renderChunk(D, si);
-      console.log(`[w${w}] chunk ${pad2(si)} ${plan.slides[si].id}: ${r === 'skipped' ? 'skipped' : r + ' frames (' + (r / FPS).toFixed(1) + ' s video) in ' + ((Date.now() - t) / 1000).toFixed(0) + ' s'}`);
-    } catch (e) {
-      failed++;
-      console.error(`[w${w}] chunk ${pad2(si)} failed: ${e && e.stack || e}`);
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const t = Date.now();
+      let D = null;
+      try {
+        if (!browser.isConnected()) browser = await chromium.launch({ executablePath: findChrome() });
+        D = await openDeck(browser);
+        const r = await renderChunk(D, si);
+        console.log(`[w${w}] chunk ${pad2(si)} ${plan.slides[si].id}: ${r === 'skipped' ? 'skipped' : r + ' frames (' + (r / FPS).toFixed(1) + ' s video) in ' + ((Date.now() - t) / 1000).toFixed(0) + ' s'}` +
+          (D.errors.length ? `, page errors ${D.errors.length}: ${D.errors[0]}` : ''));
+        await D.page.context().close().catch(() => {});
+        break;
+      } catch (e) {
+        console.error(`[w${w}] chunk ${pad2(si)} attempt ${attempt} failed: ${e && e.message || e}`);
+        if (D) await D.page.context().close().catch(() => {});
+        if (attempt === 3) failed++;
+      }
     }
   }
-  if (D.errors.length) console.log(`[w${w}] page errors: ${D.errors.length}, e.g. ${D.errors[0]}`);
 }
 await Promise.all(Array.from({ length: Math.max(1, A.workers) }, (_, w) => worker(w)));
 await browser.close();
