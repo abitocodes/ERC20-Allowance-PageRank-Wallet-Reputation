@@ -197,7 +197,7 @@ with open(lst, 'w') as f:
 out = os.path.join(A.out, name + '.mp4')
 subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-i', wav_path,
                 '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000',
-                '-metadata', 'title=' + plan['meta']['intro']['title'], '-movflags', '+faststart', '-shortest', out], check=True)
+                '-metadata', 'title=' + ' '.join(plan['meta']['intro']['title']), '-movflags', '+faststart', '-shortest', out], check=True)
 probe = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration,size', '-of', 'json', out], capture_output=True, text=True).stdout
 fmt_ = json.loads(probe)['format']
 print(f"{out}: {float(fmt_['duration']) / 60:.2f} min, {int(fmt_['size']) / 1e6:.0f} MB; {len(cues)} captions; {len(chap)} chapters")

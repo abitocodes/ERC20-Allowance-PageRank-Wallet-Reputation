@@ -35,7 +35,8 @@
     '.vx-full{position:absolute;inset:0;background:#0A0D14;overflow:hidden}',
     '.vx-full svg.net{position:absolute;left:0;top:0}',
     '.vx-full .eyebrow{position:absolute;left:120px;top:250px;font-size:30px;line-height:40px;color:#A3ADBF;font-weight:600;letter-spacing:.02em}',
-    '.vx-full .title{position:absolute;left:120px;top:310px;width:1100px;font-size:72px;line-height:92px;font-weight:800;letter-spacing:-.025em;color:#E9EDF5}',
+    '.vx-full .title{position:absolute;left:120px;top:310px;font-size:72px;line-height:1.28;font-weight:800;letter-spacing:-.025em;color:#E9EDF5}',
+    '.vx-full .title .row{display:block;white-space:nowrap;width:max-content}',
     '.vx-full .title .w{display:inline-block;margin-right:.24em}',
     '.vx-full .title .m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:6px}',
     '.vx-full .rule{position:absolute;left:120px;height:4px;width:180px;border-radius:2px;background:linear-gradient(90deg,#3CC4FF,#A78BFA,#F5B43C);transform-origin:0 50%}',
@@ -44,7 +45,7 @@
     '.vx-full .legend{position:absolute;left:120px;bottom:96px;display:flex;gap:36px;font-size:24px;color:#A3ADBF}',
     '.vx-full .legend span{display:inline-flex;align-items:center;gap:12px}',
     '.vx-full .legend i{display:inline-block;width:42px;height:4px;border-radius:2px}',
-    '.vx-full .credits{position:absolute;left:120px;bottom:90px;width:1300px;font-size:22px;line-height:34px;color:#8790A3}',
+    '.vx-full .credits{position:absolute;left:120px;bottom:90px;width:1060px;font-size:22px;line-height:34px;color:#8790A3}',
     '.vx-black{position:absolute;inset:0;background:#000}'
   ].join('\n');
   document.head.appendChild(css);
@@ -234,13 +235,23 @@
     });
     return { svg: svg, tl: tl };
   }
+  /* the title: one row per given line (the line breaks are chosen in plan.py, never left to wrapping),
+     set smaller when the widest row would run into the network on the right */
   function words(el, text) {
     el.innerHTML = '';
-    text.split(/\s+/).forEach(function (w) {
-      var m = document.createElement('span'); m.className = 'm';
-      var s = document.createElement('span'); s.className = 'w'; s.textContent = w;
-      m.appendChild(s); el.appendChild(m);
+    (Array.isArray(text) ? text : [text]).forEach(function (line) {
+      var row = document.createElement('div'); row.className = 'row';
+      line.split(/\s+/).forEach(function (w) {
+        var m = document.createElement('span'); m.className = 'm';
+        var s = document.createElement('span'); s.className = 'w'; s.textContent = w;
+        m.appendChild(s); row.appendChild(m);
+      });
+      el.appendChild(row);
     });
+    var sc = Deck.scale || 1, widest = 0;
+    el.querySelectorAll('.row').forEach(function (r) { widest = Math.max(widest, r.getBoundingClientRect().width / sc); });
+    var MAXW = 1070;
+    if (widest > MAXW) el.style.fontSize = (72 * MAXW / widest).toFixed(1) + 'px';
     return el.querySelectorAll('.w');
   }
   var full = null;
@@ -282,7 +293,8 @@
     var rule = document.createElement('div'); rule.className = 'rule'; el.appendChild(rule);
     var who = document.createElement('div'); who.className = 'who'; who.innerHTML = '<span></span><small></small>'; el.appendChild(who);
     who.firstChild.textContent = o.author; who.lastChild.textContent = o.affiliation;
-    var cr = document.createElement('div'); cr.className = 'credits'; cr.textContent = o.credits; el.appendChild(cr);
+    var cr = document.createElement('div'); cr.className = 'credits'; el.appendChild(cr);
+    (Array.isArray(o.credits) ? o.credits : [o.credits]).forEach(function (c) { var r = document.createElement('div'); r.textContent = c; cr.appendChild(r); });
     var th = ti.getBoundingClientRect().height / (Deck.scale || 1);
     rule.style.top = (310 + th + 34) + 'px'; who.style.top = (310 + th + 66) + 'px';
     var tl = gsap.timeline();

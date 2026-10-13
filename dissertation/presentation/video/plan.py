@@ -24,20 +24,20 @@ durs = {r['id']: r['dur'] for r in json.load(open(os.path.join(A.audio, A.lang, 
 
 META = {
     'ko': {
-        'intro': {'eyebrow': '박사 학위 논문 해설 영상', 'title': 'ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기',
+        'intro': {'eyebrow': '박사 학위 논문 해설 영상', 'title': ['ERC-20 허락 화살표를 페이지랭크에 넣어', '온체인 지갑 평판 점수를 더 좋게 만들기'],
                   'author': '권태홍', 'affiliation': 'University of South Africa · 컴퓨터과학 박사 학위 논문 · 2026년 10월',
                   'legendAllow': '허락 화살표 (allowance)', 'legendTransfer': '송금 화살표 (transfer)'},
-        'outro': {'eyebrow': '시청해 주셔서 감사합니다', 'title': 'ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기',
+        'outro': {'eyebrow': '시청해 주셔서 감사합니다', 'title': ['ERC-20 허락 화살표를 페이지랭크에 넣어', '온체인 지갑 평판 점수를 더 좋게 만들기'],
                   'author': '권태홍', 'affiliation': 'University of South Africa · 컴퓨터과학 박사 학위 논문',
-                  'credits': '목소리: Supertonic 2 음성 합성 (Supertone, OpenRAIL-M)  ·  배경 음악: 이 영상을 위해 코드로 지은 곡  ·  화면: 논문 발표 슬라이드'},
+                  'credits': ['목소리: Supertonic 2 음성 합성 (Supertone, OpenRAIL-M)', '배경 음악: 이 영상을 위해 코드로 지은 곡', '화면: 논문 발표 슬라이드']},
     },
     'en': {
-        'intro': {'eyebrow': 'A PhD thesis, explained', 'title': 'Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring',
+        'intro': {'eyebrow': 'A PhD thesis, explained', 'title': ['Integrating ERC-20 Allowance Edges', 'into PageRank for Enhanced', 'On-Chain Wallet Reputation Scoring'],
                   'author': 'Taehong Kwon', 'affiliation': 'University of South Africa · PhD thesis in Computer Science · October 2026',
                   'legendAllow': 'Allowance edge (approval)', 'legendTransfer': 'Transfer edge'},
-        'outro': {'eyebrow': 'Thank you for watching', 'title': 'Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring',
+        'outro': {'eyebrow': 'Thank you for watching', 'title': ['Integrating ERC-20 Allowance Edges', 'into PageRank for Enhanced', 'On-Chain Wallet Reputation Scoring'],
                   'author': 'Taehong Kwon', 'affiliation': 'University of South Africa · PhD thesis in Computer Science',
-                  'credits': 'Voice: Supertonic 2 speech synthesis (Supertone, OpenRAIL-M)  ·  Music: written in code for this video  ·  Picture: the thesis defence slides'},
+                  'credits': ['Voice: Supertonic 2 speech synthesis (Supertone, OpenRAIL-M)', 'Music: written in code for this video', 'Picture: the thesis defence slides']},
     },
 }
 
