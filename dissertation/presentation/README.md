@@ -10,6 +10,7 @@
 - 모든 수식은 그림 → 작은 예 → 기호 → 식 순서로, 중학생도 따라올 수 있게 한 단계씩 끌어내요.
 - 줄거리와 슬라이드마다의 화면 글, 움직임, 숫자 출처는 `STORYBOARD.md`에 있어요.
 - 영문판(`index.en.html`)이 따로 있고, 두 판 모두 HTML 한 파일로 묶은 것이 `dist/`에 있어요(1절).
+- 한국어판의 인쇄판 PDF(클릭 단계마다 한 쪽, 304쪽, 쪽마다 그 단계의 발표 노트)도 `dist/`에 있어요(1절).
 
 ---
 
@@ -49,6 +50,25 @@ python3 tools/build_single.py --lang en    # 영문판만 (ko | en | all)
 ```
 
 - 슬라이드 내용을 고칠 때는 `js/sections/`(한국어)와 `js/sections-en/`(영문)의 같은 파일을 함께 고치고 다시 묶어요.
+
+### 인쇄판 (한국어)
+
+`dist/presentation-ko-print.pdf`는 한국어판을 클릭 단계마다 한 쪽씩 담은 PDF예요(59장, 304쪽, 약 40MB).
+
+- 쪽은 가로 A4 비율(297 × 210mm)이에요. 위에 그 단계까지 진행된 슬라이드(16:9, 쪽 너비 가득), 아래에 그 단계의 발표 노트 한 문단(N 노트 판에서 ▶로 표시되는 문단)과 장 번호, 단계, 장 제목, 다음 안내가 있어요.
+- A4 세로 한 장에 두 쪽씩('한 면에 2쪽') 인쇄하면 위아래가 꽉 차요. 한 쪽씩 인쇄하면 A4 가로에 맞아요.
+- 화면은 '움직임 줄이기' 상태에서 각 단계가 끝난 모습을 찍어 인쇄용 밝은 색으로 바꾼 것이에요. 어두운 배경은 흰색, 밝은 글자는 짙은 회색이 되고, 허락(주황)·송금(하늘)·C-PR(보라)·차수(초록)·강조(분홍) 색은 색상을 지킨 채 흰 바탕에 맞게 조금 짙어져요. 범례도 같은 규칙으로 바뀌므로 색의 뜻은 그대로예요.
+- 노트는 쪽마다 실제 글자로 들어가서 PDF에서 검색할 수 있어요.
+
+다시 만들기(약 4분, 크로미움을 써요. 5절과 같은 준비가 필요해요):
+
+```bash
+cd tools
+node build_print.mjs                         # → ../dist/presentation-ko-print.pdf
+node build_print.mjs --dark                  # 화면 색(어두운 배경) 그대로
+node build_print.mjs --only s04-pagerank     # 일부 장만(시험용, --out 다른파일.pdf와 함께)
+node build_print.mjs --keep DIR              # 쪽 그림과 print.html을 DIR에 남김 → --from DIR로 배치만 다시
+```
 
 ### 주소로 바로 가기
 
@@ -198,10 +218,11 @@ js/deck.js            슬라이드 엔진(키, 단계, 전환, 3D·KaTeX·숫자
 js/components.js      여러 섹션이 같이 쓰는 그림 부품
 js/sections/s01…s11   섹션마다 한 파일: Deck.section({ id, title, slides: [...] })
 js/sections-en/       영문판 섹션(같은 파일 이름, 같은 장 id와 단계)
-dist/                 한 파일 판: presentation-ko.html, presentation-en.html (tools/build_single.py가 만듦)
+dist/                 한 파일 판: presentation-ko.html, presentation-en.html (tools/build_single.py가 만듦),
+                      인쇄판: presentation-ko-print.pdf (tools/build_print.mjs가 만듦)
 data/*.js             window.DECK_DATA (tools/build_data.py가 만듦)
 lib/                  가져온 라이브러리와 글꼴(아래 표), lib/LICENSES.md, lib/licenses/
-tools/                build_data.py, build_single.py, shoot.mjs, gallery.html
+tools/                build_data.py, build_single.py, build_print.mjs, shoot.mjs, gallery.html
 STORYBOARD.md         줄거리판: 장마다 화면 글, 움직임, 수식, 숫자 출처, 노트
 ```
 
