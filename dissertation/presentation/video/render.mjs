@@ -8,7 +8,9 @@
    PLAN.json (written by plan.py):
      { lang, fps, gap, meta: {...card texts...}, intro: [{id, dur}], outro: [{id, dur}],
        slides: [{ index, id, lastStep, chapter: [{id, dur}] | null,
-                  steps: [{ step, lines: [{ id, dur, boxes: [[x,y,w,h]...], zoom, mark, card: {title, body} | null }] }] }] }
+                  steps: [{ step, avoid: [[x,y,w,h]...],
+                            lines: [{ id, dur, boxes: [[x,y,w,h]...], zoom, mark, card: {title, body} | null }] }] }] }
+     (avoid: the other text on screen at that step, which marks keep clear of)
    Writes DIR/chunk-NN.mp4 and DIR/chunk-NN.json ({ frames, lines: [{ id, frame, dur }] }) per slide.
    A chunk is skipped when its .json exists and --force is not given. */
 import { createRequire } from 'node:module';
@@ -117,12 +119,24 @@ async function renderChunk(D, si) {
     await F(Math.round(0.5 * FPS));
   }
 
-  let curKey = '', hadCard = false;
-  async function motion(L) {
+  let curKey = '', curBoxes = null, hadCard = false;
+  /* does the next line look at (nearly) the same place as the camera does now? */
+  const near = (a, b) => {
+    if (!a || !a.length || !b || !b.length) return false;
+    const u = bs => bs.reduce((r, x) => [Math.min(r[0], x[0]), Math.min(r[1], x[1]), Math.max(r[2], x[0] + x[2]), Math.max(r[3], x[1] + x[3])], [1e9, 1e9, -1e9, -1e9]);
+    const p = u(a), q = u(b);
+    return Math.hypot((p[0] + p[2] - q[0] - q[2]) / 2, (p[1] + p[3] - q[1] - q[3]) / 2) < 320;
+  };
+  async function motion(L, next, avoid, end) {
     const key = L.boxes && L.boxes.length ? JSON.stringify([L.boxes, L.zoom, L.mark]) : '';
     if (L.card) {
       await act(c => { __vx.clearMarks(0.25); __vx.card(c.title, c.body, 0.7); }, L.card);
-      hadCard = true; curKey = 'card';
+      hadCard = true; curKey = 'card'; curBoxes = null;
+      /* the line's own mark goes on the shrunken slide too, once the card has settled */
+      if (key && L.mark && L.mark !== 'none' && end - frame > 36) {
+        await F(24);
+        await act(([b, m, a]) => __vx.marks(b, m, a), [L.boxes, L.mark, avoid]);
+      }
       return;
     }
     if (hadCard) {
@@ -133,18 +147,18 @@ async function renderChunk(D, si) {
     }
     if (key === curKey) return;
     if (!key) {
-      /* nothing to point at: drop the highlight; pull the camera back only for a longer line, so that a
-         short aside between two close-ups does not pump the camera out and in again */
+      /* nothing to point at: drop the highlight and pull the camera back, except for a short aside
+         between two close-ups of the same place, which would only pump the camera out and in again */
       if (curKey === '' || curKey === 'marks-only') return;
-      const homeToo = L.dur >= 4.0;
-      await act(h => { __vx.clearMarks(0.3); if (h) __vx.camHome(0.7); }, homeToo);
-      curKey = homeToo ? '' : 'marks-only';
+      const hold = L.dur < 4.0 && next && next.zoom && next.zoom !== 'none' && near(next.boxes, curBoxes);
+      await act(h => { __vx.clearMarks(0.3); if (!h) __vx.camHome(0.7); }, hold);
+      curKey = hold ? 'marks-only' : '';
       return;
     }
-    curKey = key;
+    curKey = key; curBoxes = L.boxes;
     await act(L => { __vx.clearMarks(0.25); __vx.camTo(L.boxes, L.zoom || 'none', 0.8); }, L);
     await F(9);
-    await act(L => __vx.marks(L.boxes, L.mark || 'ring'), L);
+    await act(([b, m, a]) => __vx.marks(b, m, a), [L.boxes, L.mark || 'ring', avoid]);
   }
 
   for (const st of S.steps) {
@@ -153,14 +167,14 @@ async function renderChunk(D, si) {
     /* speech starts when the entrance settles, but not before 0.4 s nor after 1.5 s */
     await F(Math.round(1.5 * FPS), r => r.idle && frame - click >= Math.round(0.4 * FPS));
     const lines = (st.step === 0 && S.chapter ? S.chapter.map(l => Object.assign({ boxes: [], zoom: 'none', mark: 'none' }, l)) : []).concat(st.lines);
-    for (const L of lines) {
+    for (const [li, L] of lines.entries()) {
       const start = frame, end = start + Math.ceil(L.dur * FPS);
       log.push({ id: L.id, frame: start, dur: L.dur });
       const wantsMotion = (L.boxes && L.boxes.length) || L.card || curKey;
       if (wantsMotion) {
         /* the deck may still be animating (long entrances): move the camera only once it is idle */
         if (!(await idle())) await F(Math.max(0, end - frame - 24), r => r.idle);
-        if (frame < end - 12) await motion(L);
+        if (frame < end - 12) await motion(L, lines[li + 1], st.avoid, end);
       }
       if (frame < end) await F(end - frame);
       await F(GAP);
@@ -169,7 +183,7 @@ async function renderChunk(D, si) {
     if (!(await idle())) await F(Math.round(6 * FPS), r => r.idle);
     if (curKey || hadCard || !(await ev(() => __vx.isHome()))) {
       await act(() => { __vx.clearMarks(0.3); __vx.cardOut(0.35); __vx.camHome(0.6); });
-      curKey = ''; hadCard = false;
+      curKey = ''; curBoxes = null; hadCard = false;
       await F(Math.round(0.7 * FPS));
     }
   }

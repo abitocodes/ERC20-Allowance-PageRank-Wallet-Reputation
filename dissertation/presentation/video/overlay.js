@@ -4,7 +4,8 @@
    window.__vx
      camTo(boxes, zoom, dur)   camera onto the union of boxes (stage px [x,y,w,h]); zoom 'none'|'soft'|'close'
      camHome(dur)              camera back to the whole slide
-     marks(boxes, kind)        'ring' | 'underline' | 'spot' around each box (or their union when far apart)
+     marks(boxes, kind, avoid) 'ring' | 'underline' | 'spot' around each box (one mark around a compact group);
+                               the padding shrinks on any side where a box of avoid (other text) sits close
      clearMarks(dur)
      card(title, body, dur)    term card under a shrunken slide;  cardOut(dur)
      intro(o) / introOut(dur)  opening title card;  outro(o) / fadeBlack(dur)  closing card
@@ -16,6 +17,7 @@
   var STAGE_W = 1920, STAGE_H = 1080;
   var stage = document.getElementById('deck-stage');
   var slides = document.getElementById('deck-slides');
+  var hud = document.getElementById('deck-hud');
   var lang = document.documentElement.lang === 'en' ? 'en' : 'ko';
 
   var css = document.createElement('style');
@@ -61,6 +63,9 @@
     slides.style.transformOrigin = '0 0';
     slides.style.transform = t;
     cam.style.transform = t;
+    /* the deck's header, page number, tags and progress bar do not zoom: fade them while the camera is in,
+       or they would print over the enlarged slide */
+    if (hud) hud.style.opacity = C.s > 1 ? String(clamp(1 - (C.s - 1) / 0.08, 0, 1)) : '';
   }
   function union(boxes) {
     var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -92,17 +97,41 @@
     var u = union(boxes);
     /* far-apart pieces get their own mark; close ones one mark around them all */
     var spread = u[2] * u[3], sum = boxes.reduce(function (a, b) { return a + b[2] * b[3]; }, 0);
-    return (boxes.length > 3 || spread < 3.2 * sum) ? [u] : boxes.slice();
+    return (spread < 3.2 * sum || boxes.length > 6) ? [u] : boxes.slice();
   }
-  function ring(b) {
-    var p = 16, x = b[0] - p, y = b[1] - p, w = b[2] + 2 * p, h = b[3] + 2 * p;
+  /* padding per side [top, right, bottom, left]: p, but where other text is closer than the mark needs,
+     the mark runs down the middle of the gap so that it never strikes through a neighbouring line */
+  function pads(b, p, avoid, raw) {
+    var out = [p, p, p, p], need = p + 6;
+    (avoid || []).forEach(function (a) {
+      var ox = Math.min(b[0] + b[2], a[0] + a[2]) - Math.max(b[0], a[0]);
+      var oy = Math.min(b[1] + b[3], a[1] + a[3]) - Math.max(b[1], a[1]);
+      if (ox > 0 && oy > 0) return;                       /* inside or overlapping the box: part of it */
+      if (Math.min(b[0] + b[2] + p, a[0] + a[2]) - Math.max(b[0] - p, a[0]) > 0) {
+        var below = a[1] - (b[1] + b[3]), above = b[1] - (a[1] + a[3]);
+        if (below >= 0 && below < need) out[2] = Math.min(out[2], Math.max(1, below / 2));
+        if (above >= 0 && above < need) out[0] = Math.min(out[0], Math.max(1, above / 2));
+      }
+      if (oy > 0) {
+        var right = a[0] - (b[0] + b[2]), left = b[0] - (a[0] + a[2]);
+        if (right >= 0 && right < need) out[1] = Math.min(out[1], Math.max(1, right / 2));
+        if (left >= 0 && left < need) out[3] = Math.min(out[3], Math.max(1, left / 2));
+      }
+    });
+    if (raw) return out;
+    /* even on both sides of each axis, so the box stays centred in its mark */
+    var v = Math.min(out[0], out[2]), h = Math.min(out[1], out[3]);
+    return [v, h, v, h];
+  }
+  function ring(b, avoid) {
+    var P = pads(b, 16, avoid), x = b[0] - P[3], y = b[1] - P[0], w = b[2] + P[1] + P[3], h = b[3] + P[0] + P[2];
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'vx-ring');
     svg.setAttribute('width', w + 20); svg.setAttribute('height', h + 20);
     svg.style.left = (x - 10) + 'px'; svg.style.top = (y - 10) + 'px';
     var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     r.setAttribute('x', 10); r.setAttribute('y', 10); r.setAttribute('width', w); r.setAttribute('height', h);
-    r.setAttribute('rx', Math.min(18, h / 2)); r.setAttribute('pathLength', '1');
+    r.setAttribute('rx', Math.min(18, h / 2, Math.min(P[0], P[2]) + 8)); r.setAttribute('pathLength', '1');
     r.style.strokeDasharray = '1'; r.style.strokeDashoffset = '1';
     svg.appendChild(r);
     cam.appendChild(svg);
@@ -111,28 +140,31 @@
     tl.fromTo(svg, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0);
     return { el: svg, tl: tl };
   }
-  function underline(b) {
+  function underline(b, avoid) {
     var d = document.createElement('div'); d.className = 'vx-under';
-    d.style.left = b[0] + 'px'; d.style.top = (b[1] + b[3] + 6) + 'px'; d.style.width = b[2] + 'px';
+    var gap = pads(b, 9, avoid, true)[2] * 2, hgt = gap >= 18 ? 6 : Math.max(3, Math.min(6, gap - 2));
+    var off = gap >= 18 ? 6 : Math.max(0.5, (gap - hgt) / 2);
+    d.style.left = b[0] + 'px'; d.style.top = (b[1] + b[3] + off) + 'px'; d.style.width = b[2] + 'px'; d.style.height = hgt + 'px';
     cam.appendChild(d);
     var tl = gsap.timeline();
     tl.fromTo(d, { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: 0.6, ease: 'power3.out' });
     return { el: d, tl: tl };
   }
-  function spot(b) {
-    var p = 18, d = document.createElement('div'); d.className = 'vx-spot';
-    d.style.left = (b[0] - p) + 'px'; d.style.top = (b[1] - p) + 'px';
-    d.style.width = (b[2] + 2 * p) + 'px'; d.style.height = (b[3] + 2 * p) + 'px';
+  function spot(b, avoid) {
+    var P = pads(b, 18, avoid), d = document.createElement('div'); d.className = 'vx-spot';
+    d.style.left = (b[0] - P[3]) + 'px'; d.style.top = (b[1] - P[0]) + 'px';
+    d.style.width = (b[2] + P[1] + P[3]) + 'px'; d.style.height = (b[3] + P[0] + P[2]) + 'px';
+    d.style.borderRadius = Math.min(18, Math.min(P[0], P[2]) + 8) + 'px';
     cam.appendChild(d);
     var tl = gsap.timeline();
     tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power1.out' });
     return { el: d, tl: tl };
   }
-  function addMarks(boxes, kind) {
+  function addMarks(boxes, kind, avoid) {
     if (!boxes || !boxes.length || !kind || kind === 'none') return;
     var groups = kind === 'spot' ? [union(boxes)] : groupBoxes(boxes);
     groups.forEach(function (b, i) {
-      var m = kind === 'underline' ? underline(b) : kind === 'spot' ? spot(b) : ring(b);
+      var m = kind === 'underline' ? underline(b, avoid) : kind === 'spot' ? spot(b, avoid) : ring(b, avoid);
       m.tl.delay(0.12 * i);
       marks.push(m);
     });

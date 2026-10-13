@@ -84,7 +84,9 @@ for sl in ex['slides']:
                           'mark': ln.get('mark', 'ring') if boxes else 'none', 'card': ln.get('card')})
         if not lines:
             problems.append('%s/%d: no narration' % (sl['id'], k))
-        steps.append({'step': k, 'lines': lines})
+        # the text and formulas on screen at this step: the marks keep their padding clear of them
+        avoid = [a['box'] for a in anchors.get((sl['id'], k), {}).values() if a['kind'] in ('text', 'formula')]
+        steps.append({'step': k, 'avoid': avoid, 'lines': lines})
     sec = sl['id'][:3]
     first = sec not in seen
     seen.add(sec)
