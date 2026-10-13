@@ -77,7 +77,9 @@ bed = np.zeros((2, N), dtype=np.float32)
 XF = 4.0
 for k in range(len(bounds) - 1):
     m = mov[order[k % len(order)]]
-    a = max(0.0, bounds[k] - (XF if k else 0)); b = min(total, bounds[k + 1] + XF)
+    # each chapter's music starts at its boundary and rings XF seconds into the next chapter, where the two
+    # crossfade (this one fades out over its last XF seconds while the next fades in over its first XF)
+    a = bounds[k]; b = min(total, bounds[k + 1] + XF)
     seg = np.zeros((2, int((b - a) * SR) + 1), dtype=np.float32)
     L = m.shape[1]; hop = L - int(XF * SR)
     pos = 0
