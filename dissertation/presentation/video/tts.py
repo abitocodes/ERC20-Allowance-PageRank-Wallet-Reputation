@@ -38,7 +38,7 @@ ap.add_argument('--retries', type=int, default=3)
 ap.add_argument('--only', default=None)
 ap.add_argument('--whisper-dir', default=None)
 A = ap.parse_args()
-speed = A.speed or (1.15 if A.lang == 'ko' else 1.1)
+speed = A.speed or (1.22 if A.lang == 'ko' else 1.15)
 sys.path.insert(0, os.path.dirname(os.path.abspath(A.model)))
 sys.path.insert(0, A.model)
 from helper import load_text_to_speech, load_voice_style  # noqa: E402
@@ -122,7 +122,7 @@ for n, (lid, ln) in enumerate(lines):
     if only and lid not in only:
         continue
     text = ln['tts'].strip()
-    fname = '%04d.wav' % n
+    fname = lid.replace('/', '_') + '.wav'
     rec = index.get(lid)
     if rec and rec.get('tts') == text and os.path.exists(os.path.join(outdir, rec['file'])) and not only:
         continue

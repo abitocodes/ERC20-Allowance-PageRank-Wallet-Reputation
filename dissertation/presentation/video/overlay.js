@@ -175,12 +175,12 @@
     defs.innerHTML = '<marker id="vxa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#F5B43C"/></marker>' +
       '<marker id="vxt" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3CC4FF"/></marker>';
     svg.appendChild(defs);
-    var contracts = [[1420, 330], [1650, 560], [1380, 760], [1720, 250]];
+    var contracts = [[1520, 330], [1720, 570], [1480, 770], [1770, 240]];
     var owners = [];
     for (var i = 0; i < 26; i++) {
       var a = R() * Math.PI * 2, rr = 180 + R() * 380;
       var c = contracts[i % contracts.length];
-      owners.push([clamp(c[0] + Math.cos(a) * rr, 1080, 1860), clamp(c[1] + Math.sin(a) * rr * 0.8, 110, 980), i % contracts.length]);
+      owners.push([clamp(c[0] + Math.cos(a) * rr * 0.7, 1300, 1870), clamp(c[1] + Math.sin(a) * rr * 0.8, 110, 980), i % contracts.length]);
     }
     var gE = document.createElementNS(NS, 'g'), gN = document.createElementNS(NS, 'g'), gD = document.createElementNS(NS, 'g');
     svg.appendChild(gE); svg.appendChild(gN); svg.appendChild(gD);
