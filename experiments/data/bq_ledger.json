@@ -509,6 +509,168 @@
       "bytes_estimated": 85958199488,
       "bytes_billed": 106624450560,
       "usd": 0.6061
+    },
+    {
+      "at": "2026-10-13T09:36:40+00:00",
+      "job_id": "bd352d25-4f2e-4671-a994-c14b12061d03",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/fin_pairs.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=t1"
+      ],
+      "label": "exploratory: allowance pairs without unlimited (t1)",
+      "bytes_estimated": 1089355888,
+      "bytes_billed": 1089470464,
+      "usd": 0.0062
+    },
+    {
+      "at": "2026-10-13T09:37:03+00:00",
+      "job_id": "b8bba6be-f15e-4707-b850-82f4bb05c4e6",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/fin_pairs.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=tobs"
+      ],
+      "label": "exploratory: allowance pairs without unlimited (tobs)",
+      "bytes_estimated": 1130717364,
+      "bytes_billed": 1131413504,
+      "usd": 0.0064
+    },
+    {
+      "at": "2026-10-13T09:37:18+00:00",
+      "job_id": "7bb92f85-6e31-452c-ae17-c8fe74745b59",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/fin_labels.sql",
+      "dest": null,
+      "params": {
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=u_approvals"
+      ],
+      "label": "exploratory: W0 new approvals by kind",
+      "bytes_estimated": 1326666004,
+      "bytes_billed": 1327497216,
+      "usd": 0.0075
+    },
+    {
+      "at": "2026-10-13T09:37:30+00:00",
+      "job_id": "980c7b3b-9db7-40b7-b7ad-0f3e4576d32c",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/fin_labels.sql",
+      "dest": null,
+      "params": {
+        "out_start": "2026-07-01 00:00:00 UTC",
+        "out_end": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w1",
+        "FREEZE=tobs",
+        "APPROVALS=u_approvals_w1"
+      ],
+      "label": "exploratory: W1 new approvals by kind",
+      "bytes_estimated": 1286580612,
+      "bytes_billed": 1286602752,
+      "usd": 0.0073
+    },
+    {
+      "at": "2026-10-13T09:53:19+00:00",
+      "job_id": "d3fc4bbd-02d0-4801-a22c-4d4566276c63",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/unl_pairs.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=t1"
+      ],
+      "label": "exploratory: allowance pairs, unlimited only (t1)",
+      "bytes_estimated": 1089355888,
+      "bytes_billed": 1089470464,
+      "usd": 0.0062
+    },
+    {
+      "at": "2026-10-13T09:53:53+00:00",
+      "job_id": "d8894e08-5ff6-473e-bc6e-47f60a7805cc",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/unl_pairs.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=tobs"
+      ],
+      "label": "exploratory: allowance pairs, unlimited only (tobs)",
+      "bytes_estimated": 1130717364,
+      "bytes_billed": 1131413504,
+      "usd": 0.0064
+    },
+    {
+      "at": "2026-10-13T14:03:05+00:00",
+      "job_id": "2346b7b5-7d4b-4549-8439-f7ab241a7b8b",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/bal_pre.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "exploratory: owner balances, five tokens, before 2023-10-01",
+      "bytes_estimated": 547704424504,
+      "bytes_billed": 547704799232,
+      "usd": 3.1133
+    },
+    {
+      "at": "2026-10-13T14:04:30+00:00",
+      "job_id": "ee56e902-2cb0-45a0-a329-486f4837a0a9",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/bal_win.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "exploratory: owner balances at t1 and T_obs",
+      "bytes_estimated": 288566012706,
+      "bytes_billed": 288566018048,
+      "usd": 1.6403
+    },
+    {
+      "at": "2026-10-13T14:06:05+00:00",
+      "job_id": "2251d2ca-2e51-4d64-8353-5d24a0943ec9",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/bal_check.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "exploratory: balance check sample",
+      "bytes_estimated": 22340678808,
+      "bytes_billed": 22340960256,
+      "usd": 0.127
+    },
+    {
+      "at": "2026-10-13T14:07:53+00:00",
+      "job_id": "2cefa273-3ae0-451e-b4b2-b9a23d351d51",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/usd_pairs.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=t1",
+        "BAL=bal_t1",
+        "DAY=2026-03-31"
+      ],
+      "label": "exploratory: USD allowance pairs with balances (t1)",
+      "bytes_estimated": 1758653300,
+      "bytes_billed": 1759510528,
+      "usd": 0.01
+    },
+    {
+      "at": "2026-10-13T14:08:41+00:00",
+      "job_id": "a267ce59-104b-4625-81e2-ee01d253db08",
+      "sql": "C:/Users/abito/AppData/Local/Temp/claude/D--Github-phd-works/9e1bee96-3543-45af-b4b2-4b8d36e83587/scratchpad/unl/usd_pairs.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=tobs",
+        "BAL=bal_tobs",
+        "DAY=2026-06-30"
+      ],
+      "label": "exploratory: USD allowance pairs with balances (tobs)",
+      "bytes_estimated": 1813396430,
+      "bytes_billed": 1814036480,
+      "usd": 0.0103
     }
   ]
 }

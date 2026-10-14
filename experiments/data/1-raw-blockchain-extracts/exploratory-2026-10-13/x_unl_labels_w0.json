@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.x_unl_labels_w0",
+  "rows": 2070,
+  "table_rows": 2070,
+  "downloaded_at": "2026-10-13T09:38:22+00:00",
+  "parts": [
+    "x_unl_labels_w0.part000.parquet"
+  ],
+  "bytes": 51458
+}

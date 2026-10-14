@@ -1,0 +1,11 @@
+{
+  "table": "dissertation-bq.contract_rep.x_unlonly_pairs_tobs",
+  "rows": 4782807,
+  "table_rows": 4782807,
+  "downloaded_at": "2026-10-13T09:54:11+00:00",
+  "parts": [
+    "x_unlonly_pairs_tobs.part000.parquet",
+    "x_unlonly_pairs_tobs.part001.parquet"
+  ],
+  "bytes": 93725039
+}

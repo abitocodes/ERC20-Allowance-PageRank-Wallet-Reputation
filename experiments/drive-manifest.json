@@ -110,6 +110,204 @@
    "md5": "aaaf3a9119607b062941962fb4ede563"
   },
   {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_bal_check.json",
+   "id": "1wET_0eZAR8vQtVH2Z_2JFG4Q0k05M3U6",
+   "size": 222,
+   "md5": "7f366ab0327e6b0f6a76dc078ec6d29c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_bal_check.part000.parquet",
+   "id": "1aK5EPQRS9s0zA310uX2QGj_4uSpJlu1z",
+   "size": 42439,
+   "md5": "c2abc4115fd7bd8a7ab7db236009ce0c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_labels_w0.json",
+   "id": "1f9VRel3z6iDJggx2jAMrjFcMK5j5ylFi",
+   "size": 230,
+   "md5": "a17cf13e06ee7c6ec44ee8eb245e557e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_labels_w0.part000.parquet",
+   "id": "1CcFWz-8AGkvYVFW5gma4gs64-6UzXfta",
+   "size": 51458,
+   "md5": "a3e90d3b53fd72b644e06c535db475c5"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_labels_w1.json",
+   "id": "18goIx9YFx_NS7wJ25WTpVGtSKgTb1YsS",
+   "size": 230,
+   "md5": "1ef9d0dd6056c5c78c459ef8ff7fef62"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_labels_w1.part000.parquet",
+   "id": "1w0XqDWdvk1LHTG3utCrhzpIt1uQ9J6-x",
+   "size": 40809,
+   "md5": "2429b1ae33dfcc41021c9a59aba3e367"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_pairs_t1.json",
+   "id": "1seicMlEJaNY8mp2xj88nU33HDf63ntwW",
+   "size": 276,
+   "md5": "4b5955e3492d7509ab00138657a433af"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_pairs_t1.part000.parquet",
+   "id": "1SZfnEbNm6DvFlKBJ7bu6mZ0Y-v0jwTXf",
+   "size": 42153710,
+   "md5": "3a2899347e5ac2bb43725c86527dedab"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_pairs_t1.part001.parquet",
+   "id": "1opYTQhHwjU3ZH53sLfhJX2bOe-94WpHu",
+   "size": 14064188,
+   "md5": "ec79742d76d26b7c2b650e2be43a8388"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_pairs_tobs.json",
+   "id": "19VTn22ebHZcckyrNYdVZloB4mTVNzz0D",
+   "size": 282,
+   "md5": "b190e285ee155b60351a60ea1e1e3482"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_pairs_tobs.part000.parquet",
+   "id": "1Nmz0VI5v1dZl8JqDEDssxxC4HBCW3oLA",
+   "size": 42164848,
+   "md5": "9dec5790c654a07f9d5955ac756fa384"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unl_pairs_tobs.part001.parquet",
+   "id": "18lGwgQ155JcJzrKRAdIsTG6mej0BmTUD",
+   "size": 17061063,
+   "md5": "7432923c2fa656bd5e5bff91fe890ad9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unlonly_pairs_t1.json",
+   "id": "17ivmcsBlRK7r2n3CYMQf0NvgvrJ4Dvhs",
+   "size": 245,
+   "md5": "c15c4163d297387ae2bb88774b1989d8"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unlonly_pairs_t1.part000.parquet",
+   "id": "1IR0qNApNPWb-I7aHp8U6Oh7tep40Z5vX",
+   "size": 88211233,
+   "md5": "9e50d9fcf9ec304889d807bc2e90c3d6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unlonly_pairs_tobs.json",
+   "id": "1oFFzcPy1-7IKP1092yEoDvk0ZexSXSOr",
+   "size": 294,
+   "md5": "026d0d8b02626ce2aed19d9442ffe547"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unlonly_pairs_tobs.part000.parquet",
+   "id": "1YrUX2-VUrW9eCGBiGkVtNI-zZsK2RFIa",
+   "size": 88759904,
+   "md5": "149b3bae0ea964fd49a2b9dfe5b6500a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_unlonly_pairs_tobs.part001.parquet",
+   "id": "1_dKmA3BBbMO5Hiwf60xgB4sOOrw3UCBo",
+   "size": 4965135,
+   "md5": "1bcf6a7b833e9189c9b218f85c471046"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.json",
+   "id": "12PBFGk5KmqFwSfvGU5LVY1yiMY_bXGGc",
+   "size": 474,
+   "md5": "232af907fb903d5b8c6573d31c87cbba"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.part000.parquet",
+   "id": "1wspW098XWwqB2njS3G6yKz9dPu-jz_GR",
+   "size": 59271638,
+   "md5": "b540e8164cbd9b0d363b0d0073801da6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.part001.parquet",
+   "id": "1au3IKK9unV4qzxnmXPNP3Vu7e_FL0CAX",
+   "size": 58463115,
+   "md5": "e588fbc79eb379680bd932defc14492e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.part002.parquet",
+   "id": "1AP_0y9QZTRE6Hg_TFLZbTJYirWAXRj_3",
+   "size": 69337212,
+   "md5": "5756a1f06fdc001edb72d1ea25e94d6a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.part003.parquet",
+   "id": "1KyFLNx8Rhl5jvAnVJ9zo3k3Yc5eJ4-_l",
+   "size": 52164533,
+   "md5": "b7a46c308ae230ff11cfbd5763409322"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.part004.parquet",
+   "id": "1JnmogYIZIe0Yy1MKjabJPaEnVpkTwbrN",
+   "size": 77178626,
+   "md5": "b4e5e2628c829f5bb3a05e4108c4ae34"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.part005.parquet",
+   "id": "14x6gx-v6Oy2ohBlw9woIL6W9xllZ_Jx5",
+   "size": 75461355,
+   "md5": "22f72009e6248134fb69bc1b5847f4b5"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_t1.part006.parquet",
+   "id": "1_5oXW_vCIkxsmds3gHH8ZB59swo-OwhY",
+   "size": 13951835,
+   "md5": "94097d6df5386eb30c99903a137efa26"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.json",
+   "id": "1az3hgBnIsoFyS4uBUHrmdiym0717zmUx",
+   "size": 490,
+   "md5": "40576040b41fb26fdf1e70c294babcc6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.part000.parquet",
+   "id": "1FKBp3Nu-SuAQxI_JoRCJ-aaIEIEs4QY3",
+   "size": 59329374,
+   "md5": "bde627b4417a226d0c9bb9b12946db45"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.part001.parquet",
+   "id": "1ZcQpbGk81bac2iOdB9e4VdUZ4TL8kSJQ",
+   "size": 58396943,
+   "md5": "c2ef8da5f5bc300a79ddd612408b369c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.part002.parquet",
+   "id": "1e0CJZjemrPMy5rct_O18DVbI3oc_KPsN",
+   "size": 71117489,
+   "md5": "90249134f6c80c7650bfd3433c4cd7ac"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.part003.parquet",
+   "id": "1o8CtbRHOK-Tximv6aRMxZuVvTyXYDjB9",
+   "size": 51384463,
+   "md5": "e1f66b9a0037678d46516c8a8c37a886"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.part004.parquet",
+   "id": "1vwmJWrCPDVLxjz-c3Ip0IzhFISoODedI",
+   "size": 76526324,
+   "md5": "9790fa3a15e66a83285cce82eae5f389"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.part005.parquet",
+   "id": "1j4LFVoaLRRl3dge14SZqGqmFGGM3unDO",
+   "size": 75992029,
+   "md5": "afb80eddebcc99b7292fe4e69aec1152"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-13/x_usd_pairs_tobs.part006.parquet",
+   "id": "1k0HKiGNc-mPBx_rfuIaUBQOXx8BkcWwZ",
+   "size": 32588188,
+   "md5": "1c1198bf4623110b241fce2525c8e9f0"
+  },
+  {
    "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_account_types.json",
    "id": "1JvikPKemsp-J783XBJEUu2ZGFR5qaGCk",
    "size": 259,
@@ -1190,6 +1388,42 @@
    "md5": "74afa0b43764c1e661e9bf72e426c409"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-13/results_unl_w0.parquet",
+   "id": "1h806q_PrEPbtva_9QUafZxFW4_IeeHTN",
+   "size": 2240533,
+   "md5": "ada39236ed67738c938fb72988d75b9d"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-13/results_unl_w1.parquet",
+   "id": "1Pn9PHGCCwYXSDA6IBhb8v2DcfrwJwk-b",
+   "size": 2367628,
+   "md5": "27ff8e4fc86ac9c9657adc692d1245f0"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-13/usd_bal_w0.parquet",
+   "id": "13tMnEQeUX5_6JTh2zkLvGZyGhOPtho5z",
+   "size": 2625157,
+   "md5": "15c330e3c229197834e944c11b9158ea"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-13/usd_bal_w1.parquet",
+   "id": "1swqnGVpKf9xap3zIt6OZHG9kjwM0S-pr",
+   "size": 2786277,
+   "md5": "9ea04fc132d7a0915df6de555999f3b8"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-13/w0_scores.parquet",
+   "id": "12f2MKa1xCvpCSwoJx2oh_apMVO2xKbJC",
+   "size": 2407088,
+   "md5": "47cd0b700c0207095cda3e2dd6b1bb99"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-13/w1_scores.parquet",
+   "id": "1nzWKP401F25xH_Fk1rTeJYIzFUdy40Er",
+   "size": 2536500,
+   "md5": "2a6bcd44ea3a5669eaab240f9198a36f"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/gmx/gmx_contract_closes_obs_decoded.json",
    "id": "1umUUUlSeMVC3UVs7W4whq4HJHCSiVRkI",
    "size": 96,
@@ -1612,8 +1846,8 @@
   {
    "path": "contract-reputation/bq_ledger.json",
    "id": "1oafnN5xwIO2G7jmPUknfyjCra37kMY8n",
-   "size": 15490,
-   "md5": "60e037bc137bb60154c767d6f08f384e"
+   "size": 21414,
+   "md5": "d6092492a9d81183c7c34a5312a2c856"
   },
   {
    "path": "wallet-reputation-archive/0-gmx-abi-for-decoding-logs/EventEmitter.json",
@@ -2061,6 +2295,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-10-12T12:47:38+00:00",
- "total_bytes": 10912061248
+ "updated_at": "2026-10-14T10:14:32+00:00",
+ "total_bytes": 12055711009
 }

@@ -1,0 +1,11 @@
+{
+  "table": "dissertation-bq.contract_rep.x_unl_pairs_t1",
+  "rows": 4546033,
+  "table_rows": 4546033,
+  "downloaded_at": "2026-10-13T09:37:55+00:00",
+  "parts": [
+    "x_unl_pairs_t1.part000.parquet",
+    "x_unl_pairs_t1.part001.parquet"
+  ],
+  "bytes": 56217898
+}
