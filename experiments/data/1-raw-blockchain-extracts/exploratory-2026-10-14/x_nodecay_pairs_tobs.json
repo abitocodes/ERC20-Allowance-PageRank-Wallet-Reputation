@@ -1,0 +1,14 @@
+{
+  "table": "dissertation-bq.contract_rep.x_nodecay_pairs_tobs",
+  "rows": 11219116,
+  "table_rows": 11219116,
+  "downloaded_at": "2026-10-14T10:49:45+00:00",
+  "parts": [
+    "x_nodecay_pairs_tobs.part000.parquet",
+    "x_nodecay_pairs_tobs.part001.parquet",
+    "x_nodecay_pairs_tobs.part002.parquet",
+    "x_nodecay_pairs_tobs.part003.parquet",
+    "x_nodecay_pairs_tobs.part004.parquet"
+  ],
+  "bytes": 316481416
+}

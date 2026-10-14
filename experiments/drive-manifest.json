@@ -308,6 +308,78 @@
    "md5": "1c1198bf4623110b241fce2525c8e9f0"
   },
   {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_t1.json",
+   "id": "1kzyI7uUfks6_Kv8uIRwPchb3Td5bmFdA",
+   "size": 420,
+   "md5": "1d2f40719516c3dafb37c416a20234e9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_t1.part000.parquet",
+   "id": "1UERVjAtQBAsQMkhJoNyeqPUSYYAj-AFG",
+   "size": 61936022,
+   "md5": "4a6e23d0440e7a853c59e5fbf3f65788"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_t1.part001.parquet",
+   "id": "1DOwTdAlWU07Q1jioKmWI-3sYIVAcGiMw",
+   "size": 60066336,
+   "md5": "f18a5f788f297b740278d9105986a8c8"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_t1.part002.parquet",
+   "id": "1CDCbVaaO-S9zdzemIOdHVRqEOBHGKPMi",
+   "size": 68609060,
+   "md5": "89aecdc446da0c663baf502782c510a9"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_t1.part003.parquet",
+   "id": "1X3dlip-yFa9qEKx4yG4LJqxUbsnFMfqL",
+   "size": 70129100,
+   "md5": "a525f13f56f92984bdf348d1d1691a25"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_t1.part004.parquet",
+   "id": "1Fi4GDhfNjLE1vtGByfEmRkyQedt19TSO",
+   "size": 38559423,
+   "md5": "2dd5cf79e4f888206e7a749d3a757bfd"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_tobs.json",
+   "id": "1cSQMqREgKwX07fvxc6frI07SC-QsZ1jB",
+   "size": 432,
+   "md5": "e5274ff85d2954b7cfe056787333cbc6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_tobs.part000.parquet",
+   "id": "1O52GRiVnCr0NXKjfZi8TNKrNIFB5KiFX",
+   "size": 62747109,
+   "md5": "5aaae077297f4d0d0ac0e42abc3ab49a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_tobs.part001.parquet",
+   "id": "1KAboKja_olNmjvrpdJnRaT5OxnrBO3Zv",
+   "size": 59927268,
+   "md5": "86176ccfd6c6141d53dd48b686f7694d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_tobs.part002.parquet",
+   "id": "1f9NHvQn3EMRbN1MWqNXnMfhXkxbKIIi0",
+   "size": 70788376,
+   "md5": "8f1dfa8d796064f9bb90bf02ba09c51a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_tobs.part003.parquet",
+   "id": "1GXU5NAZm_66bcRDvN4dxsYTonn_8wELs",
+   "size": 69106392,
+   "md5": "93dec9b9b5bc276f0d84e481d8318832"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/exploratory-2026-10-14/x_nodecay_pairs_tobs.part004.parquet",
+   "id": "1cu_1Uq1v3S-t2XPvXPvya_N3U9khK9_w",
+   "size": 53912271,
+   "md5": "995de006266f1e29865f91fc1c6340ab"
+  },
+  {
    "path": "contract-reputation/1-raw-blockchain-extracts/gmx/gmx_account_types.json",
    "id": "1JvikPKemsp-J783XBJEUu2ZGFR5qaGCk",
    "size": 259,
@@ -1424,6 +1496,18 @@
    "md5": "2a6bcd44ea3a5669eaab240f9198a36f"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/nodecay_w0.parquet",
+   "id": "1ZP-0vi7qvMFUHNYi3dDJMu2Ogm8cufSL",
+   "size": 1674327,
+   "md5": "de0961b34fe40ed817b010a9d711d322"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/nodecay_w1.parquet",
+   "id": "1UPCXfv2LHTDuGGMzSnUNDwG3GdwmZXHI",
+   "size": 1766622,
+   "md5": "00425fc9bffb7a34ac1c1ad73a837528"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/gmx/gmx_contract_closes_obs_decoded.json",
    "id": "1umUUUlSeMVC3UVs7W4whq4HJHCSiVRkI",
    "size": 96,
@@ -1846,8 +1930,8 @@
   {
    "path": "contract-reputation/bq_ledger.json",
    "id": "1oafnN5xwIO2G7jmPUknfyjCra37kMY8n",
-   "size": 21414,
-   "md5": "d6092492a9d81183c7c34a5312a2c856"
+   "size": 22516,
+   "md5": "571b12891ecbeb2ad1312c29a344126f"
   },
   {
    "path": "wallet-reputation-archive/0-gmx-abi-for-decoding-logs/EventEmitter.json",
@@ -2295,6 +2379,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-10-14T10:14:32+00:00",
- "total_bytes": 12055711009
+ "updated_at": "2026-10-14T11:42:48+00:00",
+ "total_bytes": 12674935269
 }
