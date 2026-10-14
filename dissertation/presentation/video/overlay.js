@@ -63,9 +63,9 @@
     slides.style.transformOrigin = '0 0';
     slides.style.transform = t;
     cam.style.transform = t;
-    /* the deck's header, page number, tags and progress bar do not zoom: fade them while the camera is in,
-       or they would print over the enlarged slide */
-    if (hud) hud.style.opacity = C.s > 1 ? String(clamp(1 - (C.s - 1) / 0.08, 0, 1)) : '';
+    /* the deck's header, page number, tags and progress bar do not move with the camera: fade them while
+       the slide is zoomed in or shrunk for a card, or they would print over it */
+    if (hud) hud.style.opacity = C.s !== 1 ? String(clamp(1 - Math.abs(C.s - 1) / 0.08, 0, 1)) : '';
   }
   function union(boxes) {
     var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -92,12 +92,32 @@
 
   /* ------------------------------------------------------------ marks */
   var marks = [];
-  function groupBoxes(boxes) {
+  function meets(a, b, dx, dy) {
+    return a[0] - dx < b[0] + b[2] && b[0] - dx < a[0] + a[2] && a[1] - dy < b[1] + b[3] && b[1] - dy < a[1] + a[3];
+  }
+  /* other text that a mark around b would cut: it overlaps b without lying inside it */
+  function cuts(b, avoid) {
+    return (avoid || []).some(function (a) {
+      return meets(a, b, 0, 0) && !(a[0] >= b[0] - 1 && a[1] >= b[1] - 1 && a[0] + a[2] <= b[0] + b[2] + 1 && a[1] + a[3] <= b[1] + b[3] + 1);
+    });
+  }
+  function groupBoxes(boxes, avoid) {
     if (boxes.length <= 1) return boxes.slice();
+    /* pieces that touch, or sit side by side on one row, become one piece */
+    var cl = boxes.map(function (b) { return b.slice(); }), merged = true;
+    while (merged) {
+      merged = false;
+      for (var i = 0; i < cl.length && !merged; i++) for (var j = i + 1; j < cl.length && !merged; j++) {
+        if (meets(cl[i], cl[j], 64, 2)) { cl[i] = union([cl[i], cl[j]]); cl.splice(j, 1); merged = true; }
+      }
+    }
+    if (cl.length === 1) return cl;
+    /* a compact group gets one mark around it all, unless that mark would run through other text;
+       far-apart pieces get their own mark (more than six: one mark anyway) */
     var u = union(boxes);
-    /* far-apart pieces get their own mark; close ones one mark around them all */
     var spread = u[2] * u[3], sum = boxes.reduce(function (a, b) { return a + b[2] * b[3]; }, 0);
-    return (spread < 3.2 * sum || boxes.length > 6) ? [u] : boxes.slice();
+    if (spread < 3.2 * sum && !cuts(u, avoid)) return [u];
+    return cl.length > 6 ? [u] : cl;
   }
   /* padding per side [top, right, bottom, left]: p, but where other text is closer than the mark needs,
      the mark runs down the middle of the gap so that it never strikes through a neighbouring line */
@@ -106,7 +126,16 @@
     (avoid || []).forEach(function (a) {
       var ox = Math.min(b[0] + b[2], a[0] + a[2]) - Math.max(b[0], a[0]);
       var oy = Math.min(b[1] + b[3], a[1] + a[3]) - Math.max(b[1], a[1]);
-      if (ox > 0 && oy > 0) return;                       /* inside or overlapping the box: part of it */
+      if (ox > 0 && oy > 0) {
+        /* the box is a phrase inside a longer paragraph or line: the next line or word is right there,
+           so keep the sides where the paragraph runs on tight (any other overlap is part of the mark) */
+        if (!(a[0] <= b[0] + 1 && a[1] <= b[1] + 1 && a[0] + a[2] >= b[0] + b[2] - 1 && a[1] + a[3] >= b[1] + b[3] - 1)) return;
+        if (a[1] + a[3] > b[1] + b[3] + 2) out[2] = Math.min(out[2], 3);
+        if (a[1] < b[1] - 2) out[0] = Math.min(out[0], 3);
+        if (a[0] < b[0] - 2) out[3] = Math.min(out[3], 3);
+        if (a[0] + a[2] > b[0] + b[2] + 2) out[1] = Math.min(out[1], 3);
+        return;
+      }
       if (Math.min(b[0] + b[2] + p, a[0] + a[2]) - Math.max(b[0] - p, a[0]) > 0) {
         var below = a[1] - (b[1] + b[3]), above = b[1] - (a[1] + a[3]);
         if (below >= 0 && below < need) out[2] = Math.min(out[2], Math.max(1, below / 2));
@@ -162,7 +191,7 @@
   }
   function addMarks(boxes, kind, avoid) {
     if (!boxes || !boxes.length || !kind || kind === 'none') return;
-    var groups = kind === 'spot' ? [union(boxes)] : groupBoxes(boxes);
+    var groups = kind === 'spot' ? [union(boxes)] : groupBoxes(boxes, avoid);
     groups.forEach(function (b, i) {
       var m = kind === 'underline' ? underline(b, avoid) : kind === 'spot' ? spot(b, avoid) : ring(b, avoid);
       m.tl.delay(0.12 * i);
