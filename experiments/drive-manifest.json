@@ -1496,6 +1496,18 @@
    "md5": "2a6bcd44ea3a5669eaab240f9198a36f"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/count_variants_w0.parquet",
+   "id": "1CU_5pfVbVs1dimxDcTUQo_0sWBICaOh2",
+   "size": 2275186,
+   "md5": "610d64e9577404b623dc861a45c142cd"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/count_variants_w1.parquet",
+   "id": "11isYFe_ivchvLGOAcu-2hJZPG2gqNCPT",
+   "size": 2405585,
+   "md5": "87e4a8ea4e92bbd9ad9e16251e3706e0"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/nodecay_w0.parquet",
    "id": "1ZP-0vi7qvMFUHNYi3dDJMu2Ogm8cufSL",
    "size": 1674327,
@@ -1506,6 +1518,42 @@
    "id": "1UPCXfv2LHTDuGGMzSnUNDwG3GdwmZXHI",
    "size": 1766622,
    "md5": "00425fc9bffb7a34ac1c1ad73a837528"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/pagerank_forms_w0.parquet",
+   "id": "1V7oqBEdC1-x0nbP3ENRz14FNGv7ttPgo",
+   "size": 957120,
+   "md5": "418db111f830e5096e493f296aa7c5e5"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/pagerank_forms_w1.parquet",
+   "id": "1uUDjIx9pekxbSbMUtwzSF1Sia5pZZKW9",
+   "size": 1018667,
+   "md5": "422bb36739597ba00bad2f410a9da7d5"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/pagerank_inflow_w0.parquet",
+   "id": "11ohVNDJH4tTK7BVCt2IzEbedNOcd2OSP",
+   "size": 787514,
+   "md5": "309baa6a98c7be275f52780a33205821"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/pagerank_inflow_w1.parquet",
+   "id": "13__l9bthvsv0HwbHrcEQNkYbU98-dtj-",
+   "size": 838170,
+   "md5": "6c74c454deccfa332d01c3388f893aca"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/role_coupled_w0.parquet",
+   "id": "1VF8cZIfM3AVtLDbdmKVdobOhTlsk7J9P",
+   "size": 1928464,
+   "md5": "42234efba24756c9feb0ef48ee6f7e02"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/exploratory-2026-10-14/role_coupled_w1.parquet",
+   "id": "1m2V3B7nDolF2yxhIL-6xjwAy1bHAr31G",
+   "size": 2063886,
+   "md5": "b9a9fed26b683bc84ef4f5cf90b6ad8e"
   },
   {
    "path": "contract-reputation/2-processed-tables-and-evaluations/gmx/gmx_contract_closes_obs_decoded.json",
@@ -2379,6 +2427,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-10-14T11:42:48+00:00",
- "total_bytes": 12674935269
+ "updated_at": "2026-10-14T14:14:38+00:00",
+ "total_bytes": 12687209861
 }
