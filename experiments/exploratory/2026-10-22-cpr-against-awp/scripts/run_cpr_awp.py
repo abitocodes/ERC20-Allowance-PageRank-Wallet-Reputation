@@ -46,7 +46,8 @@ FAMILIES = {
     "sybil_stability": ["inbound_counterparty_ratio", "transfer_tenure_days", "active_months"],
 }
 DELTA = 0.01
-REV = PROC / "revised-usd"
+REV = PROC  # data/2-.../revised-usd under CONTRACT_REP_VARIANT=usd
+CACHE = EXP / "data" / "_work" / "cawp"
 WINDOWS = {"W0": ("t1", "holdout-w0", "t1_in_approve_degree", "t1_in_degree"),
            "W1": ("tobs", "window-w1", "in_approve_degree", "in_degree")}
 WORKERS = int(os.environ.get("CAWP_WORKERS", "4"))
@@ -90,6 +91,11 @@ def coupled_with_restarts(layers, teleport, p):
 
 
 def cawp_scores(tag: str, p: dict) -> tuple[dict[str, pd.Series], dict[str, int]]:
+    cached = CACHE / f"cawp_{tag}.parquet"
+    if cached.exists():
+        frame = pd.read_parquet(cached)
+        its = json.loads((CACHE / f"cawp_{tag}_iterations.json").read_text())
+        return {m: frame[m].dropna() for m in frame}, its
     a = read_parts(GRAPH / f"allow_pairs_{tag}", ["src", "dst", "w_er", "max_sig"])
     t = read_parts(GRAPH / f"transfer_pairs_{tag}", ["src", "dst", "w_awp", "max_sig"])
     pi_t = activeness(t["src"], t["dst"], t["max_sig"])
@@ -102,6 +108,9 @@ def cawp_scores(tag: str, p: dict) -> tuple[dict[str, pd.Series], dict[str, int]
         out[name], its[name] = coupled_with_restarts(
             [(a["src"], a["dst"], a["w_er"], lam), (t["src"], t["dst"], t["w_awp"], 1.0 - lam)], tele, p)
         log(tag, name, "iterations", its[name], f"{time.time() - t0:.1f}s")
+    CACHE.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(out).to_parquet(cached)
+    (CACHE / f"cawp_{tag}_iterations.json").write_text(json.dumps(its))
     return out, its
 
 
