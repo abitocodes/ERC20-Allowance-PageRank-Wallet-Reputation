@@ -1,0 +1,699 @@
+{
+ "unit": "u10",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s06-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "This scene is the key picture of this whole video.",
+     "tts": "This scene is the key picture of this whole video.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "All 15,107 real contracts are in it, and one dot is one contract.",
+     "tts": "All fifteen thousand one hundred and seven real contracts are in it, and one dot is one contract.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Across, along the amber axis, is the in-approve degree, the number of approving owners.",
+     "tts": "Across, along the amber axis, is the in-approve degree, the number of approving owners.",
+     "focus": [
+      "a46"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Depth, along the blue axis, is the transfer in-degree, the number of senders.",
+     "tts": "Depth, along the blue axis, is the transfer in-degree, the number of senders.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Both are on log scales, so each step on the scale is ten times the one before.",
+     "tts": "Both are on log scales, so each step on the scale is ten times the one before.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Height is the percentile of the C-PR score:",
+     "tts": "Height is the percentile of the C P R score,",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "the score rank turned into 0 to 100, with 100 at the top.",
+     "tts": "the score rank turned into zero to one hundred, with one hundred at the top.",
+     "focus": [
+      "a33"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Why ranks? The size of the scores differs for each λ, but ranks put them all on the same scale.",
+     "tts": "Why ranks? The size of the scores differs for each lambda, but ranks put them all on the same scale.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the two back walls, we cast the shadow of this cloud of dots.",
+     "tts": "On the two back walls, we cast the shadow of this cloud of dots.",
+     "focus": [
+      "a12",
+      "a13"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The right wall, in amber, shows the in-approve degree against the score,",
+     "tts": "The right wall, in amber, shows the in-approve degree against the score,",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "and the left wall, in blue, the transfer in-degree against the score.",
+     "tts": "and the left wall, in blue, the transfer in-degree against the score.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "If a shadow is a thin band, the score follows that count closely. If it is a spread-out cloud, it does not.",
+     "tts": "If a shadow is a thin band, the score follows that count closely. If it is a spread-out cloud, it does not.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Right now the dial is at 1: the score that walks only the allowance layer.",
+     "tts": "Right now the dial is at one, the score that walks only the allowance layer.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So the shadow on the right wall, the allowance wall, is close to a band.",
+     "tts": "So the shadow on the right wall, the allowance wall, is close to a band.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The bars at the top right show how far the score order matches each count.",
+     "tts": "The bars at the top right show how far the score order matches each count.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Here, 0.654 for the in-approve degree, and 0.183 for the transfer in-degree.",
+     "tts": "Here, zero point six five four for the in-approve degree, and zero point one eight three for the transfer in-degree.",
+     "focus": [
+      "a15",
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "0 means no relation, and 1 means the same order.",
+     "tts": "Zero means no relation, and one means the same order.",
+     "focus": [
+      "a21",
+      "a22"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This measure is Kendall's τ, and I will explain it in chapter 7.",
+     "tts": "This measure is Kendall's tau, and I will explain it in chapter seven.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Let's set λ to 0, so the walk uses only the transfer layer.",
+     "tts": "Let's set lambda to zero, so the walk uses only the transfer layer.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The shadow on the left wall, the transfer wall, gets close to a band,",
+     "tts": "The shadow on the left wall, the transfer wall, gets close to a band,",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "and the shadow on the allowance wall spreads out.",
+     "tts": "and the shadow on the allowance wall spreads out.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The 2,670 contracts that are not in the transfer graph fall to the floor.",
+     "tts": "The two thousand six hundred seventy contracts that are not in the transfer graph fall to the floor.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the bars, it is 0.689 with the transfer in-degree, and 0.262 with the in-approve degree.",
+     "tts": "On the bars, it is zero point six eight nine with the transfer in-degree, and zero point two six two with the in-approve degree.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Raising λ to 0.25 changes a lot.",
+     "tts": "Raising lambda to zero point two five changes a lot.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Most of the contracts on the floor rise up, and only the 80 that are in neither graph stay there.",
+     "tts": "Most of the contracts on the floor rise up, and only the eighty that are in neither graph stay there.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The shadows on both walls are half spread out,",
+     "tts": "The shadows on both walls are half spread out,",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "and the two bars meet around the middle.",
+     "tts": "and the two bars meet around the middle.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "At λ = 0.5, the primary value, almost nothing moves.",
+     "tts": "At lambda equals zero point five, the primary value, almost nothing moves.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It looks much like 0.25. The bars now read 0.511 and 0.369.",
+     "tts": "It looks much like zero point two five. The bars now read zero point five one one and zero point three six nine.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "With λ at 0.75, too, it moves only a little.",
+     "tts": "With lambda at zero point seven five, too, it moves only a little.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The shadows and the bars stay much as they were.",
+     "tts": "The shadows and the bars stay much as they were.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-04",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Finally, λ goes back to 1.",
+     "tts": "Finally, lambda goes back to one.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The cloud jumps a lot again, and lines up with the allowance-side count.",
+     "tts": "The cloud jumps a lot again, and lines up with the allowance-side count.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The allowance wall's shadow is close to a band again, at 0.654 with the in-approve degree.",
+     "tts": "The allowance wall's shadow is close to a band again, at zero point six five four with the in-approve degree.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And the 523 contracts that are not in the allowance graph go to the floor.",
+     "tts": "And the five hundred twenty-three contracts that are not in the allowance graph go to the floor.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-04",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "Why are the jumps so big at the ends?",
+     "tts": "Why are the jumps so big at the ends?",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "At exactly 0 or 1, only one layer is walked, so the set of nodes itself changes.",
+     "tts": "At exactly zero or one, only one layer is walked, so the set of nodes itself changes.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Between 0 and 1, a node with only one kind of edge follows that path 100% of the time.",
+     "tts": "Between zero and one, a node with only one kind of edge follows that path one hundred percent of the time.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That is the switch in the formula at work.",
+     "tts": "That is the switch in the formula at work.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So this formula is not continuous at the end points.",
+     "tts": "So this formula is not continuous at the end points.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Please also keep in mind that these numbers are a same-window check,",
+     "tts": "Please also keep in mind that these numbers are a same-window check,",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "so part of the agreement is built in by the way the scores are made.",
+     "tts": "so part of the agreement is built in by the way the scores are made.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Remember that only these five values of λ were computed.",
+     "tts": "Remember that only these five values of lambda were computed.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Now the fourth and last score: S-PR, endorsement-seeded PageRank.",
+     "tts": "Now the fourth and last score, S P R, endorsement-seeded PageRank.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A seed is simply a starting point for the walk.",
+     "tts": "A seed is simply a starting point for the walk.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "S-PR is an ablation experiment: we change one piece and watch what happens.",
+     "tts": "S P R is an ablation experiment. We change one piece and watch what happens.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": {
+      "title": "Ablation",
+      "body": "Change just one part of a method to see how much that part matters"
+     }
+    },
+    {
+     "sub": "It walks the transfer graph, but the allowance score decides where it teleports.",
+     "tts": "It walks the transfer graph, but the allowance score decides where it teleports.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "For now, the restart water falls like rain, evenly on every node.",
+     "tts": "For now, the restart water falls like rain, evenly on every node.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Then the rain gathers where there is an allowance score, on the nodes with an amber halo.",
+     "tts": "Then the rain gathers where there is an allowance score, on the nodes with an amber halo.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The bigger the halo, the heavier the rain.",
+     "tts": "The bigger the halo, the heavier the rain.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "No rain falls on nodes without an allowance score, like the contract in the middle.",
+     "tts": "No rain falls on nodes without an allowance score, like the contract in the middle.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This has the same form as TrustRank, which fights web spam,",
+     "tts": "This has the same form as TrustRank, which fights web spam,",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "but instead of seeds picked by people, it uses the allowance score as the seed.",
+     "tts": "but instead of seeds picked by people, it uses the allowance score as the seed.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "As a formula: for each u in the transfer graph, the restart share π_u is the score from walking the allowance layer alone,",
+     "tts": "As a formula, for each u in the transfer graph, the restart share pi of u is the score from walking the allowance layer alone,",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "divided again so that the shares add up to 1.",
+     "tts": "divided again so that the shares add up to one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A node outside the allowance graph gets 0.",
+     "tts": "A node outside the allowance graph gets zero.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Here is a small preview of the results.",
+     "tts": "Here is a small preview of the results.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In W0, the first label window, S-PR did about as well on new transfer senders as walking the transfer layer alone.",
+     "tts": "In W zero, the first label window, S P R did about as well on new transfer senders as walking the transfer layer alone.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But it did worse on new approval pairs than walking the allowance layer alone.",
+     "tts": "But it did worse on new approval pairs than walking the allowance layer alone.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "These two comparisons are post hoc: they were computed after the labels were seen.",
+     "tts": "These two comparisons are post hoc. They were computed after the labels were seen.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "We will see how the difference is measured in chapter 7.",
+     "tts": "We will see how the difference is measured in chapter seven.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s06-05",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "So allowance edges help when the walk actually moves along them,",
+     "tts": "So allowance edges help when the walk actually moves along them,",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "and they help little when they only set the starting points.",
+     "tts": "and they help little when they only set the starting points.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That completes our four scores.",
+     "tts": "That completes our four scores.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

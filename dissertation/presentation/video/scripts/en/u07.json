@@ -1,0 +1,809 @@
+{
+ "unit": "u07",
+ "lang": "en",
+ "chapter": {
+  "title": "Edge weights",
+  "subtitle": "How much should one approval count?",
+  "sub": "Chapter five: edge weights. How much should one approval count?",
+  "tts": "Chapter five, edge weights. How much should one approval count?"
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s05-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "In the small world from earlier, I simply set the edge weights to 2, 1, 3 and 1.",
+     "tts": "In the small world from earlier, I simply set the edge weights to two, one, three and one.",
+     "focus": [
+      "a6",
+      "a11",
+      "a7",
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But how do we set these weights in real data?",
+     "tts": "But how do we set these weights in real data?",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Two approvals should not always weigh the same.",
+     "tts": "Two approvals should not always weigh the same.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Picture an approval made yesterday, and one made two years ago.",
+     "tts": "Picture an approval made yesterday, and one made two years ago.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Today, they do not mean the same thing.",
+     "tts": "Today, they do not mean the same thing.",
+     "focus": [
+      "a13",
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The older the approval, the less it counts.",
+     "tts": "The older the approval, the less it counts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This is the time weight, called σ.",
+     "tts": "This is the time weight, called sigma.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Approving 5 USD is not the same as approving 5,000 USD.",
+     "tts": "Approving five dollars is not the same as approving five thousand dollars.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the graph, the thick arrow carries the bigger amount.",
+     "tts": "On the graph, the thick arrow carries the bigger amount.",
+     "focus": [
+      "a13",
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The larger the approval, the more it counts, but however large it is, the weight has a limit.",
+     "tts": "The larger the approval, the more it counts, but however large it is, the weight has a limit.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This is the value weight, called V. It never goes above 1.",
+     "tts": "This is the value weight, called V. It never goes above one.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "So the weight of one event is the time weight σ times the value weight V.",
+     "tts": "So the weight of one event is the time weight sigma, times the value weight V.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "As a formula: σ of Δt, times V of z, gives w.",
+     "tts": "As a formula, sigma of delta t, times V of z, gives w.",
+     "focus": [
+      "a31",
+      "a34",
+      "a36"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "AWP, which scores the transfer graph, introduced these weights.",
+     "tts": "A W P, which scores the transfer graph, introduced these weights.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This study carries the same weights over to the allowance graph, unchanged.",
+     "tts": "This study carries the same weights over to the allowance graph, unchanged.",
+     "focus": [
+      "a13",
+      "a25"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the next two slides, I derive the two weights one at a time.",
+     "tts": "On the next two slides, I derive the two weights one at a time.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Let's build the time weight first.",
+     "tts": "Let's build the time weight first.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The horizontal axis is an event's age: how many days before the anchor date, T_obs, it happened. We call this age Δt.",
+     "tts": "The horizontal axis is an event's age, how many days before the anchor date, T obs, it happened. We call this age delta t.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It is the age ruler from chapter 3, on the data, turned around to become this axis.",
+     "tts": "It is the age ruler from chapter three, on the data, turned around to become this axis.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The oldest record is 1,004 days old.",
+     "tts": "The oldest record is one thousand and four days old.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Here is what we want, four things in all.",
+     "tts": "Here is what we want, four things in all.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A value between 0 and 1, and a large weight for new events.",
+     "tts": "A value between zero and one, and a large weight for new events.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A weight that shrinks smoothly as events get older, and exactly one half at 180 days.",
+     "tts": "A weight that shrinks smoothly as events get older, and exactly one half at one hundred eighty days.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The simplest way is a straight line: start at 1 and subtract 1/360 per day.",
+     "tts": "The simplest way is a straight line. Start at one, and subtract one three-hundred-sixtieth per day.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "At 180 days you get exactly one half.",
+     "tts": "At one hundred eighty days you get exactly one half.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But after 360 days the line drops below 0. An event 400 days old gets −0.11.",
+     "tts": "But after three hundred sixty days the line drops below zero. An event four hundred days old gets minus zero point one one.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A weight cannot be negative, so the straight line does not work.",
+     "tts": "A weight cannot be negative, so the straight line does not work.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "So we take another route.",
+     "tts": "So we take another route.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "First, we measure how much older than 180 days an event is, and call that a penalty, s.",
+     "tts": "First, we measure how much older than one hundred eighty days an event is, and call that a penalty, s.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The penalty is s = k × (Δt − 180), where k, the steepness, is 0.01.",
+     "tts": "The penalty is s equals k times the difference, delta t minus one hundred eighty, where k, the steepness, is zero point zero one.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "An event from today has s of −1.8, one from 180 days ago has 0, and one from a year ago has 1.85.",
+     "tts": "An event from today has s of minus one point eight, one from one hundred eighty days ago has zero, and one from a year ago has one point eight five.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-02",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Next, we put this penalty in the exponent of e.",
+     "tts": "Next, we put this penalty in the exponent of e.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "e is the natural constant, about 2.718.",
+     "tts": "e is the natural constant, about two point seven one eight.",
+     "focus": [
+      "a67"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Look at the bars: e to the power 1 is about 2.7, e squared about 7.4, and e to the power 0 is 1.",
+     "tts": "Look at the bars. e to the power one is about two point seven, e squared about seven point four, and e to the power zero is one.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A negative exponent means we flip and divide: e to the −1 is 1 divided by e, about 0.37.",
+     "tts": "A negative exponent means we flip and divide. e to the minus one is one divided by e, about zero point three seven.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And e to the −2 is about 0.14.",
+     "tts": "And e to the minus two is about zero point one four.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So eˢ is always greater than 0, whatever s is.",
+     "tts": "So e to the s is always greater than zero, whatever s is.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "For an event from today, it is e to the −1.8, that is 1 divided by 6.05, about 0.165.",
+     "tts": "For an event from today, it is e to the minus one point eight, that is, one divided by six point zero five, about zero point one six five.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-02",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Now we divide 1 by (1 + eˢ), and call the result σ.",
+     "tts": "Now we divide one by the sum, one plus e to the s, and call the result sigma.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The bottom of the fraction is always greater than 1, so σ always lies between 0 and 1.",
+     "tts": "The bottom of the fraction is always greater than one, so sigma always lies between zero and one.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When s is 0 we get 1 over 2, exactly one half.",
+     "tts": "When s is zero we get one over two, exactly one half.",
+     "focus": [
+      "a33"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When s is large we get close to 0, and when s is a very large negative number we get close to 1.",
+     "tts": "When s is large we get close to zero, and when s is a very large negative number we get close to one.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "For example, at s of −5, e to the −5 is 0.007, so σ is 0.993.",
+     "tts": "For example, at s of minus five, e to the minus five is zero point zero zero seven, so sigma is zero point nine nine three.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "All four wishes hold.",
+     "tts": "All four wishes hold.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So an event from today counts 0.858, and one from a year ago 0.136.",
+     "tts": "So an event from today counts zero point eight five eight, and one from a year ago zero point one three six.",
+     "focus": [
+      "a19",
+      "a39"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "One from two years ago counts only 0.004.",
+     "tts": "One from two years ago counts only zero point zero zero four.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The thesis also writes e to the power of something as exp, short for exponential. It means the same.",
+     "tts": "The thesis also writes e to the power of something as e x p, short for exponential. It means the same.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This is the logistic decay formula in Chapter 3 of the thesis.",
+     "tts": "This is the logistic decay formula in Chapter three of the thesis.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-02",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "One more thing: 1 − σ, the part of the weight that has gone, is eˢ over (1 + eˢ).",
+     "tts": "One more thing. One minus sigma, the part of the weight that has gone, is e to the s, over the sum, one plus e to the s.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So the weight that is left, divided by the weight that has gone, is 1 over eˢ, that is e to the −s.",
+     "tts": "So the weight that is left, divided by the weight that has gone, is one over e to the s, that is, e to the minus s.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Since k × 100 = 1, this ratio shrinks by a factor of e, about 2.7, every 100 days.",
+     "tts": "Since k times one hundred is one, this ratio shrinks by a factor of e, about two point seven, every one hundred days.",
+     "focus": [
+      "a46"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the chart, the bars at 0, 100, 200 and 300 days show it.",
+     "tts": "On the chart, the bars at zero, one hundred, two hundred and three hundred days show it.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The ratio goes 6.05, 2.23, 0.82, then 0.30.",
+     "tts": "The ratio goes six point zero five, two point two three, zero point eight two, then zero point three zero.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Now the value weight, V.",
+     "tts": "Now the value weight, V.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "It grows with the amount, but however large the amount is, it never goes above 1. That is the dashed ceiling.",
+     "tts": "It grows with the amount, but however large the amount is, it never goes above one. That is the dashed ceiling.",
+     "focus": [
+      "a6",
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Along the bottom, z is the amount in US dollars.",
+     "tts": "Along the bottom, z is the amount in U S dollars.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Here is the formula from the thesis: V(z) = 2 / (1 + e^(−bz)) − 1.",
+     "tts": "Here is the formula from the thesis. V of z is two over the sum, one plus e to the minus b z, and then minus one.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The letter b is the slope: how fast V climbs to 1.",
+     "tts": "The letter b is the slope, how fast V climbs to one.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "To rewrite it, let's call e to the −bz simply y.",
+     "tts": "To rewrite it, let's call e to the minus b z simply why.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When z is 0, y is 1, and as z grows, y gets close to 0.",
+     "tts": "When z is zero, why is one, and as z grows, why gets close to zero.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Then V is 2 divided by (1 + y), and then minus 1. Tidying up the fraction gives 1 − y on top and 1 + y below.",
+     "tts": "Then V is two divided by the sum, one plus why, and then minus one. Tidying up the fraction gives one minus why on top, and one plus why below.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "At 0 USD, y is 1, so V is 0.",
+     "tts": "At zero dollars, why is one, so V is zero.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "For a very large amount, y is close to 0, so V gets close to 1.",
+     "tts": "For a very large amount, why is close to zero, so V gets close to one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So V is at least 0 and never above 1.",
+     "tts": "So V is at least zero and never above one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "An unlimited approval is so large that computer arithmetic gives exactly 1.",
+     "tts": "An unlimited approval is so large that computer arithmetic gives exactly one.",
+     "focus": [
+      "a33"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Look at the curve: it stops just under the dashed ceiling.",
+     "tts": "Look at the curve. It stops just under the dashed ceiling.",
+     "focus": [
+      "a9",
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s05-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "But the analysis plan fixed the slope b at 1, with amounts in the token's raw units.",
+     "tts": "But the analysis plan fixed the slope b at one, with amounts in the token's raw units.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A raw unit, or base unit, is the smallest piece of a token. One USDC is one million base units.",
+     "tts": "A raw unit, or base unit, is the smallest piece of a token. One U S D C is one million base units.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Then any amount above 10 base units already gives V above 0.99991, less than one ten-thousandth below 1.",
+     "tts": "Then any amount above ten base units already gives V above zero point nine nine nine nine one, less than one ten-thousandth below one.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the registered analysis, 99.52% of transfers had at least 10 base units.",
+     "tts": "In the registered analysis, ninety-nine point five two percent of transfers had at least ten base units.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So did 99.78% of latest allowances.",
+     "tts": "So did ninety-nine point seven eight percent of latest allowances.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So the amount played no part, and this is one of the reasons the amounts were later revised.",
+     "tts": "So the amount played no part, and this is one of the reasons the amounts were later revised.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

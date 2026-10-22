@@ -1,0 +1,723 @@
+{
+ "unit": "u12",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s07-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "We now know how to measure agreement with τ. But how far can we trust a single value, like 0.585?",
+     "tts": "We now know how to measure agreement with tau. But how far can we trust a single value, like zero point five eight five?",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We measure that with the bootstrap, which simply means resampling.",
+     "tts": "We measure that with the bootstrap, which simply means resampling.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": {
+      "title": "Bootstrap",
+      "body": "Redraw your data, putting each one back, to see how a number moves"
+     }
+    },
+    {
+     "sub": "All we have is one collection of 15,107 contracts.",
+     "tts": "All we have is one collection of fifteen thousand one hundred and seven contracts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We would like to know how much τ would change if we collected the contracts again.",
+     "tts": "We would like to know how much tau would change if we collected the contracts again.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "We can't do that, so we imitate it by drawing again from a bag.",
+     "tts": "We can't do that, so we imitate it by drawing again from a bag.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That's the bag on the left. It holds all of them: the matched cohort.",
+     "tts": "That's the bag on the left. It holds all of them, the matched cohort.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "I draw one contract from the bag, write it down and put it back.",
+     "tts": "I draw one contract from the bag, write it down and put it back.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Do this as many times as there are contracts, and you get a new sample. It is the same size as the original, but slightly different.",
+     "tts": "Do this as many times as there are contracts, and you get a new sample. It is the same size as the original, but slightly different.",
+     "focus": [
+      "a12",
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Because each contract goes back in, the same contract can be drawn twice. See the little ×2 mark.",
+     "tts": "Because each contract goes back in, the same contract can be drawn twice. See the little times two mark.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "For every new sample I compute τ again, and stack it on the chart on the right, one by one.",
+     "tts": "For every new sample I compute tau again, and stack it on the chart on the right, one by one.",
+     "focus": [
+      "a15",
+      "a18",
+      "a21"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The shape of the bars that will pile up there is only an illustration.",
+     "tts": "The shape of the bars that will pile up there is only an illustration.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "We do this 400 times, until the chart is full.",
+     "tts": "We do this four hundred times, until the chart is full.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The draws are fixed by seed 42, the starting number for the random draws, so anyone who reruns it gets the same result.",
+     "tts": "The draws are fixed by seed forty-two, the starting number for the random draws, so anyone who reruns it gets the same result.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Next, we sort those 400 values from smallest to largest.",
+     "tts": "Next, we sort those four hundred values from smallest to largest.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Then we cut off the smallest 2.5% and the largest 2.5%.",
+     "tts": "Then we cut off the smallest two point five percent and the largest two point five percent.",
+     "focus": [
+      "a13",
+      "a15"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The middle range that remains is the 95% confidence interval.",
+     "tts": "The middle range that remains is the ninety-five percent confidence interval.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Out of 400, that is about the 10th and the 390th value.",
+     "tts": "Out of four hundred, that is about the tenth and the three hundred ninetieth value.",
+     "focus": [
+      "a36"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "For EndorseRank and the allowance family, it runs from 0.578 to 0.592.",
+     "tts": "For EndorseRank and the allowance family, it runs from zero point five seven eight to zero point five nine two.",
+     "focus": [
+      "a32",
+      "a33"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The family's τ is the average of the τ values of its two proxies: the in-approve degree and the in-approve value.",
+     "tts": "The family's tau is the average of the tau values of its two proxies, the in-approve degree and the in-approve value.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But 400 resamples are not many, so with another seed the interval ends could move a little.",
+     "tts": "But four hundred resamples are not many, so with another seed the interval ends could move a little.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "For the curious: according to Chapter 3 of the thesis, that wobble is about 0.13 times the bootstrap standard error, the typical spread of the 400 values.",
+     "tts": "For the curious, according to Chapter three of the thesis, that wobble is about zero point one three times the bootstrap standard error, the typical spread of the four hundred values.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Now, if we press this middle band flat, it becomes an interval bar.",
+     "tts": "Now, if we press this middle band flat, it becomes an interval bar.",
+     "focus": [
+      "a29",
+      "a30"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This bar appears in every result figure from now on.",
+     "tts": "This bar appears in every result figure from now on.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The dot is 0.585, and the bar is the 95% interval.",
+     "tts": "The dot is zero point five eight five, and the bar is the ninety-five percent interval.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And every score uses the same 400 samples.",
+     "tts": "And every score uses the same four hundred samples.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is the key to what comes next: the paired difference.",
+     "tts": "That is the key to what comes next, the paired difference.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "When we compare two scores, we don't look at their two intervals separately.",
+     "tts": "When we compare two scores, we don't look at their two intervals separately.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Instead, we compute the difference directly, on the same samples.",
+     "tts": "Instead, we compute the difference directly, on the same samples.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Let's take a real example: the in-approve degree against EndorseRank, at predicting new approval pairs in W0.",
+     "tts": "Let's take a real example, the in-approve degree against EndorseRank, at predicting new approval pairs in W zero.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This comparison was computed after the labels were seen, so it is post hoc.",
+     "tts": "This comparison was computed after the labels were seen, so it is post hoc.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The in-approve degree, the plain count of approving owners, is in green, at 0.250.",
+     "tts": "The in-approve degree, the plain count of approving owners, is in green, at zero point two five zero.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank, in amber, is 0.231.",
+     "tts": "EndorseRank, in amber, is zero point two three one.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Now look at the grey strip. The two intervals overlap.",
+     "tts": "Now look at the grey strip. The two intervals overlap.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So, looked at separately, it is hard to tell whether there is a difference.",
+     "tts": "So, looked at separately, it is hard to tell whether there is a difference.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "But the two scores are computed together, on the same 400 samples.",
+     "tts": "But the two scores are computed together, on the same four hundred samples.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "When one comes out high on a sample, the other comes out high too, so they rise and fall together.",
+     "tts": "When one comes out high on a sample, the other comes out high too, so they rise and fall together.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The dots on the right are an example that shows this pattern.",
+     "tts": "The dots on the right are an example that shows this pattern.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The table below also uses example numbers.",
+     "tts": "The table below also uses example numbers.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Over three samples, each τ moves by ±0.02.",
+     "tts": "Over three samples, each tau moves by plus or minus zero point zero two.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Look at the green column: 0.27, 0.23, 0.25.",
+     "tts": "Look at the green column, zero point two seven, zero point two three, zero point two five.",
+     "focus": [
+      "a29",
+      "a33",
+      "a37"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But the difference is −0.02 every time.",
+     "tts": "But the difference is minus zero point zero two every time.",
+     "focus": [
+      "a31",
+      "a35",
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Because they move together, the difference moves less.",
+     "tts": "Because they move together, the difference moves less.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "It's like weighing two people on the same scale.",
+     "tts": "It's like weighing two people on the same scale.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "If the scale reads a little heavy, it does so for both, so their difference is less affected by its error.",
+     "tts": "If the scale reads a little heavy, it does so for both, so their difference is less affected by its error.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "If you like formulas: the variance of the difference is the sum of the two variances, minus 2 times the covariance.",
+     "tts": "If you like formulas, the variance of the difference is the sum of the two variances, minus two times the covariance.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The covariance measures how much the two move together, so the more they move together, the more the variance of the difference shrinks.",
+     "tts": "The covariance measures how much the two move together, so the more they move together, the more the variance of the difference shrinks.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "So we compute the difference, Δτ, on each of the same 400 samples.",
+     "tts": "So we compute the difference, delta tau, on each of the same four hundred samples.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Here it is EndorseRank minus the in-approve degree.",
+     "tts": "Here it is EndorseRank minus the in-approve degree.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The white dot marks the difference: −0.019.",
+     "tts": "The white dot marks the difference, minus zero point zero one nine.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Its 95% interval runs from −0.026 to −0.011.",
+     "tts": "Its ninety-five percent interval runs from minus zero point zero two six to minus zero point zero one one.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It stays fully clear of the dashed line at zero.",
+     "tts": "It stays fully clear of the dashed line at zero.",
+     "focus": [
+      "a22",
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When the interval excludes 0, we count it as a difference.",
+     "tts": "When the interval excludes zero, we count it as a difference.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Separately they overlap; paired, they separate.",
+     "tts": "Separately they overlap. Paired, they separate.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the allowance side, the plain count predicted a little better than EndorseRank.",
+     "tts": "On the allowance side, the plain count predicted a little better than EndorseRank.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-05",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "There is also a verdict that only asks whether one score is not worse by more than a set margin.",
+     "tts": "There is also a verdict that only asks whether one score is not worse by more than a set margin.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This is called non-inferiority.",
+     "tts": "This is called non-inferiority.",
+     "focus": [
+      "a53"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": {
+      "title": "Non-inferiority",
+      "body": "Passes if a score is not worse than another by more than a set margin"
+     }
+    },
+    {
+     "sub": "The margin δ is 0.01: it's the hatched strip just left of zero.",
+     "tts": "The margin delta is zero point zero one. It's the hatched strip just left of zero.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The verdict passes if the lower end of the difference interval lies above −0.01.",
+     "tts": "The verdict passes if the lower end of the difference interval lies above minus zero point zero one.",
+     "focus": [
+      "a58"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The upper bar's left end stays inside the hatched strip, above −0.01, so it passes; the lower bar's left end reaches past it, so it fails.",
+     "tts": "The upper bar's left end stays inside the hatched strip, above minus zero point zero one, so it passes. The lower bar's left end reaches past it, so it fails.",
+     "focus": [
+      "a59",
+      "a62"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Both bars are illustrations.",
+     "tts": "Both bars are illustrations.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s07-05",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Finally, the Bonferroni correction.",
+     "tts": "Finally, the Bonferroni correction.",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When we make two verdicts together, the chance that one of them is wrong by luck goes up.",
+     "tts": "When we make two verdicts together, the chance that one of them is wrong by luck goes up.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The two verdicts here appear in chapter 9 under the names P and Q.",
+     "tts": "The two verdicts here appear in chapter nine under the names P and Q.",
+     "focus": [
+      "a46",
+      "a50"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The two split the 5% error budget into 2.5% each.",
+     "tts": "The two split the five percent error budget into two point five percent each.",
+     "focus": [
+      "a52",
+      "a46",
+      "a50"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So each one uses a 97.5% interval.",
+     "tts": "So each one uses a ninety-seven point five percent interval.",
+     "focus": [
+      "a44",
+      "a48"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "These two were computed with 2,000 resamples, and we will see their values in that chapter.",
+     "tts": "These two were computed with two thousand resamples, and we will see their values in that chapter.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

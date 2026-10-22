@@ -1,0 +1,582 @@
+{
+ "unit": "u15",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s08-07",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Back to the main allowance result: why did EndorseRank not beat the plain count? Let's look at it with a formula.",
+     "tts": "Back to the main allowance result. Why did EndorseRank not beat the plain count? Let's look at it with a formula.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Here is the small world from chapter 4 again.",
+     "tts": "Here is the small world from chapter four again.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The water in each cup is the share of a long walk that stays at each node.",
+     "tts": "The water in each cup is the share of a long walk that stays at each node.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the right, we'll build a closed form step by step: a formula that gives the score directly.",
+     "tts": "On the right, we'll build a closed form step by step, a formula that gives the score directly.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": {
+      "title": "Closed form",
+      "body": "A direct formula for the score, here only for depth-one spenders"
+     }
+    }
+   ]
+  },
+  {
+   "slide": "s08-07",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First, c: the share every node receives equally at every step.",
+     "tts": "First, c, the share every node receives equally at every step.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the restart share plus the dangling-node share.",
+     "tts": "It is the restart share plus the dangling-node share.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A node with no incoming edge, like A, receives only this, so its score is exactly c.",
+     "tts": "A node with no incoming edge, like A, receives only this, so its score is exactly c.",
+     "focus": [
+      "a17",
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the small world, c is 0.15 plus the product of 0.85 and D's cup, 0.4706, with that whole sum divided by 4.",
+     "tts": "In the small world, c is zero point one five plus the product of zero point eight five and D's cup, zero point four seven zero six, with that whole sum divided by four.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That gives 0.1375, the same as A's cup.",
+     "tts": "That gives zero point one three seven five, the same as the cup of node A.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-07",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The balance equation of every node starts at c and adds the shares that come in along edges.",
+     "tts": "The balance equation of every node starts at c and adds the shares that come in along edges.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Most spenders, like B and C here, receive approvals only from owners that receive no approvals themselves.",
+     "tts": "Most spenders, like B and C here, receive approvals only from owners that receive no approvals themselves.",
+     "focus": [
+      "a9",
+      "a30"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We call such spenders depth-one spenders, as the badges say.",
+     "tts": "We call such spenders depth-one spenders, as the badges say.",
+     "focus": [
+      "a9",
+      "a30"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Such an owner's score is c, so in the spender's balance equation we put c in place of the owner's share, r_u.",
+     "tts": "Such an owner's score is c, so in the spender's balance equation we put c in place of the owner's share, r of u.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-07",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Because c is the same for every owner, it comes out of the sum.",
+     "tts": "Because c is the same for every owner, it comes out of the sum.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That gives c plus the product of c, d and δ, where d is our damping factor.",
+     "tts": "That gives c plus the product of c, d and delta, where d is our damping factor.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Pulling out the common c leaves a short formula: c times, in brackets, 1 plus the product of d and δ.",
+     "tts": "Pulling out the common c leaves a short formula, c times, in brackets, one plus the product of d and delta.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "δ adds up, over the owners, the piece of each owner's allowance weight that went to this spender.",
+     "tts": "Delta adds up, over the owners, the piece of each owner's allowance weight that went to this spender.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Let's check the formula with B, whose only owner is A.",
+     "tts": "Let's check the formula with B, whose only owner is A.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A's arrows carry 2 and 1, so A gave 2 of its total weight of 3 to B, two thirds.",
+     "tts": "The arrows of node A carry two and one, so A gave two of its total weight of three to B, two thirds.",
+     "focus": [
+      "a14",
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And that gives 0.2154, exactly B's cup.",
+     "tts": "And that gives zero point two one five four, exactly B's cup.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-07",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "C also matches, at 0.1765.",
+     "tts": "C also matches, at zero point one seven six five.",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "But for D, marked deeper, the short formula does not hold.",
+     "tts": "But for D, marked deeper, the short formula does not hold.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "D's owners, B and C, receive approvals themselves, so shares that spread one more step come in.",
+     "tts": "D's owners, B and C, receive approvals themselves, so shares that spread one more step come in.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So D is computed from the full balance equation: 0.4706.",
+     "tts": "So D is computed from the full balance equation. Zero point four seven zero six.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-07",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Here is δ in an example: three owners approved 1, 2 and 4 spenders.",
+     "tts": "Here is delta in an example. Three owners approved one, two and four spenders.",
+     "focus": [
+      "a14",
+      "a26",
+      "a39"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The plain count is 3.",
+     "tts": "The plain count is three.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But δ is 1 plus one half plus one quarter: 1.75.",
+     "tts": "But delta is one plus one half plus one quarter. One point seven five.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "You can see the three pieces stacked in the bar.",
+     "tts": "You can see the three pieces stacked in the bar.",
+     "focus": [
+      "a15",
+      "a19",
+      "a32"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-07",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "c and d are the same for every depth-one spender, so the order of the scores is the order of δ, whatever d is.",
+     "tts": "c and d are the same for every depth-one spender, so the order of the scores is the order of delta, whatever d is.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In effect, EndorseRank counts the owners, each divided by the weight of everything that owner approved.",
+     "tts": "In effect, EndorseRank counts the owners, each divided by the weight of everything that owner approved.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The more spenders an owner approves, the smaller each share, and that is where the order differs from the count.",
+     "tts": "The more spenders an owner approves, the smaller each share, and that is where the order differs from the count.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "For such spenders, apart from that division and the age and value weights, little differs from the count.",
+     "tts": "For such spenders, apart from that division and the age and value weights, little differs from the count.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "There is no information for the walk to add by spreading.",
+     "tts": "There is no information for the walk to add by spreading.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the real same-window graph, c is 7.64 × 10⁻⁸.",
+     "tts": "In the real same-window graph, c is seven point six four times ten to the minus eight.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-08",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "We checked how well this formula fits on the real graph.",
+     "tts": "We checked how well this formula fits on the real graph.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The legend at the top shows three kinds of dots.",
+     "tts": "The legend at the top shows three kinds of dots.",
+     "focus": [
+      "a3",
+      "a4",
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "One dot is 10 same-window spenders.",
+     "tts": "One dot is ten same-window spenders.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-08",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Of the 14,406 same-window spenders, 12,039 were depth-one spenders.",
+     "tts": "Of the fourteen thousand four hundred and six same-window spenders, twelve thousand and thirty-nine were depth-one spenders.",
+     "focus": [
+      "a9",
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The bright amber dots are depth one; the faint dots and the dots with a rose outline are deeper spenders.",
+     "tts": "The bright amber dots are depth one. The faint dots and the dots with a rose outline are deeper spenders.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-08",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Every single depth-one spender matched the formula to within 1%.",
+     "tts": "Every single depth-one spender matched the formula to within one percent.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Of the remaining 2,367 deeper spenders, only 26.4% matched.",
+     "tts": "Of the remaining two thousand three hundred and sixty-seven deeper spenders, only twenty-six point four percent matched.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So shares spreading over several steps really exist.",
+     "tts": "So shares spreading over several steps really exist.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Over all spenders it is 87.9%, and in W0, 73.7%.",
+     "tts": "Over all spenders it is eighty-seven point nine percent, and in W zero, seventy-three point seven percent.",
+     "focus": [
+      "a16",
+      "a20"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-08",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Yet even with that spreading, EndorseRank did not beat the plain count.",
+     "tts": "Yet even with that spreading, EndorseRank did not beat the plain count.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Let's put this next to the transfer side.",
+     "tts": "Let's put this next to the transfer side.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-08",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Below, the four comparisons with the raw degree, the plain count, are gathered on one page.",
+     "tts": "Below, the four comparisons with the raw degree, the plain count, are gathered on one page.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Right of 0, the walk score did better.",
+     "tts": "Right of zero, the walk score did better.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the transfer side, in blue, the walk wins.",
+     "tts": "On the transfer side, in blue, the walk wins.",
+     "focus": [
+      "a14",
+      "a17"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the allowance side, in amber, the count wins.",
+     "tts": "On the allowance side, in amber, the count wins.",
+     "focus": [
+      "a21",
+      "a23"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The colored dots are the revised analysis, our main result; the gray markers of the registered analysis point the same way in all four.",
+     "tts": "The colored dots are the revised analysis, our main result. The gray markers of the registered analysis point the same way in all four.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "All four comparisons were computed after the labels were known, so they are post hoc.",
+     "tts": "All four comparisons were computed after the labels were known, so they are post hoc.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

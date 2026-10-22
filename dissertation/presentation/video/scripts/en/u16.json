@@ -1,0 +1,550 @@
+{
+ "unit": "u16",
+ "lang": "en",
+ "chapter": {
+  "title": "Rules fixed in advance",
+  "subtitle": "Locked first, then the data",
+  "sub": "Chapter nine: rules fixed in advance. Let's see which rules were locked, and when.",
+  "tts": "Chapter nine, rules fixed in advance. Let's see which rules were locked, and when."
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s09-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "What I cared about most in this study is the order of events.",
+     "tts": "What I cared about most in this study is the order of events.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "As the title says, the rules were locked first, then the data were extracted.",
+     "tts": "As the title says, the rules were locked first, then the data were extracted.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The thin line on the left, the stem, puts the commits to the public repository and the data extractions in time order.",
+     "tts": "The thin line on the left, the stem, puts the commits to the public repository and the data extractions in time order.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": {
+      "title": "Commit",
+      "body": "A saved, time-stamped snapshot of files in a public repository"
+     }
+    },
+    {
+     "sub": "The wavy marks show where time is folded, so long gaps are cut out.",
+     "tts": "The wavy marks show where time is folded, so long gaps are cut out.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "At 13:41:27 UTC on 9 October, I committed the analysis plan to the public repository.",
+     "tts": "At thirteen forty-one and twenty-seven seconds, U T C, on the ninth of October, I committed the analysis plan to the public repository.",
+     "focus": [
+      "a5",
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That was before this study had extracted any data.",
+     "tts": "That was before this study had extracted any data.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The lock clicks shut.",
+     "tts": "The lock clicks shut.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the right, zoomed in to seconds, the first extraction started exactly 10 seconds later.",
+     "tts": "On the right, zoomed in to seconds, the first extraction started exactly ten seconds later.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The same day, I built the cohort and the labels, computed the same-window and W0 results, and judged rule A.",
+     "tts": "The same day, I built the cohort and the labels, computed the same-window and W zero results, and judged rule A.",
+     "focus": [
+      "a17",
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "We will open up rule A on the next slide.",
+     "tts": "We will open up rule A on the next slide.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "After seeing those W0 results, I registered what would be tested in W1.",
+     "tts": "After seeing those W zero results, I registered what would be tested in W one.",
+     "focus": [
+      "a22",
+      "a23"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Registering means fixing the test in public before its data are extracted.",
+     "tts": "Registering means fixing the test in public before its data are extracted.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The registration is the commit at 16:49:32.",
+     "tts": "The registration is the commit at sixteen forty-nine and thirty-two seconds.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "One second later, the extraction manifest began to be written.",
+     "tts": "One second later, the extraction manifest began to be written.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "8 seconds after the commit, the logs from July to September began to be extracted.",
+     "tts": "Eight seconds after the commit, the logs from July to September began to be extracted.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The extraction script does not run without the registration commit.",
+     "tts": "The extraction script does not run without the registration commit.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the manifest records the SHA-256 fingerprint of both files, and that the override was not used.",
+     "tts": "And the manifest records the S H A two fifty-six fingerprint of both files, and that the override was not used.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-01",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Up to here is the registered analysis.",
+     "tts": "Up to here is the registered analysis.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Everything below this dashed line happened after I knew the registered results.",
+     "tts": "Everything below this dashed line happened after I knew the registered results.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-01",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "The next day, I found a problem with the units of the amounts, and I revised the amounts to US dollars.",
+     "tts": "The next day, I found a problem with the units of the amounts, and I revised the amounts to U S dollars.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This change came after seeing the registered results, so the locks on these three commits are drawn hollow.",
+     "tts": "This change came after seeing the registered results, so the locks on these three commits are drawn hollow.",
+     "focus": [
+      "a42",
+      "a43",
+      "a45",
+      "a46",
+      "a49",
+      "a50"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "I committed the revision document and the five tokens, and computed the dollar medians and percentiles.",
+     "tts": "I committed the revision document and the five tokens, and computed the dollar medians and percentiles.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Then I amended the definition of the cap U and committed it, at 11:24:01.",
+     "tts": "Then I amended the definition of the cap U and committed it, at eleven twenty-four and one second.",
+     "focus": [
+      "a49",
+      "a50"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The pair tables, proxies, labels and revised scores were all built after this last commit.",
+     "tts": "The pair tables, proxies, labels and revised scores were all built after this last commit.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The first pair table was finished 56 seconds after that commit.",
+     "tts": "The first pair table was finished fifty-six seconds after that commit.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-01",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "The plan and the registration came before this study's data extraction. That is the registered analysis.",
+     "tts": "The plan and the registration came before this study's data extraction. That is the registered analysis.",
+     "focus": [
+      "a55"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The revision came after the registered results, but it was committed before any revised score was computed.",
+     "tts": "The revision came after the registered results, but it was committed before any revised score was computed.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That is the revised analysis. A verdict that applies the registered rules to it is what I call a re-analysis.",
+     "tts": "That is the revised analysis. A verdict that applies the registered rules to it is what I call a re-analysis.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Now, rule A. I wrote it into the analysis plan, before this study extracted any data.",
+     "tts": "Now, rule A. I wrote it into the analysis plan, before this study extracted any data.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In W0, C-PR, which mixes the two edge types, must do no worse than the allowance layer walked alone, λ = 1.",
+     "tts": "In W zero, C P R, which mixes the two edge types, must do no worse than the allowance layer walked alone, lambda equals one.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "At the same time, it must do better than the transfer layer walked alone, λ = 0.",
+     "tts": "At the same time, it must do better than the transfer layer walked alone, lambda equals zero.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "There is also a same-window part.",
+     "tts": "There is also a same-window part.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the chart, right of the dashed line means C-PR is better.",
+     "tts": "In the chart, right of the dashed line means C P R is better.",
+     "focus": [
+      "a7",
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The numbers that will appear in this chart are a re-analysis, meaning this rule applied unchanged to the revised scores.",
+     "tts": "The numbers that will appear in this chart are a re-analysis, meaning this rule applied unchanged to the revised scores.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The first condition. On new approval pairs, the paired difference of C-PR minus the allowance layer walked alone is +0.029.",
+     "tts": "The first condition. On new approval pairs, the paired difference of C P R minus the allowance layer walked alone is plus zero point zero two nine.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The interval, from 0.022 to 0.036, lies above 0, so this condition is met.",
+     "tts": "The interval, from zero point zero two two to zero point zero three six, lies above zero, so this condition is met.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "On the second condition, C-PR was actually 0.034 lower than the transfer layer.",
+     "tts": "On the second condition, C P R was actually zero point zero three four lower than the transfer layer.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The whole interval lies left of 0, so it is not met.",
+     "tts": "The whole interval lies left of zero, so it is not met.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "The same-window part failed on all three counts as well.",
+     "tts": "The same-window part failed on all three counts as well.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In the small panels under the chart, on the transfer family and the allowance family, C-PR did not fall inside the interval of the better layer.",
+     "tts": "In the small panels under the chart, on the transfer family and the allowance family, C P R did not fall inside the interval of the better layer.",
+     "focus": [
+      "a27",
+      "a28"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On Sybil stability it had to be above both layers, but at 0.142 it was below the transfer layer's 0.404.",
+     "tts": "On Sybil stability it had to be above both layers, but at zero point one four two it was below the transfer layer's zero point four zero four.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-02",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "So rule A is not met.",
+     "tts": "So rule A is not met.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This verdict is a re-analysis, meaning the rule fixed in advance was applied to the revised scores.",
+     "tts": "This verdict is a re-analysis, meaning the rule fixed in advance was applied to the revised scores.",
+     "focus": [
+      "a54"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It is not a registered test.",
+     "tts": "It is not a registered test.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s09-02",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "In the registered analysis it was not met either.",
+     "tts": "In the registered analysis it was not met either.",
+     "focus": [
+      "a55"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The gray hollow dots, just below each purple dot in the chart, show those values.",
+     "tts": "The gray hollow dots, just below each purple dot in the chart, show those values.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Next comes rule B, registered for W1.",
+     "tts": "Next comes rule B, registered for W one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

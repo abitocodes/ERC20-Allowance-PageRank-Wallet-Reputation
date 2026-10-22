@@ -1,0 +1,1048 @@
+{
+ "unit": "u13",
+ "lang": "en",
+ "chapter": {
+  "title": "Results",
+  "subtitle": "Checks first, then the real test",
+  "sub": "Chapter eight: results. First the checks, then the real test.",
+  "tts": "Chapter eight, results. First the checks, then the real test."
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s08-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "We start with the same-window check.",
+     "tts": "We start with the same-window check.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Each row is a score: EndorseRank on top, AWP at the bottom.",
+     "tts": "Each row is a score. EndorseRank on top, A W P at the bottom.",
+     "focus": [
+      "a12",
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each column is a proxy family: transfer, allowance and Sybil stability.",
+     "tts": "Each column is a proxy family. Transfer, allowance and Sybil stability.",
+     "focus": [
+      "a3",
+      "a4",
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The darker a cell, the larger Kendall's τ.",
+     "tts": "The darker a cell, the larger Kendall's tau.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I'll leave the middle row empty for a moment.",
+     "tts": "I'll leave the middle row empty for a moment.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "EndorseRank agrees best with the allowance proxies, at 0.585.",
+     "tts": "EndorseRank agrees best with the allowance proxies, at zero point five eight five.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "AWP agrees best with the transfer proxies, at 0.572.",
+     "tts": "A W P agrees best with the transfer proxies, at zero point five seven two.",
+     "focus": [
+      "a36"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The two cells with the little mirror icon are each score's own family.",
+     "tts": "The two cells with the little mirror icon are each score's own family.",
+     "focus": [
+      "a12",
+      "a31"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank walks the allowance edges, and AWP walks the transfer edges.",
+     "tts": "EndorseRank walks the allowance edges, and A W P walks the transfer edges.",
+     "focus": [
+      "a22",
+      "a43"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Swap the families, and the values drop sharply.",
+     "tts": "Swap the families, and the values drop sharply.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank on the transfer family gets only 0.158.",
+     "tts": "EndorseRank on the transfer family gets only zero point one five eight.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "AWP on the allowance family gets only 0.193.",
+     "tts": "A W P on the allowance family gets only zero point one nine three.",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Pair the two scores on the same proxies and subtract. The difference is about 0.4, with a narrow interval.",
+     "tts": "Pair the two scores on the same proxies and subtract. The difference is about zero point four, with a narrow interval.",
+     "focus": [
+      "a31",
+      "a34"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This difference was not a comparison fixed in advance.",
+     "tts": "This difference was not a comparison fixed in advance.",
+     "focus": [
+      "a59"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Now the middle row fills in: C-PR at λ = 0.5, which walks both edge types, mixed.",
+     "tts": "Now the middle row fills in. C P R at lambda equals zero point five, which walks both edge types, mixed.",
+     "focus": [
+      "a38",
+      "a42"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On every family, it lies between the two rows.",
+     "tts": "On every family, it lies between the two rows.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "0.365 on transfer, 0.477 on allowance, and 0.142 on Sybil stability.",
+     "tts": "Zero point three six five on transfer, zero point four seven seven on allowance, and zero point one four two on Sybil stability.",
+     "focus": [
+      "a35",
+      "a36",
+      "a37"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The small amber and sky-blue triangles on the middle row's scales show where EndorseRank and AWP sit.",
+     "tts": "The small amber and sky-blue triangles on the middle row's scales show where EndorseRank and A W P sit.",
+     "focus": [
+      "a30",
+      "a32",
+      "a34"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-01",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "But the proxies here were built from the same records as the scores.",
+     "tts": "But the proxies here were built from the same records as the scores.",
+     "focus": [
+      "a79"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So part of this agreement comes about by itself.",
+     "tts": "So part of this agreement comes about by itself.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That makes it a check that each score measures what it was built to measure.",
+     "tts": "That makes it a check that each score measures what it was built to measure.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In other words, an intended-construct check.",
+     "tts": "In other words, an intended-construct check.",
+     "focus": [
+      "a78"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is not an external test.",
+     "tts": "It is not an external test.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Next question: do the two scores put the same contracts in the same order?",
+     "tts": "Next question. Do the two scores put the same contracts in the same order?",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The two rows of the previous slide break into points and become a cloud of 15,107 contracts.",
+     "tts": "The two rows of the previous slide break into points, and become a cloud of fifteen thousand one hundred and seven contracts.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "One point is one contract.",
+     "tts": "One point is one contract.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Seen from above, the cloud becomes a flat picture.",
+     "tts": "Seen from above, the cloud becomes a flat picture.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Across is the rank by EndorseRank, and up is the rank by AWP.",
+     "tts": "Across is the rank by EndorseRank, and up is the rank by A W P.",
+     "focus": [
+      "a16",
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Both are turned into percentiles.",
+     "tts": "Both are turned into percentiles.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Amber points are contracts that EndorseRank ranks higher.",
+     "tts": "Amber points are contracts that EndorseRank ranks higher.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Sky-blue points are contracts that AWP ranks higher.",
+     "tts": "Sky-blue points are contracts that A W P ranks higher.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "If the two ranks were the same, the points would gather on this diagonal.",
+     "tts": "If the two ranks were the same, the points would gather on this diagonal.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But look how widely they are spread.",
+     "tts": "But look how widely they are spread.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Kendall's τ is 0.174.",
+     "tts": "Kendall's tau is zero point one seven four.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is clearly above 0, and far from 1.",
+     "tts": "That is clearly above zero, and far from one.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The two orders are related, but they are not the same order.",
+     "tts": "The two orders are related, but they are not the same order.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "There are more than 110 million contract pairs.",
+     "tts": "There are more than one hundred ten million contract pairs.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "96.7% of them are ordered by both scores, meaning neither score ties them.",
+     "tts": "Ninety-six point seven percent of them are ordered by both scores, meaning neither score ties them.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And of those, 41.2% are in the opposite order.",
+     "tts": "And of those, forty-one point two percent are in the opposite order.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "One score puts contract A above B, while the other puts B above A.",
+     "tts": "One score puts contract A above B, while the other puts B above A.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The thirty pairs flashing on the plot are only an illustration.",
+     "tts": "The thirty pairs flashing on the plot are only an illustration.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The final value is the result over all pairs.",
+     "tts": "The final value is the result over all pairs.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Related, but not interchangeable.",
+     "tts": "Related, but not interchangeable.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "The column at the far left is the 535 contracts with an EndorseRank of zero.",
+     "tts": "The column at the far left is the five hundred thirty-five contracts with an EndorseRank of zero.",
+     "focus": [
+      "a15",
+      "a16"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The row at the bottom is the 2,672 contracts with an AWP of zero.",
+     "tts": "The row at the bottom is the two thousand six hundred seventy-two contracts with an A W P of zero.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "All zero-score contracts are tied, so they share the lowest ranks and sit in the middle of those ranks.",
+     "tts": "All zero-score contracts are tied, so they share the lowest ranks and sit in the middle of those ranks.",
+     "focus": [
+      "a33"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "That's why the AWP zero row sits at about 9, not at 0.",
+     "tts": "That's why the A W P zero row sits at about nine, not at zero.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And the EndorseRank zero column sits at about 2.",
+     "tts": "And the EndorseRank zero column sits at about two.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Under the isolated-node rule, which keeps contracts outside a graph as nodes with no edges, τ stayed at 0.174.",
+     "tts": "Under the isolated-node rule, which keeps contracts outside a graph as nodes with no edges, tau stayed at zero point one seven four.",
+     "focus": [
+      "a37",
+      "a39"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The two graphs are built differently, so different orders are partly expected.",
+     "tts": "The two graphs are built differently, so different orders are partly expected.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In the registered analysis, τ was 0.217.",
+     "tts": "In the registered analysis, tau was zero point two one seven.",
+     "focus": [
+      "a24",
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Now the real test: the out-of-window test.",
+     "tts": "Now the real test, the out-of-window test.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The thesis calls it a temporal holdout.",
+     "tts": "The thesis calls it a temporal holdout.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": {
+      "title": "Temporal holdout",
+      "body": "Hold back a later period, then check earlier-built scores on it"
+     }
+    },
+    {
+     "sub": "The three-year calendar is back.",
+     "tts": "The three-year calendar is back.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The amber stream is the allowance records of each month, and the sky-blue stream the transfer records.",
+     "tts": "The amber stream is the allowance records of each month, and the sky-blue stream the transfer records.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "On 31 March, we freeze the scores.",
+     "tts": "On the thirty-first of March, we freeze the scores.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We build them only from the records up to that day, and do not touch them afterwards.",
+     "tts": "We build them only from the records up to that day, and do not touch them afterwards.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Below, example contracts keep their frozen scores.",
+     "tts": "Below, example contracts keep their frozen scores.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This first holdout, set aside after the freeze to check the scores against, is called W0.",
+     "tts": "This first holdout, set aside after the freeze to check the scores against, is called W zero.",
+     "focus": [
+      "a9",
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This test has 17,050 spender contracts.",
+     "tts": "This test has seventeen thousand and fifty spender contracts.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Then we grade each spender contract by what newly happened to it from April to June.",
+     "tts": "Then we grade each spender contract by what newly happened to it from April to June.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "There are two labels.",
+     "tts": "There are two labels.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The first counts new approval pairs: allowances between an owner and the spender that did not exist on the freeze date.",
+     "tts": "The first counts new approval pairs, allowances between an owner and the spender that did not exist on the freeze date.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The second counts new transfer senders: addresses that sent it a transfer for the first time.",
+     "tts": "The second counts new transfer senders, addresses that sent it a transfer for the first time.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the right, one dot stands for 10 contracts.",
+     "tts": "On the right, one dot stands for ten contracts.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "2,070 contracts, or 12.1%, gained new approval pairs: the amber dots.",
+     "tts": "Two thousand and seventy contracts, or twelve point one percent, gained new approval pairs, the amber dots.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "1,695 contracts, or 9.9%, gained new transfer senders: the sky-blue rings.",
+     "tts": "One thousand six hundred ninety-five contracts, or nine point nine percent, gained new transfer senders, the sky-blue rings.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Many contracts, 1,173, gained both labels, so many amber dots wear a ring.",
+     "tts": "Many contracts, one thousand one hundred seventy-three, gained both labels, so many amber dots wear a ring.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Only about one contract in ten has a label.",
+     "tts": "Only about one contract in ten has a label.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So the results depend heavily on how well a score ranks these few contracts near the top.",
+     "tts": "So the results depend heavily on how well a score ranks these few contracts near the top.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "We ran the same test once more, freezing on 30 June and labeling July to September.",
+     "tts": "We ran the same test once more, freezing on the thirtieth of June, and labeling July to September.",
+     "focus": [
+      "a6",
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This is the registered window, W1.",
+     "tts": "This is the registered window, W one.",
+     "focus": [
+      "a23",
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This study extracted the logs of these three months only after it had registered the rules.",
+     "tts": "This study extracted the logs of these three months only after it had registered the rules.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "There are 18,152 spender contracts.",
+     "tts": "There are eighteen thousand one hundred fifty-two spender contracts.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So how did the frozen scores do? Let's start with the transfer side.",
+     "tts": "So how did the frozen scores do? Let's start with the transfer side.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The left panel shows how well each score predicted what happened later.",
+     "tts": "The left panel shows how well each score predicted what happened later.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The right panel shows the difference between the two scores, paired on the same contracts.",
+     "tts": "The right panel shows the difference between the two scores, paired on the same contracts.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "If the difference lies right of 0, the walk score, here AWP, is better.",
+     "tts": "If the difference lies right of zero, the walk score, here A W P, is better.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "If it lies left of 0, the raw count is better.",
+     "tts": "If it lies left of zero, the raw count is better.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The top row is W0, and the bottom row is W1.",
+     "tts": "The top row is W zero, and the bottom row is W one.",
+     "focus": [
+      "a9",
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The job here is predicting the addresses that will newly send transfers.",
+     "tts": "The job here is predicting the addresses that will newly send transfers.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In W0, AWP reaches 0.346.",
+     "tts": "In W zero, A W P reaches zero point three four six.",
+     "focus": [
+      "a10",
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The transfer in-degree simply counts the addresses that sent transfers.",
+     "tts": "The transfer in-degree simply counts the addresses that sent transfers.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It reaches 0.303.",
+     "tts": "It reaches zero point three zero three.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The paired difference is +0.043.",
+     "tts": "The paired difference is plus zero point zero four three.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The whole interval lies right of 0, on the walk-score side.",
+     "tts": "The whole interval lies right of zero, on the walk-score side.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "In W1, AWP was again higher, by 0.022.",
+     "tts": "In W one, A W P was again higher, by zero point zero two two.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And again, the interval stays entirely right of 0.",
+     "tts": "And again, the interval stays entirely right of zero.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the transfer side, the walk added information that the plain count does not have.",
+     "tts": "On the transfer side, the walk added information that the plain count does not have.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Here the walk means the time and value weights, plus restarts at active senders.",
+     "tts": "Here the walk means the time and value weights, plus restarts at active senders.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-04",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "What if we look only at the 14,094 contracts in W0 that had received a transfer?",
+     "tts": "What if we look only at the fourteen thousand and ninety-four contracts in W zero that had received a transfer?",
+     "focus": [
+      "a34",
+      "a36"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The difference held, at +0.056.",
+     "tts": "The difference held, at plus zero point zero five six.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The small gray hollow dots, just under the top two white dots, are the values of the registered analysis, and they point the same way.",
+     "tts": "The small gray hollow dots, just under the top two white dots, are the values of the registered analysis, and they point the same way.",
+     "focus": [
+      "a40",
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "But all the new-sender comparisons on this slide, in both W0 and W1, were in neither the plan nor the registration.",
+     "tts": "But all the new-sender comparisons on this slide, in both W zero and W one, were in neither the plan nor the registration.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "They were computed after the labels were known, so they are post hoc.",
+     "tts": "They were computed after the labels were known, so they are post hoc.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": {
+      "title": "Post hoc",
+      "body": "Worked out after the results were known, not planned in advance"
+     }
+    }
+   ]
+  }
+ ],
+ "outro": []
+}
