@@ -1,6 +1,6 @@
 # Exploratory: C-PR against a role-coupled EndorseRank walk (14 October 2026)
 
-- Post hoc, like the other folders in `exploratory/`; not reported in the dissertation. Same cohorts, labels and paired bootstrap (B = 400) as the revised analysis. The published C-PR (λ = 0.5) is reproduced exactly (W0 0.252, W1 0.250; same-window families 0.365, 0.477, 0.142).
+- Post hoc, like the other folders in `exploratory/`; not reported in the dissertation, which says only that this run had scored a similar coupling before C-AWP was defined (Chapter 4, sub:cpr-awp-posthoc; `../2026-10-22-cpr-against-awp/`). Same cohorts, labels and paired bootstrap (B = 400) as the revised analysis. The published C-PR (λ = 0.5) is reproduced exactly (W0 0.252, W1 0.250; same-window families 0.365, 0.477, 0.142).
 - Question: does a walk that gives owners reputation through the transfers they received (option 1) beat C-PR? Definitions are in the docstring of `scripts/run_role_coupled.py`. In short: `cpr_plus` is C-PR with fixed λ = 0.5 but σ allowance edges with a cap of 10 spenders per owner, AWP-weighted transfer edges and restarts mixed from endorsement mass and AWP activeness; `rc_b{β}_mass` (option 1) lets wallets follow only their approvals and contracts follow their payouts with probability β, with restarts proportional to endorsement mass, and scores a contract by the mass it receives over approvals; `rc_b{β}_ctr` restarts at contracts only. `rc_b50_mass` was fixed as the primary option-1 score before the run.
 
 ## Results (Kendall τ_b [95% CI])
