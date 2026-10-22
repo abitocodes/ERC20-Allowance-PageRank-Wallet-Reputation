@@ -1638,27 +1638,18 @@ def t_cpr_awp_posthoc(x: dict, add: dict | None, w0: dict, w1: dict, same: dict,
                    f"${fint(z1['n'])}$)")
     for m, name in (("cpr_l50", "C-PR"), ("cawp_l50", "C-AWP"), ("in_approve_degree", "In-approve degree")):
         lines.append(tau_row(name, z0["taus_new_approval_pairs"].get(m), z1["taus_new_approval_pairs"].get(m)))
-    lines += block("Share of the 1{,}000 highest-ranked spenders that gained any new counterparty")
-    for m, name in (("awp", "AWP"), ("cpr_l50", "C-PR"), ("cawp_l50", "C-AWP")):
-        v0 = ((X0["A4_top_k"].get(m) or {}).get("1000") or {}).get("any_new_counterparty")
-        v1 = ((X1["A4_top_k"].get(m) or {}).get("1000") or {}).get("any_new_counterparty")
-        lines.append(f"{name} & {f3(v0, f'{m} top 1000 W0')} & {f3(v1, f'{m} top 1000 W1')} \\\\")
     sw = x["same_window"]["A5_both_constructs"]["contrasts"]
     lines += block(f"Same window, mean of the transfer and allowance families ($n={fint(x['same_window']['n'])}$)")
     for a, name in (("cpr_l50", "C-PR minus AWP"), ("cawp_l50", "C-AWP minus AWP")):
         r = _find(sw, a, "awp", FAMILY_PROXIES["transfer"] + FAMILY_PROXIES["allowance"])
         lines.append(f"{name} & \\multicolumn{{2}}{{c}}{{{delta_math(r, name)}}} \\\\")
     caption = (
-        "Post hoc comparisons of C-PR and C-AWP with AWP on the spender cohorts of W0 and W1, their traders "
-        f"($n={fint(x['traders_W0']['n'])}$ and ${fint(x['traders_W1']['n'])}$) and the matched cohort. C-AWP mixes "
-        "the edges of AWP and of EndorseRank with activity restarts in each node's transition row as C-PR does, "
-        "with $\\lambda=0.5$, and restarts in proportion to $(1-\\lambda)$ times AWP's sending activeness plus "
-        "$\\lambda$ times the owners' approving activeness, so that $\\lambda=0$ gives AWP and $\\lambda=1$ "
-        "EndorseRank with activity restarts. New counterparties are new approval pairs plus new transfer senders; "
-        "the mean of the two spender labels averages $\\tau$ on both. C-PR ($\\lambda=0$) minus AWP was added after "
-        "the other rows were known, at the same resamples. These comparisons were chosen after the labels "
-        "of both windows were known and committed before they were computed; none is a registered test. The C-PR "
-        "rows on all spenders repeat Tables~\\ref{tab:holdout-diff} and~\\ref{tab:fresh-contrasts}. "
+        "Post hoc comparisons of C-PR and C-AWP with AWP (Section~\\ref{sub:cpr-awp-posthoc}): spender cohorts of "
+        f"W0 and W1, their traders ($n={fint(x['traders_W0']['n'])}$ and ${fint(x['traders_W1']['n'])}$) and the "
+        "matched cohort. New counterparties are new approval pairs plus new transfer senders; the mean of the two "
+        "spender labels averages $\\tau$ on both. All rows were chosen after the labels were known, C-PR "
+        "($\\lambda=0$) minus AWP after the other rows, and none is a registered test; the C-PR rows on all spenders "
+        "repeat Tables~\\ref{tab:holdout-diff} and~\\ref{tab:fresh-contrasts}. "
         f"{boot_note(seed)}"
     )
     head = (f"Comparison & W0 ($n={fint(w0.get('spenders'))}$) & {W1_NAME} ($n={fint(w1.get('spenders'))}$)")
