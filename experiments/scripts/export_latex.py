@@ -42,6 +42,7 @@ SOURCES = {
     "supp": PROC / "supplementary" / "supplementary.json",  # run_supplementary.py, optional
     # Post hoc comparison of the coupled walks with AWP (revised analysis only), optional.
     "cpr_awp": ROOT / "exploratory" / "2026-10-22-cpr-against-awp" / "results_cpr_awp.json",
+    "cpr_awp_addendum": ROOT / "exploratory" / "2026-10-22-cpr-against-awp" / "results_addendum.json",
 }
 COHORT_SCORES = PROC / "same-window" / "cohort_scores"
 
@@ -1574,7 +1575,7 @@ def _find(rows: list | None, a: str, b: str, outcome) -> dict | None:
     return None
 
 
-def t_cpr_awp_posthoc(x: dict, w0: dict, w1: dict, same: dict, seed: int) -> None:
+def t_cpr_awp_posthoc(x: dict, add: dict | None, w0: dict, w1: dict, same: dict, seed: int) -> None:
     """C-PR and C-AWP against AWP (exploratory/2026-10-22-cpr-against-awp); every cell comes from the JSON summaries."""
     begin("cpr-awp-posthoc")
     for w in ("W0", "W1"):
@@ -1612,6 +1613,11 @@ def t_cpr_awp_posthoc(x: dict, w0: dict, w1: dict, same: dict, seed: int) -> Non
         row("New transfer senders, spenders with a transfer edge", pos(X0, "cpr_l50", SEND), pos(X1, "cpr_l50", SEND)),
         row("Liquidation-free close rate, traders", liq("W0", "cpr_l50"), liq("W1", "cpr_l50")),
     ]
+    if add:
+        lines += block("C-PR ($\\lambda=0$) minus AWP")
+        for lab, name in ((APPR, "New approval pairs"), (SEND, "New transfer senders")):
+            lines.append(row(name, ((add.get("W0") or {}).get("cpr_l0_minus_awp") or {}).get(lab),
+                             ((add.get("W1") or {}).get("cpr_l0_minus_awp") or {}).get(lab)))
     lines += block("C-AWP minus AWP")
     lines += [
         row("New approval pairs", b1(X0, "cawp_l50", "awp", APPR), b1(X1, "cawp_l50", "awp", APPR)),
@@ -1649,13 +1655,15 @@ def t_cpr_awp_posthoc(x: dict, w0: dict, w1: dict, same: dict, seed: int) -> Non
         "with $\\lambda=0.5$, and restarts in proportion to $(1-\\lambda)$ times AWP's sending activeness plus "
         "$\\lambda$ times the owners' approving activeness, so that $\\lambda=0$ gives AWP and $\\lambda=1$ "
         "EndorseRank with activity restarts. New counterparties are new approval pairs plus new transfer senders; "
-        "the mean of the two spender labels averages $\\tau$ on both. These comparisons were chosen after the labels "
+        "the mean of the two spender labels averages $\\tau$ on both. C-PR ($\\lambda=0$) minus AWP was added after "
+        "the other rows were known, at the same resamples. These comparisons were chosen after the labels "
         "of both windows were known and committed before they were computed; none is a registered test. The C-PR "
         "rows on all spenders repeat Tables~\\ref{tab:holdout-diff} and~\\ref{tab:fresh-contrasts}. "
         f"{boot_note(seed)}"
     )
     head = (f"Comparison & W0 ($n={fint(w0.get('spenders'))}$) & {W1_NAME} ($n={fint(w1.get('spenders'))}$)")
-    emit("cpr-awp-posthoc", caption, tabular("lcc", head, lines), [SOURCES["cpr_awp"], SOURCES["w0"], SOURCES["w1"]])
+    srcs = [SOURCES["cpr_awp"]] + ([SOURCES["cpr_awp_addendum"]] if add else []) + [SOURCES["w0"], SOURCES["w1"]]
+    emit("cpr-awp-posthoc", caption, tabular("lcc", head, lines), srcs)
 
 
 # --------------------------------------------------------------------------- figures
@@ -1946,7 +1954,7 @@ def main() -> int:
         t_registered_vs_revised(reg, {"same": same, "w0": w0, "w1": w1}, seed)
     cpr_awp = _load("cpr_awp") if REVISED else None
     if cpr_awp and same and w0 and w1:
-        t_cpr_awp_posthoc(cpr_awp, w0, w1, same, seed)
+        t_cpr_awp_posthoc(cpr_awp, _load("cpr_awp_addendum"), w0, w1, same, seed)
     elif REVISED:
         SKIPPED.append("cpr-awp-posthoc (no post hoc summary)")
 

@@ -154,6 +154,15 @@ A review of the thesis asked how much of C-PR's gap to AWP belongs to C-PR's tra
 
 Script: `scripts/run_addendum.py`; output: `results_addendum.json`.
 
+Result (Δτ [95% CI]):
+
+| Contrast | W0 | W1 |
+|---|---|---|
+| C-PR (λ = 0) minus AWP, new approval pairs | −0.036 [−0.040, −0.032] | −0.028 [−0.032, −0.024] |
+| C-PR (λ = 0) minus AWP, new senders | −0.050 [−0.054, −0.046] | −0.039 [−0.043, −0.035] |
+
+On new senders C-PR minus AWP (−0.085 and −0.067) is the sum of this layer gap and the cost of coupling, C-PR minus C-PR (λ = 0) (−0.034 and −0.028): the layer gap is about three fifths of the whole in both windows.
+
 ## Files
 
 | Path | Content |
