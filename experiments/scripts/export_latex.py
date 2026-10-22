@@ -380,10 +380,10 @@ def is_er_awp(r: dict) -> bool:
 
 
 CONTRAST_HEAD = (
-    "Contrast ($a$ minus $b$) & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
+    "Contrast ($a$ minus $b$) & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
 )
 CONTRAST_HEAD_LABEL = (
-    "Contrast ($a$ minus $b$) & Label & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
+    "Contrast ($a$ minus $b$) & Label & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
 )
 
 
@@ -1317,13 +1317,13 @@ def t_fresh_contrasts(w1: dict, seed: int) -> None:
         "sensitivity analyses"
         + (" (rule B and its sensitivity analyses were registered for the raw-unit analysis; here they are applied to "
            "the revised scores)" if REVISED else "")
-        + ". $\\Delta\\tau=\\tau_a-\\tau_b$, with C-PR ($\\lambda=0.5$) as $a$. Superiority holds "
+        + ". $\\Delta\\tau=\\tau(a)-\\tau(b)$, with C-PR ($\\lambda=0.5$) as $a$. Superiority holds "
         f"when the interval lies above zero; non-inferiority holds when its lower end lies above $-\\delta=-{delta:.2f}$; "
         "F6a, the first part of rule A, holds when the interval contains zero or lies above it. F1, F2, F6a and F6b "
         f"are on the spenders ($n={fint(w1.get('spenders'))}$ contracts), F3--F5 on the traders ($n={fint(n_tr)}$), as "
         f"in Table~\\ref{{tab:fresh-holdout}}. {boot_note(seed)}"
     )
-    head = " & Contrast & Label & Test & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ [95\\% CI] & Verdict"
+    head = " & Contrast & Label & Test & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ [95\\% CI] & Verdict"
     emit("fresh-contrasts", caption, tabular("lllcccll", head, lines), [SOURCES["w1"]])
 
 
@@ -1476,7 +1476,7 @@ def t_neutral_contrasts(w1: dict, seed: int, cfg: dict) -> None:
         "label-window closes (3--4, 5--9, 10--24, 25 or more), weighted by the number of contract pairs. "
         f"{_rules_text(w1.get('neutral_rules') or {})}"
     )
-    head = "Contrast ($a$ minus $b$) & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ & 95\\% CI & 97.5\\% CI"
+    head = "Contrast ($a$ minus $b$) & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ & 95\\% CI & 97.5\\% CI"
     emit("neutral-label-contrasts", caption, tabular("lccccc", head, lines), [SOURCES["w1"]])
 
 
