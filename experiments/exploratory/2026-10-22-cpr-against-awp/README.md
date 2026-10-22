@@ -144,6 +144,16 @@ No trader contrast is resolved; the B2 non-inferiority condition on the liquidat
 - C-AWP still fails the structure of rule B against AWP in both windows: superiority on new approval pairs holds, but non-inferiority at 0.01 fails on new senders and on the traders. It is a hypothesis for a registered test on a later window, not a finding.
 - Run time: C-AWP walks the union graph of C-PR; its solves took 79 to 81 iterations at d = 0.85 (not timed under the benchmark protocol).
 
+## Addendum (fixed after the results above were known, before it was computed)
+
+A review of the thesis asked how much of C-PR's gap to AWP belongs to C-PR's transfer layer walked alone, which differs from AWP in its weights and restarts but not in coupling. The registration of W1 named C-PR (λ = 0) minus AWP for the traders "to isolate AWP's weights and restarts"; this addendum computes the same contrast on the spender cohorts, and nothing else.
+
+| Id | Comparison |
+|---|---|
+| D1 | C-PR (λ = 0) minus AWP on new approval pairs and on new senders, W0 and W1, the 400 paired resamples of each cohort |
+
+Script: `scripts/run_addendum.py`; output: `results_addendum.json`.
+
 ## Files
 
 | Path | Content |
