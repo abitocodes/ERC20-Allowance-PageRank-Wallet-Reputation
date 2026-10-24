@@ -11,6 +11,7 @@
 | `dissertation/presentation/` | 학위논문 발표 자료(한국어 HTML 슬라이드 59장: 3D 데이터 시각화, 중학생 눈높이의 수식 유도, 모션 그래픽). `index.html`을 브라우저로 열면 오프라인에서도 돌아갑니다. [`README.md`](dissertation/presentation/README.md) 참고 |
 | `dissertation/notes/` | 원고를 쓸 때 지키는 규칙과 메모(`_writing-brief.md`, `_claims.md`, `_revision-context.md`, `_todo.md`). 빌드에 들어가지 않습니다 |
 | `experiments/` | BigQuery 추출, 점수 계산, 평가 코드와 데이터 |
+| `references/` | 참고 문헌. `NN. 제목.pdf`(35편)와 PDF를 받지 못한 논문의 서지·내려받기 안내 `NN. 제목.md`(28편). 번호는 원고가 번호 인용을 쓰던 때의 7장 References 번호입니다. `_archive/`에는 이 번호 목록에 없는 연구계획서 참고문헌 5편과 AWP 원 논문(Do, Do & Nguyen, 2023)이 있습니다. 지금 원고의 참고문헌 정본은 서브모듈의 `Config/references.bib`입니다 |
 | `archive/` | 보관 자료(읽기 전용). [`archive/README.md`](archive/README.md) 참고 |
 
 ## 기간
