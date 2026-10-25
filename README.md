@@ -1,18 +1,25 @@
 # Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring
 
-학위논문 작업 폴더입니다. 폴더 이름 `ERC20-Allowance-PageRank-Wallet-Reputation`은 이 제목을 줄인 것입니다(전체 제목을 쓰면 Windows 경로 길이 제한 260자를 넘음).
+학위논문 작업 폴더입니다. 폴더 이름 `ERC20-Allowance-PageRank-Wallet-Reputation`은 이 제목을 줄인 것입니다(전체 제목을 쓰면 Windows 경로 길이 제한 260자를 넘음). 이 연구는 2026-10-09에 `1-Dissertation-Works/ERC20-Allowance-PageRank-Contract-Reputation/`에서 시작했고, 2026-10-11에 이 폴더로 옮겼습니다.
 
-이 연구가 점수를 매기고 평가하는 대상은 스마트 컨트랙트이고, EOA(외부 소유 계정)는 허락·송금 간선의 출발점과 도착점으로만 그래프에 들어갑니다. 데이터는 Arbitrum One의 2023-10-01부터 2026-09-30까지 3년입니다. 이 연구는 2026-10-09에 `1-Dissertation-Works/ERC20-Allowance-PageRank-Contract-Reputation/`에서 시작했고, 2026-10-11에 이 폴더로 옮겼습니다.
+## 연구
+
+Arbitrum One의 스마트 컨트랙트에 온체인 평판 점수를 매깁니다. 토큰 주인이 컨트랙트에 준 ERC-20 허락(allowance)을 간선으로 PageRank를 계산하고(EndorseRank), 송금 간선의 PageRank인 AWP(Adaptive Weighted PageRank), 두 층을 함께 걷는 C-PR과 S-PR, 원시 차수와 견줍니다. 점수를 매기고 평가하는 대상은 스마트 컨트랙트이고, EOA(외부 소유 계정)는 허락·송금 간선의 출발점과 도착점으로만 그래프에 들어갑니다. 데이터는 Arbitrum One의 2023-10-01부터 2026-09-30까지 3년입니다.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../../.github/readme/thesis-scores-dark.png">
+  <img alt="학위논문의 점수: Approval 로그로 허락 그래프를, Transfer 로그로 송금 그래프를 만들고 EndorseRank, AWP, C-PR과 S-PR, 원시 차수를 계산해 같은 기간 점검과 기간 밖 라벨(W0, W1)로 평가함" src="../../.github/readme/thesis-scores-light.png" width="880">
+</picture>
+
+## 폴더
 
 | 폴더 | 내용 |
 |------|------|
-| `proposal/` | 연구계획서(승인·고정): LaTeX 정본, 교수·심사위원 피드백, 발표 자료, DOCX 도구. 명시적인 요청 없이는 고치지 않습니다 |
-| `dissertation/overleaf-github/` | 논문 원고(영문, UNISA 양식 LaTeX). 서브모듈 `phd-dissertation-draft-en`(Overleaf가 `main`을 읽음). 투고 원고 `manuscripts/`와 보조 분석 `analysis/`도 이 저장소에 있습니다 |
-| `dissertation/presentation/` | 학위논문 발표 자료(한국어 HTML 슬라이드 59장: 3D 데이터 시각화, 중학생 눈높이의 수식 유도, 모션 그래픽). `index.html`을 브라우저로 열면 오프라인에서도 돌아갑니다. [`README.md`](dissertation/presentation/README.md) 참고 |
-| `dissertation/notes/` | 원고를 쓸 때 지키는 규칙과 메모(`_writing-brief.md`, `_claims.md`, `_revision-context.md`, `_todo.md`). 빌드에 들어가지 않습니다 |
-| `experiments/` | BigQuery 추출, 점수 계산, 평가 코드와 데이터 |
-| `references/` | 참고 문헌. `NN. 제목.pdf`(35편)와 PDF를 받지 못한 논문의 서지·내려받기 안내 `NN. 제목.md`(28편). 번호는 원고가 번호 인용을 쓰던 때의 7장 References 번호입니다. `_archive/`에는 이 번호 목록에 없는 연구계획서 참고문헌 5편과 AWP 원 논문(Do, Do & Nguyen, 2023)이 있습니다. 지금 원고의 참고문헌 정본은 서브모듈의 `Config/references.bib`입니다 |
-| `archive/` | 보관 자료(읽기 전용). [`archive/README.md`](archive/README.md) 참고 |
+| `proposal/` | 연구계획서. 고치지 않는 기준선이라 폴더 안에 README를 두지 않고, 아래 「연구계획서」에서 안내합니다. |
+| [`dissertation/`](dissertation/) | 영문 원고(서브모듈), 발표 자료, 원고를 쓸 때 지키는 메모 |
+| [`experiments/`](experiments/) | BigQuery 추출, 점수 계산, 평가 코드와 데이터 |
+| [`references/`](references/) | 참고 문헌 69편 |
+| [`archive/`](archive/) | 옛 지갑 평판 연구의 자료(읽기 전용) |
 
 ## 기간
 
@@ -34,71 +41,45 @@
 | 결과 | `experiments/data/3-published-results-for-thesis/` | `.../3-published-results-for-thesis/revised-usd/` |
 | 실행 | `CONTRACT_REP_VARIANT` 없이 | `CONTRACT_REP_VARIANT=usd` (`scripts/run_usd_pipeline.py`, `scripts/run_usd_local.ps1`) |
 
-수정 분석은 등록 이후의 이탈(deviation)이라 그 결과를 '등록된 결과'라고 부르지 않습니다. 이유와 규칙은 `experiments/docs/revision_price_weighting.md`에 있습니다. 토큰 목록과 가격은 `experiments/data/0-usd-token-list-and-prices/`에 있습니다.
+분석 계획 `43d8045`는 2026-10-09 13:41 UTC(이 연구의 첫 추출 10초 전)에, W1 등록 `0d3a057`은 같은 날 16:49 UTC(7~9월 로그 추출 8초 전)에 커밋했습니다. 수정 분석은 등록 이후의 이탈(deviation)이라 그 결과를 '등록된 결과'라고 부르지 않습니다. 이유와 규칙은 `experiments/docs/revision_price_weighting.md`에 있습니다. 토큰 목록과 가격은 `experiments/data/0-usd-token-list-and-prices/`에 있습니다. 지도교수가 수정 분석을 주 분석으로 할지는 아직 확인하지 않았습니다(`dissertation/notes/_todo.md`).
 
-## 결과 한눈에
+## 결과 (수정 분석)
 
-- 원고: `dissertation/overleaf-github/main.pdf` (수정 분석이 주 결과). 빌드는 `dissertation/overleaf-github/`에서 xelatex → biber → xelatex 두 번(`build.ps1`)이며, MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
-- 수치: `experiments/data/3-published-results-for-thesis/results_digest.md` (모든 수치와 그 JSON 경로), `SHA256SUMS.txt`.
-- 사전 고정: 분석 계획 `43d8045`(2026-10-09 13:41 UTC, 1차 추출 10초 전), W1 등록 `0d3a057`(같은 날 16:49 UTC, 2차 추출 8초 전).
-- BigQuery 비용: 등록 분석 USD 29.71, 수정 분석을 더해 USD 34.80 (`experiments/data/bq_ledger.json`).
+모든 수치와 그 출처(JSON 파일과 키)는 [`experiments/data/3-published-results-for-thesis/revised-usd/results_digest.md`](experiments/data/3-published-results-for-thesis/revised-usd/results_digest.md)에, 등록 분석의 수치는 그 위 폴더의 `results_digest.md`에 있습니다. 공개한 파일의 SHA-256은 같은 폴더의 `SHA256SUMS.txt`에 있습니다. 괄호는 95% 부트스트랩 구간입니다.
 
-## 표와 그림 다시 만들기
+- 각 점수는 자기 간선으로 만든 점검과 가장 잘 맞았습니다. EndorseRank와 허락 지표 묶음의 τ_b는 0.585 [0.578, 0.592], AWP와 송금 지표 묶음은 0.572 [0.564, 0.580]입니다. 두 점수의 순서는 서로 달랐습니다(τ_b 0.174 [0.163, 0.185]).
+- C-PR(λ = 0.5)은 분석 계획의 규칙 A도, W1 등록의 규칙 B도 충족하지 못했습니다.
+- 기간 밖에서는 다음과 같았습니다(Kendall τ_b의 차이). 사후 비교는 [`experiments/exploratory/2026-10-22-cpr-against-awp/`](experiments/exploratory/2026-10-22-cpr-against-awp/)에 있습니다.
 
-논문의 결과 표(`results/tables/*.tex`)와 그래프(`Figures/generated/*.pdf`)는 손으로 고치지 않고 `experiments/`에서 다시 만듭니다. `scripts/export_latex.py`는 서브모듈 `dissertation/overleaf-github/`에 씁니다.
+| 비교 | W0 | W1 |
+|---|---|---|
+| AWP − 송금 입차수, 새 송금자 | +0.043 [0.038, 0.048] | +0.022 [0.017, 0.027] |
+| EndorseRank − 승인 입차수, 새 승인 쌍 | −0.019 [−0.026, −0.011] | −0.034 [−0.038, −0.029] |
+| C-AWP − AWP, 새 승인 쌍 (사후) | +0.118 [+0.106, +0.132] | +0.127 [+0.114, +0.139] |
+| C-AWP − AWP, 새 송금자 (사후) | −0.015 [−0.019, −0.011] | −0.018 [−0.021, −0.015] |
 
-```bash
-cd experiments
-CONTRACT_REP_VARIANT=usd python scripts/export_latex.py
-```
+C-AWP는 AWP의 가중치와 활동 재시작을 두 층에 쓴 결합 점수입니다. 원고 4장(sub:cpr-awp-posthoc)은 이 결과를 사후 비교로 보고하고, 다음 창에 등록해 시험할 가설로 남깁니다. C-AWP를 실제 금융 성과로 검증하려는 다음 단계 연구는 [`papers/survey-2024-2026-onchain-reputation/`](../../papers/survey-2024-2026-onchain-reputation/)에 있습니다.
 
-서브모듈이 비어 있으면 저장소 최상위에서 `git submodule update --init`을 먼저 실행합니다.
+## 연구계획서
 
-## 데이터
+`proposal/`은 고치지 않는 기준선입니다(`HANDOFF.md`). 폴더 안을 바꾸지 않으려고 안내를 여기에 둡니다.
 
-parquet 데이터는 GitHub에 올리지 않고 공개 Google Drive 폴더 `phd_works-blockchain-data`(링크가 있으면 누구나 읽기)에 둡니다. json·csv·md 같은 작은 파일은 GitHub와 Drive 양쪽에 있습니다. Drive에 있는 모든 파일의 Drive id·크기·MD5는 `experiments/drive-manifest.json`(커밋됨)에 있고, 폴더 링크도 거기 `folder_url`에 있습니다.
+| 경로 | 내용 |
+|---|---|
+| `proposal/proposal/` | LaTeX 정본: `01-Intro/`(제목, 초록, 목차), `02-Content/`(10개 장), `03-End/`(참고문헌, 부록), `Config/`, `Figures/`. 빌드한 `main.pdf`, 빌드 스크립트 `build.ps1`과 `build-docx.ps1`, 심사위원 지적 수정표 |
+| `proposal/sources/` | 교수 코멘트 docx(`professor-feedback/`, README 있음), 심사위원 지적 메일과 답장 초안(`examiner-feedback/`), myModules 제출본과 2026-08-04 수정본의 비교(`submission-records/`) |
+| `proposal/presentation/` | 연구계획서 발표 HTML 덱과 15분 발표 대본 |
+| `proposal/translations/` | 영문 수정본 스냅샷과 영한 대역본(README 있음) |
+| `proposal/scripts/` | DOCX 변환·병합·번역·주석 도구 |
+| `proposal/archive/` | 옛 DOCX, DOCX 변환과 절 수정의 작업본, 스냅샷 |
 
-| 위치 | 내용 | GitHub | Drive |
-|------|------|--------|-------|
-| `experiments/data/1-raw-blockchain-extracts/cohort`, `gmx` | 코호트 후보, 계정 종류 판정(eth_getCode), GMX 청산 원본 | 작은 파일만 | 전부 |
-| `experiments/data/1-raw-blockchain-extracts/graph-tables/` | 노드 번호표, 두 기준 시점의 허락·송금 간선표, 상위 토큰 간선표, 검증 지표, 라벨 (6.4 GB) | `.json` 기록만 | 전부 |
-| `experiments/data/1-raw-blockchain-extracts/graph-tables-usd/` | 수정 분석의 같은 표(`u_x_*`, `u_proxies_tobs`, `u_labels_*`, `u_cohort`, 2.6 GB) | `.json` 기록만 | 전부 |
-| `experiments/data/0-usd-token-list-and-prices` | 토큰 후보·목록, 일별 USD 가격, 상수, Chainlink 대조 | 올림 | 전부 |
-| `experiments/data/2-processed-tables-and-evaluations` | 점수, 평가 요약 JSON, 해독한 GMX 청산 | 작은 파일만 | 전부 |
-| `experiments/data/3-published-results-for-thesis` | 논문 표의 근거 요약과 SHA-256 목록 | 올림 | 전부 |
-| `archive/wallet-reputation-experiments/data` | 지갑 평판 연구(보관) 데이터 | 작은 파일만 | 전부 |
+상태: 2026-08-02의 심사위원 지적(DeFi 평판 도구에 대한 논의, 장황한 연구 질문)을 반영한 수정본을 2026-08-04에 지도교수께 보냈고, 2026-10-10에 승인 절차를 마무리해 달라고 요청했습니다. myModules의 최종 제출 칸에는 2026-06-20 판이 남아 있습니다. 남은 일은 [`proposal/sources/submission-records/`](proposal/sources/submission-records/2026-10-13_myModules-Proposal-FINAL-vs-2026-08-04-revision.md)의 「할 일」에 있습니다.
 
-`experiments/data/_work/`(검증용 임시 다운로드)는 어디에도 올리지 않습니다.
-
-### Drive에서 받기
-
-`experiments/`에서 필요한 파일만 받습니다. 패턴은 Drive 경로(`contract-reputation/...`)나 이 폴더 기준 경로에 맞춘 glob입니다. 받은 파일은 MD5를 확인합니다.
-
-```bash
-python scripts/drive_sync.py pull "*graph-tables-usd/*"   # 수정 분석(주 결과)의 그래프 표
-python scripts/drive_sync.py pull "experiments/*"         # 이 논문의 데이터 전부
-python scripts/drive_sync.py pull --all                   # 보관 데이터까지 전부(약 10 GB)
-python scripts/drive_sync.py status                       # 로컬과 Drive의 차이
-```
-
-rclone 리모트가 있으면 rclone으로, 없으면 HTTPS로 받습니다(파이썬 표준 라이브러리만 씀). HTTPS는 환경 변수 `GDRIVE_API_KEY`가 있으면 `www.googleapis.com`을, 없으면 `drive.usercontent.google.com`을 씁니다. Claude Code 클라우드 환경 `Default`는 네트워크를 '사용자 지정'(기본 목록 포함)으로 두고 `drive.usercontent.google.com`을 더해 두었으므로(2026-10-12), 클라우드 세션에서도 키 없이 받습니다. 새 환경을 만들면 같은 도메인을 더합니다.
-
-### Drive에 올리기
-
-BigQuery에서 새로 받은 데이터는 `download_table.py`로 `experiments/data/` 아래에 받은 뒤 올립니다. 그래프 표를 BigQuery에서 다시 받는 방법은 `scripts/download_graph_tables.sh`와 `python scripts/download_table.py contract_rep.x_top_token_pairs data/1-raw-blockchain-extracts/graph-tables/top_token_pairs`입니다(쿼리 비용 없음, Storage Read API).
-
-```bash
-python scripts/drive_sync.py push --dry-run   # 올릴 파일 확인
-python scripts/drive_sync.py push             # 올리고 drive-manifest.json 갱신
-```
-
-그다음 `experiments/drive-manifest.json`을 커밋합니다. push는 rclone 리모트 `phd-gdrive`(개인 Google 계정, 다른 이름은 `DRIVE_SYNC_REMOTE`)를 씁니다. rclone은 GCP 프로젝트 `dissertation-bq`의 데스크톱 OAuth 클라이언트 `rclone phd-gdrive`로 로그인합니다. 이 OAuth 앱(`ds-daq`)은 '테스트 중' 상태라 로그인이 7일마다 만료되므로, 오랜만에 push할 때는 먼저 `rclone config reconnect phd-gdrive:`로 브라우저에서 다시 허용합니다. 새 PC에서는 `winget install Rclone.Rclone` 뒤 `rclone config create phd-gdrive drive scope=drive client_id=... client_secret=...`(콘솔의 그 클라이언트 값)로 한 번 로그인합니다. push는 Drive의 파일을 지우지 않고, 이미 있는 파일은 `--allow-overwrite` 없이는 바꾸지 않습니다(논문이 인용하는 데이터라서).
+교수 피드백과 연구계획서 편집은 요청을 받았을 때만 `proposal/proposal/`에서 하고, `dissertation/`에 섞지 않습니다. 빌드는 그 폴더에서 `.\build.ps1`(→ `main.pdf`), Word 판은 `.\build-docx.ps1`(→ `main.docx`)입니다.
 
 ## 지킬 것
 
-- 분석 계획(`experiments/docs/analysis_plan.md`)과 설정(`experiments/config/contract_reputation.yaml`)은 이 연구의 첫 추출 전에 커밋했습니다. 1~6절을 고치지 않습니다.
-- `data/` 아래 파일은 모두 90 MB 아래로 나눠 저장합니다.
-- UNISA 학위논문에 쓴 데이터는 심사가 끝난 뒤에도 몇 달 동안 누구나 볼 수 있어야 합니다. Drive 폴더 `phd_works-blockchain-data`와 그 공유 설정(링크가 있는 모든 사용자 읽기)을 지우거나 바꾸지 않습니다.
-- BigQuery 비용은 `experiments/data/bq_ledger.json`에 쌓이며 전체 상한은 USD 50입니다.
-- 테스트 `experiments/tests/`는 보관 스크립트(`archive/wallet-reputation-experiments/scripts/`)를 읽기 전용 기준으로 불러옵니다. 그 폴더를 옮기거나 지우지 않습니다.
+- 분석 계획(`experiments/docs/analysis_plan.md`)과 설정(`experiments/config/contract_reputation.yaml`)은 이 연구의 첫 추출 전에 커밋했습니다. 1~6절을 고치지 않습니다. W1 등록 파일도 고치지 않습니다.
+- `proposal/`과 `archive/`는 고치지 않습니다. 테스트 `experiments/tests/`는 보관 스크립트(`archive/wallet-reputation-experiments/scripts/`)를 읽기 전용 기준으로 불러오므로, 그 폴더를 옮기거나 지우지 않습니다.
 - 원고 문장 규칙은 `dissertation/notes/_writing-brief.md`를 따릅니다.
+- 데이터, Drive, BigQuery 비용의 규칙은 [`experiments/README.md`](experiments/README.md)의 「데이터 정책」에 있습니다.
