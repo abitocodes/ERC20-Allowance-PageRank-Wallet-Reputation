@@ -1,0 +1,857 @@
+{
+ "unit": "u05",
+ "lang": "en",
+ "chapter": {
+  "title": "Deriving PageRank",
+  "subtitle": "From a random walk to a score",
+  "sub": "Chapter four: deriving PageRank. We will work it out by hand, one small step at a time.",
+  "tts": "Chapter four. Deriving PageRank. We will work it out by hand, one small step at a time."
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s04-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "I will build PageRank from scratch, in a very small world.",
+     "tts": "I will build PageRank from scratch, in a very small world.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "There are four nodes and four allowance edges, drawn as arrows.",
+     "tts": "There are four nodes and four allowance edges, drawn as arrows.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Node A is a token owner, that is, a person's wallet address.",
+     "tts": "Node A is a token owner, that is, a person's wallet address.",
+     "focus": [
+      "a8",
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This kind of address is called an EOA.",
+     "tts": "This kind of address is called an E O A.",
+     "focus": [
+      "a8",
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "B and C are vault contracts that node A has approved.",
+     "tts": "B and C are vault contracts that node A has approved.",
+     "focus": [
+      "a11",
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "D is a lending pool contract, and both vaults approve it in turn.",
+     "tts": "D is a lending pool contract, and both vaults approve it in turn.",
+     "focus": [
+      "a16",
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This is the same as the worked example in Chapter 2 of the thesis.",
+     "tts": "This is the same as the worked example in Chapter two of the thesis.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The number on each arrow is its weight.",
+     "tts": "The number on each arrow is its weight.",
+     "focus": [
+      "a14",
+      "a16",
+      "a25",
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The bigger the weight, the thicker the arrow.",
+     "tts": "The bigger the weight, the thicker the arrow.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I write the weight of the arrow from u to v as w(u, v).",
+     "tts": "I write the weight of the arrow from u to v as w of u and v.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So A to B is 2, and A to C is 1.",
+     "tts": "So from A to B it is two, and from A to C it is one.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "B to D is 3, and C to D is 1.",
+     "tts": "B to D is three, and C to D is one.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The sum of all the weights leaving a node u, I call o(u).",
+     "tts": "The sum of all the weights leaving a node u, I call o of u.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The Σ in the formula is the symbol for “add them all up”.",
+     "tts": "The sigma in the formula is the symbol for add them all up.",
+     "focus": [
+      "a61"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The small v underneath means we add while v runs over the nodes.",
+     "tts": "The small v underneath means we add while v runs over the nodes.",
+     "focus": [
+      "a61"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So o(A) is 2 + 1, which is 3.",
+     "tts": "So o of A is two plus one, which is three.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "o(B) is 3, and o(C) is 1.",
+     "tts": "o of B is three, and o of C is one.",
+     "focus": [
+      "a42",
+      "a46"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "D has no outgoing arrow at all, so o(D) is 0.",
+     "tts": "D has no outgoing arrow at all, so o of D is zero.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "close",
+     "mark": "spot",
+     "card": null
+    },
+    {
+     "sub": "Keep an eye on this 0. It is about to cause trouble.",
+     "tts": "Keep an eye on this zero. It is about to cause trouble.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "close",
+     "mark": "spot",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Now I let one person loose in this world.",
+     "tts": "Now I let one person loose in this world.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "They wander around without any plan. Let's call them the random walker.",
+     "tts": "They wander around without any plan. Let's call them the random walker.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": {
+      "title": "Random walker",
+      "body": "Someone who moves along arrows at random, heavier arrows more often"
+     }
+    },
+    {
+     "sub": "There is one rule. From the node where they stand, they pick one outgoing arrow.",
+     "tts": "There is one rule. From the node where they stand, they pick one outgoing arrow.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And they pick heavier arrows more often.",
+     "tts": "And they pick heavier arrows more often.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "I spin the spinner next to node A.",
+     "tts": "I spin the spinner next to node A.",
+     "focus": [
+      "a14",
+      "a15",
+      "a16"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Of its three slices, two are B and one is C.",
+     "tts": "Of its three slices, two are B and one is C.",
+     "focus": [
+      "a14",
+      "a15",
+      "a16"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The weights 2 and 1 have simply become the numbers of slices.",
+     "tts": "The weights two and one have simply become the numbers of slices.",
+     "focus": [
+      "a17",
+      "a22"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This time it lands on B, so the walker crosses to B. See the white dot there.",
+     "tts": "This time it lands on B, so the walker crosses to B. See the white dot there.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Of A's total weight, 3, the part pointing toward B is 2.",
+     "tts": "Of the total weight of node A, three, the part pointing toward B is two.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So two times out of three, the walker goes to B.",
+     "tts": "So two times out of three, the walker goes to B.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I write this probability as P. Here, P_A,B, the chance of going from A to B, is 2/3.",
+     "tts": "I write this probability as P. Here, P of A to B, the chance of going from A to B, is two thirds.",
+     "focus": [
+      "a22"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In general, we divide the weight of an arrow by the sum of the weights leaving its node.",
+     "tts": "In general, we divide the weight of an arrow by the sum of the weights leaving its node.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "In the same way, A to C is 1/3.",
+     "tts": "In the same way, from A to C it is one third.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "From B and from C there is only one way out, so the walker always goes to D.",
+     "tts": "From B and from C there is only one way out, so the walker always goes to D.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The probabilities leaving a node always add up to 1. For A, 2/3 + 1/3 = 1.",
+     "tts": "The probabilities leaving a node always add up to one. For node A, two thirds plus one third is one.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "D is the only exception, because there is nothing to add.",
+     "tts": "D is the only exception, because there is nothing to add.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-02",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Next, the walker stands at B. Spinning B's spinner can only give D.",
+     "tts": "Next, the walker stands at B. Spinning B's spinner can only give D.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So the walker moves on to D.",
+     "tts": "So the walker moves on to D.",
+     "focus": [
+      "a20",
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But D has no arrow to leave by, so the walk gets stuck.",
+     "tts": "But D has no arrow to leave by, so the walk gets stuck.",
+     "focus": [
+      "a20",
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Also, B to D is the only way out of B.",
+     "tts": "Also, B to D is the only way out of B.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So even with weight 3, the probability is 1.",
+     "tts": "So even with weight three, the probability is one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Weights only matter where the path forks, as it does at node A.",
+     "tts": "Weights only matter where the path forks, as it does at node A.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Set that dead end aside for a moment, and imagine this person walks for a very long time.",
+     "tts": "Set that dead end aside for a moment, and imagine this person walks for a very long time.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Then the fraction of time spent at each node settles down.",
+     "tts": "Then the fraction of time spent at each node settles down.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "PageRank uses exactly this fraction as the node's score, which we call r.",
+     "tts": "PageRank uses exactly this fraction as the node's score, which we call r.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Here is a second picture. Instead of one person, think of 1 liter of water.",
+     "tts": "Here is a second picture. Instead of one person, think of one liter of water.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "You can also picture the person split into very many droplets.",
+     "tts": "You can also picture the person split into very many droplets.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "At first, I put a quarter, 0.25, into each of the four cups under the nodes.",
+     "tts": "At first, I put a quarter, zero point two five, into each of the four cups under the nodes.",
+     "focus": [
+      "a18",
+      "a23",
+      "a24",
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "I write the water in the cup of node v as r_v.",
+     "tts": "I write the water in the cup of node v as r of v.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This is the node's share, that is, its score.",
+     "tts": "This is the node's share, that is, its score.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Now I pour once.",
+     "tts": "Now I pour once.",
+     "focus": [
+      "a18",
+      "a23",
+      "a24",
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The water in each cup is split along the outgoing arrows, in proportion to their probabilities.",
+     "tts": "The water in each cup is split along the outgoing arrows, in proportion to their probabilities.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "A's water goes to B and C at 2 to 1.",
+     "tts": "The water of node A goes to B and C at two to one.",
+     "focus": [
+      "a13",
+      "a19"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Notice that A's cup is now empty.",
+     "tts": "Notice that the cup of node A is now empty.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "All of B's and C's water goes to D.",
+     "tts": "All of B's and C's water goes to D.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But D's water has no way out, so it spills away.",
+     "tts": "But D's water has no way out, so it spills away.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "We come back to this leak two slides from now.",
+     "tts": "We come back to this leak two slides from now.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "If we keep pouring like this, there comes a point where the amount in each cup no longer changes.",
+     "tts": "If we keep pouring like this, there comes a point where the amount in each cup no longer changes.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We call this balance.",
+     "tts": "We call this balance.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": {
+      "title": "Balance",
+      "body": "Each cup's level holds, because as much flows in as flows out"
+     }
+    },
+    {
+     "sub": "The water has not stopped. It keeps flowing.",
+     "tts": "The water has not stopped. It keeps flowing.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But as much comes in as goes out, so the amount stays the same.",
+     "tts": "But as much comes in as goes out, so the amount stays the same.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So at balance, the water in each node's cup equals the water flowing into it.",
+     "tts": "So at balance, the water in each node's cup equals the water flowing into it.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "B gets 2/3 of A's water, and C gets 1/3 of A's water.",
+     "tts": "B gets two thirds of the water of node A, and C gets one third of it.",
+     "focus": [
+      "a19",
+      "a28"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "D gets all of B's and C's water.",
+     "tts": "D gets all of B's and C's water.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Nobody points to node A, so A's share is 0.",
+     "tts": "Nobody points to node A, so its share is zero.",
+     "focus": [
+      "a35",
+      "a37"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-03",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Written in one line, it looks like this.",
+     "tts": "Written in one line, it looks like this.",
+     "focus": [
+      "a38",
+      "a40"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Seen from one node, my share is the sum of the shares passed to me by the nodes that point to me.",
+     "tts": "Seen from one node, my share is the sum of the shares passed to me by the nodes that point to me.",
+     "focus": [
+      "a38",
+      "a40"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The u → v under the Σ means we add only the nodes u that point to v.",
+     "tts": "The u, arrow, v under the sigma means we add only the nodes u that point to v.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each one passes on its share, times the chance of taking the arrow to v.",
+     "tts": "Each one passes on its share, times the chance of taking the arrow to v.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This is called the balance equation.",
+     "tts": "This is called the balance equation.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s04-03",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "But if we solve this equation all the way through, something odd happens.",
+     "tts": "But if we solve this equation all the way through, something odd happens.",
+     "focus": [
+      "a44"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A's share is 0, so B is 0 × 2/3, which is 0, and C is 0 too.",
+     "tts": "The share of node A is zero, so B is zero times two thirds, which is zero, and C is zero too.",
+     "focus": [
+      "a44"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Then D is 0 + 0, which is 0.",
+     "tts": "Then D is zero plus zero, which is zero.",
+     "focus": [
+      "a44"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "On the left, every cup now reads 0.",
+     "tts": "On the left, every cup now reads zero.",
+     "focus": [
+      "a23",
+      "a32",
+      "a33",
+      "a39"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The only solution of the balance equation is “all zero”.",
+     "tts": "The only solution of the balance equation is all zero.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It means all the water leaks out at D.",
+     "tts": "It means all the water leaks out at D.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We fix this problem a little later in this chapter.",
+     "tts": "We fix this problem a little later in this chapter.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

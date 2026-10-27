@@ -40,6 +40,9 @@ SOURCES = {
     "rob": PROC / "robustness" / "robustness.json",
     "bench": PROC / "benchmark" / "benchmark.json",
     "supp": PROC / "supplementary" / "supplementary.json",  # run_supplementary.py, optional
+    # Post hoc comparison of the coupled walks with AWP (revised analysis only), optional.
+    "cpr_awp": ROOT / "exploratory" / "2026-10-22-cpr-against-awp" / "results_cpr_awp.json",
+    "cpr_awp_addendum": ROOT / "exploratory" / "2026-10-22-cpr-against-awp" / "results_addendum.json",
 }
 COHORT_SCORES = PROC / "same-window" / "cohort_scores"
 
@@ -298,6 +301,7 @@ SHORT_CAPTIONS = {
     "neutral-label-contrasts": "Allowance-side against transfer-side scores on the liquidation-free close rate.",
     "neutral-label-recipients": "Traders that receive approvals against all other labelled traders.",
     "neutral-label-grid": "Allowance-side minus transfer-side scores on every trader label in both windows.",
+    "cpr-awp-posthoc": "Post hoc comparisons of C-PR and C-AWP with AWP.",
 }
 
 
@@ -387,10 +391,10 @@ def cpr_supp(supp: dict | None) -> dict:
 
 
 CONTRAST_HEAD = (
-    "Contrast ($a$ minus $b$) & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
+    "Contrast ($a$ minus $b$) & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
 )
 CONTRAST_HEAD_LABEL = (
-    "Contrast ($a$ minus $b$) & Label & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
+    "Contrast ($a$ minus $b$) & Label & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ & 95\\% CI of $\\Delta\\tau$ & $P(\\Delta\\tau>0)$"
 )
 
 
@@ -1350,13 +1354,13 @@ def t_fresh_contrasts(w1: dict, seed: int) -> None:
         "sensitivity analyses"
         + (" (rule B and its sensitivity analyses were registered for the raw-unit analysis; here they are applied to "
            "the revised scores)" if REVISED else "")
-        + ". $\\Delta\\tau=\\tau_a-\\tau_b$, with C-PR ($\\lambda=0.5$) as $a$. Superiority holds "
+        + ". $\\Delta\\tau=\\tau(a)-\\tau(b)$, with C-PR ($\\lambda=0.5$) as $a$. Superiority holds "
         f"when the interval lies above zero; non-inferiority holds when its lower end lies above $-\\delta=-{delta:.2f}$; "
         "F6a, the first part of rule A, holds when the interval contains zero or lies above it. F1, F2, F6a and F6b "
         f"are on the spenders ($n={fint(w1.get('spenders'))}$ contracts), F3--F5 on the traders ($n={fint(n_tr)}$), as "
         f"in Table~\\ref{{tab:fresh-holdout}}. {boot_note(seed)}"
     )
-    head = " & Contrast & Label & Test & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ [95\\% CI] & Verdict"
+    head = " & Contrast & Label & Test & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ [95\\% CI] & Verdict"
     emit("fresh-contrasts", caption, tabular("lllcccll", head, lines), [SOURCES["w1"]])
 
 
@@ -1607,7 +1611,7 @@ def t_neutral_contrasts(w1: dict, seed: int, cfg: dict) -> None:
         "label-window closes (3--4, 5--9, 10--24, 25 or more), weighted by the number of contract pairs. "
         f"{_rules_text(w1.get('neutral_rules') or {})}"
     )
-    head = "Contrast ($a$ minus $b$) & $\\tau_a$ & $\\tau_b$ & $\\Delta\\tau$ & 95\\% CI & 97.5\\% CI"
+    head = "Contrast ($a$ minus $b$) & $\\tau(a)$ & $\\tau(b)$ & $\\Delta\\tau$ & 95\\% CI & 97.5\\% CI"
     emit("neutral-label-contrasts", caption, tabular("lccccc", head, lines), [SOURCES["w1"]])
 
 
@@ -1693,6 +1697,99 @@ def t_neutral_grid(w1: dict, seed: int, cfg: dict) -> None:
     )
     head = "Label & P (counts) & Q (PageRanks) & C-PR layers & ER minus AWP"
     emit("neutral-label-grid", caption, tabular("lcccc", head, lines), [SOURCES["w1"]])
+
+
+NEWCP = "future_new_counterparties"
+BOTH = [APPR, SEND]
+
+
+def _find(rows: list | None, a: str, b: str, outcome) -> dict | None:
+    for r in rows or []:
+        if r.get("a") == a and r.get("b") == b and r.get("outcome") == outcome:
+            return r
+    return None
+
+
+def t_cpr_awp_posthoc(x: dict, add: dict | None, w0: dict, w1: dict, same: dict, seed: int) -> None:
+    """C-PR and C-AWP against AWP (exploratory/2026-10-22-cpr-against-awp); every cell comes from the JSON summaries."""
+    begin("cpr-awp-posthoc")
+    for w in ("W0", "W1"):
+        for name, rep in (x.get(w) or {}).get("reproduction", {}).items():
+            if not rep or rep.get("kendall_tau") is None or rep["kendall_tau"] < 1 - 1e-9:
+                problem(f"{w} {name}: the end point of C-AWP does not reproduce the published score")
+    if (x.get("W0") or {}).get("n") != w0.get("spenders") or (x.get("W1") or {}).get("n") != w1.get("spenders"):
+        problem("the post hoc cohorts differ from the published spender cohorts")
+    if (x.get("same_window") or {}).get("n") != same.get("cohort"):
+        problem("the post hoc matched cohort differs from the published one")
+
+    def row(name: str, r0: dict | None, r1: dict | None) -> str:
+        return f"{name} & {delta_ci(r0, f'{name} W0')} & {delta_ci(r1, f'{name} W1')} \\\\"
+
+    def tau_row(name: str, r0: dict | None, r1: dict | None) -> str:
+        return f"{name} & {tc(r0, f'{name} W0')} & {tc(r1, f'{name} W1')} \\\\"
+
+    def block(title: str) -> list[str]:
+        return ["\\midrule", f"\\multicolumn{{3}}{{l}}{{\\emph{{{title}}}}} \\\\"]
+
+    X0, X1 = x["W0"], x["W1"]
+    a1 = lambda X, a: _find(X["A1_both_labels"]["contrasts"], a, "awp", BOTH)
+    pos = lambda X, a, lab: _find(X["A3_coverage"]["awp_positive"]["contrasts"], a, "awp", lab)
+    b1 = lambda X, a, b, lab: _find(X["B1_contrasts"], a, b, lab)
+    liq = lambda w, a: _find(x[f"traders_{w}"]["contrasts"], a, "awp", LIQ)
+    sens = w1.get("sensitivity_awp") or {}
+    lines = [f"\\multicolumn{{3}}{{l}}{{\\emph{{C-PR minus AWP}}}} \\\\"]
+    lines += [
+        row("New approval pairs", _find(w0.get("contrasts_after"), "cpr_l50", "awp", APPR), sens.get("F1")),
+        row("New transfer senders", _find(w0.get("contrasts_after"), "cpr_l50", "awp", SEND), sens.get("F2")),
+        row("Mean of the two spender labels", a1(X0, "cpr_l50"), a1(X1, "cpr_l50")),
+        row("New counterparties", _find(X0["A2_new_counterparties"], "cpr_l50", "awp", NEWCP),
+            _find(X1["A2_new_counterparties"], "cpr_l50", "awp", NEWCP)),
+        row("New approval pairs, spenders with a transfer edge", pos(X0, "cpr_l50", APPR), pos(X1, "cpr_l50", APPR)),
+        row("New transfer senders, spenders with a transfer edge", pos(X0, "cpr_l50", SEND), pos(X1, "cpr_l50", SEND)),
+        row("Liquidation-free close rate, traders", liq("W0", "cpr_l50"), liq("W1", "cpr_l50")),
+    ]
+    if add:
+        lines += block("C-PR ($\\lambda=0$) minus AWP")
+        for lab, name in ((APPR, "New approval pairs"), (SEND, "New transfer senders")):
+            lines.append(row(name, ((add.get("W0") or {}).get("cpr_l0_minus_awp") or {}).get(lab),
+                             ((add.get("W1") or {}).get("cpr_l0_minus_awp") or {}).get(lab)))
+    lines += block("C-AWP minus AWP")
+    lines += [
+        row("New approval pairs", b1(X0, "cawp_l50", "awp", APPR), b1(X1, "cawp_l50", "awp", APPR)),
+        row("New transfer senders", b1(X0, "cawp_l50", "awp", SEND), b1(X1, "cawp_l50", "awp", SEND)),
+        row("Mean of the two spender labels", a1(X0, "cawp_l50"), a1(X1, "cawp_l50")),
+        row("New counterparties", b1(X0, "cawp_l50", "awp", NEWCP), b1(X1, "cawp_l50", "awp", NEWCP)),
+        row("New approval pairs, spenders with a transfer edge", pos(X0, "cawp_l50", APPR), pos(X1, "cawp_l50", APPR)),
+        row("New transfer senders, spenders with a transfer edge", pos(X0, "cawp_l50", SEND), pos(X1, "cawp_l50", SEND)),
+        row("Liquidation-free close rate, traders", liq("W0", "cawp_l50"), liq("W1", "cawp_l50")),
+    ]
+    lines += block("C-AWP minus C-PR")
+    lines += [
+        row("New approval pairs", b1(X0, "cawp_l50", "cpr_l50", APPR), b1(X1, "cawp_l50", "cpr_l50", APPR)),
+        row("New transfer senders", b1(X0, "cawp_l50", "cpr_l50", SEND), b1(X1, "cawp_l50", "cpr_l50", SEND)),
+    ]
+    z0, z1 = X0["A3_coverage"]["awp_zero"], X1["A3_coverage"]["awp_zero"]
+    lines += block(f"$\\tau$ on new approval pairs among the spenders that AWP scores zero ($n={fint(z0['n'])}$ and "
+                   f"${fint(z1['n'])}$)")
+    for m, name in (("cpr_l50", "C-PR"), ("cawp_l50", "C-AWP"), ("in_approve_degree", "In-approve degree")):
+        lines.append(tau_row(name, z0["taus_new_approval_pairs"].get(m), z1["taus_new_approval_pairs"].get(m)))
+    sw = x["same_window"]["A5_both_constructs"]["contrasts"]
+    lines += block(f"Same window, mean of the transfer and allowance families ($n={fint(x['same_window']['n'])}$)")
+    for a, name in (("cpr_l50", "C-PR minus AWP"), ("cawp_l50", "C-AWP minus AWP")):
+        r = _find(sw, a, "awp", FAMILY_PROXIES["transfer"] + FAMILY_PROXIES["allowance"])
+        lines.append(f"{name} & \\multicolumn{{2}}{{c}}{{{delta_math(r, name)}}} \\\\")
+    caption = (
+        "Post hoc comparisons of C-PR and C-AWP with AWP (Section~\\ref{sub:cpr-awp-posthoc}): spender cohorts of "
+        f"W0 and W1, their traders ($n={fint(x['traders_W0']['n'])}$ and ${fint(x['traders_W1']['n'])}$) and the "
+        "matched cohort. New counterparties are new approval pairs plus new transfer senders; the mean of the two "
+        "spender labels averages $\\tau$ on both. All rows were chosen after the labels were known, C-PR "
+        "($\\lambda=0$) minus AWP after the other rows, and none is a registered test; the C-PR rows on all spenders "
+        "repeat Tables~\\ref{tab:holdout-diff} and~\\ref{tab:fresh-contrasts}. "
+        f"{boot_note(seed)}"
+    )
+    head = (f"Comparison & W0 ($n={fint(w0.get('spenders'))}$) & {W1_NAME} ($n={fint(w1.get('spenders'))}$)")
+    srcs = [SOURCES["cpr_awp"]] + ([SOURCES["cpr_awp_addendum"]] if add else []) + [SOURCES["w0"], SOURCES["w1"]]
+    emit("cpr-awp-posthoc", caption, tabular("lcc", head, lines), srcs)
 
 
 # --------------------------------------------------------------------------- figures
@@ -1983,6 +2080,11 @@ def main() -> int:
         reg = {k: load_json(PROC_SHARED / d / "eval_summary.json")
                for k, d in (("same", "same-window"), ("w0", "holdout-w0"), ("w1", "registered-w1"))}
         t_registered_vs_revised(reg, {"same": same, "w0": w0, "w1": w1}, seed)
+    cpr_awp = _load("cpr_awp") if REVISED else None
+    if cpr_awp and same and w0 and w1:
+        t_cpr_awp_posthoc(cpr_awp, _load("cpr_awp_addendum"), w0, w1, same, seed)
+    elif REVISED:
+        SKIPPED.append("cpr-awp-posthoc (no post hoc summary)")
 
     if not args.no_figures:
         STATE["name"] = "figures"

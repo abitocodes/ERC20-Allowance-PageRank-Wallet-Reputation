@@ -1,0 +1,433 @@
+{
+ "unit": "u14",
+ "lang": "en",
+ "chapter": null,
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s08-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Now the allowance side: which contracts will gain new approval pairs?",
+     "tts": "Now the allowance side. Which contracts will gain new approval pairs?",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Here I'll report the result just as it is.",
+     "tts": "Here I'll report the result just as it is.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The panels are the same as on the previous slide: τ on the left, the paired difference on the right.",
+     "tts": "The panels are the same as on the previous slide. Tau on the left, the paired difference on the right.",
+     "focus": [
+      "a5",
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "You've met this pair before: in W0, the in-approve degree, in green, reaches 0.250.",
+     "tts": "You've met this pair before. In W zero, the in-approve degree, in green, reaches zero point two five zero.",
+     "focus": [
+      "a10",
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank, in amber, reaches 0.231.",
+     "tts": "EndorseRank, in amber, reaches zero point two three one.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The paired difference is −0.019, and the whole interval lies left of 0, on the raw-count side.",
+     "tts": "The paired difference is minus zero point zero one nine, and the whole interval lies left of zero, on the raw-count side.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank did worse than simply counting the owners that approved the contract.",
+     "tts": "EndorseRank did worse than simply counting the owners that approved the contract.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-05",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "In W1 it was also lower, by 0.034, and again below 0.",
+     "tts": "In W one it was also lower, by zero point zero three four, and again below zero.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In both windows the plain count won.",
+     "tts": "In both windows the plain count won.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-05",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Contracts that already have many owners also gain more new owners.",
+     "tts": "Contracts that already have many owners also gain more new owners.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The plain count captures this most directly.",
+     "tts": "The plain count captures this most directly.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The picture on the left, titled rich get richer, is an illustrative example: 10 owners gain 3, and 3 owners gain 1.",
+     "tts": "The picture on the left, titled rich get richer, is an illustrative example. Ten owners gain three, and three owners gain one.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-05",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Still, EndorseRank, the allowance-side score, predicted new approval pairs better than AWP, the transfer-side score.",
+     "tts": "Still, EndorseRank, the allowance-side score, predicted new approval pairs better than A W P, the transfer-side score.",
+     "focus": [
+      "a34",
+      "a41"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It was 0.035 higher in W0 and 0.065 higher in W1.",
+     "tts": "It was zero point zero three five higher in W zero, and zero point zero six five higher in W one.",
+     "focus": [
+      "a36",
+      "a42"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "These comparisons, too, were all computed after the labels were known.",
+     "tts": "These comparisons, too, were all computed after the labels were known.",
+     "focus": [
+      "a49"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And the gray hollow rings beside the dots, from the registered analysis, point the same way.",
+     "tts": "And the gray hollow rings beside the dots, from the registered analysis, point the same way.",
+     "focus": [
+      "a12",
+      "a19"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-06",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So what would we have to change to beat the count?",
+     "tts": "So what would we have to change to beat the count?",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Notice the pink word in the title: hypothesis.",
+     "tts": "Notice the pink word in the title, hypothesis.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-06",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "We changed only the restart rule, to the one AWP uses.",
+     "tts": "We changed only the restart rule, to the one A W P uses.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The walk now restarts more often at owners that approve actively.",
+     "tts": "The walk now restarts more often at owners that approve actively.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "An owner's activity X_u is the sum, over the spenders that owner approved, of the time weight of the latest approval.",
+     "tts": "An owner's activity, X of u, is the sum, over the spenders that owner approved, of the time weight of the latest approval.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It is the activeness we met with AWP on transfers, applied in the same way to allowances.",
+     "tts": "It is the activeness we met with A W P on transfers, applied in the same way to allowances.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In symbols, the restart share π_u is X_u over the sum of all X.",
+     "tts": "In symbols, the restart share, pi of u, is X of u over the sum of all X.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The paths of the walk stay the same; only the shares of the starting points change.",
+     "tts": "The paths of the walk stay the same. Only the shares of the starting points change.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The rain in the picture on the left is the teleportation, and it falls more heavily on active owners, the thick rings.",
+     "tts": "The rain in the picture on the left is the teleportation, and it falls more heavily on active owners, the thick rings.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-06",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "In W0 this variant reaches 0.308, above the in-approve degree at 0.250.",
+     "tts": "In W zero this variant reaches zero point three zero eight, above the in-approve degree at zero point two five zero.",
+     "focus": [
+      "a16",
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The difference is +0.059.",
+     "tts": "The difference is plus zero point zero five nine.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The dashed outline marks the variant, and the small hollow ring is where the original EndorseRank sat.",
+     "tts": "The dashed outline marks the variant, and the small hollow ring is where the original EndorseRank sat.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-06",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "In W1 it was also ahead, by 0.027.",
+     "tts": "In W one it was also ahead, by zero point zero two seven.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Again, the hollow ring marks the original.",
+     "tts": "Again, the hollow ring marks the original.",
+     "focus": [
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-06",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "But we chose this comparison after we had seen the labels, so it cannot count as a finding.",
+     "tts": "But we chose this comparison after we had seen the labels, so it cannot count as a finding.",
+     "focus": [
+      "a47"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That's why it gets a hypothesis tag, not a verdict stamp.",
+     "tts": "That's why it gets a hypothesis tag, not a verdict stamp.",
+     "focus": [
+      "a46"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the first candidate to register and test on a new window in the next study.",
+     "tts": "It is the first candidate to register and test on a new window in the next study.",
+     "focus": [
+      "a48"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s08-06",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "The analysis plan only said to report this variant alongside; it did not fix a comparison with the count.",
+     "tts": "The analysis plan only said to report this variant alongside. It did not fix a comparison with the count.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This variant also agrees less with the same-window allowance proxies: from the 0.585 we saw earlier, it drops to 0.426.",
+     "tts": "This variant also agrees less with the same-window allowance proxies. From the zero point five eight five we saw earlier, it drops to zero point four two six.",
+     "focus": [
+      "a50"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And on the AWP side, we did not test a change of restart rule.",
+     "tts": "And on the A W P side, we did not test a change of restart rule.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

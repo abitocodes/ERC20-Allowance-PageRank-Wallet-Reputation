@@ -1,0 +1,541 @@
+{
+ "unit": "u01",
+ "lang": "en",
+ "chapter": {
+  "title": "Opening question",
+  "subtitle": "What can I check before I sign?",
+  "sub": "Chapter one: the opening question.",
+  "tts": "Chapter one, the opening question."
+ },
+ "intro": [
+  {
+   "sub": "Hello, and welcome.",
+   "tts": "Hello, and welcome."
+  },
+  {
+   "sub": "In this video I walk you through my PhD thesis, step by step.",
+   "tts": "In this video I walk you through my P H D thesis, step by step."
+  },
+  {
+   "sub": "It starts from one small permission that you give in your wallet.",
+   "tts": "It starts from one small permission that you give in your wallet."
+  },
+  {
+   "sub": "We will ask whether that permission can help us judge which contracts to trust.",
+   "tts": "We will ask whether that permission can help us judge which contracts to trust."
+  },
+  {
+   "sub": "By the end, you will know how the scores are built, how they are measured, and what the results do and do not show.",
+   "tts": "By the end, you will know how the scores are built, how they are measured, and what the results do and do not show."
+  }
+ ],
+ "steps": [
+  {
+   "slide": "s01-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "If you have used DeFi, decentralized finance, you have probably seen a window like this one.",
+     "tts": "If you have used DeFi, decentralized finance, you have probably seen a window like this one.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It asks whether a contract may spend your tokens.",
+     "tts": "It asks whether a contract may spend your tokens.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "On the left is you, the owner. On the right, the spender contract.",
+     "tts": "On the left is you, the owner. On the right, the spender contract.",
+     "focus": [
+      "a7",
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The window carries no brand. Any wallet software asks a similar question.",
+     "tts": "The window carries no brand. Any wallet software asks a similar question.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The moment I approve, an allowance edge appears from the owner to the contract.",
+     "tts": "The moment I approve, an allowance edge appears from the owner to the contract.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is the amber arrow from me to the contract, a permission to spend my tokens.",
+     "tts": "That is the amber arrow from me to the contract, a permission to spend my tokens.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": {
+      "title": "Allowance edge",
+      "body": "A permission from an owner that lets a contract spend their tokens"
+     }
+    },
+    {
+     "sub": "At this point we have to judge whether we can trust that contract.",
+     "tts": "At this point we have to judge whether we can trust that contract.",
+     "focus": [
+      "a13",
+      "a14",
+      "a15",
+      "a16",
+      "a17"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "But there is very little to look at.",
+     "tts": "But there is very little to look at.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "This video is about which public signals we can use before signing.",
+     "tts": "This video is about which public signals we can use before signing.",
+     "focus": [
+      "a18",
+      "a19",
+      "a20",
+      "a21",
+      "a22",
+      "a23",
+      "a24",
+      "a25",
+      "a26"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "I also ask whether smoothing those signals with PageRank makes them better.",
+     "tts": "I also ask whether smoothing those signals with PageRank makes them better.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The allowance edge that just appeared is the main character of this thesis.",
+     "tts": "The allowance edge that just appeared is the main character of this thesis.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The title is: Integrating ERC-20 Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring.",
+     "tts": "The title is, Integrating E R C twenty Allowance Edges into PageRank for Enhanced On-Chain Wallet Reputation Scoring.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "ERC-20 is the common standard that most tokens, such as USDC, follow.",
+     "tts": "E R C twenty is the common standard that most tokens, such as U S D C, follow.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I am Taehong Kwon.",
+     "tts": "I am Taehong Kwon.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "My supervisor is Professor Mnkandla, and my co-supervisors are Professor Moulla and Dr. Attipoe.",
+     "tts": "My supervisor is Professor Mnkandla, and my co-supervisors are Professor Moulla and Doctor Attipoe.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "This is the main question of the thesis.",
+     "tts": "This is the main question of the thesis.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "What do ERC-20 allowance edges add to PageRank?",
+     "tts": "What do E R C twenty allowance edges add to PageRank?",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "We ask this for one use: PageRank as a reputation score for smart contracts on Arbitrum One.",
+     "tts": "We ask this for one use, PageRank as a reputation score for smart contracts on Arbitrum One.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A smart contract is simply a program that runs on a blockchain.",
+     "tts": "A smart contract is simply a program that runs on a blockchain.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "I compare against two things.",
+     "tts": "I compare against two things.",
+     "focus": [
+      "a6",
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "One is AWP, the existing score that walks over the transfer records.",
+     "tts": "One is A W P, the existing score that walks over the transfer records.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "AWP stands for Adaptive Weighted PageRank. A PageRank score comes from a walker hopping along the edges, which I build up in chapter 4.",
+     "tts": "A W P stands for Adaptive Weighted PageRank. A PageRank score comes from a walker hopping along the edges, which I build up in chapter four.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The other is the plain count of edges, called the raw degree. Both walks start from these counts and smooth them out.",
+     "tts": "The other is the plain count of edges, called the raw degree. Both walks start from these counts and smooth them out.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": {
+      "title": "Raw degree",
+      "body": "The plain count of a contract's edges, with no walk at all"
+     }
+    },
+    {
+     "sub": "In this thesis, the score that walks over the allowances is called EndorseRank.",
+     "tts": "In this thesis, the score that walks over the allowances is called EndorseRank.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "I split the main question into five research questions, listed on the right.",
+     "tts": "I split the main question into five research questions, listed on the right.",
+     "focus": [
+      "a4",
+      "a8",
+      "a20",
+      "a24",
+      "a34"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The first three ask whether the two scores order contracts differently, how closely each agrees with the checks I define later, and what each costs to compute.",
+     "tts": "The first three ask whether the two scores order contracts differently, how closely each agrees with the checks I define later, and what each costs to compute.",
+     "focus": [
+      "a4",
+      "a8",
+      "a20"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The number at the right end of each row is the chapter where its answer comes.",
+     "tts": "The number at the right end of each row is the chapter where its answer comes.",
+     "focus": [
+      "a7",
+      "a11",
+      "a23",
+      "a30",
+      "a37"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When we get there, I will also show each answer in the thin bar at the very bottom of the screen.",
+     "tts": "When we get there, I will also show each answer in the thin bar at the very bottom of the screen.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Each of the first three questions has a hypothesis, H1 to H3.",
+     "tts": "Each of the first three questions has a hypothesis, H one to H three.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "A hypothesis is an expected answer, set up in advance.",
+     "tts": "A hypothesis is an expected answer, set up in advance.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "These three are checks that hold largely by construction, because of the way the scores are built.",
+     "tts": "These three are checks that hold largely by construction, because of the way the scores are built.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The first real test is RQ4. Do the scores predict what happens later, and do they predict it better than the raw degree?",
+     "tts": "The first real test is research question four. Do the scores predict what happens later, and do they predict it better than the raw degree?",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The second is RQ5, which mixes the two kinds of edges.",
+     "tts": "The second is research question five, which mixes the two kinds of edges.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each question also has one objective, and I call them objectives O1 to O5.",
+     "tts": "Each question also has one objective, and I call them objectives O one to O five.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So O1 belongs to RQ1, and so on, up to O5 for RQ5.",
+     "tts": "So O one belongs to research question one, and so on, up to O five for research question five.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "I will judge whether each objective was met at the end, in chapter 11.",
+     "tts": "I will judge whether each objective was met at the end, in chapter eleven.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "In this video we will follow this road. We start here, at the opening question.",
+     "tts": "In this video we will follow this road. We start here, at the opening question.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "First we look at how allowances differ from transfers, and then at the data collected from Arbitrum One.",
+     "tts": "First we look at how allowances differ from transfers, and then at the data collected from Arbitrum One.",
+     "focus": [
+      "a21",
+      "a11"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Next I derive the PageRank formula from scratch, then explain how each edge gets its weight and what the four scores are.",
+     "tts": "Next I derive the PageRank formula from scratch, then explain how each edge gets its weight and what the four scores are.",
+     "focus": [
+      "a22",
+      "a12",
+      "a23"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "After we see how to measure whether a score got it right, I show the results and the verdicts of the rules fixed in advance.",
+     "tts": "After we see how to measure whether a score got it right, I show the results and the verdicts of the rules fixed in advance.",
+     "focus": [
+      "a13",
+      "a24",
+      "a14"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Finally we look at the cost of an attack and the speed of computation, and then I sum up.",
+     "tts": "Finally we look at the cost of an attack and the speed of computation, and then I sum up.",
+     "focus": [
+      "a25",
+      "a15"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s01-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "This road now becomes the bar at the bottom of the screen.",
+     "tts": "This road now becomes the bar at the bottom of the screen.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Until the end of the video, it will keep showing where we are.",
+     "tts": "Until the end of the video, it will keep showing where we are.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Right now it points to the next stop, chapter 2: Allowances and transfers.",
+     "tts": "Right now it points to the next stop, chapter two, Allowances and transfers.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

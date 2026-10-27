@@ -1,0 +1,873 @@
+{
+ "unit": "u18",
+ "lang": "en",
+ "chapter": {
+  "title": "Attack cost and speed",
+  "subtitle": "What it costs to fool the score",
+  "sub": "Chapter ten: attack cost and speed. What does it cost to fool the score, and how fast does it compute?",
+  "tts": "Chapter ten, attack cost and speed. What does it cost to fool the score, and how fast does it compute?"
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s10-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Let's start with the cost of fooling EndorseRank.",
+     "tts": "Let's start with the cost of fooling EndorseRank.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Creating many fake addresses to inflate a reputation is called a Sybil attack.",
+     "tts": "Creating many fake addresses to inflate a reputation is called a Sybil attack.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "An approval can be made without holding any of the token.",
+     "tts": "An approval can be made without holding any of the token.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So the cost is almost only the fees, the gas you pay the network for each transaction.",
+     "tts": "So the cost is almost only the fees, the gas you pay the network for each transaction.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Remember the trap from chapter 4, Deriving PageRank: two nodes that point only at each other? It is the seed of this farm.",
+     "tts": "Remember the trap from chapter four, deriving PageRank, two nodes that point only at each other? It is the seed of this farm.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Here, 20 fake addresses each approve the next one, and together they form a ring.",
+     "tts": "Here, twenty fake addresses each approve the next one, and together they form a ring.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Now rain falls on the farm.",
+     "tts": "Now rain falls on the farm.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Every node gets the same restart share, and the same share spread evenly from the dangling nodes, every time.",
+     "tts": "Every node gets the same restart share, and the same share spread evenly from the dangling nodes, every time.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The share that enters the farm only goes round the ring, along the edges.",
+     "tts": "The share that enters the farm only goes round the ring, along the edges.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "No edge leads out, so nothing leaks out that way.",
+     "tts": "No edge leads out, so nothing leaks out that way.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "We call this a closed farm.",
+     "tts": "We call this a closed farm.",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The tall gauge beside the ring asks: how many times its fair share does the farm collect?",
+     "tts": "The tall gauge beside the ring asks, how many times its fair share does the farm collect?",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Let's follow it with a formula, on the right.",
+     "tts": "Let's follow it with a formula, on the right.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Call c the share that every node gets each time.",
+     "tts": "Call c the share that every node gets each time.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the restart share, 1 − d, plus d times r_dang, all divided by |V|.",
+     "tts": "It is the restart share, one minus d, plus d times r dang, all divided by the number of nodes.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "r_dang is the sum of the shares held by all the dangling nodes.",
+     "tts": "r dang is the sum of the shares held by all the dangling nodes.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the water we collected and handed out again in the third piece, back in chapter 4.",
+     "tts": "It is the water we collected and handed out again in the third piece, back in chapter four.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "In that small world, D was the only dangling node, so it was the same as r_D.",
+     "tts": "In that small world, D was the only dangling node, so it was the same as r of D.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But the real graph has very many dangling nodes, so we add up all their shares.",
+     "tts": "But the real graph has very many dangling nodes, so we add up all their shares.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Think of c as one raindrop.",
+     "tts": "Think of c as one raindrop.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Call M the share held by the whole farm, the pool inside the ring.",
+     "tts": "Call M the share held by the whole farm, the pool inside the ring.",
+     "focus": [
+      "a30"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In one sweep, two things come into the farm.",
+     "tts": "In one sweep, two things come into the farm.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "First, the new rain: one drop c on each address, so |S| times c.",
+     "tts": "First, the new rain, one drop c on each address, so the number of farm addresses times c.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Second, d times M, the share that stays in the ring along the edges.",
+     "tts": "Second, d times M, the share that stays in the ring along the edges.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "No share leaves along an edge.",
+     "tts": "No share leaves along an edge.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So where does the rest, (1 − d) M, go?",
+     "tts": "So where does the rest, the quantity one minus d, times M, go?",
+     "focus": [
+      "a24"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the share with which the walker teleports, so it spreads evenly over every node of the graph.",
+     "tts": "It is the share with which the walker teleports, so it spreads evenly over every node of the graph.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The dashed arrows show it: teleportation is the only way out of the farm.",
+     "tts": "The dashed arrows show it. Teleportation is the only way out of the farm.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the share that comes back to the farm is already in the rain.",
+     "tts": "And the share that comes back to the farm is already in the rain.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-01",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "When the values stop changing, what goes out equals what comes in.",
+     "tts": "When the values stop changing, what goes out equals what comes in.",
+     "focus": [
+      "a32"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The share that leaves by teleportation, (1 − d) M, equals the new rain.",
+     "tts": "The share that leaves by teleportation, the quantity one minus d, times M, equals the new rain.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "As a formula, M = dM + |S| c.",
+     "tts": "As a formula, M equals d times M, plus the number of farm addresses times c.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Take dM from both sides, and we get (1 − d) M = |S| c.",
+     "tts": "Take d times M from both sides, and we get the quantity one minus d, times M, equals the number of farm addresses times c.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-01",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Divide both sides by 1 − d, write c out in full, and we get the equation in Chapter 5 of the thesis.",
+     "tts": "Divide both sides by one minus d, write c out in full, and we get the equation in Chapter five of the thesis.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The first fraction, |S| over |V|, is the farm's population share.",
+     "tts": "The first fraction, the number of farm addresses over the number of nodes, is the farm's population share.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the share the farm would get if everything were split fairly.",
+     "tts": "It is the share the farm would get if everything were split fairly.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The second fraction, the shaded one, says how many times that share the farm collects.",
+     "tts": "The second fraction, the shaded one, says how many times that share the farm collects.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Without dangling nodes, r_dang is 0, so top and bottom are both 1 − d.",
+     "tts": "Without dangling nodes, r dang is zero, so top and bottom are both one minus d.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Then the second fraction is 1.",
+     "tts": "Then the second fraction is one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-01",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "In the real allowance graph, r_dang, the sum of the shares held by the dangling nodes, is 0.382.",
+     "tts": "In the real allowance graph, r dang, the sum of the shares held by the dangling nodes, is zero point three eight two.",
+     "focus": [
+      "a44"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Putting it in, 0.15 plus 0.85 times 0.382, all divided by 0.15, gives 3.17 times, the number in the title.",
+     "tts": "Putting it in, zero point one five plus zero point eight five times zero point three eight two, all divided by zero point one five, gives three point one seven times, the number in the title.",
+     "focus": [
+      "a39"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The row below tries other values of d: at 0.75 it is 2.06 times, and at 0.95 it is 8.68 times.",
+     "tts": "The row below tries other values of d. At zero point seven five it is two point zero six times, and at zero point nine five it is eight point six eight times.",
+     "focus": [
+      "a47",
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "When we added a ring of 20 addresses to the real graph and computed with the same code, we also got 3.17 times.",
+     "tts": "When we added a ring of twenty addresses to the real graph and computed with the same code, we also got three point one seven times.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "All of these values were computed on the graph of the revised analysis.",
+     "tts": "All of these values were computed on the graph of the revised analysis.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The solver graph used here has 6,219,063 nodes.",
+     "tts": "The solver graph used here has six million two hundred nineteen thousand sixty-three nodes.",
+     "focus": [
+      "a53"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is 2,602 fewer than the allowance graph we saw in chapter 3.",
+     "tts": "That is two thousand six hundred and two fewer than the allowance graph we saw in chapter three.",
+     "focus": [
+      "a54"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That graph had 6,221,665 nodes.",
+     "tts": "That graph had six million two hundred twenty-one thousand six hundred sixty-five nodes.",
+     "focus": [
+      "a53"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is because addresses whose pairs all carry amounts so small that their value weight is 0 are left out of the solver graph.",
+     "tts": "That is because addresses whose pairs all carry amounts so small that their value weight is zero are left out of the solver graph.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Instead of keeping its share in a ring, a farm can also pour it into one contract.",
+     "tts": "Instead of keeping its share in a ring, a farm can also pour it into one contract.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The box in the middle is the target contract, the one whose score the attacker wants to raise.",
+     "tts": "The box in the middle is the target contract, the one whose score the attacker wants to raise.",
+     "focus": [
+      "a13",
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Say there are f fake addresses: each approves only the target, and the target approves it back.",
+     "tts": "Say there are f fake addresses. Each approves only the target, and the target approves it back.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So together they form a star.",
+     "tts": "So together they form a star.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Below: c is the same raindrop as before, and d is still 0.85.",
+     "tts": "Below, c is the same raindrop as before, and d is still zero point eight five.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Now the fake addresses appear one by one.",
+     "tts": "Now the fake addresses appear one by one.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Each one means two approvals: the fake address approves the target, and the target approves the fake address.",
+     "tts": "Each one means two approvals. The fake address approves the target, and the target approves the fake address.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So every spoke of the star carries two arrows.",
+     "tts": "So every spoke of the star carries two arrows.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": {
+      "title": "Star-shaped farm",
+      "body": "Fake addresses approve only one target, which approves them back"
+     }
+    },
+    {
+     "sub": "With 10 of them, that is 11 addresses, counting the target, and 20 approvals.",
+     "tts": "With ten of them, that is eleven addresses, counting the target, and twenty approvals.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Take one fake address, a.",
+     "tts": "Take one fake address, called A.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It approves only the target t, so it has only one way out.",
+     "tts": "It approves only the target t, so it has only one way out.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A walker who follows an edge from a always goes to t.",
+     "tts": "A walker who follows an edge from A always goes to t.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So P_a,t, the first line on the right, is 1.",
+     "tts": "So P of A to t, the first line on the right, is one.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Line 2: the share of a is the rain c that falls on everyone, plus the share the target hands to a.",
+     "tts": "Line two. The share of A is the rain c that falls on everyone, plus the share the target hands to A.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That second part is d times r_t times P_t,a.",
+     "tts": "That second part is d times r of t times P of t to A.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "P_t,a is the chance that the walker steps from t to a.",
+     "tts": "P of t to A is the chance that the walker steps from t to A.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "The target's share, line 3, works the same way.",
+     "tts": "The target's share, line three, works the same way.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Take the rain c, and add d times the sum of the shares sent by the fake addresses.",
+     "tts": "Take the rain c, and add d times the sum of the shares sent by the fake addresses.",
+     "focus": [
+      "a27"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Since P_a,t is 1, we just add each r_a as it is.",
+     "tts": "Since P of A to t is one, we just add each r of A as it is.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Next, put the second equation into the third.",
+     "tts": "Next, put the second equation into the third.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Expanding the brackets, c is added f times, once for each fake address.",
+     "tts": "Expanding the brackets, c is added f times, once for each fake address.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "What is left is d squared times r_t times the sum of P_t,a.",
+     "tts": "What is left is d squared times r of t times the sum of P of t to A.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Everything the target hands out goes to the fake addresses, so that shaded sum is 1.",
+     "tts": "Everything the target hands out goes to the fake addresses, so that shaded sum is one.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "Collect r_t on the left: r_t times (1 − d²) equals c times (1 + df).",
+     "tts": "Collect r of t on the left. r of t, times the quantity one minus the square of d, equals c, times the quantity one plus d times f.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Divide, and we get the main formula, the shaded fraction.",
+     "tts": "Divide, and we get the main formula, the shaded fraction.",
+     "focus": [
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each extra fake address raises the score by the same amount: d c over (1 − d²).",
+     "tts": "Each extra fake address raises the score by the same amount, d times c, divided by the quantity one minus the square of d.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And each one takes 2 approvals per window.",
+     "tts": "And each one takes two approvals per window.",
+     "focus": [
+      "a37"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s10-02",
+   "step": 7,
+   "lines": [
+    {
+     "sub": "Let's put in numbers.",
+     "tts": "Let's put in numbers.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "1 − 0.85² is 0.2775.",
+     "tts": "One minus the square of zero point eight five is zero point two seven seven five.",
+     "focus": [
+      "a45"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "With c at 7.64 × 10⁻⁸, and f = 10, the target's score is 2.62 × 10⁻⁶.",
+     "tts": "With c at seven point six four times ten to the minus eight, and f equal to ten, the target's score is two point six two times ten to the minus six.",
+     "focus": [
+      "a43"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Adding the star to the real graph and computing gave the same value.",
+     "tts": "Adding the star to the real graph and computing gave the same value.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the scale below, the red dot, f = 10, passes the cohort's median.",
+     "tts": "On the scale below, the red dot, f equals ten, passes the cohort's median.",
+     "focus": [
+      "a48",
+      "a55"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It reaches about half of the 90th percentile, the score that 90% of contracts sit below.",
+     "tts": "It reaches about half of the ninetieth percentile, the score that ninety percent of contracts sit below.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But it is only about 1/12,000 of the top.",
+     "tts": "But it is only about one twelve-thousandth of the top.",
+     "focus": [
+      "a49",
+      "a57"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

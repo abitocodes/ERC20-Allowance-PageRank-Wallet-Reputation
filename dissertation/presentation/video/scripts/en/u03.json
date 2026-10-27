@@ -1,0 +1,712 @@
+{
+ "unit": "u03",
+ "lang": "en",
+ "chapter": {
+  "title": "The data",
+  "subtitle": "Three years of public records",
+  "sub": "Chapter three: the data. Let's see which records this study works with.",
+  "tts": "Chapter three. The data. Let's see which records this study works with."
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s03-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "The data are the public records of Arbitrum One.",
+     "tts": "The data are the public records of Arbitrum One.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Let me spread three years of them out on this time axis.",
+     "tts": "Let me spread three years of them out on this time axis.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The observation window runs from 1 October 2023 to 30 June 2026: 33 months.",
+     "tts": "The observation window runs from the first of October twenty twenty-three to the thirtieth of June twenty twenty-six, thirty-three months.",
+     "focus": [
+      "a11",
+      "a12"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The amber band on top is the approval records created each month.",
+     "tts": "The amber band on top is the approval records created each month.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The sky-blue band below is the transfer records.",
+     "tts": "The sky-blue band below is the transfer records.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Each band is scaled to its own height, so please compare only their shapes.",
+     "tts": "Each band is scaled to its own height, so please compare only their shapes.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Add the three months of the label window W1, and it is exactly three years.",
+     "tts": "Add the three months of the label window W one, and it is exactly three years.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": {
+      "title": "Label window",
+      "body": "A later stretch of time whose events are used to grade the scores"
+     }
+    }
+   ]
+  },
+  {
+   "slide": "s03-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "We tested twice.",
+     "tts": "We tested twice.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "In W0, the scores were frozen on 31 March 2026, at the marker t₁.",
+     "tts": "In W zero, the scores were frozen on the thirty-first of March twenty twenty-six, at the marker t one.",
+     "focus": [
+      "a5",
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Frozen means fixed on that day and not changed afterwards.",
+     "tts": "Frozen means fixed on that day and not changed afterwards.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "They were then graded on what happened from April to June.",
+     "tts": "They were then graded on what happened from April to June.",
+     "focus": [
+      "a16"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "In W1, the scores were frozen on 30 June, at T_obs, the end of the observation window.",
+     "tts": "In W one, the scores were frozen on the thirtieth of June, at T obs, the end of the observation window.",
+     "focus": [
+      "a6",
+      "a9"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "They were graded on what happened from July to September.",
+     "tts": "They were graded on what happened from July to September.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This study extracted those three months of records only after the grading rules were committed to a public repository.",
+     "tts": "This study extracted those three months of records only after the grading rules were committed to a public repository.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That commit was the registration: the rules were fixed in public, in advance.",
+     "tts": "That commit was the registration. The rules were fixed in public, in advance.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That is why there is a lock on it.",
+     "tts": "That is why there is a lock on it.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-01",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Last is the age ruler.",
+     "tts": "Last is the age ruler.",
+     "focus": [
+      "a18",
+      "a22"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The time weight is measured backward from T_obs, that is, 30 June 2026.",
+     "tts": "The time weight is measured backward from T obs, that is, the thirtieth of June twenty twenty-six.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The oldest record is 1,004 days old.",
+     "tts": "The oldest record is one thousand and four days old.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This ruler comes back later, when I explain the time weight.",
+     "tts": "This ruler comes back later, when I explain the time weight.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Let me start with the volume of records.",
+     "tts": "Let me start with the volume of records.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Across the five tokens, I counted only the records that have a contract under study at one end.",
+     "tts": "Across the five tokens, I counted only the records that have a contract under study at one end.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "I call these the cohort contracts. We will soon see how they were chosen.",
+     "tts": "I call these the cohort contracts. We will soon see how they were chosen.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The period is the 33-month observation window.",
+     "tts": "The period is the thirty-three-month observation window.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "More than 220 million approval records: exactly 224,954,202.",
+     "tts": "More than two hundred twenty million approval records. Exactly two hundred twenty-four million, nine hundred fifty-four thousand, two hundred and two.",
+     "focus": [
+      "a7"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And more than 1.1 billion transfer records: exactly 1,149,168,538.",
+     "tts": "And more than one point one billion transfer records. Exactly one billion, one hundred forty-nine million, one hundred sixty-eight thousand, five hundred thirty-eight.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The line behind each number is the records piling up month by month.",
+     "tts": "The line behind each number is the records piling up month by month.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Below, one dot is 1 million records, so approvals make 225 dots and transfers 1,149.",
+     "tts": "Below, one dot is one million records, so approvals make two hundred twenty-five dots and transfers one thousand one hundred forty-nine.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Stacked again as bars, the same dots make the difference in length easy to see.",
+     "tts": "Stacked again as bars, the same dots make the difference in length easy to see.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "There are about five times as many transfers as approvals.",
+     "tts": "There are about five times as many transfers as approvals.",
+     "focus": [
+      "a14",
+      "a16"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Approvals happen much more rarely than transfers.",
+     "tts": "Approvals happen much more rarely than transfers.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-02",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "For comparison, when all tokens were extracted, as first planned, there were about 390 million approval records and 1.5 billion transfer records.",
+     "tts": "For comparison, when all tokens were extracted, as first planned, there were about three hundred ninety million approval records and one point five billion transfer records.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "These are the numbers of the registered analysis.",
+     "tts": "These are the numbers of the registered analysis.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The W1 records from July to September were extracted by this study separately, after the registration.",
+     "tts": "The W one records from July to September were extracted by this study separately, after the registration.",
+     "focus": [
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The cloud cost of all these queries was $34.80, within the budget of $50 set at the start.",
+     "tts": "The cloud cost of all these queries was thirty-four dollars and eighty cents, within the budget of fifty dollars set at the start.",
+     "focus": [
+      "a19"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Each token has its own unit and its own value, so amounts cannot simply be added together.",
+     "tts": "Each token has its own unit and its own value, so amounts cannot simply be added together.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "That is why the revised analysis, the later version that followed the registered one, converted every amount to US dollars.",
+     "tts": "That is why the revised analysis, the later version that followed the registered one, converted every amount to US dollars.",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The prices are DefiLlama daily closes, that is, the last price of each day.",
+     "tts": "The prices are DeFi Llama daily closes, that is, the last price of each day.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Five tokens remain: WETH, USDC, USDT0, ARB and WBTC.",
+     "tts": "Five tokens remain. Wrapped ether, U S D C, U S D T zero, A R B, and wrapped bitcoin.",
+     "focus": [
+      "a7",
+      "a9",
+      "a14",
+      "a16",
+      "a17"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Chainlink publishes price feeds on the chain.",
+     "tts": "Chainlink publishes price feeds on the chain.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Start with the tokens whose Chainlink feed is rated low or medium risk and that have a daily price. There are 46.",
+     "tts": "Start with the tokens whose Chainlink feed is rated low or medium risk, and that have a daily price. There are forty-six.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "These five have the most records among them.",
+     "tts": "These five have the most records among them.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "All five are priced by feeds rated low risk.",
+     "tts": "All five are priced by feeds rated low risk.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The vertical axis is a log scale, so everything from 0.1 dollars to 100,000 dollars fits in one picture.",
+     "tts": "The vertical axis is a log scale, so everything from zero point one dollars to one hundred thousand dollars fits in one picture.",
+     "focus": [
+      "a6",
+      "a18"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": {
+      "title": "Log scale",
+      "body": "An axis where each step up means ten times more"
+     }
+    }
+   ]
+  },
+  {
+   "slide": "s03-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "WETH and WBTC swing up and down a lot.",
+     "tts": "Wrapped ether and wrapped bitcoin swing up and down a lot.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "USDC and USDT0, on the other hand, stay almost fixed at one dollar.",
+     "tts": "U S D C and U S D T zero, on the other hand, stay almost fixed at one dollar.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "They are stablecoins, made to track the dollar.",
+     "tts": "They are stablecoins, made to track the dollar.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So for a token like WETH, one coin can be worth a different number of dollars from day to day.",
+     "tts": "So for a token like wrapped ether, one coin can be worth a different number of dollars from day to day.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-03",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "A transfer is converted at the price of the day it happened.",
+     "tts": "A transfer is converted at the price of the day it happened.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "An allowance is converted at the price of the anchor day, the day the scores are frozen.",
+     "tts": "An allowance is converted at the price of the anchor day, the day the scores are frozen.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Those are t₁, 31 March, and T_obs, 30 June. The white dots mark those prices.",
+     "tts": "Those are t one, the thirty-first of March, and T obs, the thirtieth of June. The white dots mark those prices.",
+     "focus": [
+      "a4",
+      "a5"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Why? An allowance is a promise that is still alive on that day.",
+     "tts": "Why? An allowance is a promise that is still alive on that day.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-03",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "The units must match too.",
+     "tts": "The units must match too.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "One USDC is a million base units, its smallest pieces. That is six zeros.",
+     "tts": "One U S D C is a million base units, its smallest pieces. That is six zeros.",
+     "focus": [
+      "a36",
+      "a34"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "One WETH has 18 zeros: 12 more than USDC.",
+     "tts": "One wrapped ether has eighteen zeros, twelve more than U S D C.",
+     "focus": [
+      "a41",
+      "a66",
+      "a39"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So we multiply the number of base units, v, by 10^−q, to get the number of tokens.",
+     "tts": "So we multiply the number of base units, v, by ten to the power minus q, to get the number of tokens.",
+     "focus": [
+      "a40"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Here q is the number of decimal places: 6 for USDC, 18 for WETH.",
+     "tts": "Here q is the number of decimal places, six for U S D C, eighteen for wrapped ether.",
+     "focus": [
+      "a70"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Then we multiply by that day's price, p, to get dollars.",
+     "tts": "Then we multiply by that day's price, p, to get dollars.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "We will see this formula again with the value weight.",
+     "tts": "We will see this formula again with the value weight.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s03-03",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "I also checked whether these prices can be trusted.",
+     "tts": "I also checked whether these prices can be trusted.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "I compared them with the Chainlink prices on the chain, on 38 days for each token.",
+     "tts": "I compared them with the Chainlink prices on the chain, on thirty-eight days for each token.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Per token, the median difference was 0.01 to 0.08 percent. The median is the middle value.",
+     "tts": "Per token, the median difference was zero point zero one to zero point zero eight percent. The median is the middle value.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And the largest difference was 0.72 percent.",
+     "tts": "And the largest difference was zero point seven two percent.",
+     "focus": [
+      "a5"
+     ],
+     "zoom": "close",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": []
+}

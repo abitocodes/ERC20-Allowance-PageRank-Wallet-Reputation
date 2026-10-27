@@ -1,0 +1,972 @@
+{
+ "unit": "u20",
+ "lang": "en",
+ "chapter": {
+  "title": "Conclusion",
+  "subtitle": "Five answers, and what they do not say",
+  "sub": "Chapter eleven: conclusion. Let's answer the five questions and see what this study does and does not say.",
+  "tts": "Chapter eleven, conclusion. Let's answer the five questions and see what this study does and does not say."
+ },
+ "intro": [],
+ "steps": [
+  {
+   "slide": "s11-01",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Here they are: five questions, five answers.",
+     "tts": "Here they are. Five questions, five answers.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Along the top, the key pictures of this video have come back as small tiles.",
+     "tts": "Along the top, the key pictures of this video have come back as small tiles.",
+     "focus": [
+      "a4",
+      "a7",
+      "a10",
+      "a13",
+      "a16"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each question is paired with the objective of the same number.",
+     "tts": "Each question is paired with the objective of the same number.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-01",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Question one: do the two scores order contracts differently? Yes.",
+     "tts": "Question one. Do the two scores order contracts differently? Yes.",
+     "focus": [
+      "a21",
+      "a22"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Kendall's τ is 0.174, neither 0 nor 1.",
+     "tts": "Kendall's tau is zero point one seven four, neither zero nor one.",
+     "focus": [
+      "a23"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "So EndorseRank and AWP order the same contracts quite differently.",
+     "tts": "So EndorseRank and A W P order the same contracts quite differently.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "But the two scores walk different graphs in different ways, so to some degree this follows by construction.",
+     "tts": "But the two scores walk different graphs in different ways, so to some degree this follows by construction.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-01",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "Question two: what does each score agree with?",
+     "tts": "Question two. What does each score agree with?",
+     "focus": [
+      "a23",
+      "a24"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Each score agrees most with the proxies built from its own edges.",
+     "tts": "Each score agrees most with the proxies built from its own edges.",
+     "focus": [
+      "a25"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "EndorseRank reaches 0.585 with the allowance proxies, and AWP 0.572 with the transfer proxies.",
+     "tts": "EndorseRank reaches zero point five eight five with the allowance proxies, and A W P zero point five seven two with the transfer proxies.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This is an intended-construct check.",
+     "tts": "This is an intended-construct check.",
+     "focus": [
+      "a32"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The proxies come from the same records, so part of the agreement is built in.",
+     "tts": "The proxies come from the same records, so part of the agreement is built in.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-01",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "Question three: how long does each take? Time follows the number of edges.",
+     "tts": "Question three. How long does each take? Time follows the number of edges.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "AWP took 2.17 times as long as EndorseRank, and its graph has 2.23 times as many edges.",
+     "tts": "A W P took two point one seven times as long as EndorseRank, and its graph has two point two three times as many edges.",
+     "focus": [
+      "a34",
+      "a35"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "It is the same solver, so the speed comes from the graph.",
+     "tts": "It is the same solver, so the speed comes from the graph.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-01",
+   "step": 4,
+   "lines": [
+    {
+     "sub": "Question four: do the scores predict later events, and better than the count?",
+     "tts": "Question four. Do the scores predict later events, and better than the count?",
+     "focus": [
+      "a27",
+      "a28"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Every score predicted later events to some degree.",
+     "tts": "Every score predicted later events to some degree.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "On the transfer side, the walk, that is AWP, beat the plain count.",
+     "tts": "On the transfer side, the walk, that is A W P, beat the plain count.",
+     "focus": [
+      "a34"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But on the allowance side, the plain count beat EndorseRank, the score I proposed.",
+     "tts": "But on the allowance side, the plain count beat EndorseRank, the score I proposed.",
+     "focus": [
+      "a41"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "These are post hoc comparisons, made after seeing the labels.",
+     "tts": "These are post hoc comparisons, made after seeing the labels.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-01",
+   "step": 5,
+   "lines": [
+    {
+     "sub": "Question five: does mixing both edge types help? No.",
+     "tts": "Question five. Does mixing both edge types help? No.",
+     "focus": [
+      "a29",
+      "a30"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "C-PR, which mixes the two edge types, met neither of the two rules fixed in advance, A and B.",
+     "tts": "C P R, which mixes the two edge types, met neither of the two rules fixed in advance, rule A and rule B.",
+     "focus": [
+      "a17",
+      "a18"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This is a re-analysis that applies the rules to the revised scores.",
+     "tts": "This is a re-analysis that applies the rules to the revised scores.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the registered analysis gave the same verdicts.",
+     "tts": "And the registered analysis gave the same verdicts.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-01",
+   "step": 6,
+   "lines": [
+    {
+     "sub": "The line at the bottom is about an outcome found in neither edge type, such as avoiding liquidation.",
+     "tts": "The line at the bottom is about an outcome found in neither edge type, such as avoiding liquidation.",
+     "focus": [
+      "a51"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "There, we found no evidence that the allowance side leads.",
+     "tts": "There, we found no evidence that the allowance side leads.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the comparison between the PageRank versions was not resolved.",
+     "tts": "And the comparison between the PageRank versions was not resolved.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Again, this is a re-analysis on the revised scores.",
+     "tts": "Again, this is a re-analysis on the revised scores.",
+     "focus": [
+      "a52"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-01",
+   "step": 7,
+   "lines": [
+    {
+     "sub": "Now the row of objectives: the first three were met.",
+     "tts": "Now the row of objectives. The first three were met.",
+     "focus": [
+      "a50",
+      "a52",
+      "a54"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But all three were met largely by construction.",
+     "tts": "But all three were met largely by construction.",
+     "focus": [
+      "a60"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "The fourth was only partly met: prediction was met, but only AWP did better than the count.",
+     "tts": "The fourth was only partly met. Prediction was met, but only A W P did better than the count.",
+     "focus": [
+      "a56"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The fifth was not met, and the same holds in the registered analysis.",
+     "tts": "The fifth was not met, and the same holds in the registered analysis.",
+     "focus": [
+      "a58"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-02",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "So what does this study add? Five things.",
+     "tts": "So what does this study add? Five things.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Let's take them one card at a time.",
+     "tts": "Let's take them one card at a time.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-02",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First, it uses the allowance as an edge of contract reputation. That is EndorseRank.",
+     "tts": "First, it uses the allowance as an edge of contract reputation. That is EndorseRank.",
+     "focus": [
+      "a10"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The allowance an owner gives a contract is an endorsement.",
+     "tts": "The allowance an owner gives a contract is an endorsement.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Second, an evaluation design that sets every score against the raw count before smoothing, in the same window and in two windows outside it.",
+     "tts": "Second, an evaluation design that sets every score against the raw count before smoothing, in the same window and in two windows outside it.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Third, a closed form that shows what EndorseRank actually computes at a depth-one spender.",
+     "tts": "Third, a closed form that shows what EndorseRank actually computes at a depth-one spender.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "There, EndorseRank is a split approval count.",
+     "tts": "There, EndorseRank is a split approval count.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Fourth, C-PR, which mixes the two edge types, tested by rules fixed in advance. It met neither rule, A nor B.",
+     "tts": "Fourth, C P R, which mixes the two edge types, tested by rules fixed in advance. It met neither rule A nor rule B.",
+     "focus": [
+      "a31"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Fifth, a comparison registered in advance on an outcome found in neither edge type.",
+     "tts": "Fifth, a comparison registered in advance on an outcome found in neither edge type.",
+     "focus": [
+      "a38"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "In this study, that outcome is liquidation avoidance among GMX V2 contract traders.",
+     "tts": "In this study, that outcome is liquidation avoidance among G M X V two contract traders.",
+     "focus": [
+      "a42"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-02",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The PageRank algorithm and AWP's weights are borrowed.",
+     "tts": "The PageRank algorithm and A W P's weights are borrowed.",
+     "focus": [
+      "a44"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "What is new is the allowance as a kind of edge, and the way it was tested.",
+     "tts": "What is new is the allowance as a kind of edge, and the way it was tested.",
+     "focus": [
+      "a45",
+      "a46"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-03",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Let me also be clear about the limitations.",
+     "tts": "Let me also be clear about the limitations.",
+     "focus": [
+      "a1"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "This is what this study does not say.",
+     "tts": "This is what this study does not say.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-03",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "First, these scores use no off-chain information except daily prices and the token list.",
+     "tts": "First, these scores use no off-chain information except daily prices and the token list.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Off-chain means anything not recorded on the chain itself.",
+     "tts": "Off-chain means anything not recorded on the chain itself.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "So we cannot tell whether the owners who approve a contract are really different people.",
+     "tts": "So we cannot tell whether the owners who approve a contract are really different people.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "It is only a reputation of contracts. It says nothing about whether the code is safe.",
+     "tts": "It is only a reputation of contracts. It says nothing about whether the code is safe.",
+     "focus": [
+      "a6"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Only contracts received scores, so it says nothing at all about ordinary EOA addresses.",
+     "tts": "Only contracts received scores, so it says nothing at all about ordinary E O A addresses.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And the revised analysis in the main text was set after the registered results were known, so its verdicts are a re-analysis.",
+     "tts": "And the revised analysis in the main text was set after the registered results were known, so its verdicts are a re-analysis.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-03",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "The comparisons with the raw count, and with the variant that restarts more often at active owners, were made after seeing the labels.",
+     "tts": "The comparisons with the raw count, and with the variant that restarts more often at active owners, were made after seeing the labels.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "So they are post hoc.",
+     "tts": "So they are post hoc.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And the results come from an ego network that keeps only the edges touching the cohort.",
+     "tts": "And the results come from an ego network that keeps only the edges touching the cohort.",
+     "focus": [
+      "a14"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": {
+      "title": "Ego network",
+      "body": "Only the edges that touch the cohort's contracts, not the whole chain"
+     }
+    },
+    {
+     "sub": "They come from five tokens, from one chain, Arbitrum One, and from these months only.",
+     "tts": "They come from five tokens, from one chain, Arbitrum One, and from these months only.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The trader samples are small: 70 in W1 and 88 in W0.",
+     "tts": "The trader samples are small. Seventy in W one and eighty-eight in W zero.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "And the score with uniform restarts is weak against closed farms.",
+     "tts": "And the score with uniform restarts is weak against closed farms.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-04",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "Remember the wallet window from the very beginning of this video?",
+     "tts": "Remember the wallet window from the very beginning of this video?",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Given what we found, what could that window show?",
+     "tts": "Given what we found, what could that window show?",
+     "focus": [
+      "a2"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-04",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "The window from the start opens again.",
+     "tts": "The window from the start opens again.",
+     "focus": [
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "This time it has one more line: the number of distinct owner addresses that approved this contract.",
+     "tts": "This time it has one more line. The number of distinct owner addresses that approved this contract.",
+     "focus": [
+      "a11"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "Owners here are addresses, so the line counts addresses, not people.",
+     "tts": "Owners here are addresses, so the line counts addresses, not people.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "Going by this study's results, this number is a public signal that any service can compute without PageRank.",
+     "tts": "Going by this study's results, this number is a public signal that any service can compute without PageRank.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "And in the out-of-window test, EndorseRank did not beat it either.",
+     "tts": "And in the out-of-window test, EndorseRank did not beat it either.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "The N on the screen is a placeholder and does not point to any particular contract.",
+     "tts": "The N on the screen is a placeholder and does not point to any particular contract.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "close",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-04",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "But this number only says how widely the contract is approved.",
+     "tts": "But this number only says how widely the contract is approved.",
+     "focus": [
+      "a13"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "A low number is a reason to look closer.",
+     "tts": "A low number is a reason to look closer.",
+     "focus": [
+      "a17"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "But a high number is no reason to sign.",
+     "tts": "But a high number is no reason to sign.",
+     "focus": [
+      "a20"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "That is why the cursor only rests on the Approve button.",
+     "tts": "That is why the cursor only rests on the Approve button.",
+     "focus": [
+      "a15"
+     ],
+     "zoom": "soft",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-04",
+   "step": 3,
+   "lines": [
+    {
+     "sub": "For further research, I have four things in mind.",
+     "tts": "For further research, I have four things in mind.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "First, register the activity-restart variant in advance on a new window and test it against the count.",
+     "tts": "First, register the activity-restart variant in advance on a new window and test it against the count.",
+     "focus": [
+      "a12"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "For now, this is only a hypothesis.",
+     "tts": "For now, this is only a hypothesis.",
+     "focus": [
+      "a9"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Second, redo the revised analysis itself as a registered test.",
+     "tts": "Second, redo the revised analysis itself as a registered test.",
+     "focus": [
+      "a21"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "Third, restart only from trusted seeds, to block farms.",
+     "tts": "Third, restart only from trusted seeds, to block farms.",
+     "focus": [
+      "a28"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": {
+      "title": "Trusted seeds",
+      "body": "Chosen addresses that the walk restarts from, instead of every node"
+     }
+    },
+    {
+     "sub": "Under uniform restarts, a closed farm still collects a share.",
+     "tts": "Under uniform restarts, a closed farm still collects a share.",
+     "focus": [
+      "a29"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And fourth, compare the scores with real contract-risk labels, such as drainers, which empty wallets, and rug pulls, where the makers run off with the money.",
+     "tts": "And fourth, compare the scores with real contract-risk labels, such as drainers, which empty wallets, and rug pulls, where the makers run off with the money.",
+     "focus": [
+      "a36"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-05",
+   "step": 0,
+   "lines": [
+    {
+     "sub": "The four nodes of our small world rise again, like a constellation.",
+     "tts": "The four nodes of our small world rise again, like a constellation.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    },
+    {
+     "sub": "It is the small world where we first built PageRank from scratch.",
+     "tts": "It is the small world where we first built PageRank from scratch.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-05",
+   "step": 1,
+   "lines": [
+    {
+     "sub": "Thank you for watching.",
+     "tts": "Thank you for watching.",
+     "focus": [
+      "a2",
+      "a3"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "At a live talk, this is where questions would come in.",
+     "tts": "At a live talk, this is where questions would come in.",
+     "focus": [
+      "a4"
+     ],
+     "zoom": "soft",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "If you have one, please leave it in the comments.",
+     "tts": "If you have one, please leave it in the comments.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  },
+  {
+   "slide": "s11-05",
+   "step": 2,
+   "lines": [
+    {
+     "sub": "I thank my supervisors, Professor Mnkandla, Professor Moulla and Dr. Attipoe.",
+     "tts": "I thank my supervisors, Professor Mnkandla, Professor Moulla and Doctor Attipoe.",
+     "focus": [
+      "a6",
+      "a7"
+     ],
+     "zoom": "none",
+     "mark": "ring",
+     "card": null
+    },
+    {
+     "sub": "The code and all the results of this study are in the public repository.",
+     "tts": "The code and all the results of this study are in the public repository.",
+     "focus": [
+      "a8"
+     ],
+     "zoom": "none",
+     "mark": "underline",
+     "card": null
+    },
+    {
+     "sub": "And for every number in this video, I have noted which value in which file it comes from.",
+     "tts": "And for every number in this video, I have noted which value in which file it comes from.",
+     "focus": [],
+     "zoom": "none",
+     "mark": "none",
+     "card": null
+    }
+   ]
+  }
+ ],
+ "outro": [
+  {
+   "sub": "That brings us to the end of this walk through my thesis.",
+   "tts": "That brings us to the end of this walk through my thesis."
+  },
+  {
+   "sub": "We saw how an allowance can become an edge of reputation, how the scores were tested, and where the plain count still wins.",
+   "tts": "We saw how an allowance can become an edge of reputation, how the scores were tested, and where the plain count still wins."
+  },
+  {
+   "sub": "Next time a wallet asks for your approval, I hope you will remember what that one click records.",
+   "tts": "Next time a wallet asks for your approval, I hope you will remember what that one click records."
+  }
+ ]
+}

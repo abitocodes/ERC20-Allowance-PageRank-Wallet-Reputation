@@ -1,6 +1,6 @@
 # Exploratory: endorsement-count variants of EndorseRank (14 October 2026)
 
-- Post hoc, like the other folders in `exploratory/`: the variants were chosen after quick point estimates on the same W0 and W1 labels, so these results are not evidence that would survive a registered test. They are not reported in the dissertation.
+- Post hoc, like the other folders in `exploratory/`: the variants were chosen after quick point estimates on the same W0 and W1 labels, so these results are not evidence that would survive a registered test. Of these results the dissertation cites only the 30-day momentum baseline (`mom30`), as a threat to construct validity (Chapter 5, sub:threat-construct); the variants themselves are not reported in the dissertation.
 - On the depth-one allowance graph EndorseRank is close to c (1 + d Σ_u w(u,v) / out(u)) (closed-form check of the revised analysis): every owner casts one vote and splits it over the spenders it approved. The variants keep the sum over owners and change the vote. Each owner counts once per spender.
 - Base: the revised analysis (`CONTRACT_REP_VARIANT=usd`), its W0 and W1 spender cohorts (17,050 and 18,152 contracts), labels, matched cohort and paired bootstrap (B = 400, seed from the configuration). Pair ages come from `x_nodecay_pairs_{t1,tobs}` (`../2026-10-14-freeze-date-time-weight/`), so no new BigQuery job was run; σ recomputed from them matches the published `max_sig` to 2e-16.
 
