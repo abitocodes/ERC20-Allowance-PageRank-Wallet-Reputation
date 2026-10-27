@@ -4,7 +4,7 @@
 
 ## 연구
 
-Arbitrum One의 스마트 컨트랙트에 온체인 평판 점수를 매깁니다. 토큰 주인이 컨트랙트에 준 ERC-20 허락(allowance)을 간선으로 PageRank를 계산하고(EndorseRank), 송금 간선의 PageRank인 AWP(Adaptive Weighted PageRank), 두 층을 함께 걷는 C-PR과 S-PR, 원시 차수와 견줍니다. 점수를 매기고 평가하는 대상은 스마트 컨트랙트이고, EOA(외부 소유 계정)는 허락·송금 간선의 출발점과 도착점으로만 그래프에 들어갑니다. 데이터는 Arbitrum One의 2023-10-01부터 2026-09-30까지 3년입니다.
+Arbitrum One의 스마트 컨트랙트에 온체인 평판 점수를 매깁니다. 이 연구의 방법은 토큰 주인이 컨트랙트에 준 ERC-20 허락(allowance) 간선과 송금 간선을 한 걸음으로 함께 걷는 결합 PageRank C-PR이고, 허락 간선만 걷는 EndorseRank와 송금 간선만 걷는 AWP(Adaptive Weighted PageRank)를 기준 보행으로 두어 C-PR의 절제인 S-PR, 원시 차수와 함께 견줍니다(2026-10-22 저자 결정, [`dissertation/notes/_writing-brief.md`](dissertation/notes/_writing-brief.md)). 점수를 매기고 평가하는 대상은 스마트 컨트랙트이고, EOA(외부 소유 계정)는 허락·송금 간선의 출발점과 도착점으로만 그래프에 들어갑니다. 데이터는 Arbitrum One의 2023-10-01부터 2026-09-30까지 3년입니다.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../../.github/readme/thesis-scores-dark.png">
@@ -49,16 +49,17 @@ Arbitrum One의 스마트 컨트랙트에 온체인 평판 점수를 매깁니�
 
 - 각 점수는 자기 간선으로 만든 점검과 가장 잘 맞았습니다. EndorseRank와 허락 지표 묶음의 τ_b는 0.585 [0.578, 0.592], AWP와 송금 지표 묶음은 0.572 [0.564, 0.580]입니다. 두 점수의 순서는 서로 달랐습니다(τ_b 0.174 [0.163, 0.185]).
 - C-PR(λ = 0.5)은 분석 계획의 규칙 A도, W1 등록의 규칙 B도 충족하지 못했습니다.
-- 기간 밖에서는 다음과 같았습니다(Kendall τ_b의 차이). 사후 비교는 [`experiments/exploratory/2026-10-22-cpr-against-awp/`](experiments/exploratory/2026-10-22-cpr-against-awp/)에 있습니다.
+- 기간 밖에서는 다음과 같았습니다(Kendall τ_b의 차이). W1의 C-PR − AWP 두 칸은 W1 등록의 민감도 분석에 들어 있고, 나머지는 라벨을 본 뒤 계산한 사후 대비입니다.
 
 | 비교 | W0 | W1 |
 |---|---|---|
 | AWP − 송금 입차수, 새 송금자 | +0.043 [0.038, 0.048] | +0.022 [0.017, 0.027] |
 | EndorseRank − 승인 입차수, 새 승인 쌍 | −0.019 [−0.026, −0.011] | −0.034 [−0.038, −0.029] |
-| C-AWP − AWP, 새 승인 쌍 (사후) | +0.118 [+0.106, +0.132] | +0.127 [+0.114, +0.139] |
-| C-AWP − AWP, 새 송금자 (사후) | −0.015 [−0.019, −0.011] | −0.018 [−0.021, −0.015] |
+| C-PR − EndorseRank, 새 승인 쌍 | +0.021 [0.013, 0.028] | +0.016 [0.010, 0.024] |
+| C-PR − AWP, 새 승인 쌍 | +0.056 [0.042, 0.070] | +0.081 [0.069, 0.095] |
+| C-PR − AWP, 새 송금자 | −0.085 [−0.092, −0.078] | −0.067 [−0.072, −0.061] |
 
-C-AWP는 AWP의 가중치와 활동 재시작을 두 층에 쓴 결합 점수입니다. 원고 4장(sub:cpr-awp-posthoc)은 이 결과를 사후 비교로 보고하고, 다음 창에 등록해 시험할 가설로 남깁니다. C-AWP를 실제 금융 성과로 검증하려는 다음 단계 연구는 [`papers/survey-2024-2026-onchain-reputation/`](../../papers/survey-2024-2026-onchain-reputation/)에 있습니다.
+C-PR이 AWP보다 새 승인 쌍을 높게 매기는 것은 AWP가 0점을 주는 스펜더(송금 간선이 없는 W0 스펜더의 약 6분의 1) 덕분이고, 송금을 받은 스펜더만 보면 AWP가 두 라벨 모두 앞섭니다(원고 4장 sub:cpr-contrasts, 표 cpr-contrasts). AWP의 가중치와 활동 재시작을 두 층에 쓴 결합 C-AWP는 라벨을 본 뒤 정한 것이라, 원고에는 6장 향후 연구에 다음 창에 등록할 보행으로 이름만 나옵니다(2026-10-22 결정, 10-27 재확인). 그 사후 결과는 [`experiments/exploratory/2026-10-22-cpr-against-awp/`](experiments/exploratory/2026-10-22-cpr-against-awp/)에 있습니다. C-AWP를 실제 금융 성과로 검증하려는 다음 단계 연구는 [`papers/survey-2024-2026-onchain-reputation/`](../../papers/survey-2024-2026-onchain-reputation/)에 있습니다.
 
 ## 연구계획서
 

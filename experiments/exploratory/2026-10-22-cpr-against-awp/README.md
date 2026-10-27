@@ -1,6 +1,6 @@
 # Exploratory: where the coupled walk stands against AWP (22 October 2026)
 
-- Reported in Chapter 4 of the dissertation (sub:cpr-awp-posthoc, Table cpr-awp-posthoc), as post hoc comparisons.
+- Not reported in the dissertation. By the author's decision of 22 October 2026, reaffirmed on 27 October, the thesis names C-AWP only as the walk to register on a later window (Chapter 6, future work) and recomputes the coverage result for C-PR against AWP with its own records (`scripts/run_supplementary.py`; Chapter 4, sub:cpr-contrasts, Table cpr-contrasts). A manuscript draft of 22 October had reported this folder in Chapter 4 (sub:cpr-awp-posthoc); the merged manuscript (c96492b) leaves it out.
 - Post hoc, like the other folders in `exploratory/`: chosen after every registered and revised result was known, including the W0 and W1 labels. The design below was written and committed before any of its numbers was computed, so the list of comparisons is fixed, but it is not a registered test.
 - Question: the thesis answers RQ5 with rules A and B, which compare C-PR with its own layers. AWP, the transfer PageRank the thesis builds on, is the comparator only in the registered sensitivity analysis of W1 and in post hoc contrasts. What do allowance edges add to AWP itself?
 - Base: the revised analysis (`CONTRACT_REP_VARIANT=usd`): its graphs, cohorts, labels, PageRank settings (d = 0.85, tolerance 1e-8, at most 300 iterations) and paired bootstrap (B = 400, seed 42, the resamples of the published tables).
