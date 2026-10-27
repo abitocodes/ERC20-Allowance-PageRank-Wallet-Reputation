@@ -290,6 +290,7 @@ SHORT_CAPTIONS = {
     "fresh-contrasts": f"{W1_NAME}: the contrasts of rule B with their verdicts and the {REG}"
                        "sensitivity analyses.",
     "fresh-posthoc": f"EndorseRank and its variant with activity restarts in the {W1_NAME_LC}.",
+    "cpr-contrasts": "C-PR against every other score and the raw degrees out of window.",
     "fresh-traders": f"{W1_NAME}: Kendall $\\tau$ on the other trader labels.",
     "robustness-slope": "Robustness: family-mean Kendall $\\tau$ under ten times smaller and larger value slopes.",
     "registered-vs-revised": "Decision contrasts of the registered analysis and of the revised analysis.",
@@ -373,6 +374,16 @@ def delta_math(r: dict | None, what: str, signed: bool = True) -> str:
 
 def is_er_awp(r: dict) -> bool:
     return {r.get("a"), r.get("b")} == {"endorserank", "awp"}
+
+
+def cpr_supp(supp: dict | None) -> dict:
+    """The C-PR contrasts of run_supplementary.py (revised analysis only); empty when absent."""
+    if not REVISED or not supp:
+        return {}
+    s0, s1 = supp.get("w0") or {}, supp.get("w1") or {}
+    if "cpr_minus_er_send" not in s0 or "cpr_minus_er_send" not in s1:
+        return {}
+    return {"w0": s0, "w1": s1, "same": supp.get("same") or {}}
 
 
 CONTRAST_HEAD = (
@@ -558,7 +569,7 @@ def _rule_a_secondary_text(rule: dict) -> str:
     )
 
 
-def t_tau_diff_hybrid(same: dict, seed: int) -> None:
+def t_tau_diff_hybrid(same: dict, seed: int, supp: dict | None = None) -> None:
     begin("tau-diff-hybrid")
     rows = same.get("contrasts") or []
     layer = [r for r in rows if r.get("group") == "hybrid"]
@@ -571,6 +582,16 @@ def t_tau_diff_hybrid(same: dict, seed: int) -> None:
     if single:
         lines += ["\\midrule", "\\multicolumn{6}{l}{\\emph{Against EndorseRank and AWP}} \\\\"]
         lines += [contrast_line(_sw_label(r), r) for r in single]
+    sm = cpr_supp(supp).get("same") or {}
+    extra = [("C-PR transfer minus EndorseRank transfer", sm.get("cpr_minus_er_transfer")),
+             ("C-PR allowance minus AWP allowance", sm.get("cpr_minus_awp_allowance"))] if sm else []
+    if extra:
+        if sm.get("n") != same.get("cohort"):
+            problem(f"supplementary same-window n={sm.get('n')} differs from the cohort {same.get('cohort')}")
+        lines += [contrast_line(f"{label}$^{{a}}$", r) for label, r in extra]
+    late = (" $^{a}$Computed afterwards from the saved scores, with the same resamples: C-PR against EndorseRank on "
+            "the transfer family and against AWP on the allowance family, the family that each single-layer walk "
+            "follows least." if extra else "")
     caption = (
         "Same-window paired contrasts for the coupled operator (C-PR, $\\lambda=0.5$) and the endorsement-seeded walk "
         "(S-PR) against the two layers they are built from, the allowance layer (C-PR ($\\lambda=1$)) and the transfer "
@@ -579,9 +600,10 @@ def t_tau_diff_hybrid(same: dict, seed: int) -> None:
         "and $b$. The contrasts with the layers are a stricter check beside the secondary part of rule A, which "
         "compares C-PR's point estimate with the better layer's interval in Table~\\ref{tab:alignment-hybrid}. "
         f"{_rule_a_secondary_text(same.get('rule_a_secondary') or {})} An interval below 0 means $a$ is below $b$ "
-        f"beyond sampling variation; one above 0 means it exceeds it. {boot_note(seed)}"
+        f"beyond sampling variation; one above 0 means it exceeds it. {boot_note(seed)}{late}"
     )
-    emit("tau-diff-hybrid", caption, tabular("lccccc", CONTRAST_HEAD, lines), [SOURCES["same"]])
+    emit("tau-diff-hybrid", caption, tabular("lccccc", CONTRAST_HEAD, lines),
+         [SOURCES["same"]] + ([SOURCES["supp"]] if extra else []))
 
 
 def t_tau_diff(same: dict, seed: int) -> None:
@@ -1054,10 +1076,11 @@ def _w0_label(r: dict) -> str:
     return f"{SHORT[r['a']]} minus {SHORT[r['b']]}"
 
 
-def t_holdout_diff(w0: dict, seed: int) -> None:
+def t_holdout_diff(w0: dict, seed: int, supp: dict | None = None) -> None:
     begin("holdout-diff")
     pre = w0.get("contrasts_prefixed") or []
-    post = [r for r in w0.get("contrasts_after") or [] if not is_er_awp(r)]
+    moved = bool(cpr_supp(supp))  # the post hoc C-PR contrasts are in Table cpr-contrasts
+    post = [r for r in w0.get("contrasts_after") or [] if not is_er_awp(r) and not (moved and r.get("a") == "cpr_l50")]
     if not pre:
         SKIPPED.append("holdout-diff (no contrasts)")
         return
@@ -1087,8 +1110,12 @@ def t_holdout_diff(w0: dict, seed: int) -> None:
            "plan committed on 9~October~2026 (C-PR against C-PR ($\\lambda=1$) on new approval pairs and against C-PR ")
         + "($\\lambda=0$) on new transfer senders). The second block was computed after the labels were known: the "
         "increment of C-PR ($\\lambda=1$), the allowance layer walked alone, over its raw degree at $t_1$, the same "
-        "comparisons for S-PR, the increments of EndorseRank and AWP over their raw degrees, C-PR against C-PR "
-        "($\\lambda=0$) on new approval pairs, and C-PR against EndorseRank and AWP. Primary part of rule A (C-PR no "
+        "comparisons for S-PR, "
+        + ("and the increments of EndorseRank and AWP over their raw degrees; C-PR's other contrasts are in "
+           "Table~\\ref{tab:cpr-contrasts}. " if moved else
+           "the increments of EndorseRank and AWP over their raw degrees, C-PR against C-PR "
+           "($\\lambda=0$) on new approval pairs, and C-PR against EndorseRank and AWP. ")
+        + "Primary part of rule A (C-PR no "
         "worse than C-PR ($\\lambda=1$) on new approval pairs and better than C-PR ($\\lambda=0$) on new transfer "
         f"senders): no worse {yes[bool(rule.get('no_worse_on_new_approvals'))]}, better "
         f"{yes[bool(rule.get('better_on_new_senders'))]}, so the rule is {'met' if rule.get('pass') else 'not met'}. "
@@ -1097,14 +1124,21 @@ def t_holdout_diff(w0: dict, seed: int) -> None:
     emit("holdout-diff", caption, tabular("llccccc", CONTRAST_HEAD_LABEL, lines), [SOURCES["w0"]])
 
 
-def t_holdout_receiving(w0: dict, seed: int) -> None:
+def t_holdout_receiving(w0: dict, seed: int, supp: dict | None = None) -> None:
     begin("holdout-receiving")
     rec = w0.get("receiving") or {}
     taus = rec.get("taus") or {}
     if not taus:
         SKIPPED.append("holdout-receiving (no receiving subset)")
         return
-    order = (("endorserank", "EndorseRank"), ("awp", "AWP"), None,
+    s0 = cpr_supp(supp).get("w0") or {}
+    cpr_row = bool(s0.get("recv_cpr_tau_appr"))
+    if cpr_row:
+        if s0.get("recv_n") != rec.get("n"):
+            problem(f"supplementary receiving n={s0.get('recv_n')} differs from {rec.get('n')}")
+        taus = {**taus, "cpr_l50": {APPR: s0.get("recv_cpr_tau_appr"), SEND: s0.get("recv_cpr_tau_send")}}
+    order = (("endorserank", "EndorseRank"), ("awp", "AWP"),
+             *((("cpr_l50", f"{METHOD_LABELS['cpr_l50']}$^{{a}}$"),) if cpr_row else ()), None,
              ("t1_in_approve_degree", "In-approve degree at $t_1$"), ("t1_in_degree", "Transfer in-degree at $t_1$"))
     lines = method_rows(order, lambda m: " & ".join(tc((taus.get(m) or {}).get(lab), f"{m} {lab}")
                                                    for lab in (APPR, SEND)))
@@ -1124,9 +1158,12 @@ def t_holdout_receiving(w0: dict, seed: int) -> None:
         f"{fint(n_sp - n_rec if n_sp is not None and n_rec is not None else None)} have no inbound transfer edge from "
         f"another address, and {fint(cov.get('spenders_without_transfer_edge'))} spenders score zero under AWP. The "
         f"restriction was chosen after the results were known. {boot_note(seed)}"
+        + (" $^{a}$Computed afterwards from the saved scores, with the same resamples; its contrasts with AWP and "
+           "the in-approve degree on this subset are in Table~\\ref{tab:cpr-contrasts}." if cpr_row else "")
     )
     head = "Score at $t_1$ & New approval pairs ($\\tau$ [95\\% CI]) & New transfer senders ($\\tau$ [95\\% CI])"
-    emit("holdout-receiving", caption, tabular("lcc", head, lines), [SOURCES["w0"]])
+    emit("holdout-receiving", caption, tabular("lcc", head, lines),
+         [SOURCES["w0"]] + ([SOURCES["supp"]] if cpr_row else []))
 
 
 PROFIT_LABELS = ("profitable_closes", "realized_gain", "profitable_share", "non_loss_share")
@@ -1339,11 +1376,14 @@ def t_fresh_posthoc(w1: dict, supp: dict | None, seed: int, cfg: dict) -> None:
              ("endorserank_activity", "EndorseRank, restarts by approving activity"), ("awp", "AWP"),
              ("cpr_l50", METHOD_LABELS["cpr_l50"]))
     lines = method_rows(order, cell)
+    moved = bool(cpr_supp(supp))  # C-PR minus EndorseRank is in Table cpr-contrasts
     names = (
         ("endorserank_minus_degree_appr", "EndorseRank minus in-approve degree, new approval pairs"),
         ("awp_minus_degree_send", "AWP minus transfer in-degree, new transfer senders"),
-        ("cpr_minus_endorserank_appr", "C-PR minus EndorseRank, new approval pairs"),
-        ("cpr_minus_endorserank_liq", "C-PR minus EndorseRank, liquidation-free close rate"),
+        *(() if moved else (
+            ("cpr_minus_endorserank_appr", "C-PR minus EndorseRank, new approval pairs"),
+            ("cpr_minus_endorserank_liq", "C-PR minus EndorseRank, liquidation-free close rate"),
+        )),
     )
     if res:
         lines.append("\\midrule")
@@ -1371,13 +1411,108 @@ def t_fresh_posthoc(w1: dict, supp: dict | None, seed: int, cfg: dict) -> None:
         "rows nor the contrasts below them are part of rule B, and the contrasts were not named in the registration."
         f"{act_text} The AWP, C-PR and degree rows repeat Table~\\ref{{tab:fresh-holdout}}, and every contrast uses "
         "the same contract resamples; the differences between EndorseRank and AWP are in "
-        f"Table~\\ref{{tab:endorserank-awp-holdout}}. {boot_note(seed)}"
+        f"Table~\\ref{{tab:endorserank-awp-holdout}}"
+        + (", and those of C-PR in Table~\\ref{tab:cpr-contrasts}" if moved else "")
+        + f". {boot_note(seed)}"
     )
     head = (f" & \\multicolumn{{2}}{{c}}{{Spenders ($n={fint(w1.get('spenders'))}$)}} & "
             f"Traders ($n={fint(w1.get('traders'))}$) \\\\\n\\cmidrule(lr){{2-3}} \\cmidrule(lr){{4-4}}\n"
             f"Score at {tex_date(rw['score_end']).replace('~', ' ')} & New approval pairs & New transfer senders & "
             "Liquidation-free close rate")
     emit("fresh-posthoc", caption, tabular("lccc", head, lines), [SOURCES["w1"]] + ([SOURCES["supp"]] if act else []))
+
+
+def _stack_delta(r: dict | None, what: str, mark: str = "") -> str:
+    """Signed difference (with its rule mark) over its interval."""
+    if not r:
+        problem(f"no contrast for {what}")
+        return "---"
+    if r.get("n_boot") is not None:
+        STATE["nboot"].add(int(r["n_boot"]))
+    d = fsigned(r.get("delta_tau"), what)
+    ci = fci(r.get("ci_low"), r.get("ci_high"), f"interval of {what}")
+    return f"\\begin{{tabular}}[c]{{@{{}}c@{{}}}}{d}{mark}\\\\[-1pt]{{\\footnotesize {ci}}}\\end{{tabular}}"
+
+
+def _w0_contrast(w0: dict, key: str, a: str, b: str, outcome: str) -> dict | None:
+    return next((r for r in w0.get(key) or [] if r.get("a") == a and r.get("b") == b and r.get("outcome") == outcome),
+                None)
+
+
+def t_cpr_contrasts(w0: dict, w1: dict, supp: dict | None, seed: int) -> None:
+    """C-PR (lambda = 0.5) against every other score of the study and the two raw degrees, both windows."""
+    begin("cpr-contrasts")
+    cs = cpr_supp(supp)
+    if not cs:
+        SKIPPED.append("cpr-contrasts (no C-PR contrasts in supplementary.json)")
+        return
+    s0, s1 = cs["w0"], cs["w1"]
+    if s0.get("n") != w0.get("spenders") or s1.get("n") != w1.get("spenders"):
+        problem("supplementary spender cohorts differ from the holdout summaries")
+    if s1.get("traders_n") != w1.get("traders"):
+        problem(f"supplementary W1 traders n={s1.get('traders_n')} differs from {w1.get('traders')}")
+    rb, sa, er = w1.get("rule_b") or {}, w1.get("sensitivity_awp") or {}, w1.get("endorserank_results") or {}
+    A, B, S = "$^{\\mathrm{A}}$", "$^{\\mathrm{B}}$", "$^{\\mathrm{S}}$"
+
+    def w0c(key, b, outcome):
+        return _w0_contrast(w0, key, "cpr_l50", b, outcome)
+
+    # (row label, [W0 approvals, W0 senders, W1 approvals, W1 senders, W1 traders]); each cell (entry, mark).
+    rows = [
+        (SHORT["cpr_l100"], [(w0c("contrasts_prefixed", "cpr_l100", APPR), A), (s0.get("cpr_minus_l100_send"), ""),
+                             (rb.get("F6a"), B), (s1.get("cpr_minus_l100_send"), ""), (rb.get("F5"), B)]),
+        (SHORT["cpr_l0"], [(w0c("contrasts_after", "cpr_l0", APPR), ""), (w0c("contrasts_prefixed", "cpr_l0", SEND), A),
+                           (rb.get("F1"), B), (rb.get("F2"), B), (rb.get("F3"), B)]),
+        ("EndorseRank", [(w0c("contrasts_after", "endorserank", APPR), ""), (s0.get("cpr_minus_er_send"), ""),
+                         (er.get("cpr_minus_endorserank_appr"), ""), (s1.get("cpr_minus_er_send"), ""),
+                         (er.get("cpr_minus_endorserank_liq"), "")]),
+        ("EndorseRank (activity restarts)", [(s0.get("cpr_minus_er_activity_appr"), ""),
+                                             (s0.get("cpr_minus_er_activity_send"), ""),
+                                             (s1.get("cpr_minus_er_activity_appr"), ""),
+                                             (s1.get("cpr_minus_er_activity_send"), ""),
+                                             (s1.get("cpr_minus_er_activity_liq"), "")]),
+        ("AWP", [(w0c("contrasts_after", "awp", APPR), ""), (w0c("contrasts_after", "awp", SEND), ""),
+                 (sa.get("F1"), S), (sa.get("F2"), S), (sa.get("F3"), S)]),
+        ("S-PR", [(s0.get(f"cpr_minus_spr_{k}"), "") for k in ("appr", "send")]
+         + [(s1.get(f"cpr_minus_spr_{k}"), "") for k in ("appr", "send", "liq")]),
+        ("In-approve degree at the freeze", [(s0.get(f"cpr_minus_degree_{k}"), "") for k in ("appr", "send")]
+         + [(s1.get(f"cpr_minus_degree_{k}"), "") for k in ("appr", "send", "liq")]),
+        ("Transfer in-degree at the freeze", [(s0.get(f"cpr_minus_in_degree_{k}"), "") for k in ("appr", "send")]
+         + [(s1.get(f"cpr_minus_in_degree_{k}"), "") for k in ("appr", "send", "liq")]),
+    ]
+    cols = ("W0 approvals", "W0 senders", "W1 approvals", "W1 senders", "W1 traders")
+    lines = [f"{label} & " + " & ".join(_stack_delta(r, f"C-PR minus {label}, {c}", m) for (r, m), c in zip(cells, cols))
+             + " \\\\" for label, cells in rows]
+    n0, n1 = s0.get("recv_n"), s1.get("recv_n")
+    lines += ["\\midrule",
+              f"\\multicolumn{{6}}{{l}}{{\\emph{{Spenders that had received a transfer before the freeze "
+              f"(W0 $n={fint(n0)}$, W1 $n={fint(n1)}$)}}}} \\\\"]
+    lines.append("AWP & " + " & ".join(
+        [_stack_delta(s0.get(f"recv_cpr_minus_awp_{k}"), f"received W0 AWP {k}") for k in ("appr", "send")]
+        + [_stack_delta(s1.get(f"recv_cpr_minus_awp_{k}"), f"received W1 AWP {k}") for k in ("appr", "send")]
+        + ["---"]) + " \\\\")
+    lines.append("In-approve degree at the freeze & "
+                 f"{_stack_delta(s0.get('recv_cpr_minus_degree_appr'), 'received W0 degree')} & --- & "
+                 f"{_stack_delta(s1.get('recv_cpr_minus_degree_appr'), 'received W1 degree')} & --- & --- \\\\")
+    caption = (
+        "Paired contrasts of C-PR ($\\lambda=0.5$) with every other score of this study and with the two raw degrees, "
+        f"on the spender labels of W0 ($n={fint(w0.get('spenders'))}$ contracts) and W1 "
+        f"($n={fint(w1.get('spenders'))}$) and on the liquidation-free close rate of the W1 traders "
+        f"($n={fint(w1.get('traders'))}$). Each cell is $\\Delta\\tau=\\tau_{{\\text{{C-PR}}}}-\\tau_b$ over its 95\\% "
+        "interval; within a cohort every cell uses the same resamples. Cells marked $^{\\mathrm{A}}$ are the "
+        "contrasts of rule A, fixed in the analysis plan; $^{\\mathrm{B}}$ marks those named in the registration of W1 "
+        "(rule B with F5 and F6a) and $^{\\mathrm{S}}$ those of its first sensitivity analysis, with AWP as the "
+        "comparator. These rules were fixed for the raw-unit analysis and are applied here to the revised scores. "
+        "Every other cell was computed after the labels were known and belongs to no rule. The lower block repeats "
+        "the contrasts with AWP and the in-approve degree on the spenders that had received a transfer from another "
+        "address before the freeze, the spenders AWP can order; that restriction was also chosen after the results "
+        f"were known. {boot_note(seed)}"
+    )
+    head = (" & \\multicolumn{2}{c}{W0 spenders} & \\multicolumn{2}{c}{W1 spenders} & W1 traders \\\\\n"
+            "\\cmidrule(lr){2-3} \\cmidrule(lr){4-5} \\cmidrule(lr){6-6}\n"
+            "C-PR minus & New approval pairs & New transfer senders & New approval pairs & New transfer senders & "
+            "Liquidation-free close rate")
+    emit("cpr-contrasts", caption, tabular("lccccc", head, lines), [SOURCES["w0"], SOURCES["w1"], SOURCES["supp"]])
 
 
 W1_OTHER_LABELS = ("no_liquidation", "profitable_closes", "realized_gain", "profitable_share", "non_loss_share")
@@ -1801,7 +1936,7 @@ def main() -> int:
         SKIPPED.append("benchmark-runtime, benchmark-scaling, benchmark-runs (no benchmark.json)")
     if same:
         t_alignment_hybrid(same, seed)
-        t_tau_diff_hybrid(same, seed)
+        t_tau_diff_hybrid(same, seed, supp)
         t_tau_diff(same, seed)
         t_tie_sensitivity(same, seed)
         for fam in FAMILY_TABLES:
@@ -1824,8 +1959,8 @@ def main() -> int:
         SKIPPED.append("endorserank-restarts (needs the same-window, W0 and W1 summaries)")
     if w0:
         t_holdout_spenders(w0, seed, cfg)
-        t_holdout_diff(w0, seed)
-        t_holdout_receiving(w0, seed)
+        t_holdout_diff(w0, seed, supp)
+        t_holdout_receiving(w0, seed, supp)
         t_holdout_traders(w0, seed, cfg)
         t_endorserank_awp_holdout(w0, w1, supp, seed, cfg)
     else:
@@ -1834,6 +1969,8 @@ def main() -> int:
         t_fresh_holdout(w1, seed, cfg)
         t_fresh_contrasts(w1, seed)
         t_fresh_posthoc(w1, supp, seed, cfg)
+        if w0 and REVISED:
+            t_cpr_contrasts(w0, w1, supp, seed)
         t_fresh_traders(w1, seed, cfg)
         t_neutral_contrasts(w1, seed, cfg)
         t_neutral_recipients(w1, seed, cfg)

@@ -1,10 +1,10 @@
 # Results digest
 
-Written by `experiments/scripts/publish_results.py` on 2026-10-10 12:45 UTC from the summaries in this folder; nothing here is recomputed. Each row names the file (relative to this folder) and the key inside it. τ entries read `point [95% CI]`, contrasts `Δτ [95% CI]; τa, τb; P(Δτ>0)`, and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of every file published here.
+Written by `experiments/scripts/publish_results.py` on 2026-10-22 14:43 UTC from the summaries in this folder; nothing here is recomputed. Each row names the file (relative to this folder) and the key inside it. τ entries read `point [95% CI]`, contrasts `Δτ [95% CI]; τa, τb; P(Δτ>0)`, and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of every file published here.
 
 **Revised analysis** (docs/revision_price_weighting.md): amounts in USD over the listed tokens, decided after the registered results were known. Nothing in this digest is a registered result; the registered digest is in the parent folder.
 
-- Code revision: `2705b28a4653d47a6940cca064bf923562db8f9d` with uncommitted changes (git status code) in: `scripts/chainlink_check.py (M)`, `scripts/export_latex.py (M)`, `scripts/run_holdout.py (M)`, `scripts/run_usd_pipeline.py (M)`, `scripts/run_usd_local.ps1 (??)`
+- Code revision: `327dbb3a7f0b3c8f5ed5a0eb28e5fc7048a22820` with uncommitted changes (git status code) in: `scripts/publish_results.py (M)`, `scripts/run_supplementary.py (M)`
 - Published files: `same-window/eval_summary.json`, `holdout-w0/eval_summary.json`, `window-w1/eval_summary.json`, `registered-w1/extraction_manifest.json`, `sybil-model/sybil_model.json`, `robustness/robustness.json`, `benchmark/benchmark.json`, `supplementary/supplementary.json`, `describe/describe.json`, `cohort/matched_cohort.json`, `gmx/gmx_contract_closes_obs_decoded.json`, `gmx/gmx_contract_closes_w1_decoded.json`, `config/contract_reputation.yaml`, `docs/analysis_plan.md`, `docs/registration_w1.md`, `docs/revision_price_weighting.md`, `usd/listed_tokens.csv`, `usd/usd_inputs.json`, `usd/constants.json`, `usd/chainlink_check.json`
 
 ## 1. Cohort and graph sizes
@@ -768,12 +768,52 @@ Family mean of Kendall τ_b with its 95% percentile interval (paired bootstrap o
 | W0 EndorseRank minus AWP, new approval pairs | Δτ 0.035 [0.019, 0.051]; τa 0.231, τb 0.196; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w0.er_minus_awp_appr` |
 | W0 EndorseRank minus AWP, new transfer senders | Δτ -0.146 [-0.156, -0.136]; τa 0.200, τb 0.346; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w0.er_minus_awp_send` |
 | W0 n | 17,050 | `supplementary/supplementary.json` : `w0.n` |
+| W0 C-PR minus C-PR (λ=1), new transfer senders | Δτ 0.074 [0.066, 0.082]; τa 0.262, τb 0.188; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_l100_send` |
+| W0 C-PR minus EndorseRank, new transfer senders | Δτ 0.062 [0.054, 0.070]; τa 0.262, τb 0.200; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_er_send` |
+| W0 C-PR minus EndorseRank (activity restarts), new approval pairs | Δτ -0.057 [-0.065, -0.049]; τa 0.252, τb 0.308; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_er_activity_appr` |
+| W0 C-PR minus EndorseRank (activity restarts), new transfer senders | Δτ -0.008 [-0.017, 0.0006585]; τa 0.262, τb 0.269; P(Δτ>0) 0.045; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_er_activity_send` |
+| W0 C-PR minus S-PR, new approval pairs | Δτ 0.080 [0.069, 0.093]; τa 0.252, τb 0.172; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_spr_appr` |
+| W0 C-PR minus S-PR, new transfer senders | Δτ -0.033 [-0.038, -0.029]; τa 0.262, τb 0.295; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_spr_send` |
+| W0 C-PR minus in-approve degree, new approval pairs | Δτ 0.002 [-0.007, 0.011]; τa 0.252, τb 0.250; P(Δτ>0) 0.642; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_degree_appr` |
+| W0 C-PR minus in-approve degree, new transfer senders | Δτ 0.082 [0.072, 0.091]; τa 0.262, τb 0.180; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_degree_send` |
+| W0 C-PR minus transfer in-degree, new approval pairs | Δτ 0.116 [0.104, 0.130]; τa 0.252, τb 0.135; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_in_degree_appr` |
+| W0 C-PR minus transfer in-degree, new transfer senders | Δτ -0.042 [-0.049, -0.035]; τa 0.262, τb 0.303; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w0.cpr_minus_in_degree_send` |
+| W0 Spenders that had received a transfer before the freeze | 14,094 | `supplementary/supplementary.json` : `w0.recv_n` |
+| W0 Received a transfer: C-PR, new approval pairs | 0.261 [0.250, 0.272]; B=400 | `supplementary/supplementary.json` : `w0.recv_cpr_tau_appr` |
+| W0 Received a transfer: C-PR minus AWP, new approval pairs | Δτ -0.037 [-0.045, -0.028]; τa 0.261, τb 0.298; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w0.recv_cpr_minus_awp_appr` |
+| W0 Received a transfer: C-PR, new transfer senders | 0.284 [0.272, 0.296]; B=400 | `supplementary/supplementary.json` : `w0.recv_cpr_tau_send` |
+| W0 Received a transfer: C-PR minus AWP, new transfer senders | Δτ -0.073 [-0.079, -0.067]; τa 0.284, τb 0.357; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w0.recv_cpr_minus_awp_send` |
+| W0 Received a transfer: C-PR minus in-approve degree, new approval pairs | Δτ 0.011 [0.001, 0.021]; τa 0.261, τb 0.249; P(Δτ>0) 0.990; B=400 | `supplementary/supplementary.json` : `w0.recv_cpr_minus_degree_appr` |
 | W1 EndorseRank (activity restarts) minus in-approve degree, new approval pairs | Δτ 0.027 [0.021, 0.034]; τa 0.295, τb 0.268; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.er_activity_minus_degree_appr` |
 | W1 EndorseRank (activity restarts) minus EndorseRank, new approval pairs | Δτ 0.061 [0.054, 0.067]; τa 0.295, τb 0.234; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.er_activity_minus_er_appr` |
 | W1 EndorseRank (activity restarts) minus EndorseRank, new transfer senders | Δτ 0.048 [0.042, 0.053]; τa 0.242, τb 0.194; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.er_activity_minus_er_send` |
 | W1 EndorseRank minus AWP, new approval pairs | Δτ 0.065 [0.051, 0.081]; τa 0.234, τb 0.169; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.er_minus_awp_appr` |
 | W1 EndorseRank minus AWP, new transfer senders | Δτ -0.136 [-0.146, -0.127]; τa 0.194, τb 0.330; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w1.er_minus_awp_send` |
 | W1 n | 18,152 | `supplementary/supplementary.json` : `w1.n` |
+| W1 C-PR minus C-PR (λ=1), new transfer senders | Δτ 0.075 [0.066, 0.085]; τa 0.263, τb 0.188; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_l100_send` |
+| W1 C-PR minus EndorseRank, new transfer senders | Δτ 0.069 [0.061, 0.078]; τa 0.263, τb 0.194; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_er_send` |
+| W1 C-PR minus EndorseRank (activity restarts), new approval pairs | Δτ -0.044 [-0.051, -0.038]; τa 0.250, τb 0.295; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_er_activity_appr` |
+| W1 C-PR minus EndorseRank (activity restarts), new transfer senders | Δτ 0.021 [0.012, 0.030]; τa 0.263, τb 0.242; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_er_activity_send` |
+| W1 C-PR minus S-PR, new approval pairs | Δτ 0.095 [0.085, 0.107]; τa 0.250, τb 0.155; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_spr_appr` |
+| W1 C-PR minus S-PR, new transfer senders | Δτ -0.027 [-0.031, -0.024]; τa 0.263, τb 0.291; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_spr_send` |
+| W1 C-PR minus in-approve degree, new approval pairs | Δτ -0.017 [-0.024, -0.010]; τa 0.250, τb 0.268; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_degree_appr` |
+| W1 C-PR minus in-approve degree, new transfer senders | Δτ 0.059 [0.051, 0.066]; τa 0.263, τb 0.205; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_degree_send` |
+| W1 C-PR minus transfer in-degree, new approval pairs | Δτ 0.119 [0.108, 0.132]; τa 0.250, τb 0.131; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_in_degree_appr` |
+| W1 C-PR minus transfer in-degree, new transfer senders | Δτ -0.045 [-0.051, -0.039]; τa 0.263, τb 0.308; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_in_degree_send` |
+| W1 Spenders that had received a transfer before the freeze | 15,059 | `supplementary/supplementary.json` : `w1.recv_n` |
+| W1 Received a transfer: C-PR, new approval pairs | 0.251 [0.240, 0.261]; B=400 | `supplementary/supplementary.json` : `w1.recv_cpr_tau_appr` |
+| W1 Received a transfer: C-PR minus AWP, new approval pairs | Δτ -0.017 [-0.025, -0.009]; τa 0.251, τb 0.268; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w1.recv_cpr_minus_awp_appr` |
+| W1 Received a transfer: C-PR, new transfer senders | 0.285 [0.275, 0.295]; B=400 | `supplementary/supplementary.json` : `w1.recv_cpr_tau_send` |
+| W1 Received a transfer: C-PR minus AWP, new transfer senders | Δτ -0.056 [-0.061, -0.050]; τa 0.285, τb 0.341; P(Δτ>0) 0.000; B=400 | `supplementary/supplementary.json` : `w1.recv_cpr_minus_awp_send` |
+| W1 Received a transfer: C-PR minus in-approve degree, new approval pairs | Δτ -0.012 [-0.020, -0.004]; τa 0.251, τb 0.263; P(Δτ>0) 0.003; B=400 | `supplementary/supplementary.json` : `w1.recv_cpr_minus_degree_appr` |
+| W1 C-PR minus EndorseRank (activity restarts), liquidation-free close rate | Δτ 0.062 [-0.039, 0.164]; τa 0.350, τb 0.288; P(Δτ>0) 0.875; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_er_activity_liq` |
+| W1 C-PR minus S-PR, liquidation-free close rate | Δτ -0.024 [-0.092, 0.034]; τa 0.350, τb 0.374; P(Δτ>0) 0.228; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_spr_liq` |
+| W1 C-PR minus in-approve degree, liquidation-free close rate | Δτ -0.044 [-0.130, 0.038]; τa 0.350, τb 0.394; P(Δτ>0) 0.170; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_degree_liq` |
+| W1 C-PR minus transfer in-degree, liquidation-free close rate | Δτ 0.040 [-0.029, 0.124]; τa 0.350, τb 0.310; P(Δτ>0) 0.865; B=400 | `supplementary/supplementary.json` : `w1.cpr_minus_in_degree_liq` |
+| W1 Traders | 70 | `supplementary/supplementary.json` : `w1.traders_n` |
+| SAME Same window: C-PR minus EndorseRank, transfer family | Δτ 0.207 [0.200, 0.215]; τa 0.365, τb 0.158; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `same.cpr_minus_er_transfer` |
+| SAME Same window: C-PR minus AWP, allowance family | Δτ 0.284 [0.274, 0.294]; τa 0.477, τb 0.193; P(Δτ>0) 1.000; B=400 | `supplementary/supplementary.json` : `same.cpr_minus_awp_allowance` |
+| SAME n | 15,107 | `supplementary/supplementary.json` : `same.n` |
 
 ## 8. Sybil cost model (EndorseRank graph at T_obs)
 

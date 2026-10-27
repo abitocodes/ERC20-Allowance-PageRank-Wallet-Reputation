@@ -396,6 +396,24 @@ SUPP_NAMES = {
     "er_minus_awp_appr": "EndorseRank minus AWP, new approval pairs",
     "er_minus_awp_send": "EndorseRank minus AWP, new transfer senders",
 }
+SUPP_SCORES = {
+    "l100": "C-PR (λ=1)", "l0": "C-PR (λ=0)", "er": "EndorseRank", "er_activity": "EndorseRank (activity restarts)",
+    "awp": "AWP", "spr": "S-PR", "degree": "in-approve degree", "in_degree": "transfer in-degree",
+}
+SUPP_LABELS = {"appr": "new approval pairs", "send": "new transfer senders", "liq": "liquidation-free close rate"}
+SUPP_NAMES.update({f"cpr_minus_{k}_{s}": f"C-PR minus {v}, {lab}" for k, v in SUPP_SCORES.items()
+                   for s, lab in SUPP_LABELS.items()})
+SUPP_NAMES.update({
+    "recv_n": "Spenders that had received a transfer before the freeze",
+    "recv_cpr_tau_appr": "Received a transfer: C-PR, new approval pairs",
+    "recv_cpr_tau_send": "Received a transfer: C-PR, new transfer senders",
+    "recv_cpr_minus_awp_appr": "Received a transfer: C-PR minus AWP, new approval pairs",
+    "recv_cpr_minus_awp_send": "Received a transfer: C-PR minus AWP, new transfer senders",
+    "recv_cpr_minus_degree_appr": "Received a transfer: C-PR minus in-approve degree, new approval pairs",
+    "traders_n": "Traders",
+    "cpr_minus_er_transfer": "Same window: C-PR minus EndorseRank, transfer family",
+    "cpr_minus_awp_allowance": "Same window: C-PR minus AWP, allowance family",
+})
 
 
 def _walk(D: Digest, d, src: str, prefix: str) -> None:
@@ -455,9 +473,10 @@ def sec_supplementary(D: Digest, sup: dict) -> None:
     for window, d in sup.items():
         for k, v in d.items():
             if isinstance(v, dict):
-                D.row(f"{window.upper()} {SUPP_NAMES.get(k, k)}", contrast(v), src, f"{window}.{k}")
+                val = contrast(v) if "delta_tau" in v else tau(v)
+                D.row(f"{window.upper()} {SUPP_NAMES.get(k, k)}", val, src, f"{window}.{k}")
             else:
-                D.row(f"{window.upper()} {k}", num(v), src, f"{window}.{k}")
+                D.row(f"{window.upper()} {SUPP_NAMES.get(k, k)}", num(v), src, f"{window}.{k}")
 
 
 def sec_sybil(D: Digest, y: dict) -> None:

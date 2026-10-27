@@ -247,7 +247,7 @@
     id: 's06-01', title: 'EndorseRank', time: 40, steps: 3,
     tags: function (step) { return step >= 2 ? ['thesis-example', 'example'] : ['thesis-example']; },
     notes: [
-      'Now I will introduce the four scores. The first is EndorseRank, the score this thesis proposes. I have brought back the small world we built in 04. This time every edge is an allowance edge, so they are all amber. The walker follows an edge 85 times out of 100 and teleports to any node the other 15 times.',
+      'Now I will introduce the four scores. The first is EndorseRank, which walks the allowance edges alone. It is one of the two references of C-PR, the score of this thesis. I have brought back the small world we built in 04. This time every edge is an allowance edge, so they are all amber. The walker follows an edge 85 times out of 100 and teleports to any node the other 15 times.',
       'EndorseRank runs the PageRank we have built so far on the allowance graph. Edges go from an owner to a spender contract, and only the latest allowance per token is used. The weight is the same as in AWP, time weight times value weight, and restarts are the same at every node v, 1/|V| each. What we evaluate are the contracts that received approvals. Owner A also holds a share in the walk (0.1375), but this study evaluates and reports only the scores of contracts. The numbers above B, C and D and the share of A come from the example in Chapter 2 of the thesis.',
       'Now let us pull back from the small world to the real allowance graph. The four-node world gets smaller and smaller until it is one node among a great many. The real allowance graph has 6,221,665 nodes and 11,210,114 edges. The constellation you see here is a picture for explanation; only the counts are real.',
       'One point needs care. An edge holds the amount and the time of the latest allowance. It does not show an allowance that has shrunk since then because the contract spent tokens from it, and it does not show approvals made before October 2023.'
@@ -531,14 +531,14 @@
   var B3 = { x: 576, y: 196, L: 400, x0: 26, h: 44, rows: [52, 226, 400] };   /* bar figure */
   var SHADE = { S1: C.allow, S2a: '#C98F2A', S2b: '#2A93C2', R: C.xfer };
   var slide3 = {
-    id: 's06-03', title: 'C-PR: mixing the two rows', time: 60, steps: 6,
+    id: 's06-03', title: 'C-PR (this thesis): mixing the two rows', time: 60, steps: 6,
     tags: function (step) { return step >= 4 && step < 6 ? ['example', 'plan'] : ['example']; },
     notes: [
-      'The third score is C-PR, coupled PageRank. It is a score that walks both graphs together. Let us look at one owner, u. Two allowance edges and two transfer edges leave u.',
+      'The third score is C-PR, coupled PageRank, the score of this thesis. It ties the two walks into one and walks both graphs together. Let us look at one owner, u. Two allowance edges and two transfer edges leave u.',
       'First, the row of u on the allowance side, its row in the transition matrix. The A under P means the allowance layer, u is the starting node, and the last place, the dot, stands for every destination. Just as in the cap example from 05, the unlimited allowance counts as 20,000 dollars and the other one is 500 dollars, so the row splits into 0.9756 and 0.0244. They add up to 1.',
       'We build the transfer row too. The 1,000 dollars sent today is multiplied by the time weight 0.858, giving 858, and the 300 dollars sent 180 days ago is multiplied by 0.5, giving 150. So the row is 0.8512 and 0.1488. This also adds up to 1. All the amounts are illustrative examples.',
       'Now we mix the two rows. With the dial λ at 0.5, we shrink the allowance row to half, shrink the transfer row to half as well, and join them. S1 gets 0.4878, S2 gets the two pieces added together, 0.0866, and R gets 0.4256. λ times 1 plus 1 minus λ times 1 is always 1, so the mixed row also adds up to 1.',
-      'Let me turn the dial. At λ = 1 the mixed row is the same as the allowance row, and at 0 it is the same as the transfer row. The primary value 0.5 and the sensitivity values 0.25 and 0.75 were written into the analysis plan before this study extracted any data.',
+      'Let me turn the dial. At λ = 1 the mixed row is the same as the allowance row, and at 0 it is the same as the transfer row. The primary value 0.5 and the sensitivity values 0.25 and 0.75 were written into the analysis plan before this study extracted any data. The one decision rule of the plan is about C-PR, too.',
       'But what if u has no transfer edges? Then the transfer row is empty. The mixed row adds up to only λ, that is 0.5. So we divide by λ to bring it back to 1. We write this divisor as D-lambda. In the end, that node follows its allowance edges 100% of the time.',
       'This is the coupled formula in Chapter 3 of the thesis. The switch, the bold 1, is 1 if the node has outgoing edges in that layer and 0 if not. As a table: if both kinds are there, the weights are λ and 1 minus λ; if only one kind is there, that one gets 1; if neither is there, the node is dangling and its mass goes to the restart. λ = 1 is the same as walking the allowance layer alone, and 0 the same as walking the transfer layer alone. Restarts are uniform, and d is 0.85.'
     ],

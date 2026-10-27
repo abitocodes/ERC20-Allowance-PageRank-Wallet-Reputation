@@ -1,5 +1,5 @@
 /* =========================================================================
-   s09-rules — 미리 정한 규칙 (STORYBOARD.md §2, s09-01 … s09-05)
+   s09-rules — 미리 정한 규칙 (STORYBOARD.md §2, s09-01 … s09-06)
 
    s09-01  언제, 무엇을 정했나       vertical commit stem (git-graph look, folded time axis); locks
                                      click shut; "seconds zoom" panel counts 13:41:27 → 37 (10 s) and
@@ -9,9 +9,13 @@
                                      (C-PR outside the better layer's band) → stamp "미충족" + 재분석
    s09-03  규칙 B                     one number line −0.11 … +0.13, rose hatched margin [−δ, 0];
                                      F1 ✓, F2 ✕, F3 ✕ with a ×10 zoom on the lower end (−0.014 vs −0.010)
-   s09-04  등록 분석과 수정 분석       three reasons (flat V curve, 12-digit ladder, spam token) +
+   s09-04  규칙 밖에서                two forest panels (new approval pairs | new senders): C-PR minus
+                                     EndorseRank, AWP, AWP among receiving spenders, EndorseRank with
+                                     activity restarts and the count of the same edge type; W0 filled,
+                                     W1 hollow; post hoc tag, no verdict (sources at var B4)
+   s09-05  등록 분석과 수정 분석       three reasons (flat V curve, 12-digit ladder, spam token) +
                                      two-column table, "=" between the verdicts
-   s09-05  R1–R3                      70 W1 traders as a dot grid (37 recipients, 9 liquidated); outcome
+   s09-06  R1–R3                     70 W1 traders as a dot grid (37 recipients, 9 liquidated); outcome
                                      definition; P and Q (W1) with 95 % bars and 97.5 % brackets; the
                                      registered sentences typed out; R3 profit-share bars (W1).
                                      W0 values (P, Q, 88 traders, 40/40, 75.0 %) are in the narration only
@@ -137,7 +141,7 @@
     '.s9-inset{position:absolute;left:1180px;top:660px;width:644px;height:200px;border-radius:20px;background:rgba(16,21,31,.97);border:1px solid #39435A;box-shadow:0 18px 50px rgba(0,0,0,.5)}',
     '.s9-inset .hd{position:absolute;left:20px;top:12px;font-size:18px;line-height:24px;color:var(--ink-3);font-family:var(--font-mono);letter-spacing:0}',
     '.s9-inset svg{position:absolute;left:0;top:0;overflow:visible}',
-    /* s09-04 */
+    /* s09-05 */
     '.s9-rs{position:absolute;left:96px;width:660px;display:flex;gap:18px;align-items:flex-start;padding:14px 18px;border-radius:18px;background:var(--bg-2);border:1px solid var(--line)}',
     '.s9-rs svg{flex:0 0 auto}',
     '.s9-rs .t{font-size:22px;line-height:32px;color:var(--ink)}',
@@ -153,7 +157,7 @@
     '.s9-tr.vd .a,.s9-tr.vd .b{font-weight:800}',
     '.s9-tr.vd .eq{color:var(--ink);font-size:30px}',
     '.s9-bold{font-size:28px;line-height:40px;font-weight:800;color:var(--ink)}',
-    /* s09-05 */
+    /* s09-06 */
     '.s9-wl{font-size:20px;line-height:30px;color:var(--ink-2)}',
     '.s9-wl i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:-1px}',
     '.s9-def{position:absolute;left:760px;top:192px;width:1064px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:24px}',
@@ -165,7 +169,11 @@
     '.s9-score .r{display:flex;align-items:center;gap:14px;font-size:24px;line-height:32px;color:var(--ink-2)}',
     '.s9-score .r b{font-family:var(--font-mono);font-size:26px;color:var(--ink);width:44px;letter-spacing:0}',
     '.s9-v{display:inline-flex;align-items:center;padding:3px 14px;border-radius:12px;font-size:22px;font-weight:800;border:2.5px solid var(--ink);color:var(--ink)}',
-    '.s9-v.no{border-color:var(--c-hi);color:var(--c-hi)}'
+    '.s9-v.no{border-color:var(--c-hi);color:var(--c-hi)}',
+    /* s09-04 (C-PR beside every other score) */
+    '.s9-ph{font-size:26px;line-height:34px;font-weight:800;color:var(--ink);text-align:center}',
+    '.s9-lg{font-size:20px;line-height:28px;color:var(--ink-3);white-space:nowrap}',
+    '.s9-lg b{color:var(--c-cpr, #A78BFA);font-weight:900}'
   ].join('\n');
   (function inject() {
     if (document.getElementById('s09-style')) return;
@@ -609,7 +617,81 @@
     }
   };
 
-  /* ================================================================ s09-04 registered vs revised */
+  /* ================================================================ s09-04 C-PR beside every other score (post hoc) */
+  /* W0 first, W1 second; C-PR (λ = 0.5) minus the row's score. Sources (R = revised digest):
+     EndorseRank: R§6 contrasts_after[6] / R§7 endorserank_results.cpr_minus_endorserank_appr; supplementary w0/w1.cpr_minus_er_send
+     AWP: R§6 contrasts_after[8], [7] / R§7 sensitivity_awp.F1, F2
+     AWP, received a transfer: supplementary w0/w1.recv_cpr_minus_awp_{appr,send} (n 14,094 / 15,059)
+     EndorseRank (activity restarts): supplementary w0/w1.cpr_minus_er_activity_{appr,send}
+     counts: supplementary w0/w1.cpr_minus_degree_appr (in-approve degree) and cpr_minus_in_degree_send (transfer in-degree) */
+  var B4 = { d: [-0.10, 0.10], ys: [306, 390, 474, 558, 642], xA: [640, 1150], xB: [1290, 1800], rows: [
+    { k: '엔도스랭크', ds: '허락 층만 걷는 기준 점수', a: ['+0.021 [0.013, 0.028]', '+0.016 [0.010, 0.024]'], b: ['+0.062 [0.054, 0.070]', '+0.069 [0.061, 0.078]'], step: 1 },
+    { k: 'AWP', ds: '송금 층만 걷는 기존 기법', a: ['+0.056 [0.042, 0.070]', '+0.081 [0.069, 0.095]'], b: ['−0.085 [−0.092, −0.078]', '−0.067 [−0.072, −0.061]'], step: 2 },
+    { k: 'AWP · 송금 받은 스펜더만', ds: 'AWP가 순서를 매길 수 있는 계약', a: ['−0.037 [−0.045, −0.028]', '−0.017 [−0.025, −0.009]'], b: ['−0.073 [−0.079, −0.067]', '−0.056 [−0.061, −0.050]'], step: 2 },
+    { k: '엔도스랭크(활동 재시작)', ds: '허락하는 소유자에서 다시 출발', a: ['−0.057 [−0.065, −0.049]', '−0.044 [−0.051, −0.038]'], b: ['−0.008 [−0.017, 0.001]', '+0.021 [0.012, 0.030]'], step: 3 },
+    { k: '같은 화살표의 센 수', ds: '왼쪽 허락 입차수 · 오른쪽 송금 입차수', a: ['+0.002 [−0.007, 0.011]', '−0.017 [−0.024, −0.010]'], b: ['−0.042 [−0.049, −0.035]', '−0.045 [−0.051, −0.039]'], step: 3 }
+  ] };
+  var slideCpr = {
+    id: 's09-04', title: '규칙 밖에서: C-PR을 다른 점수와 견주면', time: 50, steps: 4,
+    tags: ['posthoc'],
+    notes: [
+      '규칙 A와 B는 C-PR을 자기 층과만 견줘요. 결합만 바꾸는 비교는 그것뿐이기 때문이에요. 이 장은 규칙 밖에서, 라벨을 본 뒤에 C-PR을 다른 점수와 짝지어 뺀 값이에요. 어떤 판정도 하지 않아요. 진한 점이 W0, 빈 점이 W1이에요.',
+      '먼저 허락 층만 걷는 엔도스랭크와 견주면 C-PR이 두 라벨, 두 기간 모두에서 위예요. 새 허락 쌍에서 0.021과 0.016, 새 송금자에서 0.062와 0.069만큼 높아요.',
+      'AWP와 견주면 새 허락 쌍에서는 C-PR이 위, 새 송금자에서는 아래예요. 그런데 새 허락 쌍의 앞섬은 송금 간선이 없어 AWP가 0을 주는 스펜더에서 나와요. 송금을 받은 적 있는 스펜더만 보면 AWP가 두 라벨 모두 위예요.',
+      '활동 재시작 엔도스랭크는 새 허락 쌍에서 두 기간 모두 C-PR보다 위예요. 같은 화살표를 그냥 센 수와 견주면 C-PR은 새 허락 쌍에서 W0에 비기고 W1에 뒤지며, 새 송금자에서는 두 기간 모두 뒤져요.',
+      '정리하면 C-PR은 엔도스랭크를 모든 미래 라벨에서 개선하고, 송금 걸음이 순서를 못 매기는 계약에도 순서를 줘요. 하지만 송금 걸음이 볼 수 있는 계약에서는 AWP를 넘지 못하고, 규칙 A와 B는 미충족 그대로예요.'
+    ],
+    html:
+      '<h1 class="t-h1">규칙 밖에서: C-PR을 [[다른 점수]]와 견주면</h1>' +
+      '<p class="abs s9-fx" style="left:96px;top:160px;width:1728px">모두 $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{b}$ · 라벨을 본 뒤에 계산 · 어떤 규칙도 정하지 않아요</p>' +
+      '<p class="abs s9-lg" style="left:96px;top:204px"><b>●</b> W0 (4–6월) · <b>○</b> W1 (7–9월) · 0보다 오른쪽이면 C-PR이 위</p>' +
+      '<div class="abs s9-ph" style="left:640px;top:236px;width:510px">새 허락 쌍</div>' +
+      '<div class="abs s9-ph" style="left:1290px;top:236px;width:510px">새 송금자</div>' +
+      B4.rows.map(function (r, k) { return '<div class="s9-fl s9-fl4" data-r="' + k + '" data-in="none" style="top:' + (B4.ys[k] - 32) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
+      '<svg class="abs" id="ax4" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
+      '<div class="abs s9-bot" id="sum4" data-in="none" style="left:96px;top:756px;width:1728px">C-PR은 엔도스랭크를 <b>모든 미래 라벨</b>에서 개선해요. 하지만 송금 걸음이 볼 수 있는 계약에서는 <b>AWP를 넘지 못하고</b>, 규칙 A와 B는 미충족 그대로예요.</div>' +
+      '<div class="abs s9-tiny" id="tag4" data-in="none" style="left:96px;top:864px;width:1728px">' + pill('posthoc') + '수정 분석 · 400번 짝지어 다시 뽑기 · 송금 받은 스펜더 W0 <b>14,094</b>개, W1 <b>15,059</b>개</div>',
+    build: function (el, ctx) {
+      var g = ctx.g = {};
+      var sv = q(el, '#ax4');
+      var XA = lin(B4.d[0], B4.d[1], B4.xA[0], B4.xA[1]), XB = lin(B4.d[0], B4.d[1], B4.xB[0], B4.xB[1]);
+      var y0 = B4.ys[0] - 40, y1 = B4.ys[B4.ys.length - 1] + 40, ticks = [-0.1, -0.05, 0, 0.05, 0.1];
+      axis(sv, { scale: XA, domain: B4.d, ticks: ticks, y0: y0, y1: y1, signed: true });
+      axis(sv, { scale: XB, domain: B4.d, ticks: ticks, y0: y0, y1: y1, signed: true });
+      g.rows = B4.rows.map(function (r, k) {
+        var y = B4.ys[k];
+        function pair(X, vals) {
+          var w0 = iv(vals[0]), w1 = iv(vals[1]);
+          return [ivBar(sv, { scale: X, y: y - 10, est: w0.est, lo: w0.lo, hi: w0.hi, color: C.cpr, width: 6, r: 9 }),
+                  ivBar(sv, { scale: X, y: y + 12, est: w1.est, lo: w1.lo, hi: w1.hi, color: C.cpr, hollow: true, width: 3, r: 7 })];
+        }
+        return { bars: pair(XA, r.a).concat(pair(XB, r.b)), step: r.step };
+      });
+      g.fl = qa(el, '.s9-fl4');
+      g.sum = q(el, '#sum4'); g.tag = q(el, '#tag4');
+      gsap.set([g.sum, g.tag], { autoAlpha: 0 });
+      gsap.set(g.fl, { autoAlpha: 0.35 });
+    },
+    enter: function (el, ctx) {
+      var tl = ctx.tl();
+      tl.fromTo(q(el, '#ax4'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.3);
+      tl.fromTo(ctx.g.fl, { autoAlpha: 0, x: -24 }, { autoAlpha: 0.35, x: 0, duration: dur(ctx, 0.5), ease: E.out, stagger: 0.08 }, 0.2);
+    },
+    step: function (el, i, ctx) {
+      var g = ctx.g, tl = ctx.tl(), n = 0;
+      if (i >= 1 && i <= 3) {
+        g.rows.forEach(function (R, k) {
+          if (R.step !== i) return;
+          var at = 0.05 + n * 0.35; n += 1;
+          tl.to(g.fl[k], { autoAlpha: 1, duration: 0.3 }, at);
+          R.bars.forEach(function (b, j) { tl.add(b.grow(ctx, { duration: 0.7 }), at + 0.05 + j * 0.06); });
+        });
+      }
+      if (i === 4) { fadeUp(tl, g.sum, 0.05, 0.5); fadeUp(tl, g.tag, 0.3, 0.5); }
+    }
+  };
+
+  /* ================================================================ s09-05 registered vs revised */
   var TR4 = [
     ['매칭 코호트(계약)', '27,844', '15,107'],
     ['W0 스펜더 코호트', '33,101', '17,050'],
@@ -627,7 +709,7 @@
     spam: '<svg width="88" height="70" viewBox="0 0 88 70" fill="none"><rect x="6" y="10" width="54" height="40" rx="6" stroke="#A3ADBF" stroke-width="2"/><path d="M14 22h36M14 30h28M14 38h32" stroke="#677083" stroke-width="2"/><circle cx="66" cy="50" r="14" fill="#10151F" stroke="#FF6B8A" stroke-width="2.5"/><path d="M60 44l12 12M72 44L60 56" stroke="#FF6B8A" stroke-width="2.5" stroke-linecap="round"/></svg>'
   };
   var slide4 = {
-    id: 's09-04', title: '등록 분석과 수정 분석', time: 50, steps: 4,
+    id: 's09-05', title: '등록 분석과 수정 분석', time: 50, steps: 4,
     tags: ['registered-analysis', 'reanalysis'],
     notes: [
       '그래서 이 논문에는 분석이 두 개 있어요.',
@@ -680,7 +762,7 @@
     }
   };
 
-  /* ================================================================ s09-05 R1–R3 on trader outcomes */
+  /* ================================================================ s09-06 R1–R3 on trader outcomes */
   var P5 = { x0: 1150, x1: 1560, d: [-0.45, 0.4], vX: 1586 };
   var ROW5 = {
     /* W1 only on screen; W0 (P +0.182, 97.5 % [0.032, 0.338]; Q −0.014, 97.5 % [−0.161, 0.151]) is in the narration */
@@ -692,7 +774,7 @@
     { y: 790, k: 'P · 손실 아닌 닫기 비율', v: '−0.252 [−0.391, −0.120]' }
   ];
   var slide5 = {
-    id: 's09-05', title: '두 화살표 어디에도 없는 결과: R1–R3', time: 55, steps: 6,
+    id: 's09-06', title: '두 화살표 어디에도 없는 결과: R1–R3', time: 55, steps: 6,
     tags: function (s) { return s >= 6 ? ['registered', 'reanalysis', 'registered-analysis'] : s >= 3 ? ['registered', 'reanalysis'] : ['registered']; },
     notes: [
       '마지막 규칙은 두 화살표 어디에도 담기지 않은 결과에서의 비교예요. GMX V2에서 거래하는 계약 트레이더가 다음 석 달 동안 어떻게 포지션을 닫았는지 봤어요.',
@@ -828,6 +910,6 @@
   Deck.section({
     id: 's09-rules',
     title: '미리 정한 규칙',
-    slides: [slide1, slide2, slide3, slide4, slide5]
+    slides: [slide1, slide2, slide3, slideCpr, slide4, slide5]
   });
 })();

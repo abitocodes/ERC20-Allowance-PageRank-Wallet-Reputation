@@ -6,8 +6,8 @@
                                  family bars, race bars, interval bars, verdict stamps); each click
                                  brings one card forward with its answer and status; then the
                                  out-of-both-edges line and the five objective chips
-   s11-02  Five contributions    bento of five tiles, each with one small motion (G1, G8, closed form,
-                                 G13 dial, a waffle of the W1 traders)
+   s11-02  Five contributions    bento of five tiles, C-PR first in the large tile; each with one small
+                                 motion (G13 dial, G1, G8, closed form, a waffle of the W1 traders)
    s11-03  Limitations           eight lines with icons, four per click
    s11-04  Wallet window, next   the brandless wallet window of s01-01 opens again (DeckParts.wallet; 46 px
                                  lower than in s01-01 so it clears the title), now with "owner addresses: N"
@@ -60,6 +60,7 @@
   var F_AWP_T = pick(FAM, ['awp', 'transfer', 0], 0.5723), F_AWP_A = pick(FAM, ['awp', 'allowance', 0], 0.193);
   var BM = pick(DATA, ['benchmark', 'revised', 'main'], {});
   var T_ER = pick(BM, ['endorserank', 'mean_s'], 10.2942), T_AWP = pick(BM, ['awp', 'mean_s'], 22.3674);
+  var T_CPR = pick(BM, ['cpr_l50', 'mean_s'], 36.1616);
   var R_TIME = pick(DATA, ['benchmark', 'revised', 'derived', 'time_ratio_awp_over_er'], 2.1728);
   var R_EDGE = pick(DATA, ['benchmark', 'revised', 'derived', 'edge_ratio_awp_over_er'], 2.2302);
   var W1C_AWP = pick(RV, ['w1', 'endorserank_results', 'awp_minus_degree_send', 'd'], [0.02186, 0.01694, 0.02708]);
@@ -138,28 +139,29 @@
   /* ================================================================ s11-01 answers */
   var CX = [96, 446, 796, 1146, 1496];
   var CARDS = [
-    { k: 'RQ1', q: 'Do the two scores order contracts differently?', a: 'Yes: τ = ' + fmt(TAU[0], 3), sb: 'They order the same contracts quite differently (neither 0 nor 1)', tags: [plainPill('Largely by construction')] },
-    { k: 'RQ2', q: 'What does each score agree with?', a: 'The proxies of its own edges', sb: '<span style="font-size:20px;letter-spacing:-.02em;white-space:nowrap">EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b></span>', tags: [Deck.tagHTML('construct')] },
-    { k: 'RQ3', q: 'How long does each take?', a: 'Time follows the edge count', sb: 'Time <b>' + fmt(R_TIME, 2) + '×</b> ≈ edges <b>' + fmt(R_EDGE, 2) + '×</b><br>Same solver', tags: [] },
-    { k: 'RQ4', q: 'Do they predict later events? Better than the count?', a: 'Every score predicts', sb: 'On transfers AWP beats the count; on allowances <span class="em" id="em4">the count beats EndorseRank</span>', tags: [Deck.tagHTML('posthoc')] },
-    { k: 'RQ5', q: 'Does mixing both edge types help?', a: 'No', sb: 'Rules A and B both not met<br>Same in the registered analysis', tags: [Deck.tagHTML('reanalysis')] }
+    { k: 'RQ1', q: 'The two single-edge walks?', a: 'Different orders, own checks', sb: '<span style="font-size:20px;letter-spacing:-.02em">τ = ' + fmt(TAU[0], 3) + ' (neither 0 nor 1)<br>EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b></span>', tags: [plainPill('Largely by construction')] },
+    { k: 'RQ2', q: 'How long does each take?', a: 'Time follows the edge count', sb: 'Time <b>' + fmt(R_TIME, 2) + '×</b> ≈ edges <b>' + fmt(R_EDGE, 2) + '×</b><br>C-PR, walking both edge sets, is the slowest', tags: [] },
+    { k: 'RQ3', q: 'Do they predict later events? Better than the count?', a: 'Every score predicts', sb: 'On transfers AWP beats the count; on allowances <span class="em" id="em4">the count beats EndorseRank</span>; C-PR beats neither count', tags: [Deck.tagHTML('posthoc')] },
+    { k: 'RQ4', q: 'Does C-PR beat each layer alone?', a: 'No: rule A not met', sb: 'No worse than the allowance layer,<br>below the transfer layer on new senders<br>Same in the registered analysis', tags: [Deck.tagHTML('reanalysis')] },
+    { k: 'RQ5', q: 'Do allowances improve the transfer walk?', a: 'No: rule B not met', sb: 'Better on new approval pairs, worse than the margin on new senders<br>Post hoc: above EndorseRank on every label', tags: [Deck.tagHTML('reanalysis'), Deck.tagHTML('posthoc')] }
   ];
   var OCH = [
-    { cls: '', html: '<b>O1</b>Met' }, { cls: '', html: '<b>O2</b>Met' }, { cls: '', html: '<b>O3</b>Met' },
-    { cls: 'part', html: '<b>O4 partly met</b>Prediction met; beating the count: AWP only' },
-    { cls: 'fail', html: '<b>O5 not met</b>Rules A and B, also in the registered analysis' }
+    { cls: '', html: '<b>O1</b>Met' }, { cls: '', html: '<b>O2</b>Met' },
+    { cls: 'part', html: '<b>O3 partly met</b>Prediction met; beating the count: AWP only' },
+    { cls: 'fail', html: '<b>O4 not met</b>Rule A, also in the registered analysis' },
+    { cls: 'fail', html: '<b>O5 not met</b>Rule B, also in the registered analysis' }
   ];
   var slide1 = {
     id: 's11-01', title: 'Answers to the research questions', time: 40, steps: 7,
     notes: [
       'Let me answer the five questions. The key pictures of the talk have come back as small tiles. Each question is paired with the objective of the same number.',
-      'First, EndorseRank and AWP order the contracts differently. Kendall\'s tau is 0.174, neither 0 nor 1. But the two scores walk different graphs in different ways, so to some degree this result follows by construction.',
-      'Second, each score agrees most with the proxies built from its own edges. EndorseRank reaches 0.585 with the allowance proxies, and AWP 0.572 with the transfer proxies. This is an intended-construct check. The proxies come from the same records, so part of the agreement is built in.',
-      'Third, computing time follows the number of edges. The time is 2.17 times, the edges 2.23 times. It is the same solver, so the speed comes from the graph.',
-      'Fourth, every score predicted later events to some degree. But on the transfer side the walk, that is AWP, beat the plain count, and on the allowance side the plain count beat EndorseRank. These are post hoc comparisons, made after seeing the labels.',
-      'Fifth, C-PR, which mixes the two edge types, met neither of the two rules fixed in advance, A and B. This is a re-analysis that applies the rules to the revised scores, and the registered analysis gave the same verdicts.',
+      'First, EndorseRank and AWP, the walks over one edge type each, order the contracts differently. Kendall\'s tau is 0.174, neither 0 nor 1. And each agrees most with the proxies built from its own edges: EndorseRank 0.585 with the allowance proxies, AWP 0.572 with the transfer proxies. Both results follow to some degree by construction.',
+      'Second, computing time follows the number of edges. The time is 2.17 times, the edges 2.23 times. It is the same solver, so the speed comes from the graph, and C-PR, which walks both edge sets, takes longest.',
+      'Third, every score predicted later events to some degree. But on the transfer side AWP beat the plain count, and on the allowance side the plain count beat EndorseRank. C-PR did not beat the count of the same edge type either. These are post hoc comparisons, made after seeing the labels.',
+      'Fourth, C-PR, the score of this thesis, did not meet rule A, which asked it to beat each layer walked alone. It was no worse than the allowance layer but fell behind the transfer layer on new senders. This is a re-analysis that applies the rule to the revised scores, and the registered analysis gave the same verdict.',
+      'Fifth, rule B, which asked whether adding the allowance layer improves a transfer walk, was not met either. New approval pairs improved, but on new senders C-PR fell behind by more than the margin. Outside the rules, C-PR was above EndorseRank on every label, but its lead over AWP on new approval pairs came from contracts that AWP scores zero.',
       'In addition, on an outcome found in neither edge type, such as avoiding liquidation, there was no evidence that the allowance side leads, and the comparison between the PageRank versions was not resolved. This too is a re-analysis that applies the registered rules to the revised scores.',
-      'As for the objectives, the first three were met, but all three largely by construction. The fourth was only partly met: prediction was met, but only AWP did better than the count. The fifth was not met, and the same holds in the registered analysis.'
+      'As for the objectives, the first two were met, but both largely by construction. The third was only partly met: prediction was met, but only AWP did better than the count. The fourth and fifth were not met, and the same holds in the registered analysis.'
     ],
     html: function () {
       var cards = CARDS.map(function (c, i) {
@@ -170,7 +172,7 @@
       }).join('');
       var och = OCH.map(function (o, i) { return '<div class="s11-oc ' + o.cls + '" data-in="none" style="left:' + CX[i] + 'px">' + o.html + '</div>'; }).join('');
       return '<h1 class="t-h1">Five questions, [[five answers]]</h1>' + cards + och +
-        '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[2] + 326 - CX[0] - 40) + 'px"><span>All three largely by construction</span></div>' +
+        '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[1] + 326 - CX[0] - 40) + 'px"><span>Both largely by construction</span></div>' +
         '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1728px"><span><b>Outcome in neither edge type</b> (liquidation avoidance): no evidence that the allowance side leads · PageRank versions not resolved</span>' + Deck.tagHTML('reanalysis') + '</div>';
     },
     build: function (el, ctx) {
@@ -205,7 +207,7 @@
         tl.fromTo(card, { y: 0 }, { y: -10, duration: 0.25, ease: 'power2.out', yoyo: true, repeat: 1 }, 0);
         tl.set(bd, { autoAlpha: 1 }, 0.1);
         tl.fromTo(bd.children, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: E.out }, 0.1);
-        if (k === 3) tl.fromTo(q(el, '#em4'), { backgroundSize: '0% 100%' }, { backgroundSize: '100% 100%', duration: 0.6, ease: E.out }, 0.9);
+        if (k === 2) tl.fromTo(q(el, '#em4'), { backgroundSize: '0% 100%' }, { backgroundSize: '100% 100%', duration: 0.6, ease: E.out }, 0.9);
       }
       if (i === 6) tl.fromTo(g.add, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, 0);
       if (i === 7) {
@@ -234,31 +236,29 @@
       c.strokeRect(13.5, 11.5, W - 27, H - 23);
     }
     scatter(K);
-    /* RQ2: family bars */
-    var s2 = Comp.svg(ctx, g.ths[1], { w: W, h: H });
-    function bar(x, v, col) { var hh = v * 150; svgEl('rect', { x: x, y: H - 22 - hh, width: 30, height: hh, rx: 4, fill: col }, s2); }
-    bar(40, F_ER_A, C.allow); bar(74, F_ER_T, C.xfer); bar(186, F_AWP_A, C.allow); bar(220, F_AWP_T, C.xfer);
-    svgEl('line', { x1: 20, x2: W - 20, y1: H - 22, y2: H - 22, stroke: C.line, 'stroke-width': 1.5 }, s2);
-    [['EndorseRank', 72], ['AWP', 218]].forEach(function (t) { var x = svgEl('text', { x: t[1], y: H - 5, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 13 }, s2); x.textContent = t[0]; });
-    /* RQ3: race bars */
-    var s3 = Comp.svg(ctx, g.ths[2], { w: W, h: H });
-    var sc = 10;
-    svgEl('rect', { x: 20, y: 34, width: T_ER * sc, height: 22, rx: 6, fill: C.allow }, s3);
-    svgEl('rect', { x: 20, y: 74, width: T_AWP * sc, height: 22, rx: 6, fill: C.xfer }, s3);
-    svgEl('line', { x1: 20, x2: 20, y1: 24, y2: 106, stroke: C.ink3, 'stroke-width': 1.5 }, s3);
-    /* RQ4: interval bars around zero (W1, after the labels) */
-    var s4 = Comp.svg(ctx, g.ths[3], { w: W, h: H });
+    /* RQ2: race bars (EndorseRank, AWP, C-PR solve times) */
+    var s3 = Comp.svg(ctx, g.ths[1], { w: W, h: H });
+    var sc = 6.8;
+    svgEl('rect', { x: 20, y: 24, width: T_ER * sc, height: 20, rx: 6, fill: C.allow }, s3);
+    svgEl('rect', { x: 20, y: 54, width: T_AWP * sc, height: 20, rx: 6, fill: C.xfer }, s3);
+    svgEl('rect', { x: 20, y: 84, width: T_CPR * sc, height: 20, rx: 6, fill: C.cpr }, s3);
+    svgEl('line', { x1: 20, x2: 20, y1: 16, y2: 112, stroke: C.ink3, 'stroke-width': 1.5 }, s3);
+    /* RQ3: interval bars around zero (W1, after the labels) */
+    var s4 = Comp.svg(ctx, g.ths[2], { w: W, h: H });
     function X(v) { return 145 + v * 2400; }
     svgEl('line', { x1: X(0), x2: X(0), y1: 14, y2: H - 14, stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, s4);
     [[W1C_AWP, 44, C.xfer], [W1C_ER, 86, C.allow]].forEach(function (r) {
       svgEl('line', { x1: X(r[0][1]), x2: X(r[0][2]), y1: r[1], y2: r[1], stroke: r[2], 'stroke-width': 5, 'stroke-linecap': 'round' }, s4);
       svgEl('circle', { cx: X(r[0][0]), cy: r[1], r: 7, fill: r[2] }, s4);
     });
-    /* RQ5: two verdict stamps */
-    var s5 = h('div', '', g.ths[4]);
-    s5.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:12px';
-    s5.innerHTML = '<span class="stamp fail" style="font-size:18px;padding:6px 10px;border-width:2.5px;transform:rotate(-6deg)">A not met ✕</span>' +
-      '<span class="stamp fail" style="font-size:18px;padding:6px 10px;border-width:2.5px;transform:rotate(4deg)">B not met ✕</span>';
+    /* RQ4, RQ5: one verdict stamp each */
+    function stampThumb(host, text, rot) {
+      var d = h('div', '', host);
+      d.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center';
+      d.innerHTML = '<span class="stamp fail" style="font-size:20px;padding:6px 12px;border-width:2.5px;transform:rotate(' + rot + 'deg)">' + text + '</span>';
+    }
+    stampThumb(g.ths[3], 'A not met ✕', -6);
+    stampThumb(g.ths[4], 'B not met ✕', 4);
   }
 
   /* ================================================================ s11-02 contributions */
@@ -273,24 +273,24 @@
     id: 's11-02', title: 'What this study adds', time: 30, steps: 2,
     notes: [
       'This study adds five things.',
-      'First, it uses the allowance as an edge of contract reputation: that is EndorseRank. Second, an evaluation design that sets every score against the raw count before smoothing, in the same window and in two windows outside it. Third, a closed form that shows what EndorseRank actually computes at a depth-one spender. Fourth, C-PR, which mixes the two edge types, and its test by rules fixed in advance; the result was not met. Fifth, a comparison registered in advance on an outcome found in neither edge type.',
-      'The PageRank algorithm and AWP\'s weights are borrowed. What is new is the kind of edge and the way it was tested.'
+      'First, C-PR, which walks both edge types in one walk, and its test by rules fixed in advance. The rules were not met, but outside them C-PR was above EndorseRank on every label. Second, EndorseRank, the reference score that uses the allowance as an edge of contract reputation. Third, an evaluation design that sets every score against the raw count before smoothing, in the same window and in two windows outside it. Fourth, a closed form that shows what a uniformly restarted walk computes at a depth-one spender. Fifth, a comparison registered in advance on an outcome found in neither edge type.',
+      'The PageRank algorithm and AWP\'s weights are borrowed. What is new is the walk that ties the two edge types together, the kind of edge, and the way they were tested.'
     ],
     html: function () {
       var t = TILES;
       function tile(i, inner) { var T = t[i]; return '<div class="s11-tile" data-in="none" data-i="' + i + '" style="left:' + T.x + 'px;top:' + T.y + 'px;width:' + T.w + 'px;height:' + T.h + 'px"><span class="no">' + T.n + '</span>' + inner + '</div>'; }
       return '<h1 class="t-h1">[[Five]] contributions</h1>' +
-        tile(0, '<svg class="vis" id="v1" width="600" height="380" viewBox="0 0 600 380" style="top:70px"></svg>' +
-          '<div class="tx"><span class="big c-allow">EndorseRank</span><br>Allowances as reputation edges for contracts<small>The allowance an owner gives a contract is an endorsement</small></div>') +
-        tile(1, '<svg class="vis" id="v2" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
+        tile(0, '<div class="vis" id="v4" style="top:90px;height:300px"></div>' +
+          '<div class="tx"><span class="big c-cpr">C-PR</span><br>One walk over both edge types<small>Tested by rules A and B fixed in advance, both not met · outside the rules, above EndorseRank on every label</small></div>') +
+        tile(1, '<svg class="vis" id="v1" width="532" height="190" viewBox="0 0 600 380" style="top:40px"></svg>' +
+          '<div class="tx">EndorseRank: allowances as reputation<br>edges, the reference score</div>') +
+        tile(2, '<svg class="vis" id="v2" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
           '<div class="tx">Every score set against the raw count<small>Same window · two holdouts (W0, W1)</small></div>') +
-        tile(2, '<div class="vis fx" id="v3" style="top:62px;text-align:center">$r_v=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)$</div>' +
-          '<div class="tx">Closed form at a depth-one spender:<br>EndorseRank = split approval count</div>') +
-        tile(3, '<div class="vis" id="v4" style="top:28px;height:170px"></div>' +
-          '<div class="tx">C-PR mixes both edge types, tested<br>by rules fixed in advance <span class="ink-2">(not met)</span></div>') +
+        tile(3, '<div class="vis fx" id="v3" style="top:62px;text-align:center">$r_v=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)$</div>' +
+          '<div class="tx">Closed form at a depth-one spender:<br>what a uniformly restarted walk computes</div>') +
         tile(4, '<svg class="vis" id="v5" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
           '<div class="tx">A registered comparison on<br>an outcome in neither edge type<small>Liquidation avoidance of GMX V2 contract traders</small></div>') +
-        '<p class="abs s11-note" data-step="2" style="left:96px;top:870px;width:1728px">The algorithm (PageRank) and the weights (AWP) are <b>borrowed</b>. What is new is the <b>edge</b> and the <b>way it was tested</b>.</p>';
+        '<p class="abs s11-note" data-step="2" style="left:96px;top:870px;width:1728px">The algorithm (PageRank) and the weights (AWP) are <b>borrowed</b>. What is new is the <b>walk over both edges</b>, the <b>edge</b> and the <b>way they were tested</b>.</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};

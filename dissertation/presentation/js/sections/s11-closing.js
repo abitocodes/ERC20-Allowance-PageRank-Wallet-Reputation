@@ -1,13 +1,16 @@
 /* =========================================================================
    s11-closing — 정리 (STORYBOARD.md §2, s11-01 … s11-05)
 
-   s11-01  연구 질문에 대한 답   five RQ cards; on entry the representative pictures of the talk fly
-                                 back in as dim thumbnails (rank scatter of the real 15,107 contracts,
-                                 family bars, race bars, interval bars, verdict stamps); each click
+   s11-01  연구 질문에 대한 답   five RQ cards (RQ order of 22 October 2026: RQ1 the two single-edge
+                                 walks, RQ2 cost, RQ3 holdout and counts, RQ4 rule A, RQ5 rule B); on
+                                 entry the representative pictures of the talk fly back in as dim
+                                 thumbnails (rank scatter of the real 15,107 contracts, race bars with
+                                 C-PR, interval bars, one verdict stamp each for A and B); each click
                                  brings one card forward with its answer and status; then the
                                  out-of-both-edges line and the five objective chips
-   s11-02  새로 보탠 다섯 가지   bento of five tiles, each with one small motion (G1, G8, closed form,
-                                 G13 dial, a waffle of the W1 traders)
+   s11-02  새로 보탠 다섯 가지   bento of five tiles, C-PR first (G13 dial + stamp in the large tile),
+                                 then EndorseRank (G1), the counts (G8), the closed form and a waffle
+                                 of the W1 traders
    s11-03  한계                  eight lines with icons, four per click
    s11-04  지갑 창과 다음 일     the brandless wallet window of s01-01 opens again (DeckParts.wallet; 46 px
                                  lower than in s01-01 so it clears the title), now with "주인 주소 N개"
@@ -60,6 +63,7 @@
   var F_AWP_T = pick(FAM, ['awp', 'transfer', 0], 0.5723), F_AWP_A = pick(FAM, ['awp', 'allowance', 0], 0.193);
   var BM = pick(DATA, ['benchmark', 'revised', 'main'], {});
   var T_ER = pick(BM, ['endorserank', 'mean_s'], 10.2942), T_AWP = pick(BM, ['awp', 'mean_s'], 22.3674);
+  var T_CPR = pick(BM, ['cpr_l50', 'mean_s'], 36.1616);
   var R_TIME = pick(DATA, ['benchmark', 'revised', 'derived', 'time_ratio_awp_over_er'], 2.1728);
   var R_EDGE = pick(DATA, ['benchmark', 'revised', 'derived', 'edge_ratio_awp_over_er'], 2.2302);
   var W1C_AWP = pick(RV, ['w1', 'endorserank_results', 'awp_minus_degree_send', 'd'], [0.02186, 0.01694, 0.02708]);
@@ -138,28 +142,29 @@
   /* ================================================================ s11-01 answers */
   var CX = [96, 446, 796, 1146, 1496];
   var CARDS = [
-    { k: 'RQ1', q: '두 점수는 순서가 다를까?', a: '네 — τ = ' + fmt(TAU[0], 3), sb: '같은 계약을 꽤 다른 순서로 세워요 (0도 1도 아니에요)', tags: [plainPill('만든 방식 때문에 대체로 저절로')] },
-    { k: 'RQ2', q: '무엇과 맞을까?', a: '각자 자기 화살표의 지표와', sb: '엔도스랭크 × 허락 <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × 송금 <b>' + fmt(F_AWP_T, 3) + '</b>', tags: [Deck.tagHTML('construct')] },
-    { k: 'RQ3', q: '얼마나 걸릴까?', a: '시간은 화살표 수를 따라가요', sb: '시간 <b>' + fmt(R_TIME, 2) + '배</b> ≈ 화살표 <b>' + fmt(R_EDGE, 2) + '배</b><br>같은 풀이 프로그램', tags: [] },
-    { k: 'RQ4', q: '나중 일을 맞힐까? 센 수보다 나을까?', a: '모든 점수가 맞혀요', sb: '송금 쪽은 AWP가 센 수를 이기고, 허락 쪽은 <span class="em" id="em4">센 수가 엔도스랭크를 이겨요</span>', tags: [Deck.tagHTML('posthoc')] },
-    { k: 'RQ5', q: '두 화살표를 섞으면 나을까?', a: '아니요', sb: '규칙 A, B 모두 미충족<br>등록 분석도 같아요', tags: [Deck.tagHTML('reanalysis')] }
+    { k: 'RQ1', q: '한 화살표만 걷는 두 점수는?', a: '순서가 다르고 각자 자기 지표와', sb: 'τ = ' + fmt(TAU[0], 3) + ' (0도 1도 아니에요)<br>엔도스랭크 × 허락 <b>' + fmt(F_ER_A, 3) + '</b> · AWP × 송금 <b>' + fmt(F_AWP_T, 3) + '</b>', tags: [plainPill('만든 방식 때문에 대체로 저절로')] },
+    { k: 'RQ2', q: '얼마나 걸릴까?', a: '시간은 화살표 수를 따라가요', sb: '시간 <b>' + fmt(R_TIME, 2) + '배</b> ≈ 화살표 <b>' + fmt(R_EDGE, 2) + '배</b><br>두 화살표를 함께 걷는 C-PR이 가장 느려요', tags: [] },
+    { k: 'RQ3', q: '나중 일을 맞힐까? 센 수보다 나을까?', a: '모든 점수가 맞혀요', sb: '송금 쪽은 AWP가 센 수를 이기고, 허락 쪽은 <span class="em" id="em4">센 수가 엔도스랭크를 이겨요</span> · C-PR도 센 수를 넘지 못해요', tags: [Deck.tagHTML('posthoc')] },
+    { k: 'RQ4', q: 'C-PR은 한 층만 걷기보다 나을까?', a: '아니요 — 규칙 A 미충족', sb: '허락 층보다 못하지 않지만<br>새 송금자에서 송금 층보다 뒤져요<br>등록 분석도 같아요', tags: [Deck.tagHTML('reanalysis')] },
+    { k: 'RQ5', q: '송금 걷기에 허락을 더하면?', a: '아니요 — 규칙 B 미충족', sb: '새 허락 쌍은 나아지고 새 송금자는 허용 폭보다 더 뒤져요<br>사후: 엔도스랭크보다는 모든 라벨에서 위', tags: [Deck.tagHTML('reanalysis'), Deck.tagHTML('posthoc')] }
   ];
   var OCH = [
-    { cls: '', html: '<b>O1</b>충족' }, { cls: '', html: '<b>O2</b>충족' }, { cls: '', html: '<b>O3</b>충족' },
-    { cls: 'part', html: '<b>O4 일부 충족</b>예측은 충족, 센 수 개선은 AWP만' },
-    { cls: 'fail', html: '<b>O5 미충족</b>규칙 A·B 모두, 등록 분석에서도' }
+    { cls: '', html: '<b>O1</b>충족' }, { cls: '', html: '<b>O2</b>충족' },
+    { cls: 'part', html: '<b>O3 일부 충족</b>예측은 충족, 센 수 개선은 AWP만' },
+    { cls: 'fail', html: '<b>O4 미충족</b>규칙 A, 등록 분석에서도' },
+    { cls: 'fail', html: '<b>O5 미충족</b>규칙 B, 등록 분석에서도' }
   ];
   var slide1 = {
     id: 's11-01', title: '연구 질문에 대한 답', time: 40, steps: 7,
     notes: [
       '다섯 질문에 답해 볼게요. 지금까지 본 대표 그림들이 작은 타일로 돌아왔어요. 각 질문에는 같은 번호의 목표가 하나씩 짝지어져 있어요.',
-      '첫째, 엔도스랭크와 AWP는 계약을 다른 순서로 세워요. 켄달의 타우가 0.174로, 0도 1도 아니에요. 다만 서로 다른 그래프를 다른 방식으로 걸으니, 만든 방식 때문에 어느 정도 저절로 나오는 결과예요.',
-      '둘째, 각 점수는 자기 화살표로 만든 지표와 가장 잘 맞아요. 엔도스랭크는 허락 지표와 0.585, AWP는 송금 지표와 0.572예요. 이것은 의도한 구성개념 점검이고, 지표가 같은 기록에서 나와서 일부는 저절로 맞아요.',
-      '셋째, 계산 시간은 화살표 수를 따라가요. 시간 2.17배, 화살표 2.23배예요. 같은 풀이 프로그램이라 빠른 것은 그래프 덕분이에요.',
-      '넷째, 나중 일은 모든 점수가 어느 정도 맞혔어요. 그런데 송금 쪽에서는 걷기, 곧 AWP가 그냥 센 수를 이겼고, 허락 쪽에서는 그냥 센 수가 엔도스랭크를 이겼어요. 이 비교들은 라벨을 본 뒤에 한 사후 비교예요.',
-      '다섯째, 두 화살표를 섞은 C-PR은 미리 정한 두 규칙 A와 B를 모두 채우지 못했어요. 수정 점수에 규칙을 적용한 재분석이고, 등록 분석에서도 판정이 같았어요.',
+      '첫째, 한 화살표만 걷는 엔도스랭크와 AWP는 계약을 다른 순서로 세워요. 켄달의 타우가 0.174로, 0도 1도 아니에요. 그리고 각자 자기 화살표로 만든 지표와 가장 잘 맞아요. 엔도스랭크는 허락 지표와 0.585, AWP는 송금 지표와 0.572예요. 둘 다 만든 방식 때문에 어느 정도 저절로 나오는 결과예요.',
+      '둘째, 계산 시간은 화살표 수를 따라가요. 시간 2.17배, 화살표 2.23배예요. 같은 풀이 프로그램이라 빠른 것은 그래프 덕분이고, 두 화살표를 함께 걷는 C-PR이 가장 오래 걸려요.',
+      '셋째, 나중 일은 모든 점수가 어느 정도 맞혔어요. 그런데 송금 쪽에서는 AWP가 그냥 센 수를 이겼고, 허락 쪽에서는 그냥 센 수가 엔도스랭크를 이겼어요. C-PR도 같은 화살표의 센 수를 넘지 못했어요. 이 비교들은 라벨을 본 뒤에 한 사후 비교예요.',
+      '넷째, 이 논문의 점수 C-PR은 한 층만 걷기보다 낫다는 규칙 A를 채우지 못했어요. 허락 층보다 못하지는 않았지만 새 송금자에서 송금 층보다 뒤졌어요. 수정 점수에 규칙을 적용한 재분석이고, 등록 분석에서도 같았어요.',
+      '다섯째, 송금 걷기에 허락 층을 더하면 나아지는지 묻는 규칙 B도 미충족이었어요. 새 허락 쌍은 나아졌지만 새 송금자에서 허용 폭보다 더 뒤졌어요. 규칙 밖의 사후 비교로는 C-PR이 엔도스랭크보다 모든 라벨에서 위였지만, AWP를 앞선 새 허락 쌍의 몫은 AWP가 0을 주는 계약에서 나왔어요.',
       '덧붙여, 청산을 피했는지처럼 두 화살표 어디에도 없는 결과에서는 허락 쪽이 앞선다는 증거가 없었고, 페이지랭크끼리의 비교는 가려지지 않았어요. 이것도 수정 점수에 등록한 규칙을 적용한 재분석이에요.',
-      '목표로 보면, 첫째부터 셋째까지는 이뤘지만 셋 다 만든 방식 때문에 대체로 저절로예요. 넷째는 일부만 이뤘어요. 예측은 충족했지만 센 수보다 나은 것은 AWP뿐이었어요. 다섯째는 이루지 못했고, 등록 분석에서도 같았어요.'
+      '목표로 보면, 첫째와 둘째는 이뤘지만 둘 다 만든 방식 때문에 대체로 저절로예요. 셋째는 일부만 이뤘어요. 예측은 충족했지만 센 수보다 나은 것은 AWP뿐이었어요. 넷째와 다섯째는 이루지 못했고, 등록 분석에서도 같았어요.'
     ],
     html: function () {
       var cards = CARDS.map(function (c, i) {
@@ -170,7 +175,7 @@
       }).join('');
       var och = OCH.map(function (o, i) { return '<div class="s11-oc ' + o.cls + '" data-in="none" style="left:' + CX[i] + 'px">' + o.html + '</div>'; }).join('');
       return '<h1 class="t-h1">다섯 질문, [[다섯 답]]</h1>' + cards + och +
-        '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[2] + 326 - CX[0] - 40) + 'px"><span>셋 다 만든 방식 때문에 대체로 저절로</span></div>' +
+        '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[1] + 326 - CX[0] - 40) + 'px"><span>둘 다 만든 방식 때문에 대체로 저절로</span></div>' +
         '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1500px"><span><b>두 화살표 어디에도 없는 결과</b>(청산 피하기): 허락 쪽이 앞선다는 증거 없음 · 페이지랭크 쌍은 가려지지 않음</span>' + Deck.tagHTML('reanalysis') + '</div>';
     },
     build: function (el, ctx) {
@@ -205,7 +210,7 @@
         tl.fromTo(card, { y: 0 }, { y: -10, duration: 0.25, ease: 'power2.out', yoyo: true, repeat: 1 }, 0);
         tl.set(bd, { autoAlpha: 1 }, 0.1);
         tl.fromTo(bd.children, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: E.out }, 0.1);
-        if (k === 3) tl.fromTo(q(el, '#em4'), { backgroundSize: '0% 100%' }, { backgroundSize: '100% 100%', duration: 0.6, ease: E.out }, 0.9);
+        if (k === 2) tl.fromTo(q(el, '#em4'), { backgroundSize: '0% 100%' }, { backgroundSize: '100% 100%', duration: 0.6, ease: E.out }, 0.9);
       }
       if (i === 6) tl.fromTo(g.add, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, 0);
       if (i === 7) {
@@ -234,31 +239,29 @@
       c.strokeRect(13.5, 11.5, W - 27, H - 23);
     }
     scatter(K);
-    /* RQ2: family bars */
-    var s2 = Comp.svg(ctx, g.ths[1], { w: W, h: H });
-    function bar(x, v, col) { var hh = v * 150; svgEl('rect', { x: x, y: H - 22 - hh, width: 30, height: hh, rx: 4, fill: col }, s2); }
-    bar(40, F_ER_A, C.allow); bar(74, F_ER_T, C.xfer); bar(186, F_AWP_A, C.allow); bar(220, F_AWP_T, C.xfer);
-    svgEl('line', { x1: 20, x2: W - 20, y1: H - 22, y2: H - 22, stroke: C.line, 'stroke-width': 1.5 }, s2);
-    [['엔도스랭크', 72], ['AWP', 218]].forEach(function (t) { var x = svgEl('text', { x: t[1], y: H - 5, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 13 }, s2); x.textContent = t[0]; });
-    /* RQ3: race bars */
-    var s3 = Comp.svg(ctx, g.ths[2], { w: W, h: H });
-    var sc = 10;
-    svgEl('rect', { x: 20, y: 34, width: T_ER * sc, height: 22, rx: 6, fill: C.allow }, s3);
-    svgEl('rect', { x: 20, y: 74, width: T_AWP * sc, height: 22, rx: 6, fill: C.xfer }, s3);
-    svgEl('line', { x1: 20, x2: 20, y1: 24, y2: 106, stroke: C.ink3, 'stroke-width': 1.5 }, s3);
-    /* RQ4: interval bars around zero (W1, after the labels) */
-    var s4 = Comp.svg(ctx, g.ths[3], { w: W, h: H });
+    /* RQ2: race bars (EndorseRank, AWP, C-PR solve times) */
+    var s3 = Comp.svg(ctx, g.ths[1], { w: W, h: H });
+    var sc = 6.8;
+    svgEl('rect', { x: 20, y: 24, width: T_ER * sc, height: 20, rx: 6, fill: C.allow }, s3);
+    svgEl('rect', { x: 20, y: 54, width: T_AWP * sc, height: 20, rx: 6, fill: C.xfer }, s3);
+    svgEl('rect', { x: 20, y: 84, width: T_CPR * sc, height: 20, rx: 6, fill: C.cpr }, s3);
+    svgEl('line', { x1: 20, x2: 20, y1: 16, y2: 112, stroke: C.ink3, 'stroke-width': 1.5 }, s3);
+    /* RQ3: interval bars around zero (W1, after the labels) */
+    var s4 = Comp.svg(ctx, g.ths[2], { w: W, h: H });
     function X(v) { return 145 + v * 2400; }
     svgEl('line', { x1: X(0), x2: X(0), y1: 14, y2: H - 14, stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, s4);
     [[W1C_AWP, 44, C.xfer], [W1C_ER, 86, C.allow]].forEach(function (r) {
       svgEl('line', { x1: X(r[0][1]), x2: X(r[0][2]), y1: r[1], y2: r[1], stroke: r[2], 'stroke-width': 5, 'stroke-linecap': 'round' }, s4);
       svgEl('circle', { cx: X(r[0][0]), cy: r[1], r: 7, fill: r[2] }, s4);
     });
-    /* RQ5: two verdict stamps */
-    var s5 = h('div', '', g.ths[4]);
-    s5.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:12px';
-    s5.innerHTML = '<span class="stamp fail" style="font-size:20px;padding:6px 12px;border-width:2.5px;transform:rotate(-6deg)">A 미충족 ✕</span>' +
-      '<span class="stamp fail" style="font-size:20px;padding:6px 12px;border-width:2.5px;transform:rotate(4deg)">B 미충족 ✕</span>';
+    /* RQ4, RQ5: one verdict stamp each */
+    function stampThumb(host, text, rot) {
+      var d = h('div', '', host);
+      d.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center';
+      d.innerHTML = '<span class="stamp fail" style="font-size:22px;padding:6px 14px;border-width:2.5px;transform:rotate(' + rot + 'deg)">' + text + '</span>';
+    }
+    stampThumb(g.ths[3], 'A 미충족 ✕', -6);
+    stampThumb(g.ths[4], 'B 미충족 ✕', 4);
   }
 
   /* ================================================================ s11-02 contributions */
@@ -273,24 +276,24 @@
     id: 's11-02', title: '이 연구가 새로 보탠 것', time: 30, steps: 2,
     notes: [
       '이 연구가 새로 보탠 것은 다섯 가지예요.',
-      '첫째, 허락을 계약 평판의 화살표로 쓴 것, 곧 엔도스랭크예요. 둘째, 모든 점수를 다듬기 전의 센 수와, 같은 기간과 두 기간 밖에서 견준 평가 설계예요. 셋째, 엔도스랭크가 한 단계 스펜더에서 실제로 무엇을 계산하는지 보여 주는 닫힌 식이에요. 넷째, 두 화살표를 섞는 C-PR과 미리 정한 규칙으로 한 시험인데, 결과는 미충족이었어요. 다섯째, 어느 화살표에도 없는 결과에서 미리 등록한 비교예요.',
-      '페이지랭크 알고리즘과 AWP의 무게는 빌려 온 것이고, 새것은 화살표의 종류와 그것을 시험한 방법이에요.'
+      '첫째, 두 화살표를 한 걸음으로 걷는 C-PR과, 미리 정한 규칙으로 한 시험이에요. 규칙은 미충족이었지만, 규칙 밖에서 보면 엔도스랭크보다 모든 라벨에서 위였어요. 둘째, 허락을 계약 평판의 화살표로 쓴 기준 점수 엔도스랭크예요. 셋째, 모든 점수를 다듬기 전의 센 수와, 같은 기간과 두 기간 밖에서 견준 평가 설계예요. 넷째, 고르게 다시 출발하는 걸음이 한 단계 스펜더에서 실제로 무엇을 계산하는지 보여 주는 닫힌 식이에요. 다섯째, 어느 화살표에도 없는 결과에서 미리 등록한 비교예요.',
+      '페이지랭크 알고리즘과 AWP의 무게는 빌려 온 것이고, 새것은 두 화살표를 한 걸음으로 묶는 규칙, 화살표의 종류, 그리고 그것을 시험한 방법이에요.'
     ],
     html: function () {
       var t = TILES;
       function tile(i, inner) { var T = t[i]; return '<div class="s11-tile" data-in="none" data-i="' + i + '" style="left:' + T.x + 'px;top:' + T.y + 'px;width:' + T.w + 'px;height:' + T.h + 'px"><span class="no">' + T.n + '</span>' + inner + '</div>'; }
       return '<h1 class="t-h1">새로 보탠 [[다섯]] 가지</h1>' +
-        tile(0, '<svg class="vis" id="v1" width="600" height="380" viewBox="0 0 600 380" style="top:70px"></svg>' +
-          '<div class="tx"><span class="big c-allow">엔도스랭크</span><br>허락을 계약 평판의 화살표로<small>주인이 계약에게 맡긴 허락이 곧 보증이에요</small></div>') +
-        tile(1, '<svg class="vis" id="v2" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
+        tile(0, '<div class="vis" id="v4" style="top:90px;height:300px"></div>' +
+          '<div class="tx"><span class="big c-cpr">C-PR</span><br>두 화살표를 한 걸음으로 걷는 점수<small>미리 정한 규칙 A·B로 시험해 둘 다 미충족 · 규칙 밖에서는 엔도스랭크보다 모든 라벨에서 위</small></div>') +
+        tile(1, '<svg class="vis" id="v1" width="532" height="190" viewBox="0 0 600 380" style="top:40px"></svg>' +
+          '<div class="tx">엔도스랭크: 허락을 계약 평판의<br>화살표로 쓴 기준 점수</div>') +
+        tile(2, '<svg class="vis" id="v2" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
           '<div class="tx">모든 점수를 다듬기 전의 센 수와 견줌<small>같은 기간 · 두 기간 밖(W0, W1)</small></div>') +
-        tile(2, '<div class="vis fx" id="v3" style="top:62px;text-align:center">$r_v=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)$</div>' +
-          '<div class="tx">닫힌 식: 한 단계 스펜더에서<br>엔도스랭크 = 나눠 센 허락 수</div>') +
-        tile(3, '<div class="vis" id="v4" style="top:28px;height:170px"></div>' +
-          '<div class="tx">두 화살표를 섞는 C-PR과<br>미리 정한 규칙으로 한 시험 <span class="ink-2">(미충족)</span></div>') +
+        tile(3, '<div class="vis fx" id="v3" style="top:62px;text-align:center">$r_v=c\\,\\bigl(1+d\\,\\delta(v)\\bigr)$</div>' +
+          '<div class="tx">닫힌 식: 한 단계 스펜더에서<br>고르게 다시 출발하는 걸음이 계산하는 것</div>') +
         tile(4, '<svg class="vis" id="v5" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
           '<div class="tx">두 화살표 어디에도 없는 결과에서<br>등록한 비교<small>GMX V2 계약 트레이더의 청산 피하기</small></div>') +
-        '<p class="abs s11-note" data-step="2" style="left:96px;top:870px;width:1728px">알고리즘(페이지랭크)과 무게(AWP)는 <b>빌려 왔어요</b> — 새것은 <b>화살표</b>와 <b>시험 방법</b>이에요</p>';
+        '<p class="abs s11-note" data-step="2" style="left:96px;top:870px;width:1728px">알고리즘(페이지랭크)과 무게(AWP)는 <b>빌려 왔어요</b> — 새것은 <b>두 화살표를 묶는 걸음</b>, <b>화살표</b>, <b>시험 방법</b>이에요</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};

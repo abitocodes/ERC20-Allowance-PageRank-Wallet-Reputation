@@ -55,10 +55,11 @@
     /* s01-02 */
     '.s01-rq-sub{position:absolute;left:96px;top:252px;width:960px;font-size:28px;line-height:42px;color:var(--ink-2)}',
     '.s01-players{position:absolute;left:96px;top:420px;display:flex;gap:24px}',
-    '.s01-player{width:304px;height:330px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden}',
-    '.s01-player svg{position:absolute;left:0;top:18px}',
-    '.s01-player .nm{position:absolute;left:26px;right:20px;top:206px;font-size:30px;line-height:40px;font-weight:700}',
-    '.s01-player .sb{position:absolute;left:26px;right:20px;top:250px;font-size:22px;line-height:32px;color:var(--ink-3)}',
+    '.s01-player{width:228px;height:330px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden}',
+    '.s01-player.cpr{border:1.5px solid var(--c-cpr);background:var(--c-cpr-soft)}',
+    '.s01-player svg{position:absolute;left:0;top:30px}',
+    '.s01-player .nm{position:absolute;left:20px;right:14px;top:190px;font-size:25px;line-height:33px;font-weight:700}',
+    '.s01-player .sb{position:absolute;left:20px;right:14px;top:258px;font-size:19px;line-height:27px;color:var(--ink-3)}',
     '.s01-rqs{position:absolute;left:1112px;top:276px;width:712px}',
     '.s01-rq{position:relative;display:flex;align-items:center;gap:20px;min-height:92px;padding:12px 22px 12px 18px;margin-bottom:14px;',
     '  border:1.5px solid var(--line);border-radius:18px;background:rgba(16,21,31,.85)}',
@@ -263,32 +264,33 @@
   /* RQ wording: English thesis, Chapter 1, "Research questions", shortened as the Korean slide shortens it;
      '\n' forces a line break, other chips wrap balanced */
   var RQS = [
-    { k: 'RQ1', t: 'Do the two scores order the contracts differently?', sec: 8 },
-    { k: 'RQ2', t: 'How closely does each score agree with the checks?', sec: 8 },
-    { k: 'RQ3', t: 'What does each score cost to compute?', sec: 10 },
-    { k: 'RQ4', t: 'Do the scores predict what comes later?\nBetter than the raw degree?', sec: 8, test: true },
-    { k: 'RQ5', t: 'Does one walk over both edge types do better?', sec: 9, test: true }
+    { k: 'RQ1', t: 'Do the single-edge walks order contracts\ndifferently, each matching its own checks?', sec: 8 },
+    { k: 'RQ2', t: 'What does each score cost, and how much\ndoes walking both edge sets add?', sec: 10 },
+    { k: 'RQ3', t: 'Do the scores predict what comes later?\nBetter than the raw degree?', sec: 8, test: true },
+    { k: 'RQ4', t: 'Does C-PR beat each layer walked alone? (rule A)', sec: 9, test: true },
+    { k: 'RQ5', t: 'Does adding allowances improve the transfer walk? (rule B)', sec: 9, test: true }
   ];
   var slide2 = {
     id: 's01-02', title: 'Research questions', time: 45, steps: 3,
     notes: [
-      'This is the main question of the thesis: what do ERC-20 allowance edges add to PageRank as a reputation score for smart contracts on Arbitrum One?',
-      'I compare against two things. One is AWP, the existing score that walks over the transfer records. The other is the material that both walks smooth: the plain count of edges, the raw degree. In this thesis the score that walks over the allowances is called EndorseRank.',
+      'This is the main question of the thesis: what does a single PageRank walk over both ERC-20 allowance and transfer edges add to ranking smart contracts on Arbitrum One?',
+      'The score of this thesis is C-PR, which walks both kinds of edge at once. It is measured against three references: EndorseRank, which walks the allowances alone; AWP, the existing score that walks the transfer records alone; and the material the walks smooth, the plain count of edges, the raw degree.',
       'I split the main question into five research questions. The number at the end of each chip is the section where the answer comes. I will show the answer in that cell of the bar below.',
-      'Each of the first three questions has a hypothesis, H1 to H3. A hypothesis is an expected answer set up in advance. These three are checks that hold largely by construction, because of the way the scores are built. The real tests are RQ4, which asks whether the scores predict what happens later, and RQ5, which mixes the two kinds of edges. Each question also has one objective, and I call them objectives O1 to O5. O1 is the objective of RQ1, and O5 is the objective of RQ5. I will judge whether each objective was met at the end, in section 11.'
+      'The first two questions carry the hypotheses H1 to H3. A hypothesis is an expected answer set up in advance. These three are checks that hold largely by construction, because of the way the scores are built. The real tests are RQ3 to RQ5, and RQ4 and RQ5 test C-PR under rules fixed in advance. Each question also has one objective, and I call them objectives O1 to O5. O1 is the objective of RQ1, and O5 is the objective of RQ5. I will judge whether each objective was met at the end, in section 11.'
     ],
     html:
-      '<h1 class="t-h1">What do allowance edges<br>[[add]] to PageRank?</h1>' +
-      '<p class="s01-rq-sub">As a reputation score for smart contracts on Arbitrum One, compared with the transfer walk and with the raw degrees that both walks smooth</p>' +
+      '<h1 class="t-h1">What does one walk over both edge types<br>[[add]]?</h1>' +
+      '<p class="s01-rq-sub">As a reputation score for smart contracts on Arbitrum One, compared with walks over either edge type and with the raw degrees they smooth</p>' +
       '<div class="s01-players" id="players" data-in="none">' +
-        '<div class="s01-player"><svg width="304" height="180" viewBox="0 0 304 180"></svg><div class="nm c-allow">Allowance walk</div><div class="sb">EndorseRank</div></div>' +
-        '<div class="s01-player"><svg width="304" height="180" viewBox="0 0 304 180"></svg><div class="nm c-xfer">Transfer walk</div><div class="sb">AWP (Adaptive<br>Weighted PageRank)</div></div>' +
-        '<div class="s01-player"><svg width="304" height="180" viewBox="0 0 304 180"></svg><div class="nm c-deg">Just counting</div><div class="sb">Raw degree<br>(edges counted)</div></div>' +
+        '<div class="s01-player"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-allow">Allowance walk</div><div class="sb">EndorseRank (reference)</div></div>' +
+        '<div class="s01-player"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-xfer">Transfer walk</div><div class="sb">AWP (published method)</div></div>' +
+        '<div class="s01-player"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-deg">Just counting</div><div class="sb">Raw degree (reference)</div></div>' +
+        '<div class="s01-player cpr"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-cpr">Both at once</div><div class="sb">C-PR (this thesis)</div></div>' +
       '</div>' +
       '<div class="s01-rqs" id="rqs" data-in="none">' + RQS.map(function (r) {
         return '<div class="s01-rq' + '" data-k="' + r.k + '"><span class="k">' + r.k + '</span><span class="t">' + r.t.split('\n').map(esc).join('<br>') + '</span><span class="s">→ ' + Deck.util.pad2(r.sec) + '</span></div>';
       }).join('') + '</div>' +
-      '<p class="s01-rq-note" id="rqnote" data-in="none">Hypotheses H1–H3 (= the expected answers to RQ1–RQ3) hold largely by construction. The real tests are <b>RQ4</b> and <b>RQ5</b>.' +
+      '<p class="s01-rq-note" id="rqnote" data-in="none">Hypotheses H1–H3 (= the expected answers to RQ1–RQ2) hold largely by construction. The real tests are <b>RQ3–RQ5</b>; <b>RQ4</b> and <b>RQ5</b> test C-PR under rules fixed in advance.' +
         '<span class="obj">One objective per question: <b>objectives O1–O5</b> (O1 = the objective of RQ1 …) · whether each was met is judged in → 11</span></p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -301,6 +303,12 @@
       g.c2 = Comp.contract(ctx, s2, { x: 238, y: 92, size: 64 });
       g.a2 = Comp.arrow(ctx, s2, { from: [52, 92], to: [238, 92], kind: 'xfer', width: 4, shorten: [24, 44], hidden: true });
       g.tally = Comp.tally(ctx, s3, { x: 116, y: 50, size: 72 });
+      var s4 = cards[3].querySelector('svg');
+      g.e4a = Comp.eoa(ctx, s4, { x: 52, y: 62, r: 14 });
+      g.e4b = Comp.eoa(ctx, s4, { x: 52, y: 122, r: 14 });
+      g.c4 = Comp.contract(ctx, s4, { x: 238, y: 92, size: 64 });
+      g.a4a = Comp.arrow(ctx, s4, { from: [52, 62], to: [238, 80], kind: 'allow', width: 4, shorten: [20, 40], hidden: true });
+      g.a4b = Comp.arrow(ctx, s4, { from: [52, 122], to: [238, 104], kind: 'xfer', width: 4, shorten: [20, 40], hidden: true });
       g.cards = cards;
       gsap.set(cards, { autoAlpha: 0 });
       g.rqs = el.querySelectorAll('.s01-rq');
@@ -314,6 +322,8 @@
         tl.add(g.a1.draw(), 0.35);
         tl.add(g.a2.draw(), 0.47);
         tl.add(g.tally.add(5, { stagger: 0.16 }), 0.6);
+        tl.add(g.a4a.draw(), 0.75);
+        tl.add(g.a4b.draw(), 0.87);
       }
       if (i === 2) {
         tl.fromTo(g.rqs, { autoAlpha: 0, x: 80 }, { autoAlpha: 1, x: 0, duration: 0.55, ease: 'power3.out', stagger: 0.08 }, 0);

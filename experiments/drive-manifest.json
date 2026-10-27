@@ -1684,8 +1684,8 @@
   {
    "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/supplementary/supplementary.json",
    "id": "1DLPx_Fgso0VlOfrP9rUMW5zgB6pmUtcf",
-   "size": 2912,
-   "md5": "4af8fcd28336ddfd208bbdc8a761c8cd"
+   "size": 12835,
+   "md5": "f28754b519dd875174b3286c37530ccb"
   },
   {
    "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/sybil-model/sybil_model.json",
@@ -1823,7 +1823,7 @@
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd/SHA256SUMS.txt",
    "id": "19iiq1gEnvVeSkOwkqTDpF1EgLV5GZob3",
    "size": 1993,
-   "md5": "4c8366de737e9a723aa7a24308cfe8cf"
+   "md5": "6a992077086f4fdec847f958e0f2c9b3"
   },
   {
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd/benchmark/benchmark.json",
@@ -1894,8 +1894,8 @@
   {
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd/results_digest.md",
    "id": "12y-pybB8ScVUjRL4v_uFvTIUrvSWCwVf",
-   "size": 149529,
-   "md5": "0f9cf14fb359dad0964e3099e48ae27a"
+   "size": 156926,
+   "md5": "0824a2bb59266f540065691abd803230"
   },
   {
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd/robustness/robustness.json",
@@ -1912,8 +1912,8 @@
   {
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd/supplementary/supplementary.json",
    "id": "1ncWJ6w23yG-HUH0Mymwp_9ztEsE9dDuk",
-   "size": 2912,
-   "md5": "4af8fcd28336ddfd208bbdc8a761c8cd"
+   "size": 12835,
+   "md5": "f28754b519dd875174b3286c37530ccb"
   },
   {
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd/sybil-model/sybil_model.json",
@@ -2427,6 +2427,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-10-14T14:14:38+00:00",
- "total_bytes": 12687209861
+ "updated_at": "2026-10-27T13:07:48+00:00",
+ "total_bytes": 12687237104
 }

@@ -52,10 +52,11 @@
     /* s01-02 */
     '.s01-rq-sub{position:absolute;left:96px;top:252px;width:960px;font-size:28px;line-height:42px;color:var(--ink-2)}',
     '.s01-players{position:absolute;left:96px;top:420px;display:flex;gap:24px}',
-    '.s01-player{width:304px;height:330px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden}',
-    '.s01-player svg{position:absolute;left:0;top:18px}',
-    '.s01-player .nm{position:absolute;left:26px;right:20px;top:206px;font-size:30px;line-height:40px;font-weight:700}',
-    '.s01-player .sb{position:absolute;left:26px;right:20px;top:250px;font-size:22px;line-height:32px;color:var(--ink-3)}',
+    '.s01-player{width:228px;height:330px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden}',
+    '.s01-player.cpr{border:1.5px solid var(--c-cpr);background:var(--c-cpr-soft)}',
+    '.s01-player svg{position:absolute;left:0;top:30px}',
+    '.s01-player .nm{position:absolute;left:20px;right:14px;top:190px;font-size:25px;line-height:33px;font-weight:700}',
+    '.s01-player .sb{position:absolute;left:20px;right:14px;top:258px;font-size:19px;line-height:27px;color:var(--ink-3)}',
     '.s01-rqs{position:absolute;left:1112px;top:276px;width:712px}',
     '.s01-rq{position:relative;display:flex;align-items:center;gap:20px;min-height:92px;padding:12px 22px 12px 18px;margin-bottom:14px;',
     '  border:1.5px solid var(--line);border-radius:18px;background:rgba(16,21,31,.85)}',
@@ -257,32 +258,33 @@
 
   /* ------------------------------------------------------------ s01-02 */
   var RQS = [
-    { k: 'RQ1', t: '두 점수는 계약을 다른 순서로 세울까요?', sec: 8 },
-    { k: 'RQ2', t: '각 점수는 어떤 지표와 잘 맞을까요?', sec: 8 },
-    { k: 'RQ3', t: '계산에 얼마나 걸릴까요?', sec: 10 },
-    { k: 'RQ4', t: '나중에 생길 일을 맞힐까요? 그냥 센 수보다 나을까요?', sec: 8, test: true },
-    { k: 'RQ5', t: '두 화살표를 한 번에 걸으면 더 나을까요?', sec: 9, test: true }
+    { k: 'RQ1', t: '한 화살표만 걷는 두 점수는 순서가 다르고, 각자 자기 지표와 맞을까요?', sec: 8 },
+    { k: 'RQ2', t: '계산에 얼마나 걸리고, 두 화살표를 함께 걸으면 얼마나 더 들까요?', sec: 10 },
+    { k: 'RQ3', t: '나중에 생길 일을 맞힐까요? 그냥 센 수보다 나을까요?', sec: 8, test: true },
+    { k: 'RQ4', t: 'C-PR은 한 층만 걷기보다 나을까요? (규칙 A)', sec: 9, test: true },
+    { k: 'RQ5', t: '송금 걷기에 허락 층을 더하면 나아질까요? (규칙 B)', sec: 9, test: true }
   ];
   var slide2 = {
     id: 's01-02', title: '연구 질문', time: 45, steps: 3,
     notes: [
-      '이 논문의 큰 질문은 이거예요. ERC-20 허락 화살표를 페이지랭크에 넣으면, 아비트럼 원의 스마트 계약 평판 점수로서 무엇이 더해질까요?',
-      '비교 상대는 둘이에요. 하나는 송금 기록으로 걷는 기존 점수 AWP이고, 다른 하나는 두 걷기가 다듬는 재료, 곧 화살표를 그냥 센 수예요. 허락으로 걷는 점수를 이 논문에서는 엔도스랭크라고 불러요.',
+      '이 논문의 큰 질문은 이거예요. ERC-20 허락 화살표와 송금 화살표를 한 페이지랭크 걸음으로 함께 걸으면, 아비트럼 원의 스마트 계약 평판 점수로서 무엇이 더해질까요?',
+      '이 논문의 점수는 두 화살표를 한 번에 걷는 C-PR이에요. 견줄 기준은 셋이에요. 허락만 걷는 엔도스랭크, 송금 기록만 걷는 기존 점수 AWP, 그리고 걷기들이 다듬는 재료, 곧 화살표를 그냥 센 수예요.',
       '이 큰 질문을 다섯 개의 연구 질문으로 나눴어요. 칩 끝의 숫자는 답이 나오는 섹션이에요. 아래 막대의 그 칸에서 답을 보여 드릴게요.',
-      '앞의 세 질문에는 가설 H1–H3이 하나씩 붙어 있어요. 가설은 미리 세워 둔 예상 답이에요. 이 셋은 점수를 만든 방식 때문에 대체로 저절로 맞는 점검이에요. 나중 일을 맞히는지 묻는 RQ4와 두 화살표를 섞는 RQ5가 진짜 시험이에요. 그리고 질문마다 목표가 하나씩 있어서, 목표 O1–O5라고 불러요. O1은 RQ1의 목표, O5는 RQ5의 목표예요. 목표를 이뤘는지는 마지막 11에서 판정할게요.'
+      '앞의 두 질문에는 가설 H1–H3이 붙어 있어요. 가설은 미리 세워 둔 예상 답이에요. 이 셋은 점수를 만든 방식 때문에 대체로 저절로 맞는 점검이에요. 진짜 시험은 RQ3부터 RQ5까지이고, RQ4와 RQ5가 미리 정한 규칙으로 C-PR을 시험해요. 그리고 질문마다 목표가 하나씩 있어서, 목표 O1–O5라고 불러요. O1은 RQ1의 목표, O5는 RQ5의 목표예요. 목표를 이뤘는지는 마지막 11에서 판정할게요.'
     ],
     html:
-      '<h1 class="t-h1">허락 화살표는 페이지랭크에<br>무엇을 [[더할까요?]]</h1>' +
-      '<p class="s01-rq-sub">아비트럼 원의 스마트 계약 평판 점수로서 — 송금으로 걷는 점수, 그리고 두 걷기가 다듬는 \'그냥 센 수\'와 견주어</p>' +
+      '<h1 class="t-h1">두 화살표를 한 번에 걸으면<br>무엇이 [[더해질까요?]]</h1>' +
+      '<p class="s01-rq-sub">아비트럼 원의 스마트 계약 평판 점수로서 — 한 화살표만 걷는 점수들, 그리고 걷기들이 다듬는 \'그냥 센 수\'와 견주어</p>' +
       '<div class="s01-players" id="players" data-in="none">' +
-        '<div class="s01-player"><svg width="304" height="180" viewBox="0 0 304 180"></svg><div class="nm c-allow">허락으로 걷기</div><div class="sb">엔도스랭크 (EndorseRank)</div></div>' +
-        '<div class="s01-player"><svg width="304" height="180" viewBox="0 0 304 180"></svg><div class="nm c-xfer">송금으로 걷기</div><div class="sb">AWP (적응형 가중 페이지랭크)</div></div>' +
-        '<div class="s01-player"><svg width="304" height="180" viewBox="0 0 304 180"></svg><div class="nm c-deg">그냥 세기</div><div class="sb">원시 차수 (화살표를 센 수)</div></div>' +
+        '<div class="s01-player"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-allow">허락으로 걷기</div><div class="sb">엔도스랭크 (기준)</div></div>' +
+        '<div class="s01-player"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-xfer">송금으로 걷기</div><div class="sb">AWP (기존 기법)</div></div>' +
+        '<div class="s01-player"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-deg">그냥 세기</div><div class="sb">원시 차수 (기준)</div></div>' +
+        '<div class="s01-player cpr"><svg width="228" height="135" viewBox="0 0 304 180"></svg><div class="nm c-cpr">함께 걷기</div><div class="sb">C-PR (이 연구의 점수)</div></div>' +
       '</div>' +
       '<div class="s01-rqs" id="rqs" data-in="none">' + RQS.map(function (r) {
         return '<div class="s01-rq' + '" data-k="' + r.k + '"><span class="k">' + r.k + '</span><span class="t">' + esc(r.t) + '</span><span class="s">→ ' + Deck.util.pad2(r.sec) + '</span></div>';
       }).join('') + '</div>' +
-      '<p class="s01-rq-note" id="rqnote" data-in="none">가설 H1–H3 (= RQ1–RQ3의 예상 답)은 만든 방식 때문에 대체로 저절로 맞아요. 진짜 시험은 <b>RQ4</b>와 <b>RQ5</b>예요.' +
+      '<p class="s01-rq-note" id="rqnote" data-in="none">가설 H1–H3 (= RQ1–RQ2의 예상 답)은 만든 방식 때문에 대체로 저절로 맞아요. 진짜 시험은 <b>RQ3–RQ5</b>이고, <b>RQ4·RQ5</b>가 미리 정한 규칙으로 C-PR을 시험해요.' +
         '<span class="obj">질문마다 목표가 하나씩: <b>목표 O1–O5</b> (O1 = RQ1의 목표 …) · 이뤘는지는 → 11에서 판정해요</span></p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -295,6 +297,12 @@
       g.c2 = Comp.contract(ctx, s2, { x: 238, y: 92, size: 64 });
       g.a2 = Comp.arrow(ctx, s2, { from: [52, 92], to: [238, 92], kind: 'xfer', width: 4, shorten: [24, 44], hidden: true });
       g.tally = Comp.tally(ctx, s3, { x: 116, y: 50, size: 72 });
+      var s4 = cards[3].querySelector('svg');
+      g.e4a = Comp.eoa(ctx, s4, { x: 52, y: 62, r: 14 });
+      g.e4b = Comp.eoa(ctx, s4, { x: 52, y: 122, r: 14 });
+      g.c4 = Comp.contract(ctx, s4, { x: 238, y: 92, size: 64 });
+      g.a4a = Comp.arrow(ctx, s4, { from: [52, 62], to: [238, 80], kind: 'allow', width: 4, shorten: [20, 40], hidden: true });
+      g.a4b = Comp.arrow(ctx, s4, { from: [52, 122], to: [238, 104], kind: 'xfer', width: 4, shorten: [20, 40], hidden: true });
       g.cards = cards;
       gsap.set(cards, { autoAlpha: 0 });
       g.rqs = el.querySelectorAll('.s01-rq');
@@ -308,6 +316,8 @@
         tl.add(g.a1.draw(), 0.35);
         tl.add(g.a2.draw(), 0.47);
         tl.add(g.tally.add(5, { stagger: 0.16 }), 0.6);
+        tl.add(g.a4a.draw(), 0.75);
+        tl.add(g.a4b.draw(), 0.87);
       }
       if (i === 2) {
         tl.fromTo(g.rqs, { autoAlpha: 0, x: 80 }, { autoAlpha: 1, x: 0, duration: 0.55, ease: 'power3.out', stagger: 0.08 }, 0);
