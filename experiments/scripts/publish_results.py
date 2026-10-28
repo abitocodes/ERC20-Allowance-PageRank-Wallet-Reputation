@@ -12,6 +12,7 @@ files. Computes no score and no statistic.
 
 from __future__ import annotations
 
+import argparse
 import datetime as dt
 import hashlib
 import json
@@ -21,7 +22,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, PROC_SHARED, PUB, REVISED, ROOT, USD_INPUTS, W1_DIR  # noqa: E402
+from common import ONE_YEAR, PROC, PROC_SHARED, PUB, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS, W1_DIR  # noqa: E402
 
 W1_SRC = f"{W1_DIR}/eval_summary.json"
 # (published path, source)
@@ -47,8 +48,16 @@ if REVISED:
         ("docs/revision_price_weighting.md", ROOT / "docs" / "revision_price_weighting.md"),
         ("usd/listed_tokens.csv", USD_INPUTS / "listed_tokens.csv"),
         ("usd/usd_inputs.json", USD_INPUTS / "usd_inputs.json"),
-        ("usd/constants.json", USD_INPUTS / "constants.json"),
+        ("usd/constants.json", USD_CONSTANTS),
         ("usd/chainlink_check.json", USD_INPUTS / "chainlink_check.json"),
+    ]
+if ONE_YEAR:
+    FILES += [
+        ("docs/revision_one_year_window.md", ROOT / "docs" / "revision_one_year_window.md"),
+        ("config/overlay_usd12m.yaml", ROOT / "config" / "overlay_usd12m.yaml"),
+        ("usd/token_rows_12m.json", USD_INPUTS / "usd-12m" / "token_rows.json"),
+        ("cohort/cohort_t1.json", PROC / "cohort" / "cohort_t1.json"),
+        ("run_manifest.json", PROC / "run_manifest.json"),
     ]
 DIGEST, SUMS = "results_digest.md", "SHA256SUMS.txt"
 
@@ -189,6 +198,11 @@ def sec_sizes(D: Digest, j: dict) -> None:
         for k in ("registered_cohort", "left_out_of_registered"):
             if k in c:
                 D.row(f"Revised cohort: {k.replace('_', ' ')}", num(c.get(k)), src, k)
+    c, src = j.get("cohort/cohort_t1.json"), "cohort/cohort_t1.json"
+    if c:
+        D.row("W0 cohort rule", c.get("rule"), src, "rule")
+        for k in ("cohort", "registered_cohort", "left_out_of_registered", "in_tobs_cohort"):
+            D.row(f"W0 cohort: {k.replace('_', ' ')}", num(c.get(k)), src, k)
     s, src = j.get("same-window/eval_summary.json"), "same-window/eval_summary.json"
     if s:
         D.row("Anchor T_obs", s.get("anchor"), src, "anchor")
@@ -449,6 +463,19 @@ def sec_describe(D: Digest, z: dict) -> None:
             D.row(f"{t.get('symbol')} {t.get('address')}",
                   f"days {num(t.get('days'))}, filled {num(t.get('filled_days'))}, first {t.get('first_day')}, "
                   f"min confidence {num(t.get('min_confidence'))}", src, f"prices[{i}]")
+        pdays = z.get("price_days")  # twelve-month variant: the days its windows cover
+        if pdays:
+            D.sub(f"Daily prices of the selected tokens from {pdays.get('first_day')} to {pdays.get('last_day')}")
+            for i, t in enumerate(pdays.get("per_token") or []):
+                D.row(f"{t.get('symbol')} {t.get('address')}",
+                      f"days {num(t.get('days'))}, second key {num(t.get('second_key_days'))}, filled "
+                      f"{num(t.get('filled_days'))}, one-day errors {num(t.get('spike_days'))}", src,
+                      f"price_days.per_token[{i}]")
+            cl = z.get("chainlink_check_in_windows") or {}
+            for sym, v in (cl.get("per_token") or {}).items():
+                D.row(f"Chainlink check on those days, {sym}", f"{num(v.get('n'))} dates, median "
+                      f"{num(v.get('median'))}, largest {num(v.get('max'))} (absolute relative difference)",
+                      src, f"chainlink_check_in_windows.per_token.{sym}")
         for r in z["gmx_contract_traders_by_quarter"]:
             D.row(f"GMX contract traders {r['quarter']}", f"{r['closes']:,} closes, {r['accounts']:,} accounts, "
                   f"{int(r['liquidations']):,} liquidations", src, "gmx_contract_traders_by_quarter")
@@ -465,6 +492,20 @@ def sec_describe(D: Digest, z: dict) -> None:
               f"{int(r['liquidations']):,} liquidations", src, "gmx_contract_traders_by_quarter")
     for r in z["monthly_counts"]:
         D.row(f"{r['stream']} {r['month']}", f"{int(r['n']):,}", src, "monthly_counts")
+
+
+def sec_token_rows(D: Digest, z: dict) -> None:
+    """Twelve-month variant: rows of the listed tokens in the T_obs score window (sql/20), reported only."""
+    src = "usd/token_rows_12m.json"
+    D.section("Token rows of the T_obs score window (reported; the five selected tokens are kept)")
+    for k in ("selected", "top_priced_by_rows", "same_as_selected", "tokens_in_window", "rows_in_window"):
+        v = z.get(k)
+        D.row(k.replace("_", " "), ", ".join(v) if isinstance(v, list) else num(v), src, k)
+    for i, t in enumerate(z.get("per_listed_token") or []):
+        if t.get("priced") and (t.get("rank_by_rows") or 99) <= 10:
+            D.row(f"{t.get('rank_by_rows')}. {t.get('symbol')}", f"{num(t.get('rows_total'))} rows "
+                  f"({num(t.get('transfers'))} transfers, {num(t.get('latest_allowances'))} latest allowances)"
+                  + ("; selected" if t.get("selected") else ""), src, f"per_listed_token[{i}]")
 
 
 def sec_supplementary(D: Digest, sup: dict) -> None:
@@ -610,18 +651,21 @@ def uncommitted_code() -> list[str]:
 
 
 def main() -> int:
-    PUB.mkdir(parents=True, exist_ok=True)
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--out", type=Path, help="publish into this folder instead (verification runs)")
+    pub = ap.parse_args().out or PUB
+    pub.mkdir(parents=True, exist_ok=True)
     published: list[str] = []
     missing: list[str] = []
     for dest, src in FILES:
         if not src.exists():
             missing.append(dest)
             continue
-        out = PUB / dest
+        out = pub / dest
         out.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, out)
         published.append(dest)
-    j = {d: json.loads((PUB / d).read_text(encoding="utf-8")) for d in published if d.endswith(".json")}
+    j = {d: json.loads((pub / d).read_text(encoding="utf-8")) for d in published if d.endswith(".json")}
 
     head = git("rev-parse", "HEAD").strip()
     dirty = uncommitted_code()
@@ -635,7 +679,12 @@ def main() -> int:
         "and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of "
         "every file published here.",
         "",
-        *(["**Revised analysis** (docs/revision_price_weighting.md): amounts in USD over the listed tokens, decided "
+        *(["**Revised analysis, twelve-month score windows** (docs/revision_one_year_window.md on top of "
+           "docs/revision_price_weighting.md): amounts in USD over the five selected tokens, scores from the twelve "
+           "months before each freeze (T_obs and W1: 2025-07-01 to 2026-06-30; W0: 2025-04-01 to 2026-03-31), "
+           "decided after the registered results were known. Nothing in this digest is a registered result; the "
+           "registered digest is in the parent folder.", ""] if ONE_YEAR else
+          ["**Revised analysis** (docs/revision_price_weighting.md): amounts in USD over the listed tokens, decided "
            "after the registered results were known. Nothing in this digest is a registered result; the registered "
            "digest is in the parent folder.", ""] if REVISED else []),
         f"- Code revision: `{head or 'unknown'}`"
@@ -665,17 +714,19 @@ def main() -> int:
     sec_benchmark(D, j.get("benchmark/benchmark.json"))
     if j.get("describe/describe.json"):
         sec_describe(D, j["describe/describe.json"])
-    (PUB / DIGEST).write_text("\n".join(D.lines) + "\n", encoding="utf-8")
+    if j.get("usd/token_rows_12m.json"):
+        sec_token_rows(D, j["usd/token_rows_12m.json"])
+    (pub / DIGEST).write_text("\n".join(D.lines) + "\n", encoding="utf-8")
     published.append(DIGEST)
 
-    lines = [f"{sha256(PUB / p)}  {p}" for p in sorted(published)]
-    (PUB / SUMS).write_text("\n".join(lines) + "\n", encoding="utf-8")
+    lines = [f"{sha256(pub / p)}  {p}" for p in sorted(published)]
+    (pub / SUMS).write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     known = set(published) | {SUMS}
-    stale = sorted(p.relative_to(PUB).as_posix() for p in PUB.rglob("*") if p.is_file()
-                   and p.relative_to(PUB).as_posix() not in known
-                   and not p.relative_to(PUB).as_posix().startswith("revised-usd/"))
-    print(f"published {len(published)} files to {PUB}")
+    stale = sorted(p.relative_to(pub).as_posix() for p in pub.rglob("*") if p.is_file()
+                   and p.relative_to(pub).as_posix() not in known
+                   and not p.relative_to(pub).as_posix().startswith(("revised-usd/", "revised-usd-12m/")))
+    print(f"published {len(published)} files to {pub}")
     if missing:
         print("not yet available:", ", ".join(missing))
     if stale:

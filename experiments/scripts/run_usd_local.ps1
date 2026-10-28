@@ -1,9 +1,11 @@
 # Local evaluation of the revised analysis (docs/revision_price_weighting.md), in the order of the registered one.
-# Run from experiments/ after scripts/run_usd_pipeline.py has downloaded graph-tables-usd.
-param([string]$From = "")
+# Run from experiments/ after scripts/run_usd_pipeline.py has downloaded graph-tables-usd, or with
+# -Variant usd12m after scripts/run_usd12m_pipeline.py has downloaded graph-tables-usd-12m
+# (docs/revision_one_year_window.md).
+param([string]$From = "", [ValidateSet("usd", "usd12m")][string]$Variant = "usd")
 $ErrorActionPreference = "Stop"
 Set-Location (Split-Path $PSScriptRoot -Parent)
-$env:CONTRACT_REP_VARIANT = "usd"
+$env:CONTRACT_REP_VARIANT = $Variant
 $env:PYTHONDONTWRITEBYTECODE = "1"
 $steps = @("run_same_window", "run_holdout", "run_registered", "run_supplementary", "run_robustness",
            "sybil_model", "describe_data", "run_benchmark")

@@ -9,6 +9,8 @@ only when its inputs exist.
 
 Tables:  dissertation/overleaf-github/results/tables/<name>.tex, \\label{tab:<name>}
 Figures: dissertation/overleaf-github/Figures/generated/<name>.pdf
+The twelve-month variant (CONTRACT_REP_VARIANT=usd12m) writes to data/_work/latex-usd12m/
+instead unless --into-manuscript is given.
 
 Every cell is checked while it is written: a missing number is printed as ---
 and listed at the end, as is an interval whose ends are reversed, a verdict that
@@ -26,7 +28,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, PROC_SHARED, REVISED, ROOT, USD_INPUTS, W1_DIR, load_config, load_json, read_parts  # noqa: E402
+from common import (ONE_YEAR, PROC, PROC_SHARED, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS, W1_DIR,  # noqa: E402
+                    load_config, load_json, read_parts)
 from graphs import METHOD_LABELS  # noqa: E402
 from labels import TRADER_LABELS  # noqa: E402
 from run_same_window import FAMILIES as FAMILY_PROXIES  # noqa: E402
@@ -819,7 +822,7 @@ def t_robustness_slope(rob: dict, n: int, consts: dict) -> None:
     group = " & ".join(f"\\multicolumn{{3}}{{c}}{{{h}}}" for _, h in FAMILIES)
     head = (f"Method & {group} \\\\\n\\cmidrule(lr){{2-4}} \\cmidrule(lr){{5-7}} \\cmidrule(lr){{8-10}}\n"
             " & " + " & ".join([" & ".join(h for _, h in variants)] * 3))
-    emit("robustness-slope", caption, tabular("l" + "c" * 9, head, lines), [SOURCES["rob"], USD_INPUTS / "constants.json"])
+    emit("robustness-slope", caption, tabular("l" + "c" * 9, head, lines), [SOURCES["rob"], USD_CONSTANTS])
 
 
 def _sci(x, digits: int = 2) -> str:
@@ -842,6 +845,17 @@ def t_usd_tokens(desc: dict, cfg: dict) -> None:
     sel = lst[lst["selected"].astype(str).str.lower() == "true"].sort_values("n_rows_tobs", ascending=False)
     per = {t["token"]: t for t in desc.get("per_token") or []}
     chk = load_json(USD_INPUTS / "chainlink_check.json").get("per_token", {}) if (USD_INPUTS / "chainlink_check.json").exists() else {}
+    days = {}
+    if ONE_YEAR:
+        # Price days and the Chainlink check inside the days the twelve-month windows cover (describe_data.py),
+        # tokens ordered by their rows in the T_obs score window.
+        win, cl = desc.get("price_days") or {}, desc.get("chainlink_check_in_windows") or {}
+        if not win or not cl:
+            problem("no price_days or chainlink_check_in_windows in describe.json")
+        days = {t["address"]: t for t in win.get("per_token") or []}
+        chk = cl.get("per_token") or {}
+        rows_of = lambda a: sum(_num((per.get(a) or {}).get(k)) or 0 for k in ("reg_approvals", "reg_transfers"))
+        sel = sel.assign(_rows=sel["address"].map(rows_of)).sort_values("_rows", ascending=False)
     lines = []
     for _, r in sel.iterrows():
         p = per.get(r["address"]) or {}
@@ -851,31 +865,54 @@ def t_usd_tokens(desc: dict, cfg: dict) -> None:
         rev = (_num(p.get("rev_approvals")) or 0) + (_num(p.get("rev_transfers")) or 0)
         c = chk.get(r["symbol"]) or {}
         sym = "USDT0" if r["symbol"] == "USD₮0" else r["symbol"]
+        if ONE_YEAR:
+            d = days.get(r["address"]) or {}
+            if not d:
+                problem(f"no price days for {r['symbol']}")
+        else:
+            d = {"second_key_days": r["second_key_days_used"], "filled_days": r["filled_days"],
+                 "spike_days": r["spike_days"]}
         lines.append(
             f"{sym} & \\texttt{{{r['address'][:6]}\\ldots{{}}{r['address'][-4:]}}} & {fint(r['decimals'])} & "
             f"{r['feed']} ({r['feed_category']}) & {fint(reg)} & {fint(rev)} & {_sci(p.get('rev_transfer_usd'))} & "
-            f"{fint(r['second_key_days_used'])} & {fint(r['filled_days'])} & {fint(r['spike_days'])} & "
+            f"{fint(d.get('second_key_days'))} & {fint(d.get('filled_days'))} & {fint(d.get('spike_days'))} & "
             f"{100 * (_num(c.get('median')) or float('nan')):.2f} / {100 * (_num(c.get('max')) or float('nan')):.2f} \\\\")
     rows = desc.get("rows") or {}
     reg, unl, out_ego, rev = (rows.get(k) or {} for k in ("registered_ego", "unlisted_tokens",
                                                           "listed_tokens_outside_revised_ego", "revised_ego"))
     am = desc.get("amounts") or {}
     cons = desc.get("constants") or {}
+    # Window phrases; the twelve-month variant names its score window and the days its prices cover.
+    obs_window, days_of, dates, that_window = "observation window", "of 1{,}096 days", "38 dates", "the observation window"
+    cohort, allowances = "the revised cohort", "positive latest allowances"
+    if ONE_YEAR:
+        first, last = cfg["holdout"]["start_ts"], cfg["registered_window"]["outcome_end"]
+        n_days = (dt.date.fromisoformat(last[:10]) - dt.date.fromisoformat(first[:10])).days + 1
+        if (desc.get("price_days") or {}).get("days") != n_days:
+            problem(f"price_days.days is not the {n_days} days from {first[:10]} to {last[:10]}")
+        obs_window = (f"score window of $T_{{\\mathrm{{obs}}}}$ ({tex_date(cfg['period']['start_ts'])} to "
+                      f"{tex_date(cfg['period']['observation_end'])})")
+        days_of = (f"of the {fint(n_days)} days from {tex_date(first)} to {tex_date(last)} that the windows of the "
+                   "revised analysis cover")
+        dates = f"the {fint((desc.get('chainlink_check_in_windows') or {}).get('dates'))} check dates among those days"
+        that_window = "that score window"
+        cohort = "the $T_{\\mathrm{obs}}$ cohort of the revised analysis"
+        allowances = "positive latest allowances set inside the score window"
     caption = (
         "The five tokens of the revised analysis, with their Chainlink feed (market-risk category), the rows of the "
-        "observation window that the ego tables of the plan's cohort hold for them (approvals and transfers) and the "
+        f"{obs_window} that the ego tables of the plan's cohort hold for them (approvals and transfers) and the "
         "rows that the revised analysis keeps, the US-dollar volume of the kept transfers, the days of the price "
         "series filled from the second DefiLlama key, filled from the previous day and replaced as one-day errors "
-        "(of 1{,}096 days), and the median and largest absolute difference, in percent, between the DefiLlama price "
-        "and the Chainlink feed read on the chain on 38 dates. "
+        f"({days_of}), and the median and largest absolute difference, in percent, between the DefiLlama price "
+        f"and the Chainlink feed read on the chain on {dates}. "
         f"The ego tables of the plan's cohort hold {fint(reg.get('approvals'))} approvals and "
-        f"{fint(reg.get('transfers'))} transfers in the observation window. Of these, {fint(unl.get('approvals'))} "
+        f"{fint(reg.get('transfers'))} transfers in {that_window}. Of these, {fint(unl.get('approvals'))} "
         f"approvals and {fint(unl.get('transfers'))} transfers belong to other tokens (of the "
-        f"{fint(unl.get('tokens'))} other tokens in the ego tables of the observation window and W1) and are left out; {fint(out_ego.get('approvals'))} approvals and {fint(out_ego.get('transfers'))} transfers "
-        "of the five tokens are left out because neither end point is a contract of the revised cohort; and "
+        f"{fint(unl.get('tokens'))} other tokens in the ego tables of {that_window} and W1) and are left out; {fint(out_ego.get('approvals'))} approvals and {fint(out_ego.get('transfers'))} transfers "
+        f"of the five tokens are left out because neither end point is a contract of {cohort}; and "
         f"{fint(rows.get('revised_transfers_without_price'))} kept transfers precede their token's first price. "
         f"At $T_{{\\mathrm{{obs}}}}$, {fint(am.get('unlimited_allowances'))} of the {fint(am.get('latest_allowances_tobs'))} "
-        f"positive latest allowances are unlimited and {fint(am.get('allowances_at_or_above_cap'))} reach the cap "
+        f"{allowances} are unlimited and {fint(am.get('allowances_at_or_above_cap'))} reach the cap "
         f"$U={fint(cons.get('cap_allowance_usd'))}$ dollars of the allowance layer of C-PR."
     )
     head = ("Token & Address & Dec. & Chainlink feed & Rows, plan & Rows, kept & Transfer USD & 2nd key & Filled & "
@@ -900,7 +937,7 @@ def _yes(v, yes: str = "met", no: str = "not met") -> str:
     return yes if v else no
 
 
-def t_registered_vs_revised(reg: dict, rev: dict, seed: int) -> None:
+def t_registered_vs_revised(reg: dict, rev: dict, seed: int, cfg: dict) -> None:
     """Revised analysis: the decision contrasts and verdicts of the registered analysis, as registered, beside the
     same contrasts on the revised scores."""
     begin("registered-vs-revised")
@@ -960,12 +997,24 @@ def t_registered_vs_revised(reg: dict, rev: dict, seed: int) -> None:
     both("W1: AWP minus transfer in-degree, new senders", lambda d: d["w1"]["endorserank_results"]["awp_minus_degree_send"])
     lines = [r[0] if r[0] == "\\midrule" else f"{r[0]} & {r[1]} & {r[2]} \\\\" for r in rows]
     nb = sorted(STATE["nboot"])
+    if ONE_YEAR:
+        # Each analysis with its own score window; the windows are among the choices made after the registered results.
+        defined = (
+            "Decision contrasts and verdicts of the registered analysis (amounts in raw base units, every ERC-20 "
+            f"token, $b=1$, scores from every event since {tex_date(cfg['bigquery']['scan_a']['start_ts'])}), exactly "
+            "as obtained under the analysis plan and the W1 registration, beside the same contrasts on the revised "
+            "scores (amounts in USD, the five listed tokens, scores from the twelve months before each freeze). The "
+            "revised analysis, its score windows included, was defined after the registered results were known; its "
+            "column applies the registered rules and thresholds to the revised scores and is not a registered test. ")
+    else:
+        defined = (
+            "Decision contrasts and verdicts of the registered analysis (amounts in raw base units, every ERC-20 token, "
+            "$b=1$), exactly as obtained under the analysis plan and the W1 registration, beside the same contrasts on "
+            "the revised scores (amounts in USD, listed tokens only). The revision was decided after the registered "
+            "results were known; the revised column applies the registered rules and thresholds to the revised scores "
+            "and is not a registered test. ")
     caption = (
-        "Decision contrasts and verdicts of the registered analysis (amounts in raw base units, every ERC-20 token, "
-        "$b=1$), exactly as obtained under the analysis plan and the W1 registration, beside the same contrasts on "
-        "the revised scores (amounts in USD, listed tokens only). The revision was decided after the registered "
-        "results were known; the revised column applies the registered rules and thresholds to the revised scores "
-        "and is not a registered test. The last block holds degree contrasts that no rule of either analysis "
+        defined + "The last block holds degree contrasts that no rule of either analysis "
         "decides; they are reported in both. $\\Delta\\tau$ with 95\\% paired bootstrap interval "
         f"({' and '.join(fint(x) for x in nb)} resamples, seed {seed}); the rules and their thresholds are in "
         "Sections~\\ref{sec:holdout-protocol} and~\\ref{sub:fresh-holdout}."
@@ -1745,23 +1794,26 @@ def fig_logistic_decay(cfg: dict) -> None:
     plt = _style()
     k, t0 = float(cfg["reputation"]["awp_decay_k"]), float(cfg["reputation"]["awp_decay_t0_days"])
     obs = _days(cfg["period"]["start_ts"], cfg["period"]["observation_end"])
-    w0 = _days(cfg["period"]["start_ts"], cfg["holdout"]["score_end"])
+    # The W0 score window starts at holdout.start_ts where the configuration sets one (twelve-month variant).
+    w0 = _days(cfg["holdout"].get("start_ts", cfg["period"]["start_ts"]), cfg["holdout"]["score_end"])
     x = np.linspace(0, obs, obs + 1)
     y = 1.0 / (1.0 + np.exp(k * (x - t0)))
     fig, ax = plt.subplots(figsize=(5.4, 3.3))
-    ax.axvspan(0, obs, color=GREY, alpha=0.45, linewidth=0,
-               label=f"Ages at the observation anchor (0\u2013{obs:,} days)")
+    band = (f"Ages at both freezes (0\u2013{obs:,} days)" if w0 == obs
+            else f"Ages at the observation anchor (0\u2013{obs:,} days)")
+    ax.axvspan(0, obs, color=GREY, alpha=0.45, linewidth=0, label=band)
     ax.plot(x, y, color=BLUE, linewidth=2, label=rf"Decay weight, $k={k:g}$, $t_0={t0:g}$ days")
     ax.axvline(t0, color="grey", linestyle="--", linewidth=0.8)
     ax.text(t0 + 12, 0.30, rf"$t_0={t0:g}$ days", fontsize=9)
-    ax.annotate("", xy=(w0, 0.97), xytext=(0, 0.97),
-                arrowprops={"arrowstyle": "<->", "color": RED, "linewidth": 1.0, "shrinkA": 0, "shrinkB": 0})
-    ax.axvline(w0, color=RED, linestyle=":", linewidth=1.0)
-    ax.text(w0 / 2, 1.0, f"Ages at the W0 freeze (0\u2013{w0:,} days)", ha="center", va="bottom",
-            fontsize=8.5, color=RED)
+    if w0 != obs:
+        ax.annotate("", xy=(w0, 0.97), xytext=(0, 0.97),
+                    arrowprops={"arrowstyle": "<->", "color": RED, "linewidth": 1.0, "shrinkA": 0, "shrinkB": 0})
+        ax.axvline(w0, color=RED, linestyle=":", linewidth=1.0)
+        ax.text(w0 / 2, 1.0, f"Ages at the W0 freeze (0\u2013{w0:,} days)", ha="center", va="bottom",
+                fontsize=8.5, color=RED)
     ax.set_xlim(-10, obs + 90)
     ax.set_ylim(-0.02, 1.12)
-    ticks = sorted({0, int(t0), 365, 730, w0, obs})
+    ticks = sorted(t for t in {0, int(t0), 365, 730, w0, obs} if t <= obs)
     ax.set_xticks(ticks)
     ax.set_xticklabels([f"{t:,}" for t in ticks])
     ax.set_xlabel("Age of the event at the anchor (days)")
@@ -1914,7 +1966,12 @@ def main() -> int:
     ap.add_argument("--robustness", type=Path, help="robustness.json to use instead of the default")
     ap.add_argument("--no-figures", action="store_true")
     ap.add_argument("-v", "--verbose", action="store_true", help="also list the outputs skipped for missing inputs")
+    ap.add_argument("--into-manuscript", action="store_true",
+                    help="twelve-month variant: write into the manuscript instead of data/_work/latex-usd12m/")
     args = ap.parse_args()
+    if ONE_YEAR and not args.into_manuscript:
+        stage = ROOT / "data" / "_work" / "latex-usd12m"
+        OUT["tables"], OUT["figures"] = stage / "tables", stage / "figures"
     if args.tables_dir:
         OUT["tables"] = args.tables_dir
     if args.figures_dir:
@@ -1948,7 +2005,7 @@ def main() -> int:
         SKIPPED.append("same-window tables (no same-window summary)")
     if rob and n:
         if REVISED:
-            t_robustness_slope(rob, n, load_json(USD_INPUTS / "constants.json"))
+            t_robustness_slope(rob, n, load_json(USD_CONSTANTS))
         else:
             t_robustness_tokens(rob, n, cfg)
         t_robustness_sample_size(rob, bench, n, cfg)
@@ -1983,7 +2040,7 @@ def main() -> int:
     if REVISED and same and w0 and w1:
         reg = {k: load_json(PROC_SHARED / d / "eval_summary.json")
                for k, d in (("same", "same-window"), ("w0", "holdout-w0"), ("w1", "registered-w1"))}
-        t_registered_vs_revised(reg, {"same": same, "w0": w0, "w1": w1}, seed)
+        t_registered_vs_revised(reg, {"same": same, "w0": w0, "w1": w1}, seed, cfg)
 
     if not args.no_figures:
         STATE["name"] = "figures"

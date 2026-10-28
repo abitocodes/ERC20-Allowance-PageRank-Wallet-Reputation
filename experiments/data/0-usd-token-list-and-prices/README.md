@@ -12,6 +12,8 @@
 | `daily_points_raw.csv` | DefiLlama에서 받은 원래 점(키, 시각, 가격, confidence) | `scripts/usd_inputs.py` |
 | `usd_inputs.json` | 실행 기록: 후보·목록 수, 빠진 이유별 수, 메타데이터를 읽은 블록, 가격 규칙의 상수와 집계 | `scripts/usd_inputs.py` |
 | `constants.json` | b와 C-PR 승인 층 상한 U (t1까지의 데이터로 구함) | `scripts/run_usd_pipeline.py constants` |
+| `usd-12m/constants.json` | 12개월 변형의 b와 U (W0 점수 기간 2025-04-01 ~ t1, W0 코호트) | `scripts/run_usd12m_pipeline.py constants` |
+| `usd-12m/token_rows.json` | T_obs 점수 기간의 토큰별 행 수와 순위(기록만, 다섯 토큰은 그대로) | `scripts/run_usd12m_pipeline.py tokens` |
 | `chainlink_check.csv`, `.json` | DefiLlama 가격과 Chainlink 온체인 값의 비교 | `scripts/chainlink_check.py` |
 
 BigQuery에는 `contract_rep.u_tokens`, `contract_rep.u_prices`로 올라갑니다(`scripts/run_usd_pipeline.py load`).

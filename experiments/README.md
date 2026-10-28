@@ -14,8 +14,9 @@
 | 경로 | 내용 |
 |---|---|
 | [`config/contract_reputation.yaml`](config/contract_reputation.yaml) | 결과를 정하는 설정(체인, BigQuery, 기간, 코호트, 점수와 평가의 매개변수, 비용 상한). 이 연구의 첫 추출 전에 분석 계획과 함께 커밋했습니다. |
-| [`docs/`](docs/) | 분석 계획, W1 등록, 수정 계획, Drive 폴더의 안내문 |
-| [`sql/`](sql/) | BigQuery 쿼리 19개. 01–11은 등록 분석, 12–19는 수정 분석 |
+| [`config/overlay_usd12m.yaml`](config/overlay_usd12m.yaml) | 12개월 변형이 위 설정에 덮어쓰는 두 기간 시작(`period.start_ts`, `holdout.start_ts`). 다른 키가 있으면 `common.py`가 거부합니다. |
+| [`docs/`](docs/) | 분석 계획, W1 등록, 수정 계획, 12개월 수정, Drive 폴더의 안내문 |
+| [`sql/`](sql/) | BigQuery 쿼리 23개. 01–11은 등록 분석, 12–19는 수정 분석, 20–23은 12개월 변형 |
 | [`scripts/`](scripts/) | 추출, 점수, 평가, 결과 공개, 원고 내보내기 스크립트 |
 | [`tests/`](tests/) | pytest. 점수와 통계를 보관한 지갑 평판 연구의 기준 구현과 대조합니다. |
 | [`data/`](data/) | 데이터. parquet은 Drive에만 있고, 작은 파일은 GitHub에도 있습니다. |
@@ -32,6 +33,16 @@
 2. `scripts/run_usd_local.ps1`: 로컬 평가. run_same_window, run_holdout, run_registered, run_supplementary, run_robustness, sybil_model, describe_data, run_benchmark 순서로 돌립니다.
 3. `CONTRACT_REP_VARIANT=usd python scripts/publish_results.py`: 논문이 인용하는 요약을 `data/3-published-results-for-thesis/revised-usd/`에 복사하고 `results_digest.md`와 `SHA256SUMS.txt`를 씁니다.
 4. `CONTRACT_REP_VARIANT=usd python scripts/export_latex.py`: 원고의 표와 그림을 씁니다(아래 「표와 그림 다시 만들기」).
+
+### 12개월 변형
+
+`CONTRACT_REP_VARIANT=usd12m`은 같은 USD 수정 분석을 동결마다 직전 12개월(T_obs·W1 2025-07-01 ~ 2026-06-30, W0 2025-04-01 ~ 2026-03-31)로 계산합니다(`docs/revision_one_year_window.md`). 이 수정 문서 2절에 따라 학위논문의 주 분석이 되고, 원고를 12개월 수치로 다시 쓰기 전까지 원고의 표는 위 33개월 수정 분석의 것입니다. 입력은 `data/1-raw-blockchain-extracts/graph-tables-usd-12m/`, 결과는 `revised-usd-12m/` 아래와 `data/0-usd-token-list-and-prices/usd-12m/`입니다.
+
+1. `python scripts/run_usd12m_pipeline.py check`: 무료 점검과 작업별 비용 추정(약 USD 2.7, 상한 USD 4.00).
+2. `python scripts/run_usd12m_pipeline.py tokens cohorts constants`, 그다음 `pairs rest checks download`: BigQuery 단계. 수정 문서, 오버레이, SQL이 커밋되어 있어야 돌아갑니다.
+3. `scripts/run_usd_local.ps1 -Variant usd12m`: 로컬 평가.
+4. `CONTRACT_REP_VARIANT=usd12m python scripts/publish_results.py`: `data/3-published-results-for-thesis/revised-usd-12m/`에 요약을 냅니다.
+5. `CONTRACT_REP_VARIANT=usd12m python scripts/export_latex.py`: 표와 그림을 `data/_work/latex-usd12m/`에 씁니다. 원고에는 `--into-manuscript`를 붙일 때만 씁니다.
 
 등록 분석은 같은 스크립트를 `CONTRACT_REP_VARIANT` 없이 돌립니다. 7~9월 로그는 `scripts/extract_w1.py`만 추출하고, 이 스크립트는 W1 등록 파일과 설정이 커밋되어 있어야 돌아갑니다. 테스트는 `python -m pytest tests`로 돌립니다.
 

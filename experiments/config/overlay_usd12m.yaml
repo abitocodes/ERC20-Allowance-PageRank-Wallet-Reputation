@@ -1,0 +1,9 @@
+# Overlay of the twelve-month variant (CONTRACT_REP_VARIANT=usd12m, docs/revision_one_year_window.md).
+# scripts/common.py merges these two keys over config/contract_reputation.yaml for this variant
+# only, and refuses an overlay with any other key. Every other setting comes from the base file.
+
+period:
+  start_ts: "2025-07-01 00:00:00 UTC"   # score window at T_obs: same window and W1
+
+holdout:
+  start_ts: "2025-04-01 00:00:00 UTC"   # score window at t1: W0

@@ -7,6 +7,8 @@ monthly counts per stream, the share of transfers and latest allowances of at le
 10 base units, unlimited allowances and the owners that hold them, GMX V2 closes and
 accounts of contract traders per quarter, and the timing of the plan, scan A, the
 registration and scan B.
+The twelve-month variant (CONTRACT_REP_VARIANT=usd12m) reads the u12_describe_* tables of
+sql/22_usd12m_describe.sql and adds the price days and the Chainlink check inside its windows.
 """
 
 from __future__ import annotations
@@ -20,7 +22,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, REVISED, ROOT, USD_INPUTS, load_config, save_json  # noqa: E402
+from common import BQ_PREFIX, ONE_YEAR, PROC, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS, load_config, save_json  # noqa: E402
 from labels import load_closes  # noqa: E402
 
 
@@ -38,9 +40,9 @@ def job_times(job_id: str) -> dict:
     return {"created": conv(st["creationTime"]), "ended": conv(st["endTime"])}
 
 
-def revision_commit() -> str | None:
-    """Time (UTC) of the commit that added docs/revision_price_weighting.md."""
-    out = subprocess.run(["git", "log", "--diff-filter=A", "--format=%H %cI", "--", "docs/revision_price_weighting.md"],
+def revision_commit(doc: str = "docs/revision_price_weighting.md") -> str | None:
+    """Time (UTC) of the commit that added ``doc``."""
+    out = subprocess.run(["git", "log", "--diff-filter=A", "--format=%H %cI", "--", doc],
                          cwd=ROOT, capture_output=True, text=True).stdout.strip().splitlines()
     if not out:
         return None
@@ -48,9 +50,45 @@ def revision_commit() -> str | None:
     return f"{sha[:7]} {datetime.fromisoformat(when).astimezone(timezone.utc).isoformat(timespec='seconds')}"
 
 
+def table_json(ds: str, table: str) -> list[dict]:
+    """Every row of a small table: tabledata.list (not billed) in the twelve-month variant, a query otherwise."""
+    if not ONE_YEAR:
+        return bq_json(f"SELECT * FROM `{ds}.{table}`")
+    from google.cloud import bigquery
+    client = bigquery.Client(project=ds.split(".")[0])
+    return [dict(r.items()) for r in client.list_rows(f"{ds}.{table}")]
+
+
+def window_prices(cfg: dict) -> dict:
+    """Twelve-month variant: the price days of the selected tokens and the Chainlink check on the days its
+    windows cover, from the start of the W0 score window to the end of W1."""
+    first, last = cfg["holdout"]["start_ts"][:10], cfg["registered_window"]["outcome_end"][:10]
+    listed = pd.read_csv(USD_INPUTS / "listed_tokens.csv")
+    sel = listed[listed["selected"].astype(str).str.lower() == "true"]
+    sym = dict(zip(sel["address"].str.lower(), sel["symbol"]))
+    prices = pd.read_csv(USD_INPUTS / "daily_prices_usd.csv")
+    prices["address"] = prices["address"].str.lower()
+    p = prices[prices["address"].isin(list(sym)) & (prices["day"] >= first) & (prices["day"] <= last)]
+    flag = lambda col: col.astype(str).str.lower() == "true"  # noqa: E731
+    per = [{"symbol": sym[a], "address": a, "days": int(len(g)), "second_key_days": int((g["key"] == "second").sum()),
+            "filled_days": int(flag(g["filled"]).sum()), "spike_days": int(flag(g["spike"]).sum())}
+           for a, g in p.groupby("address")]
+    chk = pd.read_csv(USD_INPUTS / "chainlink_check.csv")
+    c = chk[(chk["day"] >= first) & (chk["day"] <= last)]
+    days = (datetime.fromisoformat(last) - datetime.fromisoformat(first)).days + 1
+    return {
+        "price_days": {"first_day": first, "last_day": last, "days": days, "per_token": per},
+        "chainlink_check_in_windows": {
+            "dates": int(c["day"].nunique()),
+            "per_token": {s: {"n": int(len(g)), "median": float(g["rel_diff"].abs().median()),
+                              "max": float(g["rel_diff"].abs().max())} for s, g in c.groupby("symbol")}},
+    }
+
+
 def revised_amounts(ds: str) -> dict:
-    """Token list, the rows it and the revised cohort leave out, amounts in USD (sql/18_usd_describe.sql)."""
-    tok = pd.DataFrame(bq_json(f"SELECT * FROM `{ds}.u_describe_tokens`"))
+    """Token list, the rows it and the revised cohort leave out, amounts in USD (sql/18_usd_describe.sql;
+    sql/22_usd12m_describe.sql in the twelve-month variant)."""
+    tok = pd.DataFrame(table_json(ds, f"{BQ_PREFIX}describe_tokens"))
     num_cols = [c for c in tok.columns if c not in ("token", "listed")]
     tok[num_cols] = tok[num_cols].astype(float)
     listed = pd.read_csv(USD_INPUTS / "listed_tokens.csv")
@@ -73,7 +111,7 @@ def revised_amounts(ds: str) -> dict:
     per_token = lst.sort_values("rev_transfers", ascending=False)[
         ["token", "symbol", *[f"reg_{s}" for s in streams], *[f"rev_{s}" for s in streams],
          "rev_transfer_usd", "rev_transfer_usd_w1", "rev_transfers_without_price"]]
-    vals = {r["what"]: r for r in bq_json(f"SELECT * FROM `{ds}.u_describe_values`")}
+    vals = {r["what"]: r for r in table_json(ds, f"{BQ_PREFIX}describe_values")}
     a, t = vals["latest_allowances_tobs"], vals["transfers_obs"]
     pa, pt = [float(x) for x in a["usd_percentiles"]], [float(x) for x in t["usd_percentiles"]]
     n_a = int(a["n"])
@@ -96,7 +134,7 @@ def revised_amounts(ds: str) -> dict:
         "rows": rows,
         "per_token": per_token.to_dict(orient="records"),
         "amounts": amounts,
-        "constants": json.loads((USD_INPUTS / "constants.json").read_text(encoding="utf-8")),
+        "constants": json.loads(USD_CONSTANTS.read_text(encoding="utf-8")),
         "prices": fill.reset_index().to_dict(orient="records"),
         "listed_tokens": int(len(listed)),
         "priced_tokens": int((listed["priced"].astype(str).str.lower() == "true").sum()),
@@ -109,21 +147,40 @@ def main() -> int:
     cfg = load_config()
     ds = f"{cfg['bigquery']['project_id']}.{cfg['bigquery']['dataset']}"
     if REVISED:
-        monthly = pd.DataFrame(bq_json(f"SELECT * FROM `{ds}.u_describe_monthly` ORDER BY stream, month"))
+        if ONE_YEAR:
+            monthly = pd.DataFrame(table_json(ds, f"{BQ_PREFIX}describe_monthly")).sort_values(
+                ["stream", "month"]).reset_index(drop=True)
+        else:
+            monthly = pd.DataFrame(bq_json(f"SELECT * FROM `{ds}.u_describe_monthly` ORDER BY stream, month"))
         monthly["n"] = monthly["n"].astype(int)
         out = revised_amounts(ds)
+        if ONE_YEAR:
+            out.update(window_prices(cfg))
         closes = load_closes(("obs", "w1"))
         q = closes.assign(quarter=closes["block_timestamp"].dt.tz_convert(None).dt.to_period("Q").astype(str))
         gmx = q.groupby("quarter").agg(closes=("account", "size"), accounts=("account", "nunique"),
                                        liquidations=("is_liquidation", "sum")).reset_index()
         ledger = json.loads((ROOT / "data" / "bq_ledger.json").read_text(encoding="utf-8"))
         revised_jobs = [j for j in ledger["jobs"] if j.get("label", "").startswith("revised")]
-        out["timing"] = {
-            "revision_commit_utc": revision_commit(),
-            "revised_jobs_usd": round(sum(j["usd"] for j in revised_jobs), 2),
+        if ONE_YEAR:
+            # The twelve-month jobs read the US-dollar ego tables of sql/12 and sql/19 through views.
+            ego = [j for j in revised_jobs if j.get("sql") in ("sql/12_usd_ego.sql", "sql/19_usd_load.sql")]
+            jobs12 = [j for j in ledger["jobs"] if j.get("label", "").startswith("usd12m:")]
+            out["timing"] = {
+                "revision_commit_utc": revision_commit(),
+                "window_revision_commit_utc": revision_commit("docs/revision_one_year_window.md"),
+                "usd_ego_tables_jobs_usd": round(sum(j["usd"] for j in ego), 2),
+                "usd12m_jobs_usd": round(sum(j["usd"] for j in jobs12), 2),
+            }
+        else:
+            out["timing"] = {
+                "revision_commit_utc": revision_commit(),
+                "revised_jobs_usd": round(sum(j["usd"] for j in revised_jobs), 2),
+            }
+        out["timing"].update({
             "bigquery_usd_total": round(sum(j["usd"] for j in ledger["jobs"]), 2),
             "bigquery_tib_billed": round(sum(j["bytes_billed"] for j in ledger["jobs"]) / 2**40, 3),
-        }
+        })
         out["monthly_counts"] = monthly.to_dict(orient="records")
         out["gmx_contract_traders_by_quarter"] = gmx.to_dict(orient="records")
         save_json(out, PROC / "describe" / "describe.json")

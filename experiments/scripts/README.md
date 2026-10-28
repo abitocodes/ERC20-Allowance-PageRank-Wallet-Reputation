@@ -1,15 +1,16 @@
 # scripts
 
-실험 스크립트입니다. 모두 `experiments/`에서 실행합니다. 경로와 설정은 `common.py`가 정하고, 환경 변수 `CONTRACT_REP_VARIANT=usd`이면 수정 분석의 경로(`graph-tables-usd/`, `revised-usd/`)를 씁니다. 실행 순서는 [`../README.md`](../README.md)의 「실행」에 있습니다.
+실험 스크립트입니다. 모두 `experiments/`에서 실행합니다. 경로와 설정은 `common.py`가 정하고, 환경 변수 `CONTRACT_REP_VARIANT=usd`이면 수정 분석의 경로(`graph-tables-usd/`, `revised-usd/`)를, `CONTRACT_REP_VARIANT=usd12m`이면 12개월 변형(`../docs/revision_one_year_window.md`)의 경로(`graph-tables-usd-12m/`, `revised-usd-12m/`)와 `../config/overlay_usd12m.yaml`의 두 기간 시작을 씁니다. 실행 순서는 [`../README.md`](../README.md)의 「실행」에 있습니다.
 
 ## BigQuery와 데이터 받기
 
 | 파일 | 하는 일 |
 |---|---|
-| `run_bq.py` | SQL 파일 하나를 dry run으로 비용을 본 뒤 실행하고, 청구된 바이트를 `data/bq_ledger.json`에 적습니다. 남은 예산을 넘는 작업은 `--force` 없이는 거부합니다. |
+| `run_bq.py` | SQL 파일 하나를 dry run으로 비용을 본 뒤 실행하고, 청구된 바이트를 `data/bq_ledger.json`에 적습니다(실패한 작업도). 남은 예산을 넘는 작업은 `--force` 없이는 거부합니다. 12개월 변형용 선택 사항: 테이블 이름 바꾸기(`--rename`), 만드는 테이블의 접두사와 읽어도 되는 테이블 검사(`--require-prefix`, `--allow-read`), 현실적인 추정 바이트(`--expect-bytes`, dry run은 여러 문장 중 첫 문장만 셈), dry run 상한(`--max-dry-bytes`), 캠페인 상한(`--campaign`, `--campaign-cap`). |
 | `download_table.py` | 프로젝트 BigQuery 테이블을 Storage Read API로 받아 90 MB 아래 parquet 조각과 `.json` 기록으로 저장합니다. 쿼리를 돌리지 않아 스캔 비용이 없습니다. |
 | `download_graph_tables.sh` | 등록 분석의 그래프 표를 `data/1-raw-blockchain-extracts/graph-tables/`로 받습니다(sql/04–08을 돌린 뒤). |
-| `run_usd_pipeline.py` | 수정 분석의 BigQuery 단계를 순서대로 돌립니다: load, ego, constants, pairs, rest, download. |
+| `run_usd_pipeline.py` | 수정 분석(33개월)의 BigQuery 단계를 순서대로 돌립니다: load, ego, constants, pairs, rest, download. `CONTRACT_REP_VARIANT=usd`가 아니면 거부합니다(`u_*` 테이블과 `constants.json`을 덮어쓰지 않게). |
+| `run_usd12m_pipeline.py` | 12개월 변형의 BigQuery 단계: check(무료 메타데이터 점검과 작업별 비용 추정), tokens, cohorts, constants, pairs, rest, checks(sql/23 불변식), download. `u12_*` 테이블만 만들고, 작업마다 추정 바이트와 캠페인 상한(USD 4.00)을 `run_bq.py`에 넘깁니다. 수정 문서·오버레이·SQL이 커밋되어 있어야 돌아가고, `revised-usd-12m/run_manifest.json`에 커밋, 해시, 작업, 단계 결과를 적습니다. |
 | `extract_w1.py` | 7~9월 로그를 추출합니다(scan B). W1 등록 파일과 설정이 바뀐 것 없이 커밋되어 있어야 돌아가고, 두 파일의 SHA-256과 커밋을 `registered-w1/extraction_manifest.json`에 적습니다. |
 | `drive_sync.py` | 공개 Google Drive 폴더와 로컬 데이터를 맞춥니다(status, pull, push). |
 
@@ -42,11 +43,11 @@
 | `sybil_model.py` | Sybil 비용 모형(5장)의 양 |
 | `run_benchmark.py` | 계산 벤치마크(주장 C1)와 규모 확장 |
 | `describe_data.py` | 추출한 데이터의 기술 통계(3·4장, 부록 8.4) |
-| `run_usd_local.ps1` | 수정 분석의 로컬 평가를 등록 분석과 같은 순서로 돌립니다. |
+| `run_usd_local.ps1` | 수정 분석의 로컬 평가를 등록 분석과 같은 순서로 돌립니다. `-Variant usd12m`이면 12개월 변형을 돌립니다. |
 
 ## 결과 공개와 원고
 
 | 파일 | 하는 일 |
 |---|---|
-| `publish_results.py` | 논문이 인용하는 요약, 설정, 계획 문서를 `data/3-published-results-for-thesis/`에 복사하고 `results_digest.md`(모든 수치와 그 JSON 키)와 `SHA256SUMS.txt`를 씁니다. |
-| `export_latex.py` | 평가 요약 JSON으로 원고의 LaTeX 표와 그림을 서브모듈 `../dissertation/overleaf-github/`에 씁니다. 점수나 통계를 새로 계산하지 않습니다. |
+| `publish_results.py` | 논문이 인용하는 요약, 설정, 계획 문서를 `data/3-published-results-for-thesis/`에 복사하고 `results_digest.md`(모든 수치와 그 JSON 키)와 `SHA256SUMS.txt`를 씁니다. `--out`은 검증용으로 다른 폴더에 씁니다. |
+| `export_latex.py` | 평가 요약 JSON으로 원고의 LaTeX 표와 그림을 서브모듈 `../dissertation/overleaf-github/`에 씁니다. 점수나 통계를 새로 계산하지 않습니다. 12개월 변형은 `--into-manuscript`가 없으면 `data/_work/latex-usd12m/`에 씁니다. |

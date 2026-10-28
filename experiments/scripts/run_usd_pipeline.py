@@ -28,11 +28,14 @@ from pathlib import Path
 
 os.environ.setdefault("CONTRACT_REP_VARIANT", "usd")
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, PROC_SHARED, RAW, REVISED, ROOT, USD_INPUTS, load_config, read_parts, save_json, write_parts  # noqa: E402
+from common import PROC, PROC_SHARED, RAW, ROOT, USD_INPUTS, VARIANT, load_config, read_parts, save_json, write_parts  # noqa: E402
 from usd import UNLIMITED_BASE_UNITS, round_sig, slope_for_median  # noqa: E402
 
-if not REVISED:
-    raise SystemExit("run_usd_pipeline.py belongs to the revised analysis (CONTRACT_REP_VARIANT=usd)")
+# This script writes the fixed u_* tables, graph-tables-usd and constants.json of the 33-month
+# revised analysis; any other variant would overwrite them.
+if VARIANT != "usd":
+    raise SystemExit("run_usd_pipeline.py belongs to the 33-month revised analysis (CONTRACT_REP_VARIANT=usd); "
+                     "the twelve-month variant runs scripts/run_usd12m_pipeline.py")
 
 GRAPH_USD = RAW / "graph-tables-usd"
 CONSTANTS = USD_INPUTS / "constants.json"

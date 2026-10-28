@@ -1,10 +1,13 @@
 """Shared helpers: configuration, paths, and parquet files split below GitHub's size limit.
 
-Two analyses share this code. The registered analysis (raw base units, every token) is the
+Three analyses share this code. The registered analysis (raw base units, every token) is the
 default. Setting the environment variable CONTRACT_REP_VARIANT=usd selects the revised
 analysis of docs/revision_price_weighting.md (listed tokens, amounts in USD): the graph tables
 are then read from graph-tables-usd and every result is written under revised-usd, so the
-registered inputs and outputs are never overwritten.
+registered inputs and outputs are never overwritten. CONTRACT_REP_VARIANT=usd12m selects the
+same US-dollar analysis on the twelve-month score windows of docs/revision_one_year_window.md:
+config/overlay_usd12m.yaml is merged over the configuration, the graph tables are read from
+graph-tables-usd-12m and every result is written under revised-usd-12m.
 """
 
 from __future__ import annotations
@@ -21,27 +24,45 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config" / "contract_reputation.yaml"
+OVERLAY_PATH = ROOT / "config" / "overlay_usd12m.yaml"
 DATA = ROOT / "data"
 RAW = DATA / "1-raw-blockchain-extracts"
-# Inputs both analyses read: account types, decoded GMX closes, the registered cohort.
+# Inputs every analysis reads: account types, decoded GMX closes, the registered cohort.
 PROC_SHARED = DATA / "2-processed-tables-and-evaluations"
 USD_INPUTS = DATA / "0-usd-token-list-and-prices"
 
-VARIANTS = ("registered", "usd")
+VARIANTS = ("registered", "usd", "usd12m")
 VARIANT = os.environ.get("CONTRACT_REP_VARIANT", "registered")
 if VARIANT not in VARIANTS:
     raise SystemExit(f"CONTRACT_REP_VARIANT must be one of {VARIANTS}, not {VARIANT!r}")
-REVISED = VARIANT == "usd"
+# Both US-dollar variants take the revised code path; the twelve-month one also its own windows.
+REVISED = VARIANT in ("usd", "usd12m")
+ONE_YEAR = VARIANT == "usd12m"
 
-GRAPH = RAW / ("graph-tables-usd" if REVISED else "graph-tables")
-PROC = PROC_SHARED / "revised-usd" if REVISED else PROC_SHARED
-PUB = DATA / "3-published-results-for-thesis" / "revised-usd" if REVISED else DATA / "3-published-results-for-thesis"
+_FOLDER = {"registered": None, "usd": "revised-usd", "usd12m": "revised-usd-12m"}[VARIANT]
+GRAPH = RAW / {"registered": "graph-tables", "usd": "graph-tables-usd", "usd12m": "graph-tables-usd-12m"}[VARIANT]
+PROC = PROC_SHARED / _FOLDER if REVISED else PROC_SHARED
+PUB = DATA / "3-published-results-for-thesis" / _FOLDER if REVISED else DATA / "3-published-results-for-thesis"
+# Rounded amount constants of the US-dollar variants (run_usd_pipeline.py, run_usd12m_pipeline.py).
+USD_CONSTANTS = USD_INPUTS / "usd-12m" / "constants.json" if ONE_YEAR else USD_INPUTS / "constants.json"
+# Prefix of the BigQuery tables a US-dollar variant writes.
+BQ_PREFIX = "u12_" if ONE_YEAR else "u_"
 # Folder of the W1 evaluation; the revised one is not registered and is not named so.
 W1_DIR = "window-w1" if REVISED else "registered-w1"
+# The only keys config/overlay_usd12m.yaml may set.
+OVERLAY_KEYS = {("period", "start_ts"), ("holdout", "start_ts")}
 
 
 def load_config() -> dict:
-    return yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
+    cfg = yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
+    if ONE_YEAR:
+        overlay = yaml.safe_load(OVERLAY_PATH.read_text(encoding="utf-8"))
+        keys = {(section, key) for section, values in overlay.items() for key in values}
+        if keys != OVERLAY_KEYS:
+            raise SystemExit(f"{OVERLAY_PATH.name} must set exactly {sorted(OVERLAY_KEYS)}, not {sorted(keys)}")
+        for section, values in overlay.items():
+            cfg[section].update(values)
+    return cfg
 
 
 def max_part_bytes() -> int:
