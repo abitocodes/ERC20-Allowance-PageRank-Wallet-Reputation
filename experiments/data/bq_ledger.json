@@ -699,6 +699,64 @@
       "bytes_estimated": 1029992460,
       "bytes_billed": 1030750208,
       "usd": 0.0059
+    },
+    {
+      "at": "2026-10-28T09:03:54+00:00",
+      "job_id": "d04e9ee3-515e-45d8-8839-020013140acf",
+      "sql": "sql/20_usd12m_token_rows.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "usd12m: token rows of the T_obs score window",
+      "bytes_estimated": 30732438722,
+      "bytes_billed": 30732713984,
+      "usd": 0.1747,
+      "bytes_expected": 30732438722
+    },
+    {
+      "at": "2026-10-28T09:04:40+00:00",
+      "job_id": "3b497fb0-bf8e-4587-926f-3ee1d26aba9b",
+      "sql": "sql/21_usd12m_cohorts.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TOBS_START=2025-07-01 00:00:00 UTC",
+        "TOBS_END=2026-07-01 00:00:00 UTC",
+        "T1_START=2025-04-01 00:00:00 UTC",
+        "T1_END=2026-04-01 00:00:00 UTC",
+        "W0_END=2026-07-01 00:00:00 UTC"
+      ],
+      "label": "usd12m: cohorts of T_obs and t1 and their ego views",
+      "bytes_estimated": 5184892094,
+      "bytes_billed": 10591666176,
+      "usd": 0.0602,
+      "bytes_expected": 10611284060
+    },
+    {
+      "at": "2026-10-28T09:05:26+00:00",
+      "job_id": "b65fa8cc-9534-4e1d-a7d3-486e54f6e540",
+      "sql": "sql/13_usd_constants.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "unlimited": "1.15e+77"
+      },
+      "subs": [],
+      "label": "usd12m: USD scale constants on the W0 score window",
+      "bytes_estimated": 40573727912,
+      "bytes_billed": 40574648320,
+      "usd": 0.2306,
+      "renames": [
+        "u_approvals=u12_approvals_t1",
+        "u_transfers=u12_transfers_t1",
+        "u_constants=u12_constants"
+      ],
+      "bytes_expected": 40592728400
     }
   ]
 }
