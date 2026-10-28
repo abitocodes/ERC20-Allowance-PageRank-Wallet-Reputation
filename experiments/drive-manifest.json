@@ -10,8 +10,8 @@
   {
    "path": "contract-reputation/0-usd-token-list-and-prices/README.md",
    "id": "1ectccHzkMcuL_ghDQBqTwCtQrud5Y454",
-   "size": 1978,
-   "md5": "61fc2db1773b8b2b7053747af2824669"
+   "size": 2295,
+   "md5": "c2d2c412bf8ddb4765d3c95c7263e3de"
   },
   {
    "path": "contract-reputation/0-usd-token-list-and-prices/chainlink_check.csv",
@@ -66,6 +66,18 @@
    "id": "1FqE0quAURYVNiDm32ebUeKeqwaxYKxeo",
    "size": 201557,
    "md5": "dad63c113cafb48d6c83c5782ce7e0e1"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/usd-12m/constants.json",
+   "id": "1vUnBzIRgLNlk4OGbAOT8IL3BIw9l2H0D",
+   "size": 1105,
+   "md5": "6fbe1530b84f8ffd7c243641293ac130"
+  },
+  {
+   "path": "contract-reputation/0-usd-token-list-and-prices/usd-12m/token_rows.json",
+   "id": "1IjKeiycUA85-xK21ZbZgNLKTR50Jj7HT",
+   "size": 17968,
+   "md5": "312a7d728d1bb7428e0052805ee8e462"
   },
   {
    "path": "contract-reputation/0-usd-token-list-and-prices/usd_inputs.json",
@@ -450,6 +462,198 @@
    "id": "12thhC84W9hr2zif-mOyavfm-fj_eLBfy",
    "size": 2174759,
    "md5": "85e6d37572784b44b3b30f320bf897e1"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/allow_pairs_t1.json",
+   "id": "1jCWOWVcOCD9hmbnbpggxCY1rqEW_68hK",
+   "size": 282,
+   "md5": "b288e876e4ed540a60ab406006b1753f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/allow_pairs_t1.part000.parquet",
+   "id": "1gwZXgpSg1HCAyDeYdY68FuiJoOVkafvf",
+   "size": 47189676,
+   "md5": "ee8a10db64bb30922e3259a96d082848"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/allow_pairs_t1.part001.parquet",
+   "id": "1uCXsWkELkH-y73fCSQf_B8_uxJCOHT3y",
+   "size": 45193899,
+   "md5": "61c8b062fb74abc0580626cb4995832a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/allow_pairs_tobs.json",
+   "id": "1tqp3OLc30Q9jguoMAcvZYuwXNMgKhy8a",
+   "size": 330,
+   "md5": "b3a2d12a7c278765e2bc0fd09d79d665"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/allow_pairs_tobs.part000.parquet",
+   "id": "15fYQlHD-VjtZLlBSNOjlWPwjWHQduD5m",
+   "size": 71226587,
+   "md5": "6efcfe0273f45c4c0a2af670ca204e1c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/allow_pairs_tobs.part001.parquet",
+   "id": "1wl9qRZ0OdszfxKv3Oo7KBOL1pAXn7lCz",
+   "size": 60003893,
+   "md5": "e5b9ad5cdbe2752828a5df61aa3804aa"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/allow_pairs_tobs.part002.parquet",
+   "id": "1q4TUQvFSJYNT1FFspnJj3o2ZQYBRH4Jw",
+   "size": 13372987,
+   "md5": "04157c434a7e30a154414552940d934d"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/cohort.json",
+   "id": "18oCcbSyOC-_FKr2vlJmlJKxaoSZV6BL0",
+   "size": 222,
+   "md5": "79f77b8c1512139029ea7abf6bbf618f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/cohort.part000.parquet",
+   "id": "17vOoVdRYGhCv_QQFj1-yxYf0kl2McMTd",
+   "size": 161637,
+   "md5": "a10709645dff3e5f47203d6edd4e5d2a"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/cohort_t1.json",
+   "id": "1Qtb9YCBBys4UqdVfQcv9XggIqIcU8Vix",
+   "size": 223,
+   "md5": "16517b751cabc03f297f0a569e89ec72"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/cohort_t1.part000.parquet",
+   "id": "19BWJhykiqi2x0RBtJrkYc5B01KffY3cP",
+   "size": 157969,
+   "md5": "fd5b63edbaf3050ee663fb90b68bc0a7"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/labels_w0.json",
+   "id": "1C-b_Sm5M8qxUuAq1LMIyjWb-Pe0WU_Q8",
+   "size": 223,
+   "md5": "3bc95590a8537321c143da696b8784ac"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/labels_w0.part000.parquet",
+   "id": "1c5b157j7lMUPeonUc7LRf-X1REJeQjM-",
+   "size": 209676,
+   "md5": "ea28853b0ae8ca9b79391845c87173b0"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/labels_w1.json",
+   "id": "1biZ8GFIfD4_sdgWPjMueMnn6Fdq5PBaN",
+   "size": 223,
+   "md5": "a7e1bd199f3f505b834f7b12bcdd6cdb"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/labels_w1.part000.parquet",
+   "id": "18WM_j4389mJ7sMQyY8Zcx-VcgUSwRXwj",
+   "size": 206466,
+   "md5": "dd1b335e0e25f272972d2b6c6def28b2"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/nodes.json",
+   "id": "1mOKixJxd_vx59sJ0csWgiaai181cUnnX",
+   "size": 286,
+   "md5": "b4bad8568ae84616528e64c0f5d68c00"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/nodes.part000.parquet",
+   "id": "1bEpVKJyDwG52zxEy5PrMd23KjqI95zjc",
+   "size": 49916452,
+   "md5": "60a793d5de2e90c7ca8f329181a9ed79"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/nodes.part001.parquet",
+   "id": "1jRV-6ioZwfz6bng0z0BHRAOl9Wen6bAP",
+   "size": 49921838,
+   "md5": "76ccdd370f91bd40b668aaee3d38170b"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/nodes.part002.parquet",
+   "id": "1n5Aepu6dN5-MHmquDVVPlHteMqxndHOc",
+   "size": 22170760,
+   "md5": "b57ebaf5b08b5e7a9e152116190306f0"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/proxies_tobs.json",
+   "id": "1ue9jwWK0k2GOcX4VSujiPIjYUz4JgTR5",
+   "size": 229,
+   "md5": "c99d6898ea573d4971438d8364706b2c"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/proxies_tobs.part000.parquet",
+   "id": "1yArNz9ROcdMlZcTul4pmMl07Jf05xDdZ",
+   "size": 280794,
+   "md5": "86e427b49aae5ff06b025211bec89dc6"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_t1.json",
+   "id": "1YHOztQXShun_elt2dbEI0np2AMQSOuyJ",
+   "size": 376,
+   "md5": "52104e9e8895c5ab666361ee268b605f"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_t1.part000.parquet",
+   "id": "1s4Wm4gVRsYuESqQyKGH_lmTt31C_niC7",
+   "size": 66687040,
+   "md5": "1cfca055f4a2299b3d351a5b2ca9bc9e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_t1.part001.parquet",
+   "id": "1x2_w-MMjsgeuaD6hpRZEeSYGVkyE19U0",
+   "size": 64727704,
+   "md5": "8fa8973ae6227716e02ae22d75a9a903"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_t1.part002.parquet",
+   "id": "1WN1HmfzdM51DygGw5MONHvbaTKO7rSEM",
+   "size": 77739464,
+   "md5": "21dde4453455ff922e3ae919741cf135"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_t1.part003.parquet",
+   "id": "1WRBkJMcVfnABL1vlpCXpfRlY-kr_vMzv",
+   "size": 54373940,
+   "md5": "7eff30b4e9f3e9bae56f90f58473e1d5"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_tobs.json",
+   "id": "15p5KoguDas4m7LAaL8wjK3rhKHav5E7M",
+   "size": 430,
+   "md5": "c58abefc5059ab28555e959d4488cb7e"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_tobs.part000.parquet",
+   "id": "1bc2CaVyhEWtBAVlSL10kWd3RYZpv6LTd",
+   "size": 76756623,
+   "md5": "95b8a781ee562e1b2e857f332f42b6b4"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_tobs.part001.parquet",
+   "id": "1u9_VgVC0XI99cXhEuH0erWBqbmv6WQEY",
+   "size": 76769214,
+   "md5": "2c4494b1668888e478a3c7ae35f3a921"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_tobs.part002.parquet",
+   "id": "1YJndY2hoNF1AXBOtUYgOsvo_eETQuN29",
+   "size": 76313613,
+   "md5": "101298a681e71fe1cabbed55299ef3c5"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_tobs.part003.parquet",
+   "id": "1Fm3QZxL2IOhD_YZJtLfdZyIP3tZ-Ig2Z",
+   "size": 75314055,
+   "md5": "dda4c9f52e18e24079286b749697f588"
+  },
+  {
+   "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd-12m/transfer_pairs_tobs.part004.parquet",
+   "id": "1XaY2jLfMeNz9VSa2ayqAMiXq6jWzI6hr",
+   "size": 69432661,
+   "md5": "96964c7b11054069fbdd68dbc844b14b"
   },
   {
    "path": "contract-reputation/1-raw-blockchain-extracts/graph-tables-usd/allow_pairs_t1.json",
@@ -1634,6 +1838,114 @@
    "md5": "10ecffb4ace2324e1aa26fea477f909b"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/benchmark/benchmark.json",
+   "id": "17A0bDDtiuSN4OyVRxX4ZY04yuABUuNdk",
+   "size": 7926,
+   "md5": "76173fbe5e296971e2f8abb97ee6f07c"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/cohort/cohort_t1.json",
+   "id": "1S_7aGn9GYoBithLQuEXHgIHrICKrVVym",
+   "size": 405,
+   "md5": "719d4092c89a83ba363ce64f3eb03188"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/cohort/cohort_t1.part000.parquet",
+   "id": "1eR9QpFO-Neo8KgC0fBaSMeEwPRaFjIoW",
+   "size": 164315,
+   "md5": "0f80ad7ab5b8fc6cfacb9079a7c2f5dd"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/cohort/matched_cohort.json",
+   "id": "17vIf-BocXwIafdCgBfP_VMMtA5Cj5IEK",
+   "size": 380,
+   "md5": "26157fb7064d70d47004a37a936eb920"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/cohort/matched_cohort.part000.parquet",
+   "id": "1UF7Inku3PMvN1xLdJHbNGleEk9Aoc-Kj",
+   "size": 168409,
+   "md5": "11aee53f45837fb3754cceee4200758b"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/describe/describe.json",
+   "id": "1JI5KujIvC2Noi6QNWIAIxhXPK2HYODZZ",
+   "size": 26349,
+   "md5": "5274eaef830bde72c945ed4dd3e55134"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/holdout-w0/eval_summary.json",
+   "id": "1-DsDtvCQke16DrVE306DafeKjZFc1scW",
+   "size": 27917,
+   "md5": "62cad445b9b00aac82c514ec255b5e0e"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/holdout-w0/spender_scores.part000.parquet",
+   "id": "166V5ODrmQz4kJOxwdXdPI43c4AyCEsNU",
+   "size": 875670,
+   "md5": "97efd873e0cb44688b22a684fb69e4dd"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/holdout-w0/trader_scores.part000.parquet",
+   "id": "1STquDlfjy5TEW01wr8CAYghWa9Unzc1C",
+   "size": 21942,
+   "md5": "956767c9bc3b9b666c8dd967c6f2631b"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/robustness/robustness.json",
+   "id": "1jw_lH5-kME-OZylDgjd0_8xRkSanIZ8v",
+   "size": 3014,
+   "md5": "51011eb51b2f34669991966ff5927b21"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/run_manifest.json",
+   "id": "1Bz5qjZeZ4OL7XEBx_9rn25FczUkL-AGf",
+   "size": 20470,
+   "md5": "71f4dfd933d18d7bc5f27966794b8f0e"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/same-window/cohort_scores.part000.parquet",
+   "id": "1THdp1BvH7llf9wNIAWxyiL02ps_xnph7",
+   "size": 698931,
+   "md5": "6c0c340a8d19e6a07aaceb8dc0849183"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/same-window/eval_summary.json",
+   "id": "10TxCoTh4fwmx0EPuGgfnTvwz9uCTk-Ou",
+   "size": 37272,
+   "md5": "db204b06d6c70dcab1a0fc04cd02c1af"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/supplementary/supplementary.json",
+   "id": "1pySLWlvXUVazx8dMclJ28lXaRx8nx9Wf",
+   "size": 12850,
+   "md5": "df29850a116856e289160f478f975283"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/sybil-model/sybil_model.json",
+   "id": "1fIgwHWoN8LMtLWW17JrB03SH6-b-Ms8o",
+   "size": 1332,
+   "md5": "4932e6f77aaf86d0683c0adc86db2aeb"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/window-w1/eval_summary.json",
+   "id": "1Xz93mUaUy9AO0JwY4LLEy-fTPDmnuJqn",
+   "size": 67790,
+   "md5": "01fd9a7cd43090f3c964fe5f7a1700a0"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/window-w1/spender_scores.part000.parquet",
+   "id": "1DHG7-gruFhmBRVPThO1x3N-z7DmLTiWo",
+   "size": 873850,
+   "md5": "23738b90b7e3adcbbb19254fc96b7062"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd-12m/window-w1/trader_scores.part000.parquet",
+   "id": "1v4fmZgu5EjwCBUKQd4tHGMEYnR3H_InE",
+   "size": 20298,
+   "md5": "7c10f23751be779b8cf621885ddd8d71"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/revised-usd/benchmark/benchmark.json",
    "id": "17UIVuO27sLHByvsOU1vSsek6w7EBNuPL",
    "size": 8771,
@@ -1832,6 +2144,168 @@
    "md5": "a4add7c619b002436e396b9ff2f208d1"
   },
   {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/SHA256SUMS.txt",
+   "id": "1NREq8DtQTJZIk2V68Qn0VhauH-ZcPt-x",
+   "size": 2452,
+   "md5": "1f993a739e3d47af4777cd1d16dbc8b9"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/benchmark/benchmark.json",
+   "id": "1h0b0MglYKmkOv1UiDm7tdx4cWrH3UabR",
+   "size": 7926,
+   "md5": "76173fbe5e296971e2f8abb97ee6f07c"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/cohort/cohort_t1.json",
+   "id": "1BIH4M50y5JFsOT07BPCVrr6bsgPTmYza",
+   "size": 405,
+   "md5": "719d4092c89a83ba363ce64f3eb03188"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/cohort/matched_cohort.json",
+   "id": "1jEYTLUJw573z57e6L8BfATfRhLw9RqKJ",
+   "size": 380,
+   "md5": "26157fb7064d70d47004a37a936eb920"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/config/contract_reputation.yaml",
+   "id": "1byRNwVBfruAH_jcvC0zICg_7Ifk1G4KH",
+   "size": 3892,
+   "md5": "3a4ecb2fdf265835cade1fa88e098b2a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/config/overlay_usd12m.yaml",
+   "id": "1WxPkM6IsCgwDmp7FVMHEuLx5x0Sj-E5W",
+   "size": 464,
+   "md5": "662ce15e8f3b127db884a0996911032b"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/describe/describe.json",
+   "id": "1oxbco0jeagM8iC79rKc1qO_-LI0mATWL",
+   "size": 26349,
+   "md5": "5274eaef830bde72c945ed4dd3e55134"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/docs/analysis_plan.md",
+   "id": "1wYS2TSLcnRWIlyBmaJC_iS8ZJyYX6Fd4",
+   "size": 6792,
+   "md5": "32fd4b882cb8bb3711e2e143bb792837"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/docs/registration_w1.md",
+   "id": "1bUYN6Xpx-AFMSUCfm7mRooBAgcgtN3IP",
+   "size": 5289,
+   "md5": "ee1a5657a19001c3c0598040f8f3bdd1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/docs/revision_one_year_window.md",
+   "id": "1c71SLan27OnNd43QC7_qMeyHhearnoih",
+   "size": 10560,
+   "md5": "d3bdb40f885c092cb8c08d4371f2ce00"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/docs/revision_price_weighting.md",
+   "id": "1UP45Soq0rmRjXdiZkMiRcW8DSLZPD5hn",
+   "size": 16901,
+   "md5": "5bffdf373e6afc7c2f2d615d525442b5"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/gmx/gmx_contract_closes_obs_decoded.json",
+   "id": "1_mdtxs4RMpZ6WER6atl8KD0rFg_qbvSU",
+   "size": 96,
+   "md5": "e8e9abd3d909831d8d59aa3341328bbe"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/gmx/gmx_contract_closes_w1_decoded.json",
+   "id": "1G_lxID_SniJy-y8oW26xaJitHpgQYxRl",
+   "size": 91,
+   "md5": "d7603c925e235ada8de41118c91f526e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/holdout-w0/eval_summary.json",
+   "id": "1faY6Y-tsYvTgDPt6AL0b5OuUN4n-n5bu",
+   "size": 27917,
+   "md5": "62cad445b9b00aac82c514ec255b5e0e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/registered-w1/extraction_manifest.json",
+   "id": "1o-3M2fCbY32QyCWz00sNzUqO321Xm8d7",
+   "size": 502,
+   "md5": "8b28fe05638df23e198d5128fa6a6686"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/results_digest.md",
+   "id": "1MzbAhvJuMnWiNc5XjocDKhmdlB8eu_7R",
+   "size": 158957,
+   "md5": "514c90b6268fae706a1917efb95be523"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/robustness/robustness.json",
+   "id": "1FxzS5BBCU7Lfgn2Y9Qju-D13HFvWGDjW",
+   "size": 3014,
+   "md5": "51011eb51b2f34669991966ff5927b21"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/run_manifest.json",
+   "id": "1Ogi2QQxb4u650tVAL8ubJE5okI1Ioap2",
+   "size": 20470,
+   "md5": "71f4dfd933d18d7bc5f27966794b8f0e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/same-window/eval_summary.json",
+   "id": "1BBnTqVTsBqTF-0fWq3D7uerRVOLqaGCz",
+   "size": 37272,
+   "md5": "db204b06d6c70dcab1a0fc04cd02c1af"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/supplementary/supplementary.json",
+   "id": "1tYEyOaP8bqALyFhWUsufbRvN9fVgTDyx",
+   "size": 12850,
+   "md5": "df29850a116856e289160f478f975283"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/sybil-model/sybil_model.json",
+   "id": "1EO_qj0pxLpMaxy_iT8T6r0pHiPbaRO2m",
+   "size": 1332,
+   "md5": "4932e6f77aaf86d0683c0adc86db2aeb"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/usd/chainlink_check.json",
+   "id": "1Es2Zcf3u4dPajDnYpbss_DIIieJ7ZJUe",
+   "size": 948,
+   "md5": "8dc4712ff709da8b33890adfba1d974b"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/usd/constants.json",
+   "id": "1o-cVHwgJXK9QcxetyG_fPHZfvURx8YDw",
+   "size": 1105,
+   "md5": "6fbe1530b84f8ffd7c243641293ac130"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/usd/listed_tokens.csv",
+   "id": "1FFXskmojXrzPbwU_iB-snmtj6dCAhRP1",
+   "size": 28381,
+   "md5": "0bec86ff60383c4359f209c8885608ae"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/usd/token_rows_12m.json",
+   "id": "1XT6ebvVh9lG1zKcy0wfiUvT5AmYregbF",
+   "size": 17968,
+   "md5": "312a7d728d1bb7428e0052805ee8e462"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/usd/usd_inputs.json",
+   "id": "1L5WxNcWsUFiPxf0hHzDrnG4YJPXBwv1m",
+   "size": 4328,
+   "md5": "03535ef19f8c3628076d474667e19fef"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/window-w1/eval_summary.json",
+   "id": "1dm6s8_G7XbD4mGDcz4byu0YlVgX4uxqq",
+   "size": 67790,
+   "md5": "01fd9a7cd43090f3c964fe5f7a1700a0"
+  },
+  {
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd/SHA256SUMS.txt",
    "id": "19iiq1gEnvVeSkOwkqTDpF1EgLV5GZob3",
    "size": 1993,
@@ -1996,8 +2470,8 @@
   {
    "path": "contract-reputation/bq_ledger.json",
    "id": "1oafnN5xwIO2G7jmPUknfyjCra37kMY8n",
-   "size": 22516,
-   "md5": "571b12891ecbeb2ad1312c29a344126f"
+   "size": 30924,
+   "md5": "9c710a8b8000cd363d0cbb4a57772b4b"
   },
   {
    "path": "wallet-reputation-archive/0-gmx-abi-for-decoding-logs/EventEmitter.json",
@@ -2445,6 +2919,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-10-28T00:25:50+00:00",
- "total_bytes": 12687243774
+ "updated_at": "2026-10-28T10:15:47+00:00",
+ "total_bytes": 13688894895
 }
