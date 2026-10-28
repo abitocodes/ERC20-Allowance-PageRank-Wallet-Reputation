@@ -1,10 +1,10 @@
 # Results digest
 
-Written by `experiments/scripts/publish_results.py` on 2026-10-22 14:43 UTC from the summaries in this folder; nothing here is recomputed. Each row names the file (relative to this folder) and the key inside it. τ entries read `point [95% CI]`, contrasts `Δτ [95% CI]; τa, τb; P(Δτ>0)`, and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of every file published here.
+Written by `experiments/scripts/publish_results.py` on 2026-10-28 00:17 UTC from the summaries in this folder; nothing here is recomputed. Each row names the file (relative to this folder) and the key inside it. τ entries read `point [95% CI]`, contrasts `Δτ [95% CI]; τa, τb; P(Δτ>0)`, and `B` is the number of bootstrap resamples behind the interval. `SHA256SUMS.txt` lists the checksums of every file published here.
 
 **Revised analysis** (docs/revision_price_weighting.md): amounts in USD over the listed tokens, decided after the registered results were known. Nothing in this digest is a registered result; the registered digest is in the parent folder.
 
-- Code revision: `327dbb3a7f0b3c8f5ed5a0eb28e5fc7048a22820` with uncommitted changes (git status code) in: `scripts/publish_results.py (M)`, `scripts/run_supplementary.py (M)`
+- Code revision: `e9feac2d1108f1f3ed38a56fd29f1a502db8a9a0`
 - Published files: `same-window/eval_summary.json`, `holdout-w0/eval_summary.json`, `window-w1/eval_summary.json`, `registered-w1/extraction_manifest.json`, `sybil-model/sybil_model.json`, `robustness/robustness.json`, `benchmark/benchmark.json`, `supplementary/supplementary.json`, `describe/describe.json`, `cohort/matched_cohort.json`, `gmx/gmx_contract_closes_obs_decoded.json`, `gmx/gmx_contract_closes_w1_decoded.json`, `config/contract_reputation.yaml`, `docs/analysis_plan.md`, `docs/registration_w1.md`, `docs/revision_price_weighting.md`, `usd/listed_tokens.csv`, `usd/usd_inputs.json`, `usd/constants.json`, `usd/chainlink_check.json`
 
 ## 1. Cohort and graph sizes
