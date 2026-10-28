@@ -49,4 +49,52 @@ Expectation written beforehand: at depth one EndorseRank is close to a reweighte
 
 ## Results
 
-(Added after the run.)
+Computed on 28 October 2026 by `scripts/run_recency_depth.py` (`results.json`), after the design above was committed. Checks: the counts of the in-edges in the pair tables equal the published raw degrees for every spender of both analyses (0 mismatches), and the twelve-month spender cohorts lie wholly inside the registered ones (W0 7,914 of 7,914, W1 7,960 of 7,960). Entries are Δτ [95% CI] over 400 paired resamples inside each group.
+
+### Q1: registered scores and labels, by group
+
+| Window | Group | n | gained a new sender / approval pair | AWP − transfer in-degree (new senders) | EndorseRank (activity) − in-approve degree | EndorseRank − in-approve degree |
+|---|---|---|---|---|---|---|
+| W0 | all | 33,101 | 0.092 / 0.103 | +0.038 [+0.035, +0.042] | +0.043 [+0.036, +0.049] | -0.011 [-0.016, -0.006] |
+| W0 | kept | 7,914 | 0.206 / 0.236 | -0.000 [-0.005, +0.007] | -0.012 [-0.021, -0.003] | -0.045 [-0.053, -0.036] |
+| W0 | older five token | 9,136 | 0.031 / 0.043 | +0.066 [+0.054, +0.078] | +0.131 [+0.111, +0.151] | +0.013 [+0.001, +0.025] |
+| W0 | other tokens | 16,051 | 0.070 / 0.071 | +0.017 [+0.013, +0.023] | +0.006 [-0.003, +0.017] | -0.018 [-0.026, -0.010] |
+| W1 | all | 34,587 | 0.081 / 0.082 | +0.020 [+0.016, +0.023] | +0.018 [+0.012, +0.023] | -0.029 [-0.032, -0.025] |
+| W1 | kept | 7,960 | 0.188 / 0.204 | -0.014 [-0.021, -0.007] | -0.028 [-0.036, -0.020] | -0.056 [-0.063, -0.048] |
+| W1 | older five token | 10,192 | 0.026 / 0.025 | +0.007 [-0.001, +0.014] | +0.001 [-0.013, +0.015] | -0.037 [-0.047, -0.027] |
+| W1 | other tokens | 16,435 | 0.064 / 0.059 | +0.010 [+0.004, +0.015] | +0.003 [-0.006, +0.012] | -0.029 [-0.035, -0.023] |
+
+### Q2: recency-weighted counts and weighted in-strengths (no walk)
+
+| Window | Cohort | recency count − in-degree | in-strength − in-degree | AWP − recency count | recency count − in-approve degree | in-strength − in-approve degree | EndorseRank (activity) − recency count |
+|---|---|---|---|---|---|---|---|
+| W0 | registered all | +0.056 [+0.052, +0.060] | +0.038 [+0.034, +0.042] | -0.018 [-0.019, -0.016] | +0.059 [+0.053, +0.065] | +0.059 [+0.052, +0.064] | -0.017 [-0.019, -0.014] |
+| W0 | registered kept | +0.029 [+0.026, +0.034] | -0.003 [-0.009, +0.003] | -0.029 [-0.034, -0.024] | +0.016 [+0.010, +0.023] | +0.008 [+0.001, +0.015] | -0.028 [-0.035, -0.022] |
+| W0 | registered older five token | +0.085 [+0.071, +0.100] | +0.066 [+0.055, +0.079] | -0.019 [-0.024, -0.014] | +0.145 [+0.124, +0.166] | +0.144 [+0.123, +0.164] | -0.015 [-0.020, -0.009] |
+| W0 | registered other tokens | +0.032 [+0.027, +0.037] | +0.018 [+0.012, +0.023] | -0.014 [-0.017, -0.012] | +0.027 [+0.018, +0.037] | +0.028 [+0.018, +0.037] | -0.021 [-0.024, -0.017] |
+| W0 | main analysis (twelve months) | +0.008 [+0.006, +0.011] | -0.051 [-0.060, -0.043] | -0.046 [-0.051, -0.041] | +0.004 [-0.001, +0.009] | -0.047 [-0.056, -0.038] | -0.064 [-0.073, -0.058] |
+| W1 | registered all | +0.034 [+0.030, +0.037] | +0.019 [+0.015, +0.022] | -0.015 [-0.016, -0.013] | +0.035 [+0.030, +0.040] | +0.034 [+0.029, +0.039] | -0.017 [-0.019, -0.016] |
+| W1 | registered kept | +0.021 [+0.017, +0.026] | -0.022 [-0.028, -0.014] | -0.035 [-0.040, -0.030] | +0.018 [+0.012, +0.024] | +0.008 [+0.002, +0.015] | -0.046 [-0.052, -0.039] |
+| W1 | registered older five token | +0.014 [+0.006, +0.022] | +0.013 [+0.006, +0.019] | -0.008 [-0.011, -0.005] | +0.009 [-0.004, +0.022] | +0.012 [-0.000, +0.024] | -0.008 [-0.014, -0.001] |
+| W1 | registered other tokens | +0.021 [+0.014, +0.026] | +0.010 [+0.004, +0.015] | -0.011 [-0.013, -0.008] | +0.022 [+0.013, +0.030] | +0.023 [+0.014, +0.031] | -0.019 [-0.022, -0.016] |
+| W1 | main analysis (twelve months) | +0.010 [+0.007, +0.013] | -0.051 [-0.058, -0.042] | -0.051 [-0.056, -0.044] | +0.015 [+0.010, +0.020] | -0.019 [-0.029, -0.010] | -0.061 [-0.069, -0.054] |
+
+### Q3: depth one against deeper spenders, new approval pairs
+
+| Window | Analysis | Depth | n | gained a new approval pair | EndorseRank − in-approve degree | EndorseRank (activity) − in-approve degree | C-PR − in-approve degree |
+|---|---|---|---|---|---|---|---|
+| W0 | main | one | 5,092 | 0.233 | -0.033 [-0.042, -0.022] | +0.008 [-0.002, +0.019] | -0.015 [-0.032, +0.003] |
+| W0 | main | deeper | 2,813 | 0.194 | -0.258 [-0.274, -0.241] | -0.236 [-0.252, -0.220] | -0.222 [-0.238, -0.203] |
+| W0 | registered | one | 19,955 | 0.107 | +0.033 [+0.026, +0.039] | +0.125 [+0.115, +0.135] | +0.017 [+0.009, +0.027] |
+| W0 | registered | deeper | 13,146 | 0.097 | -0.106 [-0.113, -0.098] | -0.088 [-0.096, -0.080] | -0.102 [-0.110, -0.094] |
+| W1 | main | one | 5,244 | 0.200 | -0.022 [-0.033, -0.012] | +0.025 [+0.014, +0.036] | -0.007 [-0.024, +0.010] |
+| W1 | main | deeper | 2,712 | 0.164 | -0.241 [-0.258, -0.222] | -0.213 [-0.229, -0.198] | -0.208 [-0.224, -0.192] |
+| W1 | registered | one | 20,976 | 0.082 | +0.013 [+0.008, +0.019] | +0.088 [+0.081, +0.096] | +0.008 [+0.001, +0.016] |
+| W1 | registered | deeper | 13,611 | 0.083 | -0.125 [-0.132, -0.117] | -0.113 [-0.122, -0.104] | -0.112 [-0.118, -0.105] |
+
+### Reading (post hoc)
+
+- Q1. In the registered analysis the leads of AWP and of EndorseRank with activity restarts over the raw counts sit outside the twelve-month cohort, above all among the spenders whose five-token allowances were all older than twelve months (W0: AWP +0.066, the activity variant +0.131), of which only 3.1% gained a new sender and 4.3% a new approval pair. On the spenders that the twelve-month cohort keeps, the registered scores themselves do not beat the counts (AWP level in W0 and below in W1; the activity variant below in both).
+- Q2. The lead is recency, not propagation. A count that weighs each sender or owner by σ of the age of its latest event, with the thesis's own k and t0 and no walk, beats the raw count by more than AWP and the activity variant do, in every group of the registered cohort and in both windows, and neither walk beats this recency-weighted count anywhere (every AWP − recency count and activity variant − recency count interval lies below zero). AWP ranks new senders as its own weighted in-strength does (W0 0.340 against 0.340, W1 0.322 against 0.321): its propagation adds nothing to its edge weights. In the main analysis, whose raw degrees already count only the last twelve months, the recency weighting gains little but still resolves on new senders (+0.008 W0, +0.010 W1) and on new approval pairs in W1 (+0.015), while the value-weighted in-strengths fall below the counts.
+- Q3. The expectation written beforehand did not hold. Among deeper spenders, where the walk is more than a reweighted count, every walk falls far below the in-approve degree (main analysis −0.21 to −0.26), and the count ranks that group unusually well (τ 0.657 in W0, 0.615 in W1). Among depth-one spenders the walks are near the count, and EndorseRank with activity restarts, which at depth one weighs each owner by its approving activity, is level with it in W0 (+0.008 [−0.002, 0.019]) and above it in W1 (+0.025 [0.014, 0.036]).
+- Together: on these data what improves on the raw count out of window is weighing the counterparties by recency or activity; propagation over the graph adds nothing, and where it does change the ranking, among deeper spenders, it makes it worse. All of this was computed after the labels were known; the recency-weighted counts would need a registered test on a later window before any claim.
