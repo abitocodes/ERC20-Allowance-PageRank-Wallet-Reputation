@@ -25,18 +25,18 @@
 
 ## 실행
 
-두 분석은 같은 코드를 씁니다. 환경 변수 `CONTRACT_REP_VARIANT`가 없으면 등록 분석(원시 단위, 모든 토큰)이고, `CONTRACT_REP_VARIANT=usd`이면 수정 분석(USD, 다섯 토큰)입니다. 수정 분석은 `data/1-raw-blockchain-extracts/graph-tables-usd/`를 읽고 결과를 `revised-usd/` 아래에 씁니다.
+세 변형은 같은 코드를 씁니다. 환경 변수 `CONTRACT_REP_VARIANT`가 없으면 등록 분석(원시 단위, 모든 토큰, 2023-10-01부터의 모든 사건)이고, `usd`이면 33개월 USD 수정 분석(USD, 다섯 토큰), `usd12m`이면 학위논문의 주 분석인 12개월 수정 분석(USD, 다섯 토큰, 동결마다 직전 12개월)입니다. `usd`는 `data/1-raw-blockchain-extracts/graph-tables-usd/`를 읽고 결과를 `revised-usd/` 아래에, `usd12m`은 `graph-tables-usd-12m/`을 읽고 `revised-usd-12m/` 아래에 씁니다. 33개월 USD 결과는 논문에 넣지 않고 기록으로 둡니다.
 
-수정 분석(논문의 주 결과)을 처음부터 다시 만드는 순서입니다. 명령은 모두 이 폴더에서 실행합니다.
+33개월 USD 수정 분석을 처음부터 다시 만드는 순서입니다. 12개월 변형은 이 1단계가 만든 ego 표(`u_*`)를 읽습니다. 명령은 모두 이 폴더에서 실행합니다.
 
 1. `python scripts/run_usd_pipeline.py load ego constants pairs rest download`: BigQuery 단계. 쿼리마다 `run_bq.py`가 먼저 dry run으로 비용을 보고, 실행한 뒤 `data/bq_ledger.json`에 적습니다. 비용이 듭니다(아래 「데이터 정책」).
 2. `scripts/run_usd_local.ps1`: 로컬 평가. run_same_window, run_holdout, run_registered, run_supplementary, run_robustness, sybil_model, describe_data, run_benchmark 순서로 돌립니다.
 3. `CONTRACT_REP_VARIANT=usd python scripts/publish_results.py`: 논문이 인용하는 요약을 `data/3-published-results-for-thesis/revised-usd/`에 복사하고 `results_digest.md`와 `SHA256SUMS.txt`를 씁니다.
 4. `CONTRACT_REP_VARIANT=usd python scripts/export_latex.py`: 원고의 표와 그림을 씁니다(아래 「표와 그림 다시 만들기」).
 
-### 12개월 변형
+### 12개월 변형(논문의 주 분석)
 
-`CONTRACT_REP_VARIANT=usd12m`은 같은 USD 수정 분석을 동결마다 직전 12개월(T_obs·W1 2025-07-01 ~ 2026-06-30, W0 2025-04-01 ~ 2026-03-31)로 계산합니다(`docs/revision_one_year_window.md`). 이 수정 문서 2절에 따라 학위논문의 주 분석이 되고, 원고를 12개월 수치로 다시 쓰기 전까지 원고의 표는 위 33개월 수정 분석의 것입니다. 입력은 `data/1-raw-blockchain-extracts/graph-tables-usd-12m/`, 결과는 `revised-usd-12m/` 아래와 `data/0-usd-token-list-and-prices/usd-12m/`입니다.
+`CONTRACT_REP_VARIANT=usd12m`은 같은 USD 수정 분석을 동결마다 직전 12개월(T_obs·W1 2025-07-01 ~ 2026-06-30, W0 2025-04-01 ~ 2026-03-31)로 계산합니다(`docs/revision_one_year_window.md`). 이 수정 문서 2절에 따라 학위논문의 주 분석이고, 원고의 표와 그림은 이 변형에서 나옵니다. 입력은 `data/1-raw-blockchain-extracts/graph-tables-usd-12m/`, 결과는 `revised-usd-12m/` 아래와 `data/0-usd-token-list-and-prices/usd-12m/`입니다.
 
 1. `python scripts/run_usd12m_pipeline.py check`: 무료 점검과 작업별 비용 추정(약 USD 2.7, 상한 USD 4.00).
 2. `python scripts/run_usd12m_pipeline.py tokens cohorts constants`, 그다음 `pairs rest checks download`: BigQuery 단계. 수정 문서, 오버레이, SQL이 커밋되어 있어야 돌아갑니다.
@@ -51,7 +51,7 @@
 논문의 결과 표(`results/tables/*.tex`)와 그래프(`Figures/generated/*.pdf`)는 손으로 고치지 않고 이 폴더에서 다시 만듭니다. `scripts/export_latex.py`는 서브모듈 `../dissertation/overleaf-github/`에 씁니다.
 
 ```bash
-CONTRACT_REP_VARIANT=usd python scripts/export_latex.py
+CONTRACT_REP_VARIANT=usd12m python scripts/export_latex.py --into-manuscript
 ```
 
 서브모듈이 비어 있으면 저장소 최상위에서 `git submodule update --init`을 먼저 실행합니다.
@@ -64,7 +64,8 @@ parquet 데이터는 GitHub에 올리지 않고 공개 Google Drive 폴더 `phd_
 |------|------|--------|-------|
 | `data/1-raw-blockchain-extracts/cohort`, `gmx` | 코호트 후보, 계정 종류 판정(eth_getCode), GMX 청산 원본 | 작은 파일만 | 전부 |
 | `data/1-raw-blockchain-extracts/graph-tables/` | 노드 번호표, 두 기준 시점의 허락·송금 간선표, 상위 토큰 간선표, 검증 지표, 라벨 (6.4 GB) | `.json` 기록만 | 전부 |
-| `data/1-raw-blockchain-extracts/graph-tables-usd/` | 수정 분석의 같은 표(`u_x_*`, `u_proxies_tobs`, `u_labels_*`, `u_cohort`, 2.6 GB) | `.json` 기록만 | 전부 |
+| `data/1-raw-blockchain-extracts/graph-tables-usd/` | 33개월 USD 수정 분석의 같은 표(`u_x_*`, `u_proxies_tobs`, `u_labels_*`, `u_cohort`, 2.6 GB) | `.json` 기록만 | 전부 |
+| `data/1-raw-blockchain-extracts/graph-tables-usd-12m/` | 12개월 수정 분석(주 분석)의 같은 표(`u12_*`) | `.json` 기록만 | 전부 |
 | `data/0-usd-token-list-and-prices` | 토큰 후보·목록, 일별 USD 가격, 상수, Chainlink 대조 | 올림 | 전부 |
 | `data/2-processed-tables-and-evaluations` | 점수, 평가 요약 JSON, 해독한 GMX 청산 | 작은 파일만 | 전부 |
 | `data/3-published-results-for-thesis` | 논문 표의 근거 요약과 SHA-256 목록 | 올림 | 전부 |
@@ -77,7 +78,7 @@ parquet 데이터는 GitHub에 올리지 않고 공개 Google Drive 폴더 `phd_
 이 폴더에서 필요한 파일만 받습니다. 패턴은 Drive 경로(`contract-reputation/...`)나 학위논문 폴더 기준 경로에 맞춘 glob입니다. 받은 파일은 MD5를 확인합니다.
 
 ```bash
-python scripts/drive_sync.py pull "*graph-tables-usd/*"   # 수정 분석(주 결과)의 그래프 표
+python scripts/drive_sync.py pull "*graph-tables-usd-12m/*"   # 12개월 수정 분석(주 결과)의 그래프 표
 python scripts/drive_sync.py pull "experiments/*"         # 이 논문의 데이터 전부
 python scripts/drive_sync.py pull --all                   # 보관 데이터까지 전부(약 10 GB)
 python scripts/drive_sync.py status                       # 로컬과 Drive의 차이

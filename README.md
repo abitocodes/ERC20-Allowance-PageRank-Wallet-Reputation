@@ -25,7 +25,8 @@ Arbitrum One의 스마트 컨트랙트에 온체인 평판 점수를 매깁니�
 
 | 구간 | 날짜 | 쓰임 |
 |------|------|------|
-| 관측 기간 | 2023-10-01 ~ 2026-06-30 | 같은 기간 정렬, 벤치마크, 강건성 |
+| 추출 기간 | 2023-10-01 ~ 2026-06-30 (스캔 A), 7~9월은 스캔 B | 등록 분석은 2023-10-01부터의 모든 사건으로 점수를 만듦 |
+| 점수 기간(주 분석) | 동결마다 직전 12개월: T_obs·W1 2025-07-01 ~ 2026-06-30, W0 2025-04-01 ~ 2026-03-31 | 같은 기간 정렬, 벤치마크, 강건성, 두 홀드아웃 |
 | 홀드아웃 W0 | 2026-03-31 동결, 4~6월 라벨 | 스펜더 홀드아웃, 규칙 A |
 | 등록 재현 W1 | 2026-06-30 동결, 7~9월 라벨 | 등록 파일을 커밋한 뒤에 7~9월 로그를 추출 |
 
@@ -33,33 +34,35 @@ Arbitrum One의 스마트 컨트랙트에 온체인 평판 점수를 매깁니�
 
 | | 등록 분석 | 수정 분석 (논문의 주 결과) |
 |---|---|---|
-| 금액 | 원시 base unit, b = 1 | USD (DefiLlama 일별 종가), b = ln3/m (m_T = $200, m_A = $62) |
+| 점수 기간 | 2023-10-01부터의 모든 사건 | 동결마다 직전 12개월 |
+| 금액 | 원시 base unit, b = 1 | USD (DefiLlama 일별 종가), b = ln3/m (m_T = $170, m_A = $100, W0 점수 기간에서 정함) |
 | 토큰 | 모든 ERC-20 | WETH, USDC, USDT0, ARB, WBTC (Chainlink low·medium 규칙을 통과하고 가격이 있는 46개 중 행 수 상위 5개) |
-| 코호트 | 27,844 | 15,107 (등록 코호트의 부분집합) |
-| C-PR 승인 층 | 원시 합 | min(USD, $20,000) 합 |
-| 고정 시점 | 계획 43d8045, W1 등록 0d3a057 (모두 결과 전) | 수정 계획 a897475·09dfc32·2705b28 (2026-10-10, 등록 결과를 본 뒤, 수정 점수 계산 전) |
-| 결과 | `experiments/data/3-published-results-for-thesis/` | `.../3-published-results-for-thesis/revised-usd/` |
-| 실행 | `CONTRACT_REP_VARIANT` 없이 | `CONTRACT_REP_VARIANT=usd` (`scripts/run_usd_pipeline.py`, `scripts/run_usd_local.ps1`) |
+| 코호트 | 27,844 | 동결마다 그 12개월 안에서: T_obs 6,483, W0 6,343 (등록 코호트의 부분집합) |
+| C-PR 승인 층 | 원시 합 | min(USD, $19,000) 합 |
+| 고정 시점 | 계획 43d8045, W1 등록 0d3a057 (모두 결과 전) | USD 수정 a897475·09dfc32·2705b28 (2026-10-10), 12개월 점수 기간 e6c352d (2026-10-28). 모두 등록 결과를 본 뒤 |
+| 결과 | `experiments/data/3-published-results-for-thesis/` | `.../3-published-results-for-thesis/revised-usd-12m/` |
+| 실행 | `CONTRACT_REP_VARIANT` 없이 | `CONTRACT_REP_VARIANT=usd12m` (`scripts/run_usd12m_pipeline.py`, `scripts/run_usd_local.ps1 -Variant usd12m`) |
 
-분석 계획 `43d8045`는 2026-10-09 13:41 UTC(이 연구의 첫 추출 10초 전)에, W1 등록 `0d3a057`은 같은 날 16:49 UTC(7~9월 로그 추출 8초 전)에 커밋했습니다. 수정 분석은 등록 이후의 이탈(deviation)이라 그 결과를 '등록된 결과'라고 부르지 않습니다. 이유와 규칙은 `experiments/docs/revision_price_weighting.md`에 있습니다. 토큰 목록과 가격은 `experiments/data/0-usd-token-list-and-prices/`에 있습니다. 지도교수가 수정 분석을 주 분석으로 할지는 아직 확인하지 않았습니다(`dissertation/notes/_todo.md`).
+분석 계획 `43d8045`는 2026-10-09 13:41 UTC(이 연구의 첫 추출 10초 전)에, W1 등록 `0d3a057`은 같은 날 16:49 UTC(7~9월 로그 추출 8초 전)에 커밋했습니다. 수정 분석은 등록 이후의 이탈(deviation)이라 그 결과를 '등록된 결과'라고 부르지 않습니다. 이유와 규칙은 `experiments/docs/revision_price_weighting.md`(금액과 토큰)와 `experiments/docs/revision_one_year_window.md`(점수 기간)에 있습니다. 원고는 12개월 점수 기간을 처음부터의 설계처럼 쓰고, 바꾼 이력은 `dissertation/notes/_change-record-score-windows.md`에 둡니다. 33개월 USD 결과(`revised-usd/`)는 기록으로만 남깁니다. 토큰 목록과 가격은 `experiments/data/0-usd-token-list-and-prices/`에 있습니다. 지도교수가 수정 분석을 주 분석으로 할지는 아직 확인하지 않았습니다(`dissertation/notes/_todo.md`).
 
 ## 결과 (수정 분석)
 
-모든 수치와 그 출처(JSON 파일과 키)는 [`experiments/data/3-published-results-for-thesis/revised-usd/results_digest.md`](experiments/data/3-published-results-for-thesis/revised-usd/results_digest.md)에, 등록 분석의 수치는 그 위 폴더의 `results_digest.md`에 있습니다. 공개한 파일의 SHA-256은 같은 폴더의 `SHA256SUMS.txt`에 있습니다. 괄호는 95% 부트스트랩 구간입니다.
+모든 수치와 그 출처(JSON 파일과 키)는 [`experiments/data/3-published-results-for-thesis/revised-usd-12m/results_digest.md`](experiments/data/3-published-results-for-thesis/revised-usd-12m/results_digest.md)에, 등록 분석의 수치는 그 위 폴더의 `results_digest.md`에 있습니다. 공개한 파일의 SHA-256은 같은 폴더의 `SHA256SUMS.txt`에 있습니다. 괄호는 95% 부트스트랩 구간입니다.
 
-- 각 점수는 자기 간선으로 만든 점검과 가장 잘 맞았습니다. EndorseRank와 허락 지표 묶음의 τ_b는 0.585 [0.578, 0.592], AWP와 송금 지표 묶음은 0.572 [0.564, 0.580]입니다. 두 점수의 순서는 서로 달랐습니다(τ_b 0.174 [0.163, 0.185]).
-- C-PR(λ = 0.5)은 분석 계획의 규칙 A도, W1 등록의 규칙 B도 충족하지 못했습니다.
-- 기간 밖에서는 다음과 같았습니다(Kendall τ_b의 차이). W1의 C-PR − AWP 두 칸은 W1 등록의 민감도 분석에 들어 있고, 나머지는 라벨을 본 뒤 계산한 사후 대비입니다.
+- 각 점수는 자기 간선으로 만든 점검과 가장 잘 맞았습니다. EndorseRank와 허락 지표 묶음의 τ_b는 0.560 [0.548, 0.571], AWP와 송금 지표 묶음은 0.736 [0.728, 0.744]입니다. 두 점수의 순서는 서로 달랐습니다(τ_b 0.199 [0.181, 0.221]).
+- C-PR(λ = 0.5)은 분석 계획의 규칙 A도, W1 등록의 규칙 B도 충족하지 못했습니다(등록 분석과 같은 판정).
+- 기간 밖에서는 어떤 PageRank도 같은 간선의 원시 차수를 넘지 못했습니다. 아래는 Kendall τ_b의 차이입니다. W1의 C-PR − AWP 두 칸은 W1 등록의 민감도 분석에 들어 있고, 나머지는 라벨을 본 뒤 계산한 사후 대비입니다.
 
 | 비교 | W0 | W1 |
 |---|---|---|
-| AWP − 송금 입차수, 새 송금자 | +0.043 [0.038, 0.048] | +0.022 [0.017, 0.027] |
-| EndorseRank − 승인 입차수, 새 승인 쌍 | −0.019 [−0.026, −0.011] | −0.034 [−0.038, −0.029] |
-| C-PR − EndorseRank, 새 승인 쌍 | +0.021 [0.013, 0.028] | +0.016 [0.010, 0.024] |
-| C-PR − AWP, 새 승인 쌍 | +0.056 [0.042, 0.070] | +0.081 [0.069, 0.095] |
-| C-PR − AWP, 새 송금자 | −0.085 [−0.092, −0.078] | −0.067 [−0.072, −0.061] |
+| AWP − 송금 입차수, 새 송금자 | −0.038 [−0.043, −0.032] | −0.041 [−0.047, −0.034] |
+| EndorseRank − 승인 입차수, 새 승인 쌍 | −0.090 [−0.100, −0.079] | −0.082 [−0.090, −0.073] |
+| EndorseRank(활동 재시작) − 승인 입차수, 새 승인 쌍 | −0.060 [−0.070, −0.052] | −0.046 [−0.055, −0.038] |
+| C-PR − EndorseRank, 새 승인 쌍 | +0.026 [0.016, 0.037] | +0.017 [0.006, 0.029] |
+| C-PR − AWP, 새 승인 쌍 | +0.133 [0.114, 0.153] | +0.159 [0.139, 0.178] |
+| C-PR − AWP, 새 송금자 | −0.073 [−0.083, −0.063] | −0.075 [−0.085, −0.065] |
 
-C-PR이 AWP보다 새 승인 쌍을 높게 매기는 것은 AWP가 0점을 주는 스펜더(송금 간선이 없는 W0 스펜더의 약 6분의 1) 덕분이고, 송금을 받은 스펜더만 보면 AWP가 두 라벨 모두 앞섭니다(원고 4장 sub:cpr-contrasts, 표 cpr-contrasts). AWP의 가중치와 활동 재시작을 두 층에 쓴 결합 C-AWP는 라벨을 본 뒤 정한 것이라, 원고에는 6장 향후 연구에 다음 창에 등록할 보행으로 이름만 나옵니다(2026-10-22 결정, 10-27 재확인). 그 사후 결과는 [`experiments/exploratory/2026-10-22-cpr-against-awp/`](experiments/exploratory/2026-10-22-cpr-against-awp/)에 있습니다. C-AWP를 실제 금융 성과로 검증하려는 다음 단계 연구는 [`papers/survey-2024-2026-onchain-reputation/`](../../papers/survey-2024-2026-onchain-reputation/)에 있습니다.
+C-PR이 AWP보다 새 승인 쌍을 높게 매기는 것은 주로 AWP가 0점을 주는 스펜더(송금 간선이 없는 W0 스펜더의 약 6분의 1) 덕분입니다. 송금을 받은 스펜더만 보면 새 승인 쌍은 W0에서 비슷하고(+0.008 [−0.002, 0.020]) W1에서 C-PR이 조금 앞서며(+0.022 [0.011, 0.033]), 새 송금자는 두 창 모두 AWP가 앞섭니다(원고 4장 sub:cpr-contrasts, 표 cpr-contrasts). GMX V2 계약 트레이더의 청산 없는 마감 비율에서는 승인 입차수가 송금 입차수를 W1에서 앞섰습니다(P +0.141, 97.5% 구간 [0.026, 0.256], R1 성립). 등록 분석과 33개월 USD 분석에서는 R1이 성립하지 않았습니다. AWP의 가중치와 활동 재시작을 두 층에 쓴 결합 C-AWP는 라벨을 본 뒤 정한 것이라, 원고에는 6장 향후 연구에 다음 창에 등록할 보행으로 이름만 나옵니다(2026-10-22 결정, 10-27 재확인). 그 사후 결과는 [`experiments/exploratory/2026-10-22-cpr-against-awp/`](experiments/exploratory/2026-10-22-cpr-against-awp/)에 있습니다. C-AWP를 실제 금융 성과로 검증하려는 다음 단계 연구는 [`papers/survey-2024-2026-onchain-reputation/`](../../papers/survey-2024-2026-onchain-reputation/)에 있습니다.
 
 ## 연구계획서
 
