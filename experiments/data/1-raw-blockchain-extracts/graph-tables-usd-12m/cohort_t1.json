@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.u12_cohort_t1",
+  "rows": 6343,
+  "table_rows": 6343,
+  "downloaded_at": "2026-10-28T09:12:56+00:00",
+  "parts": [
+    "cohort_t1.part000.parquet"
+  ],
+  "bytes": 157969
+}

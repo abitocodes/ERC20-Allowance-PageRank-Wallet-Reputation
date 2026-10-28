@@ -1,0 +1,11 @@
+{
+  "started_at": "2026-10-09T16:49:33+00:00",
+  "head": "0d3a057e4f0c8473d36d89fbe33c24deff0c9911",
+  "registration_commit": "0d3a057e4f0c8473d36d89fbe33c24deff0c9911 2026-10-10T01:49:32+09:00",
+  "sha256": {
+    "docs/registration_w1.md": "2126c8dc3fe3c0f9273aa4ecfc1e15bddc1f5a6f65e98548b9528f2b18ca2a6b",
+    "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833"
+  },
+  "override_used": false,
+  "finished_at": "2026-10-09T16:50:55+00:00"
+}

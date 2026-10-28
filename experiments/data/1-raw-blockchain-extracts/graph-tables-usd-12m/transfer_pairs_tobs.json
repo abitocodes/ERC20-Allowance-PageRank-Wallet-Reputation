@@ -1,0 +1,14 @@
+{
+  "table": "dissertation-bq.contract_rep.u12_x_transfer_pairs_tobs",
+  "rows": 8432635,
+  "table_rows": 8432635,
+  "downloaded_at": "2026-10-28T09:14:41+00:00",
+  "parts": [
+    "transfer_pairs_tobs.part000.parquet",
+    "transfer_pairs_tobs.part001.parquet",
+    "transfer_pairs_tobs.part002.parquet",
+    "transfer_pairs_tobs.part003.parquet",
+    "transfer_pairs_tobs.part004.parquet"
+  ],
+  "bytes": 374586166
+}

@@ -72,6 +72,102 @@
         "sql/23_usd12m_checks.sql": "99debd4bfa00e2077cfc904a8fd94547ca0d80069ae29b03084b8cde10d7bf18"
       },
       "finished_at": "2026-10-28T09:05:26+00:00"
+    },
+    {
+      "step": "pairs",
+      "started_at": "2026-10-28T09:06:22+00:00",
+      "head": "0a9421563a529762662ccaef4d86ac96bfad03f6",
+      "revision_commit": "e6c352dcbc5ba14e7bcd25df7bdfeefedb1091ce 2026-10-28T18:02:41+09:00",
+      "sha256": {
+        "docs/revision_one_year_window.md": "4fb88ebf46f261ad4ad63404183ecc6fd0be453531e43a731f21464a4afdfe35",
+        "config/overlay_usd12m.yaml": "ac4f284c3961128e1fff762211d1fbbd8eb37df9d4480c788ac01cff6c829889",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_usd12m_pipeline.py": "ab65bd86d57101570fe3dfdd2b77b6b5a46cb78b5d893d808973f29f0df92754",
+        "scripts/run_bq.py": "ee01fe6d6c743619cd1340767e4a69b5b6c7ca19559907997c799ec24bd22c91",
+        "scripts/common.py": "f5bfb7595adeae539a634a7bd4da386fab2370178356705cc5a24776a67f1b91",
+        "sql/13_usd_constants.sql": "aeca242849d8f39f19ec40d149a66ed3aa587c623cbe1363fb581b5566388ad8",
+        "sql/14_usd_anchor_pairs.sql": "7efbe99325308e2f5a1520f8d82dcce754d60b5de12bee7201cccecc33745cd1",
+        "sql/15_usd_proxies.sql": "7469509794f448fb2c3eb1b730d62188fcfceb7f691295ee3888ba4d68e3a7ee",
+        "sql/16_usd_labels.sql": "d45b642fd772bf289b9e9650dd52dedb4066b0f40e50794393000f61ea79a45b",
+        "sql/17_usd_export_ids.sql": "96db8bf886c9248005d2fbf27c520aeb0993f439968e2d246de811143d00048e",
+        "sql/20_usd12m_token_rows.sql": "ea30aeee8e5fe6142bd0022ac066ddf7592c229e4e3f6dda9ee1acf31bc90062",
+        "sql/21_usd12m_cohorts.sql": "12cc7797e5d9b862771f9eac6d441623062f67ea2bd3b9220178b5c94b981f12",
+        "sql/22_usd12m_describe.sql": "6022a31d3c2ed51703200c2331fd1d03651bf72a096cb91ba9b33102fa7a0c6d",
+        "sql/23_usd12m_checks.sql": "99debd4bfa00e2077cfc904a8fd94547ca0d80069ae29b03084b8cde10d7bf18"
+      },
+      "finished_at": "2026-10-28T09:07:49+00:00"
+    },
+    {
+      "step": "rest",
+      "started_at": "2026-10-28T09:08:12+00:00",
+      "head": "0a9421563a529762662ccaef4d86ac96bfad03f6",
+      "revision_commit": "e6c352dcbc5ba14e7bcd25df7bdfeefedb1091ce 2026-10-28T18:02:41+09:00",
+      "sha256": {
+        "docs/revision_one_year_window.md": "4fb88ebf46f261ad4ad63404183ecc6fd0be453531e43a731f21464a4afdfe35",
+        "config/overlay_usd12m.yaml": "ac4f284c3961128e1fff762211d1fbbd8eb37df9d4480c788ac01cff6c829889",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_usd12m_pipeline.py": "ab65bd86d57101570fe3dfdd2b77b6b5a46cb78b5d893d808973f29f0df92754",
+        "scripts/run_bq.py": "ee01fe6d6c743619cd1340767e4a69b5b6c7ca19559907997c799ec24bd22c91",
+        "scripts/common.py": "f5bfb7595adeae539a634a7bd4da386fab2370178356705cc5a24776a67f1b91",
+        "sql/13_usd_constants.sql": "aeca242849d8f39f19ec40d149a66ed3aa587c623cbe1363fb581b5566388ad8",
+        "sql/14_usd_anchor_pairs.sql": "7efbe99325308e2f5a1520f8d82dcce754d60b5de12bee7201cccecc33745cd1",
+        "sql/15_usd_proxies.sql": "7469509794f448fb2c3eb1b730d62188fcfceb7f691295ee3888ba4d68e3a7ee",
+        "sql/16_usd_labels.sql": "d45b642fd772bf289b9e9650dd52dedb4066b0f40e50794393000f61ea79a45b",
+        "sql/17_usd_export_ids.sql": "96db8bf886c9248005d2fbf27c520aeb0993f439968e2d246de811143d00048e",
+        "sql/20_usd12m_token_rows.sql": "ea30aeee8e5fe6142bd0022ac066ddf7592c229e4e3f6dda9ee1acf31bc90062",
+        "sql/21_usd12m_cohorts.sql": "12cc7797e5d9b862771f9eac6d441623062f67ea2bd3b9220178b5c94b981f12",
+        "sql/22_usd12m_describe.sql": "6022a31d3c2ed51703200c2331fd1d03651bf72a096cb91ba9b33102fa7a0c6d",
+        "sql/23_usd12m_checks.sql": "99debd4bfa00e2077cfc904a8fd94547ca0d80069ae29b03084b8cde10d7bf18"
+      },
+      "finished_at": "2026-10-28T09:11:36+00:00"
+    },
+    {
+      "step": "checks",
+      "started_at": "2026-10-28T09:11:58+00:00",
+      "head": "0a9421563a529762662ccaef4d86ac96bfad03f6",
+      "revision_commit": "e6c352dcbc5ba14e7bcd25df7bdfeefedb1091ce 2026-10-28T18:02:41+09:00",
+      "sha256": {
+        "docs/revision_one_year_window.md": "4fb88ebf46f261ad4ad63404183ecc6fd0be453531e43a731f21464a4afdfe35",
+        "config/overlay_usd12m.yaml": "ac4f284c3961128e1fff762211d1fbbd8eb37df9d4480c788ac01cff6c829889",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_usd12m_pipeline.py": "ab65bd86d57101570fe3dfdd2b77b6b5a46cb78b5d893d808973f29f0df92754",
+        "scripts/run_bq.py": "ee01fe6d6c743619cd1340767e4a69b5b6c7ca19559907997c799ec24bd22c91",
+        "scripts/common.py": "f5bfb7595adeae539a634a7bd4da386fab2370178356705cc5a24776a67f1b91",
+        "sql/13_usd_constants.sql": "aeca242849d8f39f19ec40d149a66ed3aa587c623cbe1363fb581b5566388ad8",
+        "sql/14_usd_anchor_pairs.sql": "7efbe99325308e2f5a1520f8d82dcce754d60b5de12bee7201cccecc33745cd1",
+        "sql/15_usd_proxies.sql": "7469509794f448fb2c3eb1b730d62188fcfceb7f691295ee3888ba4d68e3a7ee",
+        "sql/16_usd_labels.sql": "d45b642fd772bf289b9e9650dd52dedb4066b0f40e50794393000f61ea79a45b",
+        "sql/17_usd_export_ids.sql": "96db8bf886c9248005d2fbf27c520aeb0993f439968e2d246de811143d00048e",
+        "sql/20_usd12m_token_rows.sql": "ea30aeee8e5fe6142bd0022ac066ddf7592c229e4e3f6dda9ee1acf31bc90062",
+        "sql/21_usd12m_cohorts.sql": "12cc7797e5d9b862771f9eac6d441623062f67ea2bd3b9220178b5c94b981f12",
+        "sql/22_usd12m_describe.sql": "6022a31d3c2ed51703200c2331fd1d03651bf72a096cb91ba9b33102fa7a0c6d",
+        "sql/23_usd12m_checks.sql": "99debd4bfa00e2077cfc904a8fd94547ca0d80069ae29b03084b8cde10d7bf18"
+      },
+      "finished_at": "2026-10-28T09:12:12+00:00"
+    },
+    {
+      "step": "download",
+      "started_at": "2026-10-28T09:12:34+00:00",
+      "head": "0a9421563a529762662ccaef4d86ac96bfad03f6",
+      "revision_commit": "e6c352dcbc5ba14e7bcd25df7bdfeefedb1091ce 2026-10-28T18:02:41+09:00",
+      "sha256": {
+        "docs/revision_one_year_window.md": "4fb88ebf46f261ad4ad63404183ecc6fd0be453531e43a731f21464a4afdfe35",
+        "config/overlay_usd12m.yaml": "ac4f284c3961128e1fff762211d1fbbd8eb37df9d4480c788ac01cff6c829889",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_usd12m_pipeline.py": "ab65bd86d57101570fe3dfdd2b77b6b5a46cb78b5d893d808973f29f0df92754",
+        "scripts/run_bq.py": "ee01fe6d6c743619cd1340767e4a69b5b6c7ca19559907997c799ec24bd22c91",
+        "scripts/common.py": "f5bfb7595adeae539a634a7bd4da386fab2370178356705cc5a24776a67f1b91",
+        "sql/13_usd_constants.sql": "aeca242849d8f39f19ec40d149a66ed3aa587c623cbe1363fb581b5566388ad8",
+        "sql/14_usd_anchor_pairs.sql": "7efbe99325308e2f5a1520f8d82dcce754d60b5de12bee7201cccecc33745cd1",
+        "sql/15_usd_proxies.sql": "7469509794f448fb2c3eb1b730d62188fcfceb7f691295ee3888ba4d68e3a7ee",
+        "sql/16_usd_labels.sql": "d45b642fd772bf289b9e9650dd52dedb4066b0f40e50794393000f61ea79a45b",
+        "sql/17_usd_export_ids.sql": "96db8bf886c9248005d2fbf27c520aeb0993f439968e2d246de811143d00048e",
+        "sql/20_usd12m_token_rows.sql": "ea30aeee8e5fe6142bd0022ac066ddf7592c229e4e3f6dda9ee1acf31bc90062",
+        "sql/21_usd12m_cohorts.sql": "12cc7797e5d9b862771f9eac6d441623062f67ea2bd3b9220178b5c94b981f12",
+        "sql/22_usd12m_describe.sql": "6022a31d3c2ed51703200c2331fd1d03651bf72a096cb91ba9b33102fa7a0c6d",
+        "sql/23_usd12m_checks.sql": "99debd4bfa00e2077cfc904a8fd94547ca0d80069ae29b03084b8cde10d7bf18"
+      },
+      "finished_at": "2026-10-28T09:16:12+00:00"
     }
   ],
   "jobs": [
@@ -107,6 +203,94 @@
       "bytes_first_expected": 40592728400,
       "bytes_billed": 40574648320,
       "usd": 0.2306
+    },
+    {
+      "step": "pairs",
+      "key": "pairs_tobs",
+      "job_id": "aae4ebb0-f190-484a-9e1b-e9e5e45f05cf",
+      "at": "2026-10-28T09:07:10+00:00",
+      "bytes_dry_run": 9161362986,
+      "bytes_expected": 37382583638,
+      "bytes_first_expected": 9180360394,
+      "bytes_billed": 36782997504,
+      "usd": 0.2091
+    },
+    {
+      "step": "pairs",
+      "key": "pairs_t1",
+      "job_id": "fdbcfe8a-19a5-4b9a-a656-a8787f137149",
+      "at": "2026-10-28T09:07:48+00:00",
+      "bytes_dry_run": 9552134312,
+      "bytes_expected": 41418014368,
+      "bytes_first_expected": 9571134800,
+      "bytes_billed": 40885026816,
+      "usd": 0.2324
+    },
+    {
+      "step": "rest",
+      "key": "proxies",
+      "job_id": "adbdde5c-7c11-45ec-b6e0-1652379eeffa",
+      "at": "2026-10-28T09:08:25+00:00",
+      "bytes_dry_run": 27335718426,
+      "bytes_expected": 27346061560,
+      "bytes_first_expected": 27346061560,
+      "bytes_billed": 27336376320,
+      "usd": 0.1554
+    },
+    {
+      "step": "rest",
+      "key": "labels_w0",
+      "job_id": "92c0b37c-0659-4f63-8aa7-0f335265d9fe",
+      "at": "2026-10-28T09:09:32+00:00",
+      "bytes_dry_run": 53867600671,
+      "bytes_expected": 54264810692,
+      "bytes_first_expected": 54264810692,
+      "bytes_billed": 53868494848,
+      "usd": 0.3062
+    },
+    {
+      "step": "rest",
+      "key": "labels_w1",
+      "job_id": "f66a1ca1-d501-4011-ac63-3f46e0815825",
+      "at": "2026-10-28T09:10:25+00:00",
+      "bytes_dry_run": 49754705176,
+      "bytes_expected": 50202972384,
+      "bytes_first_expected": 50202972384,
+      "bytes_billed": 49754931200,
+      "usd": 0.2828
+    },
+    {
+      "step": "rest",
+      "key": "node_ids",
+      "job_id": "29ddd20a-634e-49a1-a976-a074103c06d7",
+      "at": "2026-10-28T09:11:10+00:00",
+      "bytes_dry_run": 1124736690,
+      "bytes_expected": 10634657792,
+      "bytes_first_expected": 3105366506,
+      "bytes_billed": 4119855104,
+      "usd": 0.0234
+    },
+    {
+      "step": "rest",
+      "key": "describe",
+      "job_id": "42945b10-0d65-409d-9091-de72b9581e38",
+      "at": "2026-10-28T09:11:34+00:00",
+      "bytes_dry_run": 72548556272,
+      "bytes_expected": 160616331792,
+      "bytes_first_expected": 72569385056,
+      "bytes_billed": 136225751040,
+      "usd": 0.7744
+    },
+    {
+      "step": "checks",
+      "key": "checks",
+      "job_id": "89780150-221b-4e26-89d4-d424872e0a0e",
+      "at": "2026-10-28T09:12:11+00:00",
+      "bytes_dry_run": 6322582364,
+      "bytes_expected": 13545744520,
+      "bytes_first_expected": 13545744520,
+      "bytes_billed": 6322913280,
+      "usd": 0.0359
     }
   ],
   "results": {
@@ -136,6 +320,30 @@
       "m_transfer_usd": 170.0,
       "m_allowance_usd": 100.0,
       "cap_allowance_usd": 19000.0
+    },
+    "pairs": {
+      "allow_pairs_tobs": 3810253,
+      "allow_pairs_t1": 4117103,
+      "transfer_pairs_tobs": 8432635,
+      "transfer_pairs_t1": 9198965
+    },
+    "rest": {
+      "proxies_tobs": 6483,
+      "labels_w0": 7962,
+      "labels_w1": 7995,
+      "nodes": 4935243
+    },
+    "checks": {
+      "cohort_tobs_outside": 0,
+      "transfer_pairs_tobs": 0,
+      "allowances_t1": 0,
+      "allowances_tobs": 0,
+      "cohort_t1_outside": 0,
+      "transfer_pairs_t1": 0
+    },
+    "download": {
+      "tobs": 6483,
+      "t1": 6343
     }
   },
   "checks_run": [

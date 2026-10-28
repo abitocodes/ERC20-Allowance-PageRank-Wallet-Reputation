@@ -1,0 +1,669 @@
+{
+  "computed_at": "2026-10-28T09:03:59+00:00",
+  "source": "sql/20_usd12m_token_rows.sql (contract_rep.u12_token_rows)",
+  "window": [
+    "2025-07-01 00:00:00 UTC",
+    "2026-07-01 00:00:00 UTC"
+  ],
+  "anchor": "2026-06-30 23:59:59 UTC",
+  "rule": "rows = ego transfers of the registered cohort in the T_obs score window plus positive latest allowances at T_obs set inside it (the count of docs/revision_price_weighting.md section 3); reported only, the five selected tokens are kept (docs/revision_one_year_window.md section 4)",
+  "selected": [
+    "WETH",
+    "USDC",
+    "USD\u20ae0",
+    "ARB",
+    "WBTC"
+  ],
+  "top_priced_by_rows": [
+    "WETH",
+    "USDC",
+    "USD\u20ae0",
+    "WBTC",
+    "ARB"
+  ],
+  "same_as_selected": true,
+  "tokens_in_window": 33517,
+  "rows_in_window": 588568431,
+  "per_listed_token": [
+    {
+      "symbol": "WETH",
+      "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "priced": true,
+      "selected": true,
+      "transfers": 175468585,
+      "latest_allowances": 207184,
+      "rows_total": 175675769,
+      "rank_by_rows": 1
+    },
+    {
+      "symbol": "USDC",
+      "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "priced": true,
+      "selected": true,
+      "transfers": 166973568,
+      "latest_allowances": 2625794,
+      "rows_total": 169599362,
+      "rank_by_rows": 2
+    },
+    {
+      "symbol": "USD\u20ae0",
+      "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "priced": true,
+      "selected": true,
+      "transfers": 64623759,
+      "latest_allowances": 1113728,
+      "rows_total": 65737487,
+      "rank_by_rows": 3
+    },
+    {
+      "symbol": "WBTC",
+      "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+      "priced": true,
+      "selected": true,
+      "transfers": 33424788,
+      "latest_allowances": 117354,
+      "rows_total": 33542142,
+      "rank_by_rows": 4
+    },
+    {
+      "symbol": "ARB",
+      "address": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+      "priced": true,
+      "selected": true,
+      "transfers": 22665637,
+      "latest_allowances": 124657,
+      "rows_total": 22790294,
+      "rank_by_rows": 5
+    },
+    {
+      "symbol": "USDC",
+      "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
+      "priced": true,
+      "selected": false,
+      "transfers": 14367921,
+      "latest_allowances": 103595,
+      "rows_total": 14471516,
+      "rank_by_rows": 6
+    },
+    {
+      "symbol": "PENDLE",
+      "address": "0x0c880f6761f1af8d9aa9c466984b80dab9a8c9e8",
+      "priced": true,
+      "selected": false,
+      "transfers": 5703165,
+      "latest_allowances": 26603,
+      "rows_total": 5729768,
+      "rank_by_rows": 7
+    },
+    {
+      "symbol": "LINK",
+      "address": "0xf97f4df75117a78c1a5a0dbb814af92458539fb4",
+      "priced": true,
+      "selected": false,
+      "transfers": 2371593,
+      "latest_allowances": 27447,
+      "rows_total": 2399040,
+      "rank_by_rows": 8
+    },
+    {
+      "symbol": "DAI",
+      "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+      "priced": true,
+      "selected": false,
+      "transfers": 2032848,
+      "latest_allowances": 54253,
+      "rows_total": 2087101,
+      "rank_by_rows": 9
+    },
+    {
+      "symbol": "AAVE",
+      "address": "0xba5ddd1f9d7f570dc94a51479a000e3bce967196",
+      "priced": true,
+      "selected": false,
+      "transfers": 1637233,
+      "latest_allowances": 17872,
+      "rows_total": 1655105,
+      "rank_by_rows": 10
+    },
+    {
+      "symbol": "APE",
+      "address": "0x7f9fbf9bdd3f4105c478b996b648fe6e828a1e98",
+      "priced": true,
+      "selected": false,
+      "transfers": 1576511,
+      "latest_allowances": 6307,
+      "rows_total": 1582818,
+      "rank_by_rows": 11
+    },
+    {
+      "symbol": "ZRO",
+      "address": "0x6985884c4392d348587b19cb9eaaf157f13271cd",
+      "priced": true,
+      "selected": false,
+      "transfers": 1406946,
+      "latest_allowances": 33884,
+      "rows_total": 1440830,
+      "rank_by_rows": 12
+    },
+    {
+      "symbol": "GRT",
+      "address": "0x9623063377ad1b27544c965ccd7342f7ea7e88c7",
+      "priced": true,
+      "selected": false,
+      "transfers": 1387075,
+      "latest_allowances": 7388,
+      "rows_total": 1394463,
+      "rank_by_rows": 13
+    },
+    {
+      "symbol": "GMX",
+      "address": "0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a",
+      "priced": true,
+      "selected": false,
+      "transfers": 1090131,
+      "latest_allowances": 24133,
+      "rows_total": 1114264,
+      "rank_by_rows": 14
+    },
+    {
+      "symbol": "CRV",
+      "address": "0x11cdb42b0eb46d95f990bedd4695a6e3fa034978",
+      "priced": true,
+      "selected": false,
+      "transfers": 948151,
+      "latest_allowances": 8748,
+      "rows_total": 956899,
+      "rank_by_rows": 15
+    },
+    {
+      "symbol": "UNI",
+      "address": "0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0",
+      "priced": true,
+      "selected": false,
+      "transfers": 801504,
+      "latest_allowances": 13729,
+      "rows_total": 815233,
+      "rank_by_rows": 16
+    },
+    {
+      "symbol": "MAGIC",
+      "address": "0x539bde0d7dbd336b79148aa742883198bbf60342",
+      "priced": true,
+      "selected": false,
+      "transfers": 801298,
+      "latest_allowances": 8398,
+      "rows_total": 809696,
+      "rank_by_rows": 17
+    },
+    {
+      "symbol": "wstETH",
+      "address": "0x5979d7b546e38e414f7e9822514be443a4800529",
+      "priced": true,
+      "selected": false,
+      "transfers": 779022,
+      "latest_allowances": 17337,
+      "rows_total": 796359,
+      "rank_by_rows": 18
+    },
+    {
+      "symbol": "crvUSD",
+      "address": "0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5",
+      "priced": true,
+      "selected": false,
+      "transfers": 787068,
+      "latest_allowances": 3670,
+      "rows_total": 790738,
+      "rank_by_rows": 19
+    },
+    {
+      "symbol": "ATH",
+      "address": "0xc87b37a581ec3257b734886d9d3a581f5a9d056c",
+      "priced": true,
+      "selected": false,
+      "transfers": 715478,
+      "latest_allowances": 8190,
+      "rows_total": 723668,
+      "rank_by_rows": 20
+    },
+    {
+      "symbol": "USDe",
+      "address": "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34",
+      "priced": true,
+      "selected": false,
+      "transfers": 402342,
+      "latest_allowances": 38586,
+      "rows_total": 440928,
+      "rank_by_rows": 21
+    },
+    {
+      "symbol": "weETH",
+      "address": "0x35751007a407ca6feffe80b3cb397736d2cf4dbe",
+      "priced": true,
+      "selected": false,
+      "transfers": 386091,
+      "latest_allowances": 13635,
+      "rows_total": 399726,
+      "rank_by_rows": 22
+    },
+    {
+      "symbol": "tBTC",
+      "address": "0x6c84a8f1c29108f47a79964b5fe888d4f4d0de40",
+      "priced": true,
+      "selected": false,
+      "transfers": 308568,
+      "latest_allowances": 2125,
+      "rows_total": 310693,
+      "rank_by_rows": 23
+    },
+    {
+      "symbol": "Cake",
+      "address": "0x1b896893dfc86bb67cf57767298b9073d2c1ba2c",
+      "priced": true,
+      "selected": false,
+      "transfers": 300062,
+      "latest_allowances": 4691,
+      "rows_total": 304753,
+      "rank_by_rows": 24
+    },
+    {
+      "symbol": "LDO",
+      "address": "0x13ad51ed4f1b7e9dc168d8a00cb3f4ddd85efa60",
+      "priced": true,
+      "selected": false,
+      "transfers": 247050,
+      "latest_allowances": 11639,
+      "rows_total": 258689,
+      "rank_by_rows": 25
+    },
+    {
+      "symbol": "RDNT",
+      "address": "0x3082cc23568ea640225c2467653db90e9250aaa0",
+      "priced": true,
+      "selected": false,
+      "transfers": 234131,
+      "latest_allowances": 2884,
+      "rows_total": 237015,
+      "rank_by_rows": 26
+    },
+    {
+      "symbol": "GHO",
+      "address": "0x7dff72693f6a4149b17e7c6314655f6a9f7c8b33",
+      "priced": true,
+      "selected": false,
+      "transfers": 180291,
+      "latest_allowances": 15293,
+      "rows_total": 195584,
+      "rank_by_rows": 27
+    },
+    {
+      "symbol": "COMP",
+      "address": "0x354a6da3fcde098f8389cad84b0182725c6c91de",
+      "priced": true,
+      "selected": false,
+      "transfers": 181842,
+      "latest_allowances": 8974,
+      "rows_total": 190816,
+      "rank_by_rows": 28
+    },
+    {
+      "symbol": "PEPE",
+      "address": "0x25d887ce7a35172c62febfd67a1856f20faebb00",
+      "priced": true,
+      "selected": false,
+      "transfers": 175688,
+      "latest_allowances": 6481,
+      "rows_total": 182169,
+      "rank_by_rows": 29
+    },
+    {
+      "symbol": "PYUSD",
+      "address": "0x46850ad61c2b7d64d08c9c754f45254596696984",
+      "priced": true,
+      "selected": false,
+      "transfers": 91942,
+      "latest_allowances": 63100,
+      "rows_total": 155042,
+      "rank_by_rows": 30
+    },
+    {
+      "symbol": "WOO",
+      "address": "0xcafcd85d8ca7ad1e1c6f82f651fa15e33aefd07b",
+      "priced": true,
+      "selected": false,
+      "transfers": 96029,
+      "latest_allowances": 893,
+      "rows_total": 96922,
+      "rank_by_rows": 31
+    },
+    {
+      "symbol": "rETH",
+      "address": "0xec70dcb4a1efa46b8f2d97c310c9c4790ba5ffa8",
+      "priced": true,
+      "selected": false,
+      "transfers": 68332,
+      "latest_allowances": 2794,
+      "rows_total": 71126,
+      "rank_by_rows": 32
+    },
+    {
+      "symbol": "sUSDe",
+      "address": "0x211cc4dd073734da055fbf44a2b4667d5e5fe5d2",
+      "priced": true,
+      "selected": false,
+      "transfers": 54426,
+      "latest_allowances": 2978,
+      "rows_total": 57404,
+      "rank_by_rows": 33
+    },
+    {
+      "symbol": "USDS",
+      "address": "0x6491c05a82219b8d1479057361ff1654749b876b",
+      "priced": true,
+      "selected": false,
+      "transfers": 34400,
+      "latest_allowances": 6603,
+      "rows_total": 41003,
+      "rank_by_rows": 34
+    },
+    {
+      "symbol": "MORPHO",
+      "address": "0x40bd670a58238e6e230c430bbb5ce6ec0d40df48",
+      "priced": true,
+      "selected": false,
+      "transfers": 34674,
+      "latest_allowances": 4252,
+      "rows_total": 38926,
+      "rank_by_rows": 35
+    },
+    {
+      "symbol": "SUSHI",
+      "address": "0xd4d42f0b6def4ce0383636770ef773390d85c61a",
+      "priced": true,
+      "selected": false,
+      "transfers": 37634,
+      "latest_allowances": 1263,
+      "rows_total": 38897,
+      "rank_by_rows": 36
+    },
+    {
+      "symbol": "FRAX",
+      "address": "0x17fc002b466eec40dae837fc4be5c67993ddbd6f",
+      "priced": true,
+      "selected": false,
+      "transfers": 33404,
+      "latest_allowances": 1658,
+      "rows_total": 35062,
+      "rank_by_rows": 37
+    },
+    {
+      "symbol": "SPELL",
+      "address": "0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af",
+      "priced": true,
+      "selected": false,
+      "transfers": 18569,
+      "latest_allowances": 974,
+      "rows_total": 19543,
+      "rank_by_rows": 38
+    },
+    {
+      "symbol": "RSR",
+      "address": "0xca5ca9083702c56b481d1eec86f1776fdbd2e594",
+      "priced": true,
+      "selected": false,
+      "transfers": 9859,
+      "latest_allowances": 234,
+      "rows_total": 10093,
+      "rank_by_rows": 39
+    },
+    {
+      "symbol": "cbETH",
+      "address": "0x1debd73e752beaf79865fd6446b0c970eae7732f",
+      "priced": true,
+      "selected": false,
+      "transfers": 7594,
+      "latest_allowances": 455,
+      "rows_total": 8049,
+      "rank_by_rows": 40
+    },
+    {
+      "symbol": "PAXG",
+      "address": "0xfeb4dfc8c4cf7ed305bb08065d08ec6ee6728429",
+      "priced": true,
+      "selected": false,
+      "transfers": 2496,
+      "latest_allowances": 199,
+      "rows_total": 2695,
+      "rank_by_rows": 41
+    },
+    {
+      "symbol": "AXL",
+      "address": "0x23ee2343b892b1bb63503a4fabc840e0e2c6810f",
+      "priced": true,
+      "selected": false,
+      "transfers": 1721,
+      "latest_allowances": 229,
+      "rows_total": 1950,
+      "rank_by_rows": 42
+    },
+    {
+      "symbol": "ENA",
+      "address": "0x58538e6a46e07434d7e7375bc268d3cb839c0133",
+      "priced": true,
+      "selected": false,
+      "transfers": 1095,
+      "latest_allowances": 507,
+      "rows_total": 1602,
+      "rank_by_rows": 43
+    },
+    {
+      "symbol": "PEPE",
+      "address": "0x35e6a59f786d9266c7961ea28c7b768b33959cbb",
+      "priced": false,
+      "selected": false,
+      "transfers": 1178,
+      "latest_allowances": 149,
+      "rows_total": 1327,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "APE",
+      "address": "0x74885b4d524d497261259b38900f54e6dbad2210",
+      "priced": false,
+      "selected": false,
+      "transfers": 845,
+      "latest_allowances": 229,
+      "rows_total": 1074,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "YFI",
+      "address": "0x82e3a8f066a6989666b031d916c43672085b1582",
+      "priced": true,
+      "selected": false,
+      "transfers": 397,
+      "latest_allowances": 149,
+      "rows_total": 546,
+      "rank_by_rows": 44
+    },
+    {
+      "symbol": "1INCH",
+      "address": "0x6314c31a7a1652ce482cffe247e9cb7c3f4bb9af",
+      "priced": true,
+      "selected": false,
+      "transfers": 248,
+      "latest_allowances": 156,
+      "rows_total": 404,
+      "rank_by_rows": 45
+    },
+    {
+      "symbol": "SNX",
+      "address": "0xcba56cd8216fcbbf3fa6df6137f3147cbca37d60",
+      "priced": false,
+      "selected": false,
+      "transfers": 74,
+      "latest_allowances": 31,
+      "rows_total": 105,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "USD1",
+      "address": "0x7550de0a4b9fb8caba8c32e72ee356afdd217a33",
+      "priced": false,
+      "selected": false,
+      "transfers": 14,
+      "latest_allowances": 4,
+      "rows_total": 18,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "ENA",
+      "address": "0xdf8f0c63d9335a0abd89f9f752d293a98ea977d8",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 5,
+      "rows_total": 5,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "MORPHO",
+      "address": "0xe390c0b46bd723995be02640e6f1e1c802f620ac",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 5,
+      "rows_total": 5,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "FRAX",
+      "address": "0x7468a5d8e02245b00e8c0217fce021c70bc51305",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 4,
+      "rows_total": 4,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "ATH",
+      "address": "0xc7def82ba77baf30bbbc9b6162dc075b49092fb4",
+      "priced": false,
+      "selected": false,
+      "transfers": 1,
+      "latest_allowances": 3,
+      "rows_total": 4,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "PYUSD",
+      "address": "0x327006c8712fe0abdbbd55b7999db39b0967342e",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 4,
+      "rows_total": 4,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "MNT",
+      "address": "0x9c1a1c7ba9c2602123fd7ef3eb41a769edf6c53a",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 4,
+      "rows_total": 4,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "SHIB",
+      "address": "0x5033833c9fe8b9d3e09eed2f73d2aaf7e3872fd1",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 3,
+      "rows_total": 3,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "AXS",
+      "address": "0xe88998fb579266628af6a03e3821d5983e5d0089",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 2,
+      "rows_total": 2,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "EUROC",
+      "address": "0x863708032b5c328e11abcbc0df9d79c71fc52a48",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 2,
+      "rows_total": 2,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "tBTC",
+      "address": "0x7e2a1edee171c5b19e6c54d73752396c0a572594",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 2,
+      "rows_total": 2,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "CVX",
+      "address": "0xaafcfd42c9954c6689ef1901e03db742520829c5",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 2,
+      "rows_total": 2,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "CRO",
+      "address": "0x8ea3156f834a0dfc78f1a5304fac2cda676f354c",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 2,
+      "rows_total": 2,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "POL",
+      "address": "0x044d8e7f3a17751d521efea8ccf9282268fe08cc",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 2,
+      "rows_total": 2,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "PLUME",
+      "address": "0x73efdc761596328461b68e5fc58c3284cb15ba13",
+      "priced": false,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 2,
+      "rows_total": 2,
+      "rank_by_rows": null
+    },
+    {
+      "symbol": "USDG",
+      "address": "0x004b506865409877c9fa29bfb1eba929984b9bbc",
+      "priced": true,
+      "selected": false,
+      "transfers": 0,
+      "latest_allowances": 1,
+      "rows_total": 1,
+      "rank_by_rows": 46
+    }
+  ]
+}

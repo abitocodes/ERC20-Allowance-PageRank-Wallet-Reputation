@@ -1,0 +1,8 @@
+{
+  "rule": "contracts of the registered cohort with non-zero approvals of a selected token (WETH, USDC, USDT0, ARB, WBTC) from >= 3 distinct owners, 2025-04-01 00:00:00 UTC to 2026-04-01 00:00:00 UTC (end exclusive)",
+  "registered_cohort": 27844,
+  "cohort": 6343,
+  "left_out_of_registered": 21501,
+  "source": "contract_rep.u12_cohort_t1 (sql/21_usd12m_cohorts.sql)",
+  "in_tobs_cohort": 5383
+}

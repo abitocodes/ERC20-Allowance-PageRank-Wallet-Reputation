@@ -1,0 +1,2114 @@
+{
+  "delta": 0.01,
+  "spenders": 7960,
+  "gained_new_approvals": 1495,
+  "gained_new_senders": 1371,
+  "traders": 70,
+  "traders_liquidated": 9,
+  "traders_all_liquidated": 1,
+  "rule_b": {
+    "F1": {
+      "a_tau": 0.3161925228096488,
+      "b_tau": 0.14625749315586928,
+      "delta_tau": 0.16993502965377955,
+      "ci_low": 0.1488640426835766,
+      "ci_high": 0.1889704838714949,
+      "share_positive": 1.0,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": true
+    },
+    "F2": {
+      "a_tau": 0.32353043092841993,
+      "b_tau": 0.34839499804692137,
+      "delta_tau": -0.024864567118501435,
+      "ci_low": -0.03828553150029344,
+      "ci_high": -0.014929381767070317,
+      "share_positive": 0.0,
+      "n_boot": 400,
+      "test": "non_inferiority",
+      "holds": false
+    },
+    "F3": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.282272831325803,
+      "delta_tau": 0.0,
+      "ci_low": -0.010045360082656824,
+      "ci_high": 0.010040870448469803,
+      "share_positive": 0.4175,
+      "n_boot": 400,
+      "test": "non_inferiority",
+      "holds": false
+    },
+    "F4": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.282272831325803,
+      "delta_tau": 0.0,
+      "ci_low": -0.010045360082656824,
+      "ci_high": 0.010040870448469803,
+      "share_positive": 0.4175,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": false
+    },
+    "decision": false,
+    "F5": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.30155693361734026,
+      "delta_tau": -0.019284102291537264,
+      "ci_low": -0.12274976484847736,
+      "ci_high": 0.08923874634134853,
+      "share_positive": 0.3625,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": false
+    },
+    "F6a": {
+      "a_tau": 0.3161925228096488,
+      "b_tau": 0.29549653560864997,
+      "delta_tau": 0.020695987200998855,
+      "ci_low": 0.008758971084326413,
+      "ci_high": 0.03206752186999618,
+      "share_positive": 1.0,
+      "n_boot": 400,
+      "test": "no_worse",
+      "holds": true
+    },
+    "F6b": {
+      "a_tau": 0.32353043092841993,
+      "b_tau": 0.34839499804692137,
+      "delta_tau": -0.024864567118501435,
+      "ci_low": -0.03828553150029344,
+      "ci_high": -0.014929381767070317,
+      "share_positive": 0.0,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": false
+    },
+    "F6": false
+  },
+  "sensitivity_awp": {
+    "F1": {
+      "a_tau": 0.3161925228096488,
+      "b_tau": 0.1574028146950293,
+      "delta_tau": 0.15878970811461954,
+      "ci_low": 0.13886078307129757,
+      "ci_high": 0.1783997383989047,
+      "share_positive": 1.0,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": true
+    },
+    "F2": {
+      "a_tau": 0.32353043092841993,
+      "b_tau": 0.39803919570215773,
+      "delta_tau": -0.0745087647737378,
+      "ci_low": -0.08542972793173727,
+      "ci_high": -0.06540744343361425,
+      "share_positive": 0.0,
+      "n_boot": 400,
+      "test": "non_inferiority",
+      "holds": false
+    },
+    "F3": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.26333454626791136,
+      "delta_tau": 0.018938285057891635,
+      "ci_low": -0.02635526991721807,
+      "ci_high": 0.06359477537346243,
+      "share_positive": 0.8025,
+      "n_boot": 400,
+      "test": "non_inferiority",
+      "holds": false
+    },
+    "F4": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.26333454626791136,
+      "delta_tau": 0.018938285057891635,
+      "ci_low": -0.02635526991721807,
+      "ci_high": 0.06359477537346243,
+      "share_positive": 0.8025,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": false
+    },
+    "decision": false
+  },
+  "sensitivity_isolated": {
+    "F1": {
+      "a_tau": 0.3161925228096488,
+      "b_tau": 0.148037512209268,
+      "delta_tau": 0.16815501060038082,
+      "ci_low": 0.14731647269339102,
+      "ci_high": 0.18739771393452287,
+      "share_positive": 1.0,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": true
+    },
+    "F2": {
+      "a_tau": 0.32353043092841993,
+      "b_tau": 0.34902620748669877,
+      "delta_tau": -0.025495776558278838,
+      "ci_low": -0.039002372373364284,
+      "ci_high": -0.015617334414014337,
+      "share_positive": 0.0,
+      "n_boot": 400,
+      "test": "non_inferiority",
+      "holds": false
+    },
+    "F3": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.282272831325803,
+      "delta_tau": 0.0,
+      "ci_low": -0.010045360082656824,
+      "ci_high": 0.010040870448469803,
+      "share_positive": 0.4175,
+      "n_boot": 400,
+      "test": "non_inferiority",
+      "holds": false
+    },
+    "F4": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.282272831325803,
+      "delta_tau": 0.0,
+      "ci_low": -0.010045360082656824,
+      "ci_high": 0.010040870448469803,
+      "share_positive": 0.4175,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": false
+    },
+    "decision": false,
+    "F5": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.3221046739691933,
+      "delta_tau": -0.03983184264339029,
+      "ci_low": -0.11588724707006885,
+      "ci_high": 0.034753134602265895,
+      "share_positive": 0.1575,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": false
+    },
+    "F6a": {
+      "a_tau": 0.3161925228096488,
+      "b_tau": 0.29549653560864997,
+      "delta_tau": 0.020695987200998855,
+      "ci_low": 0.008758971084326413,
+      "ci_high": 0.03206752186999618,
+      "share_positive": 1.0,
+      "n_boot": 400,
+      "test": "no_worse",
+      "holds": true
+    },
+    "F6b": {
+      "a_tau": 0.32353043092841993,
+      "b_tau": 0.34902620748669877,
+      "delta_tau": -0.025495776558278838,
+      "ci_low": -0.039002372373364284,
+      "ci_high": -0.015617334414014337,
+      "share_positive": 0.0,
+      "n_boot": 400,
+      "test": "superiority",
+      "holds": false
+    },
+    "F6": false
+  },
+  "spender_taus": {
+    "endorserank": {
+      "future_new_approvers": {
+        "kendall_tau": 0.29935158012346896,
+        "ci_low": 0.2837891539135795,
+        "ci_high": 0.31440080016052424,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.2592495443134635,
+        "ci_low": 0.24342253261821872,
+        "ci_high": 0.27540558383763064,
+        "n_boot": 400
+      }
+    },
+    "endorserank_activity": {
+      "future_new_approvers": {
+        "kendall_tau": 0.33484995168157544,
+        "ci_low": 0.3186564039865273,
+        "ci_high": 0.3494118236955111,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.2364396292299148,
+        "ci_low": 0.21943471731823677,
+        "ci_high": 0.2514000746866723,
+        "n_boot": 400
+      }
+    },
+    "awp": {
+      "future_new_approvers": {
+        "kendall_tau": 0.1574028146950293,
+        "ci_low": 0.1369588746799425,
+        "ci_high": 0.17816875991932285,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.39803919570215773,
+        "ci_low": 0.38580484912689383,
+        "ci_high": 0.4124283186639349,
+        "n_boot": 400
+      }
+    },
+    "cpr_l100": {
+      "future_new_approvers": {
+        "kendall_tau": 0.29549653560864997,
+        "ci_low": 0.27992479378130253,
+        "ci_high": 0.3103295653773537,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.25735757973185236,
+        "ci_low": 0.24074350280205678,
+        "ci_high": 0.27394685940738284,
+        "n_boot": 400
+      }
+    },
+    "cpr_l0": {
+      "future_new_approvers": {
+        "kendall_tau": 0.14625749315586928,
+        "ci_low": 0.12558683544596433,
+        "ci_high": 0.16836613322785618,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.34839499804692137,
+        "ci_low": 0.33475723145837477,
+        "ci_high": 0.36333697700938977,
+        "n_boot": 400
+      }
+    },
+    "cpr_l25": {
+      "future_new_approvers": {
+        "kendall_tau": 0.3148626720368196,
+        "ci_low": 0.29909636021339236,
+        "ci_high": 0.3283233202692679,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.33208374682132896,
+        "ci_low": 0.3165760914796613,
+        "ci_high": 0.3460889065918523,
+        "n_boot": 400
+      }
+    },
+    "cpr_l50": {
+      "future_new_approvers": {
+        "kendall_tau": 0.3161925228096488,
+        "ci_low": 0.29979594556348266,
+        "ci_high": 0.33014345541025203,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.32353043092841993,
+        "ci_low": 0.3078417635365525,
+        "ci_high": 0.33749995528086635,
+        "n_boot": 400
+      }
+    },
+    "cpr_l75": {
+      "future_new_approvers": {
+        "kendall_tau": 0.31567947421428033,
+        "ci_low": 0.29833506590287073,
+        "ci_high": 0.32971802933207933,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.31500428922031126,
+        "ci_low": 0.2994340101909804,
+        "ci_high": 0.329497363043026,
+        "n_boot": 400
+      }
+    },
+    "spr": {
+      "future_new_approvers": {
+        "kendall_tau": 0.16226590829248333,
+        "ci_low": 0.1401192450990693,
+        "ci_high": 0.18447171956205058,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.36710121678122204,
+        "ci_low": 0.3536457918426363,
+        "ci_high": 0.3811030771270091,
+        "n_boot": 400
+      }
+    },
+    "in_approve_degree": {
+      "future_new_approvers": {
+        "kendall_tau": 0.38104245580356005,
+        "ci_low": 0.3647642788948597,
+        "ci_high": 0.3960625703178729,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.2689784597480378,
+        "ci_low": 0.2501550184163179,
+        "ci_high": 0.28485510457645696,
+        "n_boot": 400
+      }
+    },
+    "in_degree": {
+      "future_new_approvers": {
+        "kendall_tau": 0.16490449315532,
+        "ci_low": 0.14290225223257058,
+        "ci_high": 0.18571672271298983,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.4389406112042147,
+        "ci_low": 0.42646355729241575,
+        "ci_high": 0.4537273618695028,
+        "n_boot": 400
+      }
+    }
+  },
+  "trader_taus": {
+    "endorserank": {
+      "kendall_tau": 0.29733323855431404,
+      "ci_low": 0.17411889413708234,
+      "ci_high": 0.4183694096376056,
+      "n_boot": 400
+    },
+    "endorserank_activity": {
+      "kendall_tau": 0.2864575746213426,
+      "ci_low": 0.15951024819787113,
+      "ci_high": 0.404043969831942,
+      "n_boot": 400
+    },
+    "awp": {
+      "kendall_tau": 0.26333454626791136,
+      "ci_low": 0.14044877162130437,
+      "ci_high": 0.3788962046470223,
+      "n_boot": 400
+    },
+    "cpr_l100": {
+      "kendall_tau": 0.30155693361734026,
+      "ci_low": 0.17686918603722407,
+      "ci_high": 0.424560218511949,
+      "n_boot": 400
+    },
+    "cpr_l0": {
+      "kendall_tau": 0.282272831325803,
+      "ci_low": 0.16204802504077745,
+      "ci_high": 0.3943145950775389,
+      "n_boot": 400
+    },
+    "cpr_l25": {
+      "kendall_tau": 0.282272831325803,
+      "ci_low": 0.162030017863437,
+      "ci_high": 0.3967733074792673,
+      "n_boot": 400
+    },
+    "cpr_l50": {
+      "kendall_tau": 0.282272831325803,
+      "ci_low": 0.162030017863437,
+      "ci_high": 0.3971326109304373,
+      "n_boot": 400
+    },
+    "cpr_l75": {
+      "kendall_tau": 0.2839681636460781,
+      "ci_low": 0.16041763093466754,
+      "ci_high": 0.39809143646260436,
+      "n_boot": 400
+    },
+    "spr": {
+      "kendall_tau": 0.299664499370778,
+      "ci_low": 0.17463121775695606,
+      "ci_high": 0.41132576958693307,
+      "n_boot": 400
+    },
+    "in_approve_degree": {
+      "kendall_tau": 0.394011110560039,
+      "ci_low": 0.260678117658957,
+      "ci_high": 0.5242411888598764,
+      "n_boot": 400
+    },
+    "in_degree": {
+      "kendall_tau": 0.2527610090676994,
+      "ci_low": 0.11640196519758125,
+      "ci_high": 0.36287124555605993,
+      "n_boot": 400
+    }
+  },
+  "endorserank_results": {
+    "endorserank_minus_degree_appr": {
+      "a_tau": 0.29935158012346896,
+      "b_tau": 0.38104245580356005,
+      "delta_tau": -0.08169087568009109,
+      "ci_low": -0.09001159208551857,
+      "ci_high": -0.07283808018993136,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    "awp_minus_degree_send": {
+      "a_tau": 0.39803919570215773,
+      "b_tau": 0.4389406112042147,
+      "delta_tau": -0.04090141550205695,
+      "ci_low": -0.04728605318155869,
+      "ci_high": -0.03445267066349874,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    "cpr_minus_endorserank_appr": {
+      "a_tau": 0.3161925228096488,
+      "b_tau": 0.29935158012346896,
+      "delta_tau": 0.01684094268617986,
+      "ci_low": 0.0055884455754017905,
+      "ci_high": 0.028735173601277902,
+      "share_positive": 0.9975,
+      "n_boot": 400
+    },
+    "cpr_minus_endorserank_liq": {
+      "a_tau": 0.282272831325803,
+      "b_tau": 0.29733323855431404,
+      "delta_tau": -0.015060407228511041,
+      "ci_low": -0.116099091729615,
+      "ci_high": 0.09432024739169065,
+      "share_positive": 0.39,
+      "n_boot": 400
+    }
+  },
+  "neutral_w1": {
+    "n": 70,
+    "taus": {
+      "endorserank": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.29733323855431404,
+          "ci_low": 0.17124607822291463,
+          "ci_high": 0.410467790646509,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.3032513166140309,
+          "ci_low": 0.17244342331166995,
+          "ci_high": 0.4216664075826293,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.06337277069728255,
+          "ci_low": -0.12447244445749961,
+          "ci_high": 0.2525517910509639,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": -0.011458349527647904,
+          "ci_low": -0.21083921599702538,
+          "ci_high": 0.1868045974081481,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.1841454056784447,
+          "ci_low": -0.34139425337786544,
+          "ci_high": -0.013749911579550543,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.2653604524733249,
+          "ci_low": -0.4108839511412548,
+          "ci_high": -0.10674647306657717,
+          "n_boot": 2000
+        }
+      },
+      "endorserank_activity": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.2864575746213426,
+          "ci_low": 0.15631968561144338,
+          "ci_high": 0.4037649857415195,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.29214855042376975,
+          "ci_low": 0.15464700305145987,
+          "ci_high": 0.41514371226390046,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.04907735048018543,
+          "ci_low": -0.12905594496193457,
+          "ci_high": 0.23712249554568476,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": -0.018737881022398657,
+          "ci_low": -0.1947411498194837,
+          "ci_high": 0.16610463369839226,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.20018544278439163,
+          "ci_low": -0.34467994812829145,
+          "ci_high": -0.036636402728743085,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.274737856155548,
+          "ci_low": -0.4182648836479484,
+          "ci_high": -0.12253959986734751,
+          "n_boot": 2000
+        }
+      },
+      "awp": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.26333454626791136,
+          "ci_low": 0.1407030908961284,
+          "ci_high": 0.3755177732553074,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.26488361790208215,
+          "ci_low": 0.13921431683653804,
+          "ci_high": 0.3833006980131508,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.2637798929652772,
+          "ci_low": 0.1025285933679802,
+          "ci_high": 0.4078699226825463,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.28030464019282414,
+          "ci_low": 0.11051587151829143,
+          "ci_high": 0.4350963301120314,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": 0.061914985807021095,
+          "ci_low": -0.10147807497532484,
+          "ci_high": 0.2129821608296667,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": 0.049157322542923106,
+          "ci_low": -0.0903457530006956,
+          "ci_high": 0.18453102941283164,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l100": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.30155693361734026,
+          "ci_low": 0.1743033618755533,
+          "ci_high": 0.41891994612338046,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.3075590794967364,
+          "ci_low": 0.17458309688751505,
+          "ci_high": 0.4278276707069934,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.009116737190172218,
+          "ci_low": -0.16684308969781253,
+          "ci_high": 0.19206407749156768,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": -0.06615098124759664,
+          "ci_low": -0.24896133376517543,
+          "ci_high": 0.12014357307374689,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.20831061215992228,
+          "ci_low": -0.3698616240338271,
+          "ci_high": -0.02991584335174699,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.28745941539801606,
+          "ci_low": -0.4425211014610296,
+          "ci_high": -0.12059773586364367,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l0": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.282272831325803,
+          "ci_low": 0.1620625410129045,
+          "ci_high": 0.3969520062378661,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.2861306354877787,
+          "ci_low": 0.16574024418771993,
+          "ci_high": 0.4003436615299398,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.2221154619961139,
+          "ci_low": 0.07208026903383032,
+          "ci_high": 0.36639522702229943,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.22786435793827545,
+          "ci_low": 0.0628618630699451,
+          "ci_high": 0.388285288594427,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": 0.057745211452331247,
+          "ci_low": -0.10823565412625075,
+          "ci_high": 0.21005869059726848,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": 0.02854147885636937,
+          "ci_low": -0.11704011986346706,
+          "ci_high": 0.17025979021876053,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l25": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.282272831325803,
+          "ci_low": 0.16026930308539794,
+          "ci_high": 0.3988016290772615,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.2843806010199635,
+          "ci_low": 0.16276644991625996,
+          "ci_high": 0.39869403251015656,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.16562366819363405,
+          "ci_low": 0.011367404898124501,
+          "ci_high": 0.30918123626499394,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.16827552031905793,
+          "ci_low": -0.0021582010044862102,
+          "ci_high": 0.33114845739871207,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": 0.008008459982440099,
+          "ci_low": -0.15704398619378007,
+          "ci_high": 0.16198143669817305,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.022665292032999208,
+          "ci_low": -0.17103932759040402,
+          "ci_high": 0.11714656305717512,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l50": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.282272831325803,
+          "ci_low": 0.16015797939425214,
+          "ci_high": 0.39863690036050603,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.28263056655214835,
+          "ci_low": 0.16165684887523846,
+          "ci_high": 0.39759821328482037,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.1288184085950487,
+          "ci_low": -0.018490384158045596,
+          "ci_high": 0.2714632720727183,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.13050794718011727,
+          "ci_low": -0.04081936243281147,
+          "ci_high": 0.2972037729510242,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.024868375734945575,
+          "ci_low": -0.18494088387129895,
+          "ci_high": 0.1292314673241899,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.06211968927562746,
+          "ci_low": -0.20982914911156594,
+          "ci_high": 0.08013584334205695,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l75": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.2839681636460781,
+          "ci_low": 0.16147442130561518,
+          "ci_high": 0.39858109896437555,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.2843806010199635,
+          "ci_low": 0.16294411145888207,
+          "ci_high": 0.3981429204964098,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.1031403205030124,
+          "ci_low": -0.04850103323014078,
+          "ci_high": 0.25431586648631177,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.09945460926587713,
+          "ci_low": -0.07560915551214051,
+          "ci_high": 0.2671054115737462,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.051001245151329054,
+          "ci_low": -0.21215405813172603,
+          "ci_high": 0.10671513149158723,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.1015740865182557,
+          "ci_low": -0.2528123366756672,
+          "ci_high": 0.047451208238625725,
+          "n_boot": 2000
+        }
+      },
+      "spr": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.299664499370778,
+          "ci_low": 0.17366026974277457,
+          "ci_high": 0.4128419075111814,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.3041053991386579,
+          "ci_low": 0.17668534421102816,
+          "ci_high": 0.4180290998827931,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.17686488978641837,
+          "ci_low": 0.03324460254203229,
+          "ci_high": 0.31026031695040296,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.1458424977100267,
+          "ci_low": -0.030827708783331718,
+          "ci_high": 0.3207597323138788,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": 0.009234219352273676,
+          "ci_low": -0.14305649761358238,
+          "ci_high": 0.1527809731892597,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.026750359957136496,
+          "ci_low": -0.16893830615715197,
+          "ci_high": 0.11090887357462023,
+          "n_boot": 2000
+        }
+      },
+      "in_approve_degree": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.394011110560039,
+          "ci_low": 0.2650687418548191,
+          "ci_high": 0.5175648639982445,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.40672440201594867,
+          "ci_low": 0.2677222704009339,
+          "ci_high": 0.5408409359089008,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.04181661391850842,
+          "ci_low": -0.15817233000784287,
+          "ci_high": 0.24310085598944442,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.032802276533558876,
+          "ci_low": -0.16420416666092305,
+          "ci_high": 0.2299476055030632,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.22121911104545477,
+          "ci_low": -0.40580293552414193,
+          "ci_high": -0.03368613844843674,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.29352471444916917,
+          "ci_low": -0.4676457905078017,
+          "ci_high": -0.10564110358485597,
+          "n_boot": 2000
+        }
+      },
+      "in_degree": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.2527610090676994,
+          "ci_low": 0.11696049104189088,
+          "ci_high": 0.37925821883829364,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.26573063937495767,
+          "ci_low": 0.12500244500264207,
+          "ci_high": 0.3948822826924499,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.1563383274378876,
+          "ci_low": -0.012454263896274987,
+          "ci_high": 0.3062825851059612,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.14175255274775914,
+          "ci_low": -0.01787258874399332,
+          "ci_high": 0.2780057364484366,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.05889996998234951,
+          "ci_low": -0.22511575512334117,
+          "ci_high": 0.09907380019367107,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.07112204307292529,
+          "ci_low": -0.22486345503549743,
+          "ci_high": 0.08206219734769447,
+          "n_boot": 2000
+        }
+      }
+    },
+    "grid": {
+      "P": {
+        "liquidation_free_rate": {
+          "a_tau": 0.394011110560039,
+          "b_tau": 0.2527610090676994,
+          "delta_tau": 0.14125010149233963,
+          "ci_low": 0.036884819726545774,
+          "ci_high": 0.24003302973492902,
+          "share_positive": 0.9975,
+          "n_boot": 2000,
+          "ci975_low": 0.02598948783464251,
+          "ci975_high": 0.2558751418879602
+        },
+        "no_liquidation": {
+          "a_tau": 0.40672440201594867,
+          "b_tau": 0.26573063937495767,
+          "delta_tau": 0.140993762640991,
+          "ci_low": 0.04362926068529321,
+          "ci_high": 0.23198446010100937,
+          "share_positive": 0.998,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.04181661391850842,
+          "b_tau": 0.1563383274378876,
+          "delta_tau": -0.11452171351937918,
+          "ci_low": -0.257068284620144,
+          "ci_high": 0.02497354176135667,
+          "share_positive": 0.061,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.032802276533558876,
+          "b_tau": 0.14175255274775914,
+          "delta_tau": -0.10895027621420025,
+          "ci_low": -0.2470333697990437,
+          "ci_high": 0.03225424095557386,
+          "share_positive": 0.069,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.22121911104545477,
+          "b_tau": -0.05889996998234951,
+          "delta_tau": -0.16231914106310527,
+          "ci_low": -0.2948369599723121,
+          "ci_high": -0.024990670921918784,
+          "share_positive": 0.0095,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.29352471444916917,
+          "b_tau": -0.07112204307292529,
+          "delta_tau": -0.22240267137624387,
+          "ci_low": -0.3280349959516844,
+          "ci_high": -0.1062701397789968,
+          "share_positive": 0.0,
+          "n_boot": 2000
+        }
+      },
+      "Q": {
+        "liquidation_free_rate": {
+          "a_tau": 0.2864575746213426,
+          "b_tau": 0.26333454626791136,
+          "delta_tau": 0.02312302835343122,
+          "ci_low": -0.0619075979824572,
+          "ci_high": 0.11277879630431117,
+          "share_positive": 0.7,
+          "n_boot": 2000,
+          "ci975_low": -0.07090697916168749,
+          "ci975_high": 0.127260164106137
+        },
+        "no_liquidation": {
+          "a_tau": 0.29214855042376975,
+          "b_tau": 0.26488361790208215,
+          "delta_tau": 0.0272649325216876,
+          "ci_low": -0.06558827103214934,
+          "ci_high": 0.12859468477164365,
+          "share_positive": 0.7085,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.04907735048018543,
+          "b_tau": 0.2637798929652772,
+          "delta_tau": -0.21470254248509177,
+          "ci_low": -0.3991233226892383,
+          "ci_high": -0.04235049247100094,
+          "share_positive": 0.008,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": -0.018737881022398657,
+          "b_tau": 0.28030464019282414,
+          "delta_tau": -0.2990425212152228,
+          "ci_low": -0.4567748066475252,
+          "ci_high": -0.1455314908212279,
+          "share_positive": 0.0005,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.20018544278439163,
+          "b_tau": 0.061914985807021095,
+          "delta_tau": -0.2621004285914127,
+          "ci_low": -0.43573515341555813,
+          "ci_high": -0.09999140679110934,
+          "share_positive": 0.0015,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.274737856155548,
+          "b_tau": 0.049157322542923106,
+          "delta_tau": -0.3238951786984711,
+          "ci_low": -0.47108865522965954,
+          "ci_high": -0.18793052486643014,
+          "share_positive": 0.0,
+          "n_boot": 2000
+        }
+      },
+      "layers": {
+        "liquidation_free_rate": {
+          "a_tau": 0.30155693361734026,
+          "b_tau": 0.282272831325803,
+          "delta_tau": 0.019284102291537264,
+          "ci_low": -0.09255396490456616,
+          "ci_high": 0.12829534247758104,
+          "share_positive": 0.6355,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.3075590794967364,
+          "b_tau": 0.2861306354877787,
+          "delta_tau": 0.021428444008957714,
+          "ci_low": -0.08701613811994005,
+          "ci_high": 0.1322387187507547,
+          "share_positive": 0.6525,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.009116737190172218,
+          "b_tau": 0.2221154619961139,
+          "delta_tau": -0.21299872480594167,
+          "ci_low": -0.4022748721618814,
+          "ci_high": -0.028394411947417552,
+          "share_positive": 0.0115,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": -0.06615098124759664,
+          "b_tau": 0.22786435793827545,
+          "delta_tau": -0.2940153391858721,
+          "ci_low": -0.47595538909387064,
+          "ci_high": -0.11589528558792891,
+          "share_positive": 0.001,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.20831061215992228,
+          "b_tau": 0.057745211452331247,
+          "delta_tau": -0.26605582361225355,
+          "ci_low": -0.46050488735769485,
+          "ci_high": -0.06976634768254884,
+          "share_positive": 0.002,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.28745941539801606,
+          "b_tau": 0.02854147885636937,
+          "delta_tau": -0.31600089425438543,
+          "ci_low": -0.4810370541782645,
+          "ci_high": -0.15225520952119923,
+          "share_positive": 0.0,
+          "n_boot": 2000
+        }
+      },
+      "er_awp": {
+        "liquidation_free_rate": {
+          "a_tau": 0.29733323855431404,
+          "b_tau": 0.26333454626791136,
+          "delta_tau": 0.033998692286402676,
+          "ci_low": -0.06656417168598268,
+          "ci_high": 0.13392957021877172,
+          "share_positive": 0.7495,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.3032513166140309,
+          "b_tau": 0.26488361790208215,
+          "delta_tau": 0.03836769871194873,
+          "ci_low": -0.06876298779212707,
+          "ci_high": 0.1485667054612234,
+          "share_positive": 0.761,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.06337277069728255,
+          "b_tau": 0.2637798929652772,
+          "delta_tau": -0.20040712226799468,
+          "ci_low": -0.38998323130988105,
+          "ci_high": -0.023458987095173762,
+          "share_positive": 0.011,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": -0.011458349527647904,
+          "b_tau": 0.28030464019282414,
+          "delta_tau": -0.29176298972047204,
+          "ci_low": -0.4603851049635796,
+          "ci_high": -0.1335430766993099,
+          "share_positive": 0.0005,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.1841454056784447,
+          "b_tau": 0.061914985807021095,
+          "delta_tau": -0.2460603914854658,
+          "ci_low": -0.42661028344175966,
+          "ci_high": -0.07308788607740248,
+          "share_positive": 0.002,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.2653604524733249,
+          "b_tau": 0.049157322542923106,
+          "delta_tau": -0.314517775016248,
+          "ci_low": -0.4676285192954859,
+          "ci_high": -0.17599717822882574,
+          "share_positive": 0.0,
+          "n_boot": 2000
+        }
+      },
+      "cpr0_awp": {
+        "liquidation_free_rate": {
+          "a_tau": 0.282272831325803,
+          "b_tau": 0.26333454626791136,
+          "delta_tau": 0.018938285057891635,
+          "ci_low": -0.03088816681424291,
+          "ci_high": 0.06574806975620559,
+          "share_positive": 0.79,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.2861306354877787,
+          "b_tau": 0.26488361790208215,
+          "delta_tau": 0.021247017585696526,
+          "ci_low": -0.03090034452502286,
+          "ci_high": 0.07151781779597381,
+          "share_positive": 0.7975,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.2221154619961139,
+          "b_tau": 0.2637798929652772,
+          "delta_tau": -0.04166443096916331,
+          "ci_low": -0.08743108516922912,
+          "ci_high": 0.005113373805248156,
+          "share_positive": 0.036,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.22786435793827545,
+          "b_tau": 0.28030464019282414,
+          "delta_tau": -0.05244028225454869,
+          "ci_low": -0.10820178995466032,
+          "ci_high": 0.0024419906543874897,
+          "share_positive": 0.032,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": 0.057745211452331247,
+          "b_tau": 0.061914985807021095,
+          "delta_tau": -0.004169774354689848,
+          "ci_low": -0.05424029456421754,
+          "ci_high": 0.04286124025143846,
+          "share_positive": 0.422,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": 0.02854147885636937,
+          "b_tau": 0.049157322542923106,
+          "delta_tau": -0.020615843686553736,
+          "ci_low": -0.06516215223790003,
+          "ci_high": 0.026490493116907998,
+          "share_positive": 0.187,
+          "n_boot": 2000
+        }
+      },
+      "er_degree": {
+        "liquidation_free_rate": {
+          "a_tau": 0.29733323855431404,
+          "b_tau": 0.394011110560039,
+          "delta_tau": -0.09667787200572497,
+          "ci_low": -0.17404175414199174,
+          "ci_high": -0.009187455704912683,
+          "share_positive": 0.016,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.3032513166140309,
+          "b_tau": 0.40672440201594867,
+          "delta_tau": -0.1034730854019178,
+          "ci_low": -0.18018921441699876,
+          "ci_high": -0.011720216496310661,
+          "share_positive": 0.0115,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.06337277069728255,
+          "b_tau": 0.04181661391850842,
+          "delta_tau": 0.02155615677877413,
+          "ci_low": -0.08024378583582598,
+          "ci_high": 0.11892126319617188,
+          "share_positive": 0.6635,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": -0.011458349527647904,
+          "b_tau": 0.032802276533558876,
+          "delta_tau": -0.04426062606120678,
+          "ci_low": -0.1414090917331664,
+          "ci_high": 0.057782472353629204,
+          "share_positive": 0.1985,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.1841454056784447,
+          "b_tau": -0.22121911104545477,
+          "delta_tau": 0.037073705367010074,
+          "ci_low": -0.06696102938689323,
+          "ci_high": 0.13364544099946887,
+          "share_positive": 0.7675,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.2653604524733249,
+          "b_tau": -0.29352471444916917,
+          "delta_tau": 0.028164261975844262,
+          "ci_low": -0.06847670098751572,
+          "ci_high": 0.12866546972343373,
+          "share_positive": 0.724,
+          "n_boot": 2000
+        }
+      }
+    },
+    "stratified": {
+      "P": {
+        "a_tau": 0.38079264633331855,
+        "b_tau": 0.2355623686071794,
+        "delta_tau": 0.14523027772613914,
+        "ci_low": 0.03956534442370968,
+        "ci_high": 0.32758803655481206
+      },
+      "Q": {
+        "a_tau": 0.2725998161961456,
+        "b_tau": 0.23843872301785946,
+        "delta_tau": 0.03416109317828614,
+        "ci_low": -0.09579118958938036,
+        "ci_high": 0.1705714110243508
+      }
+    },
+    "recipients": {
+      "recipients": {
+        "n": 37,
+        "share_no_liquidation": 1.0,
+        "mean_liquidation_free_rate": 1.0,
+        "mean_profitable_share": 0.3251193973164325,
+        "mean_non_loss_share": 0.43273293550362385,
+        "median_closes": 24.0
+      },
+      "others": {
+        "n": 33,
+        "share_no_liquidation": 0.7272727272727273,
+        "mean_liquidation_free_rate": 0.8782340035928553,
+        "mean_profitable_share": 0.47857496813630035,
+        "mean_non_loss_share": 0.644128612876548,
+        "median_closes": 11.0
+      }
+    },
+    "influence_without_top10": {
+      "a_tau": 0.3659020326817838,
+      "b_tau": 0.21125422327983415,
+      "delta_tau": 0.15464780940194964,
+      "ci_low": 0.032464791800731474,
+      "ci_high": 0.2763657050103805,
+      "share_positive": 0.9955,
+      "n_boot": 2000
+    },
+    "max_in_approve_degree": 1.0
+  },
+  "neutral_w0": {
+    "n": 87,
+    "taus": {
+      "endorserank": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.23557634352992377,
+          "ci_low": 0.10806407581332272,
+          "ci_high": 0.35169847416742994,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.23389407093965023,
+          "ci_low": 0.10603003742446734,
+          "ci_high": 0.35295217821192026,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.11990506093494259,
+          "ci_low": -0.036159292727672265,
+          "ci_high": 0.27509041784054683,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.057638990483270036,
+          "ci_low": -0.09749147531439858,
+          "ci_high": 0.21265668877934518,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.04716175446880068,
+          "ci_low": -0.1787859694532105,
+          "ci_high": 0.0916800121485472,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.16722173399487034,
+          "ci_low": -0.30519492466759535,
+          "ci_high": -0.033090769247771115,
+          "n_boot": 2000
+        }
+      },
+      "endorserank_activity": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.24234278182891245,
+          "ci_low": 0.11621316272864025,
+          "ci_high": 0.35712492642568194,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.23554281764370083,
+          "ci_low": 0.10751034181541098,
+          "ci_high": 0.35345871240772264,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.13922179839426957,
+          "ci_low": -0.011677078572196579,
+          "ci_high": 0.29293500000385125,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.08685712345757654,
+          "ci_low": -0.06839167467340938,
+          "ci_high": 0.2432658549479415,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.07665299972426698,
+          "ci_low": -0.20834117039599725,
+          "ci_high": 0.06066838200643293,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.19744513271187977,
+          "ci_low": -0.33226830222784226,
+          "ci_high": -0.060095890185842875,
+          "n_boot": 2000
+        }
+      },
+      "awp": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.25420823774777346,
+          "ci_low": 0.07440063866703352,
+          "ci_high": 0.4045212503712374,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.240883559763018,
+          "ci_low": 0.05826326628925449,
+          "ci_high": 0.3947284715013684,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.1660913191506475,
+          "ci_low": 0.004169041038038683,
+          "ci_high": 0.3130350503766704,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.19688653430890635,
+          "ci_low": 0.03679197086582691,
+          "ci_high": 0.3481442343647991,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.12081822869530168,
+          "ci_low": -0.2698415104916343,
+          "ci_high": 0.04023321241567224,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.27502516823941175,
+          "ci_low": -0.41646091932319956,
+          "ci_high": -0.13591059088152807,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l100": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.23658125547384226,
+          "ci_low": 0.10824133046413782,
+          "ci_high": 0.35233331980627974,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.23489180671386695,
+          "ci_low": 0.106124534445161,
+          "ci_high": 0.3540166943400742,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.07700712514810018,
+          "ci_low": -0.08019332813942993,
+          "ci_high": 0.23811951838944911,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.039466953091746214,
+          "ci_low": -0.1264243420391018,
+          "ci_high": 0.20188574915400426,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.07648672757894215,
+          "ci_low": -0.2217078037852318,
+          "ci_high": 0.07189119310433839,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.1859070594617921,
+          "ci_low": -0.3281299861325917,
+          "ci_high": -0.0478828917506096,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l0": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.29373024010692467,
+          "ci_low": 0.1356382828750203,
+          "ci_high": 0.4280680843233392,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.29102339512924646,
+          "ci_low": 0.12808659910983813,
+          "ci_high": 0.4307374689150367,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.16561957782067122,
+          "ci_low": 0.012451710755286574,
+          "ci_high": 0.30071409489748113,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.29684568354577384,
+          "ci_low": 0.13694162881482186,
+          "ci_high": 0.4397337779158102,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.08844512920543524,
+          "ci_low": -0.2411097333244929,
+          "ci_high": 0.06458755808061632,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.23340130200879347,
+          "ci_low": -0.3782421381105442,
+          "ci_high": -0.08996804794851039,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l25": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.30112632528947314,
+          "ci_low": 0.14438518446308035,
+          "ci_high": 0.4317648134380777,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.2986819055273845,
+          "ci_low": 0.13627876307111134,
+          "ci_high": 0.4359581352504571,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.16287753183026277,
+          "ci_low": 0.011967473686111733,
+          "ci_high": 0.2974475892970254,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.28875724530201974,
+          "ci_low": 0.13220431471692898,
+          "ci_high": 0.42694765695548265,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.08247643950445493,
+          "ci_low": -0.2302422290021621,
+          "ci_high": 0.06864840506398273,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.22470649215514807,
+          "ci_low": -0.36423895101649073,
+          "ci_high": -0.08203839456869723,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l50": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.2968999908994454,
+          "ci_low": 0.13981423962199313,
+          "ci_high": 0.43027812647943076,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.2943056138713056,
+          "ci_low": 0.1311886990341528,
+          "ci_high": 0.4343358844153426,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.17220048819765152,
+          "ci_low": 0.023830794614687803,
+          "ci_high": 0.3061357454870783,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.287139557653269,
+          "ci_low": 0.13355695914771037,
+          "ci_high": 0.42257012946398326,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.07976339873128209,
+          "ci_low": -0.22458432876409723,
+          "ci_high": 0.06502746632828842,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.2219893640758839,
+          "ci_low": -0.36516835403890857,
+          "ci_high": -0.0807620070023093,
+          "n_boot": 2000
+        }
+      },
+      "cpr_l75": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.29373024010692467,
+          "ci_low": 0.13505203792660553,
+          "ci_high": 0.42757472799099183,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.29211746804326616,
+          "ci_low": 0.12797647773297985,
+          "ci_high": 0.4313430666570251,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.1661679870187529,
+          "ci_low": 0.020194508930381713,
+          "ci_high": 0.2959180805136615,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.2731195980307619,
+          "ci_low": 0.12222262364643433,
+          "ci_high": 0.4057626276850502,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.07596514164884008,
+          "ci_low": -0.2258951049221396,
+          "ci_high": 0.06557296147858817,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.21818538476491403,
+          "ci_low": -0.3578191052769148,
+          "ci_high": -0.07669734559315852,
+          "n_boot": 2000
+        }
+      },
+      "spr": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.2805981717788507,
+          "ci_low": 0.12004938725215146,
+          "ci_high": 0.41368223657574366,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.2741696160670389,
+          "ci_low": 0.11525774864750538,
+          "ci_high": 0.4070382116749721,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.16781645597426206,
+          "ci_low": 0.012345731514251663,
+          "ci_high": 0.3067355953047009,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.2823697982255551,
+          "ci_low": 0.12102713765621358,
+          "ci_high": 0.4237618697259848,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.05986154621328135,
+          "ci_low": -0.21406464894373123,
+          "ci_high": 0.09586262530191379,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.20291354790691735,
+          "ci_low": -0.35392370306569265,
+          "ci_high": -0.0605358473608865,
+          "n_boot": 2000
+        }
+      },
+      "in_approve_degree": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.344719231413962,
+          "ci_low": 0.24027931036905842,
+          "ci_high": 0.4424203880089803,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.3569504343258949,
+          "ci_low": 0.24404514156635676,
+          "ci_high": 0.4649905549752771,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.06690499988746798,
+          "ci_low": -0.11341523692869089,
+          "ci_high": 0.24329236081826747,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.04811707065952822,
+          "ci_low": -0.13179466684668373,
+          "ci_high": 0.22399972668796375,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.16038655836182006,
+          "ci_low": -0.3273792570583693,
+          "ci_high": 0.0234326541900688,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.28829728886319334,
+          "ci_low": -0.4410870141221437,
+          "ci_high": -0.1224665588583487,
+          "n_boot": 2000
+        }
+      },
+      "in_degree": {
+        "liquidation_free_rate": {
+          "kendall_tau": 0.249445126038136,
+          "ci_low": 0.08952281509973306,
+          "ci_high": 0.39178500312186537,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "kendall_tau": 0.24768094980266178,
+          "ci_low": 0.08014700682951503,
+          "ci_high": 0.3980631993132511,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "kendall_tau": 0.06916997765886823,
+          "ci_low": -0.08544163538503428,
+          "ci_high": 0.21517489842898083,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "kendall_tau": 0.07440642318102014,
+          "ci_low": -0.08985775834286522,
+          "ci_high": 0.2401908219489542,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "kendall_tau": -0.11728102060255498,
+          "ci_low": -0.2745566398957055,
+          "ci_high": 0.04066523497294845,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "kendall_tau": -0.2138257549435953,
+          "ci_low": -0.3754608145036629,
+          "ci_high": -0.05826115637526051,
+          "n_boot": 2000
+        }
+      }
+    },
+    "grid": {
+      "P": {
+        "liquidation_free_rate": {
+          "a_tau": 0.344719231413962,
+          "b_tau": 0.249445126038136,
+          "delta_tau": 0.09527410537582598,
+          "ci_low": -0.02657744967292001,
+          "ci_high": 0.23410435530887344,
+          "share_positive": 0.9255,
+          "n_boot": 2000,
+          "ci975_low": -0.04113943772811338,
+          "ci975_high": 0.26255216165594625
+        },
+        "no_liquidation": {
+          "a_tau": 0.3569504343258949,
+          "b_tau": 0.24768094980266178,
+          "delta_tau": 0.10926948452323312,
+          "ci_low": -0.022431496888069835,
+          "ci_high": 0.2570380479630432,
+          "share_positive": 0.94,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.06690499988746798,
+          "b_tau": 0.06916997765886823,
+          "delta_tau": -0.0022649777714002506,
+          "ci_low": -0.1414054835403072,
+          "ci_high": 0.12912784227708948,
+          "share_positive": 0.483,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.04811707065952822,
+          "b_tau": 0.07440642318102014,
+          "delta_tau": -0.02628935252149192,
+          "ci_low": -0.17641503555342136,
+          "ci_high": 0.11175847782456505,
+          "share_positive": 0.347,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.16038655836182006,
+          "b_tau": -0.11728102060255498,
+          "delta_tau": -0.04310553775926508,
+          "ci_low": -0.18163506479568062,
+          "ci_high": 0.08063382083369681,
+          "share_positive": 0.2855,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.28829728886319334,
+          "b_tau": -0.2138257549435953,
+          "delta_tau": -0.07447153391959804,
+          "ci_low": -0.20842374666112504,
+          "ci_high": 0.05191455571474091,
+          "share_positive": 0.142,
+          "n_boot": 2000
+        }
+      },
+      "Q": {
+        "liquidation_free_rate": {
+          "a_tau": 0.24234278182891245,
+          "b_tau": 0.25420823774777346,
+          "delta_tau": -0.011865455918861012,
+          "ci_low": -0.15340953035951735,
+          "ci_high": 0.1488719102298476,
+          "share_positive": 0.425,
+          "n_boot": 2000,
+          "ci975_low": -0.17696920343836287,
+          "ci975_high": 0.16836562353515802
+        },
+        "no_liquidation": {
+          "a_tau": 0.23554281764370083,
+          "b_tau": 0.240883559763018,
+          "delta_tau": -0.005340742119317177,
+          "ci_low": -0.16167877489081012,
+          "ci_high": 0.16512660596286943,
+          "share_positive": 0.466,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.13922179839426957,
+          "b_tau": 0.1660913191506475,
+          "delta_tau": -0.02686952075637794,
+          "ci_low": -0.16967712018939868,
+          "ci_high": 0.11330652655489894,
+          "share_positive": 0.364,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.08685712345757654,
+          "b_tau": 0.19688653430890635,
+          "delta_tau": -0.1100294108513298,
+          "ci_low": -0.27001436539184254,
+          "ci_high": 0.0397429489973863,
+          "share_positive": 0.073,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.07665299972426698,
+          "b_tau": -0.12081822869530168,
+          "delta_tau": 0.0441652289710347,
+          "ci_low": -0.0835498114836433,
+          "ci_high": 0.18317703350825332,
+          "share_positive": 0.766,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.19744513271187977,
+          "b_tau": -0.27502516823941175,
+          "delta_tau": 0.07758003552753198,
+          "ci_low": -0.05488326468591543,
+          "ci_high": 0.21719045833566025,
+          "share_positive": 0.8965,
+          "n_boot": 2000
+        }
+      },
+      "layers": {
+        "liquidation_free_rate": {
+          "a_tau": 0.23658125547384226,
+          "b_tau": 0.29373024010692467,
+          "delta_tau": -0.057148984633082406,
+          "ci_low": -0.2090992417768779,
+          "ci_high": 0.0923715046354722,
+          "share_positive": 0.218,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.23489180671386695,
+          "b_tau": 0.29102339512924646,
+          "delta_tau": -0.05613158841537952,
+          "ci_low": -0.2110673233134468,
+          "ci_high": 0.09840609042064213,
+          "share_positive": 0.243,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.07700712514810018,
+          "b_tau": 0.16561957782067122,
+          "delta_tau": -0.08861245267257103,
+          "ci_low": -0.2442779580493225,
+          "ci_high": 0.07018684895481445,
+          "share_positive": 0.13,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.039466953091746214,
+          "b_tau": 0.29684568354577384,
+          "delta_tau": -0.25737873045402765,
+          "ci_low": -0.4473568879670137,
+          "ci_high": -0.07125085688688404,
+          "share_positive": 0.0025,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.07648672757894215,
+          "b_tau": -0.08844512920543524,
+          "delta_tau": 0.011958401626493087,
+          "ci_low": -0.12470062400216028,
+          "ci_high": 0.15003102101609228,
+          "share_positive": 0.59,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.1859070594617921,
+          "b_tau": -0.23340130200879347,
+          "delta_tau": 0.04749424254700138,
+          "ci_low": -0.0897353292527725,
+          "ci_high": 0.1909427049524356,
+          "share_positive": 0.7605,
+          "n_boot": 2000
+        }
+      },
+      "er_awp": {
+        "liquidation_free_rate": {
+          "a_tau": 0.23557634352992377,
+          "b_tau": 0.25420823774777346,
+          "delta_tau": -0.018631894217849693,
+          "ci_low": -0.17331278067482092,
+          "ci_high": 0.14363217388089264,
+          "share_positive": 0.4005,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.23389407093965023,
+          "b_tau": 0.240883559763018,
+          "delta_tau": -0.006989488823367779,
+          "ci_low": -0.16989337258466577,
+          "ci_high": 0.16479224717976537,
+          "share_positive": 0.456,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.11990506093494259,
+          "b_tau": 0.1660913191506475,
+          "delta_tau": -0.04618625821570492,
+          "ci_low": -0.20510654100010206,
+          "ci_high": 0.11295977276474589,
+          "share_positive": 0.302,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.057638990483270036,
+          "b_tau": 0.19688653430890635,
+          "delta_tau": -0.1392475438256363,
+          "ci_low": -0.31099305046407166,
+          "ci_high": 0.022291668405709623,
+          "share_positive": 0.05,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.04716175446880068,
+          "b_tau": -0.12081822869530168,
+          "delta_tau": 0.073656474226501,
+          "ci_low": -0.06593535371576222,
+          "ci_high": 0.2230977858212728,
+          "share_positive": 0.851,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.16722173399487034,
+          "b_tau": -0.27502516823941175,
+          "delta_tau": 0.10780343424454142,
+          "ci_low": -0.03391028213337536,
+          "ci_high": 0.25633726605266144,
+          "share_positive": 0.939,
+          "n_boot": 2000
+        }
+      },
+      "cpr0_awp": {
+        "liquidation_free_rate": {
+          "a_tau": 0.29373024010692467,
+          "b_tau": 0.25420823774777346,
+          "delta_tau": 0.03952200235915121,
+          "ci_low": -0.02282354136730897,
+          "ci_high": 0.09811316392540094,
+          "share_positive": 0.8975,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.29102339512924646,
+          "b_tau": 0.240883559763018,
+          "delta_tau": 0.05013983536622846,
+          "ci_low": -0.014845312472003273,
+          "ci_high": 0.110532776266695,
+          "share_positive": 0.9355,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.16561957782067122,
+          "b_tau": 0.1660913191506475,
+          "delta_tau": -0.00047174132997629403,
+          "ci_low": -0.06381428033516542,
+          "ci_high": 0.0702102776348195,
+          "share_positive": 0.4705,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.29684568354577384,
+          "b_tau": 0.19688653430890635,
+          "delta_tau": 0.0999591492368675,
+          "ci_low": 0.01781789956791194,
+          "ci_high": 0.18831063941161602,
+          "share_positive": 0.9925,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.08844512920543524,
+          "b_tau": -0.12081822869530168,
+          "delta_tau": 0.03237309948986644,
+          "ci_low": -0.041479982700021276,
+          "ci_high": 0.10861514174976131,
+          "share_positive": 0.7985,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.23340130200879347,
+          "b_tau": -0.27502516823941175,
+          "delta_tau": 0.041623866230618284,
+          "ci_low": -0.025544638582505053,
+          "ci_high": 0.11653803819332702,
+          "share_positive": 0.884,
+          "n_boot": 2000
+        }
+      },
+      "er_degree": {
+        "liquidation_free_rate": {
+          "a_tau": 0.23557634352992377,
+          "b_tau": 0.344719231413962,
+          "delta_tau": -0.10914288788403823,
+          "ci_low": -0.19617537592406667,
+          "ci_high": -0.017688223260756225,
+          "share_positive": 0.01,
+          "n_boot": 2000
+        },
+        "no_liquidation": {
+          "a_tau": 0.23389407093965023,
+          "b_tau": 0.3569504343258949,
+          "delta_tau": -0.12305636338624468,
+          "ci_low": -0.2090941197080733,
+          "ci_high": -0.02449926346910019,
+          "share_positive": 0.0055,
+          "n_boot": 2000
+        },
+        "profitable_closes": {
+          "a_tau": 0.11990506093494259,
+          "b_tau": 0.06690499988746798,
+          "delta_tau": 0.05300006104747461,
+          "ci_low": -0.03442642802729884,
+          "ci_high": 0.13665626422304036,
+          "share_positive": 0.886,
+          "n_boot": 2000
+        },
+        "realized_gain": {
+          "a_tau": 0.057638990483270036,
+          "b_tau": 0.04811707065952822,
+          "delta_tau": 0.009521919823741815,
+          "ci_low": -0.08041589682123815,
+          "ci_high": 0.10110285957499152,
+          "share_positive": 0.593,
+          "n_boot": 2000
+        },
+        "profitable_share": {
+          "a_tau": -0.04716175446880068,
+          "b_tau": -0.16038655836182006,
+          "delta_tau": 0.11322480389301938,
+          "ci_low": 0.02228533616323932,
+          "ci_high": 0.20994711818658637,
+          "share_positive": 0.9945,
+          "n_boot": 2000
+        },
+        "non_loss_share": {
+          "a_tau": -0.16722173399487034,
+          "b_tau": -0.28829728886319334,
+          "delta_tau": 0.121075554868323,
+          "ci_low": 0.03435550820668929,
+          "ci_high": 0.21130818282403865,
+          "share_positive": 0.997,
+          "n_boot": 2000
+        }
+      }
+    },
+    "stratified": {
+      "P": {
+        "a_tau": 0.34219854780187586,
+        "b_tau": 0.25275811335427034,
+        "delta_tau": 0.08944043444760552,
+        "ci_low": -0.024812372330045185,
+        "ci_high": 0.2518998847001017
+      },
+      "Q": {
+        "a_tau": 0.229049823358328,
+        "b_tau": 0.2650965153501079,
+        "delta_tau": -0.03604669199177993,
+        "ci_low": -0.18561996638542944,
+        "ci_high": 0.14516950233412626
+      }
+    },
+    "recipients": {
+      "recipients": {
+        "n": 39,
+        "share_no_liquidation": 1.0,
+        "mean_liquidation_free_rate": 1.0,
+        "mean_profitable_share": 0.3586721036835167,
+        "mean_non_loss_share": 0.40051196120771404,
+        "median_closes": 30.0
+      },
+      "others": {
+        "n": 48,
+        "share_no_liquidation": 0.75,
+        "mean_liquidation_free_rate": 0.9187449510653801,
+        "mean_profitable_share": 0.47392026701840084,
+        "mean_non_loss_share": 0.606593325709011,
+        "median_closes": 10.0
+      }
+    },
+    "influence_without_top10": {
+      "a_tau": 0.3208715940709878,
+      "b_tau": 0.2328773264568656,
+      "delta_tau": 0.08799426761412221,
+      "ci_low": -0.04783418496500433,
+      "ci_high": 0.23959702328110638,
+      "share_positive": 0.893,
+      "n_boot": 2000
+    },
+    "max_in_approve_degree": 3.0
+  },
+  "neutral_rules": {
+    "R1": true,
+    "R2": false,
+    "R3": true
+  },
+  "iterations": {
+    "endorserank": 57,
+    "endorserank_activity": 55,
+    "awp": 94,
+    "cpr_l100": 56,
+    "cpr_l0": 92,
+    "cpr_l25": 82,
+    "cpr_l50": 82,
+    "cpr_l75": 82,
+    "spr": 151
+  }
+}

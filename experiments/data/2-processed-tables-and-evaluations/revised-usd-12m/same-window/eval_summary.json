@@ -1,0 +1,1315 @@
+{
+  "anchor": "2026-06-30 23:59:59 UTC",
+  "cohort": 6483,
+  "graph": {
+    "allowance": {
+      "edges": 3808949,
+      "nodes": 2514846
+    },
+    "transfer": {
+      "edges": 8426124,
+      "nodes": 3603300
+    },
+    "cohort_outside_allowance": 191,
+    "cohort_outside_transfer": 1192,
+    "cohort_outside_both": 30
+  },
+  "iterations": {
+    "endorserank": 57,
+    "endorserank_activity": 55,
+    "awp": 94,
+    "cpr_l100": 56,
+    "cpr_l0": 92,
+    "cpr_l25": 82,
+    "cpr_l50": 82,
+    "cpr_l75": 82,
+    "spr": 151
+  },
+  "per_proxy": {
+    "endorserank": {
+      "in_degree": {
+        "kendall_tau": 0.21805162424010743,
+        "ci_low": 0.19945824683517366,
+        "ci_high": 0.23826485028957586,
+        "n_boot": 400,
+        "spearman_rho": 0.3020097185937821
+      },
+      "in_value": {
+        "kendall_tau": 0.17493379888593816,
+        "ci_low": 0.15743587858142613,
+        "ci_high": 0.19441560624304435,
+        "n_boot": 400,
+        "spearman_rho": 0.2561923150019598
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.650354491728483,
+        "ci_low": 0.6392574512765028,
+        "ci_high": 0.6606644447592878,
+        "n_boot": 400,
+        "spearman_rho": 0.8042672503896724
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.4692120947010533,
+        "ci_low": 0.45364605063511554,
+        "ci_high": 0.48404668603450535,
+        "n_boot": 400,
+        "spearman_rho": 0.628066474229801
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": -0.19718622888604995,
+        "ci_low": -0.21299010583705796,
+        "ci_high": -0.18000857782889942,
+        "n_boot": 400,
+        "spearman_rho": -0.2896577907446434
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.13304214271293183,
+        "ci_low": 0.11437732646917359,
+        "ci_high": 0.15275313373662464,
+        "n_boot": 400,
+        "spearman_rho": 0.1986881004733446
+      },
+      "active_months": {
+        "kendall_tau": 0.1433704017430351,
+        "ci_low": 0.12373549070548273,
+        "ci_high": 0.16387138191813364,
+        "n_boot": 400,
+        "spearman_rho": 0.2028274228656244
+      }
+    },
+    "endorserank_activity": {
+      "in_degree": {
+        "kendall_tau": 0.2716383250739474,
+        "ci_low": 0.2516984385963308,
+        "ci_high": 0.2915815170548653,
+        "n_boot": 400,
+        "spearman_rho": 0.35475770633208664
+      },
+      "in_value": {
+        "kendall_tau": 0.23095203441841816,
+        "ci_low": 0.21333937307679277,
+        "ci_high": 0.25074741694953406,
+        "n_boot": 400,
+        "spearman_rho": 0.31861462273989805
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.6687191630953339,
+        "ci_low": 0.6587198358630769,
+        "ci_high": 0.6804045942035656,
+        "n_boot": 400,
+        "spearman_rho": 0.8195158828628509
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.5341855290780875,
+        "ci_low": 0.5196527090774514,
+        "ci_high": 0.5494487667652571,
+        "n_boot": 400,
+        "spearman_rho": 0.6971672918746847
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": -0.1379167250568228,
+        "ci_low": -0.154196487928829,
+        "ci_high": -0.12149483013084111,
+        "n_boot": 400,
+        "spearman_rho": -0.1966141841283605
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.14545985579441437,
+        "ci_low": 0.12703236520716946,
+        "ci_high": 0.16561632107010085,
+        "n_boot": 400,
+        "spearman_rho": 0.20824402173490472
+      },
+      "active_months": {
+        "kendall_tau": 0.1610985775854244,
+        "ci_low": 0.14259137546037398,
+        "ci_high": 0.18238742014588163,
+        "n_boot": 400,
+        "spearman_rho": 0.22011384895453723
+      }
+    },
+    "awp": {
+      "in_degree": {
+        "kendall_tau": 0.7416003114655363,
+        "ci_low": 0.7317980231288647,
+        "ci_high": 0.7521319343313863,
+        "n_boot": 400,
+        "spearman_rho": 0.8828828932994314
+      },
+      "in_value": {
+        "kendall_tau": 0.7299307859615841,
+        "ci_low": 0.720234592483893,
+        "ci_high": 0.74004280591488,
+        "n_boot": 400,
+        "spearman_rho": 0.8870413972230966
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.2415193343366766,
+        "ci_low": 0.22274367723384858,
+        "ci_high": 0.262290694002409,
+        "n_boot": 400,
+        "spearman_rho": 0.3200524503466493
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.2110983891050113,
+        "ci_low": 0.19273583028169808,
+        "ci_high": 0.22862829045369062,
+        "n_boot": 400,
+        "spearman_rho": 0.2943151090761491
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": 0.054747320977267325,
+        "ci_low": 0.03337105215013772,
+        "ci_high": 0.07927679903715043,
+        "n_boot": 400,
+        "spearman_rho": 0.16328871672116155
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.5875207508480322,
+        "ci_low": 0.5753938861213673,
+        "ci_high": 0.6002540185021209,
+        "n_boot": 400,
+        "spearman_rho": 0.7634173430232374
+      },
+      "active_months": {
+        "kendall_tau": 0.6157110135406845,
+        "ci_low": 0.6034498670155887,
+        "ci_high": 0.6286287112927825,
+        "n_boot": 400,
+        "spearman_rho": 0.768435272622557
+      }
+    },
+    "cpr_l100": {
+      "in_degree": {
+        "kendall_tau": 0.2177387991336811,
+        "ci_low": 0.19956275309117014,
+        "ci_high": 0.23730700289604048,
+        "n_boot": 400,
+        "spearman_rho": 0.30145682519523137
+      },
+      "in_value": {
+        "kendall_tau": 0.1742456967060898,
+        "ci_low": 0.15746684187055626,
+        "ci_high": 0.19510025459986868,
+        "n_boot": 400,
+        "spearman_rho": 0.2558083746753109
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.6425877698627525,
+        "ci_low": 0.6313793518114742,
+        "ci_high": 0.6534137822496306,
+        "n_boot": 400,
+        "spearman_rho": 0.796064006767193
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.47918328651262415,
+        "ci_low": 0.4633275853834662,
+        "ci_high": 0.4943582728069926,
+        "n_boot": 400,
+        "spearman_rho": 0.6378766255780888
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": -0.19247674889016864,
+        "ci_low": -0.20838977122850286,
+        "ci_high": -0.17477942570275756,
+        "n_boot": 400,
+        "spearman_rho": -0.28316705753759225
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.13250405112315933,
+        "ci_low": 0.11523021940119486,
+        "ci_high": 0.15173138301970707,
+        "n_boot": 400,
+        "spearman_rho": 0.198479033996579
+      },
+      "active_months": {
+        "kendall_tau": 0.14260990920682481,
+        "ci_low": 0.12448003371147646,
+        "ci_high": 0.16180311988484275,
+        "n_boot": 400,
+        "spearman_rho": 0.20244556930138363
+      }
+    },
+    "cpr_l0": {
+      "in_degree": {
+        "kendall_tau": 0.7130777204375038,
+        "ci_low": 0.7027129025792368,
+        "ci_high": 0.7235223005410047,
+        "n_boot": 400,
+        "spearman_rho": 0.858852637659161
+      },
+      "in_value": {
+        "kendall_tau": 0.6875559914826239,
+        "ci_low": 0.675626849223875,
+        "ci_high": 0.6982892019664396,
+        "n_boot": 400,
+        "spearman_rho": 0.8527022535048773
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.22776384285095724,
+        "ci_low": 0.20905355962253122,
+        "ci_high": 0.24941005723551285,
+        "n_boot": 400,
+        "spearman_rho": 0.29892556067705706
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.16120743277782956,
+        "ci_low": 0.1430144049547017,
+        "ci_high": 0.17977185763192202,
+        "n_boot": 400,
+        "spearman_rho": 0.22867739959212924
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": 0.11012111871703281,
+        "ci_low": 0.09036645947364776,
+        "ci_high": 0.13387072177996787,
+        "n_boot": 400,
+        "spearman_rho": 0.22172795339904672
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.5360330002785128,
+        "ci_low": 0.5224095212812998,
+        "ci_high": 0.5501192483717975,
+        "n_boot": 400,
+        "spearman_rho": 0.7103972602183534
+      },
+      "active_months": {
+        "kendall_tau": 0.5603410162175936,
+        "ci_low": 0.5460654667985425,
+        "ci_high": 0.5751212848176926,
+        "n_boot": 400,
+        "spearman_rho": 0.7122303580780761
+      }
+    },
+    "cpr_l25": {
+      "in_degree": {
+        "kendall_tau": 0.41858101214358456,
+        "ci_low": 0.40056720352371833,
+        "ci_high": 0.4352871588764941,
+        "n_boot": 400,
+        "spearman_rho": 0.5435344249049558
+      },
+      "in_value": {
+        "kendall_tau": 0.4263889121978415,
+        "ci_low": 0.4101236970231317,
+        "ci_high": 0.4424792344447175,
+        "n_boot": 400,
+        "spearman_rho": 0.5672923271389569
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.4716259487630552,
+        "ci_low": 0.45839030487816085,
+        "ci_high": 0.4869042131146076,
+        "n_boot": 400,
+        "spearman_rho": 0.6216445421955281
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.38855567266307006,
+        "ci_low": 0.37477454830516205,
+        "ci_high": 0.40418097577560824,
+        "n_boot": 400,
+        "spearman_rho": 0.5430194373375701
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": -0.1512192940345402,
+        "ci_low": -0.1672192262510499,
+        "ci_high": -0.13361126263087192,
+        "n_boot": 400,
+        "spearman_rho": -0.20492782619168443
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.30427263463735643,
+        "ci_low": 0.28773344229664677,
+        "ci_high": 0.32040345493856154,
+        "n_boot": 400,
+        "spearman_rho": 0.42867379597481015
+      },
+      "active_months": {
+        "kendall_tau": 0.3166876685527757,
+        "ci_low": 0.29952256417579604,
+        "ci_high": 0.33342050072676754,
+        "n_boot": 400,
+        "spearman_rho": 0.43132048467749273
+      }
+    },
+    "cpr_l50": {
+      "in_degree": {
+        "kendall_tau": 0.3967055631793651,
+        "ci_low": 0.3798319659962081,
+        "ci_high": 0.41363977654474704,
+        "n_boot": 400,
+        "spearman_rho": 0.5167389698780945
+      },
+      "in_value": {
+        "kendall_tau": 0.40342800315647354,
+        "ci_low": 0.38729800509394385,
+        "ci_high": 0.4192939248009794,
+        "n_boot": 400,
+        "spearman_rho": 0.5410814960616998
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.48887177546435834,
+        "ci_low": 0.4759091153037921,
+        "ci_high": 0.5045313859238058,
+        "n_boot": 400,
+        "spearman_rho": 0.6393279300334169
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.4091056338888335,
+        "ci_low": 0.39578879562827746,
+        "ci_high": 0.42474710985559344,
+        "n_boot": 400,
+        "spearman_rho": 0.5669060203396548
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": -0.15815960418175068,
+        "ci_low": -0.17387826485989716,
+        "ci_high": -0.14070245990385982,
+        "n_boot": 400,
+        "spearman_rho": -0.21800731852836971
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.2859912822287607,
+        "ci_low": 0.26931877392536624,
+        "ci_high": 0.30242552523771854,
+        "n_boot": 400,
+        "spearman_rho": 0.4044849417719735
+      },
+      "active_months": {
+        "kendall_tau": 0.29844793833297206,
+        "ci_low": 0.28155438225128293,
+        "ci_high": 0.3156161496459231,
+        "n_boot": 400,
+        "spearman_rho": 0.40810808168517965
+      }
+    },
+    "cpr_l75": {
+      "in_degree": {
+        "kendall_tau": 0.3753666517921224,
+        "ci_low": 0.3581524894320181,
+        "ci_high": 0.3930296980424171,
+        "n_boot": 400,
+        "spearman_rho": 0.4917010373098628
+      },
+      "in_value": {
+        "kendall_tau": 0.3788184766695554,
+        "ci_low": 0.361917522269274,
+        "ci_high": 0.39518320198927653,
+        "n_boot": 400,
+        "spearman_rho": 0.5134036715397008
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.5021689459640394,
+        "ci_low": 0.4890420944109671,
+        "ci_high": 0.5179847390107436,
+        "n_boot": 400,
+        "spearman_rho": 0.652322186025084
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.42582930758714305,
+        "ci_low": 0.4129729114157517,
+        "ci_high": 0.4408099750449837,
+        "n_boot": 400,
+        "spearman_rho": 0.5853294064980769
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": -0.16058907043745052,
+        "ci_low": -0.17610513078654005,
+        "ci_high": -0.14378821976634934,
+        "n_boot": 400,
+        "spearman_rho": -0.2248282001125019
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.2674976857616425,
+        "ci_low": 0.25127766985904904,
+        "ci_high": 0.284109011021971,
+        "n_boot": 400,
+        "spearman_rho": 0.3804478521110982
+      },
+      "active_months": {
+        "kendall_tau": 0.2798837263294133,
+        "ci_low": 0.26282856586669245,
+        "ci_high": 0.29756992551083233,
+        "n_boot": 400,
+        "spearman_rho": 0.38478241103387956
+      }
+    },
+    "spr": {
+      "in_degree": {
+        "kendall_tau": 0.6646702905595104,
+        "ci_low": 0.6540006718383171,
+        "ci_high": 0.6766825390046125,
+        "n_boot": 400,
+        "spearman_rho": 0.8196343000423606
+      },
+      "in_value": {
+        "kendall_tau": 0.6771896908282524,
+        "ci_low": 0.6654494520404838,
+        "ci_high": 0.6887544796468473,
+        "n_boot": 400,
+        "spearman_rho": 0.8445974241268378
+      },
+      "in_approve_degree": {
+        "kendall_tau": 0.3253526315923785,
+        "ci_low": 0.3070799906430724,
+        "ci_high": 0.34714275085819457,
+        "n_boot": 400,
+        "spearman_rho": 0.40957287050277896
+      },
+      "in_approve_value": {
+        "kendall_tau": 0.25275345056027737,
+        "ci_low": 0.23448014433619627,
+        "ci_high": 0.2712822222175757,
+        "n_boot": 400,
+        "spearman_rho": 0.3442835922712528
+      },
+      "inbound_counterparty_ratio": {
+        "kendall_tau": 0.08535130675181325,
+        "ci_low": 0.06535692284459922,
+        "ci_high": 0.10972049455369272,
+        "n_boot": 400,
+        "spearman_rho": 0.19442321000909255
+      },
+      "transfer_tenure_days": {
+        "kendall_tau": 0.5392727078176106,
+        "ci_low": 0.526341739205255,
+        "ci_high": 0.5546481433820445,
+        "n_boot": 400,
+        "spearman_rho": 0.7142945946347523
+      },
+      "active_months": {
+        "kendall_tau": 0.5700249322984063,
+        "ci_low": 0.5561354468706816,
+        "ci_high": 0.584928183557518,
+        "n_boot": 400,
+        "spearman_rho": 0.7240273824205173
+      }
+    }
+  },
+  "families": {
+    "endorserank": {
+      "transfer": {
+        "mean_tau": 0.19649271156302278,
+        "ci_low": 0.18033724992670733,
+        "ci_high": 0.2156980790809038,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.5597832932147682,
+        "ci_low": 0.5480360900001037,
+        "ci_high": 0.5713155869969887,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.02640877185663899,
+        "ci_low": 0.012274439157332971,
+        "ci_high": 0.041035201617431016,
+        "n_boot": 400
+      }
+    },
+    "endorserank_activity": {
+      "transfer": {
+        "mean_tau": 0.25129517974618276,
+        "ci_low": 0.23262810945360138,
+        "ci_high": 0.27070529708337787,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.6014523460867107,
+        "ci_low": 0.5897232855319341,
+        "ci_high": 0.613041779400209,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.05621390277433866,
+        "ci_low": 0.04209429974372597,
+        "ci_high": 0.07244532095100935,
+        "n_boot": 400
+      }
+    },
+    "awp": {
+      "transfer": {
+        "mean_tau": 0.7357655487135601,
+        "ci_low": 0.727967317885058,
+        "ci_high": 0.7442876749943608,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.22630886172084397,
+        "ci_low": 0.20968654570313905,
+        "ci_high": 0.2452051918404553,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.41932636178866134,
+        "ci_low": 0.40787806945310257,
+        "ci_high": 0.4335378043792382,
+        "n_boot": 400
+      }
+    },
+    "cpr_l100": {
+      "transfer": {
+        "mean_tau": 0.19599224791988545,
+        "ci_low": 0.17953818035222752,
+        "ci_high": 0.21591854273369354,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.5608855281876883,
+        "ci_low": 0.549737990443315,
+        "ci_high": 0.5724008406726335,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.02754573714660517,
+        "ci_low": 0.014313213298224419,
+        "ci_high": 0.0418813770457071,
+        "n_boot": 400
+      }
+    },
+    "cpr_l0": {
+      "transfer": {
+        "mean_tau": 0.7003168559600639,
+        "ci_low": 0.691279054462799,
+        "ci_high": 0.7092328573992909,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.1944856378143934,
+        "ci_low": 0.1778516597216663,
+        "ci_high": 0.21345803926560458,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.4021650450710464,
+        "ci_low": 0.38941279333500806,
+        "ci_high": 0.41667616966637255,
+        "n_boot": 400
+      }
+    },
+    "cpr_l25": {
+      "transfer": {
+        "mean_tau": 0.422484962170713,
+        "ci_low": 0.40722128195860197,
+        "ci_high": 0.4377296063666894,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.43009081071306265,
+        "ci_low": 0.4180252545730626,
+        "ci_high": 0.44445828205098004,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.1565803363851973,
+        "ci_low": 0.14280149379120244,
+        "ci_high": 0.17035146796155423,
+        "n_boot": 400
+      }
+    },
+    "cpr_l50": {
+      "transfer": {
+        "mean_tau": 0.4000667831679193,
+        "ci_low": 0.3848804603605969,
+        "ci_high": 0.4163118786029402,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.4489887046765959,
+        "ci_low": 0.43739942426661393,
+        "ci_high": 0.46288075230120196,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.14209320545999402,
+        "ci_low": 0.12808789922859454,
+        "ci_high": 0.15583071726390446,
+        "n_boot": 400
+      }
+    },
+    "cpr_l75": {
+      "transfer": {
+        "mean_tau": 0.3770925642308389,
+        "ci_low": 0.360889662902758,
+        "ci_high": 0.39349640939500447,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.4639991267755912,
+        "ci_low": 0.4521992419324875,
+        "ci_high": 0.4781702208203276,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.12893078055120175,
+        "ci_low": 0.11486039487394564,
+        "ci_high": 0.14284710870306955,
+        "n_boot": 400
+      }
+    },
+    "spr": {
+      "transfer": {
+        "mean_tau": 0.6709299906938815,
+        "ci_low": 0.66079273215242,
+        "ci_high": 0.6814584019944319,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.2890530410763279,
+        "ci_low": 0.2722683774183453,
+        "ci_high": 0.30803546261037945,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.3982163156226101,
+        "ci_low": 0.3855869535093748,
+        "ci_high": 0.41351359226167717,
+        "n_boot": 400
+      }
+    }
+  },
+  "contrasts": [
+    {
+      "label": "C-PR transfer minus C-PR (l=0) transfer",
+      "a": [
+        "cpr_l50",
+        "transfer"
+      ],
+      "b": [
+        "cpr_l0",
+        "transfer"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.4000667831679193,
+      "b_tau": 0.7003168559600639,
+      "delta_tau": -0.30025007279214455,
+      "ci_low": -0.3179150736961983,
+      "ci_high": -0.28114292194304863,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR allowance minus C-PR (l=1) allowance",
+      "a": [
+        "cpr_l50",
+        "allowance"
+      ],
+      "b": [
+        "cpr_l100",
+        "allowance"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.4489887046765959,
+      "b_tau": 0.5608855281876883,
+      "delta_tau": -0.11189682351109242,
+      "ci_low": -0.12383615820494909,
+      "ci_high": -0.09973563735276349,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR sybil minus C-PR (l=0) sybil",
+      "a": [
+        "cpr_l50",
+        "sybil_stability"
+      ],
+      "b": [
+        "cpr_l0",
+        "sybil_stability"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.14209320545999402,
+      "b_tau": 0.4021650450710464,
+      "delta_tau": -0.2600718396110524,
+      "ci_low": -0.2776374033777281,
+      "ci_high": -0.2414202390186884,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR sybil minus C-PR (l=1) sybil",
+      "a": [
+        "cpr_l50",
+        "sybil_stability"
+      ],
+      "b": [
+        "cpr_l100",
+        "sybil_stability"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.14209320545999402,
+      "b_tau": 0.02754573714660517,
+      "delta_tau": 0.11454746831338884,
+      "ci_low": 0.10402491564598422,
+      "ci_high": 0.12304482182319985,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR transfer minus C-PR (l=0) transfer",
+      "a": [
+        "spr",
+        "transfer"
+      ],
+      "b": [
+        "cpr_l0",
+        "transfer"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.6709299906938815,
+      "b_tau": 0.7003168559600639,
+      "delta_tau": -0.029386865266182394,
+      "ci_low": -0.03559903389862102,
+      "ci_high": -0.02276191523215037,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR allowance minus C-PR (l=1) allowance",
+      "a": [
+        "spr",
+        "allowance"
+      ],
+      "b": [
+        "cpr_l100",
+        "allowance"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.2890530410763279,
+      "b_tau": 0.5608855281876883,
+      "delta_tau": -0.27183248711136043,
+      "ci_low": -0.28987009414982945,
+      "ci_high": -0.2529241132712136,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR sybil minus C-PR (l=0) sybil",
+      "a": [
+        "spr",
+        "sybil_stability"
+      ],
+      "b": [
+        "cpr_l0",
+        "sybil_stability"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.3982163156226101,
+      "b_tau": 0.4021650450710464,
+      "delta_tau": -0.003948729448436272,
+      "ci_low": -0.007752633467788067,
+      "ci_high": 0.00018148707670928726,
+      "share_positive": 0.0375,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR sybil minus C-PR (l=1) sybil",
+      "a": [
+        "spr",
+        "sybil_stability"
+      ],
+      "b": [
+        "cpr_l100",
+        "sybil_stability"
+      ],
+      "group": "hybrid",
+      "a_tau": 0.3982163156226101,
+      "b_tau": 0.02754573714660517,
+      "delta_tau": 0.37067057847600493,
+      "ci_low": 0.35107826003034265,
+      "ci_high": 0.38997558311308744,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR transfer minus AWP transfer",
+      "a": [
+        "cpr_l50",
+        "transfer"
+      ],
+      "b": [
+        "awp",
+        "transfer"
+      ],
+      "group": "hybrid_single",
+      "a_tau": 0.4000667831679193,
+      "b_tau": 0.7357655487135601,
+      "delta_tau": -0.3356987655456408,
+      "ci_low": -0.35376584961475344,
+      "ci_high": -0.31559865754402383,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR allowance minus EndorseRank allowance",
+      "a": [
+        "cpr_l50",
+        "allowance"
+      ],
+      "b": [
+        "endorserank",
+        "allowance"
+      ],
+      "group": "hybrid_single",
+      "a_tau": 0.4489887046765959,
+      "b_tau": 0.5597832932147682,
+      "delta_tau": -0.11079458853817226,
+      "ci_low": -0.12245311476875761,
+      "ci_high": -0.09858319994685168,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR sybil minus AWP sybil",
+      "a": [
+        "cpr_l50",
+        "sybil_stability"
+      ],
+      "b": [
+        "awp",
+        "sybil_stability"
+      ],
+      "group": "hybrid_single",
+      "a_tau": 0.14209320545999402,
+      "b_tau": 0.41932636178866134,
+      "delta_tau": -0.2772331563286673,
+      "ci_low": -0.29401164217798564,
+      "ci_high": -0.2602217440854509,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR sybil minus EndorseRank sybil",
+      "a": [
+        "cpr_l50",
+        "sybil_stability"
+      ],
+      "b": [
+        "endorserank",
+        "sybil_stability"
+      ],
+      "group": "hybrid_single",
+      "a_tau": 0.14209320545999402,
+      "b_tau": 0.02640877185663899,
+      "delta_tau": 0.11568443360335502,
+      "ci_low": 0.10510171060569923,
+      "ci_high": 0.12501624806031184,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank allowance minus EndorseRank transfer",
+      "a": [
+        "endorserank",
+        "allowance"
+      ],
+      "b": [
+        "endorserank",
+        "transfer"
+      ],
+      "group": "er_awp",
+      "a_tau": 0.5597832932147682,
+      "b_tau": 0.19649271156302278,
+      "delta_tau": 0.3632905816517454,
+      "ci_low": 0.34147982158676976,
+      "ci_high": 0.3821797249079666,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "AWP transfer minus EndorseRank transfer",
+      "a": [
+        "awp",
+        "transfer"
+      ],
+      "b": [
+        "endorserank",
+        "transfer"
+      ],
+      "group": "er_awp",
+      "a_tau": 0.7357655487135601,
+      "b_tau": 0.19649271156302278,
+      "delta_tau": 0.5392728371505373,
+      "ci_low": 0.5182573973243895,
+      "ci_high": 0.5600892412764769,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank allowance minus AWP allowance",
+      "a": [
+        "endorserank",
+        "allowance"
+      ],
+      "b": [
+        "awp",
+        "allowance"
+      ],
+      "group": "er_awp",
+      "a_tau": 0.5597832932147682,
+      "b_tau": 0.22630886172084397,
+      "delta_tau": 0.3334744314939242,
+      "ci_low": 0.31145663101052634,
+      "ci_high": 0.3539129801990316,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "AWP sybil minus EndorseRank sybil",
+      "a": [
+        "awp",
+        "sybil_stability"
+      ],
+      "b": [
+        "endorserank",
+        "sybil_stability"
+      ],
+      "group": "er_awp",
+      "a_tau": 0.41932636178866134,
+      "b_tau": 0.02640877185663899,
+      "delta_tau": 0.39291758993202236,
+      "ci_low": 0.37312460662665914,
+      "ci_high": 0.4124728496802447,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank in-approve degree minus EndorseRank in-degree",
+      "a": [
+        "endorserank",
+        "in_approve_degree"
+      ],
+      "b": [
+        "endorserank",
+        "in_degree"
+      ],
+      "group": "er_awp",
+      "a_tau": 0.650354491728483,
+      "b_tau": 0.21805162424010743,
+      "delta_tau": 0.4323028674883756,
+      "ci_low": 0.4104528389120376,
+      "ci_high": 0.4519977530143756,
+      "share_positive": 1.0,
+      "n_boot": 400
+    }
+  ],
+  "rule_a_secondary": {
+    "transfer": {
+      "best_layer": "cpr_l0",
+      "best_ci": [
+        0.691279054462799,
+        0.7092328573992909
+      ],
+      "cpr": 0.4000667831679193,
+      "pass": false
+    },
+    "allowance": {
+      "best_layer": "cpr_l100",
+      "best_ci": [
+        0.549737990443315,
+        0.5724008406726335
+      ],
+      "cpr": 0.4489887046765959,
+      "pass": false
+    },
+    "sybil_stability": {
+      "cpr_l50": 0.14209320545999402,
+      "cpr_l100": 0.02754573714660517,
+      "cpr_l0": 0.4021650450710464,
+      "pass": false
+    },
+    "pass": false
+  },
+  "inter_method": {
+    "endorserank_vs_awp": {
+      "kendall_tau": 0.19947547209208058,
+      "ci_low": 0.18086531834630817,
+      "ci_high": 0.22109238296791422,
+      "n_boot": 400
+    },
+    "isolated": {
+      "kendall_tau": 0.19939895211602635,
+      "ci_low": 0.18080360013395552,
+      "ci_high": 0.22105585617485715,
+      "n_boot": 400
+    },
+    "concordance": {
+      "pairs": 21011403,
+      "ordered_by_both": 20262952,
+      "share_ordered_by_both": 0.964378818492035,
+      "discordant_share_of_ordered": 0.3984409083138528,
+      "tau_b": 0.19947547209208058
+    }
+  },
+  "ties": {
+    "endorserank": {
+      "n": 6483,
+      "distinct": 5641,
+      "share_pairs_tied": 0.001979591748347314,
+      "largest_block": 197,
+      "largest_block_value": 0.0,
+      "zeros": 197
+    },
+    "endorserank_activity": {
+      "n": 6483,
+      "distinct": 6265,
+      "share_pairs_tied": 0.0009223563033844051,
+      "largest_block": 197,
+      "largest_block_value": 0.0,
+      "zeros": 197
+    },
+    "awp": {
+      "n": 6483,
+      "distinct": 5292,
+      "share_pairs_tied": 0.03378336991584998,
+      "largest_block": 1192,
+      "largest_block_value": 0.0,
+      "zeros": 1192
+    },
+    "cpr_l100": {
+      "n": 6483,
+      "distinct": 5238,
+      "share_pairs_tied": 0.0020903887284442644,
+      "largest_block": 191,
+      "largest_block_value": 0.0,
+      "zeros": 191
+    },
+    "cpr_l0": {
+      "n": 6483,
+      "distinct": 5206,
+      "share_pairs_tied": 0.03383653152528653,
+      "largest_block": 1192,
+      "largest_block_value": 0.0,
+      "zeros": 1192
+    },
+    "cpr_l25": {
+      "n": 6483,
+      "distinct": 6274,
+      "share_pairs_tied": 0.00012731182206157294,
+      "largest_block": 47,
+      "largest_block_value": 1.7619180077512388e-07,
+      "zeros": 30
+    },
+    "cpr_l50": {
+      "n": 6483,
+      "distinct": 6268,
+      "share_pairs_tied": 0.00012707385603902795,
+      "largest_block": 47,
+      "largest_block_value": 1.9374250166468428e-07,
+      "zeros": 30
+    },
+    "cpr_l75": {
+      "n": 6483,
+      "distinct": 6273,
+      "share_pairs_tied": 0.00012007765497620506,
+      "largest_block": 46,
+      "largest_block_value": 2.0804150103028992e-07,
+      "zeros": 30
+    },
+    "spr": {
+      "n": 6483,
+      "distinct": 5260,
+      "share_pairs_tied": 0.03406992860019866,
+      "largest_block": 1197,
+      "largest_block_value": 0.0,
+      "zeros": 1197
+    }
+  },
+  "isolated_rule": {
+    "endorserank_iso": {
+      "transfer": {
+        "mean_tau": 0.1962428850065382,
+        "ci_low": 0.18017883999254444,
+        "ci_high": 0.21550187940082166,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.5599156773199562,
+        "ci_low": 0.548191040681473,
+        "ci_high": 0.5714845090880422,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.0262027958906877,
+        "ci_low": 0.012077475308254466,
+        "ci_high": 0.040845914257250066,
+        "n_boot": 400
+      }
+    },
+    "awp_iso": {
+      "transfer": {
+        "mean_tau": 0.7357655487135601,
+        "ci_low": 0.727967317885058,
+        "ci_high": 0.7442876749943608,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.22630886172084397,
+        "ci_low": 0.20968654570313905,
+        "ci_high": 0.2452051918404553,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.41932636178866134,
+        "ci_low": 0.40787806945310257,
+        "ci_high": 0.4335378043792382,
+        "n_boot": 400
+      }
+    }
+  },
+  "damping": {
+    "endorserank_d75": {
+      "damping": 0.75,
+      "iterations": 38,
+      "transfer": {
+        "mean_tau": 0.19606159849874683,
+        "ci_low": 0.1799329955404384,
+        "ci_high": 0.2151684686483107,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.5612988484131249,
+        "ci_low": 0.5494957707886724,
+        "ci_high": 0.5728817766793034,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.02595552568220714,
+        "ci_low": 0.011803599146943317,
+        "ci_high": 0.040619120513003544,
+        "n_boot": 400
+      }
+    },
+    "awp_d75": {
+      "damping": 0.75,
+      "iterations": 56,
+      "transfer": {
+        "mean_tau": 0.739628834659519,
+        "ci_low": 0.7322692490982824,
+        "ci_high": 0.7480583072778619,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.22899599788543795,
+        "ci_low": 0.21202260590996042,
+        "ci_high": 0.24802205952538459,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.42725585615536227,
+        "ci_low": 0.4160178546516723,
+        "ci_high": 0.4412834465725102,
+        "n_boot": 400
+      }
+    },
+    "endorserank_d85": {
+      "damping": 0.85,
+      "iterations": 57,
+      "transfer": {
+        "mean_tau": 0.19649271156302278,
+        "ci_low": 0.18033724992670733,
+        "ci_high": 0.2156980790809038,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.5597832932147682,
+        "ci_low": 0.5480360900001037,
+        "ci_high": 0.5713155869969887,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.02640877185663899,
+        "ci_low": 0.012274439157332971,
+        "ci_high": 0.041035201617431016,
+        "n_boot": 400
+      }
+    },
+    "awp_d85": {
+      "damping": 0.85,
+      "iterations": 94,
+      "transfer": {
+        "mean_tau": 0.7357655487135601,
+        "ci_low": 0.727967317885058,
+        "ci_high": 0.7442876749943608,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.22630886172084397,
+        "ci_low": 0.20968654570313905,
+        "ci_high": 0.2452051918404553,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.41932636178866134,
+        "ci_low": 0.40787806945310257,
+        "ci_high": 0.4335378043792382,
+        "n_boot": 400
+      }
+    },
+    "endorserank_d95": {
+      "damping": 0.95,
+      "iterations": 174,
+      "transfer": {
+        "mean_tau": 0.19674081058317047,
+        "ci_low": 0.18070699307073684,
+        "ci_high": 0.21607020470752816,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.5582504411491973,
+        "ci_low": 0.5465230835053368,
+        "ci_high": 0.569973953234855,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.02671590498505358,
+        "ci_low": 0.012715366216457002,
+        "ci_high": 0.04139263098576882,
+        "n_boot": 400
+      }
+    },
+    "awp_d95": {
+      "damping": 0.95,
+      "iterations": 269,
+      "transfer": {
+        "mean_tau": 0.7229430371566239,
+        "ci_low": 0.7146277695453661,
+        "ci_high": 0.7314914667724832,
+        "n_boot": 400
+      },
+      "allowance": {
+        "mean_tau": 0.21687384211371968,
+        "ci_low": 0.20028188792511062,
+        "ci_high": 0.2352263151401535,
+        "n_boot": 400
+      },
+      "sybil_stability": {
+        "mean_tau": 0.4056103366372931,
+        "ci_low": 0.3937964621128378,
+        "ci_high": 0.4202651696850703,
+        "n_boot": 400
+      }
+    }
+  },
+  "closed_form": {
+    "common_value_c": 1.9283853000813658e-07,
+    "spread_of_c": 1.0,
+    "spenders": 6224,
+    "depth_one_spenders": 5232,
+    "within_1pct_all": 0.8754820051413882,
+    "within_1pct_depth_one": 1.0,
+    "within_1pct_deeper": 0.21875,
+    "tau_score_vs_delta": 0.9084809304023469
+  },
+  "methods": {
+    "endorserank": "EndorseRank",
+    "endorserank_activity": "EndorseRank (activity restarts)",
+    "awp": "AWP",
+    "cpr_l100": "C-PR ($\\lambda=1$)",
+    "cpr_l0": "C-PR ($\\lambda=0$)",
+    "cpr_l25": "C-PR ($\\lambda=0.25$)",
+    "cpr_l50": "C-PR ($\\lambda=0.5$)",
+    "cpr_l75": "C-PR ($\\lambda=0.75$)",
+    "spr": "S-PR"
+  }
+}

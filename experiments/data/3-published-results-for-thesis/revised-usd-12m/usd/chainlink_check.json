@@ -1,0 +1,37 @@
+{
+  "written_at": "2026-10-10T11:27:48+00:00",
+  "rpc": "https://arb1.arbitrum.io/rpc",
+  "method": "DefiLlama close of day D against the Chainlink answer in force at 00:00 UTC of D+1",
+  "pairs": 190,
+  "median_abs_rel_diff": 0.0004250917072924909,
+  "max_abs_rel_diff": 0.007167438741484178,
+  "share_within_1pct": 1.0,
+  "per_token": {
+    "ARB": {
+      "n": 38,
+      "median": 0.0007869013250826895,
+      "max": 0.003158961669886051
+    },
+    "USDC": {
+      "n": 38,
+      "median": 0.00011425348928156831,
+      "max": 0.002628059971401253
+    },
+    "USD\u20ae0": {
+      "n": 38,
+      "median": 0.00031010707354961475,
+      "max": 0.0027453332086289084
+    },
+    "WBTC": {
+      "n": 38,
+      "median": 0.0006447096492283588,
+      "max": 0.002437073111611898
+    },
+    "WETH": {
+      "n": 38,
+      "median": 0.0006295515191170886,
+      "max": 0.007167438741484178
+    }
+  },
+  "missing": 0
+}

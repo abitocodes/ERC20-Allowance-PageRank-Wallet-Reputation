@@ -1,0 +1,24 @@
+{
+  "computed_at": "2026-10-28T09:05:26+00:00",
+  "source": "sql/13_usd_constants.sql on the W0 views of sql/21_usd12m_cohorts.sql (contract_rep.u12_constants): events of the W0 cohort from 2025-04-01 00:00:00 UTC to t1",
+  "raw": {
+    "m_transfer": 169.33098583990733,
+    "n_transfers": 492666999.0,
+    "p99_transfer": 18575.27831372273,
+    "m_allowance": 99.97003979708168,
+    "p99_allowance": 9.231705577121693e+62,
+    "n_finite_allowances": 2324723.0,
+    "n_unlimited_allowances": 2230356.0,
+    "p10_transfer": 0.19919037495599998,
+    "p90_transfer": 2421.3587161051646,
+    "p10_allowance": 1.112692702407722,
+    "p90_allowance": 999660.1316607136
+  },
+  "m_transfer_usd": 170.0,
+  "m_allowance_usd": 100.0,
+  "cap_allowance_usd": 19000.0,
+  "b_transfer": 0.00646242522745947,
+  "b_allowance": 0.010986122886681098,
+  "unlimited_base_units": 1.15e+77,
+  "rule": "b = ln 3 / m with m the median rounded to two significant digits; the allowance cap U is the 99th percentile of the USD values of the transfers of the W0 score window, rounded to two significant digits"
+}

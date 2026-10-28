@@ -757,6 +757,203 @@
         "u_constants=u12_constants"
       ],
       "bytes_expected": 40592728400
+    },
+    {
+      "at": "2026-10-28T09:07:10+00:00",
+      "job_id": "aae4ebb0-f190-484a-9e1b-e9e5e45f05cf",
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC",
+        "b_transfer": "0.00646242522745947",
+        "b_allowance": "0.010986122886681098",
+        "cap_allowance": "19000.0"
+      },
+      "subs": [
+        "TAG=tobs"
+      ],
+      "label": "usd12m: pairs at tobs",
+      "bytes_estimated": 9161362986,
+      "bytes_billed": 36782997504,
+      "usd": 0.2091,
+      "renames": [
+        "u_approvals=u12_approvals_tobs",
+        "u_transfers=u12_transfers_tobs",
+        "u_allow_triples_tobs=u12_allow_triples_tobs",
+        "u_allow_pairs_tobs=u12_allow_pairs_tobs",
+        "u_transfer_pairs_tobs=u12_transfer_pairs_tobs"
+      ],
+      "bytes_expected": 37382583638
+    },
+    {
+      "at": "2026-10-28T09:07:48+00:00",
+      "job_id": "fdbcfe8a-19a5-4b9a-a656-a8787f137149",
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "anchor_ts": "2026-03-31 23:59:59 UTC",
+        "b_transfer": "0.00646242522745947",
+        "b_allowance": "0.010986122886681098",
+        "cap_allowance": "19000.0"
+      },
+      "subs": [
+        "TAG=t1"
+      ],
+      "label": "usd12m: pairs at t1",
+      "bytes_estimated": 9552134312,
+      "bytes_billed": 40885026816,
+      "usd": 0.2324,
+      "renames": [
+        "u_approvals=u12_approvals_t1",
+        "u_transfers=u12_transfers_t1",
+        "u_allow_triples_t1=u12_allow_triples_t1",
+        "u_allow_pairs_t1=u12_allow_pairs_t1",
+        "u_transfer_pairs_t1=u12_transfer_pairs_t1"
+      ],
+      "bytes_expected": 41418014368
+    },
+    {
+      "at": "2026-10-28T09:08:25+00:00",
+      "job_id": "adbdde5c-7c11-45ec-b6e0-1652379eeffa",
+      "sql": "sql/15_usd_proxies.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "usd12m: same-window proxies",
+      "bytes_estimated": 27335718426,
+      "bytes_billed": 27336376320,
+      "usd": 0.1554,
+      "renames": [
+        "u_cohort=u12_cohort_tobs",
+        "u_transfers=u12_transfers_tobs",
+        "u_proxies_tobs=u12_proxies_tobs"
+      ],
+      "bytes_expected": 27346061560
+    },
+    {
+      "at": "2026-10-28T09:09:32+00:00",
+      "job_id": "92c0b37c-0659-4f63-8aa7-0f335265d9fe",
+      "sql": "sql/16_usd_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=u12_approvals_t1",
+        "TRANSFERS=u12_transfers_t1",
+        "LOGS=logs_obs"
+      ],
+      "label": "usd12m: W0 labels",
+      "bytes_estimated": 53867600671,
+      "bytes_billed": 53868494848,
+      "usd": 0.3062,
+      "renames": [
+        "u_transfers=u12_transfers_t1",
+        "u_allow_triples_t1=u12_allow_triples_t1",
+        "u_labels_w0=u12_labels_w0"
+      ],
+      "bytes_expected": 54264810692
+    },
+    {
+      "at": "2026-10-28T09:10:25+00:00",
+      "job_id": "f66a1ca1-d501-4011-ac63-3f46e0815825",
+      "sql": "sql/16_usd_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "t1": "2026-06-30 23:59:59 UTC",
+        "out_start": "2026-07-01 00:00:00 UTC",
+        "out_end": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w1",
+        "FREEZE=tobs",
+        "APPROVALS=u12_approvals_w1",
+        "TRANSFERS=u12_transfers_w1",
+        "LOGS=logs_w1"
+      ],
+      "label": "usd12m: W1 labels",
+      "bytes_estimated": 49754705176,
+      "bytes_billed": 49754931200,
+      "usd": 0.2828,
+      "renames": [
+        "u_transfers=u12_transfers_tobs",
+        "u_allow_triples_tobs=u12_allow_triples_tobs",
+        "u_labels_w1=u12_labels_w1"
+      ],
+      "bytes_expected": 50202972384
+    },
+    {
+      "at": "2026-10-28T09:11:10+00:00",
+      "job_id": "29ddd20a-634e-49a1-a976-a074103c06d7",
+      "sql": "sql/17_usd_export_ids.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "usd12m: node ids and export tables",
+      "bytes_estimated": 1124736690,
+      "bytes_billed": 4119855104,
+      "usd": 0.0234,
+      "renames": [
+        "u_allow_pairs_tobs=u12_allow_pairs_tobs",
+        "u_allow_pairs_t1=u12_allow_pairs_t1",
+        "u_transfer_pairs_tobs=u12_transfer_pairs_tobs",
+        "u_transfer_pairs_t1=u12_transfer_pairs_t1",
+        "u_nodes=u12_nodes",
+        "u_x_nodes=u12_x_nodes",
+        "u_x_allow_pairs_tobs=u12_x_allow_pairs_tobs",
+        "u_x_allow_pairs_t1=u12_x_allow_pairs_t1",
+        "u_x_transfer_pairs_tobs=u12_x_transfer_pairs_tobs",
+        "u_x_transfer_pairs_t1=u12_x_transfer_pairs_t1",
+        "u_cohort=u12_cohort_tobs"
+      ],
+      "bytes_expected": 10634657792
+    },
+    {
+      "at": "2026-10-28T09:11:34+00:00",
+      "job_id": "42945b10-0d65-409d-9091-de72b9581e38",
+      "sql": "sql/22_usd12m_describe.sql",
+      "dest": null,
+      "params": {
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs_end": "2026-07-01 00:00:00 UTC",
+        "t1_start": "2025-04-01 00:00:00 UTC",
+        "t1_end": "2026-04-01 00:00:00 UTC",
+        "unlimited": "1.15e+77",
+        "cap_allowance": "19000.0"
+      },
+      "subs": [],
+      "label": "usd12m: descriptive statistics of the score windows",
+      "bytes_estimated": 72548556272,
+      "bytes_billed": 136225751040,
+      "usd": 0.7744,
+      "bytes_expected": 160616331792
+    },
+    {
+      "at": "2026-10-28T09:12:11+00:00",
+      "job_id": "89780150-221b-4e26-89d4-d424872e0a0e",
+      "sql": "sql/23_usd12m_checks.sql",
+      "dest": null,
+      "params": {
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "t1_start": "2025-04-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "usd12m: invariants against the 33-month tables",
+      "bytes_estimated": 6322582364,
+      "bytes_billed": 6322913280,
+      "usd": 0.0359,
+      "bytes_expected": 13545744520
     }
   ]
 }
