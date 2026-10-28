@@ -1,0 +1,119 @@
+% !TEX root = ../main.tex
+\clearpage
+\chapter{부록}
+\label{ch:appendix}
+
+% Demote headings one level under Chapter 8 (sections become 8.1.x).
+\renewcommand{\dissertationSubheading}[2][]{%
+  \phantomsection
+  \subsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+\renewcommand{\dissertationSubsubheading}[2][]{%
+  \phantomsection
+  \subsubsection{#2}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+}
+
+\section{평가 처리 과정과 재현성}
+\label{ch:appendix-eval}
+
+이 부록은 평가 처리 과정(파이프라인)을 기록해요. 이 처리 과정은 \ref{ch:results}장의 바탕이 되고, 부록~\ref{sec:map-registered}에 있는 등록 분석(미리 등록한 그대로 한 분석)의 바탕도 돼요.
+
+\dissertationSubheading[sec:pipeline-stages]{처리 과정의 단계}
+
+평가 소스 코드는 공개 저장소 \url{https://github.com/abitocodes/phd_works}의 \texttt{1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/experiments} 폴더에 있어요. 아래의 경로는 모두 이 폴더를 기준으로 한 상대 경로예요. 평가는 다섯 단계로 이루어져요. 처음 세 단계는 아비트럼 원(Arbitrum One)에서 스캔~A의 기간인 2023년 10월 1일부터 2026년 6월 30일까지를 대상으로 돌아가요(UTC, 양 끝 날 포함). 네 번째 단계는 2026년 7월부터 9월까지를 더해요. 다섯 번째 단계는 앞의 네 단계가 빅쿼리(BigQuery)에 남긴 표를 DefiLlama의 하루 가격, Chainlink의 가격 피드(블록체인에 올라오는 가격 정보)와 함께 읽어요. 그리고 그 표에서 각 동결일(점수를 고정하는 날) 전의 열두 달을 잘라 내요.
+
+\begin{enumerate}
+\item 계획, 코호트, 그래프: 이 연구의 로그(계약이 남기는 기록)를 하나라도 뽑기 전에 분석 계획(\texttt{docs/analysis\_plan.md})과 설정 파일을 커밋해요(커밋 \texttt{43d8045}, 2026년 10월 9일 13:41~UTC). 그 기간의 로그를 프로젝트 표 하나에 옮겨 적어요(스캔~A). 주인(허락을 해 주는 쪽) 적어도 세 명이 허락한 스펜더(spender, 허락을 받아 대신 쓰는 쪽)를 나열해요(\texttt{sql/02\_spender\_candidates.sql}). 그 스펜더들의 계정 종류를 읽고(\texttt{scripts/check\_account\_code.py}), 그 가운데 스마트 계약(블록체인 위에서 저절로 실행되는 프로그램)을 계획의 코호트(묶음)로 남겨요(\texttt{scripts/build\_cohort.py}). 코호트의 에고 이벤트(코호트 계약이 한쪽 끝에 있는 이벤트)를 뽑아요(\texttt{sql/03\_ego\_events.sql}). 그리고 이 이벤트를 모아 $T_{\mathrm{obs}}$와 $t_1$에서 두 그래프의 쌍 표(주소 쌍마다 한 행씩 모은 표)를 만들어요(\texttt{sql/04\_anchor\_pairs.sql}).
+\item 점검과 일치도: \ref{sec:notation}절의 풀이 프로그램(solver) 설정으로 $T_{\mathrm{obs}}$에서 모든 방법의 점수를 매겨요. 그리고 \ref{sec:proxy-formulas}절의 점검을 계산해요. 스피어먼의 $\rho$(두 줄 세우기가 얼마나 비슷한지 나타내는 수)와 켄달의 $\tau$(두 줄 세우기가 얼마나 같은 순서인지 나타내는 수)는 95\% 짝지은 부트스트랩(다시 뽑기) 구간과 함께 보고해요(다시 뽑기 400번, 시드 42). \ref{sec:statistical-tests}절의 대비도 함께 보고해요(\texttt{scripts/run\_same\_window.py}).
+\item 시간 홀드아웃(나중 기간을 떼어 두고 맞혀 보는 시험) W0: $t_1$에서 모든 방법의 점수를 매겨요. 그리고 스펜더 코호트와 트레이더(거래하는 사람) 코호트를 2026년 4월부터 6월까지의 라벨(나중에 채점에 쓰는 정답 값)에 견주어 평가해요. 규칙~A의 대비도 함께 계산해요(\texttt{scripts/run\_holdout.py}).
+\item 등록 기간 W1: 설정 파일의 상태를 등록됨(registered)으로 정해 두고 등록 문서(\texttt{docs/registration\_w1.md})를 커밋해요(커밋 \texttt{0d3a057}, 2026년 10월 9일 16:49~UTC). \texttt{scripts/extract\_w1.py} 스크립트는 그 커밋 전에는 돌아가지 않아요. 이 스크립트는 두 파일의 해시(파일 내용으로 계산한, 지문 같은 값)를 추출 목록(manifest)에 적어요. 그리고 스캔~B와 7월부터 9월까지의 에고 추출을 돌려요. \texttt{scripts/run\_registered.py} 스크립트는 규칙~B, 그리고 두 화살표(엣지) 종류 어느 쪽으로도 만들지 않은 결과 값에서의 비교를 평가해요.
+\item 수정 분석(등록 뒤에 금액을 달러로 바꿔 다시 한 분석; \ref{sec:amount-revision}절): \texttt{scripts/usd\_inputs.py} 스크립트는 토큰 목록과 하루 가격을 만들어요. \texttt{scripts/chainlink\_check.py} 스크립트는 그 가격을 Chainlink 가격 피드와 견주어요. \texttt{scripts/run\_usd\_pipeline.py} 스크립트는 둘을 빅쿼리에 올리고, 1단계와 4단계의 에고 표에서 다섯 토큰의 이벤트를 남겨요(\texttt{sql/19}, \texttt{sql/12}). 그다음 \texttt{scripts/run\_usd12m\_pipeline.py} 스크립트가 각 동결일의 코호트를 그 동결일 전 열두 달의 허락에서 뽑아요. 그리고 그 코호트의 쌍 표, 상수, 대리 지표(대신 재는 값), 라벨을 계산해요(\texttt{sql/20}부터 \texttt{sql/23}까지, 그리고 이 스크립트가 만든 표에 돌리는 \texttt{sql/13}부터 \texttt{sql/17}까지). 또 남긴 허락 쌍과 송금 쌍이 모두 뽑아 낸 쌍 가운데 있는지 확인해요. 그다음 \texttt{CONTRACT\_REP\_VARIANT=usd12m}으로 두면, 2단계부터 4단계까지의 스크립트가 수정 분석을 계산해요. 그리고 \texttt{scripts/run\_robustness.py}, \texttt{scripts/sybil\_model.py}, \texttt{scripts/run\_benchmark.py} 스크립트가 감쇠 계수 점검, 금액 기울기 점검, 표본 정의 점검, 시빌 모형(가짜 주소를 많이 만들어 속이는 공격을 따져 본 모형), 시간 잰 실행을 더해요. \texttt{scripts/run\_supplementary.py} 스크립트는 어느 규칙에도 속하지 않는 대비를 계산해요. 이때 저장해 둔 점수와 같은 다시 뽑은 표본을 써요. 계산하는 대비는 이래요. 활동 재시작(활발한 주소에서 더 자주 다시 출발하기)을 쓰는 엔도스랭크(EndorseRank)를 받은 허락 수(허락 입차수)와 견준 대비, 그 점수를 엔도스랭크와 견준 대비, 그리고 C-PR(결합 페이지랭크, 두 그래프를 함께 걷는 점수)을 다른 모든 점수와 두 원시 차수(화살표를 그냥 센 수)와 견준 대비예요(표~\ref{tab:cpr-contrasts}).
+\end{enumerate}
+
+이 단계들의 순서는 커밋 기록, 비용 장부(ledger), W1의 추출 목록, 그리고 수정 분석의 실행 목록(manifest)에 남아 있어요. 수정 분석 요약 파일의 요약 목록(digest)에는 그 요약 파일을 계산한 코드 버전 \texttt{0a94215}가 적혀 있어요. 요약 파일은 \texttt{950a7a4}에 커밋했어요. 시간 잰 실행은 다른 일을 하지 않는 기계 한 대에서 했어요. 이 기계에는 Intel Core Ultra~9 185H 프로세서와 64~GB 메모리가 있고, Windows~11(빌드 26200), Python 3.11.9, NumPy 2.3.2, SciPy 1.16.1을 썼어요. \texttt{scripts/export\_latex.py} 스크립트가 요약 파일로 \texttt{results/tables/}의 표와 \texttt{Figures/generated/}의 그림을 만들었어요.
+
+실험 폴더에는 다음이 들어 있어요. 질의, 스크립트, 테스트, 버전을 매긴 설정 파일(\texttt{config/contract\_reputation.yaml}), 계획과 등록 문서와 수정 문서(\texttt{docs/}), Chainlink와 견준 결과가 붙은 토큰 목록과 하루 가격(\texttt{data/0-usd-token-list-and-prices/}), 그리고 비용 장부예요. 표의 바탕이 되는 요약 파일은 \texttt{data/3-published-results-for-thesis/revised-usd-12m/}에 있고, 등록 분석의 요약 파일은 \texttt{data/3-published-results-for-thesis/}에 있어요. 두 폴더에는 저마다 설정 파일, 계획, 등록 문서의 복사본이 있어요. 또 모든 숫자에 대해 그 숫자가 든 요약 파일과 키를 알려 주는 요약 목록 \texttt{results\_digest.md}, 그리고 \texttt{SHA256SUMS.txt}가 있어요. 그래서 처리 과정을 다시 돌리지 않고도 표의 어떤 숫자든 그 요약 파일과 맞춰 볼 수 있어요. 뽑아 낸 표와 계약마다의 점수는 90\,MB보다 작은 parquet 조각으로 나누어, 공개 구글 드라이브(Google Drive) 폴더에 두었어요. 커밋해 둔 파일 \texttt{drive-manifest.json}에는 그 폴더의 링크가 있고, 모든 조각이 체크섬(파일이 바뀌지 않았는지 확인하는 값)과 함께 적혀 있어요.
+
+인공 자료로 만든 테스트는 풀이 프로그램, 화살표 무게(가중치), 짝지은 부트스트랩, 달러(USD) 환산을 오프라인(인터넷에 연결하지 않은 상태)으로 점검해요. 실제로 추출하려면 구글 클라우드(Google Cloud) 자격 증명과 요금을 낼 프로젝트가 있어야 해요.
+
+\dissertationSubheading[sec:bq-extraction]{빅쿼리 추출 설계}
+
+공개 표 \texttt{bigquery-public-data.goog\_blockchain\_arbitrum\_one\_us.logs}는 기간마다 한 번씩만 읽어요. 스캔~A는 2023년 10월 1일부터 2026년 6월 30일까지의 ERC-20(토큰 공통 규칙) \texttt{Approval} 로그와 \texttt{Transfer} 로그, GMX~V2 포지션 닫기, 그리고 Aave~V3 풀 이벤트를 달마다 나눈 프로젝트 표 하나에 옮겨 적어요. 이 논문의 어떤 분석도 Aave~V3 풀 이벤트는 쓰지 않아요. 스캔~B는 2026년 7월부터 9월까지에 대해 같은 일을 해요. 그 뒤의 질의는 모두 이 프로젝트 표들을 읽어요. 그래서 체인 전체를 훑는 비용은 기간마다 한 번만 들어요. 그리고 에고 추출은 한쪽 끝에 코호트 계약이 있는 이벤트만 남겨요. 그래서 뽑아 낸 자료의 크기는 체인 전체가 아니라 코호트를 따라가요. 부록~\ref{ch:appendix-sql}에 그 질의들이 있어요.
+
+모든 작업은 \texttt{data/bq\_ledger.json}에 질의, 매개변수, 어림한 바이트 수와 요금이 매겨진 바이트 수, 그리고 비용과 함께 적혀 있어요. 작업 56개에 요금이 매겨진 양은 $6.76$\,TiB예요. 쓴 만큼 내는 요금, 곧 TiB당 USD~6.25로 치면 USD~42.24예요. 설정 파일에 정해 둔 예산은 USD~50이에요. 스캔~A 하나에만 $3.29$\,TiB(USD~20.55)가 매겨졌고, 스캔~B에는 $0.26$\,TiB(USD~1.64)가 매겨졌어요. 등록 분석의 작업 17개에는 USD~29.71이 매겨졌어요. 수정 분석은 작업 세 개가 USD~1.31을 들여 만든 달러 에고 표를 읽어요. 그리고 수정 분석 자신의 작업 11개에는 USD~2.49가 매겨졌어요. 달러 표에 돌린 다른 작업 12개에는 USD~3.78이 매겨졌어요. 그 가운데 세 개는 \texttt{scripts/run\_bq.py} 밖에서 돌렸고, 장부에 손으로 적어 넣었어요. 그리고 탐색적(미리 정하지 않고 살펴본)이라는 꼬리표를 붙인 작업 13개에는 USD~4.95가 매겨졌어요. 이 작업들은 이 논문이 보고하지 않는 분석과 사후 점검(결과를 본 뒤에 한 점검)에 썼어요.
+
+\dissertationSubheading[sec:account-type-classification]{계정 종류 나누기}
+
+코호트에 들어갈 수 있는 주소는 모두 \ref{sec:data-sources}절의 규칙에 따라 그 코드로 종류를 나누었어요. \texttt{scripts/check\_account\_code.py}는 주소마다 한 블록에서 \texttt{eth\_getCode}를 불러요. 그리고 그 블록을, 읽은 시각과 함께 적어 둬요. 표~\ref{tab:account-types}에는 네 번의 실행이 나와요. 네 실행은 모두 2026년 10월 9일에 계획의 주소 집합에 대해 했어요. 그 주소 집합에서는 모든 토큰의 허락을 셌어요. 처음 후보 $20{,}000$개는 공개 접속 주소(블록체인 노드에 질문을 보내는 주소) \url{https://arb1.arbitrum.io/rpc}에서 읽었어요. 그러자 이 접속 주소가 요청 속도를 제한했어요. 그래서 나머지 $9{,}022$개는 같은 블록에서 \url{https://arbitrum-one.public.blastapi.io}로 읽었어요. 뒤의 실행들도 이 접속 주소를 썼어요.
+
+\begin{table}[!htb]
+\centering
+\caption[\texttt{eth\_getCode}로 읽은 계정 종류.]{아비트럼 원에서 \texttt{eth\_getCode}로 읽은 계정 종류예요. 실행마다 한 블록에서 읽었어요. 계약은 코드가 비어 있지 않고, 그 코드가 위임 표시도 아닌 주소예요. 코드 없음과 EIP-7702(위임 표시)는 둘 다 외부 소유 계정(개인 키로 움직이는 계정)이에요. 주소 집합은 계획의 것이에요(어떤 토큰의 허락이든 셈해요). 수정 코호트는 이 집합들의 부분 집합이에요. W0 실행은 코호트 후보가 아닌 스펜더를 읽었어요. W1 실행은 앞의 어느 실행에서도 종류를 나누지 않은 주소를 읽었어요. 출처는 \texttt{data/1-raw-blockchain-extracts/cohort/}와 \texttt{gmx/}에서 결과 파일 옆에 있는 JSON 파일이에요.}
+\label{tab:account-types}
+\fitwidth{%
+\begin{tabular}{lrrrrrr}
+\toprule
+주소 집합 & 블록 & 읽은 시각(UTC) & 주소 수 & 계약 & 코드 없음 & EIP-7702 \\
+\midrule
+코호트 후보: 2023년 10월 -- 2026년 6월에 주인 $\geq 3$명에게서 0이 아닌 허락을 받음 & 513{,}216{,}506 & 2026년 10월 9일, 13:55 & 29{,}022 & 27{,}844 & 1{,}121 & 57 \\
+2023년 10월 -- 2026년 6월에 닫기를 $\geq 3$번 한 GMX~V2 계정 & 513{,}219{,}999 & 2026년 10월 9일, 14:10 & 40{,}307 & 7{,}633 & 28{,}075 & 4{,}599 \\
+$t_1$에 0보다 큰 허락을 가진 W0 스펜더(코호트 후보가 아닌 것) & 513{,}233{,}527 & 2026년 10월 9일, 15:08 & 8{,}224 & 7{,}792 & 413 & 19 \\
+W1 스펜더와 W1에서 닫기를 $\geq 3$번 한 GMX~V2 계정(앞에서 읽지 않은 것) & 513{,}257{,}476 & 2026년 10월 9일, 16:52 & 1{,}153 & 350 & 568 & 235 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+매칭 코호트(모든 점수가 똑같이 점수를 매기는 계약 묶음)는 계획의 코호트의 일부이고, 첫 번째 실행에서 종류를 나누었어요. W0 스펜더는 첫 번째와 세 번째 실행에서 종류를 나누었어요. $t_1$에 다섯 토큰 가운데 하나의 0보다 큰 마지막 허락(가장 최근 허락)을 가진 스펜더는, 계획의 에고 자료에서도 그 허락을 가지고 있었기 때문이에요. W1 스펜더와 트레이더 코호트는 네 실행 모두에서 계정 종류를 가져와요. 그래서 수정 분석에서는 새로 읽지 않았어요. 모든 읽기는 2026년 10월 9일의 체인을 기준으로 해요. 그리고 주소는 그날 가지고 있던 코드로 종류가 나뉘어요.
+
+\dissertationSubheading[sec:benchmark-run-logs]{벤치마크 실행 기록}
+
+표~\ref{tab:benchmark-runs}에는 벤치마크(속도 재기)에서 시간을 잰 풀이 프로그램 호출마다 실제 걸린 시간(초)을 실행한 순서대로 적었어요. 그리고 그 평균과 표준편차(값이 퍼진 정도)도 함께 적었어요. 설정마다, 시간 잰 실행 다섯 번 전에 시간을 재지 않는 준비 실행을 한 번 했어요. 그리고 그래프와 설정마다 시간은 한 번만 쟀어요. 표~\ref{tab:robustness-damping}의 $d=0.85$ 행과 표~\ref{tab:benchmark-scaling}의 전체 코호트 행은 이 표의 첫 번째 덩어리를 그대로 다시 보여 줘요.
+
+\input{results/tables/benchmark-runs.tex}
+
+\dissertationSubheading[sec:parameter-summary]{매개변수 요약}
+
+표~\ref{tab:parameter-summary}에는 수정 분석의 기본 매개변수를 모아 두었어요. 모든 값은 버전을 매긴 설정 파일에서 읽었어요. 다만 토큰, 가격, 금액 기울기들, 상한은 수정과 함께 커밋한 입력 파일에서 읽었어요(\ref{sec:amount-revision}절).
+
+\begin{table}[!htb]
+\centering
+\caption{평가에 쓴 기본 매개변수.}
+\label{tab:parameter-summary}
+\fitwidth{%
+\begin{tabular}{lll}
+\toprule
+매개변수 & 값 & 하는 일 \\
+\midrule
+페이지랭크 감쇠 계수 $d$ & $0.85$; 바꿔 본 값 $0.75$, $0.95$ & 순간 이동 섞기 \\
+수렴 허용 오차 $\varepsilon$ & $L_1$ 노름으로 $10^{-8}$ & 거듭제곱 반복 멈춤 \\
+최대 반복 수 $I_{\max}$ & $300$ & 거듭제곱 반복 상한 \\
+로지스틱 $k$ & $0.01$ & 로지스틱 감쇠 기울기(AWP, EndorseRank, C-PR의 송금 층) \\
+로지스틱 $t_0$ & $180$일 & 로지스틱 감쇠 가운데 점(AWP, EndorseRank, C-PR의 송금 층) \\
+값 변환 $b$ & 달러당 $\ln 3/m$, $m_T=170$, $m_A=100$ & AWP($m_T$)와 EndorseRank($m_A$)의 금액 무게 $V(z)$ \\
+허락 상한 $U$ & $19{,}000$달러 & C-PR 허락 층; 받은 허락 금액 \\
+토큰과 가격 & WETH, USDC, USDT0, ARB, WBTC; DefiLlama 하루 종가 & 이벤트와 달러 금액(표~\ref{tab:usd-tokens}) \\
+재시작 분포 & $\propto X_u$; 균등 & AWP; EndorseRank, C-PR \\
+결합 무게 $\lambda$ & 주된 값 $0.5$; $0.25$, $0.75$ & C-PR 허락 층의 무게, 계획에서 정함 \\
+S-PR 재시작 벡터 & 송금 층 점 위의 C-PR ($\lambda=1$), 합이 1이 되게 다시 맞춤 & 보증 씨앗 순간 이동 \\
+점수 기간 & 2025-07-01 -- 2026-06-30; 2025-04-01 -- 2026-03-31 & 같은 기간과 W1; W0. UTC, 양 끝 포함; 동결일이 로지스틱 감쇠의 기준점 \\
+추출(스캔~A) & 2023-10-01 -- 2026-06-30 & 등록 분석은 이 기간 전체로 점수를 매김 \\
+W0 동결 / 라벨 & 2026-03-31 / 2026-04-01 -- 2026-06-30 & 스펜더 코호트와 트레이더 코호트; 규칙~A \\
+W1 동결 / 라벨 & 2026-06-30 / 2026-07-01 -- 2026-09-30 & 스펜더 코호트와 트레이더 코호트; 규칙~B, 허용 폭 $\delta=0.01$ \\
+부트스트랩 다시 뽑기 / 시드 & $400$ / $42$; $2{,}000$ / $42$ & 짝지은 계약 부트스트랩; 트레이더 비교 \\
+시간 잰 실행 / 준비 실행 & $5$ / $1$ & 실행 시간 재는 방법 \\
+규모 단계 시드 & \texttt{contract-benchmark-v1} & SHA256으로 늘 똑같이 뽑는 부분 표본 \\
+빅쿼리 예산 & USD~50 & 모든 질의 전에 확인 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\input{Chapter-08-Appendix/appendix-b.tex}
+\input{Chapter-08-Appendix/appendix-c.tex}
+\input{Chapter-08-Appendix/appendix-d.tex}
+\input{Chapter-08-Appendix/appendix-endorserank-awp.tex}
+\input{Chapter-08-Appendix/appendix-e.tex}
+\input{Chapter-08-Appendix/appendix-f.tex}

@@ -1,0 +1,146 @@
+% !TEX root = ../main.tex
+% Blockchain data used in the thesis: one lane per analysis, one bar per kind of
+% on-chain record, placed on the months it covers (1 Oct 2023 to 30 Sep 2026).
+% The 18 months from October 2023 to March 2025 are drawn at a compressed scale
+% (0.1 per month); the 18 months from April 2025 to September 2026 at 0.45 per month.
+\begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize, oneline/.style={text height=1.6ex, text depth=0.45ex}]
+\definecolor{dsApproval}{RGB}{0,114,178}
+\definecolor{dsTransfer}{RGB}{0,158,115}
+\definecolor{dsGMX}{RGB}{230,159,0}
+\definecolor{dsOther}{RGB}{140,140,140}
+\def\xa{1.95}% 1 Oct 2023
+\def\xq{3.75}% 1 Apr 2025: start of the W0 score window and of the uncompressed scale
+\def\xs{5.10}% 1 Jul 2025: start of the score window of T_obs
+\def\xj{7.80}% 1 Jan 2026
+\def\xw{9.15}% 1 Apr 2026: W0 freeze t1 (31 Mar 2026, 23:59:59 UTC)
+\def\xt{10.50}% 1 Jul 2026: T_obs and W1 freeze (30 Jun 2026, 23:59:59 UTC)
+\def\xe{11.85}% 1 Oct 2026: end of the W1 labels
+\def\bh{0.36}% bar height
+\def\xr{12.45}% left edge of the right-hand column
+% \dsInput{colour}{y}{x start}{x end}{text}: records used as input
+% (scores, cohorts, same-window checks).
+\def\dsInput#1#2#3#4#5{%
+  \fill[#1!35] (#3,{#2-\bh/2}) rectangle (#4,{#2+\bh/2});
+  \draw[#1!75!black, line width=0.5pt] (#3,{#2-\bh/2}) rectangle (#4,{#2+\bh/2});
+  \node[oneline, inner sep=0pt] at ({(#3+#4)/2},#2) {#5};}
+% \dsHeld{colour}{y}{x start}{x end}{text}: labels counted after a freeze date
+% and kept out of the scores.
+\def\dsHeld#1#2#3#4#5{%
+  \fill[pattern=north east lines, pattern color=#1] (#3,{#2-\bh/2}) rectangle (#4,{#2+\bh/2});
+  \draw[#1!75!black, line width=0.7pt] (#3,{#2-\bh/2}) rectangle (#4,{#2+\bh/2});
+  \node[oneline, fill=white, inner xsep=1pt, inner ysep=0pt] at ({(#3+#4)/2},#2) {#5};}
+\def\rowlabel#1#2#3{\node[oneline, anchor=east, text=#1!75!black] at ({\xa-0.1},#2) {#3};}
+\def\lanetitle#1#2{\node[oneline, anchor=west, font=\footnotesize\bfseries, fill=white, inner sep=1pt] at (0,#1) {#2};}
+\def\laneuse#1#2{\node[anchor=north west, text width=4.9cm, align=flush left, inner sep=0pt] at (\xr,#1) {#2};}
+\def\lanerule#1{\draw[black!25] (0,#1) -- (17.4,#1);}
+\def\ytop{-0.3}% top of the lanes
+\def\ybot{-10.5}% bottom of the lanes
+
+% Calendar: year boundaries on the compressed part, month boundaries from April 2025
+\foreach \x in {1.95,2.25,3.45} {\draw[black!12] (\x,\ytop) -- (\x,\ybot);}
+\foreach \k in {0,...,18} {\draw[black!12] ({\xq+0.45*\k},\ytop) -- ({\xq+0.45*\k},\ybot);}
+\foreach \k/\name in {0/4,1/5,2/6,3/7,4/8,5/9,6/10,7/11,8/12,9/1,10/2,11/3,12/4,13/5,14/6,15/7,16/8,17/9}
+  {\node[oneline] at ({\xq+0.45*(\k+0.5)},0) {\name};}
+\node[oneline] at ({(\xa+\xq)/2},0) {줄인 눈금};
+\node[oneline, font=\scriptsize\bfseries] at ({(\xa+\xq)/2},0.34) {2023년 10월 -- 2025년 3월};
+\node[oneline, font=\scriptsize\bfseries] at ({(\xq+\xj)/2},0.34) {2025년};
+\node[oneline, font=\scriptsize\bfseries] at ({(\xj+\xe)/2},0.34) {2026년};
+\draw[black!60] ({\xq-0.09},-0.24) -- ({\xq-0.01},-0.08);
+\draw[black!60] ({\xq+0.01},-0.24) -- ({\xq+0.09},-0.08);
+\draw[decorate, decoration={brace, amplitude=4pt}] ({\xa+0.03},0.62) -- ({\xt-0.03},0.62)
+  node[oneline, midway, above=4pt] {스캔~A (등록 분석은 이 기간 전체로 점수를 매김)};
+\draw[decorate, decoration={brace, amplitude=4pt}] ({\xt+0.03},0.62) -- ({\xe-0.03},0.62)
+  node[oneline, midway, above=4pt] {스캔~B: W1 라벨};
+
+% Freeze dates
+\draw[black!70, dashed, line width=0.6pt] (\xw,\ytop) -- (\xw,\ybot);
+\draw[black!70, dashed, line width=0.6pt] (\xt,\ytop) -- (\xt,\ybot);
+\node[align=right, anchor=north east] at ({\xw+0.06},{\ybot-0.05}) {2026년 3월 31일\\W0 동결일 $t_1$};
+\node[align=left, anchor=north west] at ({\xt-0.06},{\ybot-0.05}) {2026년 6월 30일\\$T_{\mathrm{obs}}$, W1 동결일};
+
+% Lane 0: extraction
+\lanetitle{-0.6}{추출}
+\rowlabel{dsOther}{-1.0}{로그}
+\dsInput{dsOther}{-1.0}{\xa}{\xt}{허락, 송금, GMX 로그 (스캔~A)}
+\dsHeld{dsOther}{-1.0}{\xt}{\xe}{스캔~B}
+\laneuse{-0.5}{계획의 코호트, 곧 어떤 토큰이든 허락을 받은 계약 $27{,}844$개의 에고 이벤트예요(\S\ref{sec:data-sources}).}
+\lanerule{-1.35}
+
+% Lane A: matched cohort selection
+\lanetitle{-1.65}{매칭 코호트 고르기}
+\rowlabel{dsApproval}{-2.05}{허락}
+\dsInput{dsApproval}{-2.05}{\xs}{\xt}{다섯 토큰, 세 주인}
+\laneuse{-1.55}{$T_{\mathrm{obs}}$ 전 열두 달 동안 적어도 세 주인에게서 다섯 토큰의 허락을 받은 계약이에요(\S\ref{sec:data-sources}).}
+\lanerule{-2.40}
+
+% Lane B: same-window analysis
+\lanetitle{-2.70}{같은 기간 분석, 매칭 코호트($n=6{,}483$)}
+\rowlabel{dsApproval}{-3.10}{허락}
+\dsInput{dsApproval}{-3.10}{\xs}{\xt}{엔도스랭크; 허락 점검}
+\rowlabel{dsTransfer}{-3.54}{송금}
+\dsInput{dsTransfer}{-3.54}{\xs}{\xt}{AWP; 송금 점검과 시빌 점검}
+\laneuse{-2.60}{두 종류의 화살표를 함께 쓰면 \mbox{C-PR}과 \mbox{S-PR}이 나와요. RQ1, 그리고 RQ2의 벤치마크와 RQ4의 같은 기간 부분이에요(\S\S\ref{sec:benchmark-results}--\ref{sec:rank-divergence}, \S\ref{sec:coupled-results}).}
+\lanerule{-3.89}
+
+% Lane C: holdout W0 on spender contracts
+\lanetitle{-4.19}{홀드아웃 W0, 스펜더 계약($n=7{,}914$)}
+\rowlabel{dsApproval}{-4.59}{허락}
+\dsInput{dsApproval}{-4.59}{\xq}{\xw}{점수 입력; W0 코호트}
+\dsHeld{dsApproval}{-4.59}{\xw}{\xt}{쌍}
+\rowlabel{dsTransfer}{-5.03}{송금}
+\dsInput{dsTransfer}{-5.03}{\xq}{\xw}{점수 입력}
+\dsHeld{dsTransfer}{-5.03}{\xw}{\xt}{송금자}
+\laneuse{-4.09}{$t_1$ 전 열두 달 안에 정해진 다섯 토큰의 허락을 가지고 있는 스펜더 계약이에요. RQ3과 RQ4예요(\S\ref{sec:holdout-protocol}, \S\S\ref{sec:holdout-results}--\ref{sec:cpr-results}).}
+\lanerule{-5.38}
+
+% Lane D: W0 trader run
+\lanetitle{-5.68}{W0 트레이더 실행, 탐색적($n=87$)}
+\rowlabel{dsApproval}{-6.08}{허락}
+\dsInput{dsApproval}{-6.08}{\xq}{\xw}{점수 입력}
+\rowlabel{dsTransfer}{-6.52}{송금}
+\dsInput{dsTransfer}{-6.52}{\xq}{\xw}{점수 입력}
+\rowlabel{dsGMX}{-6.96}{GMX V2}
+\dsHeld{dsGMX}{-6.96}{\xw}{\xt}{결과}
+\laneuse{-5.58}{$t_1$ 그래프에 있고 4--6월에 포지션을 세 번 이상 닫은 GMX~V2 계약 계정이에요. 이익 라벨에는 규칙이 없어요(\S\ref{sub:trader-holdout}). 청산 라벨은 결과 비교에만 들어가요.}
+\lanerule{-7.31}
+
+% Lane E: registered window W1
+\lanetitle{-7.61}{등록 기간 W1}
+\rowlabel{dsApproval}{-8.01}{허락}
+\dsInput{dsApproval}{-8.01}{\xs}{\xt}{점수 입력}
+\dsHeld{dsApproval}{-8.01}{\xt}{\xe}{쌍}
+\rowlabel{dsTransfer}{-8.45}{송금}
+\dsInput{dsTransfer}{-8.45}{\xs}{\xt}{점수 입력}
+\dsHeld{dsTransfer}{-8.45}{\xt}{\xe}{송금자}
+\rowlabel{dsGMX}{-8.89}{GMX V2}
+\dsHeld{dsGMX}{-8.89}{\xt}{\xe}{결과}
+\laneuse{-7.51}{스펜더 $7{,}960$개와 트레이더 $70$개이고, 모두 계약이에요. 고친 점수로 규칙~B와 결과 비교를 해요. 이 연구가 2026년 10월 9일 16:49~UTC의 등록 뒤에 뽑아냈어요(\S\ref{sub:fresh-holdout}).}
+\lanerule{-9.24}
+
+% Lane F: account type
+\lanetitle{-9.54}{계정 종류}
+\rowlabel{dsOther}{-10.0}{코드}
+\fill[dsOther!75!black] (12.1,-10.0) +(0,0.13) -- +(0.13,0) -- +(0,-0.13) -- +(-0.13,0) -- cycle;
+\node[anchor=east, fill=white, inner sep=1pt] at (11.9,-10.0) {고정한 블록에서 \texttt{eth\_getCode}, 2026년 10월 9일};
+\laneuse{-9.44}{후보, 스펜더, 트레이더 주소 가운데 어느 것이 계약인지 알아봐요. EIP-7702 위임 표시는 EOA로 세어요(\S\ref{sec:data-sources}).}
+
+% Legend: record colours, then bar styles
+\begin{scope}[shift={(0,-11.6)}]
+  \node[oneline, anchor=west, font=\scriptsize\bfseries, inner sep=0pt] at (0,0) {기록};
+  \foreach \c/\t/\x/\y in {dsApproval/ERC-20 허락 로그/1.4/0, dsTransfer/ERC-20 송금 로그/5.0/0, dsGMX/GMX V2 포지션 닫기/8.6/0, dsOther/{모든 로그, 또는 RPC로 읽은 코드}/12.45/0} {
+    \fill[\c!35] (\x,{\y-0.1}) rectangle ({\x+0.45},{\y+0.1});
+    \draw[\c!75!black, line width=0.5pt] (\x,{\y-0.1}) rectangle ({\x+0.45},{\y+0.1});
+    \node[oneline, anchor=west] at ({\x+0.5},\y) {\t};
+  }
+  \node[oneline, anchor=west, font=\scriptsize\bfseries, inner sep=0pt] at (0,-0.5) {막대};
+  \fill[dsApproval!35] (1.4,-0.6) rectangle (1.625,-0.4);
+  \fill[dsTransfer!35] (1.625,-0.6) rectangle (1.85,-0.4);
+  \draw[black!60, line width=0.5pt] (1.4,-0.6) rectangle (1.85,-0.4);
+  \node[oneline, anchor=west] at (1.9,-0.5) {칠한 막대: 점수, 코호트, 같은 기간 점검에 넣는 입력};
+  \fill[pattern=north east lines, pattern color=black!70] (9.4,-0.6) rectangle (9.85,-0.4);
+  \draw[black!60, line width=0.7pt] (9.4,-0.6) rectangle (9.85,-0.4);
+  \node[oneline, anchor=west] at (9.9,-0.5) {빗금 막대: 떼어 둔 라벨, 동결일 뒤에 셈};
+  \draw[black!70, dashed, line width=0.6pt] (1.625,-1.1) -- (1.625,-0.74);
+  \node[oneline, anchor=west] at (1.9,-0.92) {점선: 동결일};
+\end{scope}
+\end{tikzpicture}

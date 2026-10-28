@@ -5,6 +5,7 @@
 | 폴더 | 내용 |
 |---|---|
 | `overleaf-github/` | 영문 원고(UNISA 양식 LaTeX, XeLaTeX와 biber). 별도 저장소 `phd-dissertation-draft-en`을 서브모듈로 두었고, Overleaf가 그 저장소의 `main`을 읽습니다. 원고 소스, 빌드한 `main.pdf`와 장별 PDF, 투고 원고 `manuscripts/`(`A-plos-one`, `B-ieee-access`), 그 보조 분석 `analysis/`가 있습니다. 폴더가 비어 있으면 저장소 최상위에서 `git submodule update --init`을 실행합니다. |
+| [`overleaf-github-ko/`](overleaf-github-ko/) | 영문 원고를 쉬운 한국어로 옮긴 번역본(LaTeX, `main.pdf`). 번역 기준은 그 폴더의 `TRANSLATION-GUIDE.md`, 원문이 바뀌면 바뀐 문단만 다시 옮기고 `scripts/check_ko.py`로 대조합니다. |
 | [`presentation/`](presentation/) | 학위논문 발표 자료: HTML 슬라이드 59장(한국어판, 영문판), 한 파일 판과 한국어 인쇄판 PDF, 해설 영상 도구 |
 | [`notes/`](notes/) | 원고 작성 규칙과 메모. 빌드에 들어가지 않습니다. |
 | [`tools/numbers/`](tools/numbers/) | 결과 요약이 바뀌었을 때 원고 수치를 옛 요약과 새 요약에 대조하는 도구 |
