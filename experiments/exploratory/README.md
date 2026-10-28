@@ -9,5 +9,6 @@
 | [`2026-10-14-freeze-date-time-weight/`](2026-10-14-freeze-date-time-weight/) | 동결일에 유효한 허락을 그날 기준으로 세면(시간 가중을 빼면) | 보고하지 않음 |
 | [`2026-10-14-role-coupled-walk/`](2026-10-14-role-coupled-walk/) | 주인이 받은 송금으로 주인에게 평판을 주는 역할 결합 보행이 C-PR보다 나은가 | 보고하지 않음 |
 | [`2026-10-22-cpr-against-awp/`](2026-10-22-cpr-against-awp/) | 허락 간선이 AWP 자체에 무엇을 더하나(C-PR, C-AWP 대 AWP) | 보고하지 않음. C-AWP는 6장 향후 연구에 이름만 나오고(2026-10-22 결정, 10-27 재확인), C-PR 대 AWP의 커버리지 결과는 논문이 `scripts/run_supplementary.py`로 다시 계산해 4장(sub:cpr-contrasts, 표 cpr-contrasts)에 씀. 비교 목록은 계산 전에 커밋 |
+| [`2026-10-28-recency-and-depth/`](2026-10-28-recency-and-depth/) | 기간 밖에서 페이지랭크가 원시 차수를 이긴 것(등록 분석의 AWP)은 어디서, 왜 생겼나(대상 계약, 최신성과 전파, 깊이) | 아직 보고하지 않음(5장에 넣을지는 저자 판단). 비교 목록은 계산 전에 커밋. 기준은 등록 분석과 12개월 주 분석 |
 
 폴더마다 `scripts/`(와 `sql/`)에 그 점검의 코드가, 맨 위에 결과 파일(JSON, CSV)이 있습니다. 새로 받은 BigQuery 표는 `../data/1-raw-blockchain-extracts/exploratory-2026-10-13/`, `exploratory-2026-10-14/`에 있습니다.
