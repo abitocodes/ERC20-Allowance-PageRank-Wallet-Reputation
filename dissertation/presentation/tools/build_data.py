@@ -17,16 +17,19 @@ presentation/tools/build_data.py``). ``--out`` defaults to ``../data`` next to t
 
 Sources (all under ``<PHD_WORKS>/1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/``)
 -------------------------------------------------------------------------------------------------
-- ``experiments/data/3-published-results-for-thesis/revised-usd/``: summaries of the revised
-  analysis (the thesis's main analysis) and its ``results_digest.md``;
+- ``experiments/data/3-published-results-for-thesis/revised-usd-12m/``: summaries of the revised
+  analysis (the thesis's main analysis: USD amounts, five tokens, scores from the twelve months
+  before each freeze) and its ``results_digest.md``;
 - ``experiments/data/3-published-results-for-thesis/``: summaries of the registered analysis and
   its ``results_digest.md``;
-- ``experiments/data/2-processed-tables-and-evaluations/revised-usd/``: per-contract scores
+- ``experiments/data/2-processed-tables-and-evaluations/revised-usd-12m/``: per-contract scores
   (``same-window/cohort_scores.part*.parquet``, ``holdout-w0`` and ``window-w1``
   ``spender_scores``/``trader_scores``) and the registered cohort scores;
-- ``experiments/data/0-usd-token-list-and-prices/``: listed tokens, daily USD closes, constants;
+- ``experiments/data/0-usd-token-list-and-prices/``: listed tokens, daily USD closes; ``usd-12m/``:
+  the constants and the token rows of the twelve-month score windows;
 - ``experiments/data/bq_ledger.json`` and ``experiments/config/contract_reputation.yaml``;
-- ``git -C <PHD_WORKS> show`` for the commit times of 43d8045, 0d3a057, a897475, 09dfc32, 2705b28.
+- ``git -C <PHD_WORKS> show`` for the commit times of 43d8045 and 0d3a057. The deck does not date the
+  definitions of the revised analysis (the thesis says only that they followed the registered results).
 
 Nothing is fitted or re-estimated. A few quantities are *derived* from the per-contract parquet
 files (percentile ranks, decile bins of the holdout labels, the Sybil cost curve through the
@@ -53,6 +56,7 @@ import re
 import subprocess
 import sys
 from datetime import datetime, timezone
+from decimal import ROUND_HALF_UP, Decimal, localcontext
 from pathlib import Path
 
 import numpy as np
@@ -62,16 +66,10 @@ PROJECT_REL = Path("1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputat
 COMMITS = {
     "43d8045": "Analysis plan and configuration fixed before this study extracted any log",
     "0d3a057": "W1 registration, extraction and evaluation code committed before scan B",
-    "a897475": "Revision document (USD amounts, priced tokens) committed before any revised score",
-    "09dfc32": "Choice of five tokens (WETH, USDC, USDT0, ARB, WBTC) and price inputs committed",
-    "2705b28": "Allowance cap U = $20,000 and constants m_T, m_A committed before any revised score",
 }
 COMMITS_KO = {
     "43d8045": "분석 계획과 설정 고정(이 연구의 로그 추출 전)",
     "0d3a057": "W1 등록 문서와 추출·평가 코드 커밋(2차 추출 전)",
-    "a897475": "수정 계획 커밋: 금액을 달러로, 가격 있는 토큰만(수정 점수 계산 전)",
-    "09dfc32": "다섯 토큰과 가격 입력 커밋(수정 점수 계산 전)",
-    "2705b28": "허락 층 상한 U = 20,000달러, m_T·m_A 커밋(수정 점수 계산 전)",
 }
 
 METHODS = [
@@ -131,10 +129,11 @@ NEUTRAL_PAIRS = {
 }
 NOTES = {
     "revised": ("Revised analysis = the thesis's main analysis: USD amounts, five tokens (WETH, USDC, "
-                "USDT0, ARB, WBTC). Decided after the registered results were known, so none of its "
-                "results is a registered result; its rule verdicts are a re-analysis."),
-    "revised_ko": ("수정 분석 = 논문의 주 결과예요. 금액은 달러, 토큰은 다섯 개예요. 등록 결과를 본 뒤 정했기 "
-                   "때문에 등록된 결과가 아니에요. 규칙 판정은 재분석이에요."),
+                "USDT0, ARB, WBTC), scores from the twelve months before each freeze. Decided after the "
+                "registered results were known, so none of its results is a registered result; its rule "
+                "verdicts are a re-analysis."),
+    "revised_ko": ("수정 분석 = 논문의 주 결과예요. 금액은 달러, 토큰은 다섯 개, 점수는 동결마다 그 전 12개월로 "
+                   "만들어요. 등록 결과를 본 뒤 정했기 때문에 등록된 결과가 아니에요. 규칙 판정은 재분석이에요."),
     "registered": ("Registered analysis: raw base units, every ERC-20 token, b = 1. Rule A fixed in the "
                    "plan (43d8045) before this study extracted any log; rule B, P/Q and R1-R3 fixed in the W1 "
                    "registration (0d3a057) before scan B."),
@@ -150,9 +149,11 @@ NOTES = {
     "raw_degree": ("On new approval pairs the raw in-approve degree ranks spenders better than EndorseRank "
                    "(uniform restarts) in both windows (post hoc contrasts)."),
     "raw_degree_ko": "새 허락 쌍에서는 그냥 센 허락 수가 엔도스랭크보다 잘 맞혔어요(두 기간 모두, 사후 대비).",
-    "speed": ("Same solver for every score: runtime differences follow from the edge count |E| of each "
-              "graph, not from the algorithm."),
-    "speed_ko": "모든 점수가 같은 풀이 프로그램을 써요. 시간 차이는 그래프의 화살표 수 |E|에서 와요. 알고리즘의 기여가 아니에요.",
+    "speed": ("Same solver for every score: runtime differences follow from the size of each graph and the "
+              "iterations its walk needs there (the time ratio does not follow the edge ratio), not from the "
+              "algorithm."),
+    "speed_ko": ("모든 점수가 같은 풀이 프로그램을 써요. 시간 차이는 그래프의 크기와 그 그래프에서 걷기가 되풀이해야 하는 "
+                 "반복 수에서 와요(시간 비는 화살표 수의 비를 따르지 않아요). 알고리즘의 기여가 아니에요."),
     "contracts_only": ("The study scores and evaluates smart contracts only; EOAs enter the graphs as owners, "
                        "senders and recipients and are never scored."),
     "contracts_only_ko": ("이 연구는 스마트 계약만 점수를 매기고 평가해요. EOA는 화살표의 출발점과 "
@@ -176,8 +177,18 @@ def sig(x, n=4):
     return float(f"{x:.{n}g}")
 
 
+def js_fixed(y, d):
+    """y shown with d decimals the way the deck shows it: Intl.NumberFormat in Chromium rounds the
+    shortest decimal string of the double half away from zero (0.2135 -> 0.214), whereas Python's
+    f"{y:.3f}" rounds the exact binary value (0.2135 -> 0.213)."""
+    with localcontext() as ctx:
+        ctx.prec = 400  # room for values up to 2**256 at four decimals
+        s = str(Decimal(repr(float(y))).quantize(Decimal(1).scaleb(-d), rounding=ROUND_HALF_UP))
+    return "0" + s[2:] if s.startswith("-0") and not any(ch in "123456789" for ch in s) else s
+
+
 def safe(x, n=4):
-    """sig() that keeps the 2-, 3- and 4-decimal displays of x (no double-rounding drift)."""
+    """sig() that keeps the 1- to 4-decimal displays of x as the deck renders them (no double-rounding drift)."""
     if x is None or isinstance(x, (bool, np.bool_, int, np.integer)):
         return sig(x)
     x = float(x)
@@ -185,7 +196,9 @@ def safe(x, n=4):
         return None
     for k in range(n, 17):
         y = float(f"{x:.{k}g}")
-        if all(f"{y:.{d}f}" == f"{x:.{d}f}" for d in (1, 2, 3, 4)):
+        # both ways the deck prints a number must give the digest's display: Intl.NumberFormat (js_fixed)
+        # and Number.toFixed, which rounds the exact binary value as Python's format does
+        if all(js_fixed(y, d) == f"{x:.{d}f}" == f"{y:.{d}f}" for d in (1, 2, 3, 4)):
             return y
     return x
 
@@ -298,10 +311,11 @@ class Ctx:
         self.exp = self.proj / "experiments"
         self.data = self.exp / "data"
         self.pub = self.data / "3-published-results-for-thesis"
-        self.pub_rev = self.pub / "revised-usd"
+        self.pub_rev = self.pub / "revised-usd-12m"
         self.proc = self.data / "2-processed-tables-and-evaluations"
-        self.proc_rev = self.proc / "revised-usd"
+        self.proc_rev = self.proc / "revised-usd-12m"
         self.usd = self.data / "0-usd-token-list-and-prices"
+        self.usd12 = self.usd / "usd-12m"
         self.out = out
         self.sources: dict[str, Path] = {}
         self.current: set[str] = set()
@@ -457,13 +471,11 @@ def build_timeline(c: Ctx, digests):
     reg_desc = c.j(c.pub / "describe/describe.json")
     rev_desc = c.j(c.pub_rev / "describe/describe.json")
     manifest = c.j(c.pub / "registered-w1/extraction_manifest.json")
-    consts = c.j(c.usd / "constants.json")
     ledger = c.j(c.data / "bq_ledger.json")
     cfg_path = c.exp / "config/contract_reputation.yaml"
     commits = []
     fallback = {"43d8045": reg_desc["timing"].get("plan_commit_43d8045_utc"),
-                "0d3a057": reg_desc["timing"].get("registration_commit_0d3a057_utc"),
-                "a897475": rev_desc["timing"]["revision_commit_utc"].split(" ", 1)[1]}
+                "0d3a057": reg_desc["timing"].get("registration_commit_0d3a057_utc")}
     for short, what in COMMITS.items():
         g = git_commit(c.phd, short)
         if g is None:
@@ -494,17 +506,7 @@ def build_timeline(c: Ctx, digests):
         {"t": digests["registered"]["written_utc"], "id": "registered_digest",
          "en": "Registered results digest written", "ko": "등록 분석 결과 요약 작성",
          "source": "results_digest.md header"},
-        {"t": zulu(consts["computed_at"]), "id": "usd_constants",
-         "en": "USD constants (medians, percentiles) computed from events up to t1",
-         "ko": "달러 상수(중앙값·백분위) 계산(t1까지의 이벤트)", "source": "0-usd-token-list-and-prices/constants.json : computed_at"},
-        {"t": digests["revised"]["written_utc"], "id": "revised_digest",
-         "en": "Revised results digest written", "ko": "수정 분석 결과 요약 작성", "source": "revised-usd/results_digest.md header"},
     ]
-    first_rev_pairs = next(j for j in ledger["jobs"] if j.get("sql") == "sql/14_usd_anchor_pairs.sql")
-    events.append({"t": zulu(first_rev_pairs["at"]), "id": "first_revised_pair_table",
-                   "en": "First revised pair table (input of the revised scores) finished",
-                   "ko": "첫 수정 분석 쌍 표(수정 점수의 입력) 완료",
-                   "source": "bq_ledger.json (time written when the job finished)"})
     events.sort(key=lambda e: e["t"])
 
     def gap(a, b):
@@ -513,8 +515,7 @@ def build_timeline(c: Ctx, digests):
     ev = {e["id"]: e["t"] for e in events}
     gaps = {"plan_commit_to_scan_a_created_s": gap(cm["43d8045"], ev["scan_a_created"]),
             "registration_commit_to_w1_extraction_start_s": gap(cm["0d3a057"], ev["w1_extraction_started"]),
-            "registration_commit_to_scan_b_created_s": gap(cm["0d3a057"], ev["scan_b_created"]),
-            "cap_commit_to_first_revised_pair_table_finished_s": gap(cm["2705b28"], ev["first_revised_pair_table"])}
+            "registration_commit_to_scan_b_created_s": gap(cm["0d3a057"], ev["scan_b_created"])}
     jobs = [{"at": zulu(j["at"]), "label": j["label"], "sql": j.get("sql"),
              "tib_billed": sig((j.get("bytes_billed") or 0) / 2 ** 40), "usd": safe(j.get("usd"))}
             for j in ledger["jobs"]]
@@ -533,12 +534,15 @@ def build_timeline(c: Ctx, digests):
                         c.rel(cfg_path), "git log of phd_works"],
         },
         "periods": [
-            {"id": "observation", "en": "Observation window", "ko": "관측 기간",
-             "from": "2023-10-01T00:00:00Z", "to": "2026-06-30T23:59:59Z",
-             "use_en": "scores at T_obs, same-window checks, benchmark, robustness",
-             "use_ko": "T_obs 점수, 같은 기간 점검, 벤치마크, 강건성"},
-            {"id": "w0_scores", "en": "W0 scores (events up to t1)", "ko": "W0 점수(t1까지의 이벤트)",
-             "from": "2023-10-01T00:00:00Z", "to": "2026-03-31T23:59:59Z"},
+            {"id": "extraction", "en": "Scan A (extracted logs; the registered analysis scores all of it)",
+             "ko": "1차 추출(뽑은 로그, 등록 분석은 이 기간 전부로 점수를 만듦)",
+             "from": "2023-10-01T00:00:00Z", "to": "2026-06-30T23:59:59Z"},
+            {"id": "observation", "en": "T_obs score window (twelve months)", "ko": "T_obs 점수 기간(12개월)",
+             "from": "2025-07-01T00:00:00Z", "to": "2026-06-30T23:59:59Z",
+             "use_en": "scores at T_obs, same-window checks, benchmark, robustness, W1 scores",
+             "use_ko": "T_obs 점수, 같은 기간 점검, 벤치마크, 강건성, W1 점수"},
+            {"id": "w0_scores", "en": "W0 score window (twelve months before t1)", "ko": "W0 점수 기간(t1 전 12개월)",
+             "from": "2025-04-01T00:00:00Z", "to": "2026-03-31T23:59:59Z"},
             {"id": "w0_labels", "en": "W0 labels", "ko": "W0 라벨 기간",
              "from": "2026-04-01T00:00:00Z", "to": "2026-06-30T23:59:59Z"},
             {"id": "w1_labels", "en": "W1 labels (extracted by this study only after the registration commit)",
@@ -546,7 +550,9 @@ def build_timeline(c: Ctx, digests):
         ],
         "anchors": {"data_start": "2023-10-01T00:00:00Z", "t1": "2026-03-31T23:59:59Z",
                     "t_obs": "2026-06-30T23:59:59Z", "data_end": "2026-09-30T23:59:59Z",
-                    "max_age_days_tobs": 1004, "max_age_days_t1": 913},
+                    "score_window_tobs": ["2025-07-01T00:00:00Z", "2026-06-30T23:59:59Z"],
+                    "score_window_t1": ["2025-04-01T00:00:00Z", "2026-03-31T23:59:59Z"],
+                    "max_age_days_tobs": 365, "max_age_days_t1": 365},
         "commits": commits,
         "events": events,
         "gaps": gaps,
@@ -555,7 +561,10 @@ def build_timeline(c: Ctx, digests):
                      "registered_tib": reg_desc["timing"]["bigquery_tib_billed"],
                      "total_usd": rev_desc["timing"]["bigquery_usd_total"],
                      "total_tib": rev_desc["timing"]["bigquery_tib_billed"],
-                     "revised_jobs_usd": rev_desc["timing"]["revised_jobs_usd"], "budget_usd": 50},
+                     "revised_jobs_usd": round(rev_desc["timing"]["usd_ego_tables_jobs_usd"]
+                                               + rev_desc["timing"]["usd12m_jobs_usd"], 2),
+                     "usd_ego_tables_jobs_usd": rev_desc["timing"]["usd_ego_tables_jobs_usd"],
+                     "score_window_jobs_usd": rev_desc["timing"]["usd12m_jobs_usd"], "budget_usd": 50},
         "monthly_counts": monthly,
         "gmx_contract_traders_by_quarter": rev_desc["gmx_contract_traders_by_quarter"],
     }
@@ -565,17 +574,26 @@ def build_scale(c: Ctx):
     out = {"meta": {"note": "Counts exactly as in the published summaries of both analyses.",
                     "revised_note": NOTES["revised"], "registered_note": NOTES["registered"]}}
     usd_inputs = c.j(c.usd / "usd_inputs.json")
+    rows12 = c.j(c.usd12 / "token_rows.json")
+    per12 = {t["address"].lower(): t for t in rows12["per_listed_token"]}
+    in_window = rows12["rows_in_window"]
     tok = pd.read_csv(c.use(c.usd / "listed_tokens.csv"))
     sel = tok[tok["selected"]].sort_values("rank_by_n")
     out["tokens"] = {
         "candidates": usd_inputs["candidates"], "listed": usd_inputs["listed"],
         "priced": usd_inputs["priced_tokens"], "selected": usd_inputs["top_n"],
         "listed_without_price": len(usd_inputs["listed_without_price"]),
-        "listed_share_of_rows_tobs": safe(usd_inputs["listed_share_of_rows_tobs"]),
-        "priced_share_of_rows_tobs": safe(usd_inputs["priced_share_of_rows_tobs"]),
+        "rows_in_window_tobs": in_window,
+        "listed_share_of_rows_tobs": safe(sum(t["rows_total"] for t in rows12["per_listed_token"]) / in_window),
+        "priced_share_of_rows_tobs": safe(sum(t["rows_total"] for t in rows12["per_listed_token"] if t["priced"])
+                                          / in_window),
+        "selected_share_of_rows_tobs": safe(sum(t["rows_total"] for t in rows12["per_listed_token"] if t["selected"])
+                                            / in_window),
         "selected_tokens": [{"symbol": ("USDT0" if r["symbol"] not in ("WETH", "USDC", "ARB", "WBTC") else r["symbol"]),
-                             "address": r["address"], "rows_tobs": int(r["n_rows_tobs"]),
+                             "address": r["address"], "rows_tobs": int(per12[r["address"].lower()]["rows_total"]),
                              "feed": r["feed"], "feed_category": r["feed_category"]} for _, r in sel.iterrows()],
+        "rows_note": ("rows of the T_obs score window: ego transfers in the window plus positive latest "
+                      "allowances at T_obs set inside it (usd-12m/token_rows.json)"),
         "funnel_en": ["Chainlink-mapped tokens", "low/medium market-risk feed", "with a daily price", "top five by rows"],
         "funnel_ko": ["체인링크가 대응시킨 토큰", "위험 등급 낮음·중간", "하루 가격이 있음", "행 수 상위 다섯"],
         "source": c.rel(c.usd / "usd_inputs.json"),
@@ -850,7 +868,7 @@ def build_params(c: Ctx, cfg):
     contracts_df = c.pq(c.proc_rev / "same-window", "cohort_scores")
     c.use(c.exp / "config/contract_reputation.yaml")
     rep = cfg["reputation"]
-    consts = c.j(c.usd / "constants.json")
+    consts = c.j(c.usd12 / "constants.json")
     sw_rev = c.j(c.pub_rev / "same-window/eval_summary.json")
     h0_rev = c.j(c.pub_rev / "holdout-w0/eval_summary.json")
     sm = c.j(c.pub_rev / "sybil-model/sybil_model.json")
@@ -863,7 +881,7 @@ def build_params(c: Ctx, cfg):
     def V(z, b):
         return 2.0 / (1.0 + math.exp(-b * z)) - 1.0
 
-    dts = list(range(0, 1101, 5))
+    dts = list(range(0, 366, 5))
     zs = [float(f"{z:.4g}") for z in np.logspace(-1, 6, 141)]
     bT, bA = consts["b_transfer"], consts["b_allowance"]
     # worked example of Chapter 2 (toy graph from the thesis text)
@@ -924,9 +942,10 @@ def build_params(c: Ctx, cfg):
         "tau_b": safe((nc - nd) / math.sqrt((n0 - t1) * (n0 - t2))) if (n0 - t1) * (n0 - t2) > 0 else None,
     }
     return {
-        "meta": {"sources": [c.rel(c.exp / "config/contract_reputation.yaml"), c.rel(c.usd / "constants.json"),
+        "meta": {"sources": [c.rel(c.exp / "config/contract_reputation.yaml"), c.rel(c.usd12 / "constants.json"),
                              c.rel(c.pub_rev / "same-window/eval_summary.json"), c.rel(c.pub_rev / "sybil-model/sybil_model.json")],
-                 "note": "Parameters fixed in the configuration of 9 October 2026 and the revision constants of 10 October 2026."},
+                 "note": ("Parameters fixed in the configuration of 9 October 2026; the US-dollar constants of the revised "
+                          "analysis are set on the W0 score window (usd-12m/constants.json).")},
         "chain": {"name": cfg["chain_name"], "id": cfg["chain_id"]},
         "pagerank": {"d": d, "tol": float(rep["pagerank_tolerance"]), "max_iter": int(rep["max_iterations"]),
                      "start": "r(0) = 1/|V|", "stop": "||r(t+1) - r(t)||_1 < tol or max_iter",
@@ -934,7 +953,7 @@ def build_params(c: Ctx, cfg):
                      "restarts": {"endorserank": "uniform", "awp": "π_u ∝ X_u (activeness)",
                                   "cpr": "uniform", "spr": "π ∝ C-PR (λ=1) scores on V_T"}},
         "decay": {"k": k, "t0_days": t0, "formula": "σ(Δt) = 1 / (1 + exp(k (Δt - t0)))",
-                  "table": [[t, round(sigma(t), 4)] for t in (0, 90, 182, 365, 730, 913, 1004)],
+                  "table": [[t, round(sigma(t), 4)] for t in (0, 90, 180, 273, 365)],
                   "curve": {"dt": dts, "sigma": [sig(sigma(t)) for t in dts]}},
         "value": {"formula": "V(z) = 2/(1 + e^(-b z)) - 1", "rule": consts["rule"],
                   "m_T": consts["m_transfer_usd"], "m_A": consts["m_allowance_usd"],
@@ -948,9 +967,9 @@ def build_params(c: Ctx, cfg):
                 "p99_finite_allowance_usd_raw": sig(consts["raw"]["p99_allowance"]),
                 "unlimited_threshold_base_units": consts["unlimited_base_units"],
                 "uint256_max": sig(2.0 ** 256 - 1),
-                "note": ("U = 99th percentile of single-transfer USD values up to t1, rounded to two significant "
-                         "digits; the first definition (99th percentile of finite allowances) was about 1e47 USD and was "
-                         "amended (commit 2705b28) before any revised score existed")},
+                "note": ("U = 99th percentile of single-transfer USD values in the W0 score window (2025-04-01 to t1), "
+                         "rounded to two significant digits; the 99th percentile of the finite allowances themselves is "
+                         "about 1e63 USD, so a cap taken from them would leave unlimited allowances in charge of the rows")},
         "coupled": {"lambda_primary": float(rep["hybrid"]["coupled_lambda_primary"]),
                     "lambda_grid": [float(x) for x in rep["hybrid"]["coupled_lambda_grid"]], "endpoints": [0.0, 1.0],
                     "row": "P(λ)_u = α_A(u) P_A,u + α_T(u) P_T,u; α_A = λ 1[o_A>0]/D, α_T = (1-λ) 1[o_T>0]/D"},
@@ -1190,7 +1209,7 @@ def verify(c: Ctx, digests):
         checks.append(("parquet recomputation", "scipy not installed", None, True))
 
     w = max(len(x[0]) for x in checks)
-    print("\nVerification against the results digests (revised-usd/results_digest.md = rev, results_digest.md = reg):")
+    print("\nVerification against the results digests (revised-usd-12m/results_digest.md = rev, results_digest.md = reg):")
     print(f"{'check':<{w}}  {'ok':<4} digest value  ||  deck value")
     for name, dv, ov, ok in checks:
         ovs = ov if isinstance(ov, bool) else ", ".join(

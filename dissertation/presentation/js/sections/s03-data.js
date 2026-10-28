@@ -3,9 +3,13 @@
 
    Every number on screen is read from window.DECK_DATA (built from the two
    results digests and experiments/data/) with the digest value as fallback:
-     revised digest (R) = the thesis's main analysis; registered digest (G) is
-     labelled "등록 분석" wherever it appears (s03-02 plan-stage rows, s03-04 the
-     first two funnel stages).
+     revised digest (R, revised-usd-12m) = the thesis's main analysis: USD, five
+     tokens, scores from the twelve months before each freeze (T_obs and W1:
+     2025-07-01 – 2026-06-30; W0: 2025-04-01 – 2026-03-31); registered digest (G)
+     is labelled "등록 분석" wherever it appears (s03-01 the streams of scan A,
+     s03-02 the all-token rows, s03-04 the first two funnel stages).
+   The extraction itself covers scan A (2023-10-01 – 2026-06-30) and scan B
+   (July – September 2026); s03-01 shows both and the two score windows.
    Pictures that are only illustrations (s03-05 galaxies) carry the 예시 tag.
    No address or contract name is ever drawn (honesty rule 8).
    Styles are injected once with the prefix .s3- so they cannot leak into
@@ -52,40 +56,54 @@
   function n0(v) { return fmt(v, 0); }
   var LOCK_SVG = (Deck.ICONS && Deck.ICONS.lock) || '';
 
+  /* monthly ego counts: the registered series covers scan A (2023-10 … 2026-06, every token, the
+     plan's cohort); the revised series covers the T_obs score window (2025-07 … 2026-06, five tokens) */
+  var MCR = get(TLD, 'monthly_counts.registered', {});
+  function sumRows(rows) { var s = 0; (rows || []).forEach(function (r) { s += r[1]; }); return s; }
+
   /* numbers (digest value as fallback; see STORYBOARD §0.2 for the keys) */
   var N = {
-    appr: get(REV, 'rows.revised_ego.approvals', 224954202),
-    xfer: get(REV, 'rows.revised_ego.transfers', 1149168538),
-    regAppr: get(REV, 'rows.registered_ego.approvals', 389866882),
-    regXfer: get(REV, 'rows.registered_ego.transfers', 1538404067),
-    w1Appr: get(REV, 'rows.revised_ego.approvals_w1', 12209894),
-    w1Xfer: get(REV, 'rows.revised_ego.transfers_w1', 60182192),
-    bqUsd: get(TLD, 'bigquery.total_usd', 34.8),
+    appr: get(REV, 'rows.revised_ego.approvals', 85986562),
+    xfer: get(REV, 'rows.revised_ego.transfers', 442722039),
+    /* registered analysis: every ego event of scan A (33 months, every token) */
+    regAppr: sumRows(MCR.approval_ego) || 389866882,
+    regXfer: sumRows(MCR.transfer_ego) || get(REG, 'amounts.transfers_ego', 1538404067),
+    w1Appr: get(REV, 'rows.revised_ego.approvals_w1', 12200682),
+    w1Xfer: get(REV, 'rows.revised_ego.transfers_w1', 58625425),
+    bqUsd: get(TLD, 'bigquery.total_usd', 42.24),
     budget: get(TLD, 'bigquery.budget_usd', 50),
     cand: get(REG, 'candidates', 29022),
     codeContract: get(REG, 'by_code_kind.contract', 27844),
     codeNone: get(REG, 'by_code_kind.none', 1121),
     code7702: get(REG, 'by_code_kind.eip7702', 57),
-    matched: get(REV, 'cohort', 15107),
-    leftOut: get(REV, 'left_out_of_registered', 12737),
-    outA: get(REV, 'graph_tobs.cohort_outside_allowance', 523),
-    outT: get(REV, 'graph_tobs.cohort_outside_transfer', 2670),
-    outBoth: get(REV, 'graph_tobs.cohort_outside_both', 80),
-    gAn: get(REV, 'graph_tobs.allowance.nodes', 6221665),
-    gAe: get(REV, 'graph_tobs.allowance.edges', 11210114),
-    gTn: get(REV, 'graph_tobs.transfer.nodes', 7884602),
-    gTe: get(REV, 'graph_tobs.transfer.edges', 25001216),
-    owners: get(REV, 'amounts.owners', 6208769),
-    maxAge: get(TLD, 'anchors.max_age_days_tobs', 1004)
+    matched: get(REV, 'cohort', 6483),
+    leftOut: get(REV, 'left_out_of_registered', 21361),
+    outA: get(REV, 'graph_tobs.cohort_outside_allowance', 191),
+    outT: get(REV, 'graph_tobs.cohort_outside_transfer', 1192),
+    outBoth: get(REV, 'graph_tobs.cohort_outside_both', 30),
+    gAn: get(REV, 'graph_tobs.allowance.nodes', 2514846),
+    gAe: get(REV, 'graph_tobs.allowance.edges', 3808949),
+    gTn: get(REV, 'graph_tobs.transfer.nodes', 3603300),
+    gTe: get(REV, 'graph_tobs.transfer.edges', 8426124),
+    owners: get(REV, 'amounts.owners', 2508872),
+    maxAge: get(TLD, 'anchors.max_age_days_tobs', 365)
   };
   /* R§10 "AWP/EndorseRank edge ratio (derived)": edges of the two solver graphs */
-  N.edgeRatio = (get(BM, 'revised.main.awp.edges', 25001216) / get(BM, 'revised.main.endorserank.edges', 11210114));
-  var TIES = get(RES, 'revised.same_window.ties.endorserank', { distinct: 13625, zeros: 535 });
-  var TIES_AWP = get(RES, 'revised.same_window.ties.awp', { distinct: 12435, zeros: 2672 });
+  N.edgeRatio = (get(BM, 'revised.main.awp.edges', 8426124) / get(BM, 'revised.main.endorserank.edges', 3808949));
+  var TIES = get(RES, 'revised.same_window.ties.endorserank', { distinct: 5641, zeros: 197 });
+  var TIES_AWP = get(RES, 'revised.same_window.ties.awp', { distinct: 5292, zeros: 1192 });
   /* zero scores = contracts outside that graph + contracts whose only pairs carry amounts too small
-     for the value weight to differ from zero (thesis Ch. 4: 535 = 523 + 12, 2,672 = 2,670 + 2) */
+     for the value weight to differ from zero (thesis Ch. 4: 197 = 191 + 6; AWP 1,192 = 1,192 + 0) */
   N.tinyA = TIES.zeros - N.outA;
   N.tinyT = TIES_AWP.zeros - N.outT;
+  /* a large count in words for the notes, rounded to two significant digits: 85,986,562 → '8,600만',
+     442,722,039 → '4억 4천만', 1,538,404,067 → '15억' */
+  function koApprox(v) {
+    var p = Math.pow(10, Math.max(0, Math.floor(Math.log10(v)) - 1)), r = Math.round(v / p) * p;
+    var eok = Math.floor(r / 1e8), man = Math.round((r % 1e8) / 1e4), s = eok ? eok + '억' : '';
+    if (man) s += (s ? ' ' : '') + (man % 1000 === 0 ? (man / 1000) + '천' : fmt(man)) + '만';
+    return s;
+  }
 
   /* ---------------------------------------------------------------- styles */
   (function injectStyle() {
@@ -165,24 +183,31 @@
   })();
 
   /* =================================================================== s03-01
-     3년의 달력: time axis 2023-10 … 2026-09, monthly ego counts (two streams,
-     each scaled to its own maximum), freeze pins t1 / T_obs, label windows
-     W0 / W1 (hatched), lock on W1, age ruler from T_obs (0 … 1,004 days). */
+     3년의 달력: time axis 2023-10 … 2026-09; the extracted logs of scan A as monthly ego
+     counts (registered series, every token; two streams, each scaled to its own maximum);
+     freeze pins t1 / T_obs, each with its twelve-month score window (solid band: input to the
+     scores) and its label window W0 / W1 (hatched); lock on W1 (scan B after the registration);
+     age ruler from T_obs back to the first day of its score window (0 … 365 days). */
   var MC = get(TLD, 'monthly_counts.revised', {});
   var monA = (MC.approval_ego || []).map(function (r) { return r[1]; });
   var monT = (MC.transfer_ego || []).map(function (r) { return r[1]; });
+  var regMonA = (MCR.approval_ego || []).map(function (r) { return r[1]; });
+  var regMonT = (MCR.transfer_ego || []).map(function (r) { return r[1]; });
   var AX = { left: 96, top: 196, w: 1728, h: 660, axisY: 520 };
   var T0 = Comp.parseDate('2023-10-01'), T1 = Comp.parseDate('2026-09-30'), TOBS = Comp.parseDate('2026-07-01');
+  /* score windows (DECK_DATA.timeline.anchors.score_window_t1 / score_window_tobs), as month starts */
+  var SW0 = String(get(TLD, 'anchors.score_window_t1', ['2025-04-01'])[0]).slice(0, 10);
+  var SW1 = String(get(TLD, 'anchors.score_window_tobs', ['2025-07-01'])[0]).slice(0, 10);
   function monthLabel(ms) { var d = new Date(ms); return d.getUTCFullYear() + '-' + U.pad2(d.getUTCMonth() + 1); }
 
   var slide1 = {
     id: 's03-01', title: '3년의 달력', time: 40, steps: 4,
     notes: [
       '데이터는 아비트럼 원의 공개 기록이에요. 이 시간 축 위에 3년을 펼쳐 볼게요.',
-      '관측 기간은 2023년 10월 1일부터 2026년 6월 30일까지 33개월이에요. 위의 호박색 띠는 달마다 생긴 허락 기록, 아래 하늘색 띠는 송금 기록이에요. 두 띠는 높이를 따로 맞췄으니 모양만 견줘 주세요. 여기에 시험 기간 W1의 석 달을 더하면 꼭 3년이에요.',
-      '시험은 두 번 했어요. W0에서는 2026년 3월 31일에 점수를 얼려 두고, 4월부터 6월까지 생긴 일로 채점했어요.',
-      'W1에서는 6월 30일에 점수를 얼리고 7월부터 9월까지 생긴 일로 채점했어요. 이 연구는 채점 규칙을 공개 저장소에 등록한 커밋 0d3a057 뒤에야 이 석 달의 기록을 꺼냈어요. 그래서 자물쇠를 붙였어요.',
-      '마지막은 나이 자예요. 시간 무게는 T_obs, 곧 2026년 6월 30일을 기준으로 거꾸로 재요. 가장 오래된 기록은 1,004일 전이에요. 이 자는 뒤에서 시간 무게를 설명할 때 다시 나와요.'
+      '1차 추출은 2023년 10월 1일부터 2026년 6월 30일까지 33개월의 기록을 꺼냈어요. 위의 호박색 띠는 달마다 꺼낸 허락 기록, 아래 하늘색 띠는 송금 기록이에요. 모든 토큰의 기록이고, 등록 분석은 이 기록 전부로 점수를 만들었어요. 두 띠는 높이를 따로 맞췄으니 모양만 견줘 주세요. 여기에 시험 기간 W1의 석 달을 더하면 꼭 3년이에요.',
+      '시험은 두 번 했어요. W0에서는 2026년 3월 31일에 점수를 얼려 두고, 4월부터 6월까지 생긴 일로 채점했어요. 이 논문의 주 분석은 점수를 얼리는 날 전 12개월의 기록으로만 점수를 만들어요. 그래서 W0의 점수는 2025년 4월 1일부터 2026년 3월 31일까지의 기록에서 나와요. 이 12개월 점수 기간은 달러 금액, 다섯 토큰과 함께 등록 분석의 결과를 본 뒤에 정한 거예요.',
+      'W1에서는 6월 30일에 점수를 얼리고 7월부터 9월까지 생긴 일로 채점했어요. 이때 점수는 2025년 7월 1일부터 2026년 6월 30일까지 12개월로 만들고, 같은 기간 점검도 이 점수를 써요. 이 연구는 채점 규칙을 공개 저장소에 등록한 커밋 0d3a057 뒤에야 7월부터 9월까지의 기록을 2차 추출로 꺼냈어요. 그래서 자물쇠를 붙였어요.',
+      '마지막은 나이 자예요. 시간 무게는 T_obs, 곧 2026년 6월 30일을 기준으로 거꾸로 재요. 점수 기간이 12개월이라서 가장 오래된 기록도 ' + n0(N.maxAge) + '일 전이에요. 이 자는 뒤에서 시간 무게를 설명할 때 다시 나와요.'
     ],
     html:
       '<h1 class="t-h1">[[3년]]의 기록, 두 번의 시험</h1>' +
@@ -191,9 +216,9 @@
       '<div class="abs s3-axis-shared" data-shared="time-axis" style="left:' + AX.left + 'px;top:' + (AX.top + AX.axisY - 1) + 'px;width:' + AX.w + 'px;height:2px"></div>' +
       '<div class="abs" id="w1note" data-in="none"></div>' +
       '<div class="abs s3-caps" style="left:96px;top:890px;width:1728px">' +
-        '<div class="s3-cap" data-step="1" style="width:760px"><b>관측 기간 · 33개월</b><span>2023년 10월 1일 – 2026년 6월 30일</span></div>' +
-        '<div class="s3-cap" data-step="2" style="width:450px"><b>W0 · 2026년 3월 31일 동결</b><span>4–6월에 생긴 일로 채점</span></div>' +
-        '<div class="s3-cap" data-step="3" style="width:450px"><b>W1 · 2026년 6월 30일 동결</b><span>7–9월로 채점 · 등록한 뒤에 추출</span></div>' +
+        '<div class="s3-cap" data-step="1" style="width:600px"><b>1차 추출 · 33개월</b><span>2023년 10월 1일 – 2026년 6월 30일 · 등록 분석은 이 기간 전부</span></div>' +
+        '<div class="s3-cap" data-step="2" style="width:500px"><b>W0 · 2026년 3월 31일 동결</b><span>점수: 그 전 12개월 · 채점: 4–6월</span></div>' +
+        '<div class="s3-cap" data-step="3" style="width:564px"><b>W1 · 2026년 6월 30일 동결</b><span>점수: 그 전 12개월 · 채점: 7–9월(등록 뒤 추출)</span></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -202,13 +227,14 @@
       g.line = kids[0]; g.ticks = kids.slice(1);
       gsap.set(g.line, { visibility: 'hidden' });
       gsap.set(g.ticks, { autoAlpha: 0 });
-      /* streams: approvals above, transfers just above the axis; each scaled to its own max */
-      g.sA = TL.stream(monA, { color: 'allow', height: 170, base: 250, opacity: 0.26 });
-      g.sT = TL.stream(monT, { color: 'xfer', height: 200, base: AX.axisY - 14, opacity: 0.26 });
+      /* streams of scan A (registered series, every token): approvals above, transfers just above
+         the axis; each scaled to its own max */
+      g.sA = TL.stream(regMonA, { color: 'allow', height: 170, base: 250, opacity: 0.26 });
+      g.sT = TL.stream(regMonT, { color: 'xfer', height: 200, base: AX.axisY - 14, opacity: 0.26 });
       gsap.set([g.sA.g, g.sT.g], { autoAlpha: 0 });
       var lab = g.labels = S('g', {}, TL.svg);
       T(lab, 0, 62, '허락 기록', { fill: C.allow, 'font-size': 24, 'font-weight': 700 });
-      T(lab, 112, 62, '달마다 건수', { fill: C.ink2, 'font-size': 20 });
+      T(lab, 112, 62, '달마다 건수 · 1차 추출에서 꺼낸 기록 전부(모든 토큰)', { fill: C.ink2, 'font-size': 20 });
       T(lab, 0, 330, '송금 기록', { fill: C.xfer, 'font-size': 24, 'font-weight': 700 });
       T(lab, 112, 330, '달마다 건수', { fill: C.ink2, 'font-size': 20 });
       T(lab, 0, 360, '두 띠는 높이를 따로 맞췄어요', { fill: C.ink3, 'font-size': 18 });
@@ -219,25 +245,39 @@
       if (g.p2.label) { var ts = S('tspan', { 'font-size': 15, dy: 5 }, g.p2.label); ts.textContent = 'obs'; }
       g.b0 = TL.band('2026-04-01', '2026-07-01', { label: 'W0', y0: 64 });
       g.b1 = TL.band('2026-07-01', '2026-10-01', { label: 'W1', y0: 64 });
+      /* the twelve-month score windows (solid, behind the hatched label windows): W0 from SW0 to t1,
+         T_obs (and W1) from SW1 to T_obs; the W0 label sits lower so the two labels never meet */
+      g.s0 = TL.band(SW0, '2026-04-01', { label: 'W0 점수 기간 · 12개월', y0: 100, hatch: false });
+      g.s1 = TL.band(SW1, '2026-07-01', { label: 'T', y0: 64, hatch: false });
+      if (g.s1.label) {
+        var s1a = S('tspan', { 'font-size': 14, dy: 5 }, g.s1.label); s1a.textContent = 'obs';
+        var s1b = S('tspan', { dy: -5 }, g.s1.label); s1b.textContent = ' 점수 기간 · 12개월';
+      }
+      /* their labels start at the left edge of the band, clear of the freeze pins */
+      [[g.s0, SW0], [g.s1, SW1]].forEach(function (b) {
+        if (!b[0].label) return;
+        b[0].label.setAttribute('x', TL.x(b[1]) + 10); b[0].label.setAttribute('text-anchor', 'start');
+      });
       /* W1 lock card, inside the (empty) W1 band */
       var x1 = TL.x('2026-07-01'), x2 = TL.x('2026-10-01');
       var note = el.querySelector('#w1note');
       note.style.left = (AX.left + x1 + 6) + 'px'; note.style.top = (AX.top + 150) + 'px'; note.style.width = (x2 - x1 - 12) + 'px';
       note.innerHTML = '<div class="s3-lockcard">' + LOCK_SVG + '<span>등록 커밋</span><span class="mono">0d3a057</span><span>뒤에 추출</span></div>';
       gsap.set(note, { autoAlpha: 0 });
-      /* age ruler (step 4): from T_obs back to the first day */
+      /* age ruler (step 4): from T_obs back to the first day of its score window */
       var R = g.ruler = S('g', {}, TL.svg), ry = 590, xo = TL.x(TOBS);
       var dayPx = (TL.x(T1) - TL.x(T0)) / ((T1 - T0) / 864e5);
+      var xr0 = g.rX0 = xo - N.maxAge * dayPx;
       g.rLine = S('line', { x1: xo, x2: xo, y1: ry, y2: ry, stroke: C.ink2, 'stroke-width': 2 }, R);
       g.rTicks = [];
-      [0, 180, 365, 730, N.maxAge].forEach(function (age, k, arr) {
+      [0, 90, 180, 270, N.maxAge].forEach(function (age, k, arr) {
         var x = xo - age * dayPx, last = k === arr.length - 1;
         var tk = S('line', { x1: x, x2: x, y1: ry - 9, y2: ry + 9, stroke: C.ink, 'stroke-width': 2 }, R);
-        var tx = T(R, x, ry + 34, '0', { fill: last ? C.ink : C.ink2, 'font-size': 20, 'text-anchor': last ? 'start' : 'middle', 'class': 'tnum', 'font-weight': last ? 700 : 500 });
+        var tx = T(R, x, ry + 34, '0', { fill: last ? C.ink : C.ink2, 'font-size': 20, 'text-anchor': 'middle', 'class': 'tnum', 'font-weight': last ? 700 : 500 });
         g.rTicks.push({ age: age, x: x, tick: tk, text: tx, last: last });
       });
-      g.rCap = TS(R, 0, ry + 66, ['나이 = 시간 무게의 기준일 T', ['obs'], '(2026년 6월 30일)에서 거꾸로 센 날 수 · 가장 오래된 기록은 ' + n0(N.maxAge) + '일 전'], { fill: C.ink3, 'font-size': 18 });
-      g.rArrow = S('path', { d: 'M' + (TL.x(T0) + 12) + ',' + (ry - 7) + ' L' + TL.x(T0) + ',' + ry + ' L' + (TL.x(T0) + 12) + ',' + (ry + 7), fill: 'none', stroke: C.ink2, 'stroke-width': 2 }, R);
+      g.rCap = TS(R, xo, ry + 66, ['나이 = 시간 무게의 기준일 T', ['obs'], '(2026년 6월 30일)에서 거꾸로 센 날 수 · 점수 기간의 가장 오래된 기록은 ' + n0(N.maxAge) + '일 전'], { fill: C.ink3, 'font-size': 18, 'text-anchor': 'end' });
+      g.rArrow = S('path', { d: 'M' + (xr0 + 12) + ',' + (ry - 7) + ' L' + xr0 + ',' + ry + ' L' + (xr0 + 12) + ',' + (ry + 7), fill: 'none', stroke: C.ink2, 'stroke-width': 2 }, R);
       gsap.set(R, { autoAlpha: 0 });
       g.wm = el.querySelector('#wm');
       gsap.set(g.wm, { autoAlpha: 0 });
@@ -276,16 +316,20 @@
       }
       if (i === 2) {
         tl.add(g.p1.drop(), 0);
-        tl.add(g.b0.show(), 0.45);
+        tl.add(g.s0.show(), 0.35);
+        tl.add(g.b0.show(), 0.75);
       }
       if (i === 3) {
+        /* the W0 score window steps back; the T_obs score window (also W1's) comes forward */
+        tl.to(g.s0.g, { autoAlpha: 0.35, duration: 0.4 }, 0);
         tl.add(g.p2.drop(), 0);
-        tl.add(g.b1.show(), 0.45);
+        tl.add(g.s1.show(), 0.35);
+        tl.add(g.b1.show(), 0.75);
         var note = el.querySelector('#w1note');
-        tl.fromTo(note, { autoAlpha: 0, y: 16, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: E.stamp }, 0.9);
+        tl.fromTo(note, { autoAlpha: 0, y: 16, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: E.stamp }, 1.2);
       }
       if (i === 4) {
-        var xo = TL.x(TOBS), x0 = TL.x(T0);
+        var xo = TL.x(TOBS), x0 = g.rX0;
         tl.set(g.ruler, { autoAlpha: 1 }, 0);
         tl.fromTo(g.rLine, { attr: { x2: xo } }, { attr: { x2: x0 }, duration: 1.4, ease: 'power2.inOut' }, 0);
         tl.fromTo(g.rArrow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 1.3);
@@ -304,9 +348,10 @@
   function invEase(p) { p = clamp01(p); return p < 0.5 ? Math.sqrt(p / 2) : 1 - Math.sqrt((1 - p) / 2); }
 
   /* =================================================================== s03-02
-     얼마나 많은 기록인가: two odometers with cumulative growth lines behind
-     them, a waffle (one dot = 1,000,000 records) that reflows into two bars,
-     then three small cards (registered-analysis rows, W1 rows, BigQuery cost). */
+     얼마나 많은 기록인가: two odometers (five tokens, T_obs score window) with
+     cumulative growth lines behind them, a waffle (one dot = 1,000,000 records)
+     that reflows into two bars, then three small cards (registered-analysis rows
+     of scan A, W1 rows, BigQuery cost). */
   var DOT = 1e6;
   var nDotA = Math.round(N.appr / DOT), nDotT = Math.round(N.xfer / DOT);
   function cumulative(arr) { var s = 0, out = [0]; arr.forEach(function (v) { s += v; out.push(s); }); return out; }
@@ -322,14 +367,14 @@
   var slide2 = {
     id: 's03-02', title: '얼마나 많은 기록인가', time: 35, steps: 3,
     notes: [
-      '기록의 양부터 볼게요. 다섯 토큰에서, 연구할 계약이 한쪽 끝에 있는 기록만 셌어요. 기간은 관측 기간 33개월이에요.',
-      '허락 기록은 2억 2천만 건이 넘고, 송금 기록은 11억 건이 넘어요. 숫자 뒤의 선은 달마다 쌓인 기록이에요. 아래 점 하나가 100만 건이라서, 허락은 점 225개, 송금은 점 1,149개예요.',
+      '기록의 양부터 볼게요. 다섯 토큰에서, 연구할 계약이 한쪽 끝에 있는 기록만 셌어요. 기간은 T_obs 점수 기간, 곧 2025년 7월부터 2026년 6월까지 12개월이에요.',
+      '허락 기록은 약 ' + koApprox(N.appr) + ' 건, 송금 기록은 약 ' + koApprox(N.xfer) + ' 건이에요. 숫자 뒤의 선은 달마다 쌓인 기록이에요. 아래 점 하나가 100만 건이라서, 허락은 점 ' + n0(nDotA) + '개, 송금은 점 ' + n0(nDotT) + '개예요.',
       '같은 점들을 막대로 다시 쌓으면 길이 차이가 잘 보여요. 송금이 허락보다 다섯 배쯤 많아요. 허락은 송금보다 훨씬 드물게 일어나요.',
-      '처음 계획대로 모든 토큰을 꺼냈을 때는 허락 3억 9천만 건, 송금 15억 건이었어요. 이것은 등록 분석의 숫자예요. 7월부터 9월까지의 W1 기록은 이 연구가 따로, 등록한 뒤에 꺼냈어요. 이 모든 질의에 든 클라우드 비용은 34.80달러로, 처음 정한 예산 50달러 안이었어요.'
+      '등록 분석은 분석 계획대로 1차 추출의 33개월 동안 모든 토큰의 기록으로 점수를 만들었어요. 허락 약 ' + koApprox(N.regAppr) + ' 건, 송금 약 ' + koApprox(N.regXfer) + ' 건이에요. 7월부터 9월까지의 W1 기록은 이 연구가 따로, 등록한 뒤에 꺼냈어요. 이 모든 질의에 든 클라우드 비용은 ' + fmt(N.bqUsd, 2) + '달러로, 처음 정한 예산 ' + n0(N.budget) + '달러 안이었어요.'
     ],
     html:
       '<h1 class="t-h1">기록은 얼마나 많을까요</h1>' +
-      '<p class="abs t-body ink-2" style="left:96px;top:162px">다섯 토큰 · 코호트 계약이 한쪽 끝에 있는 기록만 · 관측 기간 33개월</p>' +
+      '<p class="abs t-body ink-2" style="left:96px;top:162px">다섯 토큰 · 코호트 계약이 한쪽 끝에 있는 기록만 · T_obs 점수 기간 12개월(2025년 7월 – 2026년 6월)</p>' +
       numCol('A', 96, 820, '허락 기록', 'c-allow') + numCol('T', 1000, 824, '송금 기록', 'c-xfer') +
       '<p class="abs t-caption ink-2" style="left:96px;top:436px" data-step="1">점 하나 = [[100만 건]] <span class="ink-3">· 100만으로 나눠 반올림</span></p>' +
       '<div class="abs" id="cv" data-in="none" style="left:96px;top:480px;width:1728px;height:450px"></div>' +
@@ -340,7 +385,7 @@
         '<div class="abs s3-barval" id="bvT" style="top:104px"></div>' +
       '</div>' +
       '<div class="abs s3-cards" style="left:96px;top:700px;width:1728px" data-step="3" data-stagger="0.12">' +
-        '<div class="s3-card"><div class="s3-card-h"><span>계획 단계 · 모든 토큰</span>' + Deck.tagHTML('registered-analysis') + '</div>' +
+        '<div class="s3-card"><div class="s3-card-h"><span>모든 토큰 · 33개월</span>' + Deck.tagHTML('registered-analysis') + '</div>' +
           '<div class="s3-row"><span class="k">허락</span><span>' + n0(N.regAppr) + '</span></div>' +
           '<div class="s3-row"><span class="k">송금</span><span>' + n0(N.regXfer) + '</span></div></div>' +
         '<div class="s3-card"><div class="s3-card-h"><span>W1 · 2026년 7–9월</span><span class="t-caption ink-3">등록 뒤 추출</span></div>' +
@@ -369,9 +414,9 @@
         gsap.set(path, { strokeDasharray: L + ' ' + L, strokeDashoffset: L });
         gsap.set([area, dot], { autoAlpha: 0 });
         g['gl' + row[0]] = { path: path, area: area, dot: dot, L: L };
-        /* the empty slot shows the final width of the number */
-        var slot = el.querySelector('#slot' + row[0]);
-        slot.style.width = (row[0] === 'A' ? 640 : 735) + 'px';
+        /* the empty slot shows the final width of the number (about 62 px a digit, 40 px a comma) */
+        var slot = el.querySelector('#slot' + row[0]), txt = n0(row[4]);
+        slot.style.width = Math.round(txt.replace(/\D/g, '').length * 62 + (txt.match(/,/g) || []).length * 40) + 'px';
       });
       gsap.set([el.querySelector('#uA'), el.querySelector('#uT')], { autoAlpha: 0 });
       /* waffle + bars on one canvas */
@@ -448,31 +493,37 @@
 
   /* =================================================================== s03-03
      다섯 토큰과 달러 가격: daily USD close of the five tokens on a log scale,
-     all in ink-3; the token being discussed is lit. Freeze-date markers; a
-     digit ruler (powers of ten) for base units; the conversion formula of
-     Chapter 3 (x_e = v 10^{-q} p) as a preview; the Chainlink comparison. */
+     all in ink-3; the token being discussed is lit. Freeze-date markers with the
+     548 days that the windows of the main analysis cover (2025-04-01 – 2026-09-30);
+     a digit ruler (powers of ten) for base units; the conversion formula of
+     Chapter 3 (x_e = v 10^{-q} p) as a preview; the Chainlink comparison.
+     Chainlink check (thesis App. D, table usd-tokens; not in DECK_DATA): 20 check
+     days per token, median difference 0.010–0.056 %, largest 0.24 % (WBTC). */
   var TOK = ['WBTC', 'WETH', 'ARB', 'USDC', 'USDT0'];
   var TOK_LABEL = { WBTC: 'WBTC', WETH: 'WETH', ARB: 'ARB', USDC: 'USDC', USDT0: 'USDT0' };
   var PC = { x0: 96, x1: 1500, y0: 24, y1: 484, lmin: Math.log10(0.05), lmax: Math.log10(200000) };
   var CHECK_SVG = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.6"/><path d="M6.6 10.2l2.3 2.3 4.6-4.9"/></svg>';
   var CL = get(DD, 'params.chainlink', null);
+  /* first price day the main analysis uses: the start of the W0 score window */
+  var PSTART = Comp.parseDate(SW0);
+  var SEL_SHARE = get(SC, 'tokens.selected_share_of_rows_tobs', 0.794);
 
   var slide3 = {
     id: 's03-03', title: '다섯 토큰과 달러 가격', time: 40, steps: 5,
     notes: [
       '토큰마다 단위와 값이 달라서, 금액을 그대로 더하면 안 돼요. 그래서 수정 분석에서는 모든 금액을 달러로 바꿨어요. 가격은 DefiLlama의 하루 종가, 곧 그날 마지막 가격을 썼어요.',
-      '남긴 토큰은 다섯 개예요. WETH, USDC, USDT0, ARB, WBTC예요. 체인링크 가격 피드의 위험 등급이 낮음이나 중간이고 하루 가격이 있는 토큰 ' + n0(get(SC, 'tokens.priced', 46)) + '개 가운데, 기록이 가장 많은 다섯이에요. 다섯 모두 위험 등급이 낮은 피드로 가격이 매겨져요. 세로는 로그 눈금이라서 0.1달러부터 10만 달러까지 한 그림에 들어가요.',
+      '남긴 토큰은 다섯 개예요. WETH, USDC, USDT0, ARB, WBTC예요. 체인링크 가격 피드의 위험 등급이 낮음이나 중간이고 하루 가격이 있는 토큰 ' + n0(get(SC, 'tokens.priced', 46)) + '개 가운데, T_obs 점수 기간에 기록이 가장 많은 다섯이에요. 이 다섯이 그 기간 기록의 ' + fmt(SEL_SHARE * 100, 1) + '%를 차지해요. 다섯 모두 위험 등급이 낮은 피드로 가격이 매겨져요. 세로는 로그 눈금이라서 0.1달러부터 10만 달러까지 한 그림에 들어가요.',
       'WETH와 WBTC는 값이 크게 오르내려요. 반대로 USDC와 USDT0은 1달러에 거의 붙어 있어요. 그래서 같은 한 개라도 날마다 달러 값이 달라질 수 있어요.',
-      '송금은 그 송금이 일어난 날의 가격으로 바꿔요. 허락은 기준일의 가격으로 바꿔요. 점수를 얼리는 날, 곧 t₁인 3월 31일과 T_obs인 6월 30일이에요. 허락은 그날에도 살아 있는 약속이기 때문이에요.',
+      '송금은 그 송금이 일어난 날의 가격으로 바꿔요. 허락은 기준일의 가격으로 바꿔요. 점수를 얼리는 날, 곧 t₁인 3월 31일과 T_obs인 6월 30일이에요. 허락은 그날에도 살아 있는 약속이기 때문이에요. 주 분석이 가격을 쓰는 날은 W0 점수 기간이 시작하는 2025년 4월 1일부터 W1이 끝나는 2026년 9월 30일까지 548일이에요. 이 548일은 모두 그 토큰 자신의 주소로 매긴 가격이 있어요.',
       '단위도 맞춰야 해요. 1 USDC는 기본 단위로 백만, 곧 0이 여섯 개예요. 1 WETH는 0이 열여덟 개예요. 둘 사이에 열두 자리 차이가 나요. 그래서 기본 단위 수 v에 10의 마이너스 q제곱을 곱해 토큰 개수로 바꾸고, 그날 가격 p를 곱해 달러로 바꿔요. 이 식은 뒤에서 금액 무게를 다룰 때 다시 볼게요.',
-      '이 가격이 믿을 만한지도 봤어요. 블록체인 위 체인링크 가격과 토큰마다 38일을 견줘 보니, 차이의 중앙값은 0.01에서 0.08퍼센트, 가장 큰 차이도 0.72퍼센트였어요.'
+      '이 가격이 믿을 만한지도 봤어요. 블록체인 위 체인링크 가격과 그 548일 가운데 토큰마다 20일을 견줘 보니, 차이의 중앙값은 0.010에서 0.056퍼센트, 가장 큰 차이도 WBTC의 0.24퍼센트였어요.'
     ],
     html:
       '<h1 class="t-h1">모든 금액을 [[달러]]로</h1>' +
       '<p class="abs t-body ink-2" style="left:96px;top:162px">그날의 하루 종가(DefiLlama)로 바꿔요</p>' +
       '<div class="abs" id="pc" data-in="none" style="left:96px;top:222px;width:1728px;height:540px"></div>' +
       '<div class="abs s3-check" id="chk" style="left:1150px;top:70px;width:674px" data-step="5" data-in="pop">' + CHECK_SVG +
-        '<div><b>체인링크 가격 피드와 비교 · 토큰마다 38일</b><span>차이의 중앙값 0.01–0.08% · 가장 큰 차이 0.72%</span></div></div>' +
+        '<div><b>체인링크 가격 피드와 비교 · 토큰마다 20일</b><span>차이의 중앙값 0.010–0.056% · 가장 큰 차이 0.24% (WBTC)</span></div></div>' +
       '<p class="abs t-caption ink-2" id="rcap" data-in="none" style="left:96px;top:784px">기본 단위로 쓰면</p>' +
       '<div class="abs" id="ruler" data-in="none" style="left:96px;top:816px;width:1240px;height:170px"></div>' +
       '<div class="abs s3-fx" id="fx" data-in="none" style="left:1384px;top:784px;width:440px">' +
@@ -552,6 +603,16 @@
       TS(g.fcap, fx, Y(120), ['허락: 기준일(t₁, T', ['obs'], ') 가격으로'], { fill: C.ink, 'font-size': 22, 'font-weight': 700, 'text-anchor': 'end' });
       T(g.fcap, fx, Y(120) + 32, '송금: 그 일이 일어난 날 가격으로', { fill: C.ink2, 'font-size': 22, 'text-anchor': 'end' });
       gsap.set(g.fcap, { autoAlpha: 0 });
+      /* step 3: the days the main analysis prices, from the start of the W0 score window to the end
+         of W1 (a faint band behind the lines) */
+      var iP = Math.max(0, Math.round((PSTART - start) / 864e5)), nP = days - iP;
+      g.win = S('g', {}, svg);
+      svg.insertBefore(g.win, svg.firstChild);
+      S('rect', { x: X(iP), y: PC.y0, width: Math.max(1, X(days - 1) - X(iP)), height: PC.y1 - PC.y0, fill: 'rgba(233,237,245,0.045)' }, g.win);
+      S('line', { x1: X(iP), x2: X(iP), y1: PC.y0, y2: PC.y1, stroke: C.ink3, 'stroke-width': 1.5, 'stroke-dasharray': '3 5' }, g.win);
+      /* the label sits between the WBTC and WETH lines, left of the t1 pin */
+      T(g.win, X(iP) + 10, Y(12000), '주 분석이 쓰는 ' + n0(nP) + '일 · 2025년 4월 1일 – 2026년 9월 30일', { fill: C.ink3, 'font-size': 18 });
+      gsap.set(g.win, { autoAlpha: 0 });
       /* step 4: digit ruler (powers of ten) */
       buildDigitRuler(ctx, g, el.querySelector('#ruler'));
       gsap.set([el.querySelector('#rcap'), el.querySelector('#ruler'), el.querySelector('#fx')], { autoAlpha: 0 });
@@ -587,6 +648,7 @@
       }
       if (i === 3) {
         tl.to([g.ann.a, g.ann.b], { autoAlpha: 0, duration: 0.35 }, 0);
+        tl.fromTo(g.win, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.1);
         g.pins.forEach(function (p, k) {
           tl.add(p.P.drop(), 0.2 + k * 0.35);
           tl.fromTo(p.dots.childNodes, { attr: { r: 0 } }, { attr: { r: 5.5 }, duration: 0.35, ease: E.stamp, stagger: 0.05 }, 0.75 + k * 0.35);
@@ -685,8 +747,10 @@
   /* =================================================================== s03-04
      코호트 깔때기: ~2,900 particles (one ≈ 10 contracts) pour into a funnel;
      EOAs (no code, EIP-7702) leave as hollow grey circles, the contracts that
-     miss the rule on five tokens leave as dim boxes, the matched cohort
-     remains; contracts outside a graph settle on the floor trays (score 0). */
+     miss the rule on five tokens in the T_obs score window leave as dim boxes, the
+     matched cohort remains; contracts outside a graph settle on the floor trays
+     (score 0). The W0 cohort (6,343, 5,383 of them in the matched cohort; thesis
+     Ch. 4 "Cohorts", not in DECK_DATA) is named in the notes only. */
   var FX = 50;   /* horizontal offset of the funnel inside its canvas */
   var FUN = {
     cx: 640 + FX,
@@ -740,10 +804,10 @@
     id: 's03-04', title: '코호트 깔때기', time: 35, steps: 4,
     notes: [
       '점수를 매길 계약은 이렇게 골랐어요. 입자 하나가 계약 열 개쯤이에요.',
-      '먼저 관측 기간에 서로 다른 주인 세 명 이상에게 허락을 받은 스펜더를 모았더니 29,022개였어요. 이 숫자는 분석 계획대로 모든 토큰으로 센 등록 분석의 숫자예요.',
-      '주소마다 코드를 읽어 보니 1,121개는 코드가 없고, 57개는 EIP-7702 위임 표시였어요. 둘 다 개인 키로 움직이는 EOA라서 뺐어요. 남은 27,844개가 분석 계획의 코호트예요.',
-      '수정 분석에서는 다섯 토큰만으로도 이 규칙을 채우는 15,107개를 남겼어요. 이것을 매칭 코호트라고 불러요. 나머지 12,737개는 다섯 토큰으로는 주인 세 명을 채우지 못해요. 모든 점수가 이 같은 계약들에 점수를 매기기 때문에, 점수끼리의 차이는 표본 차이에서 오지 않아요.',
-      '그래도 한쪽 그래프에 아예 없는 계약이 있어요. 허락 그래프 밖에 523개, 송금 그래프 밖에 2,670개가 있고, 그중 80개는 둘 다 밖이에요. 이런 계약은 그 그래프의 점수에서 0점을 받아요.'
+      '먼저 1차 추출의 33개월 동안 서로 다른 주인 세 명 이상에게 허락을 받은 스펜더를 모았더니 ' + n0(N.cand) + '개였어요. 이 숫자는 분석 계획대로 모든 토큰으로 센 등록 분석의 숫자예요.',
+      '주소마다 코드를 읽어 보니 ' + n0(N.codeNone) + '개는 코드가 없고, ' + n0(N.code7702) + '개는 EIP-7702 위임 표시였어요. 둘 다 개인 키로 움직이는 EOA라서 뺐어요. 남은 ' + n0(N.codeContract) + '개가 분석 계획의 코호트예요.',
+      '수정 분석에서는 이 가운데 T_obs 점수 기간, 곧 2025년 7월부터 2026년 6월까지 12개월 안에 다섯 토큰으로 서로 다른 주인 세 명 이상에게 허락받은 ' + n0(N.matched) + '개를 남겼어요. 이것을 매칭 코호트라고 불러요. 나머지 ' + n0(N.leftOut) + '개는 이 12개월에 다섯 토큰으로는 주인 세 명을 채우지 못해요. 모든 점수가 이 같은 계약들에 점수를 매기기 때문에, 점수끼리의 차이는 표본 차이에서 오지 않아요. W0는 같은 규칙으로 자기 점수 기간에서 코호트를 따로 뽑아요. 6,343개이고, 그중 5,383개가 매칭 코호트에도 있어요.',
+      '그래도 한쪽 그래프에 아예 없는 계약이 있어요. 허락 그래프 밖에 ' + n0(N.outA) + '개, 송금 그래프 밖에 ' + n0(N.outT) + '개가 있고, 그중 ' + n0(N.outBoth) + '개는 둘 다 밖이에요. 이런 계약은 그 그래프의 점수에서 0점을 받아요.'
     ],
     html:
       '<h1 class="t-h1">코호트 깔때기</h1>' +
@@ -754,7 +818,7 @@
         '<div class="s3-fl-small">코드 없음 ' + n0(N.codeNone) + '</div><div class="s3-fl-small">EIP-7702 ' + n0(N.code7702) + '</div></div>' +
       '<div class="abs" id="droplab" data-in="none" style="left:96px;top:876px;width:330px">' +
         '<div class="t-caption ink-2" style="font-weight:700">빠진 ' + n0(N.leftOut) + '개</div>' +
-        '<div class="s3-fl-small" style="font-family:var(--font-sans)">다섯 토큰으로는 규칙을 못 채워요</div></div>' +
+        '<div class="s3-fl-small" style="font-family:var(--font-sans)">12개월 · 다섯 토큰으로는 규칙을 못 채워요</div></div>' +
       '<div class="abs" style="left:1340px;top:200px;width:484px" data-step="1">' +
         '<div class="s3-fl-cap">허락한 서로 다른 주인이 3명 이상인 스펜더</div>' +
         '<div class="s3-fl-num"><span id="f1"></span>' + Deck.tagHTML('registered-analysis') + '</div></div>' +
@@ -763,7 +827,7 @@
         '<div class="s3-fl-num"><span id="f2"></span><span class="eq">= 계획의 코호트</span></div>' +
         '<div class="s3-fl-small" style="margin-top:2px">' + Deck.tagHTML('registered-analysis') + '</div></div>' +
       '<div class="abs" style="left:1340px;top:592px;width:484px" data-step="3">' +
-        '<div class="s3-fl-cap">다섯 토큰만으로도 주인 3명 이상</div>' +
+        '<div class="s3-fl-cap">12개월 점수 기간, 다섯 토큰으로 주인 3명 이상</div>' +
         '<div class="s3-fl-num"><span class="hl" id="f3"></span></div>' +
         '<div class="s3-fl-cap" style="color:var(--ink)">= 매칭 코호트 (수정 분석)</div></div>' +
       '<div class="abs" style="left:1340px;top:780px;width:484px" data-step="4">' +
@@ -924,10 +988,10 @@
 
   /* =================================================================== s03-05
      두 그래프의 크기: two illustrative "galaxies" (shapes are illustrations;
-     only the ratio of dots and lines matches the real graphs, 1 : 7,800),
+     only the ratio of dots and lines matches the real graphs of T_obs, 1 : 3,000),
      odometers for nodes/edges, a race of the two edge counts, and the ratio
      measured by laying the allowance bar along the transfer bar. */
-  var GAL_DIV = 7800;
+  var GAL_DIV = 3000;
   function buildGalaxy(kind, w, h, rng) {
     var nodes = [], edges = [], i, j;
     var nN = Math.round((kind === 'A' ? N.gAn : N.gTn) / GAL_DIV), nE = Math.round((kind === 'A' ? N.gAe : N.gTe) / GAL_DIV);
@@ -991,9 +1055,9 @@
     notes: [
       '이렇게 모은 기록으로 그래프 두 개를 만들었어요. 점은 주소이고, 화살표는 허락이나 송금이에요. 지금은 점들이 흩어져 있어요.',
       '왼쪽 허락 그래프에서는 수많은 주인이 몇 안 되는 스펜더 계약을 가리켜요. 오른쪽 송금 그래프는 더 촘촘한 그물이에요. 모양은 설명용 그림이고, 점과 선의 개수 비율만 실제와 같게 맞췄어요.',
-      '실제 크기예요. 허락 그래프는 점이 622만 개쯤, 화살표가 1,121만 개예요. 송금 그래프는 점이 788만 개쯤, 화살표가 2,500만 개예요.',
-      '화살표 수를 나란히 놓아 볼게요. 허락 막대를 송금 막대 위에 두 번 이어 붙이고도 조금 남아요. 송금 화살표가 허락 화살표의 2.23배예요. 점수를 계산하는 시간은 화살표 수를 따라가서, 이 차이가 뒤에서 계산 속도 차이를 그대로 설명해요.',
-      '허락 그래프의 점은 거의 다 허락을 해 준 주인이에요. 주인 6,208,769명이 훨씬 적은 수의 스펜더를 가리키는 별자리 모양이에요.'
+      '실제 크기예요. T_obs의 점수 기간 12개월로 만든 그래프예요. 허락 그래프는 점이 약 ' + koApprox(N.gAn) + ' 개, 화살표가 약 ' + koApprox(N.gAe) + ' 개예요. 송금 그래프는 점이 약 ' + koApprox(N.gTn) + ' 개, 화살표가 약 ' + koApprox(N.gTe) + ' 개예요.',
+      '화살표 수를 나란히 놓아 볼게요. 허락 막대를 송금 막대 위에 두 번 이어 붙이고도 조금 남아요. 송금 화살표가 허락 화살표의 ' + N.edgeRatio.toFixed(2) + '배예요. 점수를 계산하는 시간도 화살표가 많을수록 늘어나요. 다만 시간은 계산을 몇 번 되풀이하는지에도 달려 있어서, 시간 차이가 화살표 차이와 꼭 같지는 않아요. 이건 10에서 다시 볼게요.',
+      '허락 그래프의 점은 거의 다 허락을 해 준 주인이에요. 주인 ' + n0(N.owners) + '명이 훨씬 적은 수의 스펜더를 가리키는 별자리 모양이에요.'
     ],
     html:
       '<h1 class="t-h1">두 그래프의 크기</h1>' +
@@ -1122,20 +1186,25 @@
   };
 
   /* =================================================================== s03-06
-     15,107개 계약을 3D로: x = log10(1 + in-approve degree), z = log10(1 +
-     transfer in-degree), y = log10(EndorseRank); zero scores rest on the floor
+     6,483개 계약을 3D로 (the matched cohort, n from DECK_DATA.scale.revised.cohort):
+     x = log10(1 + in-approve degree), z = log10(1 + transfer in-degree),
+     y = log10(EndorseRank), all at T_obs; zero scores rest on the floor
      plate. Colour = a two-stop ramp dark slate → amber on the EndorseRank
      percentile, then dark slate → sky on the AWP percentile, drawn with normal
      (not additive) blending so the mixed brightness along the ridge stays
      visible in the dense core. No address is shown anywhere. Kendall's τ is
      only named here (it is taught in s07); no interval is shown. */
+  /* AWP's zeros: every one of them lies outside the transfer graph when N.tinyT is 0 */
+  var AWP_ZERO_KO = N.tinyT > 0 ?
+    '송금 그래프 밖의 ' + n0(N.outT) + '개에, 금액이 너무 작아 무게가 0이 된 ' + n0(N.tinyT) + '개를 더한 수예요.' :
+    '모두 송금 그래프 밖에 있는 계약이에요.';
   var slide6 = {
-    id: 's03-06', title: '15,107개 계약을 3D로', time: 45, steps: 3,
+    id: 's03-06', title: n0(N.matched) + '개 계약을 3D로', time: 45, steps: 3,
     notes: [
-      '이제 매칭 코호트의 계약 15,107개를 모두 한 화면에 올려 볼게요. 점 하나가 계약 하나예요. 지금은 모든 점이 바닥에 누워 있어요.',
-      '가로는 그 계약을 허락한 서로 다른 주인 수, 깊이는 송금을 보낸 서로 다른 주소 수, 높이는 엔도스랭크 점수예요. 엔도스랭크는 01에서 말한 ‘허락으로 걷는 점수’예요. 만드는 법은 04부터 06까지 차근차근 볼게요. 셋 다 로그 눈금이라서 아주 큰 값과 작은 값을 함께 볼 수 있어요. 높이 눈금 하나를 올라가면 점수가 100배가 돼요. 받은 허락이 적은 계약부터 차례로 제 높이로 올라와요. 점의 색은 엔도스랭크 순위예요. 순위가 낮으면 회색, 높으면 밝은 호박색이에요. 엔도스랭크가 0점인 535개는 바닥판에 남아요. 허락 그래프 밖에 있는 523개에, 금액이 너무 작아 무게가 0이 된 12개를 더한 수예요.',
+      '이제 매칭 코호트의 계약 ' + n0(N.matched) + '개를 모두 한 화면에 올려 볼게요. 점 하나가 계약 하나예요. 지금은 모든 점이 바닥에 누워 있어요.',
+      '가로는 그 계약을 허락한 서로 다른 주인 수, 깊이는 송금을 보낸 서로 다른 주소 수, 높이는 엔도스랭크 점수예요. 모두 T_obs 점수 기간 12개월의 기록에서 나와요. 엔도스랭크는 01에서 말한 ‘허락으로 걷는 점수’예요. 만드는 법은 04부터 06까지 차근차근 볼게요. 셋 다 로그 눈금이라서 아주 큰 값과 작은 값을 함께 볼 수 있어요. 높이 눈금 하나를 올라가면 점수가 100배가 돼요. 받은 허락이 적은 계약부터 차례로 제 높이로 올라와요. 점의 색은 엔도스랭크 순위예요. 순위가 낮으면 회색, 높으면 밝은 호박색이에요. 엔도스랭크가 0점인 ' + n0(TIES.zeros) + '개는 바닥판에 남아요. 허락 그래프 밖에 있는 ' + n0(N.outA) + '개에, 금액이 너무 작아 무게가 0이 된 ' + n0(N.tinyA) + '개를 더한 수예요.',
       '옆에서 보면, 엔도스랭크가 허락한 주인 수를 따라 거의 한 줄로 올라가요. 색도 아래의 회색에서 위의 밝은 호박색으로 고르게 바뀌어요. 얼마나 한 줄인지 재는 수가 있는데, 켄달의 타우라고 해요. 07에서 쌍을 세어 가며 배워요. 이것은 점수가 재려고 한 것을 재는지 보는 의도한 구성개념 점검이에요. 검증은 아니에요.',
-      '이번에는 같은 점들을 송금 쪽 점수인 AWP의 순위로 칠할게요. 순위가 낮으면 회색, 높으면 밝은 하늘색이에요. 두 점수가 순서를 똑같이 매긴다면 색이 아래에서 위로 고르게 밝아져야 해요. 그런데 밝은 점과 어두운 점이 능선의 어느 높이에서나 뒤섞여요. 두 점수가 계약의 순서를 다르게 매긴다는 뜻이에요. AWP가 0점인 계약은 2,672개예요. 송금 그래프 밖의 2,670개에, 금액이 너무 작아 무게가 0이 된 2개를 더한 수예요. 이 두 장면이 오늘 결과의 예고편이에요. 끌어서 돌려 볼 수도 있어요.'
+      '이번에는 같은 점들을 송금 쪽 점수인 AWP의 순위로 칠할게요. 순위가 낮으면 회색, 높으면 밝은 하늘색이에요. 두 점수가 순서를 똑같이 매긴다면 색이 아래에서 위로 고르게 밝아져야 해요. 그런데 밝은 점과 어두운 점이 능선의 어느 높이에서나 뒤섞여요. 두 점수가 계약의 순서를 다르게 매긴다는 뜻이에요. AWP가 0점인 계약은 ' + n0(TIES_AWP.zeros) + '개예요. ' + AWP_ZERO_KO + ' 이 두 장면이 오늘 결과의 예고편이에요. 끌어서 돌려 볼 수도 있어요.'
     ],
     html:
       '<h1 class="t-h1">점 하나 = [[계약]] 하나</h1>' +
@@ -1158,7 +1227,8 @@
         '<div data-step="1" data-step-out="3">엔도스랭크 <b>0점 ' + n0(TIES.zeros) + '개</b>는 바닥판에 · 서로 다른 점수 ' + n0(TIES.distinct) + '개<br>' +
           n0(TIES.zeros) + ' = 허락 그래프 밖 ' + n0(N.outA) + ' + 금액이 너무 작아 무게가 0인 ' + n0(N.tinyA) + '</div>' +
         '<div data-step="3">AWP <b>0점 ' + n0(TIES_AWP.zeros) + '개</b> · 서로 다른 점수 ' + n0(TIES_AWP.distinct) + '개<br>' +
-          n0(TIES_AWP.zeros) + ' = 송금 그래프 밖 ' + n0(N.outT) + ' + 금액이 너무 작아 무게가 0인 ' + n0(N.tinyT) + '</div></div>',
+          (N.tinyT > 0 ? n0(TIES_AWP.zeros) + ' = 송금 그래프 밖 ' + n0(N.outT) + ' + 금액이 너무 작아 무게가 0인 ' + n0(N.tinyT) :
+            '모두 송금 그래프 밖에 있는 계약') + '</div></div>',
     build: function (el, ctx) {
       var K = Comp.data.contracts(); if (!K) return;
       var n = K.n, i;

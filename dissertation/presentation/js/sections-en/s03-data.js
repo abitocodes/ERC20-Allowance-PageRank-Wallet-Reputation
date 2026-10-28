@@ -3,9 +3,13 @@
 
    Every number on screen is read from window.DECK_DATA (built from the two
    results digests and experiments/data/) with the digest value as fallback:
-     revised digest (R) = the thesis's main analysis; registered digest (G) is
-     labeled "registered analysis" wherever it appears (s03-02 plan-stage rows, s03-04 the
-     first two funnel stages).
+     revised digest (R, revised-usd-12m) = the thesis's main analysis: USD, five
+     tokens, scores from the twelve months before each freeze (T_obs and W1:
+     2025-07-01 – 2026-06-30; W0: 2025-04-01 – 2026-03-31); registered digest (G)
+     is labeled "registered analysis" wherever it appears (s03-01 the streams of scan A,
+     s03-02 the all-token rows, s03-04 the first two funnel stages).
+   The extraction itself covers scan A (2023-10-01 – 2026-06-30) and scan B
+   (July – September 2026); s03-01 shows both and the two score windows.
    Pictures that are only illustrations (s03-05 galaxies) carry the Example tag.
    No address or contract name is ever drawn (honesty rule 8).
    Styles are injected once with the prefix .s3- so they cannot leak into
@@ -52,40 +56,54 @@
   function n0(v) { return fmt(v, 0); }
   var LOCK_SVG = (Deck.ICONS && Deck.ICONS.lock) || '';
 
+  /* monthly ego counts: the registered series covers scan A (2023-10 … 2026-06, every token, the
+     plan's cohort); the revised series covers the T_obs score window (2025-07 … 2026-06, five tokens) */
+  var MCR = get(TLD, 'monthly_counts.registered', {});
+  function sumRows(rows) { var s = 0; (rows || []).forEach(function (r) { s += r[1]; }); return s; }
+
   /* numbers (digest value as fallback; see STORYBOARD §0.2 for the keys) */
   var N = {
-    appr: get(REV, 'rows.revised_ego.approvals', 224954202),
-    xfer: get(REV, 'rows.revised_ego.transfers', 1149168538),
-    regAppr: get(REV, 'rows.registered_ego.approvals', 389866882),
-    regXfer: get(REV, 'rows.registered_ego.transfers', 1538404067),
-    w1Appr: get(REV, 'rows.revised_ego.approvals_w1', 12209894),
-    w1Xfer: get(REV, 'rows.revised_ego.transfers_w1', 60182192),
-    bqUsd: get(TLD, 'bigquery.total_usd', 34.8),
+    appr: get(REV, 'rows.revised_ego.approvals', 85986562),
+    xfer: get(REV, 'rows.revised_ego.transfers', 442722039),
+    /* registered analysis: every ego event of scan A (33 months, every token) */
+    regAppr: sumRows(MCR.approval_ego) || 389866882,
+    regXfer: sumRows(MCR.transfer_ego) || get(REG, 'amounts.transfers_ego', 1538404067),
+    w1Appr: get(REV, 'rows.revised_ego.approvals_w1', 12200682),
+    w1Xfer: get(REV, 'rows.revised_ego.transfers_w1', 58625425),
+    bqUsd: get(TLD, 'bigquery.total_usd', 42.24),
     budget: get(TLD, 'bigquery.budget_usd', 50),
     cand: get(REG, 'candidates', 29022),
     codeContract: get(REG, 'by_code_kind.contract', 27844),
     codeNone: get(REG, 'by_code_kind.none', 1121),
     code7702: get(REG, 'by_code_kind.eip7702', 57),
-    matched: get(REV, 'cohort', 15107),
-    leftOut: get(REV, 'left_out_of_registered', 12737),
-    outA: get(REV, 'graph_tobs.cohort_outside_allowance', 523),
-    outT: get(REV, 'graph_tobs.cohort_outside_transfer', 2670),
-    outBoth: get(REV, 'graph_tobs.cohort_outside_both', 80),
-    gAn: get(REV, 'graph_tobs.allowance.nodes', 6221665),
-    gAe: get(REV, 'graph_tobs.allowance.edges', 11210114),
-    gTn: get(REV, 'graph_tobs.transfer.nodes', 7884602),
-    gTe: get(REV, 'graph_tobs.transfer.edges', 25001216),
-    owners: get(REV, 'amounts.owners', 6208769),
-    maxAge: get(TLD, 'anchors.max_age_days_tobs', 1004)
+    matched: get(REV, 'cohort', 6483),
+    leftOut: get(REV, 'left_out_of_registered', 21361),
+    outA: get(REV, 'graph_tobs.cohort_outside_allowance', 191),
+    outT: get(REV, 'graph_tobs.cohort_outside_transfer', 1192),
+    outBoth: get(REV, 'graph_tobs.cohort_outside_both', 30),
+    gAn: get(REV, 'graph_tobs.allowance.nodes', 2514846),
+    gAe: get(REV, 'graph_tobs.allowance.edges', 3808949),
+    gTn: get(REV, 'graph_tobs.transfer.nodes', 3603300),
+    gTe: get(REV, 'graph_tobs.transfer.edges', 8426124),
+    owners: get(REV, 'amounts.owners', 2508872),
+    maxAge: get(TLD, 'anchors.max_age_days_tobs', 365)
   };
   /* R§10 "AWP/EndorseRank edge ratio (derived)": edges of the two solver graphs */
-  N.edgeRatio = (get(BM, 'revised.main.awp.edges', 25001216) / get(BM, 'revised.main.endorserank.edges', 11210114));
-  var TIES = get(RES, 'revised.same_window.ties.endorserank', { distinct: 13625, zeros: 535 });
-  var TIES_AWP = get(RES, 'revised.same_window.ties.awp', { distinct: 12435, zeros: 2672 });
+  N.edgeRatio = (get(BM, 'revised.main.awp.edges', 8426124) / get(BM, 'revised.main.endorserank.edges', 3808949));
+  var TIES = get(RES, 'revised.same_window.ties.endorserank', { distinct: 5641, zeros: 197 });
+  var TIES_AWP = get(RES, 'revised.same_window.ties.awp', { distinct: 5292, zeros: 1192 });
   /* zero scores = contracts outside that graph + contracts whose only pairs carry amounts too small
-     for the value weight to differ from zero (thesis Ch. 4: 535 = 523 + 12, 2,672 = 2,670 + 2) */
+     for the value weight to differ from zero (thesis Ch. 4: 197 = 191 + 6; AWP 1,192 = 1,192 + 0) */
   N.tinyA = TIES.zeros - N.outA;
   N.tinyT = TIES_AWP.zeros - N.outT;
+  /* a large count in words for the notes, rounded to two significant digits:
+     85,986,562 → '86 million', 442,722,039 → '440 million', 1,538,404,067 → '1.5 billion' */
+  function enApprox(v) {
+    var p = Math.pow(10, Math.max(0, Math.floor(Math.log10(v)) - 1)), r = Math.round(v / p) * p;
+    if (r >= 1e9) return fmt(r / 1e9, r % 1e9 ? 1 : 0) + ' billion';
+    if (r >= 1e6) return fmt(r / 1e6, r < 1e7 && r % 1e6 ? 1 : 0) + ' million';
+    return fmt(r);
+  }
 
   /* ---------------------------------------------------------------- styles */
   (function injectStyle() {
@@ -165,24 +183,31 @@
   })();
 
   /* =================================================================== s03-01
-     Three-year calendar: time axis 2023-10 … 2026-09, monthly ego counts (two streams,
-     each scaled to its own maximum), freeze pins t1 / T_obs, label windows
-     W0 / W1 (hatched), lock on W1, age ruler from T_obs (0 … 1,004 days). */
+     Three-year calendar: time axis 2023-10 … 2026-09; the extracted logs of scan A as monthly
+     ego counts (registered series, every token; two streams, each scaled to its own maximum);
+     freeze pins t1 / T_obs, each with its twelve-month score window (solid band: input to the
+     scores) and its label window W0 / W1 (hatched); lock on W1 (scan B after the registration);
+     age ruler from T_obs back to the first day of its score window (0 … 365 days). */
   var MC = get(TLD, 'monthly_counts.revised', {});
   var monA = (MC.approval_ego || []).map(function (r) { return r[1]; });
   var monT = (MC.transfer_ego || []).map(function (r) { return r[1]; });
+  var regMonA = (MCR.approval_ego || []).map(function (r) { return r[1]; });
+  var regMonT = (MCR.transfer_ego || []).map(function (r) { return r[1]; });
   var AX = { left: 96, top: 196, w: 1728, h: 660, axisY: 520 };
   var T0 = Comp.parseDate('2023-10-01'), T1 = Comp.parseDate('2026-09-30'), TOBS = Comp.parseDate('2026-07-01');
+  /* score windows (DECK_DATA.timeline.anchors.score_window_t1 / score_window_tobs), as month starts */
+  var SW0 = String(get(TLD, 'anchors.score_window_t1', ['2025-04-01'])[0]).slice(0, 10);
+  var SW1 = String(get(TLD, 'anchors.score_window_tobs', ['2025-07-01'])[0]).slice(0, 10);
   function monthLabel(ms) { var d = new Date(ms); return d.getUTCFullYear() + '-' + U.pad2(d.getUTCMonth() + 1); }
 
   var slide1 = {
     id: 's03-01', title: 'Three-year calendar', time: 40, steps: 4,
     notes: [
       'The data are the public records of Arbitrum One. Let me spread three years out on this time axis.',
-      'The observation window runs from 1 October 2023 to 30 June 2026, 33 months. The amber band on top is the approval records created each month, and the sky-blue band below is the transfer records. Each band is scaled to its own height, so please compare only their shapes. Add the three months of the label window W1 and it is exactly three years.',
-      'We tested twice. In W0 the scores were frozen on 31 March 2026 and graded on what happened from April to June.',
-      'In W1 the scores were frozen on 30 June and graded on what happened from July to September. This study extracted the records of these three months only after commit 0d3a057, which committed the grading rules to the public repository as the registration. That is why there is a lock on it.',
-      'Last is the age ruler. The time weight is measured backward from T_obs, that is, 30 June 2026. The oldest record is 1,004 days old. This ruler comes back later when I explain the time weight.'
+      'Scan A extracted the records of 33 months, from 1 October 2023 to 30 June 2026. The amber band on top is the approval records extracted for each month, and the sky-blue band below is the transfer records. They cover every token, and the registered analysis built its scores from all of them. Each band is scaled to its own height, so please compare only their shapes. Add the three months of the label window W1 and it is exactly three years.',
+      'We tested twice. In W0 the scores were frozen on 31 March 2026 and graded on what happened from April to June. The main analysis of this thesis builds every score only from the twelve months before the freeze, so the W0 scores come from the records of 1 April 2025 to 31 March 2026. These twelve-month score windows were set, together with the amounts in US dollars and the five tokens, after the registered results were known.',
+      'In W1 the scores were frozen on 30 June and graded on what happened from July to September. Here the scores come from the twelve months from 1 July 2025 to 30 June 2026, and the same-window checks use these scores too. This study extracted the July to September records, scan B, only after commit 0d3a057, which committed the grading rules to the public repository as the registration. That is why there is a lock on it.',
+      'Last is the age ruler. The time weight is measured backward from T_obs, that is, 30 June 2026. Because the score window is twelve months long, even the oldest record is ' + n0(N.maxAge) + ' days old. This ruler comes back later when I explain the time weight.'
     ],
     html:
       '<h1 class="t-h1">[[Three years]] of records, two tests</h1>' +
@@ -191,9 +216,9 @@
       '<div class="abs s3-axis-shared" data-shared="time-axis" style="left:' + AX.left + 'px;top:' + (AX.top + AX.axisY - 1) + 'px;width:' + AX.w + 'px;height:2px"></div>' +
       '<div class="abs" id="w1note" data-in="none"></div>' +
       '<div class="abs s3-caps" style="left:96px;top:890px;width:1728px">' +
-        '<div class="s3-cap" data-step="1" style="width:620px"><b>Observation window · 33 months</b><span>1 Oct 2023 – 30 Jun 2026</span></div>' +
-        '<div class="s3-cap" data-step="2" style="width:520px"><b>W0 · frozen 31 Mar 2026</b><span>graded on Apr–Jun events</span></div>' +
-        '<div class="s3-cap" data-step="3" style="width:520px"><b>W1 · frozen 30 Jun 2026</b><span>graded on Jul–Sep · extracted after registration</span></div>' +
+        '<div class="s3-cap" data-step="1" style="width:440px"><b>Scan A · 33 months</b><span>1 Oct 2023 – 30 Jun 2026</span></div>' +
+        '<div class="s3-cap" data-step="2" style="width:500px"><b>W0 · frozen 31 Mar 2026</b><span>scores: 12 months before · labels: Apr–Jun</span></div>' +
+        '<div class="s3-cap" data-step="3" style="width:724px"><b>W1 · frozen 30 Jun 2026</b><span>scores: 12 months before · labels: Jul–Sep, extracted after registration</span></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -202,15 +227,16 @@
       g.line = kids[0]; g.ticks = kids.slice(1);
       gsap.set(g.line, { visibility: 'hidden' });
       gsap.set(g.ticks, { autoAlpha: 0 });
-      /* streams: approvals above, transfers just above the axis; each scaled to its own max */
-      g.sA = TL.stream(monA, { color: 'allow', height: 170, base: 250, opacity: 0.26 });
-      g.sT = TL.stream(monT, { color: 'xfer', height: 200, base: AX.axisY - 14, opacity: 0.26 });
+      /* streams of scan A (registered series, every token): approvals above, transfers just above
+         the axis; each scaled to its own max */
+      g.sA = TL.stream(regMonA, { color: 'allow', height: 170, base: 250, opacity: 0.26 });
+      g.sT = TL.stream(regMonT, { color: 'xfer', height: 200, base: AX.axisY - 14, opacity: 0.26 });
       gsap.set([g.sA.g, g.sT.g], { autoAlpha: 0 });
       var lab = g.labels = S('g', {}, TL.svg);
       /* English: the "per month" note follows its label as a tspan (no fixed x offset to measure) */
-      [[62, 'Approval records', C.allow], [330, 'Transfer records', C.xfer]].forEach(function (r) {
+      [[62, 'Approval records', C.allow, 'per month · everything scan A extracted (every token)'], [330, 'Transfer records', C.xfer, 'per month']].forEach(function (r) {
         var lt = T(lab, 0, r[0], r[1], { fill: r[2], 'font-size': 24, 'font-weight': 700 });
-        var sp = S('tspan', { dx: 14, fill: C.ink2, 'font-size': 20, 'font-weight': 500 }, lt); sp.textContent = 'per month';
+        var sp = S('tspan', { dx: 14, fill: C.ink2, 'font-size': 20, 'font-weight': 500 }, lt); sp.textContent = r[3];
       });
       T(lab, 0, 360, 'Bands scaled separately', { fill: C.ink3, 'font-size': 18 });
       gsap.set(lab, { autoAlpha: 0 });
@@ -220,25 +246,39 @@
       if (g.p2.label) { var ts = S('tspan', { 'font-size': 15, dy: 5 }, g.p2.label); ts.textContent = 'obs'; }
       g.b0 = TL.band('2026-04-01', '2026-07-01', { label: 'W0', y0: 64 });
       g.b1 = TL.band('2026-07-01', '2026-10-01', { label: 'W1', y0: 64 });
+      /* the twelve-month score windows (solid, behind the hatched label windows): W0 from SW0 to t1,
+         T_obs (and W1) from SW1 to T_obs; the W0 label sits lower so the two labels never meet */
+      g.s0 = TL.band(SW0, '2026-04-01', { label: 'W0 score window · 12 months', y0: 100, hatch: false });
+      g.s1 = TL.band(SW1, '2026-07-01', { label: 'T', y0: 64, hatch: false });
+      if (g.s1.label) {
+        var s1a = S('tspan', { 'font-size': 14, dy: 5 }, g.s1.label); s1a.textContent = 'obs';
+        var s1b = S('tspan', { dy: -5 }, g.s1.label); s1b.textContent = ' score window · 12 months';
+      }
+      /* their labels start at the left edge of the band, clear of the freeze pins */
+      [[g.s0, SW0], [g.s1, SW1]].forEach(function (b) {
+        if (!b[0].label) return;
+        b[0].label.setAttribute('x', TL.x(b[1]) + 10); b[0].label.setAttribute('text-anchor', 'start');
+      });
       /* W1 lock card, inside the (empty) W1 band */
       var x1 = TL.x('2026-07-01'), x2 = TL.x('2026-10-01');
       var note = el.querySelector('#w1note');
       note.style.left = (AX.left + x1 + 6) + 'px'; note.style.top = (AX.top + 150) + 'px'; note.style.width = (x2 - x1 - 12) + 'px';
       note.innerHTML = '<div class="s3-lockcard">' + LOCK_SVG + '<span>Extracted after registration commit</span><span class="mono">0d3a057</span></div>';
       gsap.set(note, { autoAlpha: 0 });
-      /* age ruler (step 4): from T_obs back to the first day */
+      /* age ruler (step 4): from T_obs back to the first day of its score window */
       var R = g.ruler = S('g', {}, TL.svg), ry = 590, xo = TL.x(TOBS);
       var dayPx = (TL.x(T1) - TL.x(T0)) / ((T1 - T0) / 864e5);
+      var xr0 = g.rX0 = xo - N.maxAge * dayPx;
       g.rLine = S('line', { x1: xo, x2: xo, y1: ry, y2: ry, stroke: C.ink2, 'stroke-width': 2 }, R);
       g.rTicks = [];
-      [0, 180, 365, 730, N.maxAge].forEach(function (age, k, arr) {
+      [0, 90, 180, 270, N.maxAge].forEach(function (age, k, arr) {
         var x = xo - age * dayPx, last = k === arr.length - 1;
         var tk = S('line', { x1: x, x2: x, y1: ry - 9, y2: ry + 9, stroke: C.ink, 'stroke-width': 2 }, R);
-        var tx = T(R, x, ry + 34, '0', { fill: last ? C.ink : C.ink2, 'font-size': 20, 'text-anchor': last ? 'start' : 'middle', 'class': 'tnum', 'font-weight': last ? 700 : 500 });
+        var tx = T(R, x, ry + 34, '0', { fill: last ? C.ink : C.ink2, 'font-size': 20, 'text-anchor': 'middle', 'class': 'tnum', 'font-weight': last ? 700 : 500 });
         g.rTicks.push({ age: age, x: x, tick: tk, text: tx, last: last });
       });
-      g.rCap = TS(R, 0, ry + 66, ['Age = days counted back from T', ['obs'], ' (30 Jun 2026), the anchor of the time weight · the oldest record is ' + n0(N.maxAge) + ' days old'], { fill: C.ink3, 'font-size': 18 });
-      g.rArrow = S('path', { d: 'M' + (TL.x(T0) + 12) + ',' + (ry - 7) + ' L' + TL.x(T0) + ',' + ry + ' L' + (TL.x(T0) + 12) + ',' + (ry + 7), fill: 'none', stroke: C.ink2, 'stroke-width': 2 }, R);
+      g.rCap = TS(R, xo, ry + 66, ['Age = days counted back from T', ['obs'], ' (30 Jun 2026), the anchor of the time weight · the oldest record in the score window is ' + n0(N.maxAge) + ' days old'], { fill: C.ink3, 'font-size': 18, 'text-anchor': 'end' });
+      g.rArrow = S('path', { d: 'M' + (xr0 + 12) + ',' + (ry - 7) + ' L' + xr0 + ',' + ry + ' L' + (xr0 + 12) + ',' + (ry + 7), fill: 'none', stroke: C.ink2, 'stroke-width': 2 }, R);
       gsap.set(R, { autoAlpha: 0 });
       g.wm = el.querySelector('#wm');
       gsap.set(g.wm, { autoAlpha: 0 });
@@ -277,16 +317,20 @@
       }
       if (i === 2) {
         tl.add(g.p1.drop(), 0);
-        tl.add(g.b0.show(), 0.45);
+        tl.add(g.s0.show(), 0.35);
+        tl.add(g.b0.show(), 0.75);
       }
       if (i === 3) {
+        /* the W0 score window steps back; the T_obs score window (also W1's) comes forward */
+        tl.to(g.s0.g, { autoAlpha: 0.35, duration: 0.4 }, 0);
         tl.add(g.p2.drop(), 0);
-        tl.add(g.b1.show(), 0.45);
+        tl.add(g.s1.show(), 0.35);
+        tl.add(g.b1.show(), 0.75);
         var note = el.querySelector('#w1note');
-        tl.fromTo(note, { autoAlpha: 0, y: 16, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: E.stamp }, 0.9);
+        tl.fromTo(note, { autoAlpha: 0, y: 16, scale: 0.92 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: E.stamp }, 1.2);
       }
       if (i === 4) {
-        var xo = TL.x(TOBS), x0 = TL.x(T0);
+        var xo = TL.x(TOBS), x0 = g.rX0;
         tl.set(g.ruler, { autoAlpha: 1 }, 0);
         tl.fromTo(g.rLine, { attr: { x2: xo } }, { attr: { x2: x0 }, duration: 1.4, ease: 'power2.inOut' }, 0);
         tl.fromTo(g.rArrow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 1.3);
@@ -305,9 +349,10 @@
   function invEase(p) { p = clamp01(p); return p < 0.5 ? Math.sqrt(p / 2) : 1 - Math.sqrt((1 - p) / 2); }
 
   /* =================================================================== s03-02
-     How many records: two odometers with cumulative growth lines behind
-     them, a waffle (one dot = 1,000,000 records) that reflows into two bars,
-     then three small cards (registered-analysis rows, W1 rows, BigQuery cost). */
+     How many records: two odometers (five tokens, T_obs score window) with
+     cumulative growth lines behind them, a waffle (one dot = 1,000,000 records)
+     that reflows into two bars, then three small cards (registered-analysis rows
+     of scan A, W1 rows, BigQuery cost). */
   var DOT = 1e6;
   var nDotA = Math.round(N.appr / DOT), nDotT = Math.round(N.xfer / DOT);
   function cumulative(arr) { var s = 0, out = [0]; arr.forEach(function (v) { s += v; out.push(s); }); return out; }
@@ -323,14 +368,14 @@
   var slide2 = {
     id: 's03-02', title: 'How many records', time: 35, steps: 3,
     notes: [
-      'Let me start with the volume of records. Across the five tokens, I counted only the records that have a contract under study at one end. The period is the 33-month observation window.',
-      'There are more than 220 million approval records and more than 1.1 billion transfer records. The line behind each number is the records piling up month by month. Below, one dot is one million records, so approvals make 225 dots and transfers 1,149 dots.',
+      'Let me start with the volume of records. Across the five tokens, I counted only the records that have a contract under study at one end. The period is the T_obs score window, the twelve months from July 2025 to June 2026.',
+      'There are about ' + enApprox(N.appr) + ' approval records and about ' + enApprox(N.xfer) + ' transfer records. The line behind each number is the records piling up month by month. Below, one dot is one million records, so approvals make ' + n0(nDotA) + ' dots and transfers ' + n0(nDotT) + ' dots.',
       'If I stack the same dots again as bars, the difference in length is easy to see. There are about five times as many transfers as approvals. Approvals happen much more rarely than transfers.',
-      'When all tokens were extracted, as first planned, there were 390 million approval records and 1.5 billion transfer records. These are the numbers of the registered analysis. The W1 records from July to September were extracted by this study separately, after the registration. The cloud cost of all these queries was 34.80 dollars, within the budget of 50 dollars set at the start.'
+      'The registered analysis, following the analysis plan, built its scores from the records of every token over the 33 months of scan A: about ' + enApprox(N.regAppr) + ' approval records and ' + enApprox(N.regXfer) + ' transfer records. The W1 records from July to September were extracted by this study separately, after the registration. The cloud cost of all these queries was ' + fmt(N.bqUsd, 2) + ' dollars, within the budget of ' + n0(N.budget) + ' dollars set at the start.'
     ],
     html:
       '<h1 class="t-h1">How many records are there?</h1>' +
-      '<p class="abs t-body ink-2" style="left:96px;top:162px">Five tokens · only records with a cohort contract at one end · observation window of 33 months</p>' +
+      '<p class="abs t-body ink-2" style="left:96px;top:162px">Five tokens · only records with a cohort contract at one end · T_obs score window of 12 months (Jul 2025 – Jun 2026)</p>' +
       numCol('A', 96, 820, 'Approval records', 'c-allow') + numCol('T', 1000, 824, 'Transfer records', 'c-xfer') +
       '<p class="abs t-caption ink-2" style="left:96px;top:436px" data-step="1">One dot = [[1 million records]] <span class="ink-3">· divided by 1 million and rounded</span></p>' +
       '<div class="abs" id="cv" data-in="none" style="left:96px;top:480px;width:1728px;height:450px"></div>' +
@@ -341,7 +386,7 @@
         '<div class="abs s3-barval" id="bvT" style="top:104px"></div>' +
       '</div>' +
       '<div class="abs s3-cards" style="left:96px;top:700px;width:1728px" data-step="3" data-stagger="0.12">' +
-        '<div class="s3-card"><div class="s3-card-h"><span>Plan stage · all tokens</span>' + Deck.tagHTML('registered-analysis') + '</div>' +
+        '<div class="s3-card"><div class="s3-card-h"><span>All tokens · 33 months</span>' + Deck.tagHTML('registered-analysis') + '</div>' +
           '<div class="s3-row"><span class="k">Approvals</span><span>' + n0(N.regAppr) + '</span></div>' +
           '<div class="s3-row"><span class="k">Transfers</span><span>' + n0(N.regXfer) + '</span></div></div>' +
         '<div class="s3-card"><div class="s3-card-h"><span style="white-space:nowrap">W1 · Jul–Sep 2026</span><span class="t-caption ink-3" style="white-space:nowrap;font-size:22px">extracted after registration</span></div>' +
@@ -370,9 +415,9 @@
         gsap.set(path, { strokeDasharray: L + ' ' + L, strokeDashoffset: L });
         gsap.set([area, dot], { autoAlpha: 0 });
         g['gl' + row[0]] = { path: path, area: area, dot: dot, L: L };
-        /* the empty slot shows the final width of the number */
-        var slot = el.querySelector('#slot' + row[0]);
-        slot.style.width = (row[0] === 'A' ? 640 : 735) + 'px';
+        /* the empty slot shows the final width of the number (about 62 px a digit, 40 px a comma) */
+        var slot = el.querySelector('#slot' + row[0]), txt = n0(row[4]);
+        slot.style.width = Math.round(txt.replace(/\D/g, '').length * 62 + (txt.match(/,/g) || []).length * 40) + 'px';
       });
       gsap.set([el.querySelector('#uA'), el.querySelector('#uT')], { autoAlpha: 0 });
       /* waffle + bars on one canvas */
@@ -449,31 +494,37 @@
 
   /* =================================================================== s03-03
      Five tokens and USD prices: daily USD close of the five tokens on a log scale,
-     all in ink-3; the token being discussed is lit. Freeze-date markers; a
-     digit ruler (powers of ten) for base units; the conversion formula of
-     Chapter 3 (x_e = v 10^{-q} p) as a preview; the Chainlink comparison. */
+     all in ink-3; the token being discussed is lit. Freeze-date markers with the
+     548 days that the windows of the main analysis cover (2025-04-01 – 2026-09-30);
+     a digit ruler (powers of ten) for base units; the conversion formula of
+     Chapter 3 (x_e = v 10^{-q} p) as a preview; the Chainlink comparison.
+     Chainlink check (thesis App. D, table usd-tokens; not in DECK_DATA): 20 check
+     days per token, median difference 0.010–0.056 %, largest 0.24 % (WBTC). */
   var TOK = ['WBTC', 'WETH', 'ARB', 'USDC', 'USDT0'];
   var TOK_LABEL = { WBTC: 'WBTC', WETH: 'WETH', ARB: 'ARB', USDC: 'USDC', USDT0: 'USDT0' };
   var PC = { x0: 96, x1: 1500, y0: 24, y1: 484, lmin: Math.log10(0.05), lmax: Math.log10(200000) };
   var CHECK_SVG = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.6"/><path d="M6.6 10.2l2.3 2.3 4.6-4.9"/></svg>';
   var CL = get(DD, 'params.chainlink', null);
+  /* first price day the main analysis uses: the start of the W0 score window */
+  var PSTART = Comp.parseDate(SW0);
+  var SEL_SHARE = get(SC, 'tokens.selected_share_of_rows_tobs', 0.794);
 
   var slide3 = {
     id: 's03-03', title: 'Five tokens and USD prices', time: 40, steps: 5,
     notes: [
       'Each token has its own unit and its own value, so amounts cannot simply be added together. That is why the revised analysis converted every amount to US dollars. The prices are DefiLlama daily closes, that is, the last price of each day.',
-      'Five tokens remain: WETH, USDC, USDT0, ARB and WBTC. Among the ' + n0(get(SC, 'tokens.priced', 46)) + ' tokens whose Chainlink price feed is rated low or medium risk and that have a daily price, these are the five with the most records. All five are priced by feeds rated low risk. The vertical axis is a log scale, so everything from 0.1 dollars to 100,000 dollars fits in one picture.',
+      'Five tokens remain: WETH, USDC, USDT0, ARB and WBTC. Among the ' + n0(get(SC, 'tokens.priced', 46)) + ' tokens whose Chainlink price feed is rated low or medium risk and that have a daily price, these are the five with the most records in the T_obs score window. Together they hold ' + fmt(SEL_SHARE * 100, 1) + '% of the records of that window. All five are priced by feeds rated low risk. The vertical axis is a log scale, so everything from 0.1 dollars to 100,000 dollars fits in one picture.',
       'WETH and WBTC swing up and down a lot. USDC and USDT0, on the other hand, stay almost fixed at one dollar. So the same single token can be worth a different number of dollars from day to day.',
-      'A transfer is converted at the price of the day it happened. An allowance is converted at the price of the anchor day, the day the scores are frozen: t₁, 31 March, and T_obs, 30 June. That is because an allowance is a promise that is still alive on that day.',
+      'A transfer is converted at the price of the day it happened. An allowance is converted at the price of the anchor day, the day the scores are frozen: t₁, 31 March, and T_obs, 30 June. That is because an allowance is a promise that is still alive on that day. The main analysis uses prices on 548 days, from 1 April 2025, when the W0 score window opens, to 30 September 2026, when W1 ends. Every one of these 548 days has a price under the token\'s own address.',
       'The units must match too. One USDC is a million in base units, that is, six zeros. One WETH has eighteen zeros. That is twelve digits apart. So we multiply the number of base units v by ten to the power minus q to get the number of tokens, and then by that day\'s price p to get dollars. We will see this formula again when we come to the value weight.',
-      'I also checked whether these prices can be trusted. Compared with the Chainlink prices on the chain on 38 days for each token, the median difference was 0.01 to 0.08 percent, and the largest difference was 0.72 percent.'
+      'I also checked whether these prices can be trusted. Compared with the Chainlink prices on the chain on 20 of those days for each token, the median difference was 0.010 to 0.056 percent, and the largest difference was 0.24 percent, for WBTC.'
     ],
     html:
       '<h1 class="t-h1">Every amount in [[US dollars]]</h1>' +
       '<p class="abs t-body ink-2" style="left:96px;top:162px">Converted at that day\'s daily close (DefiLlama)</p>' +
       '<div class="abs" id="pc" data-in="none" style="left:96px;top:222px;width:1728px;height:540px"></div>' +
       '<div class="abs s3-check" id="chk" style="left:1150px;top:70px;width:674px" data-step="5" data-in="pop">' + CHECK_SVG +
-        '<div><b>Compared with Chainlink feeds · 38 days per token</b><span>Median difference 0.01–0.08% · largest 0.72%</span></div></div>' +
+        '<div><b>Compared with Chainlink feeds · 20 days per token</b><span>Median difference 0.010–0.056% · largest 0.24% (WBTC)</span></div></div>' +
       '<p class="abs t-caption ink-2" id="rcap" data-in="none" style="left:96px;top:784px">Written in base units</p>' +
       '<div class="abs" id="ruler" data-in="none" style="left:96px;top:816px;width:1240px;height:170px"></div>' +
       '<div class="abs s3-fx" id="fx" data-in="none" style="left:1384px;top:784px;width:440px">' +
@@ -553,6 +604,16 @@
       TS(g.fcap, fx, Y(120), ['Allowance: price on the anchor day (t₁, T', ['obs'], ')'], { fill: C.ink, 'font-size': 22, 'font-weight': 700, 'text-anchor': 'end' });
       T(g.fcap, fx, Y(120) + 32, 'Transfer: price on the day it happened', { fill: C.ink2, 'font-size': 22, 'text-anchor': 'end' });
       gsap.set(g.fcap, { autoAlpha: 0 });
+      /* step 3: the days the main analysis prices, from the start of the W0 score window to the end
+         of W1 (a faint band behind the lines) */
+      var iP = Math.max(0, Math.round((PSTART - start) / 864e5)), nP = days - iP;
+      g.win = S('g', {}, svg);
+      svg.insertBefore(g.win, svg.firstChild);
+      S('rect', { x: X(iP), y: PC.y0, width: Math.max(1, X(days - 1) - X(iP)), height: PC.y1 - PC.y0, fill: 'rgba(233,237,245,0.045)' }, g.win);
+      S('line', { x1: X(iP), x2: X(iP), y1: PC.y0, y2: PC.y1, stroke: C.ink3, 'stroke-width': 1.5, 'stroke-dasharray': '3 5' }, g.win);
+      /* the label sits between the WBTC and WETH lines, left of the t1 pin */
+      T(g.win, X(iP) + 10, Y(12000), 'Main analysis: ' + n0(nP) + ' days, Apr 2025 – Sep 2026', { fill: C.ink3, 'font-size': 18 });
+      gsap.set(g.win, { autoAlpha: 0 });
       /* step 4: digit ruler (powers of ten) */
       buildDigitRuler(ctx, g, el.querySelector('#ruler'));
       gsap.set([el.querySelector('#rcap'), el.querySelector('#ruler'), el.querySelector('#fx')], { autoAlpha: 0 });
@@ -588,6 +649,7 @@
       }
       if (i === 3) {
         tl.to([g.ann.a, g.ann.b], { autoAlpha: 0, duration: 0.35 }, 0);
+        tl.fromTo(g.win, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.1);
         g.pins.forEach(function (p, k) {
           tl.add(p.P.drop(), 0.2 + k * 0.35);
           tl.fromTo(p.dots.childNodes, { attr: { r: 0 } }, { attr: { r: 5.5 }, duration: 0.35, ease: E.stamp, stagger: 0.05 }, 0.75 + k * 0.35);
@@ -686,8 +748,10 @@
   /* =================================================================== s03-04
      Cohort funnel: ~2,900 particles (one ≈ 10 contracts) pour into a funnel;
      EOAs (no code, EIP-7702) leave as hollow grey circles, the contracts that
-     miss the rule on five tokens leave as dim boxes, the matched cohort
-     remains; contracts outside a graph settle on the floor trays (score 0). */
+     miss the rule on five tokens in the T_obs score window leave as dim boxes, the
+     matched cohort remains; contracts outside a graph settle on the floor trays
+     (score 0). The W0 cohort (6,343, 5,383 of them in the matched cohort; thesis
+     Ch. 4 "Cohorts", not in DECK_DATA) is named in the notes only. */
   var FX = 50;   /* horizontal offset of the funnel inside its canvas */
   var FUN = {
     cx: 640 + FX,
@@ -741,10 +805,10 @@
     id: 's03-04', title: 'Cohort funnel', time: 35, steps: 4,
     notes: [
       'This is how the contracts to be scored were chosen. One particle is about ten contracts.',
-      'First I collected the spenders that received approvals from at least three distinct owners in the observation window. There were 29,022. This number comes from the registered analysis, counted on all tokens as the analysis plan said.',
-      'Reading the code at each address, 1,121 had no code and 57 carried an EIP-7702 delegation designator. Both are EOAs, moved by a private key, so they were taken out. The remaining 27,844 are the cohort of the analysis plan.',
-      'The revised analysis kept the 15,107 that meet this rule on the five tokens alone. We call this the matched cohort. The other 12,737 cannot reach three owners on the five tokens. Because every score is given to these same contracts, differences between the scores do not come from differences in the sample.',
-      'Still, some contracts are missing from one of the graphs altogether. 523 are outside the allowance graph and 2,670 are outside the transfer graph, and 80 of them are outside both. Such a contract gets 0 under the score of that graph.'
+      'First I collected the spenders that received approvals from at least three distinct owners during the 33 months of scan A. There were ' + n0(N.cand) + '. This number comes from the registered analysis, counted on all tokens as the analysis plan said.',
+      'Reading the code at each address, ' + n0(N.codeNone) + ' had no code and ' + n0(N.code7702) + ' carried an EIP-7702 delegation designator. Both are EOAs, moved by a private key, so they were taken out. The remaining ' + n0(N.codeContract) + ' are the cohort of the analysis plan.',
+      'Of these, the revised analysis kept the ' + n0(N.matched) + ' that received approvals of the five tokens from at least three distinct owners in the T_obs score window, the twelve months from July 2025 to June 2026. We call this the matched cohort. The other ' + n0(N.leftOut) + ' cannot reach three owners on the five tokens in those twelve months. Because every score is given to these same contracts, differences between the scores do not come from differences in the sample. W0 draws its own cohort by the same rule in its own score window: 6,343 contracts, 5,383 of which are also in the matched cohort.',
+      'Still, some contracts are missing from one of the graphs altogether. ' + n0(N.outA) + ' are outside the allowance graph and ' + n0(N.outT) + ' are outside the transfer graph, and ' + n0(N.outBoth) + ' of them are outside both. Such a contract gets 0 under the score of that graph.'
     ],
     html:
       '<h1 class="t-h1">Cohort funnel</h1>' +
@@ -755,7 +819,7 @@
         '<div class="s3-fl-small">no code ' + n0(N.codeNone) + '</div><div class="s3-fl-small">EIP-7702 ' + n0(N.code7702) + '</div></div>' +
       '<div class="abs" id="droplab" data-in="none" style="left:96px;top:876px;width:330px">' +
         '<div class="t-caption ink-2" style="font-weight:700">' + n0(N.leftOut) + ' left out</div>' +
-        '<div class="s3-fl-small" style="font-family:var(--font-sans)">rule not met on the five tokens</div></div>' +
+        '<div class="s3-fl-small" style="font-family:var(--font-sans)">rule not met on five tokens<br>in 12 months</div></div>' +
       '<div class="abs" style="left:1340px;top:200px;width:484px" data-step="1">' +
         '<div class="s3-fl-cap">Spenders approved by 3+ distinct owners</div>' +
         '<div class="s3-fl-num"><span id="f1"></span>' + Deck.tagHTML('registered-analysis') + '</div></div>' +
@@ -764,7 +828,7 @@
         '<div class="s3-fl-num"><span id="f2"></span><span class="eq">= the plan\'s cohort</span></div>' +
         '<div class="s3-fl-small" style="margin-top:2px">' + Deck.tagHTML('registered-analysis') + '</div></div>' +
       '<div class="abs" style="left:1340px;top:592px;width:484px" data-step="3">' +
-        '<div class="s3-fl-cap">3+ owners on the five tokens alone</div>' +
+        '<div class="s3-fl-cap">3+ owners on five tokens in 12 months</div>' +
         '<div class="s3-fl-num"><span class="hl" id="f3"></span></div>' +
         '<div class="s3-fl-cap" style="color:var(--ink)">= matched cohort (revised analysis)</div></div>' +
       '<div class="abs" style="left:1340px;top:780px;width:484px" data-step="4">' +
@@ -926,10 +990,10 @@
 
   /* =================================================================== s03-05
      Size of the two graphs: two illustrative "galaxies" (shapes are illustrations;
-     only the ratio of dots and lines matches the real graphs, 1 : 7,800),
+     only the ratio of dots and lines matches the real graphs of T_obs, 1 : 3,000),
      odometers for nodes/edges, a race of the two edge counts, and the ratio
      measured by laying the allowance bar along the transfer bar. */
-  var GAL_DIV = 7800;
+  var GAL_DIV = 3000;
   function buildGalaxy(kind, w, h, rng) {
     var nodes = [], edges = [], i, j;
     var nN = Math.round((kind === 'A' ? N.gAn : N.gTn) / GAL_DIV), nE = Math.round((kind === 'A' ? N.gAe : N.gTe) / GAL_DIV);
@@ -993,9 +1057,9 @@
     notes: [
       'From these records I built two graphs. A node is an address, and an edge is an allowance or a transfer. For now the nodes are scattered.',
       'In the allowance graph on the left, a great many owners point to a few spender contracts. The transfer graph on the right is a denser mesh. The shapes are only illustrations; just the ratio between the numbers of nodes and edges matches the real graphs.',
-      'Here are the real sizes. The allowance graph has about 6.22 million nodes and 11.21 million edges. The transfer graph has about 7.88 million nodes and 25 million edges.',
-      'Let me put the edge counts side by side. Laying the allowance bar along the transfer bar twice still leaves a little over. There are 2.23 times as many transfer edges as allowance edges. The time it takes to compute a score follows the number of edges, so later this difference by itself explains the difference in computing speed.',
-      'Almost every node in the allowance graph is an owner who granted an allowance. It looks like a constellation of 6,208,769 owners pointing to far fewer spenders.'
+      'Here are the real sizes, for the graphs built from the twelve-month score window of T_obs. The allowance graph has about ' + enApprox(N.gAn) + ' nodes and ' + enApprox(N.gAe) + ' edges. The transfer graph has about ' + enApprox(N.gTn) + ' nodes and ' + enApprox(N.gTe) + ' edges.',
+      'Let me put the edge counts side by side. Laying the allowance bar along the transfer bar twice still leaves a little over. There are ' + N.edgeRatio.toFixed(2) + ' times as many transfer edges as allowance edges. Computing a score also takes longer when there are more edges. But the time depends on how many rounds the computation repeats as well, so the time ratio is not simply the edge ratio. We come back to this in section 10.',
+      'Almost every node in the allowance graph is an owner who granted an allowance. It looks like a constellation of ' + n0(N.owners) + ' owners pointing to far fewer spenders.'
     ],
     html:
       '<h1 class="t-h1">Size of the two graphs</h1>' +
@@ -1125,20 +1189,25 @@
   };
 
   /* =================================================================== s03-06
-     15,107 contracts in 3D: x = log10(1 + in-approve degree), z = log10(1 +
-     transfer in-degree), y = log10(EndorseRank); zero scores rest on the floor
+     6,483 contracts in 3D (the matched cohort, n from DECK_DATA.scale.revised.cohort):
+     x = log10(1 + in-approve degree), z = log10(1 + transfer in-degree),
+     y = log10(EndorseRank), all at T_obs; zero scores rest on the floor
      plate. Colour = a two-stop ramp dark slate → amber on the EndorseRank
      percentile, then dark slate → sky on the AWP percentile, drawn with normal
      (not additive) blending so the mixed brightness along the ridge stays
      visible in the dense core. No address is shown anywhere. Kendall's τ is
      only named here (it is taught in s07); no interval is shown. */
+  /* AWP's zeros: every one of them lies outside the transfer graph when N.tinyT is 0 */
+  var AWP_ZERO_EN = N.tinyT > 0 ?
+    'That is the ' + n0(N.outT) + ' outside the transfer graph plus ' + n0(N.tinyT) + ' whose amounts are so small that their weight becomes 0.' :
+    'Every one of them lies outside the transfer graph.';
   var slide6 = {
-    id: 's03-06', title: '15,107 contracts in 3D', time: 45, steps: 3,
+    id: 's03-06', title: n0(N.matched) + ' contracts in 3D', time: 45, steps: 3,
     notes: [
-      'Now let me put all 15,107 contracts of the matched cohort on one screen. One dot is one contract. Right now every dot is lying on the floor.',
-      'Across is the number of distinct owners that approved the contract, depth is the number of distinct addresses that sent it transfers, and height is the EndorseRank score. EndorseRank is the "score that walks along allowances" I mentioned in section 01. We will build it step by step in sections 04 to 06. All three axes are on log scales, so very large and very small values can be seen together. One tick up the height means the score is 100 times larger. The contracts with the fewest approvals rise to their height first, and the rest follow in order. The color of a dot is its EndorseRank rank: grey when the rank is low, bright amber when it is high. The 535 contracts with an EndorseRank of 0 stay on the floor plate. That is the 523 outside the allowance graph plus 12 whose amounts are so small that their weight becomes 0.',
+      'Now let me put all ' + n0(N.matched) + ' contracts of the matched cohort on one screen. One dot is one contract. Right now every dot is lying on the floor.',
+      'Across is the number of distinct owners that approved the contract, depth is the number of distinct addresses that sent it transfers, and height is the EndorseRank score. All three come from the records of the twelve-month T_obs score window. EndorseRank is the "score that walks along allowances" I mentioned in section 01. We will build it step by step in sections 04 to 06. All three axes are on log scales, so very large and very small values can be seen together. One tick up the height means the score is 100 times larger. The contracts with the fewest approvals rise to their height first, and the rest follow in order. The color of a dot is its EndorseRank rank: grey when the rank is low, bright amber when it is high. The ' + n0(TIES.zeros) + ' contracts with an EndorseRank of 0 stay on the floor plate. That is the ' + n0(N.outA) + ' outside the allowance graph plus ' + n0(N.tinyA) + ' whose amounts are so small that their weight becomes 0.',
       'Seen from the side, EndorseRank rises almost in a single line with the number of approving owners. The color also changes evenly, from grey at the bottom to bright amber at the top. There is a number that measures how close this is to a single line, called Kendall\'s tau. We will learn it in section 07 by counting pairs. This is an intended-construct check, which asks whether the score measures what it was meant to measure. It is not a validation.',
-      'Now I color the same dots by the rank of AWP, the transfer-side score: grey when the rank is low, bright sky blue when it is high. If the two scores ordered the contracts the same way, the color would brighten evenly from bottom to top. Instead, bright and dark dots are mixed at every height of the ridge. This means the two scores order the contracts differently. 2,672 contracts have an AWP of 0. That is the 2,670 outside the transfer graph plus 2 whose amounts are so small that their weight becomes 0. These two scenes are a preview of today\'s results. You can also drag the scene to rotate it.'
+      'Now I color the same dots by the rank of AWP, the transfer-side score: grey when the rank is low, bright sky blue when it is high. If the two scores ordered the contracts the same way, the color would brighten evenly from bottom to top. Instead, bright and dark dots are mixed at every height of the ridge. This means the two scores order the contracts differently. ' + n0(TIES_AWP.zeros) + ' contracts have an AWP of 0. ' + AWP_ZERO_EN + ' These two scenes are a preview of today\'s results. You can also drag the scene to rotate it.'
     ],
     html:
       '<h1 class="t-h1">One dot = one [[contract]]</h1>' +
@@ -1161,7 +1230,8 @@
         '<div data-step="1" data-step-out="3">EndorseRank: <b>' + n0(TIES.zeros) + ' zero scores</b> on the floor · ' + n0(TIES.distinct) + ' distinct scores<br>' +
           n0(TIES.zeros) + ' = ' + n0(N.outA) + ' outside the allowance graph + ' + n0(N.tinyA) + ' with amounts too small to weigh</div>' +
         '<div data-step="3">AWP: <b>' + n0(TIES_AWP.zeros) + ' zero scores</b> · ' + n0(TIES_AWP.distinct) + ' distinct scores<br>' +
-          n0(TIES_AWP.zeros) + ' = ' + n0(N.outT) + ' outside the transfer graph + ' + n0(N.tinyT) + ' with amounts too small to weigh</div></div>',
+          (N.tinyT > 0 ? n0(TIES_AWP.zeros) + ' = ' + n0(N.outT) + ' outside the transfer graph + ' + n0(N.tinyT) + ' with amounts too small to weigh' :
+            'all of them outside the transfer graph') + '</div></div>',
     build: function (el, ctx) {
       var K = Comp.data.contracts(); if (!K) return;
       var n = K.n, i;

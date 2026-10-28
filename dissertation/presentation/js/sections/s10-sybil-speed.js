@@ -4,47 +4,56 @@
    s10-01  가짜 주소 농장     the trap of s04-05 (two points that only point at each other) grows
                               into a ring of 20 fake addresses; rain = restart + dangling share;
                               derivation of the closed-cluster equation (thesis Ch. 5); a gauge
-                              rises 1 → 3.17× and d buttons 0.75 / 0.85 / 0.95 switch it
+                              rises 1 → 3.23× and d buttons 0.75 / 0.85 / 0.95 switch it
    s10-02  별 모양 농장       ten fake addresses pop around one target and approve it both ways;
                               derivation of r_t = c(1 + d f)/(1 − d²); a log bar compares f = 10
                               with the cohort's median, 90th percentile and top
-   s10-03  꼭대기까지         3D tower of the 15,107 matched-cohort contracts on a log EndorseRank
+   s10-03  꼭대기까지         3D tower of the 6,483 matched-cohort contracts on a log EndorseRank
                               axis (real data); the target climbs: one partner (the pair, 2 approvals)
-                              → 22 → 2,074 → ≈135,895 fake addresses (one pink point per 5 addresses,
-                              27,179 points at the top, so the scene stays light)
-   s10-04  속도와 |E|         small world: one iteration = one multiplication per edge; edge piles;
-                              a 4× race 10.29 s vs 22.37 s; 2.17 ≈ 2.23; C-PR and S-PR; then, as its
-                              own last step with the rest dimmed, the small-sample stage chart
+                              → about 25 → 2,292 → 47,073 fake addresses (one pink point per 5
+                              addresses, 9,415 points at the top); approvals must be renewed in
+                              every twelve-month score window
+   s10-04  속도와 반복        small world: one iteration = one multiplication per edge; edge piles;
+                              a 2× race 2.66 s vs 8.53 s; 3.21 > 2.21, = 1.65 (iterations 94/57)
+                              × 1.95 (per iteration); C-PR and S-PR; then, as its own last step with
+                              the rest dimmed, the subsample stage chart (the time ratio follows the
+                              edge ratio at no stage)
 
-   Numbers and sources (R = revised digest = the thesis's main analysis)
-     |V| 6,219,063, |E| 11,210,114 (EndorseRank solver graph at T_obs) R§8 graph.nodes / graph.edges
-     6,221,665 / 7,884,602 (graphs as counted in s03)                 R§1 graph.allowance/transfer.nodes
-     2,602 = 6,221,665 − 6,219,063 and 2,246 = 7,884,602 − 7,882,356: addresses touched only by
-       pairs whose value weight is zero (left out of the solver graphs)  calc; thesis Ch. 4 §dataset
-     r_dang (the thesis's r_D: the total share of all dangling nodes) 0.3824 → 0.382;
-       farm factor 2.0648 / 3.1671 / 8.6819 at d = 0.75 / 0.85 / 0.95
-                                                                       R§8 damping.*.farm_factor
-     ring of 20: 3.1671                                                R§8 ring20 collects times share
-     c = 7.639e-8                                                      R§8 b common
-     star: f = 10, r_t 2.615e-6 (= closed form), 20 approvals, top 0.0318, ratio 8.224e-5
-                                                                       R§8 star.*
-     cohort quantiles p50 1.881e-7, p90 5.278e-6, p99 4.855e-4, top 0.0318 and farm sizes
-       0 / 21.38 (→ 22) / 2,073.9 (→ 2,074) / 135,894.8 (→ about 135,895)
-                                                                       R§8 farm size to reach cohort quantile
+   Numbers and sources (R = revised analysis, revised-usd-12m = the thesis's main analysis;
+   all read from DECK_DATA, the literals are fallbacks)
+     |V| 2,513,982, |E| 3,808,949 (EndorseRank solver graph at T_obs) sybil.revised.json.graph
+     2,514,846 / 3,603,300 (graphs as counted in s03)                 results.revised.same_window.graph
+     864 = 2,514,846 − 2,513,982 and 1,573 = 3,603,300 − 3,601,727: addresses whose pairs all
+       carry a value weight of zero (left out of the solver graphs)    calc; thesis Ch. 4 §dataset
+     r_dang (the thesis's r_D: the total share of all dangling nodes) 0.3939 → 0.394 (0.365, 0.419
+       at d = 0.75, 0.95); farm factor 2.0956 / 3.232 / 8.9626 → 2.10 / 3.23 / 8.96
+                                                                       sybil.revised.json.damping.*
+     ring of 20: 3.2317                                                ring20_collects_times_share
+     c = 1.928e-7                                                      b_common
+     star: f = 10, r_t 6.601e-6 (closed form 6.602e-6), 20 approvals, top 0.02781, ratio 2.374e-4
+       (about 1/4,200)                                                 star.*
+     cohort quantiles p50 5.817e-7, p90 1.557e-5, p99 1.354e-3, top 0.02781 and farm sizes
+       0 / 25.19 (about 25) / 2,291.7 (about 2,292) / 47,072.6 (about 47,073), rounded as in the
+       thesis (Ch. 5 and abstract: "about 25 … about 2,292 … about 47,073")
+                                                                       farm_size_to_reach_cohort_quantile
      median: the formula gives f ≤ 0 ("no farm"), but the target still needs one partner that it
-       approves and that approves it (thesis Ch. 5: "two addresses that approve each other already
-       score c/(1−d)") → shown as 1 fake address and 2 approvals; f = 1 in the star formula
-     2f approvals per window 2 (the pair) / 44 / 4,148 / 271,790; pair score c/(1−d) = 5.09e-7;
-       box heights r_t(f); 1 − d² = 0.2775; 0.0318 / c > 400,000      calc (DECK_DATA.sybil.revised)
-     tower points: log10 EndorseRank of the 15,107 contracts           D: cohort_scores.part000.parquet
-     benchmark: EndorseRank 10.294 s (SD 0.601), 879.7 MB, 69 it., |V| 6,219,063, |E| 11,210,114;
-       AWP 22.367 s, 1,712.6 MB, 92 it., 7,882,356, 25,001,216; C-PR (λ=0.5) 36.162 s, 9,151,010,
-       31,552,359, 79 it.; S-PR 34.422 s, 7,884,602, 25,018,892; ratios 2.17 and 2.23;
-       1 warm-up + 5 timed runs                                        R§10
-     stage ratios 3.98 2.49 2.60 2.57 2.23 (edges), 2.89 4.55 3.60 2.70 2.17 (time)
-                                                                       calc from R§10 scaling[0–4]
+       approves and that approves it → shown as 1 fake address and 2 approvals; f = 1 in the star
+       formula gives c/(1−d) = 1.29e-6 (pair_score)
+     2f approvals per window 2 (the pair) / 50 / 4,584 / 94,146 (thesis: about 94,000); box heights
+       r_t(f); 1 − d² = 0.2775; 0.0278 / c > 140,000 (highest_over_c 144,200)   calc
+     renewal: the score window keeps the approvals of the twelve months before each freeze, so a
+       farm emits its approvals again in every window                  thesis Ch. 5 §sybil-cost
+     tower points: log10 EndorseRank of the 6,483 contracts            contracts.log10.endorserank
+     benchmark: EndorseRank 2.657 s (SD 0.109), 325.3 MB, 57 it., |V| 2,513,982, |E| 3,808,949;
+       AWP 8.530 s, 663.7 MB, 94 it., 3,601,727, 8,426,124; C-PR (λ=0.5) 11.563 s, 4,111,490,
+       10,562,390, 82 it. (1.36 × AWP); S-PR 10.883 s, 3,603,300, 8,432,635, 151 it. = 56 (the
+       allowance layer, same_window.iterations.cpr_l100) + 95; ratios 3.21 (time) and 2.21
+       (edges), 1.43 (nodes), 1.65 (iterations), 1.95 (per iteration); 3.00 and 2.56 at d = 0.75,
+       0.95; 1 warm-up + 5 timed runs                                  benchmark.revised
+     stage ratios 2.85 2.95 2.73 2.21 (edges), 2.63 7.49 3.96 3.21 (time) at n = 1,000 … 6,483
+                                                                       calc from benchmark.revised.scaling
    Status tags: s10-01 … s10-03 '계산' (model values evaluated on the revised graph; no label,
-   no rule). s10-04 carries no tag (RQ3 is met largely by construction); every number on it is
+   no rule). s10-04 carries no tag (H3 / RQ2 hold largely by construction); every number on it is
    a benchmark measurement of the revised analysis, named as such on the slide.
    ========================================================================= */
 (function () {
@@ -71,7 +80,7 @@
   var uidN = 0;
   function uid(p) { uidN += 1; return 's10-' + p + '-' + uidN; }
   function sup(e) { return '<sup>' + (e < 0 ? '−' : '') + Math.abs(e) + '</sup>'; }
-  function sciH(s) { return s[0] + ' × 10' + sup(s[1]); }               /* ['2.62', -6] -> HTML */
+  function sciH(s) { return s[0] + ' × 10' + sup(s[1]); }               /* ['6.60', -6] -> HTML */
   function sciT(s) { return s[0] + '\\times10^{' + s[1] + '}'; }        /* -> TeX */
   function sciSvg(t, s, pre, post) {                                    /* -> SVG <text> */
     t.textContent = '';
@@ -82,41 +91,55 @@
     return t;
   }
   function lg(v) { return Math.log(v) / Math.LN10; }
+  /* Korean particles after a number read aloud: the last digit 2, 4, 5, 9 ends in a vowel (이, 사, 오, 구), 1, 7, 8 in ㄹ */
+  function kV(s) { return /[2459]$/.test(String(s)); }
+  function kwa(s) { return kV(s) ? '와' : '과'; }
+  function kro(s) { return kV(s) || /[178]$/.test(String(s)) ? '로' : '으로'; }
+  function kiga(s) { return kV(s) ? '가' : '이'; }
+  function kneun(s) { return kV(s) ? '는' : '은'; }
 
   /* ------------------------------------------------------------ data (digest values as fallbacks) */
   var SYR = pick(DATA, ['sybil', 'revised'], {});
   var SY = SYR.json || {};
   var DAMP = pick(DATA, ['params', 'pagerank', 'd'], 0.85);
-  var NODES = pick(SY, ['graph', 'nodes'], 6219063), NEDGES = pick(SY, ['graph', 'edges'], 11210114);
-  var RD = pick(SY, ['r_D'], 0.3824);
-  var FF = { '0.75': pick(SY, ['damping', '0.75', 'farm_factor'], 2.0648), '0.85': pick(SY, ['damping', '0.85', 'farm_factor'], 3.1671),
-    '0.95': pick(SY, ['damping', '0.95', 'farm_factor'], 8.6819) };
-  var RING20 = pick(SY, ['ring20_collects_times_share'], 3.1671);
-  var CC = pick(SY, ['b_common'], 7.639e-8);
+  var NODES = pick(SY, ['graph', 'nodes'], 2513982), NEDGES = pick(SY, ['graph', 'edges'], 3808949);
+  var RD = pick(SY, ['r_D'], 0.3939);
+  var RDD = { '0.75': pick(SY, ['damping', '0.75', 'r_D'], 0.3652), '0.95': pick(SY, ['damping', '0.95', 'r_D'], 0.4191) };
+  var FF = { '0.75': pick(SY, ['damping', '0.75', 'farm_factor'], 2.0956), '0.85': pick(SY, ['damping', '0.85', 'farm_factor'], 3.232),
+    '0.95': pick(SY, ['damping', '0.95', 'farm_factor'], 8.9626) };
+  var RING20 = pick(SY, ['ring20_collects_times_share'], 3.2317);
+  var CC = pick(SY, ['b_common'], 1.928e-7);
   var STAR = SY.star || {};
-  var STAR_M = STAR.m || 10, STAR_R = STAR.target_score || 2.615e-6, TOP = STAR.highest_cohort_endorserank || 0.0318;
+  var STAR_M = STAR.m || 10, STAR_R = STAR.target_score || 6.601e-6, TOP = STAR.highest_cohort_endorserank || 0.02781;
   var STAR_APPR = STAR.approvals_per_window || 20;
+  var STAR_RATIO = STAR.ratio_to_highest || STAR_R / TOP;
   var QS = SY.farm_size_to_reach_cohort_quantile || {};
-  var KP = SYR.key_points || {};
+  /* farm sizes: f solved from the closed form and rounded as the thesis rounds them ("about 25, 2,292, 47,073");
+     two approvals per farm address and score window */
   var Q = ['p50', 'p90', 'p99', 'p100'].map(function (k, i) {
-    var dflt = [[1.881e-7, 0, 0, 0], [5.278e-6, 21.3797, 22, 44], [4.855e-4, 2073.9281, 2074, 4148], [0.0318, 135894.8004, 135895, 271790]][i];
-    return { key: k, score: pick(QS, [k, 'score'], dflt[0]), f: pick(QS, [k, 'farm_addresses'], dflt[1]),
-      ceil: pick(KP, [k, 'farm_addresses_ceil'], dflt[2]), appr: pick(KP, [k, 'approvals_per_window'], dflt[3]) };
+    var dflt = [[5.817e-7, 0], [1.557e-5, 25.1891], [1.354e-3, 2291.74952], [0.02781, 47072.6474]][i];
+    var f = pick(QS, [k, 'farm_addresses'], dflt[1]), n = Math.round(f);
+    return { key: k, score: pick(QS, [k, 'score'], dflt[0]), f: f, n: n, appr: 2 * n };
   });
   var PAIR = SYR.pair_score || CC / (1 - DAMP);
-  /* graph sizes as s03 counts them (R§1); the solver graphs leave out the zero-value-weight addresses */
-  var G_ALLOW_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'allowance', 'nodes'], 6221665);
-  var G_XFER_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'transfer', 'nodes'], 7884602);
-  /* display strings, written as in the digest / thesis (checked against the data below) */
+  var TOP_C = pick(SYR, ['highest_over_c'], TOP / CC);                  /* the top score in units of c */
+  /* graph sizes as s03 counts them; the solver graphs leave out the zero-value-weight addresses */
+  var G_ALLOW_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'allowance', 'nodes'], 2514846);
+  var G_XFER_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'transfer', 'nodes'], 3603300);
+  /* display strings, written as in the thesis (Ch. 5; checked against the data below) */
   var S = {
-    rD: '0.382', ff: { '0.75': '2.06', '0.85': '3.17', '0.95': '8.68' }, ring20: '3.17',
-    c: ['7.64', -8], star: ['2.62', -6], p50: ['1.88', -7], p90: ['5.28', -6], p99: ['4.86', -4], top: '0.0318',
-    pair: ['5.09', -7], nodes: fmt(NODES, 0), edges: fmt(NEDGES, 0)
+    rD: '0.394', rDd: { '0.75': '0.365', '0.95': '0.419' }, ff: { '0.75': '2.10', '0.85': '3.23', '0.95': '8.96' }, ring20: '3.23',
+    c: ['1.93', -7], star: ['6.60', -6], p50: ['5.82', -7], p90: ['1.56', -5], p99: ['1.35', -3], top: '0.0278',
+    pair: ['1.29', -6], ratio: ['2.4', -4], nodes: fmt(NODES, 0), edges: fmt(NEDGES, 0)
   };
+  var INV_RATIO = fmt(Math.round(1 / STAR_RATIO / 100) * 100, 0);        /* 1 / 2.374e-4 ≈ 4,200 */
+  var TOP_C_MAN = Math.floor(TOP_C / 1e4);                                /* 14 → "14만 배" (more than 140,000 times c) */
   (function check() {
     function near(v, s, e) { var x = parseFloat(s) * Math.pow(10, e || 0); return Math.abs(v - x) <= Math.abs(x) * 0.006 + 1e-15; }
     var bad = [];
     if (!near(RD, S.rD)) bad.push('r_D');
+    ['0.75', '0.95'].forEach(function (k) { if (!near(RDD[k], S.rDd[k])) bad.push('r_D ' + k); });
+    if (Math.abs(STAR_RATIO - parseFloat(S.ratio[0]) * Math.pow(10, S.ratio[1])) > 0.06e-4) bad.push('star ratio');
     ['0.75', '0.85', '0.95'].forEach(function (k) { if (!near(FF[k], S.ff[k])) bad.push('farm factor ' + k); });
     if (!near(RING20, S.ring20)) bad.push('ring20');
     if (!near(CC, S.c[0], S.c[1])) bad.push('c');
@@ -132,19 +155,29 @@
     var m = pick(BMR, ['main', k], null) || {};
     return { s: m.mean_s || dflt[0], mb: m.peak_mb || dflt[1], it: m.iterations || dflt[2], v: m.nodes || dflt[3], e: m.edges || dflt[4] };
   }
-  var B_ER = bm('endorserank', [10.2942, 879.7489, 69, 6219063, 11210114]);
-  var B_AWP = bm('awp', [22.3674, 1712.5831, 92, 7882356, 25001216]);
-  var B_CPR = bm('cpr_l50', [36.1616, 1768.0676, 79, 9151010, 31552359]);
-  var B_SPR = bm('spr', [34.4221, 1235.78846, 158, 7884602, 25018892]);
+  var B_ER = bm('endorserank', [2.6569, 325.3234, 57, 2513982, 3808949]);
+  var B_AWP = bm('awp', [8.5296, 663.6928, 94, 3601727, 8426124]);
+  var B_CPR = bm('cpr_l50', [11.5635, 719.06, 82, 4111490, 10562390]);
+  var B_SPR = bm('spr', [10.8831, 509.4488, 151, 3603300, 8432635]);
   var R_TIME = pick(BMR, ['derived', 'time_ratio_awp_over_er'], B_AWP.s / B_ER.s);
   var R_EDGE = pick(BMR, ['derived', 'edge_ratio_awp_over_er'], B_AWP.e / B_ER.e);
+  /* the time ratio is the iteration ratio times the per-iteration ratio; the latter lies between the node and edge ratios */
+  var R_IT = B_AWP.it / B_ER.it, R_PER = (B_AWP.s / B_AWP.it) / (B_ER.s / B_ER.it), R_NODE = B_AWP.v / B_ER.v;
+  var R_CPR_AWP = B_CPR.s / B_AWP.s;
+  function dampRatio(k, dflt) { var e = pick(BMR, ['damping', k, 'endorserank', 'mean_s'], null), a = pick(BMR, ['damping', k, 'awp', 'mean_s'], null); return e && a ? a / e : dflt; }
+  var R_D75 = dampRatio('0.75', 2.998), R_D95 = dampRatio('0.95', 2.564);
+  /* S-PR's iterations include the allowance-layer solve that supplies its restart vector */
+  var IT_ALLOW = pick(DATA, ['results', 'revised', 'same_window', 'iterations', 'cpr_l100'], 56);
   var PROT = BMR.protocol || { warmup_runs: 1, timed_runs: 5 };
   var STAGES = (BMR.scaling || []).map(function (st) {
     return { n: st.n, er: st.endorserank.mean_s, awp: st.awp.mean_s, eE: st.endorserank.edges, eA: st.awp.edges };
   });
-  if (STAGES.length !== 5) STAGES = [[1000, 0.5802, 1.6774, 424888, 1692513], [2000, 0.9388, 4.272, 1263471, 3148826], [5000, 2.4959, 8.9948, 2988450, 7769268],
-    [10000, 6.2196, 16.82053, 6673167, 17180184], [15107, 10.2942, 22.3674, 11210114, 25001216]].map(function (a) { return { n: a[0], er: a[1], awp: a[2], eE: a[3], eA: a[4] }; });
+  if (STAGES.length < 2) STAGES = [[1000, 0.498, 1.3073, 485077, 1382177], [2000, 0.3183, 2.3829, 897812, 2647854], [5000, 1.6717, 6.6199, 2577926, 7035600],
+    [6483, 2.6569, 8.5296, 3808949, 8426124]].map(function (a) { return { n: a[0], er: a[1], awp: a[2], eE: a[3], eA: a[4] }; });
   STAGES.forEach(function (st) { st.rt = st.awp / st.er; st.re = st.eA / st.eE; });
+  var N_MAX = STAGES[STAGES.length - 1].n;
+  var K_PEAK = 0; STAGES.forEach(function (st, k) { if (st.rt > STAGES[K_PEAK].rt) K_PEAK = k; });
+  var SMALL_NS = STAGES.slice(0, -1).map(function (st) { return fmt(st.n, 0); });   /* the subsamples (the last stage is the full cohort) */
 
   /* ------------------------------------------------------------ section styles */
   var CSS = [
@@ -222,6 +255,7 @@
     '.s10-ratio .num{display:inline-block;font-variant-numeric:tabular-nums}',
     '.s10-frac{font-size:24px;line-height:34px;color:var(--ink-2)}',
     '.s10-frac .katex{font-size:26px}',
+    '.s10-frac b{color:var(--ink);font-weight:700}',
     '.s10-mul{position:absolute;padding:1px 9px;border-radius:10px;background:var(--bg-3);border:1px solid var(--c-allow);color:var(--ink);',
     '  font-size:17px;line-height:24px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;pointer-events:none}',
     '.s10-swc{font-size:22px;line-height:30px;color:var(--ink-2);white-space:nowrap}',
@@ -264,7 +298,7 @@
       '농장 전체가 가진 몫을 M이라고 해요. 한 번 돌 때 농장에 들어오는 것은 두 가지예요. 주소마다 내리는 비, 곧 |S| 곱하기 c, 그리고 화살표를 따라 고리 안에 남은 d 곱하기 M이에요. 화살표로 밖에 나가는 몫은 없어요. 그러면 나머지 1 빼기 d 곱하기 M은 어디로 갈까요? 걷는 사람이 순간 이동하는 몫이라서, 그래프의 모든 점으로 고르게 흩어져요. 농장에서 나가는 길은 이 순간 이동 하나뿐이에요. 농장으로 되돌아오는 몫은 비에 이미 들어 있어요.',
       '값이 멈춘 상태에서는 나가는 만큼 들어와요. 순간 이동으로 나가는 1 빼기 d 곱하기 M이, 새로 내리는 비 |S| 곱하기 c와 같아요. 식으로 쓰면 M은 d M 더하기 |S| c이고, 양쪽에서 d M을 빼면 1 빼기 d 곱하기 M이 |S| c가 돼요.',
       '양쪽을 1 빼기 d로 나누고 c를 풀어 쓰면 논문 5장의 식이 나와요. 앞의 분수 |S| 나누기 |V|는 농장의 인구 비율, 곧 공평하게 나누면 받을 몫이고, 뒤의 분수는 농장이 그 몇 배를 모으는지예요. 매달린 점이 없으면 뒤의 분수는 1이에요.',
-      '실제 허락 그래프에서 매달린 점들이 가진 몫을 모두 더한 r_dang은 0.382예요. 넣어 보면 0.15 더하기 0.85 곱하기 0.382를 0.15로 나눠서 3.17배가 나와요. d가 0.75면 2.06배, 0.95면 8.68배예요. 아래 단추를 누르면 계기가 바뀌어요. 주소 20개짜리 고리를 실제 그래프에 넣고 같은 코드로 계산해도 3.17배였어요. 모두 수정 분석의 그래프에서 계산한 값이에요. 이 계산에 쓴 풀이 그래프의 점은 6,219,063개로, 03에서 본 허락 그래프의 6,221,665개보다 2,602개 적어요. 금액이 아주 작아서 금액 무게가 0이 되는 쌍만 가진 주소는 풀이 그래프에서 빼기 때문이에요.'
+      '실제 허락 그래프에서 매달린 점들이 가진 몫을 모두 더한 r_dang은 ' + S.rD + '예요. 넣어 보면 0.15 더하기 0.85 곱하기 ' + S.rD + '를 0.15로 나눠서 ' + S.ff['0.85'] + '배가 나와요. d가 0.75면 ' + S.ff['0.75'] + '배, 0.95면 ' + S.ff['0.95'] + '배예요. d가 바뀌면 r_dang도 ' + S.rDd['0.75'] + '와 ' + S.rDd['0.95'] + '로 조금 바뀌어요. 아래 단추를 누르면 계기가 바뀌어요. 주소 20개짜리 고리를 실제 그래프에 넣고 같은 코드로 계산해도 ' + S.ring20 + '배였어요. 모두 수정 분석의 그래프, 곧 T_obs 전 12개월의 허락으로 만든 그래프에서 계산한 값이에요. 이 계산에 쓴 풀이 그래프의 점은 ' + S.nodes + '개로, 03에서 본 허락 그래프의 ' + fmt(G_ALLOW_V, 0) + '개보다 ' + fmt(G_ALLOW_V - NODES, 0) + '개 적어요. 금액이 아주 작아서 금액 무게가 0이 되는 쌍만 가진 주소는 풀이 그래프에서 빼기 때문이에요.'
     ],
     html: function () {
       var chips = ['0.75', '0.85', '0.95'].map(function (k) {
@@ -506,8 +540,8 @@
       'a의 몫은 두 가지를 더한 거예요. 모두에게 내리는 비 c, 그리고 목표가 a에게 나눠 준 몫 d 곱하기 r_t 곱하기 P_{t,a}예요.',
       '목표의 몫도 같아요. 비 c에, 가짜 주소들이 보낸 몫을 모두 더하고 d를 곱해요. P_{a,t}가 1이니까 r_a를 그대로 더하면 돼요.',
       '둘째 식을 셋째 식에 넣어요. 괄호를 풀면 c가 f번 더해지고, d 제곱 곱하기 r_t 곱하기 P_{t,a}의 합이 남아요. 목표가 나눠 주는 몫은 가짜 주소들에게 모두 가니까, 그 합은 1이에요.',
-      'r_t를 왼쪽으로 모으면 r_t 곱하기 1 빼기 d 제곱이 c 곱하기 1 더하기 d f예요. 나누면 주인공 식이 나와요. 가짜 주소를 하나 늘릴 때마다 점수가 d c 나누기 1 빼기 d 제곱만큼 일정하게 늘고, 한 기간에 허락 두 번이면 돼요.',
-      '숫자를 넣어 볼게요. 1 빼기 0.85의 제곱은 0.2775예요. c가 7.64 곱하기 10의 마이너스 8제곱이고 f가 10이면, 목표의 점수는 2.62 곱하기 10의 마이너스 6제곱이에요. 실제 그래프에 별을 넣고 계산해도 같은 값이었어요. 아래 눈금에서 보면 코호트의 중앙값을 넘고, 90번째 백분위의 절반쯤에 이르지만, 꼭대기에 비하면 1만 2천분의 1 정도예요.'
+      'r_t를 왼쪽으로 모으면 r_t 곱하기 1 빼기 d 제곱이 c 곱하기 1 더하기 d f예요. 나누면 주인공 식이 나와요. 가짜 주소를 하나 늘릴 때마다 점수가 d c 나누기 1 빼기 d 제곱만큼 일정하게 늘어요. 대신 주소마다 허락이 두 번 들어요. 그리고 점수는 동결 전 12개월의 허락만 보니까, 농장은 이 허락을 점수 기간마다 다시 해야 해요.',
+      '숫자를 넣어 볼게요. 1 빼기 0.85의 제곱은 0.2775예요. c가 1.93 곱하기 10의 마이너스 7제곱이고 f가 10이면, 목표의 점수는 6.60 곱하기 10의 마이너스 6제곱이에요. 실제 그래프에 별을 넣고 계산해도 같은 값이었어요. 아래 눈금에서 보면 코호트의 중앙값은 넘지만 90번째 백분위의 절반에도 못 미치고, 꼭대기의 2.4 곱하기 10의 마이너스 4제곱, 곧 약 ' + INV_RATIO + '분의 1이에요.'
     ],
     html: function () {
       return '<h1 class="t-h1">가짜 주소 f개가 목표 계약 [[하나]]에 몰아줘요</h1>' +
@@ -515,7 +549,7 @@
         '<div class="abs s10-fc" id="fc" style="left:96px;top:236px">f =<b id="fn">0</b><span class="ink-3"> · 허락</span><b id="an" style="font-size:30px">0</b><span class="ink-3">번 / 기간</span></div>' +
         '<svg class="abs" id="fig" data-in="none" width="1000" height="520" viewBox="0 0 1000 520" style="left:' + F2.x + 'px;top:' + F2.y + 'px;overflow:visible"></svg>' +
         '<p class="abs s10-cap" id="leg" style="left:96px;top:744px;width:1000px">$c$: 모든 주소에 내리는 비 (앞 장) · $d = 0.85$ · 화살표는 모두 허락</p>' +
-        '<p class="abs s10-sum" id="sum" data-in="none" style="left:96px;top:796px;width:1040px"><span class="r">f = ' + STAR_M + ' → ' + sciH(S.star) + '</span> : 중앙값보다 높고, 90번째 백분위의 절반쯤, 꼭대기의 약 1만 2천분의 1</p>' +
+        '<p class="abs s10-sum" id="sum" data-in="none" style="left:96px;top:796px;width:1040px"><span class="r">f = ' + STAR_M + ' → ' + sciH(S.star) + '</span> : 중앙값보다 높지만 90번째 백분위의 절반 아래, 꼭대기의 약 ' + INV_RATIO + '분의 1</p>' +
         '<svg class="abs" id="logb" data-in="none" width="' + LOGB.w + '" height="150" viewBox="0 0 ' + LOGB.w + ' 150" style="left:' + LOGB.x + 'px;top:' + LOGB.y + 'px;overflow:visible"></svg>' +
         '<div class="abs s10-d" id="dv" style="left:1124px;top:166px;width:700px"></div>';
     },
@@ -576,7 +610,7 @@
       /* bracket f=10 … top */
       var tx = lx(TOP);
       g.br = svgEl('path', { d: 'M' + (fx + 16) + ',' + (ay - 30) + ' Q' + ((fx + tx) / 2) + ',' + (ay - 64) + ' ' + (tx - 6) + ',' + (ay - 22), fill: 'none', stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 5' }, lb);
-      g.brT = svgEl('text', { x: (fx + tx) / 2, y: ay - 56, 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 600 }, lb); g.brT.textContent = '약 1만 2천분의 1';
+      g.brT = svgEl('text', { x: (fx + tx) / 2, y: ay - 56, 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 600 }, lb); g.brT.textContent = '약 ' + INV_RATIO + '분의 1';
       gsap.set([lb], { autoAlpha: 0 });
       g.dv = derivePanel(ctx, q(el, '#dv'), [
         { tex: 'P_{a,t}=1', note: '가짜 주소 $a$는 목표 $t$만 허락 → 나가는 길이 하나뿐' },
@@ -626,8 +660,8 @@
   /* ================================================================ s10-03 the 3D ladder */
   var TW = { lmin: -7.35, lmax: -1.25, H: 10, R: 1.7, ringR: 2.05 };
   function ty(l) { return (l - TW.lmin) / (TW.lmax - TW.lmin) * TW.H; }
-  var FARM_N = Q[3].ceil || 135895;
-  var FARM_PER = 5, FARM_PTS = Math.ceil(FARM_N / FARM_PER);   /* one pink point = 5 fake addresses (27,179 points) */
+  var FARM_N = Q[3].n || 47073;
+  var FARM_PER = 5, FARM_PTS = Math.ceil(FARM_N / FARM_PER);   /* one pink point = 5 fake addresses (9,415 points) */
   function farmPts(f) { return Math.max(0, Math.min(FARM_PTS, Math.ceil(f / FARM_PER - 1e-9))); }
   var CAMS = [
     { theta: 0.62, phi: 1.40, radius: 9.6, target: [0, 1.75, 0] },
@@ -650,25 +684,25 @@
     tags: ['calc'],
     notes: [
       '그러면 이 사다리를 오르는 데 가짜 주소가 몇 개 필요할까요? 왼쪽 탑의 점 하나하나가 매칭 코호트의 계약 하나예요. 높이는 엔도스랭크 점수이고, 로그 눈금이라 한 칸 오를 때마다 점수가 열 배씩 커져요. 대부분의 계약이 바닥 가까이에 몰려 있어요. 가운데 상자가 점수를 올리려는 목표 계약이에요. 처음에는 아무도 허락하지 않은 주소의 점수 c에 있어요.',
-      '중앙값은 아주 싸요. 목표 계약과 가짜 주소 하나, 이렇게 두 주소가 서로 허락하기만 하면 돼요. 그림의 분홍 점선 동그라미가 그 짝이고, 허락은 두 번이에요. 별 모양 식에 f = 1을 넣으면 c 곱하기 1 더하기 d를 1 빼기 d 제곱으로 나눈 값이에요. 1 빼기 d 제곱은 1 빼기 d 곱하기 1 더하기 d라서, 약분하면 c 나누기 1 빼기 d, 곧 5.09 곱하기 10의 마이너스 7제곱이에요. 중앙값보다 높아요. 식을 f에 대해 풀면 f가 0 이하로 나와서, 논문은 농장이 없어도 된다고 써요. 하지만 서로 허락할 짝은 하나 있어야 하니까, 실제로 만드는 가짜 주소는 1개예요.',
-      '90번째 백분위는 가짜 주소 22개면 넘어요. 한 기간에 허락 44번이에요.',
-      '99번째 백분위는 2,074개예요. 숫자가 빨리 커지기 시작해요.',
-      '꼭대기까지 가려면 13만 개가 넘게, 약 135,895개가 필요해요. 한 기간에 허락이 27만 번이 넘어요. 탑을 덮은 분홍 안개의 점 하나가 가짜 주소 다섯 개예요. 다만 이 계산은 농장이 이만큼 커지면 전체 점 수도 커져서 c가 줄어드는 효과를 빼고 한 거예요.',
-      '꼭대기가 이렇게 비싼 까닭은 보증이 몰려 있기 때문이에요. 꼭대기 계약이 그래프 전체 몫의 3% 정도를 가지는데, 이것은 c의 40만 배가 넘어요. 정리하면, 평범해 보이기는 싸고 꼭대기는 비싸요. 그래서 이 연구의 어떤 점수도 혼자서 경고를 띄우거나 보상을 정하는 데 쓰면 안 된다고 결론지었어요. 토큰을 다섯 개로 줄였어도, 공격하는 쪽은 그 토큰을 허락하는 데 돈이 더 들지 않으니 공격 비용은 그대로예요. 오른쪽의 막대를 끌면 f에 따라 상자 높이와 분홍 점의 수가 식대로 바뀌어요.'
+      '중앙값은 아주 싸요. 목표 계약과 가짜 주소 하나, 이렇게 두 주소가 서로 허락하기만 하면 돼요. 그림의 분홍 점선 동그라미가 그 짝이고, 허락은 두 번이에요. 별 모양 식에 f = 1을 넣으면 c 곱하기 1 더하기 d를 1 빼기 d 제곱으로 나눈 값이에요. 1 빼기 d 제곱은 1 빼기 d 곱하기 1 더하기 d라서, 약분하면 c 나누기 1 빼기 d, 곧 ' + S.pair[0] + ' 곱하기 10의 마이너스 ' + (-S.pair[1]) + '제곱이에요. 중앙값보다 높아요. 식을 f에 대해 풀면 f가 0 이하로 나와서, 논문은 농장이 없어도 된다고 써요. 하지만 서로 허락할 짝은 하나 있어야 하니까, 실제로 만드는 가짜 주소는 1개예요.',
+      '90번째 백분위에는 가짜 주소 약 ' + fmt(Q[1].n, 0) + '개면 닿아요. 점수 기간마다 허락 ' + fmt(Q[1].appr, 0) + '번쯤이에요.',
+      '99번째 백분위는 약 ' + fmt(Q[2].n, 0) + '개예요. 숫자가 빨리 커지기 시작해요.',
+      '꼭대기까지 가려면 약 ' + fmt(Q[3].n, 0) + '개가 필요해요. 점수 기간마다 허락이 약 ' + (function (t) { return (t >= 10 ? Math.floor(t / 10) + '만' + (t % 10 ? ' ' : '') : '') + (t % 10 ? (t % 10) + '천' : ''); })(Math.round(Q[3].appr / 1000)) + ' 번이에요. 탑을 덮은 분홍 안개의 점 하나가 가짜 주소 다섯 개예요. 다만 이 계산은 농장이 이만큼 커지면 전체 점 수도 커져서 c가 줄어드는 효과를 빼고 한 거예요.',
+      '꼭대기가 이렇게 비싼 까닭은 보증이 몰려 있기 때문이에요. 꼭대기 계약이 그래프 전체 몫의 3% 정도를 가지는데, 이것은 c의 ' + TOP_C_MAN + '만 배가 넘어요. 정리하면, 평범해 보이기는 싸고 꼭대기는 비싸요. 그리고 점수는 동결 전 12개월의 허락만 보니까, 농장은 순위를 지키려면 점수 기간마다, 적어도 1년에 한 번은 허락을 다시 해야 해요. 이 연구는 가스 값을 재지 않아서 이 개수를 돈으로 바꾸지는 않았어요. 같은 경계가 C-PR에도 성립하니, 시빌 대책 없이 어떤 점수로도 보상을 정하면 안 돼요. 토큰을 다섯 개만 써도, 공격하는 쪽은 그 토큰을 허락하는 데 돈이 더 들지 않으니 공격 비용은 그대로예요. 오른쪽의 막대를 끌면 f에 따라 상자 높이와 분홍 점의 수가 식대로 바뀌어요.'
     ],
     html: function () {
       var rungs = [
-        { r: 4, q: '꼭대기', n: '약 ' + fmt(Q[3].ceil, 0) + '개' },
-        { r: 3, q: '99번째 백분위', n: fmt(Q[2].ceil, 0) + '개' },
-        { r: 2, q: '90번째 백분위', n: fmt(Q[1].ceil, 0) + '개' },
+        { r: 4, q: '꼭대기', n: '약 ' + fmt(Q[3].n, 0) + '개' },
+        { r: 3, q: '99번째 백분위', n: '약 ' + fmt(Q[2].n, 0) + '개' },
+        { r: 2, q: '90번째 백분위', n: '약 ' + fmt(Q[1].n, 0) + '개' },
         { r: 1, q: '중앙값', n: '짝 1개', d: '목표와 짝 1개가 서로 허락 (허락 2번) · 식의 답은 $f\\le 0$, 곧 농장 없이<br>$f=1$: $c(1+d)/(1-d^2)=c/(1-d)=$ ' + sciH(S.pair) }
       ];
       return '<h1 class="t-h1">평범해 보이기는 [[싸고]], 꼭대기는 비싸요</h1>' +
         '<div class="s10-3d" id="tw" data-in="none" style="left:96px;top:196px;width:1084px;height:764px"></div>' +
-        '<p class="abs s10-leg" id="leg" style="left:96px;top:166px;width:1100px"><i style="background:#F5B43C"></i>계약 하나 (매칭 코호트 ' + fmt(pick(DATA, ['contracts', 'meta', 'n'], 15107), 0) + '개) &nbsp; <i style="background:#FF6B8A"></i>가짜 주소 ' + FARM_PER + '개 &nbsp; · 높이 = 엔도스랭크 (로그 눈금, 한 칸 위 = 10배)</p>' +
+        '<p class="abs s10-leg" id="leg" style="left:96px;top:166px;width:1100px"><i style="background:#F5B43C"></i>계약 하나 (매칭 코호트 ' + fmt(pick(DATA, ['contracts', 'meta', 'n'], 6483), 0) + '개) &nbsp; <i style="background:#FF6B8A"></i>가짜 주소 ' + FARM_PER + '개 &nbsp; · 높이 = 엔도스랭크 (로그 눈금, 한 칸 위 = 10배)</p>' +
         '<p class="abs s10-foot" id="foot" style="left:110px;top:966px;width:1040px">상자 높이 = 논문 식 $r_t=c\\,(1+d f)/(1-d^2)$ · 농장이 커지면 $|V|$도 커져 $c$가 줄어드는 효과는 빼고 계산</p>' +
         '<div class="abs s10-cnt" id="cnt" style="left:1196px;top:176px;width:640px">' +
-          '<div class="k">필요한 가짜 주소 <span class="ink-3">(식으로 푼 f를 올림 · 중앙값은 짝 1개)</span></div>' +
+          '<div class="k">필요한 가짜 주소 <span class="ink-3">(식으로 푼 f를 반올림 · 중앙값은 짝 1개)</span></div>' +
           '<div class="v"><span class="pre" id="pre" style="display:none">약</span><span id="fN">0</span><span class="u">개</span></div>' +
           '<div class="s">기간마다 허락 <b id="aN">0</b>번 <span class="ink-3">(주소마다 2번)</span></div></div>' +
         '<div class="abs s10-rungs" id="rungs" style="left:1196px;top:440px;width:628px">' + rungs.map(function (r) {
@@ -676,9 +710,9 @@
             (r.d ? '<span class="dd">' + r.d + '</span>' : '') + '</div>';
         }).join('') + '</div>' +
         '<div class="abs s10-con" id="con" data-in="none" style="left:1196px;top:790px;width:628px">' +
-          '<p>꼭대기 계약은 전체 몫의 <b>약 3%</b>를 가져요 — $c$의 <b>40만 배</b>가 넘어요</p>' +
-          '<p class="big">그래서 어떤 점수도 혼자서 경고나 보상을 정하면 안 돼요</p>' +
-          '<p style="font-size:21px;line-height:30px">다섯 토큰으로 줄여도 공격 비용은 그대로예요</p></div>' +
+          '<p>꼭대기 계약은 전체 몫의 <b>약 3%</b> — $c$의 <b>' + TOP_C_MAN + '만 배</b>가 넘어요</p>' +
+          '<p class="big">그래서 시빌 대책 없이 어떤 점수로도 보상을 정하면 안 돼요</p>' +
+          '<p style="font-size:21px;line-height:30px">점수는 동결 전 12개월의 허락만 봐요 → 농장은 기간마다 허락을 다시 해야 해요 · 다섯 토큰만 써도 비용은 그대로예요</p></div>' +
         '<div class="abs s10-range no-advance" id="rng" data-in="none" style="left:1196px;top:384px;width:628px">' +
           '<span>직접 해 보기: f</span><input type="range" min="0" max="1000" step="1" value="1000" aria-label="가짜 주소 수 f"><span class="tnum" id="rv"></span></div>';
     },
@@ -711,7 +745,7 @@
         if (cur && cur.ctx !== ctx) { frozen = true; T.frameFns.length = 0; return; }
         tick0(dt);
       };
-      /* cohort points: real log10 EndorseRank of the 15,107 contracts (zero scores on the floor) */
+      /* cohort points: real log10 EndorseRank of the matched-cohort contracts (zero scores on the floor) */
       var cd = Comp.data.contracts();
       var L = cd && cd.log10.endorserank, n = L ? L.length : 0;
       var pos = new Float32Array(n * 3), col = new Float32Array(n * 3), rnd = ctx.rng(31);
@@ -802,10 +836,10 @@
         tl.add(moveBox(g, ty(lg(PAIR)), 0.9), 0.5);
         tl.call(function () { lightRing(g, 1); lightRung(g, 1); }, null, 1.0);
         /* count what is drawn: one partner, two approvals (the formula's f is ≤ 0: "no farm") */
-        tl.call(function () { g.fN.textContent = '1'; g.aN.textContent = '2'; }, null, 0.6);
+        tl.call(function () { g.fN.textContent = '1'; g.aN.textContent = '2'; g.pre.style.display = 'none'; }, null, 0.6);
       }
       if (i >= 2 && i <= 4) {
-        var tgt = Q[i - 1].ceil, f0 = i === 2 ? 1 : Q[i - 2].ceil;
+        var tgt = Q[i - 1].n, f0 = i === 2 ? 1 : Q[i - 2].n;
         if (i === 2) { tl.to(g.pair, { attr: { opacity: 0 }, duration: 0.3 }, 0.1); tl.to(g.pairTxt.el.firstChild, { autoAlpha: 0, duration: 0.3 }, 0.1); }
         var st = { f: f0 }, dd = i === 4 ? 3.0 : i === 3 ? 2.2 : 1.6;
         tl.to(st, { f: tgt, duration: dd, ease: i === 2 ? 'power1.inOut' : 'power2.in', onUpdate: function () {
@@ -814,7 +848,7 @@
         }, onComplete: function () {
           setF(g, tgt, false);
           g.fN.textContent = fmt(tgt, 0); g.aN.textContent = fmt(Q[i - 1].appr, 0);
-          if (i === 4) g.pre.style.display = '';
+          g.pre.style.display = '';   /* every rung is "about": f solved from the formula, rounded */
         } }, 0.3);
         tl.call(function () { lightRing(g, i); lightRung(g, i); }, null, 0.3 + dd);
         if (i === 3) tl.to(g.farm.material, { size: 4, duration: 1.0 }, 0.3 + dd * 0.5);
@@ -856,28 +890,28 @@
   }
   function lightRung(g, k) { var r = g.rungs[String(k)]; if (r) r.classList.add('on'); }
 
-  /* ================================================================ s10-04 speed follows |E| */
-  var PILE = { x: 96, y: 236, w: 330, h: 440, base: 420, cw: 110, xs: [36, 186], per: 50000, cols: 10, cell: 11, row: 7 };
-  var RACE = { x: 480, y: 236, w: 700, h: 470, x0: 0, sps: 15, rows: [58, 164, 270, 376], axis: 446, bh: 32 };
+  /* ================================================================ s10-04 speed follows graph size and iterations */
+  var PILE = { x: 96, y: 236, w: 330, h: 440, base: 420, cw: 110, xs: [36, 186], per: 20000, cols: 10, cell: 11, row: 7 };
+  var RACE = { x: 480, y: 236, w: 700, h: 470, x0: 0, sps: 48, tmax: 12, tick: 3, rows: [58, 164, 270, 376], axis: 446, bh: 32 };
   function rx(s) { return RACE.x0 + s * RACE.sps; }
   var SWX = 1206, SWY = 180, SWS = 0.5;
+  var RACE_SP = 2, RACE_SP2 = 4;   /* the races play 2× and 4× faster than real time */
 
   var slide4 = {
-    id: 's10-04', title: '속도는 화살표 수에서 와요 (RQ3)', time: 45, steps: 5,
+    id: 's10-04', title: '속도는 그래프 크기와 반복 횟수에서 와요 (RQ2)', time: 45, steps: 5,
     className: 's10',
     notes: [
-      '계산 속도도 봤어요. 앞의 04에서 말씀드린 것처럼, 페이지랭크를 한 번 되풀이할 때는 화살표 하나마다 곱하기를 한 번 해요. 이 작은 세계라면 화살표가 네 개니까 곱셈 1번부터 4번까지, 네 번이에요. 동그라미 숫자는 곱셈의 차례이고, 화살표의 무게가 아니에요.',
-      '그러면 두 그래프의 화살표 수부터 볼게요. 같은 계약을 두고 허락 그래프에는 화살표가 11,210,114개, 송금 그래프에는 25,001,216개 있어요. 송금 쪽이 2.23배 많아요. 행렬을 만드는 일도 화살표마다 한 번씩이라, 일의 양은 화살표 수에 비례해요. 비례한다는 것은 화살표가 두 배면 일도 두 배라는 뜻이에요. 아래 작은 글씨처럼, 풀이 그래프의 점 수는 03에서 본 그래프 크기보다 조금 적어요. 금액 무게가 0이 되는 아주 작은 금액만 가진 주소, 허락 쪽 2,602개와 송금 쪽 2,246개를 풀이 프로그램이 빼기 때문이에요.',
-      '이제 두 계산을 같은 풀이 프로그램으로 동시에 출발시켜요. 화면은 실제보다 4배 빠르게 보여 드리고, 시계는 실제 초를 보여 줘요. 준비 실행을 한 번 하고, 시간을 잰 실행 다섯 번의 평균이에요. 엔도스랭크는 10.29초, AWP는 22.37초에 끝났어요.',
-      'AWP가 2.17배 오래 걸렸는데, 화살표는 2.23배 많아요. 반복 횟수는 69번과 92번으로 조금 다르지만, 시간 비가 화살표 비에 거의 붙어 있어요. 그러니 엔도스랭크가 빠른 것은 알고리즘이 좋아서가 아니라 허락 그래프가 듬성듬성하기 때문이에요.',
-      '송금 층도 함께 걷는 C-PR과 S-PR은 AWP보다도 오래 걸렸어요. C-PR은 두 그래프를 합친 화살표 31,552,359개를 걷고, S-PR은 허락 걷기로 출발점을 정한 뒤 송금 그래프를 다시 걸어요.',
-      '마지막으로 한계도 함께 말씀드려요. 코호트에서 계약을 1,000개, 2,000개, 5,000개, 1만 개만 뽑은 작은 표본에서도 시간을 쟀어요. 실선이 시간 비, 점선이 화살표 비예요. 작은 표본에서는 두 선이 꽤 떨어져 있어서, 시간 비가 화살표 비를 잘 따르지 않았어요. 계약 1만 개 이상의 큰 두 단계, 곧 상자 안에서만 두 선이 가까웠어요. 이 단계들은 한 코호트의 부분 표본이라, 그보다 큰 그래프에 대해서는 말하지 않아요.'
+      '계산 속도도 봤어요. 앞의 04에서 말씀드린 것처럼, 페이지랭크를 한 번 되풀이할 때는 화살표 하나마다 곱하기를 한 번 해요. 이 작은 세계라면 화살표가 네 개니까 곱셈 1번부터 4번까지, 네 번이에요. 동그라미 숫자는 곱셈의 차례이고, 화살표의 무게가 아니에요. 점마다 더하기도 몇 번 해요.',
+      '그러면 두 그래프의 화살표 수부터 볼게요. 같은 계약을 두고 허락 그래프에는 화살표가 ' + fmt(B_ER.e, 0) + '개, 송금 그래프에는 ' + fmt(B_AWP.e, 0) + '개 있어요. 송금 쪽이 ' + fmt(R_EDGE, 2) + '배 많고, 점은 ' + fmt(R_NODE, 2) + '배 많아요. 한 번 돌 때의 일은 화살표 수와 점 수에 따라 늘고, 전체 시간은 거기에 반복 횟수를 곱한 만큼이에요. 아래 작은 글씨처럼, 풀이 그래프의 점 수는 03에서 본 그래프 크기보다 조금 적어요. 금액 무게가 0이 되는 아주 작은 금액만 가진 주소, 허락 쪽 ' + fmt(G_ALLOW_V - B_ER.v, 0) + '개와 송금 쪽 ' + fmt(G_XFER_V - B_AWP.v, 0) + '개를 풀이 프로그램이 빼기 때문이에요.',
+      '이제 두 계산을 같은 풀이 프로그램으로 동시에 출발시켜요. 화면은 실제보다 ' + RACE_SP + '배 빠르게 보여 드리고, 시계는 실제 초를 보여 줘요. 준비 실행을 한 번 하고, 시간을 잰 실행 다섯 번의 평균이에요. 엔도스랭크는 ' + fmt(B_ER.s, 2) + '초, AWP는 ' + fmt(B_AWP.s, 2) + '초에 끝났어요.',
+      'AWP가 ' + fmt(R_TIME, 2) + '배 오래 걸렸는데, 화살표는 ' + fmt(R_EDGE, 2) + '배 많을 뿐이에요. 시간 비가 화살표 비보다 커요. AWP는 반복도 더 많이 해야 하기 때문이에요. 반복 횟수는 ' + B_AWP.it + '번과 ' + B_ER.it + '번으로 ' + fmt(R_IT, 2) + '배이고, 반복 한 번에 드는 시간은 ' + fmt(R_PER, 2) + '배예요. 이 ' + fmt(R_PER, 2) + kneun(fmt(R_PER, 2)) + ' 점의 비 ' + fmt(R_NODE, 2) + kwa(fmt(R_NODE, 2)) + ' 화살표의 비 ' + fmt(R_EDGE, 2) + ' 사이예요. 두 비를 곱하면 ' + fmt(R_TIME, 2) + kiga(fmt(R_TIME, 2)) + ' 돼요. 감쇠 계수 d를 0.75나 0.95로 바꾸면 이 비는 ' + fmt(R_D75, 2) + kwa(fmt(R_D75, 2)) + ' ' + fmt(R_D95, 2) + kro(fmt(R_D95, 2)) + ' 바뀌어서, 화살표 비를 따라가지 않아요. 같은 풀이 프로그램이니까 속도 차이는 그래프의 크기와 그 그래프에서 걸음이 필요로 하는 반복 횟수에서 와요. 이 벤치마크는 둘을 나누지는 못해요. 엔도스랭크 알고리즘이 좋아서 빠른 것은 아니에요.',
+      '송금 층도 함께 걷는 C-PR과 S-PR은 AWP보다도 오래 걸렸어요. C-PR은 두 층의 행렬을 반복마다 곱해서, 반복은 ' + B_CPR.it + '번으로 AWP보다 적지만 ' + fmt(B_CPR.s, 2) + '초, AWP의 ' + fmt(R_CPR_AWP, 2) + '배가 걸렸어요. S-PR은 ' + fmt(B_SPR.s, 2) + '초예요. 허락 걷기로 출발점을 정한 뒤 송금 그래프를 걸어서, 반복 ' + B_SPR.it + '번은 허락 쪽 ' + IT_ALLOW + '번과 송금 쪽 ' + (B_SPR.it - IT_ALLOW) + '번이에요.',
+      '마지막으로 한계도 함께 말씀드려요. 코호트에서 계약을 ' + SMALL_NS.join('개, ') + '개만 뽑은 부분 표본에서도 시간을 쟀어요. 실선이 시간 비, 점선이 화살표 비예요. 모든 단계에서 엔도스랭크가 더 빨랐지만, 시간 비는 어느 단계에서도 화살표 비를 따르지 않았어요. ' + fmt(STAGES[K_PEAK].n, 0) + '개 단계에서는 시간 비가 ' + fmt(STAGES[K_PEAK].rt, 2) + '까지 올라갔어요. 단계마다 두 걸음에 필요한 반복 횟수가 다르기 때문이에요. 이 단계들은 한 코호트의 부분 표본이라, 그보다 큰 그래프에 대해서는 말하지 않아요.'
     ],
     html: function () {
       function detail(b) { return '점 ' + fmt(b.v, 0) + ' · 반복 ' + b.it + '번 · 메모리 ' + fmt(b.mb, 1) + ' MB'; }
-      var fracTeX = '\\frac{' + fmt(B_AWP.s, 2) + '\\text{초}}{' + fmt(B_ER.s, 2) + '\\text{초}}=' + fmt(R_TIME, 2) +
-        '\\quad\\approx\\quad\\frac{' + fmt(B_AWP.e, 0).replace(/,/g, '{,}') + '}{' + fmt(B_ER.e, 0).replace(/,/g, '{,}') + '}=' + fmt(R_EDGE, 2);
-      return '<h1 class="t-h1">빠른 건 알고리즘이 아니라 [[화살표 수]] 덕분이에요</h1>' +
+      var fracTeX = '\\frac{' + fmt(B_AWP.s, 2) + '\\text{초}}{' + fmt(B_ER.s, 2) + '\\text{초}}=' + fmt(R_TIME, 2) + '=' + fmt(R_IT, 2) + '\\times' + fmt(R_PER, 2);
+      return '<h1 class="t-h1">빠른 건 [[그래프 크기와 반복 횟수]] 덕분이에요</h1>' +
         '<p class="s10-lead" style="top:168px;width:1080px;font-size:24px">수정 분석 · 같은 계약 · 같은 풀이 프로그램 · 준비 실행 ' + (PROT.warmup_runs || 1) + '번 뒤 시간 잰 실행 ' + (PROT.timed_runs || 5) + '번의 평균</p>' +
         /* piles */
         '<div class="abs" id="pile" data-in="none" style="left:' + PILE.x + 'px;top:' + PILE.y + 'px;width:' + PILE.w + 'px;height:' + PILE.h + 'px"></div>' +
@@ -886,20 +920,20 @@
         '<div class="s10-pk c-xfer" id="pkA" data-in="none" style="left:' + (PILE.x + PILE.xs[1] + PILE.cw / 2 - 90) + 'px;width:180px">0</div>' +
         '<div class="s10-pn c-allow" style="left:' + (PILE.x + PILE.xs[0] + PILE.cw / 2 - 90) + 'px;top:' + (PILE.y + PILE.base + 10) + 'px;width:180px" id="pnE">엔도스랭크</div>' +
         '<div class="s10-pn c-xfer" style="left:' + (PILE.x + PILE.xs[1] + PILE.cw / 2 - 90) + 'px;top:' + (PILE.y + PILE.base + 10) + 'px;width:180px" id="pnA">AWP</div>' +
-        '<p class="abs s10-foot" id="pleg" style="left:' + PILE.x + 'px;top:' + (PILE.y + PILE.base + 46) + 'px;width:' + (PILE.w + 40) + 'px">작은 화살표 1개 = 화살표 5만 개</p>' +
+        '<p class="abs s10-foot" id="pleg" style="left:' + PILE.x + 'px;top:' + (PILE.y + PILE.base + 46) + 'px;width:' + (PILE.w + 40) + 'px">작은 화살표 1개 = 화살표 ' + (PILE.per / 10000) + '만 개</p>' +
         /* race */
         '<svg class="abs" id="race" width="' + RACE.w + '" height="' + RACE.h + '" viewBox="0 0 ' + RACE.w + ' ' + RACE.h + '" style="left:' + RACE.x + 'px;top:' + RACE.y + 'px;overflow:visible"></svg>' +
         '<div class="abs s10-clock" id="clock" style="left:' + (RACE.x + 300) + 'px;top:' + (RACE.y - 8) + 'px;width:400px">실제 시간<b id="clk">0.00</b>초</div>' +
         /* ratios */
         '<div class="abs s10-ratio" id="ratio" data-in="none" style="left:96px;top:744px;width:1100px"><span class="k">시간 </span><span class="num" id="rt">' + fmt(R_TIME, 2) + '배</span>' +
-          '<span class="ap" id="ap">≈</span><span class="k">화살표 </span><span class="num" id="re">' + fmt(R_EDGE, 2) + '배</span></div>' +
-        '<p class="abs s10-frac" id="frac" data-in="none" style="left:96px;top:812px;width:1100px">$' + fracTeX + '$</p>' +
+          '<span class="ap" id="ap">&gt;</span><span class="k">화살표 </span><span class="num" id="re">' + fmt(R_EDGE, 2) + '배</span></div>' +
+        '<p class="abs s10-frac" id="frac" data-in="none" style="left:96px;top:812px;width:1100px">$' + fracTeX + '$ &nbsp;← 반복 횟수 <b>' + fmt(R_IT, 2) + '배</b>(' + B_AWP.it + '번 ÷ ' + B_ER.it + '번) × 반복 한 번 <b>' + fmt(R_PER, 2) + '배</b></p>' +
         '<p class="abs s10-foot" id="vfoot" style="left:96px;top:946px;width:1100px;font-size:19px;line-height:26px">점 수: 풀이 그래프는 금액 무게가 0인 아주 작은 금액만 가진 주소(허락 ' + fmt(G_ALLOW_V - B_ER.v, 0) + '개, 송금 ' + fmt(G_XFER_V - B_AWP.v, 0) + '개)를 빼서 ' + fmt(B_ER.v, 0) + '개 / ' + fmt(B_AWP.v, 0) + '개예요 <span class="ink-3">(03의 ' + fmt(G_ALLOW_V, 0) + '개 / ' + fmt(G_XFER_V, 0) + '개와의 차이)</span></p>' +
-        '<p class="abs s10-cap" id="small" data-in="none" style="left:96px;top:892px;width:1100px;font-size:23px;line-height:34px">C-PR ' + fmt(B_CPR.s, 2) + '초 (화살표 ' + fmt(B_CPR.e, 0) + '개) · S-PR ' + fmt(B_SPR.s, 2) + '초 — 송금 층을 걸으면 그 화살표 값을 치러요</p>' +
+        '<p class="abs s10-cap" id="small" data-in="none" style="left:96px;top:892px;width:1100px;font-size:23px;line-height:34px">C-PR ' + fmt(B_CPR.s, 2) + '초 = AWP의 ' + fmt(R_CPR_AWP, 2) + '배 · S-PR ' + fmt(B_SPR.s, 2) + '초 — 송금 층을 걸으면 그 크기만큼 치러요</p>' +
         /* right column */
         '<div class="abs s10-swc" id="swc" style="left:1600px;top:' + (SWY + 52) + 'px;width:230px;white-space:normal">반복 한 번 =<br>화살표마다<br>곱하기 한 번<br><span class="ink-3">이 작은 세계:</span> <b id="mulN">0</b>번<br><span class="ink-3" style="font-size:18px"><span class="s10-cn">1</span>–<span class="s10-cn">4</span>는 곱셈 차례예요<br>(화살표 무게가 아니에요)</span></div>' +
         '<div class="abs s10-d" id="dv" style="left:1214px;top:446px;width:610px"></div>' +
-        '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">작은 표본에서는 시간 비가 화살표 비를 잘 안 따라요<small>큰 두 단계(계약 1만 개 이상)에서만 가까워요 · 단계별 비는 계산</small></div>' +
+        '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">어느 단계에서도 시간 비가 화살표 비를 따르지 않아요<small>모든 단계에서 엔도스랭크가 빨라요 · 단계별 비는 계산</small></div>' +
         '<svg class="abs" id="chart" data-in="none" width="610" height="140" viewBox="0 0 610 140" style="left:1214px;top:862px;overflow:visible"></svg>';
     },
     build: function (el, ctx) {
@@ -929,21 +963,21 @@
       /* race bars */
       var svg = g.race = q(el, '#race');
       var ax = svgEl('g', {}, svg);
-      for (var s = 0; s <= 40; s += 10) {
+      for (var s = 0; s <= RACE.tmax; s += RACE.tick) {
         svgEl('line', { x1: rx(s), x2: rx(s), y1: 30, y2: RACE.axis, stroke: 'rgba(233,237,245,.06)', 'stroke-width': 1 }, ax);
         var tt = svgEl('text', { x: rx(s), y: RACE.axis + 28, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'tnum' }, ax); tt.textContent = s + '초';
       }
-      svgEl('line', { x1: rx(0), x2: rx(40), y1: RACE.axis, y2: RACE.axis, stroke: C.line, 'stroke-width': 1.5 }, ax);
+      svgEl('line', { x1: rx(0), x2: rx(RACE.tmax), y1: RACE.axis, y2: RACE.axis, stroke: C.line, 'stroke-width': 1.5 }, ax);
       function row(k, name, b, col, dashed) {
         var y = RACE.rows[k], gg = svgEl('g', {}, svg);
         var nm = svgEl('text', { x: rx(0), y: y - 12, fill: col, 'font-size': 22, 'font-weight': 700 }, gg); nm.textContent = name;
-        svgEl('rect', { x: rx(0), y: y, width: rx(40) - rx(0), height: RACE.bh, rx: 8, fill: 'rgba(233,237,245,.03)' }, gg);
+        svgEl('rect', { x: rx(0), y: y, width: rx(RACE.tmax) - rx(0), height: RACE.bh, rx: 8, fill: 'rgba(233,237,245,.03)' }, gg);
         var bar = svgEl('rect', { x: rx(0), y: y, width: 0, height: RACE.bh, rx: 8, fill: col, 'fill-opacity': dashed ? 0.18 : 0.85,
           stroke: dashed ? col : 'none', 'stroke-width': 2, 'stroke-dasharray': dashed ? '6 5' : null }, gg);
         var val = svgEl('text', { x: rx(b.s) + 12, y: y + RACE.bh / 2 + 8, fill: C.ink, 'font-size': 24, 'font-weight': 800, 'class': 'tnum' }, gg); val.textContent = fmt(b.s, 2) + '초';
         var dt = svgEl('text', { x: rx(0), y: y + RACE.bh + 22, fill: C.ink3, 'font-size': 17, 'class': 'tnum' }, gg);
         dt.textContent = b === B_CPR ? '점 ' + fmt(b.v, 0) + ' · 화살표 ' + fmt(b.e, 0) + ' · 반복 ' + b.it + '번' :
-          b === B_SPR ? '점 ' + fmt(b.v, 0) + ' · 화살표 ' + fmt(b.e, 0) + ' · 두 번 걸어요' :
+          b === B_SPR ? '점 ' + fmt(b.v, 0) + ' · 화살표 ' + fmt(b.e, 0) + ' · 반복 ' + b.it + '번 = 허락 ' + IT_ALLOW + ' + 송금 ' + (b.it - IT_ALLOW) :
           '점 ' + fmt(b.v, 0) + ' · 반복 ' + b.it + '번 · 메모리 ' + fmt(b.mb, 1) + ' MB';
         gsap.set(val, { autoAlpha: 0 });
         return { g: gg, bar: bar, val: val, b: b, nm: nm, dt: dt };
@@ -966,19 +1000,18 @@
       /* derivation */
       g.dv = derivePanel(ctx, q(el, '#dv'), [
         { tex: 'r^{\\text{새}}_v\\;\\leftarrow\\;r^{\\text{새}}_v+d\\,r_u\\,P_{u,v}', note: '화살표 $(u\\to v)$마다 곱하기 한 번 → 한 번 돌 때 $|E|$번' },
-        { tex: 'T\\;\\approx\\;\\underbrace{\\text{행렬 만들기}}_{\\text{화살표 수에 비례}}+\\;I\\times\\underbrace{\\text{한 번 돌기}}_{\\text{화살표 수에 비례}}', note: '$I$: 반복 횟수 · 비례 = 화살표가 두 배면 일도 두 배' },
-        { tex: '\\frac{T_{\\text{AWP}}}{T_{\\text{ER}}}\\;\\approx\\;\\frac{|E|_{\\text{AWP}}}{|E|_{\\text{ER}}}', note: '같은 풀이 프로그램이니까 · 측정: ' + fmt(R_TIME, 2) + ' ≈ ' + fmt(R_EDGE, 2) }
-      ], '유도 · 시간과 화살표 수');
+        { tex: 'T\\;\\approx\\;\\text{행렬 만들기}+\\;I\\times\\underbrace{\\text{한 번 돌기}}_{|E|\\text{와 }|V|\\text{에 따라}}', note: '$I$: 반복 횟수 · 걸음마다 $I$가 달라요' },
+        { tex: '\\frac{T_{\\text{AWP}}}{T_{\\text{ER}}}=\\frac{I_{\\text{AWP}}}{I_{\\text{ER}}}\\cdot\\frac{t_{\\text{AWP}}}{t_{\\text{ER}}}=' + fmt(R_IT, 2) + '\\cdot' + fmt(R_PER, 2), note: '$t$: 반복 한 번의 시간 · 같은 풀이 프로그램' }
+      ], '유도 · 시간 = 반복 횟수 × 반복 한 번');
       /* stage chart */
       var ch = g.chart = q(el, '#chart');
-      var cx0 = 60, cx1 = 540, cy0 = 104, cy1 = 6, rmin = 1.5, rmax = 5;
-      function cX(n) { return cx0 + (lg(n) - 3) / (lg(15107) - 3) * (cx1 - cx0); }
+      var cx0 = 60, cx1 = 540, cy0 = 104, cy1 = 6, rmin = 1, rmax = 9;
+      function cX(n) { return cx0 + (lg(n) - 3) / (lg(N_MAX) - 3) * (cx1 - cx0); }
       function cY(r) { return cy0 - (r - rmin) / (rmax - rmin) * (cy0 - cy1); }
-      [2, 3, 4, 5].forEach(function (r) {
+      [2, 4, 6, 8].forEach(function (r) {
         svgEl('line', { x1: cx0, x2: cx1, y1: cY(r), y2: cY(r), stroke: 'rgba(233,237,245,.07)', 'stroke-width': 1 }, ch);
         var t = svgEl('text', { x: cx0 - 10, y: cY(r) + 6, 'text-anchor': 'end', fill: C.ink3, 'font-size': 16, 'class': 'tnum' }, ch); t.textContent = '×' + r;
       });
-      g.band = svgEl('rect', { x: cX(10000) - 18, y: cy1 - 4, width: cX(15107) - cX(10000) + 36, height: cy0 - cy1 + 8, rx: 10, fill: 'rgba(233,237,245,.07)', stroke: 'rgba(233,237,245,.25)', 'stroke-width': 1 }, ch);
       STAGES.forEach(function (st) {
         var t = svgEl('text', { x: cX(st.n), y: cy0 + 26, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 15, 'class': 'tnum' }, ch); t.textContent = fmt(st.n, 0);
       });
@@ -991,8 +1024,10 @@
       }
       g.lE = line('re', C.ink2, '7 6');
       g.lT = line('rt', C.ink);
-      var la = svgEl('text', { x: cX(STAGES[2].n), y: cY(STAGES[2].re) + 26, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 17, 'font-weight': 600 }, ch); la.textContent = '화살표 비 ' + fmt(STAGES[2].re, 2);
-      var lb2 = svgEl('text', { x: cX(STAGES[2].n), y: cY(STAGES[2].rt) - 12, 'text-anchor': 'middle', fill: C.ink, 'font-size': 17, 'font-weight': 600 }, ch); lb2.textContent = '시간 비 ' + fmt(STAGES[2].rt, 2);
+      /* label both lines at the stage where the time ratio peaks (n = 2,000) */
+      var SP = STAGES[K_PEAK];
+      var la = svgEl('text', { x: cX(SP.n), y: cY(SP.re) + 26, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 17, 'font-weight': 600 }, ch); la.textContent = '화살표 비 ' + fmt(SP.re, 2);
+      var lb2 = svgEl('text', { x: cX(SP.n), y: cY(SP.rt) - 12, 'text-anchor': 'middle', fill: C.ink, 'font-size': 17, 'font-weight': 600 }, ch); lb2.textContent = '시간 비 ' + fmt(SP.rt, 2);
       g.chLbl = [la, lb2];
       g.ctt = q(el, '#ctt');
       gsap.set([ch, g.ctt], { autoAlpha: 0 });
@@ -1024,7 +1059,7 @@
       }
       if (i === 2) {
         /* the race, 4× real time; the clock shows real seconds */
-        var st = { t: 0 }, sp = 4, rows = g.rows.slice(0, 2);
+        var st = { t: 0 }, sp = RACE_SP, rows = g.rows.slice(0, 2);
         tl.to(st, { t: B_AWP.s, duration: B_AWP.s / sp, ease: 'none', onUpdate: function () {
           rows.forEach(function (r) { r.bar.setAttribute('width', rx(Math.min(st.t, r.b.s)) - rx(0)); });
           g.clk.textContent = fmt(st.t, 2);
@@ -1044,7 +1079,7 @@
         tl.add(g.dv.show(3), 1.2);
       }
       if (i === 4) {
-        var rows2 = g.rows.slice(2), st2 = { t: 0 }, sp2 = 8;
+        var rows2 = g.rows.slice(2), st2 = { t: 0 }, sp2 = RACE_SP2;
         tl.fromTo(rows2.map(function (r) { return r.g; }), { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.1, ease: E.out }, 0);
         tl.to(st2, { t: B_CPR.s, duration: B_CPR.s / sp2, ease: 'none', onUpdate: function () {
           rows2.forEach(function (r) { r.bar.setAttribute('width', rx(Math.min(st2.t, r.b.s)) - rx(0)); });
@@ -1066,7 +1101,6 @@
           tl.fromTo(Ln.dots, { autoAlpha: 0, scale: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.25, stagger: 0.2, ease: E.stamp }, 0.6 + k * 0.3);
         });
         tl.fromTo(g.chLbl, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 1.5);
-        tl.fromTo(g.band, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 1.8);
       }
     }
   };

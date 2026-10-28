@@ -6,24 +6,27 @@
                                         distinct owners / senders; "can PageRank clear the bar?")
    s06-03  C-PR: mixing the two rows    (two 100 % row bars squash by λ and 1−λ into one mixed row;
                                         dial sweep; one-layer node renormalized by D_λ; final formula)
-   s06-04  Turning λ (key scene)        (three.js: 15,107 contracts, height = C-PR percentile, shadows on
+   s06-04  Turning λ (key scene)        (three.js: 6,483 contracts, height = C-PR percentile, shadows on
                                         the two back walls, five λ values, plain τ meters, draggable dial)
    s06-05  S-PR                         (teleport rain follows the allowance halos; two post hoc
                                         verdicts in words — the numbers wait for s07/s08)
 
-   Numbers and sources (revised digest = R, experiments/data/3-published-results-for-thesis/revised-usd/results_digest.md)
-     6,221,665 nodes / 11,210,114 edges   R§1 graph.allowance.nodes / .edges  (DECK_DATA.results.revised.same_window.graph)
+   Numbers and sources (revised digest = R, experiments/data/3-published-results-for-thesis/revised-usd-12m/results_digest.md)
+     2,514,846 nodes / 3,808,949 edges     R§1 graph.allowance.nodes / .edges  (DECK_DATA.results.revised.same_window.graph)
+     6,483 contracts                       R§1 cohort (DECK_DATA.results.revised.same_window.cohort)
      d = 0.85                              params.pagerank.d; R§10 protocol
+     U = 19,000 USD (s06-03 example)       params.cap.U_usd
      λ table (s06-04), τ_b [95% CI]        R§2 per_proxy.cpr_l{0,25,50,75,100}.in_degree / .in_approve_degree
-     zeros 2,670 / 80 / 80 / 80 / 523      R§4 ties.cpr_l*.zeros (= graph.cohort_outside_transfer / _both / _allowance)
-     S-PR −0.001 [−0.004, 0.002]           R§6 contrasts_after[2] (S-PR − C-PR(λ=0), new transfer senders)
-     S-PR −0.051 [−0.066, −0.038]          R§6 contrasts_after[1] (S-PR − C-PR(λ=1), new approval pairs)
+     zeros 1,192 / 30 / 30 / 30 / 191      DECK_DATA.contracts.zeros = R§4 ties.cpr_l*.zeros
+                                           (= graph.cohort_outside_transfer / _both / _allowance)
+     S-PR +0.011 [0.004, 0.018]            R§6 contrasts_after[2] (S-PR − C-PR(λ=0), new transfer senders)
+     S-PR −0.108 [−0.128, −0.088]          R§6 contrasts_after[1] (S-PR − C-PR(λ=1), new approval pairs)
      λ = 0.5 primary, 0.25 / 0.75          params.coupled (configuration of 9 Oct 2026 = analysis plan)
    The τ strings are copied from the digest: DECK_DATA keeps 4 significant digits, and a
-   value such as 0.2615 would round to 0.261 in JavaScript while the digest prints 0.262.
+   value such as 0.7235 would round to 0.723 in JavaScript while the digest prints 0.724.
    Point positions in s06-04 come from DECK_DATA.contracts (cohort_scores parquet).
    Illustrations: s06-01 B/C/D badges = thesis Ch. 2 worked example (stationary vector);
-   s06-01 constellation, s06-02 graphs, s06-03 row bars (20,000/500 USD allowances; 1,000 USD
+   s06-01 constellation, s06-02 graphs, s06-03 row bars (19,000/500 USD allowances; 1,000 USD
    today, 300 USD 180 days ago, σ(0) = 0.8581) and s06-05 graph are examples.
    ========================================================================= */
 (function () {
@@ -33,25 +36,31 @@
   var NS = 'http://www.w3.org/2000/svg';
 
   /* ------------------------------------------------------------ data (with digest fallbacks) */
-  var GA = { nodes: 6221665, edges: 11210114 };
+  var GA = { nodes: 2514846, edges: 3808949 };
   try {
     var ga = DATA.results.revised.same_window.graph.allowance;
     if (ga.nodes) GA.nodes = ga.nodes; if (ga.edges) GA.edges = ga.edges;
   } catch (e) { /* digest values above */ }
+  var NCOH = 6483;                                                   /* matched cohort at T_obs */
+  try { NCOH = DATA.results.revised.same_window.cohort || NCOH; } catch (e) { /* digest value */ }
   var DAMP = ((DATA.params || {}).pagerank || {}).d || 0.85;
-  /* s06-04: τ_b with the transfer in-degree and the in-approve degree, per λ (R§2 per_proxy) */
+  var UCAP = ((DATA.params || {}).cap || {}).U_usd || 19000;         /* s06-03: the cap example of s05-06 */
+  /* s06-04: τ_b with the transfer in-degree and the in-approve degree, per λ (R§2 per_proxy);
+     zeros = contracts that the walk leaves out (DECK_DATA.contracts.zeros, digest values as fallback) */
+  var ZER = (DATA.contracts || {}).zeros || {};
   var LAM = [
-    { v: 0,    key: 'cpr_l0',   d: '0.689 [0.682, 0.697]', a: '0.262 [0.250, 0.273]', zeros: 2670 },
-    { v: 0.25, key: 'cpr_l25',  d: '0.390 [0.379, 0.402]', a: '0.495 [0.486, 0.504]', zeros: 80 },
-    { v: 0.5,  key: 'cpr_l50',  d: '0.369 [0.358, 0.381]', a: '0.511 [0.503, 0.520]', zeros: 80 },
-    { v: 0.75, key: 'cpr_l75',  d: '0.347 [0.336, 0.359]', a: '0.523 [0.515, 0.532]', zeros: 80 },
-    { v: 1,    key: 'cpr_l100', d: '0.183 [0.171, 0.195]', a: '0.654 [0.647, 0.660]', zeros: 523 }
+    { v: 0,    key: 'cpr_l0',   d: '0.713 [0.703, 0.724]', a: '0.228 [0.209, 0.249]', zeros: ZER.cpr_l0 != null ? ZER.cpr_l0 : 1192 },
+    { v: 0.25, key: 'cpr_l25',  d: '0.419 [0.401, 0.435]', a: '0.472 [0.458, 0.487]', zeros: ZER.cpr_l25 != null ? ZER.cpr_l25 : 30 },
+    { v: 0.5,  key: 'cpr_l50',  d: '0.397 [0.380, 0.414]', a: '0.489 [0.476, 0.505]', zeros: ZER.cpr_l50 != null ? ZER.cpr_l50 : 30 },
+    { v: 0.75, key: 'cpr_l75',  d: '0.375 [0.358, 0.393]', a: '0.502 [0.489, 0.518]', zeros: ZER.cpr_l75 != null ? ZER.cpr_l75 : 30 },
+    { v: 1,    key: 'cpr_l100', d: '0.218 [0.200, 0.237]', a: '0.643 [0.631, 0.653]', zeros: ZER.cpr_l100 != null ? ZER.cpr_l100 : 191 }
   ];
   /* s06-05: W0 post hoc contrasts (R§6 contrasts_after[2], [1]) */
-  var SPR_SEND = '−0.001 [−0.004, 0.002]', SPR_APPR = '−0.051 [−0.066, −0.038]';
+  var SPR_SEND = '+0.011 [0.004, 0.018]', SPR_APPR = '−0.108 [−0.128, −0.088]';
 
   function nums(s) { return String(s).replace(/−/g, '-').match(/-?\d+(?:\.\d+)?/g).map(Number); }
   function mfmt(v, d) { return fmt(v, d).replace(/^-/, '−'); }
+  function tau0(s) { return String(s).split(' ')[0]; }               /* '0.643 [0.631, 0.653]' → '0.643' */
   function svgEl(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
     if (attrs) for (var k in attrs) { if (attrs[k] != null) e.setAttribute(k, attrs[k]); }
@@ -182,7 +191,7 @@
      EndorseRank = PageRank on the allowance graph. The small world (G7) turns amber, the
      four-line summary lights its parts, then a powers-of-ten pull-back: the small world
      shrinks into one dot of an (illustrative) constellation while the readout counts
-     4 → 6,221,665 nodes in log space. */
+     4 → 2,514,846 nodes in log space (GA, from DECK_DATA). */
   var ZW = { x: 96, y: 190, w: 940, h: 720 }, WX = 90, WY = 96, Z0 = 140;
   var CX = WX + 380, CY = WY + 250;   /* the small world's centre in the zoom box */
   function genStars() {
@@ -249,8 +258,8 @@
     notes: [
       'Now I will introduce the four scores. The first is EndorseRank, which walks the allowance edges alone. It is one of the two references of C-PR, the score of this thesis. I have brought back the small world we built in 04. This time every edge is an allowance edge, so they are all amber. The walker follows an edge 85 times out of 100 and teleports to any node the other 15 times.',
       'EndorseRank runs the PageRank we have built so far on the allowance graph. Edges go from an owner to a spender contract, and only the latest allowance per token is used. The weight is the same as in AWP, time weight times value weight, and restarts are the same at every node v, 1/|V| each. What we evaluate are the contracts that received approvals. Owner A also holds a share in the walk (0.1375), but this study evaluates and reports only the scores of contracts. The numbers above B, C and D and the share of A come from the example in Chapter 2 of the thesis.',
-      'Now let us pull back from the small world to the real allowance graph. The four-node world gets smaller and smaller until it is one node among a great many. The real allowance graph has 6,221,665 nodes and 11,210,114 edges. The constellation you see here is a picture for explanation; only the counts are real.',
-      'One point needs care. An edge holds the amount and the time of the latest allowance. It does not show an allowance that has shrunk since then because the contract spent tokens from it, and it does not show approvals made before October 2023.'
+      'Now let us pull back from the small world to the real allowance graph. The four-node world gets smaller and smaller until it is one node among a great many. The real allowance graph has ' + fmt(GA.nodes, 0) + ' nodes and ' + fmt(GA.edges, 0) + ' edges. The constellation you see here is a picture for explanation; only the counts are real.',
+      'One point needs care. An edge holds the amount and the time of the latest allowance set inside the score window. It does not show an allowance that has shrunk since then because the contract spent tokens from it, and it does not show approvals made before the twelve months of the score window.'
     ],
     html:
       '<h1 class="t-h1">EndorseRank = PageRank on the [[allowance]] graph</h1>' +
@@ -262,7 +271,7 @@
         '<div class="hd">Definition · thesis Ch. 3</div><div id="fhost"></div>' +
         '<div class="nt">The formula from 04, with allowance weights $\\ca{w_A}$ and uniform restarts</div></div>' +
       '<div class="abs s6-sum" id="sum" data-in="none" style="left:1080px;top:436px;width:744px">' +
-        '<div class="ln"><span class="no">1</span><span class="tx">Edges: owner → spender contract<small>latest allowance per token · five tokens · USD</small></span></div>' +
+        '<div class="ln"><span class="no">1</span><span class="tx">Edges: owner → spender contract<small>latest allowance per token · five tokens · USD · 12-month window</small></span></div>' +
         '<div class="ln"><span class="no">2</span><span class="tx">Weights: σ × V, as in AWP<small>time weight × value weight (the formula from 05)</small></span></div>' +
         '<div class="ln"><span class="no">3</span><span class="tx">Restarts: the same at every node<small>every node $v$ gets $\\pi_v = 1/|V|$ · damping factor $d = ' + DAMP + '$</small></span></div>' +
         '<div class="ln"><span class="no">4</span><span class="tx">Evaluated: contracts that receive approvals<small>Owners (EOAs) hold a share too, but are not evaluated or reported</small></span></div>' +
@@ -449,15 +458,17 @@
       g.cT = svgEl('text', { x: 800, y: 356, 'text-anchor': 'end', fill: C.deg, 'font-size': 46, 'font-weight': 700, 'class': 'tnum' }, gr); g.cT.textContent = '0';
       gsap.set([g.tA.border, g.tT.border, g.cA, g.cT], { autoAlpha: 0 });
       g.defs = q(el, '#defs'); gsap.set(g.defs.children, { autoAlpha: 0 });
-      /* high-jump bar: baseline = raw count; can the PageRank chips clear it? */
+      /* high-jump bar: baseline = raw count; can the PageRank chips clear it? The chips rise and stop
+         under the bar: the question stays open here (the answer, in s08, is that out of window
+         no PageRank ranks above the count it smooths). */
       var jump = q(el, '#jump');
       var js = Comp.svg(ctx, jump, { w: 494, h: 110 });
-      g.bar = svgEl('line', { x1: 10, y1: 78, x2: 484, y2: 78, stroke: C.deg, 'stroke-width': 3, 'stroke-dasharray': '10 8' }, js);
-      g.barLbl = svgEl('text', { x: 10, y: 104, fill: C.deg, 'font-size': 20, 'font-weight': 600 }, js); g.barLbl.textContent = 'Baseline = plain count';
-      g.q = svgEl('text', { x: 484, y: 104, 'text-anchor': 'end', fill: C.ink2, 'font-size': 20 }, js); g.q.textContent = 'Can they clear it?';
+      g.bar = svgEl('line', { x1: 10, y1: 30, x2: 484, y2: 30, stroke: C.deg, 'stroke-width': 3, 'stroke-dasharray': '10 8' }, js);
+      g.barLbl = svgEl('text', { x: 10, y: 20, fill: C.deg, 'font-size': 20, 'font-weight': 600 }, js); g.barLbl.textContent = 'Baseline = plain count';
+      g.q = svgEl('text', { x: 484, y: 20, 'text-anchor': 'end', fill: C.ink2, 'font-size': 20 }, js); g.q.textContent = 'Can they clear it?';
       g.chipER = document.createElement('div'); g.chipER.className = 's6-chip c-allow'; g.chipER.textContent = 'EndorseRank ↑';
       g.chipAWP = document.createElement('div'); g.chipAWP.className = 's6-chip c-xfer'; g.chipAWP.textContent = 'AWP ↑';
-      g.chipER.style.left = '90px'; g.chipER.style.top = '8px'; g.chipAWP.style.left = '300px'; g.chipAWP.style.top = '8px';
+      g.chipER.style.left = '90px'; g.chipER.style.top = '44px'; g.chipAWP.style.left = '300px'; g.chipAWP.style.top = '44px';
       jump.appendChild(g.chipER); jump.appendChild(g.chipAWP);
       gsap.set([g.bar, g.barLbl, g.q, g.chipER, g.chipAWP], { autoAlpha: 0 });
       gsap.set([g.W.g].concat(g.own.map(function (n) { return n.g; }), g.snd.map(function (n) { return n.g; })), { autoAlpha: 0 });
@@ -523,11 +534,14 @@
      C-PR: two 100 % rows (allowance row, transfer row) are squashed by λ and 1 − λ and
      joined into one mixed row; the dial sweeps λ; then a node with allowance arrows only
      is renormalized by D_λ(u). Bars: example (s05-06 cap example; σ(0) = 0.8581). */
-  var ROWA = { S1: 20000 / 20500, S2: 500 / 20500 };                 /* 0.9756 / 0.0244 */
+  var ROWA = { S1: UCAP / (UCAP + 500), S2: 500 / (UCAP + 500) };    /* U = 19,000: 0.9744 / 0.0256 */
   var XT = [1000 * 0.8581, 300 * 0.5];                                /* 858.1 / 150 */
   var ROWT = { S2: XT[1] / (XT[0] + XT[1]), R: XT[0] / (XT[0] + XT[1]) }; /* 0.1488 / 0.8512 */
   var R4 = function (v) { return Math.round(v * 1e4) / 1e4; };
   ROWA = { S1: R4(ROWA.S1), S2: R4(ROWA.S2) }; ROWT = { S2: R4(ROWT.S2), R: R4(ROWT.R) };
+  /* the mixed row at λ = 0.5 (notes and derivation): 0.4872 / 0.0872 / 0.4256 */
+  var MIX = { S1: R4(0.5 * ROWA.S1), S2: R4(0.5 * ROWA.S2 + 0.5 * ROWT.S2), R: R4(0.5 * ROWT.R) };
+  function f4(v) { return fmt(v, 4); }
   var B3 = { x: 576, y: 196, L: 400, x0: 26, h: 44, rows: [52, 226, 400] };   /* bar figure */
   var SHADE = { S1: C.allow, S2a: '#C98F2A', S2b: '#2A93C2', R: C.xfer };
   var slide3 = {
@@ -535,9 +549,9 @@
     tags: function (step) { return step >= 4 && step < 6 ? ['example', 'plan'] : ['example']; },
     notes: [
       'The third score is C-PR, coupled PageRank, the score of this thesis. It ties the two walks into one and walks both graphs together. Let us look at one owner, u. Two allowance edges and two transfer edges leave u.',
-      'First, the row of u on the allowance side, its row in the transition matrix. The A under P means the allowance layer, u is the starting node, and the last place, the dot, stands for every destination. Just as in the cap example from 05, the unlimited allowance counts as 20,000 dollars and the other one is 500 dollars, so the row splits into 0.9756 and 0.0244. They add up to 1.',
+      'First, the row of u on the allowance side, its row in the transition matrix. The A under P means the allowance layer, u is the starting node, and the last place, the dot, stands for every destination. Just as in the cap example from 05, the unlimited allowance counts as ' + fmt(UCAP, 0) + ' dollars and the other one is 500 dollars, so the row splits into ' + f4(ROWA.S1) + ' and ' + f4(ROWA.S2) + '. They add up to 1.',
       'We build the transfer row too. The 1,000 dollars sent today is multiplied by the time weight 0.858, giving 858, and the 300 dollars sent 180 days ago is multiplied by 0.5, giving 150. So the row is 0.8512 and 0.1488. This also adds up to 1. All the amounts are illustrative examples.',
-      'Now we mix the two rows. With the dial λ at 0.5, we shrink the allowance row to half, shrink the transfer row to half as well, and join them. S1 gets 0.4878, S2 gets the two pieces added together, 0.0866, and R gets 0.4256. λ times 1 plus 1 minus λ times 1 is always 1, so the mixed row also adds up to 1.',
+      'Now we mix the two rows. With the dial λ at 0.5, we shrink the allowance row to half, shrink the transfer row to half as well, and join them. S1 gets ' + f4(MIX.S1) + ', S2 gets the two pieces added together, ' + f4(MIX.S2) + ', and R gets ' + f4(MIX.R) + '. λ times 1 plus 1 minus λ times 1 is always 1, so the mixed row also adds up to 1.',
       'Let me turn the dial. At λ = 1 the mixed row is the same as the allowance row, and at 0 it is the same as the transfer row. The primary value 0.5 and the sensitivity values 0.25 and 0.75 were written into the analysis plan before this study extracted any data. The one decision rule of the plan is about C-PR, too.',
       'But what if u has no transfer edges? Then the transfer row is empty. The mixed row adds up to only λ, that is 0.5. So we divide by λ to bring it back to 1. We write this divisor as D-lambda. In the end, that node follows its allowance edges 100% of the time.',
       'This is the coupled formula in Chapter 3 of the thesis. The switch, the bold 1, is 1 if the node has outgoing edges in that layer and 0 if not. As a table: if both kinds are there, the weights are λ and 1 minus λ; if only one kind is there, that one gets 1; if neither is there, the node is dangling and its mass goes to the restart. λ = 1 is the same as walking the allowance layer alone, and 0 the same as walking the transfer layer alone. Restarts are uniform, and d is 0.85.'
@@ -584,7 +598,7 @@
         var t = svgEl('text', { x: x, y: y, 'text-anchor': 'end', fill: col, 'font-size': 20, 'font-weight': 700, 'class': 'tnum s6-halo' }, gs);
         t.textContent = text; gsap.set(t, { autoAlpha: 0 }); return t;
       }
-      g.lS1 = tag(S1.x - 40, S1.y - 34, 'unlimited → cap 20,000 USD', C.allow);
+      g.lS1 = tag(S1.x - 40, S1.y - 34, 'unlimited → cap ' + fmt(UCAP, 0) + ' USD', C.allow);
       g.lS2a = tag(S2n.x - 46, S2n.y - 40, '500 USD', C.allow);
       g.lS2b = tag(S2n.x - 30, S2n.y + 46, '300 USD', C.xfer);
       svgEl('tspan', { x: S2n.x - 30, dy: 23 }, g.lS2b).textContent = '180 days ago';   /* two lines: one line would run into the label of u */
@@ -646,9 +660,9 @@
       g.lcap = q(el, '#lcap'); gsap.set(g.lcap, { autoAlpha: 0 });
       /* derivation */
       g.D = Comp.derive(ctx, q(el, '#d3'), { head: 'Derivation', lines: [
-        { tex: '\\ca{0.9756}+\\ca{0.0244}=1', note: 'Allowance row: the cap example from 05 (20,000 and 500 USD)' },
-        { tex: '\\ct{0.1488}+\\ct{0.8512}=1', note: 'Transfer row: 300×0.5 = 150 · 1,000×0.858 = 858' },
-        { tex: '\\begin{aligned}\\text{S1}&=0.5\\times\\ca{0.9756}=0.4878\\\\ \\text{S2}&=0.5\\times\\ca{0.0244}+0.5\\times\\ct{0.1488}=0.0866\\\\ \\text{R}&=0.5\\times\\ct{0.8512}=0.4256\\end{aligned}', note: 'Mixing at λ = 0.5: half of each row' },
+        { tex: '\\ca{' + f4(ROWA.S1) + '}+\\ca{' + f4(ROWA.S2) + '}=1', note: 'Allowance row: the cap example from 05 (' + fmt(UCAP, 0) + ' and 500 USD)' },
+        { tex: '\\ct{' + f4(ROWT.S2) + '}+\\ct{' + f4(ROWT.R) + '}=1', note: 'Transfer row: 300×0.5 = 150 · 1,000×0.858 = 858' },
+        { tex: '\\begin{aligned}\\text{S1}&=0.5\\times\\ca{' + f4(ROWA.S1) + '}=' + f4(MIX.S1) + '\\\\ \\text{S2}&=0.5\\times\\ca{' + f4(ROWA.S2) + '}+0.5\\times\\ct{' + f4(ROWT.S2) + '}=' + f4(MIX.S2) + '\\\\ \\text{R}&=0.5\\times\\ct{' + f4(ROWT.R) + '}=' + f4(MIX.R) + '\\end{aligned}', note: 'Mixing at λ = 0.5: half of each row' },
         { tex: '\\part{s}{\\lambda\\times1+(1-\\lambda)\\times1}=1', note: 'so the mixed row always adds up to 1 as well', mark: 's' },
         { tex: '\\frac{\\lambda\\times1+0}{\\part{dl}{\\lambda}}=1', note: 'No transfer edges: the sum is only λ → divide by λ, the divisor $D_\\lambda(u)$', mark: 'dl' }
       ] });
@@ -770,21 +784,21 @@
   }
 
   /* ================================================================ s06-04
-     The representative scene: 15,107 contracts of the matched cohort. x = log10(1 + in-approve
+     The representative scene: the 6,483 contracts of the matched cohort (NCOH). x = log10(1 + in-approve
      degree), z = log10(1 + transfer in-degree), y = percentile of the C-PR(λ) score in the cohort;
      contracts that a layer leaves out (score 0) rest on the floor plate. The dial snaps to the five
      computed values of λ only. No address or contract name is ever shown. */
   var V4 = { top: 150, h: 790 };
   var slide4 = {
-    id: 's06-04', title: 'Turning λ: 15,107 contracts move', time: 70, steps: 6,
+    id: 's06-04', title: 'Turning λ: ' + fmt(NCOH, 0) + ' contracts move', time: 70, steps: 6,
     tags: ['construct'],
     notes: [
-      'This scene is the key picture of this talk. All 15,107 real contracts are in it. Across is the in-approve degree, and depth is the transfer in-degree. Both are on log scales, so each step on the scale is ten times the one before. Height is the percentile of the C-PR score, that is, the score rank turned into 0 to 100, with 100 at the top. With ranks we can compare on the same scale even though the size of the scores differs for each λ. On the two back walls we cast the shadow of the cloud. The right wall shows the in-approve degree against the score, and the left wall the transfer in-degree against the score. If a shadow is a thin band, the score follows that count closely; if it is a spread-out cloud, it does not. Right now the dial is at 1, the score that walks only the allowance layer, so the shadow on the allowance wall is close to a band. The bars at the top right show how far the score order matches each count. 0 means no relation and 1 means the same order. I will explain how this is measured in 07.',
-      'If we set λ to 0, the walk uses only the transfer layer. Now the shadow on the left wall, the transfer wall, gets close to a band, and the shadow on the allowance wall spreads out. The 2,670 contracts that are not in the transfer graph fall to the floor. On the bars, it is 0.689 with the transfer in-degree and 0.262 with the in-approve degree.',
-      'Raising λ to 0.25 changes a lot. Most of the contracts that were on the floor rise up, and only the 80 that are in neither graph stay there. The shadows on both walls are half spread out, and the two bars meet around the middle.',
+      'This scene is the key picture of this talk. All ' + fmt(NCOH, 0) + ' real contracts are in it. Across is the in-approve degree, and depth is the transfer in-degree. Both are on log scales, so each step on the scale is ten times the one before. Height is the percentile of the C-PR score, that is, the score rank turned into 0 to 100, with 100 at the top. With ranks we can compare on the same scale even though the size of the scores differs for each λ. On the two back walls we cast the shadow of the cloud. The right wall shows the in-approve degree against the score, and the left wall the transfer in-degree against the score. If a shadow is a thin band, the score follows that count closely; if it is a spread-out cloud, it does not. Right now the dial is at 1, the score that walks only the allowance layer, so the shadow on the allowance wall is close to a band. The bars at the top right show how far the score order matches each count. 0 means no relation and 1 means the same order. I will explain how this is measured in 07.',
+      'If we set λ to 0, the walk uses only the transfer layer. Now the shadow on the left wall, the transfer wall, gets close to a band, and the shadow on the allowance wall spreads out. The ' + fmt(LAM[0].zeros, 0) + ' contracts that are not in the transfer graph fall to the floor. On the bars, it is ' + tau0(LAM[0].d) + ' with the transfer in-degree and ' + tau0(LAM[0].a) + ' with the in-approve degree.',
+      'Raising λ to 0.25 changes a lot. Most of the contracts that were on the floor rise up, and only the ' + fmt(LAM[1].zeros, 0) + ' that are in neither graph stay there. The shadows on both walls are half spread out, and the two bars meet around the middle.',
       'At 0.5 almost nothing moves. It looks much like 0.25.',
       'At 0.75, too, it moves only a little.',
-      'At 1 it jumps a lot again and lines up with the allowance-side count. The shadow on the allowance wall gets close to a band again, and it is 0.654 with the in-approve degree. The 523 contracts that are not in the allowance graph go to the floor.',
+      'At 1 it jumps a lot again and lines up with the allowance-side count. The shadow on the allowance wall gets close to a band again, and it is ' + tau0(LAM[4].a) + ' with the in-approve degree. The ' + fmt(LAM[4].zeros, 0) + ' contracts that are not in the allowance graph go to the floor.',
       'The big jumps at the ends happen because at exactly 0 or 1 only one layer is walked, so the set of nodes itself changes. Between 0 and 1, a node with only one kind of edge follows that path 100% of the time. So this formula is not continuous at the end points. Please also keep in mind that these numbers are a same-window check, so part of the agreement is built in by the way the scores are made. If you drag the dial you can move between the five computed values, and you can drag the cloud to rotate it.'
     ],
     html:
@@ -794,11 +808,11 @@
       '<div class="abs s6-cap" id="dialcap" style="left:96px;top:362px;width:300px;line-height:28px">λ = 0: transfer layer alone<br>λ = 1: allowance layer alone<br><span class="ink-3" style="font-size:18px">drag the dial (five values only)</span></div>' +
       '<div class="abs s6-hudp" id="hudp" style="left:1384px;top:176px;width:440px">' +
         '<div class="q">Agreement of the score order with</div>' +
-        '<div class="m"><span class="k c-allow">In-approve<br>degree</span><span class="bar c-allow"><i id="ma"></i></span><span class="v c-allow" id="va">0.654</span></div>' +
-        '<div class="m"><span class="k c-xfer">Transfer<br>in-degree</span><span class="bar c-xfer"><i id="md"></i></span><span class="v c-xfer" id="vd">0.183</span></div>' +
+        '<div class="m"><span class="k c-allow">In-approve<br>degree</span><span class="bar c-allow"><i id="ma"></i></span><span class="v c-allow" id="va">' + tau0(LAM[4].a) + '</span></div>' +
+        '<div class="m"><span class="k c-xfer">Transfer<br>in-degree</span><span class="bar c-xfer"><i id="md"></i></span><span class="v c-xfer" id="vd">' + tau0(LAM[4].d) + '</span></div>' +
         '<div class="sc"><span>0 none</span><span>1 same order</span></div>' +
         '<div class="nt">Kendall’s τ · how it is measured: 07</div>' +
-        '<div class="z">On the floor (score 0): <b id="vz">523</b> contracts</div></div>' +
+        '<div class="z">On the floor (score 0): <b id="vz">' + fmt(LAM[4].zeros, 0) + '</b> contracts</div></div>' +
       '<div class="abs s6-read" id="read" style="left:96px;top:456px;width:420px">' +
         '<div class="hd">How to read</div>' +
         '<div class="r"><b>Percentile</b><span>score rank 0–100 (100 at the top)</span></div>' +
@@ -1002,8 +1016,8 @@
       'The fourth is S-PR, endorsement-seeded PageRank. S-PR is an ablation experiment. It is a score that walks the transfer graph, but it teleports to different places. For now, the restart rain falls evenly on every node.',
       'Now the rain gathers where there is an allowance score, on the nodes with an amber halo. The bigger the halo, the heavier the rain. No rain falls on nodes without an allowance score. This has the same form as TrustRank, which fights web spam, but instead of seeds picked by people it uses the allowance score as the seed.',
       'As a formula: for each node of the transfer graph, the restart share is the score from walking the allowance layer alone, divided again so that the shares add up to 1.',
-      'To preview the results a little: in W0, S-PR did about as well on new transfer senders as walking the transfer layer alone, but it did worse on new approval pairs than walking the allowance layer alone. These two comparisons are post hoc, computed after the labels were seen. We will see how the difference is measured in 07.',
-      'So allowance edges help when the walk actually moves along them, and they help little when they only set the starting points.'
+      'To preview the results a little: in W0, S-PR did slightly better on new transfer senders than walking the transfer layer alone, but it did much worse on new approval pairs than walking the allowance layer alone. Like the transfer walk, S-PR scores zero every contract without a transfer edge, so part of the gap on new approval pairs may come from those contracts. These two comparisons are post hoc, computed after the labels were seen. We will see how the difference is measured in 07.',
+      'So the allowance signal survives when the walk actually moves along allowance edges, and most of it is lost when they only set the starting points.'
     ],
     html:
       '<h1 class="t-h1">Allowances as [[seeds]], transfers as paths</h1>' +
@@ -1016,10 +1030,10 @@
         '<div class="nt">On the nodes of the transfer graph, the allowance score $\\ca{\\mathbf r_A}$ divided again to sum to 1 · 0 for a node not in the allowance graph</div></div>' +
       '<div class="abs" id="fp5" data-in="none" style="left:1060px;top:640px;width:764px">' +
         '<div class="s6-fhead"><span>Preview · W0 · post hoc comparison</span>' + Deck.tagHTML('posthoc') + '</div>' +
-        '<div class="s6-verd" id="v5a"><span class="ic c-xfer">≈</span><span><b class="c-xfer">New transfer senders</b>close to the transfer layer alone</span></div>' +
+        '<div class="s6-verd" id="v5a"><span class="ic c-xfer">↑</span><span><b class="c-xfer">New transfer senders</b>slightly above the transfer layer alone</span></div>' +
         '<div class="s6-verd" id="v5b"><span class="ic c-hi">↓</span><span><b class="c-allow">New approval pairs</b>worse than the allowance layer alone</span></div>' +
         '<div class="s6-fnote">How the difference is measured: see 07</div></div>' +
-      '<p class="abs s6-concl" data-step="4" style="left:96px;top:922px;width:1220px">Allowance edges help as paths to walk, but little as starting points only</p>',
+      '<p class="abs s6-concl" data-step="4" style="left:96px;top:922px;width:1220px">Allowance signal: kept when walked, mostly lost as starting points only</p>',
     build: function (el, ctx) {
       var g = ctx.g = { w: N5.map(function () { return 1 / N5.length; }) };
       var svg = q(el, '#g5');
@@ -1049,7 +1063,7 @@
       for (var r = 0; r < 14; r++) g.rip.push({ el: svgEl('ellipse', { cx: 0, cy: 0, rx: 0, ry: 0, fill: 'none', stroke: '#CFE9FF', 'stroke-width': 1.5, opacity: 0 }, g.rainG), t: 1 });
       g.ripN = 0;
       g.rain = { on: 0 };
-      /* two post hoc verdicts in words (R§6 contrasts_after[2]: SPR_SEND, interval covers 0 → 'about the same';
+      /* two post hoc verdicts in words (R§6 contrasts_after[2]: SPR_SEND, interval above 0 → 'slightly above';
          contrasts_after[1]: SPR_APPR, interval below 0 → 'worse'). Δτ and intervals are taught only in s07. */
       g.fp = q(el, '#fp5'); gsap.set(g.fp, { autoAlpha: 0 });
       g.v5 = [q(el, '#v5a'), q(el, '#v5b')]; gsap.set(g.v5, { autoAlpha: 0 });

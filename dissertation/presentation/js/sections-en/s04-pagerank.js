@@ -13,7 +13,7 @@
    s04-04  One table: transition matrix 4×4 table; arrows fly into cells; 3D flip about the diagonal = Pᵀ
    s04-05  Two problems                 leak at the dangling node (1 → 0.75 → 0.25 → 0); D ⇄ E trap
    s04-06  The fix: damping d, restarts three pieces of Eq. pagerank fill r^(1) = (0.0906, 0.2323, 0.1615, 0.5156)
-   s04-07  Power iteration              23 iterations to ε = 1e-8; 69 / 92 on the real graphs; live d slider
+   s04-07  Power iteration              23 iterations to ε = 1e-8; 57 / 94 on the real graphs; live d slider
 
    Numbers and sources
      weights 2, 1, 3, 1; o = 3, 3, 1, 0; d = 0.85; 0.0375 = 0.15/4; r^(1) = (0.0906, 0.2323, 0.1615, 0.5156);
@@ -23,7 +23,8 @@
      change values 0.531, 0.135, …; slider values — computed here in the browser (power iteration
        of Eq. pagerank on the toy graph), status tags 'calc' / 'example'
      d = 0.85, ε = 1e-8, I_max = 300 — DECK_DATA.params.pagerank (R§10 Protocol)
-     69 (EndorseRank), 92 (AWP) iterations at T_obs — DECK_DATA.scale.revised.iterations_tobs (R§1)
+     57 (EndorseRank), 94 (AWP) iterations at T_obs — DECK_DATA.scale.revised.iterations_tobs (R§1);
+       solve time = graph size (|E|, |V|) per iteration × iterations (thesis Ch. 4 benchmark), notes only
    ========================================================================= */
 (function () {
   'use strict';
@@ -36,8 +37,8 @@
   var TOL = PRP.tol != null ? PRP.tol : 1e-8;
   var IMAX = PRP.max_iter != null ? PRP.max_iter : 300;
   var ITS = (((DATA.scale || {}).revised || {}).iterations_tobs) || {};
-  var IT_ER = ITS.endorserank != null ? ITS.endorserank : 69;
-  var IT_AWP = ITS.awp != null ? ITS.awp : 92;
+  var IT_ER = ITS.endorserank != null ? ITS.endorserank : 57;
+  var IT_AWP = ITS.awp != null ? ITS.awp : 94;
 
   /* ------------------------------------------------------------ geometry of the locked stage */
   var WX = 96, WY = 236;                       /* small-world wrapper (stage px) */
@@ -1197,7 +1198,7 @@
       'In practice we do not solve this equation in one go. We repeat the same calculation. This is called power iteration. At the start every node gets a quarter.',
       'Applying the equation once tilts the shares toward D. A becomes 0.0375 plus 0.2125 times 0.25, which is 0.0906. To measure how much changed, we add up the size of the difference in every cell. We drop the minus signs and add only the sizes. We write this with a double-bar symbol. The first time it is 0.531. The dots in the chart on the right are these changes. On the vertical scale, each grid line down is a hundred times smaller: 1, 0.01, 0.0001, one millionth, one hundred-millionth.',
       'With every repetition the change gets smaller, and at the 23rd iteration it falls below one hundred-millionth, so we stop. This threshold is written as epsilon. We also fixed a cap: however long it takes, we stop at 300 iterations. The final order is D, B, C, A. That is because D is endorsed by two vaults, and those vaults are in turn endorsed by A. A\'s share of 0.1375 is the restart share 0.0375 plus the 0.1000 collected from D.',
-      'On the real allowance graph it stopped after 69 iterations, and on the transfer graph after 92. Each iteration does one multiplication per edge, so the time it takes follows the number of edges. This comes back in section 10.',
+      'On the real allowance graph it stopped after ' + IT_ER + ' iterations, and on the transfer graph after ' + IT_AWP + '. Each iteration does one multiplication per edge, so one iteration takes longer on a graph with more edges, and the total time depends on both the size of the graph and the number of iterations. This comes back in section 10.',
       'Let me change d directly. When d is 0, the walker never follows an arrow, so every node gets a quarter. As d grows, the arrows matter more: D grows, A shrinks, and it takes more iterations to settle. The browser computes these values on the spot.'
     ],
     html: '<h1 class="t-h1">[[Repeat]] the same calculation and the values settle</h1>' + panelBg(7) +
@@ -1216,7 +1217,7 @@
           '<div data-step="3" data-step-out="4"><div class="s4-note">On the real graphs (revised analysis, T<sub>obs</sub>)</div><div class="s4-real">' +
             '<div class="it"><span class="n c-allow" id="r1">' + IT_ER + '</span><span class="k">EndorseRank · allowance graph</span></div>' +
             '<div class="it"><span class="n c-xfer" id="r2">' + IT_AWP + '</span><span class="k">AWP · transfer graph</span></div></div>' +
-            '<div class="s4-note">One iteration = one multiplication per edge → time follows the <b class="ink">number of edges</b></div></div>' +
+            '<div class="s4-note">Each iteration: one multiplication per edge → time: <b class="ink">graph size × iterations</b></div></div>' +
           '<div data-step="4"><div class="s4-l">Try changing d (bottom left)</div><div class="s4-note" id="dnote">The browser computes the values on the spot · d = 0 gives 0.25 for all</div></div>' +
         '</div>' +
       '</div>' +

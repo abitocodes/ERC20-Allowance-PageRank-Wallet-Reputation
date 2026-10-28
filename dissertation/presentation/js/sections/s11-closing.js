@@ -4,7 +4,7 @@
    s11-01  연구 질문에 대한 답   five RQ cards (RQ order of 22 October 2026: RQ1 the two single-edge
                                  walks, RQ2 cost, RQ3 holdout and counts, RQ4 rule A, RQ5 rule B); on
                                  entry the representative pictures of the talk fly back in as dim
-                                 thumbnails (rank scatter of the real 15,107 contracts, race bars with
+                                 thumbnails (rank scatter of the real 6,483 contracts, race bars with
                                  C-PR, interval bars, one verdict stamp each for A and B); each click
                                  brings one card forward with its answer and status; then the
                                  out-of-both-edges line and the five objective chips
@@ -19,16 +19,19 @@
    s11-05  감사합니다            the small world as a constellation; the allowance arrow underlines
                                  the thanks; then everything stops for the questions
 
-   Numbers and sources (R = revised digest = the thesis's main analysis)
-     τ 0.174 [0.163, 0.185]                    R§3 inter_method.endorserank_vs_awp
-     0.585 (EndorseRank × allowance), 0.572 (AWP × transfer)        R§2 families
-     2.17, 2.23                                R§10 derived ratios
-     W1 contrasts in the RQ4 thumbnail: AWP − transfer in-degree +0.022 [0.017, 0.027],
-       EndorseRank − in-approve degree −0.034 [−0.038, −0.029]       R§7 (after the labels)
+   Numbers and sources (R = revised digest, revised-usd-12m = the thesis's main analysis)
+     τ 0.199 [0.181, 0.221]                    R§3 inter_method.endorserank_vs_awp
+     0.560 (EndorseRank × allowance), 0.736 (AWP × transfer)        R§2 families
+     time 3.21, edges 2.21, iterations 94 / 57, C-PR 1.36 × AWP      R§10 benchmark (main, derived)
+     W1 contrasts in the RQ3 thumbnail: AWP − transfer in-degree −0.041 [−0.047, −0.034],
+       EndorseRank − in-approve degree −0.082 [−0.090, −0.073]       R§7 (after the labels)
+     P (W1) +0.141, 97.5 % [0.026, 0.256]: R1 met (re-analysis)      R§7 neutral_w1.grid.P
      objectives O1–O5: thesis Ch. 5, Table objectives-achievement (Outcome column)
-     70 / 88 traders (W1 / W0)                 R§7 neutral_w1.n / neutral_w0.n
-     "N": a placeholder, no contract is meant; "2026년 10–12월": thesis Ch. 6, future work
-     repository: thesis Ch. 3, Reproducibility
+     70 / 87 traders (W1 / W0)                 R§7 neutral_w1.n / neutral_w0.n
+     next steps: thesis Ch. 6, future work ("N": a placeholder, no contract is meant;
+       "2026년 10–12월": the example window of the registered test); the contract-risk labels
+       of the fourth card are the deck's own suggestion
+     repository: thesis Ch. 3, Reproducibility; digest folder: thesis App. (revised-usd-12m)
    ========================================================================= */
 (function () {
   'use strict';
@@ -57,18 +60,25 @@
 
   /* ------------------------------------------------------------ data */
   var RV = pick(DATA, ['results', 'revised'], {});
-  var TAU = pick(RV, ['same_window', 'inter_method', 'endorserank_vs_awp'], [0.1738, 0.1632, 0.1848]);
+  var TAU = pick(RV, ['same_window', 'inter_method', 'endorserank_vs_awp'], [0.19948, 0.1809, 0.2211]);
   var FAM = pick(RV, ['same_window', 'families'], {});
-  var F_ER_A = pick(FAM, ['endorserank', 'allowance', 0], 0.5849), F_ER_T = pick(FAM, ['endorserank', 'transfer', 0], 0.1579);
-  var F_AWP_T = pick(FAM, ['awp', 'transfer', 0], 0.5723), F_AWP_A = pick(FAM, ['awp', 'allowance', 0], 0.193);
+  var F_ER_A = pick(FAM, ['endorserank', 'allowance', 0], 0.5598), F_ER_T = pick(FAM, ['endorserank', 'transfer', 0], 0.19649);
+  var F_AWP_T = pick(FAM, ['awp', 'transfer', 0], 0.7358), F_AWP_A = pick(FAM, ['awp', 'allowance', 0], 0.2263);
   var BM = pick(DATA, ['benchmark', 'revised', 'main'], {});
-  var T_ER = pick(BM, ['endorserank', 'mean_s'], 10.2942), T_AWP = pick(BM, ['awp', 'mean_s'], 22.3674);
-  var T_CPR = pick(BM, ['cpr_l50', 'mean_s'], 36.1616);
-  var R_TIME = pick(DATA, ['benchmark', 'revised', 'derived', 'time_ratio_awp_over_er'], 2.1728);
-  var R_EDGE = pick(DATA, ['benchmark', 'revised', 'derived', 'edge_ratio_awp_over_er'], 2.2302);
-  var W1C_AWP = pick(RV, ['w1', 'endorserank_results', 'awp_minus_degree_send', 'd'], [0.02186, 0.01694, 0.02708]);
-  var W1C_ER = pick(RV, ['w1', 'endorserank_results', 'endorserank_minus_degree_appr', 'd'], [-0.03377, -0.03802, -0.02901]);
-  var N_W1 = pick(RV, ['w1', 'neutral_w1', 'n'], 70), N_W0 = pick(RV, ['w1', 'neutral_w0', 'n'], 88);
+  var T_ER = pick(BM, ['endorserank', 'mean_s'], 2.6569), T_AWP = pick(BM, ['awp', 'mean_s'], 8.5296);
+  var T_CPR = pick(BM, ['cpr_l50', 'mean_s'], 11.5635);
+  var IT_ER = pick(BM, ['endorserank', 'iterations'], 57), IT_AWP = pick(BM, ['awp', 'iterations'], 94);
+  var R_TIME = pick(DATA, ['benchmark', 'revised', 'derived', 'time_ratio_awp_over_er'], 3.2104);
+  var R_EDGE = pick(DATA, ['benchmark', 'revised', 'derived', 'edge_ratio_awp_over_er'], 2.2122);
+  /* the time ratio = the ratio of iterations × the ratio of the time per iteration (thesis Ch. 4: 1.65 × 1.95) */
+  var R_ITER = IT_AWP / IT_ER, R_PER_IT = (T_AWP / IT_AWP) / (T_ER / IT_ER), R_CPR_AWP = T_CPR / T_AWP;
+  var W1C_AWP = pick(RV, ['w1', 'endorserank_results', 'awp_minus_degree_send', 'd'], [-0.0409, -0.04729, -0.03445]);
+  var W1C_ER = pick(RV, ['w1', 'endorserank_results', 'endorserank_minus_degree_appr', 'd'], [-0.08169, -0.09001, -0.07284]);
+  var N_W1 = pick(RV, ['w1', 'neutral_w1', 'n'], 70), N_W0 = pick(RV, ['w1', 'neutral_w0', 'n'], 87);
+  /* R1: P = in-approve degree − transfer in-degree on the W1 traders' liquidation-free close rate
+     (Bonferroni 97.5 % interval d975) */
+  var P_W1 = pick(RV, ['w1', 'neutral_w1', 'grid', 'P', 'liquidation_free_rate'], { d: [0.1413, 0.03688, 0.24], d975: [0.02599, 0.2559] });
+  var P_W1_D = P_W1.d || [0.1413], P_W1_CI = P_W1.d975 || [0.02599, 0.2559];
 
   /* ------------------------------------------------------------ styles */
   var CSS = [
@@ -143,14 +153,14 @@
   var CX = [96, 446, 796, 1146, 1496];
   var CARDS = [
     { k: 'RQ1', q: '한 화살표만 걷는 두 점수는?', a: '순서가 다르고 각자 자기 지표와', sb: 'τ = ' + fmt(TAU[0], 3) + ' (0도 1도 아니에요)<br>엔도스랭크 × 허락 <b>' + fmt(F_ER_A, 3) + '</b> · AWP × 송금 <b>' + fmt(F_AWP_T, 3) + '</b>', tags: [plainPill('만든 방식 때문에 대체로 저절로')] },
-    { k: 'RQ2', q: '얼마나 걸릴까?', a: '시간은 화살표 수를 따라가요', sb: '시간 <b>' + fmt(R_TIME, 2) + '배</b> ≈ 화살표 <b>' + fmt(R_EDGE, 2) + '배</b><br>두 화살표를 함께 걷는 C-PR이 가장 느려요', tags: [] },
-    { k: 'RQ3', q: '나중 일을 맞힐까? 센 수보다 나을까?', a: '모든 점수가 맞혀요', sb: '송금 쪽은 AWP가 센 수를 이기고, 허락 쪽은 <span class="em" id="em4">센 수가 엔도스랭크를 이겨요</span> · C-PR도 센 수를 넘지 못해요', tags: [Deck.tagHTML('posthoc')] },
+    { k: 'RQ2', q: '얼마나 걸릴까?', a: '시간은 그래프 크기와 반복 수를 따라가요', sb: '시간 <b>' + fmt(R_TIME, 2) + '배</b> · 화살표 <b>' + fmt(R_EDGE, 2) + '배</b><br>반복 <b>' + fmt(R_ITER, 2) + '배</b> × 한 번 <b>' + fmt(R_PER_IT, 2) + '배</b><br>두 화살표를 함께 걷는 C-PR이 가장 느려요', tags: [] },
+    { k: 'RQ3', q: '나중 일을 맞힐까? 센 수보다 나을까?', a: '모든 점수가 맞혀요', sb: '하지만 <span class="em" id="em4">센 수를 넘은 페이지랭크는 없어요</span> · AWP는 송금 입차수에, 엔도스랭크는 받은 허락 수에 져요 · C-PR도 마찬가지', tags: [Deck.tagHTML('posthoc')] },
     { k: 'RQ4', q: 'C-PR은 한 층만 걷기보다 나을까?', a: '아니요 — 규칙 A 미충족', sb: '허락 층보다 못하지 않지만<br>새 송금자에서 송금 층보다 뒤져요<br>등록 분석도 같아요', tags: [Deck.tagHTML('reanalysis')] },
-    { k: 'RQ5', q: '송금 걷기에 허락을 더하면?', a: '아니요 — 규칙 B 미충족', sb: '새 허락 쌍은 나아지고 새 송금자는 허용 폭보다 더 뒤져요<br>사후: 엔도스랭크보다는 모든 라벨에서 위', tags: [Deck.tagHTML('reanalysis'), Deck.tagHTML('posthoc')] }
+    { k: 'RQ5', q: '송금 걷기에 허락을 더하면?', a: '아니요 — 규칙 B 미충족', sb: '새 허락 쌍은 나아지고 새 송금자는 허용 폭보다 더 뒤져요<br>사후: 엔도스랭크보다는 두 스펜더 라벨 모두에서 위', tags: [Deck.tagHTML('reanalysis'), Deck.tagHTML('posthoc')] }
   ];
   var OCH = [
     { cls: '', html: '<b>O1</b>충족' }, { cls: '', html: '<b>O2</b>충족' },
-    { cls: 'part', html: '<b>O3 일부 충족</b>예측은 충족, 센 수 개선은 AWP만' },
+    { cls: 'part', html: '<b>O3 일부 충족</b>예측은 충족,<br>센 수를 넘은 걷기는 없음' },
     { cls: 'fail', html: '<b>O4 미충족</b>규칙 A, 등록 분석에서도' },
     { cls: 'fail', html: '<b>O5 미충족</b>규칙 B, 등록 분석에서도' }
   ];
@@ -158,13 +168,13 @@
     id: 's11-01', title: '연구 질문에 대한 답', time: 40, steps: 7,
     notes: [
       '다섯 질문에 답해 볼게요. 지금까지 본 대표 그림들이 작은 타일로 돌아왔어요. 각 질문에는 같은 번호의 목표가 하나씩 짝지어져 있어요.',
-      '첫째, 한 화살표만 걷는 엔도스랭크와 AWP는 계약을 다른 순서로 세워요. 켄달의 타우가 0.174로, 0도 1도 아니에요. 그리고 각자 자기 화살표로 만든 지표와 가장 잘 맞아요. 엔도스랭크는 허락 지표와 0.585, AWP는 송금 지표와 0.572예요. 둘 다 만든 방식 때문에 어느 정도 저절로 나오는 결과예요.',
-      '둘째, 계산 시간은 화살표 수를 따라가요. 시간 2.17배, 화살표 2.23배예요. 같은 풀이 프로그램이라 빠른 것은 그래프 덕분이고, 두 화살표를 함께 걷는 C-PR이 가장 오래 걸려요.',
-      '셋째, 나중 일은 모든 점수가 어느 정도 맞혔어요. 그런데 송금 쪽에서는 AWP가 그냥 센 수를 이겼고, 허락 쪽에서는 그냥 센 수가 엔도스랭크를 이겼어요. C-PR도 같은 화살표의 센 수를 넘지 못했어요. 이 비교들은 라벨을 본 뒤에 한 사후 비교예요.',
+      '첫째, 한 화살표만 걷는 엔도스랭크와 AWP는 계약을 다른 순서로 세워요. 켄달의 타우가 ' + fmt(TAU[0], 3) + '로, 0도 1도 아니에요. 그리고 각자 자기 화살표로 만든 지표와 가장 잘 맞아요. 엔도스랭크는 허락 지표와 ' + fmt(F_ER_A, 3) + ', AWP는 송금 지표와 ' + fmt(F_AWP_T, 3) + '이에요. 둘 다 만든 방식 때문에 어느 정도 저절로 나오는 결과예요.',
+      '둘째, 계산 시간은 그래프 크기와, 답이 자리 잡을 때까지 되풀이하는 반복 수를 함께 따라가요. AWP는 엔도스랭크보다 시간이 ' + fmt(R_TIME, 2) + '배 걸리고, 화살표는 ' + fmt(R_EDGE, 2) + '배예요. 반복 수가 ' + IT_AWP + '번 대 ' + IT_ER + '번으로 ' + fmt(R_ITER, 2) + '배이고, 반복 한 번에 ' + fmt(R_PER_IT, 2) + '배라서, 둘을 곱하면 시간 차이가 나와요. 같은 풀이 프로그램이라 빠른 것은 알고리즘 덕분이 아니라 그래프와 반복 수 덕분이고, 두 화살표를 함께 걷는 C-PR이 AWP의 ' + fmt(R_CPR_AWP, 2) + '배로 가장 오래 걸려요.',
+      '셋째, 나중 일은 모든 점수가 어느 정도 맞혔어요. 그런데 그냥 센 수를 넘은 페이지랭크는 하나도 없었어요. 두 기간 모두 송금 쪽에서는 송금 입차수가 AWP를, 허락 쪽에서는 받은 허락 수가 엔도스랭크를 이겼어요. 다시 출발을 AWP처럼 바꾼 엔도스랭크도 덜 뒤졌을 뿐 졌고, C-PR도 같은 화살표의 센 수를 넘지 못했어요. 다시 출발 규칙은 얼마나 뒤지는지를 바꿀 뿐, 뒤지는지는 바꾸지 못했어요. 이 비교들은 라벨을 본 뒤에 한 사후 비교예요.',
       '넷째, 이 논문의 점수 C-PR은 한 층만 걷기보다 낫다는 규칙 A를 채우지 못했어요. 허락 층보다 못하지는 않았지만 새 송금자에서 송금 층보다 뒤졌어요. 수정 점수에 규칙을 적용한 재분석이고, 등록 분석에서도 같았어요.',
-      '다섯째, 송금 걷기에 허락 층을 더하면 나아지는지 묻는 규칙 B도 미충족이었어요. 새 허락 쌍은 나아졌지만 새 송금자에서 허용 폭보다 더 뒤졌어요. 규칙 밖의 사후 비교로는 C-PR이 엔도스랭크보다 모든 라벨에서 위였지만, AWP를 앞선 새 허락 쌍의 몫은 AWP가 0을 주는 계약에서 나왔어요.',
-      '덧붙여, 청산을 피했는지처럼 두 화살표 어디에도 없는 결과에서는 허락 쪽이 앞선다는 증거가 없었고, 페이지랭크끼리의 비교는 가려지지 않았어요. 이것도 수정 점수에 등록한 규칙을 적용한 재분석이에요.',
-      '목표로 보면, 첫째와 둘째는 이뤘지만 둘 다 만든 방식 때문에 대체로 저절로예요. 셋째는 일부만 이뤘어요. 예측은 충족했지만 센 수보다 나은 것은 AWP뿐이었어요. 넷째와 다섯째는 이루지 못했고, 등록 분석에서도 같았어요.'
+      '다섯째, 송금 걷기에 허락 층을 더하면 나아지는지 묻는 규칙 B도 미충족이었어요. 새 허락 쌍은 나아졌지만 새 송금자에서 허용 폭보다 더 뒤졌고, 트레이더가 청산 없이 마감한 비율에서도 허용 폭을 넘어 뒤질 가능성을 지우지 못했어요. 규칙 밖의 사후 비교로는 C-PR이 두 기간 모두 두 스펜더 라벨에서 엔도스랭크보다 위였어요. AWP를 앞선 새 허락 쌍의 몫은 주로 AWP가 0을 주는 계약에서 나왔고, 나머지 계약에서는 W0에서 비슷하고 W1에서 조금 앞섰어요.',
+      '덧붙여, 청산을 피했는지처럼 두 화살표 어디에도 없는 결과에서는, 등록한 기간인 W1에서 받은 허락 수가 송금 입차수보다 앞섰어요. 차이가 +' + fmt(P_W1_D[0], 3) + '이고, 97.5% 구간 ' + fmt(P_W1_CI[0], 3) + '–' + fmt(P_W1_CI[1], 3) + '이 0 위에 있어서 R1을 채웠어요. W0에서는 양수였지만 가려지지 않았고, 페이지랭크끼리의 비교도 가려지지 않았어요. 이 신호는 강제 청산을 피하는 것이지 거래를 잘하는 것이 아니고, 트레이더 표본도 작아요. 이것도 수정 점수에 등록한 규칙을 적용한 재분석이에요. 등록 분석은 W0에서만 가려져서 R1을 채우지 못했어요.',
+      '목표로 보면, 첫째와 둘째는 이뤘지만 둘 다 만든 방식 때문에 대체로 저절로예요. 셋째는 일부만 이뤘어요. 예측은 충족했지만 센 수보다 나은 페이지랭크는 없었어요. 넷째와 다섯째는 이루지 못했고, 등록 분석에서도 같았어요.'
     ],
     html: function () {
       var cards = CARDS.map(function (c, i) {
@@ -176,7 +186,7 @@
       var och = OCH.map(function (o, i) { return '<div class="s11-oc ' + o.cls + '" data-in="none" style="left:' + CX[i] + 'px">' + o.html + '</div>'; }).join('');
       return '<h1 class="t-h1">다섯 질문, [[다섯 답]]</h1>' + cards + och +
         '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[1] + 326 - CX[0] - 40) + 'px"><span>둘 다 만든 방식 때문에 대체로 저절로</span></div>' +
-        '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1500px"><span><b>두 화살표 어디에도 없는 결과</b>(청산 피하기): 허락 쪽이 앞선다는 증거 없음 · 페이지랭크 쌍은 가려지지 않음</span>' + Deck.tagHTML('reanalysis') + '</div>';
+        '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1500px"><span><b>두 화살표 어디에도 없는 결과</b>(청산 피하기): W1에서 받은 허락 수가 송금 입차수를 앞서요(R1 충족) · W0과 페이지랭크 쌍은 가려지지 않음</span>' + Deck.tagHTML('reanalysis') + '</div>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -222,7 +232,7 @@
   /* the five thumbnails: real data where the picture is data */
   function drawThumbs(ctx, g) {
     var W = 290, H = 128;
-    /* RQ1: rank scatter, EndorseRank percentile × AWP percentile, all 15,107 contracts;
+    /* RQ1: rank scatter, EndorseRank percentile × AWP percentile, all contracts of the matched cohort;
        amber where EndorseRank ranks the contract higher, sky where AWP does (as in s08-02) */
     var K = Comp.canvas(ctx, g.ths[0], { w: W, h: H, onResize: function (k) { scatter(k); } });
     function scatter(k) {
@@ -239,16 +249,18 @@
       c.strokeRect(13.5, 11.5, W - 27, H - 23);
     }
     scatter(K);
-    /* RQ2: race bars (EndorseRank, AWP, C-PR solve times) */
+    /* RQ2: race bars (EndorseRank, AWP, C-PR solve times), the slowest 240 px long */
     var s3 = Comp.svg(ctx, g.ths[1], { w: W, h: H });
-    var sc = 6.8;
+    var sc = 240 / Math.max(T_ER, T_AWP, T_CPR);
     svgEl('rect', { x: 20, y: 24, width: T_ER * sc, height: 20, rx: 6, fill: C.allow }, s3);
     svgEl('rect', { x: 20, y: 54, width: T_AWP * sc, height: 20, rx: 6, fill: C.xfer }, s3);
     svgEl('rect', { x: 20, y: 84, width: T_CPR * sc, height: 20, rx: 6, fill: C.cpr }, s3);
     svgEl('line', { x1: 20, x2: 20, y1: 16, y2: 112, stroke: C.ink3, 'stroke-width': 1.5 }, s3);
-    /* RQ3: interval bars around zero (W1, after the labels) */
+    /* RQ3: interval bars against zero (W1, after the labels: PageRank − its own count); the scale
+       spans both intervals and zero, so a bar left of the dashed line means the count is better */
     var s4 = Comp.svg(ctx, g.ths[2], { w: W, h: H });
-    function X(v) { return 145 + v * 2400; }
+    var lo = Math.min(0, W1C_AWP[1], W1C_ER[1]), hi = Math.max(0, W1C_AWP[2], W1C_ER[2]);
+    function X(v) { return 24 + (v - lo) / ((hi - lo) || 1) * (W - 48); }
     svgEl('line', { x1: X(0), x2: X(0), y1: 14, y2: H - 14, stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, s4);
     [[W1C_AWP, 44, C.xfer], [W1C_ER, 86, C.allow]].forEach(function (r) {
       svgEl('line', { x1: X(r[0][1]), x2: X(r[0][2]), y1: r[1], y2: r[1], stroke: r[2], 'stroke-width': 5, 'stroke-linecap': 'round' }, s4);
@@ -276,7 +288,7 @@
     id: 's11-02', title: '이 연구가 새로 보탠 것', time: 30, steps: 2,
     notes: [
       '이 연구가 새로 보탠 것은 다섯 가지예요.',
-      '첫째, 두 화살표를 한 걸음으로 걷는 C-PR과, 미리 정한 규칙으로 한 시험이에요. 규칙은 미충족이었지만, 규칙 밖에서 보면 엔도스랭크보다 모든 라벨에서 위였어요. 둘째, 허락을 계약 평판의 화살표로 쓴 기준 점수 엔도스랭크예요. 셋째, 모든 점수를 다듬기 전의 센 수와, 같은 기간과 두 기간 밖에서 견준 평가 설계예요. 넷째, 고르게 다시 출발하는 걸음이 한 단계 스펜더에서 실제로 무엇을 계산하는지 보여 주는 닫힌 식이에요. 다섯째, 어느 화살표에도 없는 결과에서 미리 등록한 비교예요.',
+      '첫째, 두 화살표를 한 걸음으로 걷는 C-PR과, 미리 정한 규칙으로 한 시험이에요. 규칙은 미충족이었지만, 규칙 밖에서 보면 두 기간 모두 두 스펜더 라벨에서 엔도스랭크보다 위였어요. 둘째, 허락을 계약 평판의 화살표로 쓴 기준 점수 엔도스랭크예요. 셋째, 모든 점수를 다듬기 전의 센 수와, 같은 기간과 두 기간 밖에서 견준 평가 설계예요. 기간 밖에서 센 수를 넘은 페이지랭크는 없었어요. 넷째, 고르게 다시 출발하는 걸음이 한 단계 스펜더에서 실제로 무엇을 계산하는지 보여 주는 닫힌 식이에요. 다섯째, 어느 화살표에도 없는 결과에서 미리 등록한 비교예요. 등록한 기간 W1에서 받은 허락 수가 송금 입차수보다 청산 피하기를 더 잘 맞혔어요. 수정 점수에 한 재분석이에요.',
       '페이지랭크 알고리즘과 AWP의 무게는 빌려 온 것이고, 새것은 두 화살표를 한 걸음으로 묶는 규칙, 화살표의 종류, 그리고 그것을 시험한 방법이에요.'
     ],
     html: function () {
@@ -284,7 +296,7 @@
       function tile(i, inner) { var T = t[i]; return '<div class="s11-tile" data-in="none" data-i="' + i + '" style="left:' + T.x + 'px;top:' + T.y + 'px;width:' + T.w + 'px;height:' + T.h + 'px"><span class="no">' + T.n + '</span>' + inner + '</div>'; }
       return '<h1 class="t-h1">새로 보탠 [[다섯]] 가지</h1>' +
         tile(0, '<div class="vis" id="v4" style="top:90px;height:300px"></div>' +
-          '<div class="tx"><span class="big c-cpr">C-PR</span><br>두 화살표를 한 걸음으로 걷는 점수<small>미리 정한 규칙 A·B로 시험해 둘 다 미충족 · 규칙 밖에서는 엔도스랭크보다 모든 라벨에서 위</small></div>') +
+          '<div class="tx"><span class="big c-cpr">C-PR</span><br>두 화살표를 한 걸음으로 걷는 점수<small>미리 정한 규칙 A·B로 시험해 둘 다 미충족 · 규칙 밖에서는 두 스펜더 라벨 모두 엔도스랭크보다 위</small></div>') +
         tile(1, '<svg class="vis" id="v1" width="532" height="190" viewBox="0 0 600 380" style="top:40px"></svg>' +
           '<div class="tx">엔도스랭크: 허락을 계약 평판의<br>화살표로 쓴 기준 점수</div>') +
         tile(2, '<svg class="vis" id="v2" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
@@ -363,7 +375,7 @@
     { i: ico('<circle cx="13" cy="20" r="7"/><path d="M20 20h16M30 20v6M35 20v4"/>'), t: '가격과 토큰 목록 말고는 블록체인 밖 정보가 없어요 — <span>허락한 주인들이 서로 다른 사람인지 몰라요</span>' },
     { i: ico('<path d="M14 11l-9 9 9 9M26 11l9 9-9 9M23 8l-6 24"/>'), t: '계약의 평판일 뿐, <span>코드가 안전한지는 말하지 않아요</span>' },
     { i: '<svg viewBox="0 0 40 40" fill="none"><rect x="5" y="5" width="30" height="30" rx="8" stroke="#A3ADBF" stroke-width="2.4"/><text x="20" y="21" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="13" class="svg-mono">{ }</text></svg>', t: '점수를 받은 것은 계약뿐이에요 — <span>EOA에 대해서는 말하지 않아요</span>' },
-    { i: Deck.ICONS.loop, t: '수정 분석은 등록 분석의 결과를 본 뒤 정했어요 → <span>판정은 재분석</span>' },
+    { i: Deck.ICONS.loop, t: '달러 금액·다섯 토큰·12개월 점수 기간은 등록 결과를 본 뒤 정했어요 → <span>판정은 재분석</span>' },
     { i: Deck.ICONS.eye, t: '센 수와의 비교, 활발함 변형은 <span>사후예요</span>' },
     { i: ico('<circle cx="8" cy="10" r="3"/><circle cx="32" cy="9" r="3"/><circle cx="20" cy="22" r="3.5"/><circle cx="9" cy="32" r="3"/><circle cx="33" cy="31" r="3"/><path d="M10.5 12l7 8M29.5 11l-7 9M11 30l7-6M31 29l-8.5-5"/>'), t: '에고 네트워크(코호트에 닿는 화살표만) · 다섯 토큰 · 아비트럼 원 · <span>이 기간만</span>' },
     { i: ico('<circle cx="10" cy="10" r="3"/><circle cx="20" cy="10" r="3"/><circle cx="30" cy="10" r="3"/><circle cx="10" cy="20" r="3"/><circle cx="20" cy="20" r="3"/><circle cx="10" cy="30" r="3"/>'), t: '트레이더 표본이 작아요 <span>(W1 ' + N_W1 + '개 · W0 ' + N_W0 + '개)</span>' },
@@ -373,8 +385,8 @@
     id: 's11-03', title: '한계', time: 35, steps: 2,
     notes: [
       '한계도 분명히 말씀드릴게요.',
-      '이 점수는 하루 가격과 토큰 목록 말고는 블록체인 밖 정보를 쓰지 않아서, 허락한 주인들이 정말 서로 다른 사람인지 알 수 없어요. 계약의 평판일 뿐 코드가 안전한지는 말하지 않아요. 점수를 받은 것은 계약뿐이라서, EOA에 대해서는 아무것도 말하지 않아요. 본문의 수정 분석은 등록 분석의 결과를 본 뒤에 정했으니, 그 판정은 재분석이에요.',
-      '센 수와의 비교와 활발함 다시 출발 변형은 라벨을 본 뒤에 한 비교예요. 그리고 코호트에 닿는 화살표만 모은 에고 네트워크, 다섯 토큰, 아비트럼 원 한 체인, 이 기간만 본 결과예요. 트레이더 표본은 W1 70개, W0 88개로 작고, 고르게 다시 출발하는 점수는 닫힌 농장에 약해요.'
+      '이 점수는 하루 가격과 토큰 목록 말고는 블록체인 밖 정보를 쓰지 않아서, 허락한 주인들이 정말 서로 다른 사람인지 알 수 없어요. 계약의 평판일 뿐 코드가 안전한지는 말하지 않아요. 점수를 받은 것은 계약뿐이라서, EOA에 대해서는 아무것도 말하지 않아요. 본문의 수정 분석, 곧 달러 금액과 다섯 토큰, 동결 전 12개월의 점수 기간은 등록 분석의 결과를 본 뒤에 정했으니, 그 판정은 재분석이에요.',
+      '센 수와의 비교와 활발함 다시 출발 변형은 라벨을 본 뒤에 한 비교예요. 그리고 코호트에 닿는 화살표만 모은 에고 네트워크, 다섯 토큰, 아비트럼 원 한 체인, 이 기간만 본 결과예요. 트레이더 표본은 W1 ' + N_W1 + '개, W0 ' + N_W0 + '개로 작고, 고르게 다시 출발하는 점수는 닫힌 농장에 약해요.'
     ],
     html: function () {
       function rows(a, step) {
@@ -401,8 +413,8 @@
       '<div class="btns" style="position:absolute;left:0;right:0;top:396px;display:flex;justify-content:center;gap:20px"><div class="btn no">거절</div><div class="btn yes">허락</div></div></div>';
   }
   var NEXT = [
-    { t: '활발함 다시 출발 변형을 새 기간에 등록하고 센 수와 시험', s: '한 단계 스펜더와 더 깊은 스펜더를 따로', hyp: true },
-    { t: '수정 분석 자체를 등록 시험', s: '예: 2026년 10–12월의 로그를 뽑기 전에 등록' },
+    { t: '더 깊은 표본에서 전파가 센 수에 보태는지 시험', s: '새 데이터에서 엔도스랭크와 활발함 변형을 센 수와 견줌 · 한 단계와 더 깊은 스펜더를 따로', hyp: true },
+    { t: '수정 분석 자체를 등록 시험', s: '달러·다섯 토큰·12개월 점수 기간을 고정하고, 예: 2026년 10–12월 로그를 뽑기 전에 등록' },
     { t: '믿을 만한 씨앗에서만 다시 출발 — 농장 막기', s: '고르게 다시 출발하면 닫힌 농장이 몫을 모아요' },
     { t: '계약 위험 라벨(드레이너, 러그풀)과 비교', s: '활동량과 따로, 위험을 말해 주는지 보기' }
   ];
@@ -411,9 +423,9 @@
     carrier: false,
     notes: [
       '그러면 처음의 그 창에는 무엇을 보여 줄 수 있을까요?',
-      '처음에 본 창이 다시 열려요. 이번에는 한 줄이 더 있어요. 이 계약을 허락한 서로 다른 주인 주소의 수예요. 주인은 사람이 아니라 주소라서, 몇 명이 아니라 몇 개라고 세요. 이 연구의 결과로 보면, 이 수는 어떤 서비스든 페이지랭크 없이 계산할 수 있는 공개 신호이고, 엔도스랭크도 기간 밖에서 이 수를 넘지 못했어요. 화면의 N은 자리 표시이고 특정 계약을 가리키지 않아요.',
+      '처음에 본 창이 다시 열려요. 이번에는 한 줄이 더 있어요. 이 계약을 허락한 서로 다른 주인 주소의 수예요. 주인은 사람이 아니라 주소라서, 몇 명이 아니라 몇 개라고 세요. 이 연구의 결과로 보면, 이 수는 어떤 서비스든 페이지랭크 없이 계산할 수 있는 공개 신호이고, 기간 밖에서는 두 기간 모두 나중에 생길 허락을 이 연구의 어떤 페이지랭크보다도 잘 맞혔어요. 라벨을 본 뒤에 한 비교예요. 화면의 N은 자리 표시이고 특정 계약을 가리키지 않아요.',
       '다만 이 수는 얼마나 널리 허락받았는지일 뿐이에요. 낮으면 더 살펴볼 이유가 되지만, 높다고 서명할 이유가 되지는 않아요. 그래서 커서는 허락 버튼 위에 머물기만 해요.',
-      '다음 연구로는 네 가지를 생각하고 있어요. 활발함 다시 출발 변형을 새 기간에 미리 등록하고 센 수와 시험하는 것, 이것은 아직 가설이에요. 수정 분석 자체를 등록 시험으로 다시 하는 것, 믿을 만한 씨앗에서만 다시 출발하게 해서 농장을 막는 것, 그리고 실제 계약 위험 라벨과 견주는 것이에요.'
+      '다음 연구로는 네 가지를 생각하고 있어요. 먼저 더 깊은 표본을 뽑아, 엔도스랭크와 그 활발함 다시 출발 변형을 새 데이터에서 센 수와 견주는 것이에요. 한 단계 스펜더와 더 깊은 스펜더를 따로 보면, 걸음이 센 수에 무엇을 보태는지 알 수 있어요. 이것은 아직 가설이에요. 그리고 수정 분석 자체를, 달러 금액과 다섯 토큰, 12개월 점수 기간을 고정한 채 등록 시험으로 다시 하는 것, 믿을 만한 씨앗에서만 다시 출발하게 해서 농장을 막는 것, 실제 계약 위험 라벨과 견주는 것이에요.'
     ],
     html: function () {
       var win = WP ? WP.html({ id: 'win', top: WT, question: '이 계약이 내 USDC를 꺼내 써도 되도록 허락할까요?', code: '' }) : fallbackWallet();
@@ -427,7 +439,7 @@
         '<div class="abs s11-nx" id="nx" data-in="none" style="left:820px;top:196px;width:1004px"><h2 class="t-h2">다음 일</h2>' +
           NEXT.map(function (n, i) {
             return '<div class="s11-nc"><span class="n">' + (i + 1) + '</span><span class="t">' + esc(n.t) + '<small>' + esc(n.s) + '</small></span>' +
-              (n.hyp ? '<span class="s11-hyp" id="hyp">' + Deck.tagHTML({ ko: '가설 · 사후', icon: 'eye', key: 'hypothesis' }) + '</span>' : '') + '</div>';
+              (n.hyp ? '<span class="s11-hyp" id="hyp">' + Deck.tagHTML({ ko: '가설', icon: 'hollow', key: 'hypothesis' }) + '</span>' : '') + '</div>';
           }).join('') + '</div>' +
         '<svg class="abs" id="lay" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible;pointer-events:none"></svg>';
     },
@@ -510,7 +522,7 @@
         '<svg class="abs" id="ul" data-in="none" width="1920" height="60" viewBox="0 0 1920 60" style="left:0;top:628px;overflow:visible"></svg>' +
         '<p class="s11-thx t-body-l ink-2" id="qa" data-in="none" style="top:690px">질문을 받을게요</p>' +
         '<p class="s11-small" id="sm1" data-in="none" style="top:846px">지도교수 <b>' + sup + '</b> · 공동 지도교수 <b>' + co + '</b> · ' + esc(META.university || 'University of South Africa') + '</p>' +
-        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">코드·결과: github.com/abitocodes/phd_works · 결과 digest: experiments/data/3-published-results-for-thesis/revised-usd/</p>';
+        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">코드·결과: github.com/abitocodes/phd_works · 결과 digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};

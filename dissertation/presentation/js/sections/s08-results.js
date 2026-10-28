@@ -4,52 +4,66 @@
    s08-01  같은 기간 (RQ2)          3 × 3 board (score × family); own-family cells light up with a
                                     mirror; swapped cells and their paired differences; C-PR slides into
                                     the empty middle row; an expandable popover for λ = 1, λ = 0, S-PR
-   s08-02  두 점수는 순서가 달라요   the two rows of s08-01 burst into 15,107 particles (three.js) that
+   s08-02  두 점수는 순서가 달라요   the two rows of s08-01 burst into 6,483 particles (three.js) that
            (RQ1)                    gather into the λ = 1 cloud of s06-04; the camera rises and the points
                                     slide into a rank–rank scatter (EndorseRank × AWP percentile); diagonal,
                                     τ_b count-up, 30 flashed pairs (illustration) and a gauge stopping at
-                                    41.2 %; the two zero blocks
-   s08-03  기간 밖 시험 (RQ4 설계)   the calendar of s03-01 returns; freeze pin + frost; label window
+                                    39.8 %; the two zero blocks
+   s08-03  기간 밖 시험 (RQ4 설계)   the calendar of s03-01 returns with the monthly streams of the score
+                                    window; freeze pin + frost over the 12-month score window; label window
                                     plays (month watermark), sparse new arrows into spender boxes; waffle
-                                    (one dot = 10 spenders) with the gained-approval share; W1 with a lock
+                                    (one dot = 10 spenders) with the gained-label shares; W1 with a lock,
+                                    frost and streams move to the T_obs score window
    s08-04  송금 쪽                   locked board (data-shared "s8-board", same axes on s08-04 … s08-06):
    s08-05  허락 쪽                   left τ panel, right paired-difference panel with a dashed zero line;
-   s08-06  다시 출발만 바꾸면         ghost markers = registered analysis; "부익부" loop; restart rain; a
-                                    hollow "가설" tag drawn slowly (not a verdict stamp)
+   s08-06  다시 출발만 바꾸면         ghost markers = registered analysis; "부익부" loop; restart rain; hollow
+                                    rings where uniform EndorseRank sat; a hollow "여전히 아래" tag drawn
+                                    slowly (not a verdict stamp)
    s08-07  닫힌 식                   small world (thesis Ch. 2) + 6-line derivation of
                                     r_v = c(1 + d δ(v)); pie example δ = 1 + ½ + ¼ = 1.75 vs count 3
-   s08-08  닫힌 식은 얼마나 맞을까    waffle of 14,406 spenders (one dot = 10), counters, then the summary
+   s08-08  닫힌 식은 얼마나 맞을까    waffle of 6,224 spenders (one dot = 10), counters, then the summary
                                     board of the four raw-degree contrasts with registered ghosts
 
    Numbers and sources (R = revised digest experiments/data/3-published-results-for-thesis/
-   revised-usd/results_digest.md = the thesis's main analysis; G = registered digest results_digest.md)
-     s08-01  families τ_b [95%]           R§2 families.{endorserank,awp,cpr_l50,cpr_l100,cpr_l0,spr}.*
-             +0.392 [0.380, 0.405]         R§3 contrasts[14] (EndorseRank − AWP, allowance family)
-             +0.414 [0.401, 0.427]         R§3 contrasts[13] (AWP − EndorseRank, transfer family)
-     s08-02  0.174 [0.163, 0.185]          R§3 inter_method.endorserank_vs_awp; isolated 0.174 (…isolated)
-             114,103,171 · 96.7 % · 41.2 % R§3 concordance.pairs / share_ordered_by_both / discordant_share
-             535 · 2,672                   R§4 ties.endorserank.zeros / ties.awp.zeros
-             0.217 [0.209, 0.225]          G§3 inter_method.endorserank_vs_awp (registered analysis)
-             points: DECK_DATA.contracts pct.endorserank / pct.awp (mid-rank percentiles, all 15,107)
-     s08-03  17,050 · 2,070 · 1,695        R§6 spenders / gained_new_approvals / gained_new_senders
-             both labels 1,173 (W0) / 1,023 (W1): counted from revised-usd/{holdout-w0,window-w1}/spender_scores.part000.parquet
-             (12.1 %, 9.9 % = quotients, as in thesis Ch. 4); 18,152 · 1,616 · 1,533  R§7
-     s08-04  0.346 · 0.303 · +0.043        R§6 taus.awp / taus.t1_in_degree (new senders) / contrasts_after[4]
-             0.330 · 0.308 · +0.022        R§7 spender_taus.awp / .in_degree / endorserank_results.awp_minus_degree_send
-             14,094 · +0.056               R§6 receiving.n / receiving.contrasts[1]
-             ghosts +0.038, +0.020         G§6 contrasts_after[4], G§7 endorserank_results.awp_minus_degree_send
-     s08-05  0.250 · 0.231 · −0.019        R§6 taus.t1_in_approve_degree / taus.endorserank / contrasts_after[3]
-             0.268 · 0.234 · −0.034        R§7 spender_taus.* / endorserank_results.endorserank_minus_degree_appr
-             +0.035, +0.065                R§7 supplementary w0/w1.er_minus_awp_appr
-             −0.013                        R§6 receiving.contrasts[0];  ghosts −0.011, −0.029 (G)
-     s08-06  0.308 · 0.295                 R§6 / R§7 taus.endorserank_activity (new approval pairs)
-             +0.059, +0.027                R§7 supplementary w0/w1.er_activity_minus_degree_appr
-             0.585 → 0.426 [0.418, 0.435]  R§2 families.endorserank(.allowance) / endorserank_activity
+   revised-usd-12m/results_digest.md = the thesis's main analysis; G = registered digest results_digest.md).
+   Every number below is read from DECK_DATA.results (R → .revised, G → .registered) with the value as
+   fallback, and rounded with toFixed, as the thesis tables are.
+     s08-01  families τ_b [95%]           R same_window.families.{endorserank,awp,cpr_l50,cpr_l100,cpr_l0,spr}
+             +0.333 [0.311, 0.354]         R same_window contrast EndorseRank − AWP, allowance family
+             +0.539 [0.518, 0.560]         R same_window contrast AWP − EndorseRank, transfer family
+             6,483                         R same_window.cohort
+     s08-02  0.199 [0.181, 0.221]          R inter_method.endorserank_vs_awp; isolated 0.199 (…isolated)
+             21,011,403 · 96.4 % · 39.8 %  R concordance.pairs / share_ordered_by_both / discordant_share
+             197 · 1,192                   R ties.endorserank.zeros / ties.awp.zeros (thesis Ch. 4)
+             0.217 [0.209, 0.225]          G inter_method.endorserank_vs_awp (registered analysis)
+             points: DECK_DATA.contracts pct.endorserank / pct.awp (mid-rank percentiles, all 6,483);
+             zero blocks at the lowest percentile of each score (≈ 1.5 and ≈ 9.2), from the same arrays
+     s08-03  7,914 · 1,732 · 1,422         R w0.spenders / gained_new_approvals / gained_new_senders
+             (21.9 %, 18.0 % = DECK_DATA.holdout.w0 base rates, as in thesis Ch. 4); 7,960 · 1,495 · 1,371  R w1
+             both labels 1,044 (W0) / 967 (W1): counted from
+             revised-usd-12m/{holdout-w0,window-w1}/spender_scores.part000.parquet
+             score windows DECK_DATA.timeline.anchors.score_window_t1 / score_window_tobs;
+             streams timeline.monthly_counts.revised.{approval,transfer}_ego_t1 (W0) and _ego (W1)
+     s08-04  0.409 · 0.447 · −0.038        R w0.taus.awp / taus.t1_in_degree (new senders) / AWP minus t1 in-degree
+             0.398 · 0.439 · −0.041        R w1.spender_taus.awp / .in_degree / endorserank_results.awp_minus_degree_send
+             6,489 · −0.051                R w0.receiving.n / receiving AWP minus t1 in-degree
+             ghosts +0.038, +0.020         G w0 AWP minus t1 in-degree, G w1 endorserank_results.awp_minus_degree_send
+     s08-05  0.392 · 0.303 · −0.090        R w0.taus.t1_in_approve_degree / taus.endorserank / EndorseRank minus t1 in-approve degree
+             0.381 · 0.299 · −0.082        R w1.spender_taus.* / endorserank_results.endorserank_minus_degree_appr
+             +0.107, +0.142                R supplementary w0/w1.er_minus_awp_appr
+             −0.087 · 0.299 / 0.328        R w0.receiving contrast and taus (EndorseRank / AWP, new approval pairs)
+             1,342 · 1,425                 R w0.coverage.spenders_without_transfer_edge; 7,914 − 6,489 (계산)
+             ghosts −0.011, −0.029         G w0 / w1 EndorseRank minus in-approve degree
+     s08-06  0.332 · 0.335                 R w0.taus / w1.spender_taus .endorserank_activity (new approval pairs)
+             −0.060, −0.046                R supplementary w0/w1.er_activity_minus_degree_appr
+             rings 0.303 / 0.299, −0.090 / −0.082   uniform EndorseRank (s08-05)
+             0.560 → 0.601 [0.590, 0.613]  R same_window.families.endorserank / endorserank_activity (.allowance)
+             0.366 · 0.409 · 0.447         R w0.taus.cpr_l0 / awp / t1_in_degree (new senders)
      s08-07  0.1375, 0.2154, 0.1765, 0.4706  thesis Ch. 2 worked example (DECK_DATA.params.worked_example),
-             re-derived with the closed form (Ch. 5, Eq. closed-form); c = 7.64 × 10⁻⁸  R§5 common_value_c
+             re-derived with the closed form (Ch. 5, Eq. closed-form); c = 1.93 × 10⁻⁷  R same_window.closed_form.common_value_c
              pie 1, ½, ¼ → 1.75 = 예시
-     s08-08  14,406 · 12,039 · 100 % · 26.4 % · 87.9 %   R§5 closed_form.* (same window)
-             2,367 = 14,406 − 12,039 (계산); W0 17,032 · 73.7 %  R§5 W0 closed_form.*
+     s08-08  6,224 · 5,232 · 100 % · 21.9 % · 87.5 % · τ 0.908   R same_window.closed_form.*
+             992 = 6,224 − 5,232 (계산); W0 7,905 · 70.8 %  R w0.closed_form.*
    Status tags: construct (s08-01), post hoc (every raw-degree / variant contrast), registered-analysis
    (grey hollow ghosts), example / thesis-example where a value is illustrative.
    No address or contract name is ever shown.
@@ -61,6 +75,52 @@
   var NS = 'http://www.w3.org/2000/svg';
   var PRM = DATA.params || {};
   var DAMP = ((PRM.pagerank || {}).d) || 0.85;
+
+  /* ------------------------------------------------------------ numbers (DECK_DATA.results)
+     toFixed rounds the stored binary value exactly, as the thesis tables do; Intl rounding of a
+     four-digit half such as 0.2135 would drift by 0.001. Each fallback is the same value as text. */
+  var RES = DATA.results || {}, RV = RES.revised || {}, RG = RES.registered || {};
+  var SW = RV.same_window || {}, W0 = RV.w0 || {}, W1 = RV.w1 || {}, SUP = RV.supplementary || {};
+  function get(o, path, dflt) {
+    var v = o, p = path.split('.');
+    for (var i = 0; i < p.length; i++) { if (v == null) return dflt; v = v[p[i]]; }
+    return v == null ? dflt : v;
+  }
+  function fx(v, d) { var s = (+v).toFixed(d); return /^-0(\.0+)?$/.test(s) ? s.slice(1) : s; }
+  function m3(v) { return fx(v, 3).replace(/^-/, '−'); }
+  function s3(v) { return (v > 0 ? '+' : '') + m3(v); }
+  function pc1(v) { return fx(Number(fx(v, 3)) * 100, 1); }
+  function ivx(a, signed) {
+    if (a && a.d) a = a.d;
+    if (!a || a.length < 3 || a[0] == null) return null;
+    return (signed ? s3(a[0]) : m3(a[0])) + ' [' + m3(a[1]) + ', ' + m3(a[2]) + ']';
+  }
+  function IV(o, path, fb, signed) { return ivx(get(o, path), signed) || fb; }
+  function findC(list, a, b, outcome) {
+    list = list || [];
+    for (var i = 0; i < list.length; i++) {
+      var c = list[i];
+      if (String(c.a) === String(a) && String(c.b) === String(b) && (!outcome || c.outcome === outcome)) return c;
+    }
+    return null;
+  }
+  function CV(list, a, b, outcome, fb) { return ivx(findC(list, a, b, outcome), true) || fb; }
+  function n0(v) { return fmt(v, 0); }
+  /* Korean particles after a number read aloud (영 일 이 삼 사 오 육 칠 팔 구; "%" ends in a vowel) */
+  function vowelEnd(s) { s = String(s); if (/%$/.test(s)) return true; var m = s.match(/(\d)\D*$/); return !!m && [2, 4, 5, 9].indexOf(+m[1]) >= 0; }
+  function jE(s) { return s + (vowelEnd(s) ? '예요' : '이에요'); }
+  function jR(s) { var m = String(s).match(/(\d)\D*$/); return s + (!/%$/.test(s) && m && [0, 3, 6].indexOf(+m[1]) >= 0 ? '으로' : '로'); }
+  function jG(s) { return s + (vowelEnd(s) ? '와' : '과'); }
+  function jI(s) { return s + (vowelEnd(s) ? '였어요' : '이었어요'); }
+  var NUM = {
+    cohort: get(SW, 'cohort', 6483),
+    sp0: get(W0, 'spenders', 7914), sp1: get(W1, 'spenders', 7960),
+    ga0: get(W0, 'gained_new_approvals', 1732), gs0: get(W0, 'gained_new_senders', 1422),
+    ga1: get(W1, 'gained_new_approvals', 1495), gs1: get(W1, 'gained_new_senders', 1371),
+    recv0: get(W0, 'receiving.n', 6489),
+    noXfer0: get(W0, 'coverage.spenders_without_transfer_edge', 1342)
+  };
+  NUM.notRecv0 = NUM.sp0 - NUM.recv0;
 
   /* ------------------------------------------------------------ helpers */
   function svgEl(tag, attrs, parent) {
@@ -272,21 +332,27 @@
     { k: '허락 가족', v: '받은 허락 수 · 받은 허락액', col: C.allow },
     { k: '시빌 안정성 가족', v: '상대 비율 · 송금 기간 · 활동한 달 수', col: C.ink }
   ];
+  function fam1(m, fb) {
+    var F = 'families.' + m + '.';
+    return { t: IV(SW, F + 'transfer', fb[0]), a: IV(SW, F + 'allowance', fb[1]), s: IV(SW, F + 'sybil_stability', fb[2]) };
+  }
   var ROWS1 = {
     er:  { name: '엔도스랭크', sub: '허락 화살표를 걸어요', col: C.allow, own: 'a', y: G1.yER,
-           v: { t: '0.158 [0.147, 0.169]', a: '0.585 [0.578, 0.592]', s: '0.007 [−0.001, 0.015]' } },
+           v: fam1('endorserank', ['0.196 [0.180, 0.216]', '0.560 [0.548, 0.571]', '0.026 [0.012, 0.041]']) },
     cpr: { name: 'C-PR (λ = 0.5)', sub: '두 화살표를 섞어 걸어요', col: C.cpr, own: null, y: G1.yMid,
-           v: { t: '0.365 [0.355, 0.375]', a: '0.477 [0.469, 0.485]', s: '0.142 [0.134, 0.151]' } },
+           v: fam1('cpr_l50', ['0.400 [0.385, 0.416]', '0.449 [0.437, 0.463]', '0.142 [0.128, 0.156]']) },
     awp: { name: 'AWP', sub: '송금 화살표를 걸어요', col: C.xfer, own: 't', y: G1.yAWP,
-           v: { t: '0.572 [0.564, 0.580]', a: '0.193 [0.182, 0.203]', s: '0.395 [0.387, 0.403]' } }
+           v: fam1('awp', ['0.736 [0.728, 0.744]', '0.226 [0.210, 0.245]', '0.419 [0.408, 0.434]']) }
   };
   var EXTRA1 = [
-    ['C-PR (λ = 1) · 허락 층만', '0.162 [0.151, 0.173]', '0.597 [0.590, 0.604]', '0.011 [0.002, 0.019]'],
-    ['C-PR (λ = 0) · 송금 층만', '0.659 [0.653, 0.666]', '0.225 [0.214, 0.235]', '0.404 [0.396, 0.413]'],
-    ['S-PR', '0.629 [0.621, 0.636]', '0.323 [0.313, 0.333]', '0.398 [0.390, 0.406]']
-  ];
-  var DIFF1 = { t: '+0.414 [0.401, 0.427]', a: '+0.392 [0.380, 0.405]' };
-  var MINI = { x0: 26, x1: 434, d0: -0.05, d1: 0.70, y: 22 };
+    ['C-PR (λ = 1) · 허락 층만', fam1('cpr_l100', ['0.196 [0.180, 0.216]', '0.561 [0.550, 0.572]', '0.028 [0.014, 0.042]'])],
+    ['C-PR (λ = 0) · 송금 층만', fam1('cpr_l0', ['0.700 [0.691, 0.709]', '0.194 [0.178, 0.213]', '0.402 [0.389, 0.417]'])],
+    ['S-PR', fam1('spr', ['0.671 [0.661, 0.681]', '0.289 [0.272, 0.308]', '0.398 [0.386, 0.414]'])]
+  ].map(function (r) { return [r[0], r[1].t, r[1].a, r[1].s]; });
+  var DIFF1 = { t: CV(SW.contrasts, ['awp', 'transfer'], ['endorserank', 'transfer'], null, '+0.539 [0.518, 0.560]'),
+                a: CV(SW.contrasts, ['endorserank', 'allowance'], ['awp', 'allowance'], null, '+0.333 [0.311, 0.354]') };
+  function e1(key, f) { return estOf(ROWS1[key].v[f]); }
+  var MINI = { x0: 26, x1: 434, d0: -0.05, d1: 0.80, y: 22 };
   function mx(v) { return MINI.x0 + (v - MINI.d0) / (MINI.d1 - MINI.d0) * (MINI.x1 - MINI.x0); }
   function row1Html(key) {
     var R = ROWS1[key];
@@ -305,10 +371,10 @@
     id: 's08-01', title: '같은 기간: 각 점수는 자기 화살표의 지표와 맞아요', time: 45, steps: 4,
     tags: ['construct'],
     notes: [
-      '이제 결과예요. 먼저 같은 기간의 점검부터 볼게요. 줄은 점수, 칸은 지표 가족이에요. 칸이 진할수록 켄달의 타우가 커요. 가운데 줄은 잠깐 비워 둘게요.',
-      '엔도스랭크는 허락 쪽 지표와 0.585, AWP는 송금 쪽 지표와 0.572로 가장 잘 맞았어요. 거울 표시가 붙은 두 칸이 각 점수의 ‘자기 가족’이에요.',
-      '서로 바꿔 보면 0.158과 0.193으로 크게 낮아요. 같은 지표에서 두 점수를 짝지어 빼면 차이가 0.4쯤이고, 구간도 좁아요. 이 차이는 미리 정한 비교는 아니에요.',
-      '두 화살표를 섞은 C-PR은 λ = 0.5에서 모든 가족에서 두 줄 사이에 있어요. 송금 0.365, 허락 0.477, 시빌 안정성 0.142예요. 칸 아래의 작은 눈금이 엔도스랭크와 AWP의 자리예요. 오른쪽 아래 단추를 누르면 λ = 1, λ = 0, S-PR 값도 볼 수 있어요.',
+      '이제 결과예요. 먼저 같은 기간의 점검부터 볼게요. 점수와 지표는 모두 2026년 6월 30일까지 열두 달의 기록으로 만들었어요. 줄은 점수, 칸은 지표 가족이에요. 칸이 진할수록 켄달의 타우가 커요. 가운데 줄은 잠깐 비워 둘게요.',
+      '엔도스랭크는 허락 쪽 지표와 ' + e1('er', 'a') + ', AWP는 송금 쪽 지표와 ' + jR(e1('awp', 't')) + ' 가장 잘 맞았어요. 거울 표시가 붙은 두 칸이 각 점수의 ‘자기 가족’이에요.',
+      '서로 바꿔 보면 ' + jG(e1('er', 't')) + ' ' + jR(e1('awp', 'a')) + ' 크게 낮아요. 같은 지표에서 두 점수를 짝지어 빼면 차이가 송금 쪽 ' + estOf(DIFF1.t).replace('+', '') + ', 허락 쪽 ' + estOf(DIFF1.a).replace('+', '') + '이고, 구간도 좁아요. 이 차이는 미리 정한 비교는 아니에요.',
+      '두 화살표를 섞은 C-PR은 λ = 0.5에서 모든 가족에서 두 줄 사이에 있어요. 송금 ' + e1('cpr', 't') + ', 허락 ' + e1('cpr', 'a') + ', 시빌 안정성 ' + jE(e1('cpr', 's')) + '. 칸 아래의 작은 눈금이 엔도스랭크와 AWP의 자리예요. 오른쪽 아래 단추를 누르면 λ = 1, λ = 0, S-PR 값도 볼 수 있어요.',
       '다만 이 결과는 점수를 만든 기록과 같은 기록으로 지표를 만들었기 때문에, 어느 정도는 저절로 맞는 거예요. 그래서 이것은 의도한 대로 만들어졌는지 보는 점검이지 검증이 아니에요.'
     ],
     html: function () {
@@ -320,7 +386,7 @@
       s += row1Html('er') + row1Html('awp') + row1Html('cpr');
       s += diff1Html('t', 0) + diff1Html('a', 1);
       s += '<p class="abs s8-cap" id="cap" data-in="none" style="left:96px;top:796px;width:1400px">&nbsp;</p>';
-      s += '<p class="abs s8-small" id="fam" data-in="none" style="left:96px;top:850px;width:1380px">켄달의 τ<sub>b</sub> · 가족 평균 = 가족 안 지표 τ의 평균, 예: 송금 가족 $=\\tfrac12\\bigl(\\tau_{\\text{입차수}}+\\tau_{\\text{송금액}}\\bigr)$ · 95% 구간 · 매칭 코호트 15,107개</p>';
+      s += '<p class="abs s8-small" id="fam" data-in="none" style="left:96px;top:850px;width:1380px">켄달의 τ<sub>b</sub> · 가족 평균 = 가족 안 지표 τ의 평균, 예: 송금 가족 $=\\tfrac12\\bigl(\\tau_{\\text{입차수}}+\\tau_{\\text{송금액}}\\bigr)$ · 95% 구간 · 매칭 코호트 ' + n0(NUM.cohort) + '개</p>';
       s += '<div class="abs s8-note" id="note" data-in="none" style="left:96px;top:900px;width:1400px">' + pill('construct') + '<span>일부는 만든 방식 때문에 저절로 맞아요 — 지표가 점수와 같은 기록에서 나왔으니까요</span></div>';
       s += '<button class="s8-more" id="more" data-in="none" type="button">λ = 1 · λ = 0 · S-PR 더 보기</button>';
       s += '<div class="s8-pop" id="pop" data-in="none"><div class="hd">같은 기간 가족 평균 τ<sub>b</sub> [95% 구간] · 의도한 구성개념 점검</div><table><tr><th></th><th style="color:#3CC4FF">송금</th><th style="color:#F5B43C">허락</th><th>시빌 안정성</th></tr>' +
@@ -402,7 +468,7 @@
             popIn(tl, c.mir, 1.15);
           });
         });
-        tl.call(function () { g.cap.innerHTML = '엔도스랭크 × 허락 가족 <b class="tnum c-allow">0.585</b> · AWP × 송금 가족 <b class="tnum c-xfer">0.572</b> — 자기 가족에서 가장 높아요'; }, null, 1.2);
+        tl.call(function () { g.cap.innerHTML = '엔도스랭크 × 허락 가족 <b class="tnum c-allow">' + e1('er', 'a') + '</b> · AWP × 송금 가족 <b class="tnum c-xfer">' + e1('awp', 't') + '</b> — 자기 가족에서 가장 높아요'; }, null, 1.2);
         fadeUp(tl, [g.cap, g.fam], 1.25, 0.5, 0.15);
       }
       if (i === 2) {
@@ -419,7 +485,7 @@
           popIn(tl, D.heads, at + 0.35, 0.25);
           popIn(tl, D.lab, at + 0.45);
         });
-        tl.add(Comp.swap(ctx, g.cap, '바꿔 보면 <b class="tnum">0.158</b> · <b class="tnum">0.193</b>로 크게 낮아요 · 차이 약 0.4' + pill(NOT_PLANNED)), 0.3);
+        tl.add(Comp.swap(ctx, g.cap, '바꿔 보면 <b class="tnum">' + e1('er', 't') + '</b> · <b class="tnum">' + e1('awp', 'a') + '</b>' + jR(e1('awp', 'a')).slice(e1('awp', 'a').length) + ' 크게 낮아요 · 차이 약 ' + jG(fx(iv(DIFF1.t).est, 1)) + ' ' + fx(iv(DIFF1.a).est, 1) + pill(NOT_PLANNED)), 0.3);
       }
       if (i === 3) {
         tl.to(g.diffs.map(function (D) { return D.wrap; }), { autoAlpha: 0, duration: 0.3 }, 0);
@@ -434,7 +500,7 @@
           tl.fromTo(c.ci, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, at + 0.5);
           tl.to(c.num, { color: C.cpr, duration: 0.4 }, at + 0.6);
         });
-        tl.add(Comp.swap(ctx, g.cap, 'C-PR(λ = 0.5)은 모든 가족에서 <b>두 줄 사이</b>에 있어요 — 송금 <b class="tnum">0.365</b> · 허락 <b class="tnum">0.477</b> · 시빌 <b class="tnum">0.142</b>'), 0.4);
+        tl.add(Comp.swap(ctx, g.cap, 'C-PR(λ = 0.5)은 모든 가족에서 <b>두 줄 사이</b>에 있어요 — 송금 <b class="tnum">' + e1('cpr', 't') + '</b> · 허락 <b class="tnum">' + e1('cpr', 'a') + '</b> · 시빌 <b class="tnum">' + e1('cpr', 's') + '</b>'), 0.4);
         tl.fromTo(g.more, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 1.4);
       }
       if (i === 4) {
@@ -450,7 +516,34 @@
   var P2 = { top: 150, w: 1260, h: 830, L: 8, FLOOR: -0.42 };
   var CAM_CLOUD = { theta: 0.16, phi: 1.16, radius: 21, target: [0.2, 1.45, 0] };
   var CAM_TOP = { theta: 0, phi: 0.05, radius: 17.4, target: [0, -0.42, 0] };
-  var ER_ZERO = { pct: 0.0177, n: 535 }, AWP_ZERO = { pct: 0.0884, n: 2672 };
+  /* the zero blocks: n from the thesis tie counts; their mid-rank percentiles and extents are
+     recomputed from DECK_DATA.contracts below (fallbacks = the values of the 6,483-contract cohort) */
+  var ER_ZERO = { pct: 0.0151, n: get(SW, 'ties.endorserank.zeros', 197), lo: 0.0919, hi: 0.9645 };
+  var AWP_ZERO = { pct: 0.0919, n: get(SW, 'ties.awp.zeros', 1192), lo: 0.0151, hi: 0.9995 };
+  var CONC = get(SW, 'inter_method.concordance', {});
+  var T2 = {
+    tau: IV(SW, 'inter_method.endorserank_vs_awp', '0.199 [0.181, 0.221]'),
+    iso: IV(SW, 'inter_method.isolated', '0.199 [0.181, 0.221]'),
+    reg: IV(RG, 'same_window.inter_method.endorserank_vs_awp', '0.217 [0.209, 0.225]'),
+    pairs: CONC.pairs || 21011403,
+    both: pc1(CONC.share_ordered_by_both != null ? CONC.share_ordered_by_both : 0.9644),
+    disc: pc1(CONC.discordant_share_of_ordered != null ? CONC.discordant_share_of_ordered : 0.3984),
+    n: get(DATA, 'contracts.meta.n', NUM.cohort)
+  };
+  T2.est = iv(T2.tau).est;
+  function pctTxt(p) { var v = p * 100; return v < 5 ? fx(v, 1) : fx(v, 0); }
+  (function zeroBlocks() {
+    var K = DATA.contracts, er = K && K.pct && K.pct.endorserank, aw = K && K.pct && K.pct.awp;
+    if (!er || !aw || !er.length || er.length !== aw.length) return;
+    var n = er.length, i, eMin = Infinity, aMin = Infinity, aLo = 1, aHi = 0, eLo = 1, eHi = 0;
+    for (i = 0; i < n; i++) { if (er[i] < eMin) eMin = er[i]; if (aw[i] < aMin) aMin = aw[i]; }
+    for (i = 0; i < n; i++) {
+      if (er[i] === eMin) { if (aw[i] < aLo) aLo = aw[i]; if (aw[i] > aHi) aHi = aw[i]; }
+      if (aw[i] === aMin) { if (er[i] < eLo) eLo = er[i]; if (er[i] > eHi) eHi = er[i]; }
+    }
+    ER_ZERO.pct = eMin; ER_ZERO.lo = aLo; ER_ZERO.hi = aHi;
+    AWP_ZERO.pct = aMin; AWP_ZERO.lo = eLo; AWP_ZERO.hi = eHi;
+  })();
   function blendLazy(ctx, Cl, which, target, o) {
     o = o || {};
     var n = Cl.n, arr = which === 'position' ? Cl.positions : Cl.colors, attr = Cl.geometry.attributes[which];
@@ -476,10 +569,10 @@
     id: 's08-02', title: '두 점수는 순서가 달라요', time: 45, steps: 3,
     tags: [H1TAG],
     notes: [
-      '두 점수가 같은 계약을 같은 순서로 세우는지 볼게요. 앞 장의 두 줄이 점으로 부서져서 계약 15,107개의 구름이 돼요. 이 구름을 위에서 내려다보면 납작한 그림이 돼요. 가로는 엔도스랭크로 센 순위, 세로는 AWP로 센 순위를 백분위로 바꾼 거예요. 호박색 점은 엔도스랭크가 더 높게 세운 계약, 하늘색 점은 AWP가 더 높게 세운 계약이에요.',
-      '두 순위가 같다면 점들이 이 대각선 위에 모여야 해요. 그런데 넓게 퍼져 있죠. 켄달의 타우는 0.174예요. 0보다는 분명히 크고 1과는 멀어요. 관련은 있지만 같은 순서는 아니라는 뜻이에요.',
-      '계약 쌍은 1억 1천만 개가 넘어요. 그중 96.7%는 두 점수가 모두 순서를 정한 쌍인데, 그 가운데 41.2%는 순서가 반대였어요. 지금 번쩍이는 서른 쌍은 설명을 위한 것이고, 멈춘 값이 전체 쌍의 결과예요. 관련은 있지만, 서로 바꿔 쓸 수는 없어요.',
-      '왼쪽 끝의 세로줄은 엔도스랭크가 0점인 계약 535개, 아래쪽 가로줄은 AWP가 0점인 계약 2,672개예요. 0점인 계약은 모두 동점이라서, 맨 아래 순위 칸들을 함께 나눠 쓰고 그 가운데에 놓여요. 그래서 AWP 0점 줄은 0이 아니라 약 9에, 엔도스랭크 0점 줄은 약 2에 있어요. 그래프 밖 계약을 외톨이 점으로 두는 규칙으로 바꿔도 타우는 0.174 그대로였어요. 두 그래프를 만든 방식이 다르니 순서가 달라지는 것은 어느 정도 예상된 결과예요. 처음 등록한 분석에서는 0.217이었어요.'
+      '두 점수가 같은 계약을 같은 순서로 세우는지 볼게요. 앞 장의 두 줄이 점으로 부서져서 계약 ' + n0(T2.n) + '개의 구름이 돼요. 이 구름을 위에서 내려다보면 납작한 그림이 돼요. 가로는 엔도스랭크로 센 순위, 세로는 AWP로 센 순위를 백분위로 바꾼 거예요. 호박색 점은 엔도스랭크가 더 높게 세운 계약, 하늘색 점은 AWP가 더 높게 세운 계약이에요.',
+      '두 순위가 같다면 점들이 이 대각선 위에 모여야 해요. 그런데 넓게 퍼져 있죠. 켄달의 타우는 ' + jE(estOf(T2.tau)) + '. 0보다는 분명히 크고 1과는 멀어요. 관련은 있지만 같은 순서는 아니라는 뜻이에요.',
+      '계약 쌍은 ' + Math.floor(T2.pairs / 1e7) + '천만 개가 넘어요. 그중 ' + T2.both + '%는 두 점수가 모두 순서를 정한 쌍인데, 그 가운데 ' + T2.disc + '%는 순서가 반대였어요. 지금 번쩍이는 서른 쌍은 설명을 위한 것이고, 멈춘 값이 전체 쌍의 결과예요. 관련은 있지만, 서로 바꿔 쓸 수는 없어요.',
+      '왼쪽 끝의 세로줄은 엔도스랭크가 0점인 계약 ' + n0(ER_ZERO.n) + '개, 아래쪽 가로줄은 AWP가 0점인 계약 ' + n0(AWP_ZERO.n) + '개예요. 0점인 계약은 모두 동점이라서, 맨 아래 순위 칸들을 함께 나눠 쓰고 그 가운데에 놓여요. 그래서 AWP 0점 줄은 0이 아니라 약 ' + pctTxt(AWP_ZERO.pct) + '에, 엔도스랭크 0점 줄은 약 ' + pctTxt(ER_ZERO.pct) + '에 있어요. 그래프 밖 계약을 외톨이 점으로 두는 규칙으로 바꿔도 타우는 ' + estOf(T2.iso) + ' 그대로였어요. 두 그래프를 만든 방식이 다르니 순서가 달라지는 것은 어느 정도 예상된 결과예요. 처음 등록한 분석에서는 ' + jI(estOf(T2.reg)) + '.'
     ],
     html:
       '<h1 class="t-h1">엔도스랭크와 AWP는 [[다른 순서]]로 세워요</h1>' +
@@ -488,18 +581,18 @@
       '<div class="abs" id="p3" data-in="none" style="left:0;top:' + P2.top + 'px;width:' + P2.w + 'px;height:' + P2.h + 'px"></div>' +
       '<svg class="abs s8-ov" id="ov" data-in="none" width="' + P2.w + '" height="' + P2.h + '" viewBox="0 0 ' + P2.w + ' ' + P2.h + '" style="left:0;top:' + P2.top + 'px"></svg>' +
       '<div class="abs s8-p2" id="panel" data-in="none" style="left:1300px;top:186px;width:524px;height:780px">' +
-        '<div class="abs lg" id="lg" style="left:0;top:0;width:524px"><div>점 하나 = 계약 하나 · <b class="tnum ink">15,107</b>개</div>' +
+        '<div class="abs lg" id="lg" style="left:0;top:0;width:524px"><div>점 하나 = 계약 하나 · <b class="tnum ink">' + n0(T2.n) + '</b>개</div>' +
           '<div><i style="background:#F5B43C"></i>엔도스랭크가 더 높게 세운 계약</div><div><i style="background:#3CC4FF"></i>AWP가 더 높게 세운 계약</div></div>' +
         '<div class="abs" id="b1" style="left:0;top:126px;width:524px">' +
           '<div class="k">켄달의 τ<sub>b</sub> (엔도스랭크 vs AWP)</div>' +
-          '<div style="display:flex;align-items:baseline;gap:16px"><span class="tau" id="tau">0.000</span><span class="ci" id="tauci">[0.163, 0.185]</span></div>' +
+          '<div style="display:flex;align-items:baseline;gap:16px"><span class="tau" id="tau">0.000</span><span class="ci" id="tauci">' + ciOf(T2.tau) + '</span></div>' +
           '<svg id="rul" width="500" height="72" style="overflow:visible;display:block;margin-top:2px"></svg>' +
           '<div class="ln" id="tauln">0도 아니고 1도 아니에요</div>' +
-          '<div class="gh" id="ghost" style="margin-top:6px">' + pill('registered-analysis') + '<span class="tnum">0.217 [0.209, 0.225]</span></div>' +
+          '<div class="gh" id="ghost" style="margin-top:6px">' + pill('registered-analysis') + '<span class="tnum">' + T2.reg + '</span></div>' +
                   '</div>' +
         '<div class="abs" id="b2" style="left:0;top:418px;width:524px">' +
-          '<div class="ln">계약 쌍 <b id="pairs">114,103,171</b>개</div>' +
-          '<div class="ln">두 점수가 모두 순서를 정한 쌍 <b id="both">96.7%</b></div>' +
+          '<div class="ln">계약 쌍 <b id="pairs">' + n0(T2.pairs) + '</b>개</div>' +
+          '<div class="ln">두 점수가 모두 순서를 정한 쌍 <b id="both">' + T2.both + '%</b></div>' +
           '<div class="ln" style="margin-top:6px">그중 반대 순서</div>' +
           '<div style="display:flex;align-items:baseline;gap:14px"><span class="big" id="disc">0.0%</span><span class="ln" id="discnote" style="font-size:19px;color:var(--ink-3)">번쩍이는 쌍 0 / 30</span></div>' +
           '<div class="s8-gauge"><b id="gfill"></b></div>' +
@@ -608,16 +701,16 @@
           tl.fromTo(lab, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 0.8);
         }
         fadeUp(tl, g.b1, 0.3, 0.5);
-        tl.add(ctx.count(g.tau, 0, 0.174, { decimals: 3, final: '0.174', duration: 1.2 }), 0.5);
+        tl.add(ctx.count(g.tau, 0, T2.est, { decimals: 3, final: estOf(T2.tau), duration: 1.2 }), 0.5);
         tl.fromTo(g.tauci, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 1.4);
         tl.set(g.rmark, { autoAlpha: 1 }, 0.5);
-        tl.to(g.rst, { v: 0.174, duration: dur(ctx, 1.2), ease: 'power3.out', onUpdate: function () { g.rmark.setAttribute('transform', 'translate(' + g.RX(g.rst.v).toFixed(1) + ',4)'); } }, 0.5);
+        tl.to(g.rst, { v: T2.est, duration: dur(ctx, 1.2), ease: 'power3.out', onUpdate: function () { g.rmark.setAttribute('transform', 'translate(' + g.RX(g.rst.v).toFixed(1) + ',4)'); } }, 0.5);
         tl.fromTo(g.tauln, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 1.6);
       }
       if (i === 2) {
         fadeUp(tl, g.b2, 0, 0.5);
-        tl.add(Comp.odometer(ctx, g.pairs, '114,103,171', { duration: 1.6 }), 0.1);
-        tl.add(ctx.count(g.both, 0, 96.7, { decimals: 1, suffix: '%', final: '96.7%', duration: 1.2 }), 0.4);
+        tl.add(Comp.odometer(ctx, g.pairs, n0(T2.pairs), { duration: 1.6 }), 0.1);
+        tl.add(ctx.count(g.both, 0, +T2.both, { decimals: 1, suffix: '%', final: T2.both + '%', duration: 1.2 }), 0.4);
         var t0 = 1.7, per = 0.13, st = { c: 0, d: 0 };
         if (g.T && !g.T.failed && g.pairsIdx) {
           g.T.render();
@@ -642,35 +735,35 @@
         }
         var tEnd = t0 + 30 * per + 0.3;
         tl.call(function () {
-          g.discnote.textContent = '멈춘 값 = 1억 1천만 쌍 전체의 결과';
-          ctx.add(function () { gsap.to(g.gfill, { width: '41.2%', duration: ctx.reduced ? 0.01 : 0.8, ease: E.io }); });
+          g.discnote.textContent = '멈춘 값 = ' + n0(Math.round(T2.pairs / 1e4)) + '만 쌍 전체의 결과';
+          ctx.add(function () { gsap.to(g.gfill, { width: T2.disc + '%', duration: ctx.reduced ? 0.01 : 0.8, ease: E.io }); });
         }, null, tEnd);
-        tl.add(ctx.count(g.disc, 40, 41.2, { decimals: 1, suffix: '%', final: '41.2%', duration: 0.8 }), tEnd + 0.01);
+        tl.add(ctx.count(g.disc, Math.max(0, T2.disc - 1.2), +T2.disc, { decimals: 1, suffix: '%', final: T2.disc + '%', duration: 0.8 }), tEnd + 0.01);
         tl.fromTo(g.b3, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, tEnd + 0.9);
       }
       if (i === 3) {
         if (g.T && !g.T.failed) {
           g.T.render();
           var lay3 = svgEl('g', {}, g.ov);
-          var c0 = p2pt(g, ER_ZERO.pct, 0.0884), c1 = p2pt(g, ER_ZERO.pct, 0.9823);
-          var b0 = p2pt(g, 0.0177, AWP_ZERO.pct), b1 = p2pt(g, 0.9993, AWP_ZERO.pct);
+          var c0 = p2pt(g, ER_ZERO.pct, ER_ZERO.lo), c1 = p2pt(g, ER_ZERO.pct, ER_ZERO.hi);
+          var b0 = p2pt(g, AWP_ZERO.lo, AWP_ZERO.pct), b1 = p2pt(g, AWP_ZERO.hi, AWP_ZERO.pct);
           var colR = svgEl('rect', { x: c0.x - 11, y: c1.y - 10, width: 22, height: c0.y - c1.y + 20, rx: 11, fill: 'rgba(233,237,245,.08)', stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '6 5' }, lay3);
           var bandR = svgEl('rect', { x: b0.x - 10, y: b0.y - 11, width: b1.x - b0.x + 20, height: 22, rx: 11, fill: 'rgba(233,237,245,.08)', stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '6 5' }, lay3);
           var pl = p2pt(g, ER_ZERO.pct, 0.74);
           var t1a = txt(lay3, pl.x - 64, pl.y - 12, '엔도스랭크', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700 });
-          var t1b = txt(lay3, pl.x - 64, pl.y + 18, '0점 535개', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
+          var t1b = txt(lay3, pl.x - 64, pl.y + 18, '0점 ' + n0(ER_ZERO.n) + '개', { 'text-anchor': 'end', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
           var t1l = svgEl('line', { x1: pl.x - 58, x2: pl.x - 16, y1: pl.y + 2, y2: pl.y + 2, stroke: C.ink2, 'stroke-width': 1.5 }, lay3);
-          var t1c = txt(lay3, pl.x - 64, pl.y + 46, '→ 가운데 약 2', { 'text-anchor': 'end', fill: C.ink2, 'font-size': 18, 'class': 'tnum' });
+          var t1c = txt(lay3, pl.x - 64, pl.y + 46, '→ 가운데 약 ' + pctTxt(ER_ZERO.pct), { 'text-anchor': 'end', fill: C.ink2, 'font-size': 18, 'class': 'tnum' });
           /* ties: every zero shares the bottom ranks, so the block sits at its mid-rank percentile
-             (AWP (2,672 + 1)/2 − 1 over 15,106 ≈ 8.8; EndorseRank ≈ 1.8), not at 0 */
+             (AWP ((1,192 + 1)/2 − 1)/6,482 ≈ 9.2; EndorseRank ((197 + 1)/2 − 1)/6,482 ≈ 1.5), not at 0 */
           var ya = p2pt(g, 0, AWP_ZERO.pct);
           var tk = svgEl('line', { x1: ya.x - 24, x2: ya.x - 12, y1: ya.y, y2: ya.y, stroke: C.ink, 'stroke-width': 2 }, lay3);
-          var tkt = txt(lay3, ya.x - 30, ya.y + 6, '≈ 9', { 'text-anchor': 'end', fill: C.ink, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' });
-          var tc = p2pt(g, 0.17, 0.133);
-          var tie = txt(lay3, tc.x, tc.y + 6, '모두 동점 → 맨 아래 칸들을 함께 써서 가운데(약 9)에 놓여요', { 'text-anchor': 'start', fill: C.ink, 'font-size': 18, 'font-weight': 600, stroke: '#0E1119', 'stroke-width': 6, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
-          var t2 = txt(lay3, b1.x + 22, b0.y + 7, 'AWP 0점 2,672개', { 'text-anchor': 'start', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
+          var tkt = txt(lay3, ya.x - 30, ya.y + 6, '≈ ' + pctTxt(AWP_ZERO.pct), { 'text-anchor': 'end', fill: C.ink, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' });
+          var tc = p2pt(g, 0.17, AWP_ZERO.pct + 0.045);
+          var tie = txt(lay3, tc.x, tc.y + 6, '모두 동점 → 맨 아래 칸들을 함께 써서 가운데(약 ' + pctTxt(AWP_ZERO.pct) + ')에 놓여요', { 'text-anchor': 'start', fill: C.ink, 'font-size': 18, 'font-weight': 600, stroke: '#0E1119', 'stroke-width': 6, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
+          var t2 = txt(lay3, b1.x + 22, b0.y + 7, 'AWP 0점 ' + n0(AWP_ZERO.n) + '개', { 'text-anchor': 'start', fill: C.ink, 'font-size': 21, 'font-weight': 700, 'class': 'tnum' });
           var t3 = txt(lay3, b1.x + 22, b0.y + 40, '외톨이 점 규칙으로', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19 });
-          var t4 = txt(lay3, b1.x + 22, b0.y + 66, '바꿔도 τ = 0.174', { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19, 'class': 'tnum' });
+          var t4 = txt(lay3, b1.x + 22, b0.y + 66, '바꿔도 τ = ' + estOf(T2.iso), { 'text-anchor': 'start', fill: C.ink2, 'font-size': 19, 'class': 'tnum' });
           if (g.pairLay) tl.to(g.pairLay, { opacity: 0.25, duration: 0.4 }, 0);
           tl.fromTo(colR, { autoAlpha: 0, scaleY: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scaleY: 1, duration: dur(ctx, 0.5), ease: E.out }, 0.1);
           tl.fromTo(bandR, { autoAlpha: 0, scaleX: 0.3, transformOrigin: '0% 50%' }, { autoAlpha: 1, scaleX: 1, duration: dur(ctx, 0.5), ease: E.out }, 0.35);
@@ -711,21 +804,32 @@
      The calendar of s03-01 (same axis span), the freeze pin and the label window. */
   var AX3 = { left: 96, top: 176, w: 1728, h: 250, axisY: 196 };
   var STRIP = [{ x: 180, h: 52 }, { x: 340, h: 30, a: 1 }, { x: 500, h: 68 }, { x: 660, h: 44, a: 2, s: 1 }, { x: 820, h: 22, s: 1 }];
+  /* holdout counts (R w0 / w1), label shares (DECK_DATA.holdout base rates) and the 12-month score
+     windows (DECK_DATA.timeline.anchors); spenders with both labels are counted from
+     revised-usd-12m/{holdout-w0,window-w1}/spender_scores.part000.parquet (not in DECK_DATA) */
+  var HO = DATA.holdout || {}, AN3 = (DATA.timeline || {}).anchors || {};
+  var H3 = {
+    pa0: pc1(get(HO, 'w0.base_rate_new_approvals', NUM.ga0 / NUM.sp0)), ps0: pc1(get(HO, 'w0.base_rate_new_senders', NUM.gs0 / NUM.sp0)),
+    both0: 1044, both1: 967,
+    win0: AN3.score_window_t1 || ['2025-04-01T00:00:00Z', '2026-03-31T23:59:59Z'],
+    win1: AN3.score_window_tobs || ['2025-07-01T00:00:00Z', '2026-06-30T23:59:59Z']
+  };
+  function ymKo(s) { return +String(s).slice(0, 4) + '년 ' + (+String(s).slice(5, 7)) + '월'; }
   var slide3 = {
     id: 's08-03', title: '기간 밖 시험(시간 홀드아웃): 점수를 얼리고 기다려요', time: 40, steps: 3,
     tags: [],
     notes: [
-      '이제 진짜 시험, 기간 밖 시험이에요. 논문에서는 시간 홀드아웃이라고 불러요. 3년의 달력이 다시 나왔어요. 호박색 띠는 달마다 생긴 허락 기록, 하늘색 띠는 송금 기록이에요.',
-      '3월 31일에 점수를 얼려요. 이날까지의 기록만으로 점수를 만들고, 그 뒤로는 손대지 않아요. 나중 기간을 떼어 두고 맞혀 보는 이 첫 번째 시간 홀드아웃이 홀드아웃 W0이에요. 이 시험의 스펜더 계약은 17,050개예요.',
-      '그다음 4월부터 6월 사이에 각 스펜더 계약에 새로 생긴 일로 채점해요. 라벨은 두 가지예요. 하나는 동결일에는 없던 주인과 스펜더 사이의 허락이 새로 생긴 수, 다른 하나는 처음으로 송금을 보내온 주소의 수예요. 새 허락 쌍을 얻은 계약은 2,070개, 12.1%로 호박색 점이고, 새 송금자를 얻은 계약은 1,695개, 9.9%로 하늘색 고리예요. 두 라벨을 모두 얻은 계약도 1,173개로 많아서, 고리를 두른 호박색 점이 많아요. 라벨이 있는 계약은 열에 하나 정도라서, 결과는 이 적은 계약들을 얼마나 잘 위로 세우는지에 크게 달려 있어요.',
-      '같은 시험을 6월 30일에 얼리고 7월부터 9월로 한 번 더 했어요. 이것이 등록 기간 W1이에요. 이 연구는 규칙을 등록한 다음에야 이 석 달의 기록을 꺼냈어요. 스펜더 계약은 18,152개예요.'
+      '이제 진짜 시험, 기간 밖 시험이에요. 논문에서는 시간 홀드아웃이라고 불러요. 3년의 달력이 다시 나왔어요. 호박색 띠는 달마다 생긴 허락 기록, 하늘색 띠는 송금 기록인데, 첫 시험의 점수에 쓰는 열두 달만 그렸어요.',
+      '3월 31일에 점수를 얼려요. 점수는 그 전 열두 달, ' + ymKo(H3.win0[0]) + '부터 ' + ymKo(H3.win0[1]) + '까지의 기록만으로 만들고, 그 뒤로는 손대지 않아요. 허락도 이 열두 달 안에 정한 것만 세요. 나중 기간을 떼어 두고 맞혀 보는 이 첫 번째 시간 홀드아웃이 홀드아웃 W0이에요. 이 시험의 스펜더 계약은 ' + n0(NUM.sp0) + '개예요.',
+      '그다음 4월부터 6월 사이에 각 스펜더 계약에 새로 생긴 일로 채점해요. 라벨은 두 가지예요. 하나는 동결일에는 없던 주인과 스펜더 사이의 허락이 새로 생긴 수, 다른 하나는 처음으로 송금을 보내온 주소의 수예요. 새 허락 쌍을 얻은 계약은 ' + n0(NUM.ga0) + '개, ' + H3.pa0 + '%로 호박색 점이고, 새 송금자를 얻은 계약은 ' + n0(NUM.gs0) + '개, ' + H3.ps0 + '%로 하늘색 고리예요. 두 라벨을 모두 얻은 계약도 ' + n0(H3.both0) + '개로 많아서, 고리를 두른 호박색 점이 많아요. 라벨이 있는 계약은 다섯에 하나 정도라서, 결과는 이 적은 계약들을 얼마나 잘 위로 세우는지에 크게 달려 있어요.',
+      '같은 시험을 6월 30일에 얼리고 7월부터 9월로 한 번 더 했어요. 이때 점수는 ' + ymKo(H3.win1[0]) + '부터 ' + ymKo(H3.win1[1]) + '까지 열두 달의 기록으로 만들어요. 이것이 등록 기간 W1이에요. 이 연구는 규칙을 등록한 다음에야 이 석 달의 기록을 꺼냈어요. 스펜더 계약은 ' + n0(NUM.sp1) + '개이고, 새 허락 쌍을 얻은 계약은 ' + n0(NUM.ga1) + '개, 새 송금자를 얻은 계약은 ' + n0(NUM.gs1) + '개예요.'
     ],
     html:
       '<h1 class="t-h1">점수를 [[얼리고]], 그 뒤에 생긴 일로 채점해요</h1>' +
       '<p class="abs s8-small" style="left:96px;top:154px;color:var(--ink-3)">기간 밖 시험 = 시간 홀드아웃 · 나중 기간을 떼어 두고 맞혀 보는 시험</p>' +
       '<div class="abs" id="cal" data-in="none" style="left:' + AX3.left + 'px;top:' + AX3.top + 'px;width:' + AX3.w + 'px;height:' + AX3.h + 'px"></div>' +
-      '<div class="abs s8-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>홀드아웃 · 3월 31일 동결 → 4–6월 · 스펜더 계약 <b class="tnum">17,050</b>개</span></div>' +
-      '<div class="abs s8-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>등록 기간 · 6월 30일 동결 → 7–9월 · 스펜더 계약 <b class="tnum">18,152</b>개</span>' + LOCK_SVG + '<span style="font-size:22px;color:var(--ink-2);font-weight:500">등록한 뒤 추출</span></div>' +
+      '<div class="abs s8-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>홀드아웃 · 3월 31일 동결 → 4–6월 · 스펜더 계약 <b class="tnum">' + n0(NUM.sp0) + '</b>개</span></div>' +
+      '<div class="abs s8-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>등록 기간 · 6월 30일 동결 → 7–9월 · 스펜더 계약 <b class="tnum">' + n0(NUM.sp1) + '</b>개</span>' + LOCK_SVG + '<span style="font-size:22px;color:var(--ink-2);font-weight:500">등록한 뒤 추출</span></div>' +
       '<p class="abs s8-small" id="stripcap" data-in="none" style="left:96px;top:566px;color:var(--ink-3)">스펜더 계약 · 점수는 얼린 채 · 예시</p>' +
       '<svg class="abs" id="strip" data-in="none" width="960" height="280" viewBox="0 0 960 280" style="left:0;top:600px;overflow:visible"></svg>' +
       '<div class="s8-month" id="mon" data-in="none" style="left:868px;top:566px">4월</div>' +
@@ -733,33 +837,51 @@
         '<div><b class="c-allow">새 허락 쌍</b> — 동결 때는 없던 주인–스펜더 허락이 새로 생김</div>' +
         '<div><b class="c-xfer">새 송금자</b> — 처음으로 송금을 보내온 주소</div></div>' +
       '<div class="abs" id="wbox" data-in="none" style="left:1040px;top:466px;width:784px;height:480px">' +
-        '<div class="s8-wt" id="wt">W0 스펜더 계약 <span class="tnum">17,050</span>개<small>점 하나 = 계약 10개</small></div>' +
-        '<div class="s8-wc" id="wc"><span><i style="background:#F5B43C"></i>새 허락 쌍 <b id="wa">0</b>개 <span id="wap">(12.1%)</span></span><span><i style="background:transparent;box-shadow:inset 0 0 0 2.5px #3CC4FF"></i>새 송금자 <b id="ws">0</b>개 <span id="wsp">(9.9%)</span></span><span><i style="background:#F5B43C;box-shadow:0 0 0 2.5px #3CC4FF"></i>둘 다</span></div>' +
+        '<div class="s8-wt" id="wt">W0 스펜더 계약 <span class="tnum">' + n0(NUM.sp0) + '</span>개<small>점 하나 ' + (NUM.sp0 % 10 ? '≈' : '=') + ' 계약 10개</small></div>' +
+        '<div class="s8-wc" id="wc"><span><i style="background:#F5B43C"></i>새 허락 쌍 <b id="wa">0</b>개 <span id="wap">(' + H3.pa0 + '%)</span></span><span><i style="background:transparent;box-shadow:inset 0 0 0 2.5px #3CC4FF"></i>새 송금자 <b id="ws">0</b>개 <span id="wsp">(' + H3.ps0 + '%)</span></span><span><i style="background:#F5B43C;box-shadow:0 0 0 2.5px #3CC4FF"></i>둘 다</span></div>' +
         '<div id="wf" style="position:absolute;left:0;top:92px"></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var TL = g.TL = Comp.timeline(ctx, q(el, '#cal'), { w: AX3.w, h: AX3.h, axisY: AX3.axisY, padL: 0, padR: 0 });
+      /* monthly streams of each score window: W0 (12 months before t1) first, T_obs (W1) at step 3 */
       var MC = (((DATA.timeline || {}).monthly_counts || {}).revised) || {};
-      var monA = (MC.approval_ego || []).map(function (p) { return p[1]; }), monT = (MC.transfer_ego || []).map(function (p) { return p[1]; });
-      if (monA.length) g.sA = TL.stream(monA, { color: 'allow', height: 70, base: 92, opacity: 0.24 });
-      if (monT.length) g.sT = TL.stream(monT, { color: 'xfer', height: 80, base: AX3.axisY - 6, opacity: 0.24 });
-      gsap.set([g.sA && g.sA.g, g.sT && g.sT.g].filter(Boolean), { autoAlpha: 0 });
-      /* frost over everything recorded up to t1 */
-      var svg = TL.svg, xs = TL.x('2023-10-01'), x1 = TL.x('2026-03-31') + 1.5;
+      function ser(k) { var a = MC[k] || []; return { v: a.map(function (p) { return p[1]; }), start: a.length ? a[0][0] : null }; }
+      var A0 = ser('approval_ego_t1'), T0 = ser('transfer_ego_t1'), A1 = ser('approval_ego'), T1s = ser('transfer_ego');
+      var mxA = Math.max.apply(null, A0.v.concat(A1.v, [1])), mxT = Math.max.apply(null, T0.v.concat(T1s.v, [1]));
+      function mk(S, color, hgt, base, mx) { return S.v.length ? TL.stream(S.v, { color: color, height: hgt, base: base, opacity: 0.24, start: S.start, max: mx }) : null; }
+      g.sA = mk(A0, 'allow', 70, 92, mxA); g.sT = mk(T0, 'xfer', 80, AX3.axisY - 6, mxT);
+      g.sA1 = mk(A1, 'allow', 70, 92, mxA); g.sT1 = mk(T1s, 'xfer', 80, AX3.axisY - 6, mxT);
+      g.S0 = [g.sA, g.sT].filter(Boolean).map(function (S) { return S.g; });
+      g.S1 = [g.sA1, g.sT1].filter(Boolean).map(function (S) { return S.g; });
+      gsap.set(g.S0.concat(g.S1), { autoAlpha: 0 });
+      /* frost over the 12-month score window of each freeze (only these records make the score) */
+      var svg = TL.svg;
       var defs = svgEl('defs', {}, svg), gr = svgEl('linearGradient', { id: 's8-frost', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
       svgEl('stop', { offset: '0', 'stop-color': '#E9EDF5', 'stop-opacity': 0.16 }, gr); svgEl('stop', { offset: '1', 'stop-color': '#E9EDF5', 'stop-opacity': 0.06 }, gr);
-      g.frost = svgEl('g', {}, svg);
-      svgEl('rect', { x: xs, y: 14, width: x1 - xs, height: AX3.axisY - 16, fill: 'url(#s8-frost)', rx: 6 }, g.frost);
-      svgEl('line', { x1: x1, x2: x1, y1: 14, y2: AX3.axisY - 2, stroke: '#E9EDF5', 'stroke-width': 2, opacity: 0.7 }, g.frost);
-      gsap.set(g.frost, { autoAlpha: 0 });
+      function frost(win, label) {
+        var xs = TL.x(win[0]), x1 = TL.x(win[1]) + 1.5, G = svgEl('g', {}, svg);
+        svgEl('rect', { x: xs, y: 14, width: x1 - xs, height: AX3.axisY - 16, fill: 'url(#s8-frost)', rx: 6 }, G);
+        svgEl('line', { x1: x1, x2: x1, y1: 14, y2: AX3.axisY - 2, stroke: '#E9EDF5', 'stroke-width': 2, opacity: 0.7 }, G);
+        txt(G, xs - 10, 40, label + ' →', { 'text-anchor': 'end', fill: C.ink, 'font-size': 17, 'font-weight': 600 });
+        gsap.set(G, { autoAlpha: 0 });
+        return G;
+      }
+      g.frost = frost(H3.win0, 'W0 점수 기간 · 12개월');
+      g.frost1 = frost(H3.win1, 'W1 점수 기간 · 12개월');
       g.pin0 = TL.pin('2026-03-31', { y0: 8, label: 't₁ · 3월 31일 동결', color: 'ink', labelSize: 19 });
       g.pin1 = TL.pin('2026-06-30', { y0: 8, label: 'T_obs · 6월 30일', color: 'ink', labelSize: 19 });
       g.pin0.label.setAttribute('text-anchor', 'end'); g.pin0.label.setAttribute('x', TL.x('2026-03-31') - 22); g.pin0.label.setAttribute('y', 14);
       g.pin1.label.setAttribute('text-anchor', 'start'); g.pin1.label.setAttribute('x', TL.x('2026-06-30') + 22); g.pin1.label.setAttribute('y', 14);
       g.band0 = TL.band('2026-04-01', '2026-06-30', { label: 'W0 라벨', y0: 40, color: 'ink2' });
       g.band1 = TL.band('2026-07-01', '2026-09-30', { label: 'W1 라벨', y0: 40, color: 'ink2' });
-      [g.band0, g.band1].forEach(function (B) { if (B.label) { B.label.setAttribute('y', 66); B.label.setAttribute('font-size', 18); } });
+      [g.band0, g.band1].forEach(function (B) {
+        if (!B.label) return;
+        B.label.setAttribute('y', 66); B.label.setAttribute('font-size', 18);
+        /* above the streams, with a dark outline: the W1 streams reach into the W0 label window */
+        B.label.setAttribute('stroke', '#0E1119'); B.label.setAttribute('stroke-width', 5); B.label.setAttribute('stroke-linejoin', 'round'); B.label.setAttribute('paint-order', 'stroke');
+        TL.svg.appendChild(B.label); gsap.set(B.label, { autoAlpha: 0 });
+      });
       var kids = Array.prototype.slice.call(TL.axis.childNodes);
       g.axisLine = kids[0]; g.ticks = kids.slice(1);
       /* spender strip (illustration): frozen score bars, boxes, sparse new arrivals */
@@ -804,10 +926,10 @@
       gsap.set([g.mon, g.defs, g.i0, g.i1, g.wbox], { autoAlpha: 0 });
       /* waffle: one dot = 10 spenders; mark 1 = new approval pair only (amber dot), 2 = new sender only
          (sky ring), 3 = both (amber dot with a sky ring). Positions are seeded; the counts are not:
-         W0 1,705 dots: both 1,173 → 117, approval only 897 → 90 (amber 207 = 2,070 / 10), sender only 522 → 53 (sky 170 ≈ 1,695 / 10)
-         W1 1,815 dots: both 1,023 → 102, approval only 593 → 60 (amber 162 ≈ 1,616 / 10), sender only 510 → 51 (sky 153 = 1,533 / 10)
+         W0 791 dots: both 1,044 → 104, approval only → 69 (amber 173 ≈ 1,732 / 10), sender only → 38 (sky 142 ≈ 1,422 / 10)
+         W1 796 dots: both 967 → 97, approval only → 53 (amber 150 ≈ 1,495 / 10), sender only → 40 (sky 137 ≈ 1,371 / 10)
          overlap = spenders with future_new_approvers > 0 and future_new_transfer_senders > 0 in
-         experiments/data/2-processed-tables-and-evaluations/revised-usd/{holdout-w0,window-w1}/spender_scores.part000.parquet */
+         experiments/data/2-processed-tables-and-evaluations/revised-usd-12m/{holdout-w0,window-w1}/spender_scores.part000.parquet */
       var rnd = Deck.util.rng(7);
       function pick(n, both, aOnly, sOnly) {
         var idx = [], i, mark = new Uint8Array(n);
@@ -816,15 +938,18 @@
         for (i = 0; i < both + aOnly + sOnly; i++) mark[idx[i]] = i < both ? 3 : i < both + aOnly ? 1 : 2;
         return mark;
       }
-      g.mark0 = pick(1705, 117, 90, 53); g.mark1 = pick(1815, 102, 60, 51);
+      function dots(sp, ga, gs, both) { var b = Math.round(both / 10); return [Math.round(sp / 10), b, Math.round(ga / 10) - b, Math.round(gs / 10) - b]; }
+      var D0 = dots(NUM.sp0, NUM.ga0, NUM.gs0, H3.both0), D1 = dots(NUM.sp1, NUM.ga1, NUM.gs1, H3.both1);
+      g.n0 = D0[0]; g.n1 = D1[0];
+      g.mark0 = pick.apply(null, D0); g.mark1 = pick.apply(null, D1);
       g.wmark = g.mark0;
-      g.W = waffle(ctx, q(el, '#wf'), { n: 1705, max: 1860, cols: 62, gap: 12.6, r: 4.3, style: function (i, hq) {
+      g.W = waffle(ctx, q(el, '#wf'), { n: g.n0, max: Math.max(g.n0, g.n1), cols: 40, gap: 19.4, r: 6.6, style: function (i, hq) {
         var m = g.wmark[i];
         if (!m || hq <= 0) return { fill: '#3A4458' };
         var sc = 1 + 0.25 * hq;
         if (m === 1) return { fill: C.allow, scale: sc };
-        if (m === 2) return { fill: '#3A4458', stroke: C.xfer, lw: 2, scale: sc };
-        return { fill: C.allow, stroke: C.xfer, lw: 2, scale: sc };
+        if (m === 2) return { fill: '#3A4458', stroke: C.xfer, lw: 2.6, scale: sc };
+        return { fill: C.allow, stroke: C.xfer, lw: 2.6, scale: sc };
       } });
     },
     enter: function (el, ctx) {
@@ -833,7 +958,7 @@
       tl.fromTo(g.ticks, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, stagger: 0.012 }, 0.2);
       if (g.sA) tl.add(function () { ctx.add(function () { g.sA.reveal({ duration: 1.0 }); }); }, 0.6);
       if (g.sT) tl.add(function () { ctx.add(function () { g.sT.reveal({ duration: 1.0 }); }); }, 0.75);
-      tl.set([g.sA && g.sA.g, g.sT && g.sT.g].filter(Boolean), { autoAlpha: 1 }, 0.6);
+      if (g.S0.length) tl.set(g.S0, { autoAlpha: 1 }, 0.6);
     },
     step: function (el, i, ctx) {
       var g = ctx.g, tl = ctx.tl();
@@ -862,31 +987,34 @@
         tl.fromTo(g.wbox, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 0.4);
         tl.add(g.W.fill({ duration: 1.3 }), 0.5);
         tl.add(g.W.wave({ duration: 1.2 }), 1.6);
-        tl.add(ctx.count(g.wa, 0, 2070, { decimals: 0, final: '2,070', duration: 1.2 }), 1.6);
-        tl.add(ctx.count(g.ws, 0, 1695, { decimals: 0, final: '1,695', duration: 1.2 }), 1.6);
+        tl.add(ctx.count(g.wa, 0, NUM.ga0, { decimals: 0, final: n0(NUM.ga0), duration: 1.2 }), 1.6);
+        tl.add(ctx.count(g.ws, 0, NUM.gs0, { decimals: 0, final: n0(NUM.gs0), duration: 1.2 }), 1.6);
       }
       if (i === 3) {
         tl.add(g.pin1.drop(), 0);
+        tl.to(g.frost, { autoAlpha: 0, duration: dur(ctx, 0.4) }, 0.2);
+        tl.fromTo(g.frost1, { autoAlpha: 0, scaleX: 0, transformOrigin: '100% 50%' }, { autoAlpha: 1, scaleX: 1, duration: dur(ctx, 0.9), ease: E.io }, 0.3);
+        if (g.S1.length) { tl.to(g.S0, { autoAlpha: 0, duration: dur(ctx, 0.5) }, 0.2); tl.fromTo(g.S1, { autoAlpha: 0 }, { autoAlpha: 1, duration: dur(ctx, 0.6) }, 0.45); }
         tl.add(g.band1.show(), 0.4);
         fadeUp(tl, g.i1, 0.6, 0.5);
         tl.call(function () { g.mon.textContent = '7월'; }, null, 0.6);
         tl.call(function () { g.mon.textContent = '8월'; }, null, 1.1);
         tl.call(function () { g.mon.textContent = '9월'; }, null, 1.6);
-        tl.add(Comp.swap(ctx, g.wt, 'W1 스펜더 계약 <span class="tnum">18,152</span>개<small>점 하나 ≈ 계약 10개</small>'), 0.5);
+        tl.add(Comp.swap(ctx, g.wt, 'W1 스펜더 계약 <span class="tnum">' + n0(NUM.sp1) + '</span>개<small>점 하나 ' + (NUM.sp1 % 10 ? '≈' : '=') + ' 계약 10개</small>'), 0.5);
         tl.call(function () {
           g.wap.textContent = ''; g.wsp.textContent = '';
-          g.wmark = g.mark1; g.W.n = 1815; g.W.st.p = 0; g.W.st.q = 0; g.W.draw();
+          g.wmark = g.mark1; g.W.n = g.n1; g.W.st.p = 0; g.W.st.q = 0; g.W.draw();
         }, null, 0.9);
         tl.add(function () { ctx.add(function () { g.W.fill({ duration: 1.2 }); g.W.wave({ duration: 1.1, delay: 1.0 }); }); }, 0.95);
-        tl.add(ctx.count(g.wa, 2070, 1616, { decimals: 0, final: '1,616', duration: 1.0 }), 1.9);
-        tl.add(ctx.count(g.ws, 1695, 1533, { decimals: 0, final: '1,533', duration: 1.0 }), 1.9);
+        tl.add(ctx.count(g.wa, NUM.ga0, NUM.ga1, { decimals: 0, final: n0(NUM.ga1), duration: 1.0 }), 1.9);
+        tl.add(ctx.count(g.ws, NUM.gs0, NUM.gs1, { decimals: 0, final: n0(NUM.gs1), duration: 1.0 }), 1.9);
       }
     }
   };
 
   /* ================================================================ locked board (s08-04 … s08-06) */
-  var BD = { tx0: 540, tx1: 1040, td: [0.15, 0.40], tticks: [0.15, 0.2, 0.25, 0.3, 0.35, 0.4], vX: 1062,
-    dx0: 1344, dx1: 1800, dd: [-0.06, 0.09], dticks: [-0.05, 0, 0.05],
+  var BD = { tx0: 540, tx1: 1040, td: [0.25, 0.50], tticks: [0.25, 0.3, 0.35, 0.4, 0.45, 0.5], vX: 1062,
+    dx0: 1344, dx1: 1800, dd: [-0.11, 0.17], dticks: [-0.1, -0.05, 0, 0.05, 0.1, 0.15],
     groups: [{ top: 252, name: 'W0', s1: '3월 31일 동결', s2: '4–6월 라벨' }, { top: 400, name: 'W1', s1: '6월 30일 동결', s2: '7–9월 라벨' }],
     gh: 128, rowOff: [34, 94], gridTop: 246, gridBot: 538, tickY: 566 };
   function bx(v) { return BD.tx0 + (v - BD.td[0]) / (BD.td[1] - BD.td[0]) * (BD.tx1 - BD.tx0); }
@@ -997,29 +1125,59 @@
   }
   function boardEnter(el, ctx) { settleShared(ctx, ctx.g.board, 's8-board', 0.2); }
 
-  /* ================================================================ s08-04 transfer side */
+  /* values of s08-04 … s08-08 (R = DECK_DATA.results.revised, G = .registered) */
+  var NA = 'future_new_approvers', NS8 = 'future_new_transfer_senders';
+  var T4 = {
+    awp0: IV(W0, 'taus.awp.' + NS8, '0.409 [0.396, 0.421]'), deg0: IV(W0, 'taus.t1_in_degree.' + NS8, '0.447 [0.435, 0.459]'),
+    d0: CV(W0.contrasts_after, 'awp', 't1_in_degree', NS8, '−0.038 [−0.043, −0.032]'),
+    g0: CV(get(RG, 'w0.contrasts_after'), 'awp', 't1_in_degree', NS8, '+0.038 [0.035, 0.042]'),
+    awp1: IV(W1, 'spender_taus.awp.' + NS8, '0.398 [0.386, 0.412]'), deg1: IV(W1, 'spender_taus.in_degree.' + NS8, '0.439 [0.426, 0.454]'),
+    d1: IV(W1, 'endorserank_results.awp_minus_degree_send', '−0.041 [−0.047, −0.034]', true),
+    g1: IV(RG, 'w1.endorserank_results.awp_minus_degree_send', '+0.020 [0.016, 0.023]', true),
+    recv: CV(get(W0, 'receiving.contrasts'), 'awp', 't1_in_degree', NS8, '−0.051 [−0.059, −0.043]')
+  };
+  var T5 = {
+    deg0: IV(W0, 'taus.t1_in_approve_degree.' + NA, '0.392 [0.377, 0.406]'), er0: IV(W0, 'taus.endorserank.' + NA, '0.303 [0.287, 0.319]'),
+    d0: CV(W0.contrasts_after, 'endorserank', 't1_in_approve_degree', NA, '−0.090 [−0.100, −0.079]'),
+    g0: CV(get(RG, 'w0.contrasts_after'), 'endorserank', 't1_in_approve_degree', NA, '−0.011 [−0.016, −0.006]'),
+    deg1: IV(W1, 'spender_taus.in_approve_degree.' + NA, '0.381 [0.365, 0.396]'), er1: IV(W1, 'spender_taus.endorserank.' + NA, '0.299 [0.284, 0.314]'),
+    d1: IV(W1, 'endorserank_results.endorserank_minus_degree_appr', '−0.082 [−0.090, −0.073]', true),
+    g1: IV(RG, 'w1.endorserank_results.endorserank_minus_degree_appr', '−0.029 [−0.032, −0.025]', true),
+    ea0: IV(SUP, 'w0.er_minus_awp_appr', '+0.107 [0.086, 0.130]', true), ea1: IV(SUP, 'w1.er_minus_awp_appr', '+0.142 [0.119, 0.164]', true),
+    recv: CV(get(W0, 'receiving.contrasts'), 'endorserank', 't1_in_approve_degree', NA, '−0.087 [−0.096, −0.078]'),
+    rEr: estOf(IV(W0, 'receiving.taus.endorserank.' + NA, '0.299 [0.283, 0.315]')), rAwp: estOf(IV(W0, 'receiving.taus.awp.' + NA, '0.328 [0.312, 0.343]')),
+    cvW: pc1(get(W0, 'coverage.share_gaining_approvals_without', 0.2668)), cvO: pc1(get(W0, 'coverage.share_gaining_approvals_with', 0.2091))
+  };
+  var T6 = {
+    act0: IV(W0, 'taus.endorserank_activity.' + NA, '0.332 [0.315, 0.347]'), act1: IV(W1, 'spender_taus.endorserank_activity.' + NA, '0.335 [0.319, 0.349]'),
+    d0: IV(SUP, 'w0.er_activity_minus_degree_appr', '−0.060 [−0.070, −0.052]', true), d1: IV(SUP, 'w1.er_activity_minus_degree_appr', '−0.046 [−0.055, −0.038]', true),
+    famEr: estOf(IV(SW, 'families.endorserank.allowance', '0.560 [0.548, 0.571]')), famAct: IV(SW, 'families.endorserank_activity.allowance', '0.601 [0.590, 0.613]'),
+    cpr0: estOf(IV(W0, 'taus.cpr_l0.' + NS8, '0.366 [0.351, 0.378]'))
+  };
+  function E8(s) { return estOf(s); }
+  function A8(s) { return estOf(s).replace(/^[+−]/, ''); }   /* size of a difference, without its sign */
   var slide4 = {
-    id: 's08-04', title: '송금 쪽: AWP가 그냥 센 수를 이겨요', time: 40, steps: 4,
+    id: 's08-04', title: '송금 쪽: 그냥 센 수가 AWP를 이겨요', time: 40, steps: 4,
     tags: function (s) { return s >= 4 ? ['posthoc', 'registered-analysis'] : ['posthoc']; },
     notes: [
       '먼저 송금 쪽이에요. 왼쪽 판은 각 점수가 나중 일을 얼마나 잘 맞혔는지, 오른쪽 판은 두 점수를 같은 계약에서 짝지어 뺀 차이예요. 차이가 0 오른쪽이면 걷는 점수가, 왼쪽이면 그냥 센 수가 나은 거예요.',
-      '나중에 새로 송금을 보내올 주소를 맞히는 데서, W0의 AWP는 0.346, 송금을 보낸 주소를 그냥 센 송금 입차수는 0.303이에요.',
-      '짝지어 빼면 0.043이고, 구간 전체가 0 오른쪽에 있어요.',
-      'W1에서도 AWP가 0.022 높았고, 역시 구간이 0보다 위에 있어요. 송금 쪽에서는 시간과 금액 무게, 그리고 활발한 송신자에서 다시 출발하는 걷기가, 그냥 센 수에 없는 정보를 더한 거예요.',
-      '송금을 받은 적이 있는 계약 14,094개만 따로 봐도 차이가 0.056으로 그대로였어요. 회색 빈 점은 처음 등록한 분석의 값인데 방향이 같아요. 다만 이 비교들은 계획에도 등록에도 없었고, 라벨을 본 뒤에 계산한 것이에요.'
+      '나중에 새로 송금을 보내올 주소를 맞히는 데서, W0의 AWP는 ' + E8(T4.awp0) + ', 송금을 보낸 주소를 그냥 센 송금 입차수는 ' + jE(E8(T4.deg0)) + '.',
+      '짝지어 빼면 ' + E8(T4.d0) + '이고, 구간 전체가 0 왼쪽에 있어요. AWP는 송금을 보낸 주소를 그냥 센 것보다 못했어요.',
+      'W1에서도 AWP가 ' + A8(T4.d1) + ' 낮았고, 역시 구간이 0보다 아래예요. 시간과 금액 무게, 그리고 활발한 송신자에서 다시 출발하는 걷기도 송금 쪽에서 그냥 센 수를 넘지 못한 거예요.',
+      '송금을 받은 적이 있는 계약 ' + n0(NUM.recv0) + '개만 따로 봐도 차이가 ' + jR(E8(T4.recv)) + ' 여전히 0 아래예요. 그러니 AWP가 0점을 주는 계약 때문에 생긴 차이가 아니에요. 회색 빈 점은 처음 등록한 분석의 값이에요. 원래 단위로 모든 토큰을 쓰고 2023년 10월부터의 기록으로 점수를 만든 그 분석에서는 AWP가 센 수보다 조금 위였어요. 방향이 달라요. 이 비교들은 계획에도 등록에도 없었고, 라벨을 본 뒤에 계산한 것이에요.'
     ],
     html:
-      '<h1 class="t-h1">새 송금자 맞히기: AWP가 [[센 수]]를 이겨요</h1>' + BOARD_HTML +
-      '<p class="abs s8-concl" id="concl" data-in="none" style="left:96px;top:720px;width:1500px">송금 쪽에서는 걷기(시간·금액 무게, 활동 재시작)가 센 수에 정보를 더했어요</p>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:96px;top:800px;width:1600px">' + pill('posthoc') + '<span>계획에도 등록에도 없던 비교예요 — 라벨을 본 뒤 계산 · 새 송금자 라벨 · 스펜더 W0 17,050개, W1 18,152개</span></div>' +
-      '<div class="abs s8-tiny" id="gleg" data-in="none" style="left:96px;top:850px;width:1600px">' + pill('registered-analysis') + '<span>회색 빈 점 = 처음 등록한 분석(원래 단위, 모든 토큰): <b>+0.038 [0.035, 0.042]</b> · <b>+0.020 [0.016, 0.023]</b> — 방향이 같아요</span></div>',
+      '<h1 class="t-h1">새 송금자 맞히기: [[센 수]]가 AWP를 이겨요</h1>' + BOARD_HTML +
+      '<p class="abs s8-concl" id="concl" data-in="none" style="left:96px;top:720px;width:1500px">송금 쪽에서도 걷기(시간·금액 무게, 활동 재시작)는 센 수를 넘지 못했어요</p>' +
+      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:96px;top:800px;width:1600px">' + pill('posthoc') + '<span>계획에도 등록에도 없던 비교예요 — 라벨을 본 뒤 계산 · 새 송금자 라벨 · 스펜더 W0 ' + n0(NUM.sp0) + '개, W1 ' + n0(NUM.sp1) + '개</span></div>' +
+      '<div class="abs s8-tiny" id="gleg" data-in="none" style="left:96px;top:850px;width:1600px">' + pill('registered-analysis') + '<span>회색 빈 점 = 처음 등록한 분석(원래 단위 · 모든 토큰 · 2023년 10월부터의 기록): <b>' + T4.g0 + '</b> · <b>' + T4.g1 + '</b> — 그 분석에서는 AWP가 조금 위였어요</span></div>',
     build: function (el, ctx) {
       var g = boardBuild(el, ctx), svg = g.bars;
-      var rowsW0 = [{ label: 'AWP', color: C.xfer, val: '0.346 [0.336, 0.356]' }, { label: '송금 입차수', color: C.deg, dashed: true, val: '0.303 [0.292, 0.315]' }];
-      var rowsW1 = [{ label: 'AWP', color: C.xfer, val: '0.330 [0.321, 0.340]' }, { label: '송금 입차수', color: C.deg, dashed: true, val: '0.308 [0.299, 0.319]' }];
-      g.G0 = boardGroup(svg, 0, rowsW0, { val: '+0.043 [0.038, 0.048]', ghost: '+0.038 [0.035, 0.042]' });
-      g.G1 = boardGroup(svg, 1, rowsW1, { val: '+0.022 [0.017, 0.027]', ghost: '+0.020 [0.016, 0.023]' });
-      g.ex = extraRow(svg, 640, '송금을 받은 적 있는 계약만', '+0.056 [0.049, 0.064]', C.ink, 'W0 · 14,094개 · 새 송금자');
+      var rowsW0 = [{ label: 'AWP', color: C.xfer, val: T4.awp0 }, { label: '송금 입차수', color: C.deg, dashed: true, val: T4.deg0 }];
+      var rowsW1 = [{ label: 'AWP', color: C.xfer, val: T4.awp1 }, { label: '송금 입차수', color: C.deg, dashed: true, val: T4.deg1 }];
+      g.G0 = boardGroup(svg, 0, rowsW0, { val: T4.d0, ghost: T4.g0 });
+      g.G1 = boardGroup(svg, 1, rowsW1, { val: T4.d1, ghost: T4.g1 });
+      g.ex = extraRow(svg, 640, '송금을 받은 적 있는 계약만', T4.recv, C.ink, 'W0 · ' + n0(NUM.recv0) + '개 · 새 송금자');
       g.concl = q(el, '#concl'); g.tiny = q(el, '#tiny'); g.gleg = q(el, '#gleg');
       gsap.set([g.concl, g.tiny, g.gleg], { autoAlpha: 0 });
     },
@@ -1043,26 +1201,29 @@
     tags: function (s) { return s >= 5 ? ['posthoc', 'registered-analysis'] : s >= 4 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
       '이제 허락 쪽이에요. 여기서는 결과를 있는 그대로 말씀드릴게요. 판은 앞 장과 같아요.',
-      '나중에 새 허락 쌍을 얻을 계약을 맞히는 데서, W0의 받은 허락 수는 0.250, 엔도스랭크는 0.231이에요.',
-      '짝지어 빼면 −0.019, 구간 전체가 0 왼쪽이에요. 엔도스랭크는 그 계약을 허락한 주인 수를 그냥 센 것보다 못했어요.',
-      'W1에서도 0.034만큼 낮았고, 역시 0보다 아래예요. 두 기간 모두 그냥 센 수가 이겼어요.',
+      '나중에 새 허락 쌍을 얻을 계약을 맞히는 데서, W0의 받은 허락 수는 ' + E8(T5.deg0) + ', 엔도스랭크는 ' + jE(E8(T5.er0)) + '.',
+      '짝지어 빼면 ' + E8(T5.d0) + ', 구간 전체가 0 왼쪽이에요. 엔도스랭크는 그 계약을 허락한 주인 수를 그냥 센 것보다 못했어요.',
+      'W1에서도 ' + A8(T5.d1) + '만큼 낮았고, 역시 0보다 아래예요. 두 기간 모두 그냥 센 수가 이겼어요. 앞 장의 송금 쪽과 같은 모습이에요.',
       '이미 주인이 많은 계약이 새 주인도 더 많이 얻어요. 그냥 센 수가 이 점을 가장 직접 잡기 때문이에요. 왼쪽 그림은 설명을 위한 예시예요.',
-      '그래도 허락 쪽 점수가 새 허락 쌍을 송금 쪽 점수인 AWP보다는 잘 맞혔어요. W0에서 0.035, W1에서 0.065 높아요. 이 비교들도 모두 라벨을 본 뒤에 계산했고, 처음 등록한 분석에서도 방향이 같았어요.'
+      '스펜더 전체로 보면 허락 쪽 점수가 새 허락 쌍을 송금 쪽 점수인 AWP보다 잘 맞혔어요. W0에서 ' + A8(T5.ea0) + ', W1에서 ' + A8(T5.ea1) + ' 높아요. 하지만 이 앞섬은 송금을 받은 적이 없는 스펜더 ' + n0(NUM.notRecv0) + '개에 달려 있어요. AWP가 0점을 주는 ' + n0(NUM.noXfer0) + '개가 그 안에 있어요. 송금 화살표가 하나도 없는 이 스펜더들은 여섯에 하나꼴인데, 다른 스펜더보다 새 허락 쌍을 자주 얻었어요. ' + T5.cvW + '% 대 ' + T5.cvO + '%예요. 송금을 받은 적 있는 ' + n0(NUM.recv0) + '개만 보면 오히려 AWP가 ' + jR(T5.rAwp) + ' 엔도스랭크 ' + T5.rEr + '보다 높아요. 이 둘은 짝지어 빼 보지 않았어요. 그 ' + n0(NUM.recv0) + '개에서도 엔도스랭크는 받은 허락 수보다 ' + A8(T5.recv) + ' 낮아요. 이 비교들도 모두 라벨을 본 뒤에 계산했어요. 회색 빈 점은 처음 등록한 분석인데, 거기서도 엔도스랭크가 센 수보다 낮았어요.'
     ],
     html:
       '<h1 class="t-h1">새 허락 쌍 맞히기: <span class="s8-hl" id="hl">그냥 센 수</span>가 이겼어요</h1>' + BOARD_HTML +
       '<div class="s8-fig" id="rich" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">부익부: 주인이 많을수록 새 주인도 많이</div><span class="ex example-mark">예시</span><svg id="richsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
       '<p class="abs s8-concl" id="concl" data-in="none" style="left:700px;top:716px;width:1124px">고르게 다시 출발하는 엔도스랭크는 ‘허락한 주인 수’를 못 이겼어요</p>' +
       '<p class="abs s8-reason" id="reason" data-in="none" style="left:700px;top:796px;width:1124px">주인이 많은 계약이 새 주인도 더 많이 얻어요 — <b>센 수가 이걸 바로 잡아요</b></p>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:870px;width:1124px">' + pill('posthoc') + '<span>받은 쪽만 봐도 <b>−0.013 [−0.020, −0.006]</b> · 등록 분석 <b>−0.011</b>, <b>−0.029</b> (회색)</span></div>',
+      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:858px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
+        '<div>' + pill('posthoc') + ' <span>엔도스랭크 − AWP의 앞섬은 송금을 받은 적 없는 <b>' + n0(NUM.notRecv0) + '</b>개에서 와요(AWP 0점 <b>' + n0(NUM.noXfer0) + '</b>개 포함)</span></div>' +
+        '<div>송금을 받은 적 있는 <b>' + n0(NUM.recv0) + '</b>개만: AWP <b>' + T5.rAwp + '</b> · 엔도스랭크 <b>' + T5.rEr + '</b> (짝지은 차이는 계산 안 함)</div>' +
+        '<div>그 ' + n0(NUM.recv0) + '개에서도 엔도스랭크 − 받은 허락 수 <b>' + T5.recv + '</b> · 등록 분석 <b>' + E8(T5.g0) + '</b>, <b>' + E8(T5.g1) + '</b> (회색)</div></div>',
     build: function (el, ctx) {
       var g = boardBuild(el, ctx), svg = g.bars;
-      var rowsW0 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.250 [0.237, 0.262]' }, { label: '엔도스랭크', color: C.allow, val: '0.231 [0.220, 0.242]' }];
-      var rowsW1 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.268 [0.257, 0.279]' }, { label: '엔도스랭크', color: C.allow, val: '0.234 [0.222, 0.244]' }];
-      g.G0 = boardGroup(svg, 0, rowsW0, { val: '−0.019 [−0.026, −0.011]', ghost: '−0.011 [−0.016, −0.006]' });
-      g.G1 = boardGroup(svg, 1, rowsW1, { val: '−0.034 [−0.038, −0.029]', ghost: '−0.029 [−0.032, −0.025]' });
-      g.ex0 = extraRow(svg, 606, '엔도스랭크 − AWP', '+0.035 [0.019, 0.051]', C.allow, 'W0 · 새 허락 쌍');
-      g.ex1 = extraRow(svg, 662, '엔도스랭크 − AWP', '+0.065 [0.051, 0.081]', C.allow, 'W1 · 새 허락 쌍');
+      var rowsW0 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: T5.deg0 }, { label: '엔도스랭크', color: C.allow, val: T5.er0 }];
+      var rowsW1 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: T5.deg1 }, { label: '엔도스랭크', color: C.allow, val: T5.er1 }];
+      g.G0 = boardGroup(svg, 0, rowsW0, { val: T5.d0, ghost: T5.g0 });
+      g.G1 = boardGroup(svg, 1, rowsW1, { val: T5.d1, ghost: T5.g1 });
+      g.ex0 = extraRow(svg, 606, '엔도스랭크 − AWP', T5.ea0, C.allow, 'W0 · 새 허락 쌍 · 스펜더 전체');
+      g.ex1 = extraRow(svg, 662, '엔도스랭크 − AWP', T5.ea1, C.allow, 'W1 · 새 허락 쌍 · 스펜더 전체');
       g.hl = q(el, '#hl'); g.rich = q(el, '#rich'); g.concl = q(el, '#concl'); g.reason = q(el, '#reason'); g.tiny = q(el, '#tiny');
       gsap.set([g.rich, g.concl, g.reason, g.tiny], { autoAlpha: 0 });
       /* rich-get-richer: two spenders, owners around them, new owners drift in (3 : 1) */
@@ -1111,49 +1272,51 @@
     }
   };
 
-  /* ================================================================ s08-06 restart rule only (post hoc hypothesis) */
+  /* ================================================================ s08-06 restart rule only (post hoc) */
   var slide6 = {
-    id: 's08-06', title: '다시 출발 규칙만 바꾸면? (사후 — 가설)', time: 45, steps: 5,
+    id: 's08-06', title: '다시 출발 규칙만 바꾸면? (사후)', time: 45, steps: 5,
     tags: function (s) { return s >= 1 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
-      '그렇다면 무엇을 바꾸면 센 수를 넘을까요?',
+      '그렇다면 다시 출발 규칙을 바꾸면 센 수를 넘을까요?',
       '다시 출발 규칙만 AWP처럼 바꿔 봤어요. 허락을 활발하게 하는 주인에서 더 자주 다시 출발하게 한 거예요. 주인의 활발함 X_u는 그 주인이 허락한 스펜더마다 가장 최근 허락의 시간 무게를 더한 값이에요. AWP가 송금으로 재는 활동량을 허락에 똑같이 적용한 거예요. 걷는 길은 그대로이고 출발점의 비율만 달라져요. 왼쪽 그림의 비가 순간 이동이에요. 활발한 주인에게 더 굵게 내려요.',
-      'W0에서 이 변형은 0.308로, 받은 허락 수 0.250을 넘었어요. 차이는 0.059예요. 점선 테두리가 변형 표시이고, 작은 빈 고리가 원래 엔도스랭크 자리예요.',
-      'W1에서도 0.027만큼 넘었어요.',
-      '하지만 이 비교는 라벨을 본 다음에 고른 것이라서 발견이라고 할 수 없어요. 그래서 판정 도장이 아니라 ‘가설’ 꼬리표를 붙여요. 다음 연구에서 새 기간을 등록하고 시험해 볼 첫 번째 후보예요.',
-      '분석 계획은 이 변형을 함께 보고하라고만 했지, 센 수와 비교하라고 정하지는 않았어요. 게다가 이 변형은 같은 기간의 허락 지표와는 덜 맞아요. 0.585에서 0.426으로 내려가요. 그리고 AWP 쪽은 다시 출발 규칙을 바꿔서 시험해 보지 않았어요.'
+      'W0에서 이 변형은 ' + jR(E8(T6.act0)) + ', 원래 엔도스랭크 ' + E8(T5.er0) + '보다 올라갔어요. 하지만 받은 허락 수 ' + E8(T5.deg0) + '에는 못 미쳐요. 차이는 ' + jE(E8(T6.d0)) + '. 점선 테두리가 변형 표시이고, 작은 빈 고리가 원래 엔도스랭크 자리예요. 오른쪽 판에서도 차이가 원래의 ' + E8(T5.d0) + '에서 0 쪽으로 다가갔지만, 구간은 여전히 0 왼쪽이에요.',
+      'W1에서도 같아요. 변형은 ' + jR(E8(T6.act1)) + ' 올라갔지만 센 수보다 ' + A8(T6.d1) + ' 낮아요. 원래는 ' + A8(T5.d1) + ' 낮았어요.',
+      '그러니까 다시 출발 규칙은 걷는 점수가 센 수에 얼마나 못 미치는지만 바꾸고, 못 미친다는 사실은 바꾸지 못했어요. 이 비교도 라벨을 본 다음에 계산한 것이라서, 판정 도장이 아니라 꼬리표만 붙여요. 왜 그런지는 다음 장의 닫힌 식에서 볼게요.',
+      '분석 계획은 이 변형을 함께 보고하라고만 했지, 센 수와 비교하라고 정하지는 않았어요. 이 변형은 같은 기간의 허락 지표와는 더 잘 맞아요. ' + T6.famEr + '에서 ' + jR(E8(T6.famAct)) + ' 올라가요. 송금 쪽도 같은 그림이에요. 고르게 다시 출발하는 C-PR의 송금 층은 W0에서 ' + jR(T6.cpr0) + ', AWP ' + E8(T4.awp0) + '보다도 송금 입차수 ' + E8(T4.deg0) + '에서 더 멀리 떨어져 있어요. 다만 이 송금 층은 짝지어 빼 보지 않았어요.'
     ],
     html:
-      '<h1 class="t-h1">다시 출발을 AWP처럼 바꾸면 센 수를 넘었어요 — 하지만 [[가설]]이에요</h1>' + BOARD_HTML +
+      '<h1 class="t-h1">다시 출발을 AWP처럼 바꿔도 [[센 수]]를 넘지 못했어요</h1>' + BOARD_HTML +
       '<div class="s8-fig" id="rain" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">순간 이동 비: 활발한 주인에게 더 굵게</div><span class="ex example-mark">예시</span><svg id="rainsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
       '<div class="abs s8-reason" id="def" data-in="none" style="left:700px;top:612px;width:1124px"><b class="c-allow">엔도스랭크(활동 재시작)</b>: 허락을 활발하게 하는 주인에서 더 자주 다시 출발해요 · $\\pi_u=X_u\\big/\\sum_v X_v$<br><span style="font-size:21px;line-height:30px;color:var(--ink-3)">$X_u$ = 주인 u가 허락한 스펜더마다 가장 최근 허락의 시간 무게를 더한 것 (AWP의 활동량을 허락에 적용)</span></div>' +
-      '<div class="s8-hyp" id="hyp" data-in="none" style="left:700px;top:706px"><svg width="240" height="84" viewBox="0 0 240 84"></svg></div>' +
-      '<div class="abs s8-reason" id="hyptx" data-in="none" style="left:964px;top:710px;width:860px">라벨을 본 뒤에 고른 비교라서 발견이 아니라 가설이에요<br><span style="font-size:22px;color:var(--ink-3)">→ 다음 등록 시험에서 확인할 일</span></div>' +
+      '<div class="s8-hyp" id="hyp" data-in="none" style="left:700px;top:706px"><svg width="280" height="84" viewBox="0 0 280 84"></svg></div>' +
+      '<div class="abs s8-reason" id="hyptx" data-in="none" style="left:1004px;top:710px;width:820px">다시 출발 규칙은 센 수에 얼마나 못 미치는지만 바꿨어요<br><span style="font-size:22px;color:var(--ink-3)">→ 못 미친다는 것은 그대로예요 · 이유는 다음 장의 닫힌 식에서</span></div>' +
       '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:818px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
-        '<div>대신 같은 기간 허락 가족 일치는 <b>0.585 → 0.426 [0.418, 0.435]</b>로 낮아져요</div>' +
+        '<div>같은 기간 허락 가족 일치는 올라가요: <b>' + T6.famEr + ' → ' + T6.famAct + '</b></div>' +
         '<div>분석 계획은 이 변형을 ‘함께 보고’하라고만 했어요 — 센 수와의 비교는 정하지 않았어요</div>' +
-        '<div>AWP 쪽은 다시 출발 규칙을 바꿔 시험하지 않았어요</div></div>',
+        '<div>송금 쪽도 같아요: 고르게 다시 출발하는 C-PR 송금 층(W0 <b>' + T6.cpr0 + '</b>)은 AWP(<b>' + E8(T4.awp0) + '</b>)보다 송금 입차수(<b>' + E8(T4.deg0) + '</b>)에서 더 멀어요 · 짝지은 차이 없음</div></div>',
     build: function (el, ctx) {
       var g = boardBuild(el, ctx), svg = g.bars;
-      var rowsW0 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.250 [0.237, 0.262]' }, { label: '엔도스랭크 변형', color: C.allow, dashed: true, val: '0.308 [0.299, 0.319]', from: 0.231 }];
-      var rowsW1 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: '0.268 [0.257, 0.279]' }, { label: '엔도스랭크 변형', color: C.allow, dashed: true, val: '0.295 [0.285, 0.304]', from: 0.234 }];
-      g.G0 = boardGroup(svg, 0, rowsW0, { val: '+0.059 [0.050, 0.067]', color: C.ink });
-      g.G1 = boardGroup(svg, 1, rowsW1, { val: '+0.027 [0.021, 0.034]', color: C.ink });
-      /* where the uniform-restart EndorseRank sat (0.231 / 0.234): small hollow amber ring */
-      g.orig = [[0, 0.231], [1, 0.234]].map(function (p) {
-        var y = BD.groups[p[0]].top + BD.rowOff[1];
+      var er0 = iv(T5.er0).est, er1 = iv(T5.er1).est;
+      var rowsW0 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: T5.deg0 }, { label: '엔도스랭크 변형', color: C.allow, dashed: true, val: T6.act0, from: er0 }];
+      var rowsW1 = [{ label: '받은 허락 수', color: C.deg, dashed: true, val: T5.deg1 }, { label: '엔도스랭크 변형', color: C.allow, dashed: true, val: T6.act1, from: er1 }];
+      g.G0 = boardGroup(svg, 0, rowsW0, { val: T6.d0, color: C.ink });
+      g.G1 = boardGroup(svg, 1, rowsW1, { val: T6.d1, color: C.ink });
+      /* where the uniform-restart EndorseRank sat (τ and its difference to the count, s08-05): small hollow amber rings */
+      function ring(gi, x, y, label) {
         var gg = svgEl('g', {}, svg);
-        svgEl('circle', { cx: bx(p[1]), cy: y, r: 7, fill: 'none', stroke: C.allow, 'stroke-width': 2, opacity: 0.8 }, gg);
-        txt(gg, bx(p[1]), y + 30, '원래 ' + fmt(p[1], 3), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 16, 'class': 'tnum' });
+        svgEl('circle', { cx: x, cy: y, r: 7, fill: 'none', stroke: C.allow, 'stroke-width': 2, opacity: 0.8 }, gg);
+        txt(gg, x, y + 30, label, { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 16, 'class': 'tnum' });
         gsap.set(gg, { autoAlpha: 0 });
         return gg;
-      });
+      }
+      g.orig = [[0, er0], [1, er1]].map(function (p) { return ring(p[0], bx(p[1]), BD.groups[p[0]].top + BD.rowOff[1], '원래 ' + fx(p[1], 3)); });
+      g.origD = [[0, iv(T5.d0).est], [1, iv(T5.d1).est]].map(function (p) { return ring(p[0], dxs(p[1]), BD.groups[p[0]].top + 64, '원래 ' + m3(p[1])); });
       g.rain = q(el, '#rain'); g.def = q(el, '#def'); g.hyp = q(el, '#hyp'); g.hyptx = q(el, '#hyptx'); g.tiny = q(el, '#tiny');
       gsap.set([g.rain, g.def, g.hyp, g.hyptx, g.tiny], { autoAlpha: 0 });
-      /* hypothesis tag: hollow outline, drawn slowly (not a stamp) */
+      /* result tag: hollow outline, drawn slowly (not a verdict stamp) */
       var hs = q(g.hyp, 'svg');
-      g.hypRect = svgEl('rect', { x: 3, y: 3, width: 234, height: 78, rx: 16, fill: 'none', stroke: C.hi, 'stroke-width': 3, 'stroke-dasharray': '10 7' }, hs);
-      g.hypText = txt(hs, 120, 54, '가설', { 'text-anchor': 'middle', fill: C.hi, 'font-size': 38, 'font-weight': 800 });
+      g.hypRect = svgEl('rect', { x: 3, y: 3, width: 274, height: 78, rx: 16, fill: 'none', stroke: C.hi, 'stroke-width': 3, 'stroke-dasharray': '10 7' }, hs);
+      g.hypText = txt(hs, 166, 53, '여전히 아래', { 'text-anchor': 'middle', fill: C.hi, 'font-size': 32, 'font-weight': 800 });
       var eye = svgEl('g', { transform: 'translate(30,26) scale(1.6)', fill: 'none', stroke: C.hi, 'stroke-width': 1.6 }, hs);
       eye.innerHTML = '<path d="M1.8 10S5 4.6 10 4.6 18.2 10 18.2 10 15 15.4 10 15.4 1.8 10 1.8 10z"/><circle cx="10" cy="10" r="2.6"/>';
       /* restart rain: six owners, rain proportional to activeness X_u */
@@ -1195,16 +1358,18 @@
       if (i === 2) {
         growGroup(ctx, tl, g.G0, 0.1);
         tl.fromTo(g.orig[0], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.3);
+        tl.fromTo(g.origD[0], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.8);
         growDiff(ctx, tl, g.G0, 1.0);
       }
       if (i === 3) {
         growGroup(ctx, tl, g.G1, 0, { duration: 0.6, stagger: 0.12 });
         tl.fromTo(g.orig[1], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.15);
+        tl.fromTo(g.origD[1], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.45);
         growDiff(ctx, tl, g.G1, 0.6, { duration: 0.6 });
       }
       if (i === 4) {
         tl.set(g.hyp, { autoAlpha: 1 }, 0);
-        var L = 2 * (234 + 78);
+        var L = 2 * (274 + 78);
         tl.fromTo(g.hypRect, { strokeDasharray: L + ' ' + L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: dur(ctx, 1.4), ease: 'power1.inOut', onComplete: function () { g.hypRect.style.strokeDasharray = '10 7'; g.hypRect.style.strokeDashoffset = '0'; } }, 0.1);
         tl.fromTo([g.hypText, q(g.hyp, 'g')], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6 }, 1.0);
         fadeUp(tl, g.hyptx, 1.1, 0.6);
@@ -1216,6 +1381,12 @@
   /* ================================================================ s08-07 closed form */
   var SWX = 96, SWY = 236;
   var SWV = (PRM.worked_example || {}).stationary || [0.1375, 0.2154, 0.1765, 0.4706];
+  /* c of the real same-window graph (R same_window.closed_form.common_value_c; thesis: 1.93 × 10⁻⁷) */
+  var CC = (function () {
+    var c = get(SW, 'closed_form.common_value_c', 1.928e-7), e = Math.floor(Math.log10(c)), m = fx(c / Math.pow(10, e), 2);
+    if (m === '10.00') { m = '1.00'; e += 1; }
+    return { m: m, e: e, html: m + ' × 10<sup>' + (e < 0 ? '−' + (-e) : e) + '</sup>' };
+  })();
   var slide7 = {
     id: 's08-07', title: '닫힌 식: 엔도스랭크는 사실 무엇을 계산할까', time: 60, steps: 6,
     tags: function (s) { return s === 5 ? ['example'] : s >= 6 ? ['thesis-example', 'example'] : ['thesis-example']; },
@@ -1226,7 +1397,7 @@
       'c는 모든 주인에게 같으니까 합 밖으로 꺼낼 수 있어요. 그러면 c 더하기 c 곱하기 d 곱하기 델타가 되고, c로 묶으면 c 곱하기 괄호 1 더하기 d 곱하기 델타라는 짧은 식이 돼요. 델타는 주인마다 자기 허락 무게 가운데 이 스펜더에게 간 조각을 더한 것이에요. B로 확인해 볼게요. A는 무게 3 가운데 2를 B에 줬으니 3분의 2, 그래서 0.2154가 나와요.',
       'C도 0.1765로 맞아요. 그런데 D는 이 식이 안 맞아요. D의 주인 B와 C가 허락을 받으니까, 한 단계 더 퍼진 몫이 들어와요. 그래서 D는 균형식 그대로 계산해서 0.4706이에요.',
       '델타를 예로 볼게요. 주인 셋이 각각 스펜더 1곳, 2곳, 4곳을 허락했다면, 그냥 센 수는 3이지만 델타는 1 더하기 2분의 1 더하기 4분의 1, 1.75예요.',
-      'c와 d는 모든 한 단계 스펜더에 같으니까, 점수의 순서는 델타의 순서와 같아요. d가 얼마든 상관없어요. 그러니까 엔도스랭크는 사실상 주인 수를, 주인이 허락한 곳의 무게로 나눠 센 값이에요. 그런 스펜더에게는 나이와 금액 무게, 그리고 이 나눗셈 말고는 센 수와 다를 것이 거의 없어요. 퍼뜨려서 더할 정보가 없는 셈이에요. 실제 같은 기간 그래프에서 c는 7.64 곱하기 10의 마이너스 8제곱이에요.'
+      'c와 d는 모든 한 단계 스펜더에 같으니까, 점수의 순서는 델타의 순서와 같아요. d가 얼마든 상관없어요. 그러니까 엔도스랭크는 사실상 주인 수를, 주인이 허락한 곳의 무게로 나눠 센 값이에요. 그런 스펜더에게는 나이와 금액 무게, 그리고 이 나눗셈 말고는 센 수와 다를 것이 거의 없어요. 퍼뜨려서 더할 정보가 없는 셈이에요. 실제 같은 기간 그래프에서 c는 ' + CC.m + ' 곱하기 10의 마이너스 ' + (-CC.e) + '제곱이에요.'
     ],
     html:
       '<h1 class="t-h1">엔도스랭크 ≈ [[나눠 센]] 허락 수</h1>' +
@@ -1236,7 +1407,7 @@
       '<div class="abs s8-d" id="eq" data-in="none" style="left:980px;top:204px;width:844px"></div>' +
       '<div class="s8-symrow" id="syms" data-in="none" style="left:96px;top:832px"></div>' +
       '<svg class="abs s8-pie" id="pie" data-in="none" width="880" height="620" viewBox="0 0 880 620" style="left:96px;top:226px;overflow:visible"></svg>' +
-      '<div class="abs s8-hero" id="concl" data-in="none" style="left:96px;top:856px;width:860px">주인이 여러 곳을 허락할수록 한 곳에 가는 몫이 작아져요<br><span style="font-size:22px;color:var(--ink-3)">→ 센 수와 순서가 달라져요 · 실제 같은 기간 그래프: c = 7.64 × 10<sup>−8</sup></span></div>',
+      '<div class="abs s8-hero" id="concl" data-in="none" style="left:96px;top:856px;width:860px">주인이 여러 곳을 허락할수록 한 곳에 가는 몫이 작아져요<br><span style="font-size:22px;color:var(--ink-3)">→ 센 수와 순서가 달라져요 · 실제 같은 기간 그래프: c = ' + CC.html + '</span></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       g.W = Comp.smallWorld(ctx, q(el, '#swhost'), { x: SWX, y: SWY, cups: { dy: 92, w: 50, h: 60, max: 0.8, decimals: 4, color: C.ink }, shared: 's8-sw' });
@@ -1398,16 +1569,29 @@
   };
 
   /* ================================================================ s08-08 how well the closed form fits + one-page summary */
-  var CF = { spenders: 14406, d1: 12039, deeper: 2367 };
+  var CFR = get(SW, 'closed_form', {}), CF0 = get(W0, 'closed_form', {});
+  var CF = { spenders: CFR.spenders || 6224, d1: CFR.depth_one_spenders || 5232,
+    inDeep: CFR.within_1pct_deeper != null ? CFR.within_1pct_deeper : 0.2188,
+    pD1: pc1(CFR.within_1pct_depth_one != null ? CFR.within_1pct_depth_one : 1),
+    pDeep: pc1(CFR.within_1pct_deeper != null ? CFR.within_1pct_deeper : 0.2188),
+    pAll: pc1(CFR.within_1pct_all != null ? CFR.within_1pct_all : 0.8755),
+    tau: fx(CFR.tau_score_vs_delta != null ? CFR.tau_score_vs_delta : 0.9085, 3),
+    w0n: CF0.spenders || 7905, w0All: pc1(CF0.within_1pct_all != null ? CF0.within_1pct_all : 0.7075) };
+  CF.deeper = CF.spenders - CF.d1;
+  CF.pD1 = CF.pD1.replace(/\.0$/, '');
+  function frow(label, sub, s, color, ghost) {
+    var d = iv(s), gd = ghost ? iv(ghost) : null;
+    return { label: label, sub: sub, est: d.est, lo: d.lo, hi: d.hi, color: color, text: s, ghost: gd ? { est: gd.est, lo: gd.lo, hi: gd.hi } : null };
+  }
   var slide8 = {
     id: 's08-08', title: '닫힌 식은 얼마나 맞을까, 그리고 결과 한 장', time: 45, steps: 4,
     tags: function (s) { return s >= 4 ? ['posthoc', 'registered-analysis'] : []; },
     notes: [
       '이 식이 실제 그래프에서 얼마나 맞는지 확인했어요. 점 하나가 같은 기간 스펜더 10개예요.',
-      '같은 기간의 스펜더 14,406개 가운데 12,039개가 한 단계 스펜더였어요. 진한 호박색이 한 단계, 옅은 색과 장미색 테두리가 더 깊은 스펜더예요.',
-      '한 단계 스펜더는 하나도 빠짐없이 식과 1% 안으로 맞았어요. 나머지 더 깊은 스펜더 2,367개는 26.4%만 맞았는데, 이것은 여러 단계로 퍼지는 몫이 실제로 있다는 뜻이에요. 모두 합치면 87.9%, W0에서는 73.7%예요.',
-      '그런데 그 퍼짐이 있는데도 엔도스랭크는 그냥 센 수를 넘지 못했어요.',
-      '아래는 원시 차수와의 비교 네 개를 한 장에 모은 거예요. 송금 쪽은 걷기가 이기고 허락 쪽은 센 수가 이겨요. 처음 등록한 분석의 회색 표식도 네 방향이 모두 같아요. 네 비교 모두 라벨을 본 뒤에 계산했어요.'
+      '같은 기간의 스펜더 ' + n0(CF.spenders) + '개 가운데 ' + n0(CF.d1) + '개가 한 단계 스펜더였어요. 진한 호박색이 한 단계, 옅은 색과 장미색 테두리가 더 깊은 스펜더예요.',
+      '한 단계 스펜더는 하나도 빠짐없이 식과 1% 안으로 맞았어요. 나머지 더 깊은 스펜더 ' + n0(CF.deeper) + '개는 ' + CF.pDeep + '%만 맞았는데, 이것은 여러 단계로 퍼지는 몫이 실제로 있다는 뜻이에요. 모두 합치면 ' + CF.pAll + '%, W0에서는 ' + CF.w0All + '%예요. 엔도스랭크 점수와 델타의 켄달 타우는 ' + jE(CF.tau) + '.',
+      '그런데 그 퍼짐이 있는데도 엔도스랭크는 그냥 센 수를 넘지 못했어요. 더 깊은 스펜더만 따로 떼어 시험하지는 않았어요. 퍼뜨리기가 센 수에 무엇을 더하는지는 두 단계 넘게 뻗은 더 깊은 표본에서 따로 시험해야 알 수 있어요.',
+      '아래는 원시 차수와의 비교 네 개를 한 장에 모은 거예요. 네 비교 모두 0 왼쪽이에요. 송금 쪽도 허락 쪽도 그냥 센 수가 이겨요. 앞에서 본 다시 출발 변형까지, 어떤 걷기 점수도 자기가 다듬는 센 수를 넘지 못한 거예요. 회색은 처음 등록한 분석이에요. 허락 쪽은 방향이 같고, 송금 쪽은 그 분석에서 AWP가 센 수보다 조금 위였어요. 네 비교 모두 라벨을 본 뒤에 계산했어요.'
     ],
     html:
       '<h1 class="t-h1">한 단계 스펜더는 [[모두]] 식대로예요</h1>' +
@@ -1415,39 +1599,39 @@
         '<div class="abs s8-leg" id="leg" style="left:96px;top:186px"><span><i style="background:#F5B43C"></i>한 단계 · 1% 안</span><span><i style="background:rgba(245,180,60,.42)"></i>더 깊음 · 1% 안</span><span><i style="background:transparent;border:2px solid #FF6B8A;width:12px;height:12px"></i>더 깊음 · 1% 밖</span><span class="ink-3">점 하나 = 스펜더 10개 · 같은 기간</span></div>' +
         '<div id="wf8" style="position:absolute;left:96px;top:232px"></div>' +
         '<div class="abs s8-cnt" id="cnt" style="left:1330px;top:226px;width:494px">' +
-          '<div class="row"><span>같은 기간 스펜더</span><b>14,406</b></div>' +
-          '<div class="row"><span>한 단계 <b>12,039</b>개 → 1% 안</span><span class="pc" id="c1">0%</span></div>' +
-          '<div class="row"><span>더 깊은 <b>2,367</b>개 → 1% 안</span><span class="pc" id="c2" style="color:rgba(245,180,60,.75)">0%</span></div>' +
+          '<div class="row"><span>같은 기간 스펜더</span><b>' + n0(CF.spenders) + '</b></div>' +
+          '<div class="row"><span>한 단계 <b>' + n0(CF.d1) + '</b>개 → 1% 안</span><span class="pc" id="c1">0%</span></div>' +
+          '<div class="row"><span>더 깊은 <b>' + n0(CF.deeper) + '</b>개 → 1% 안</span><span class="pc" id="c2" style="color:rgba(245,180,60,.75)">0%</span></div>' +
           '<div class="row" style="border-bottom:0"><span>모두</span><span class="pc" id="c3" style="color:var(--ink)">0%</span></div>' +
-          '<div id="w0l" style="font-size:21px;color:var(--ink-3);margin-top:6px">W0: 스펜더 <b>17,032</b>개 · 모두 <b>73.7%</b></div>' +
+          '<div id="w0l" style="font-size:21px;color:var(--ink-3);margin-top:6px">W0: 스펜더 <b>' + n0(CF.w0n) + '</b>개 · 모두 <b>' + CF.w0All + '%</b><br>점수와 δ의 켄달 τ <b>' + CF.tau + '</b> (같은 기간)</div>' +
         '</div>' +
         '<p class="abs s8-concl" id="concl" style="left:96px;top:700px;width:1700px">퍼짐은 있었지만, 엔도스랭크가 센 수를 넘게 해 주지는 못했어요</p>' +
       '</div>' +
-      '<div class="abs s8-reason" id="mini" data-in="none" style="left:720px;top:214px;width:1100px">식과 1% 안으로 맞은 스펜더(같은 기간)<br><b class="c-allow tnum">한 단계 100%</b> · <b class="tnum" style="color:rgba(245,180,60,.8)">더 깊음 26.4%</b> · <b class="tnum">모두 87.9%</b><br><span style="font-size:22px;color:var(--ink-3)">퍼짐은 있었지만, 센 수를 넘게 해 주지는 못했어요</span></div>' +
+      '<div class="abs s8-reason" id="mini" data-in="none" style="left:720px;top:214px;width:1100px">식과 1% 안으로 맞은 스펜더(같은 기간)<br><b class="c-allow tnum">한 단계 ' + CF.pD1 + '%</b> · <b class="tnum" style="color:rgba(245,180,60,.8)">더 깊음 ' + CF.pDeep + '%</b> · <b class="tnum">모두 ' + CF.pAll + '%</b><br><span style="font-size:22px;color:var(--ink-3)">퍼짐은 있었지만, 센 수를 넘게 해 주지는 못했어요</span></div>' +
       '<div class="abs" id="sum" data-in="none" style="left:96px;top:478px;width:1728px">' +
-        '<div class="s8-sumhd">원시 차수와의 비교 넷 — 수정 분석과 등록 분석의 방향이 모두 같아요</div>' +
-        '<div class="s8-tiny" style="margin:4px 0 0">' + pill('posthoc') + '<span>모두 라벨을 본 뒤 계산 · 색 점 = 수정 분석(본 결과) · 회색 빈 점 = 등록 분석</span></div>' +
+        '<div class="s8-sumhd">원시 차수와의 비교 넷 — 넷 모두 그냥 센 수가 이겨요</div>' +
+        '<div class="s8-tiny" style="margin:4px 0 0">' + pill('posthoc') + '<span>모두 라벨을 본 뒤 계산 · 색 점 = 수정 분석(본 결과) · 회색 빈 점 = 등록 분석(송금 쪽은 AWP가 조금 위)</span></div>' +
         '<div id="fp" style="margin-top:6px"></div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       g.top = q(el, '#top'); g.leg = q(el, '#leg'); g.mini = q(el, '#mini'); g.cnt = q(el, '#cnt'); g.concl = q(el, '#concl'); g.sum = q(el, '#sum'); g.w0l = q(el, '#w0l');
       g.c1 = q(el, '#c1'); g.c2 = q(el, '#c2'); g.c3 = q(el, '#c3');
       gsap.set([g.cnt, g.concl, g.sum, g.w0l, g.mini], { autoAlpha: 0 });
-      /* 1,441 dots: 1,204 depth-one (12,039/10), 63 deeper within 1 % (2,367 × 0.2645 / 10), 174 deeper outside */
-      var N1 = Math.round(CF.d1 / 10), NIN = Math.round(CF.deeper * 0.26447 / 10), NT = Math.round(CF.spenders / 10), NOUT = NT - N1 - NIN;
+      /* 622 dots: 523 depth-one (5,232 / 10), 22 deeper within 1 % (992 × 0.2188 / 10), 77 deeper outside */
+      var N1 = Math.round(CF.d1 / 10), NIN = Math.round(CF.deeper * CF.inDeep / 10), NT = Math.round(CF.spenders / 10), NOUT = NT - N1 - NIN;
       g.N1 = N1; g.NIN = NIN; g.NOUT = NOUT;
-      g.WF = waffle(ctx, q(el, '#wf8'), { n: NT, max: NT, cols: 64, gap: 18.2, r: 6.2, style: function (i, hq) {
+      g.WF = waffle(ctx, q(el, '#wf8'), { n: NT, max: NT, cols: 44, gap: 26.4, r: 9, style: function (i, hq) {
         if (i < N1) return { fill: C.allow };
         if (i < N1 + NIN) return { fill: 'rgba(245,180,60,.42)' };
-        return { fill: C.bg2, stroke: C.hi, lw: 1.8 };
+        return { fill: C.bg2, stroke: C.hi, lw: 2.2 };
       } });
-      g.F = Comp.forest(ctx, q(el, '#fp'), { w: 1728, rowH: 86, labelWidth: 470, valueWidth: 300, domain: [-0.05, 0.06], ticks: [-0.04, -0.02, 0, 0.02, 0.04, 0.06], hidden: true,
+      g.F = Comp.forest(ctx, q(el, '#fp'), { w: 1728, rowH: 86, labelWidth: 470, valueWidth: 300, domain: [-0.11, 0.05], ticks: [-0.1, -0.08, -0.06, -0.04, -0.02, 0, 0.02, 0.04], hidden: true,
         tickFormat: function (t) { return t === 0 ? '0' : sfmt(t, 2); }, axisLabel: '짝지은 차이 Δτ (← 그냥 센 수가 나음 · 걷는 점수가 나음 →)',
         rows: [
-          { label: 'AWP − 송금 입차수', sub: 'W0 · 새 송금자', est: 0.043, lo: 0.038, hi: 0.048, color: 'xfer', text: '+0.043 [0.038, 0.048]', ghost: { est: 0.038, lo: 0.035, hi: 0.042 } },
-          { label: 'AWP − 송금 입차수', sub: 'W1 · 새 송금자', est: 0.022, lo: 0.017, hi: 0.027, color: 'xfer', text: '+0.022 [0.017, 0.027]', ghost: { est: 0.020, lo: 0.016, hi: 0.023 } },
-          { label: '엔도스랭크 − 받은 허락 수', sub: 'W0 · 새 허락 쌍', est: -0.019, lo: -0.026, hi: -0.011, color: 'allow', text: '−0.019 [−0.026, −0.011]', ghost: { est: -0.011, lo: -0.016, hi: -0.006 } },
-          { label: '엔도스랭크 − 받은 허락 수', sub: 'W1 · 새 허락 쌍', est: -0.034, lo: -0.038, hi: -0.029, color: 'allow', text: '−0.034 [−0.038, −0.029]', ghost: { est: -0.029, lo: -0.032, hi: -0.025 } }
+          frow('AWP − 송금 입차수', 'W0 · 새 송금자', T4.d0, 'xfer', T4.g0),
+          frow('AWP − 송금 입차수', 'W1 · 새 송금자', T4.d1, 'xfer', T4.g1),
+          frow('엔도스랭크 − 받은 허락 수', 'W0 · 새 허락 쌍', T5.d0, 'allow', T5.g0),
+          frow('엔도스랭크 − 받은 허락 수', 'W1 · 새 허락 쌍', T5.d1, 'allow', T5.g1)
         ] });
     },
     enter: function (el, ctx) {
@@ -1461,9 +1645,9 @@
         fadeUp(tl, g.cnt, 0.3, 0.5);
       }
       if (i === 2) {
-        tl.add(ctx.count(g.c1, 0, 100, { decimals: 0, suffix: '%', final: '100%', duration: 1.0 }), 0);
-        tl.add(ctx.count(g.c2, 0, 26.4, { decimals: 1, suffix: '%', final: '26.4%', duration: 1.0 }), 0.35);
-        tl.add(ctx.count(g.c3, 0, 87.9, { decimals: 1, suffix: '%', final: '87.9%', duration: 1.0 }), 0.7);
+        tl.add(ctx.count(g.c1, 0, +CF.pD1, { decimals: 0, suffix: '%', final: CF.pD1 + '%', duration: 1.0 }), 0);
+        tl.add(ctx.count(g.c2, 0, +CF.pDeep, { decimals: 1, suffix: '%', final: CF.pDeep + '%', duration: 1.0 }), 0.35);
+        tl.add(ctx.count(g.c3, 0, +CF.pAll, { decimals: 1, suffix: '%', final: CF.pAll + '%', duration: 1.0 }), 0.7);
         fadeUp(tl, g.w0l, 1.4, 0.4);
       }
       if (i === 3) fadeUp(tl, g.concl, 0.1, 0.5);

@@ -14,19 +14,19 @@
    s05-05  Weights and restarts         AWP: every transfer adds σ·V; EndorseRank: latest approval per
                                          token; restart halos (activeness vs uniform)
    s05-06  USD amounts and the cap U    base units → dollars; one owner's row swallowed by an unlimited
-                                         approval; the cap U cuts it to 97.6 % / 2.4 %
+                                         approval; the cap U cuts it to 97.4 % / 2.6 %
 
-   Numbers and sources
-     k = 0.01, t0 = 180 days, m_T = 200, m_A = 62, raw medians 203.7129 / 61.5102, b_T, b_A, U = 20,000,
-     raw p99 of transfers 20,266.4, first cap definition ≈ 1e47 — DECK_DATA.params (decay, value, cap) =
-       revised digest R§D constants.*
-     σ(0) = 0.8581 — R§8 sigma0; σ table 0.711 / 0.5 / 0.136 / 0.004 / 0.0003 — computed from k, t0 (calc)
-     transfers 1,073,838,657 and finite allowances 6,491,970 up to t1 — R§D constants.raw.n_transfers,
-       constants.raw.n_finite_allowances (digest values, written here)
+   Numbers and sources (R = revised digest, experiments/data/3-published-results-for-thesis/revised-usd-12m)
+     k = 0.01, t0 = 180 days, m_T = 170, m_A = 100, raw medians 169.331 / 99.97, b_T, b_A, U = 19,000,
+     raw p99 of transfers 18,575.3, p99 of the finite allowances ≈ 1e63 — DECK_DATA.params (decay, value,
+       cap) = R§D constants.*, all from the W0 score window (2025-04-01 to t1)
+     σ(0) = 0.8581 — R§8 sigma0; σ at 0 / 90 / 180 / 273 / 365 days = DECK_DATA.params.decay.table;
+       ages 0–365 days = DECK_DATA.timeline.anchors.max_age_days_tobs (score window of twelve months)
+     transfers 492,666,999 and finite allowances 2,324,723 in the W0 score window — R§D
+       constants.raw.n_transfers, constants.raw.n_finite_allowances (digest values, written here)
      99.52 %, 99.78 % (≥ 10 base units) — registered digest G§D amounts.*_ge10_share
        = DECK_DATA.scale.registered.amounts, status tag registered-analysis
-     45.8 %, 53.8 %, 797,852 — R§D amounts.* = DECK_DATA.scale.revised.amounts
-     2705b28 — revised digest header (code revision of the amended cap)
+     49.8 %, 55.7 %, 256,803 — R§D amounts.* = DECK_DATA.scale.revised.amounts
      every dollar amount, date and token on s05-01, s05-04 (coins), s05-05 and s05-06 is an example;
        their weights are computed with the formulas above (calc)
      English edition: amounts on screen are written "N USD" (never "$N", which KaTeX auto-render
@@ -39,18 +39,20 @@
   var DATA = window.DECK_DATA || {};
   var PRM = DATA.params || {}, DEC = PRM.decay || {}, VAL = PRM.value || {}, CAP = PRM.cap || {};
   var K = DEC.k != null ? DEC.k : 0.01, T0 = DEC.t0_days != null ? DEC.t0_days : 180;
-  var MT = VAL.m_T || 200, MA = VAL.m_A || 62, MT_RAW = VAL.m_T_raw || 203.7129, MA_RAW = VAL.m_A_raw || 61.5102;
+  var MT = VAL.m_T || 170, MA = VAL.m_A || 100, MT_RAW = VAL.m_T_raw || 169.331, MA_RAW = VAL.m_A_raw || 99.97;
   var LN3 = Math.log(3), BT = LN3 / MT, BA = LN3 / MA;
-  var U = CAP.U_usd || 20000, P99T = CAP.p99_transfer_usd_raw || 20266.3877;
+  var U = CAP.U_usd || 19000, P99T = CAP.p99_transfer_usd_raw || 18575.2783;
+  var P99A = CAP.p99_finite_allowance_usd_raw || 9.232e62, E99A = Math.round(Math.log(P99A) / Math.LN10);   /* ≈ 1e63 */
   var AMR = (((DATA.scale || {}).revised || {}).amounts) || {};
   var AMG = (((DATA.scale || {}).registered || {}).amounts) || {};
-  var UNL = AMR.unlimited_share != null ? AMR.unlimited_share : 0.4578;
-  var ATCAP = AMR.allowances_at_or_above_cap_share != null ? AMR.allowances_at_or_above_cap_share : 0.5382;
-  var BOTH = AMR.owners_with_both_kinds != null ? AMR.owners_with_both_kinds : 797852;
+  var UNL = AMR.unlimited_share != null ? AMR.unlimited_share : 0.4981;
+  var ATCAP = AMR.allowances_at_or_above_cap_share != null ? AMR.allowances_at_or_above_cap_share : 0.5571;
+  var BOTH = AMR.owners_with_both_kinds != null ? AMR.owners_with_both_kinds : 256803;
   var GE10T = AMG.transfers_ge10_share != null ? AMG.transfers_ge10_share : 0.9952;
   var GE10A = AMG.allowances_ge10_share != null ? AMG.allowances_ge10_share : 0.9978;
-  var N_TRANSFERS = 1073838657, N_FINITE_ALLOW = 6491970;          /* R§D constants.raw.* */
-  var MAX_AGE = 1004;                                              /* oldest event at T_obs (thesis Ch. 3) */
+  var N_TRANSFERS = 492666999, N_FINITE_ALLOW = 2324723;           /* R§D constants.raw.* (W0 score window) */
+  var MAX_AGE = (((DATA.timeline || {}).anchors || {}).max_age_days_tobs) || 365;   /* oldest age in a score window (thesis Ch. 3) */
+  var DEC_TAB = DEC.table || [[0, 0.8581], [90, 0.7109], [180, 0.5], [273, 0.2829], [365, 0.1359]];
 
   function sigma(dt) { return 1 / (1 + Math.exp(K * (dt - T0))); }
   function V(z, b) { return 2 / (1 + Math.exp(-b * z)) - 1; }
@@ -61,6 +63,8 @@
   function n0(v) { return fmt(v, 0); }
   function pct(v) { return fmt(v * 100, 1) + '%'; }
   function pct2(v) { return fmt(v * 100, 2) + '%'; }
+  function texN(v) { return n0(v).replace(/,/g, '{,}'); }           /* 19000 → '19{,}000' for KaTeX */
+  function w4s(v) { return f4(v).replace(/0+$/, '').replace(/\.$/, ''); }   /* 0.2500 → '0.25' */
 
   /* ------------------------------------------------------------ section styles */
   var CSS = [
@@ -75,7 +79,7 @@
     '.s5-note b{color:var(--ink)}',
     '.s5-tx{font-size:30px;line-height:44px}',
     '.s5-tx .katex-display{margin:0;text-align:left}.s5-tx .katex-display>.katex{text-align:left}',
-    '.s5-read{font-family:var(--font-mono);font-size:21px;line-height:32px;color:var(--ink-2);letter-spacing:0;padding:10px 14px;border-radius:12px;background:var(--bg-3);white-space:nowrap}',   /* EN: 21px so "Δt = 1,100 days → …" fits the panel */
+    '.s5-read{font-family:var(--font-mono);font-size:21px;line-height:32px;color:var(--ink-2);letter-spacing:0;padding:10px 14px;border-radius:12px;background:var(--bg-3);white-space:nowrap}',   /* EN: 21px so "Δt = 365 days → …" fits the panel */
     '.s5-read b{color:var(--ink);font-weight:700}',
     '.s5-read .hl2{color:var(--c-hi)}',
     /* custom derivation list that can fold finished steps */
@@ -287,12 +291,12 @@
   }
   function miniSigma() {
     var w = 250, h = 120, s = '<svg class="mini" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '">', d = '';
-    for (var i = 0; i <= 60; i++) { var dt = i / 60 * 800, x = 10 + dt / 800 * 230, y = 104 - sigma(dt) * 86; d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
+    for (var i = 0; i <= 60; i++) { var dt = i / 60 * MAX_AGE, x = 10 + dt / MAX_AGE * 230, y = 104 - sigma(dt) * 86; d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
     s += '<line x1="10" x2="240" y1="104" y2="104" stroke="' + C.line + '" stroke-width="1.5"/>';
     s += '<path d="' + d + '" fill="none" stroke="' + C.ink2 + '" stroke-width="2.5"/>';
-    var x1 = 10 + 1 / 800 * 230, y1 = 104 - sigma(1) * 86, x2 = 10 + 730 / 800 * 230, y2 = 104 - sigma(730) * 86;
+    var x1 = 10 + 1 / MAX_AGE * 230, y1 = 104 - sigma(1) * 86, x2 = 10 + 230, y2 = 104 - sigma(MAX_AGE) * 86;   /* 1 day and 365 days (first day of the score window) */
     s += '<circle cx="' + x1 + '" cy="' + y1 + '" r="6" fill="' + C.ink + '"/><text x="' + (x1 + 12) + '" y="' + (y1 + 4) + '" fill="' + C.ink2 + '" font-size="16">yesterday</text>';
-    s += '<circle class="old" cx="' + x2 + '" cy="' + y2 + '" r="6" fill="' + C.ink + '"/><text class="old" x="' + (x2 - 4) + '" y="' + (y2 - 14) + '" fill="' + C.ink2 + '" font-size="16" text-anchor="end">2 years ago</text>';
+    s += '<circle class="old" cx="' + x2 + '" cy="' + y2 + '" r="6" fill="' + C.ink + '"/><text class="old" x="' + (x2 - 4) + '" y="' + (y2 - 14) + '" fill="' + C.ink2 + '" font-size="16" text-anchor="end">a year ago</text>';
     return s + '</svg>';
   }
   function miniV() {
@@ -311,13 +315,13 @@
     id: 's05-01', title: 'Why edges weigh differently', time: 30, steps: 3,
     notes: [
       'Earlier I simply set the edge weights to 2, 1, 3 and 1. How do we set these weights in real data? Two approvals should not always weigh the same.',
-      'An approval made yesterday and one made two years ago do not mean the same thing today. The older the approval, the less it counts. This is the time weight, sigma.',
+      'An approval made yesterday and one made a year ago do not mean the same thing today. The older the approval, the less it counts. This is the time weight, sigma.',
       'An approval of 5 dollars and one of 5,000 dollars also differ. The larger the approval, the more it counts, but however large it is, the weight has a limit. This is the value weight, V.',
       'So the weight of one event is the time weight times the value weight. AWP, which scores the transfer graph, introduced these weights, and this study carries the same weights over to the allowance graph unchanged. On the next two slides I derive the two weights one at a time.'
     ],
     html: '<h1 class="t-h1">Not every approval has the same [[weight]]</h1>' +
       '<p class="s5-sub">Earlier we set the weights to 2, 1, 3, 1 · how are they set in real data?</p>' +
-      '<div class="s5-row" id="r1" data-step="1" style="top:258px">' + clockIcon() + '<div class="tt"><div class="h">Approved yesterday vs <span id="old">2 years ago</span></div>' +
+      '<div class="s5-row" id="r1" data-step="1" style="top:258px">' + clockIcon() + '<div class="tt"><div class="h">Approved yesterday vs <span id="old">a year ago</span></div>' +
         '<div class="s">Older counts less → <b>time weight σ</b></div></div>' + miniSigma() + '</div>' +
       '<div class="s5-row" id="r2" data-step="2" style="top:452px">' + coinIcon() + '<div class="tt"><div class="h">5 USD vs 5,000 USD approved</div>' +
         '<div class="s">Larger counts more · up to 1 → <b>value weight V</b></div></div>' + miniV() + '</div>' +
@@ -348,7 +352,7 @@
       var g = ctx.g, tl = ctx.tl();
       if (i === 1) {
         tl.add(g.AB.setLabel('yesterday'), 0.1);
-        tl.add(g.AC.setLabel('2 years ago'), 0.1);
+        tl.add(g.AC.setLabel('a year ago'), 0.1);
         tl.to(g.example, { autoAlpha: 1, duration: 0.3 }, 0.3);
         var r1 = q(el, '#r1');
         tl.fromTo(q(r1, '.hand-m'), { rotation: 0, svgOrigin: '36 36' }, { rotation: 720, svgOrigin: '36 36', duration: 1.6, ease: 'power2.inOut' }, 0.5);
@@ -384,20 +388,21 @@
   };
 
   /* ================================================================ s05-02 */
-  var P2 = { x: 96, y: 236, w: 920, h: 600, l: 80, r: 890, t: 52, b: 520, xd: [0, 1100] };
-  var AGES = [0, 180, 365, 730, MAX_AGE];
-  var LIN_END = 400;                                               /* the straight line 1 − Δt/360, drawn to 400 days */
+  var XMAX = MAX_AGE + 35;                                         /* x-axis to 400 days: the band of ages 0–365 and a small margin */
+  var P2 = { x: 96, y: 236, w: 920, h: 600, l: 80, r: 890, t: 52, b: 520, xd: [0, XMAX] };
+  var AGES = DEC_TAB.map(function (r) { return r[0]; });           /* ruler ticks = ages of the decay table: 0, 90, 180, 273, 365 */
+  var LIN_END = MAX_AGE;                                           /* the straight line 1 − Δt/360, drawn to the oldest age: 365 days → −0.014 */
   var EXP_S = [-2, -1, 0, 1, 2];                                   /* e^s table: 0.14, 0.37, 1, 2.7, 7.4 (calc) */
   function sx(s) { return 20 + (s + 2) / 4 * 600; }                /* s-axis of the derivation pictures */
   var s2 = {
     id: 's05-02', title: 'Time weight σ(Δt): half at 180 days', time: 60, steps: 6,
     notes: [
-      'Let us build the time weight first. The horizontal axis is how many days before the anchor date an event happened. The age ruler from the data section has turned around and become this axis. The oldest record is 1,004 days old.',
+      'Let us build the time weight first. The horizontal axis is how many days before the anchor date an event happened. The age ruler from the data section has turned around and become this axis. Scores use the twelve months before the anchor date, so the oldest record is 365 days old.',
       'We want four things: a value between 0 and 1, a large weight for new events, a weight that shrinks smoothly as events get older, and exactly one half at 180 days.',
-      'The simplest way is a straight line. Start at 1 and subtract one 360th per day, and at 180 days you get exactly one half. But after 360 days the line drops below 0. An event 400 days old gets minus 0.11. A weight cannot be negative, so the straight line does not work.',
+      'The simplest way is a straight line. Start at 1 and subtract one 360th per day, and at 180 days you get exactly one half. But at 360 days the line reaches 0, and after that it drops below 0. An event from the first day of the score window, 365 days old, gets minus 0.014. A weight cannot be negative, so the straight line does not work.',
       'So we take another route. First we measure how much older than 180 days an event is, as a penalty s. s is k times (delta t minus 180), and k is 0.01. An event from today has s of minus 1.8, one from 180 days ago has 0, and one from a year ago has 1.85.',
       'We put this penalty in the exponent of e. e is the natural constant, about 2.718. e to the power 1 is about 2.7, e squared is about 7.4, and e to the power 0 is 1. A negative exponent means we flip and divide: e to the minus 1 is 1 divided by e, about 0.37, and e to the minus 2 is about 0.14. So e to the s is always greater than 0, whatever s is. For an event from today it is e to the minus 1.8, that is 1 divided by 6.05, about 0.165.',
-      'Now we divide 1 by 1 plus e to the s. The denominator is always greater than 1, so the result always lies between 0 and 1. When s is 0 we get 1 over 2, exactly one half, and when s is large we get close to 0. When s is a very large negative number we get close to 1. For example, at s of minus 5, e to the minus 5 is 0.007, so sigma is 0.993. All four wishes hold. So an event from today counts 0.858, one from a year ago 0.136, and one from two years ago only 0.004. The thesis also writes e to the power of something as exp. It means the same. This is the logistic decay formula in Chapter 3 of the thesis.',
+      'Now we divide 1 by 1 plus e to the s. The denominator is always greater than 1, so the result always lies between 0 and 1. When s is 0 we get 1 over 2, exactly one half, and when s is large we get close to 0. When s is a very large negative number we get close to 1. For example, at s of minus 5, e to the minus 5 is 0.007, so sigma is 0.993. All four wishes hold. So an event from today counts 0.858, one from 90 days ago 0.711, and one from a year ago, the first day of the score window, only 0.136. The thesis also writes e to the power of something as exp. It means the same. This is the logistic decay formula in Chapter 3 of the thesis.',
       'One more thing: 1 minus sigma is e to the s divided by 1 plus e to the s. So the remaining weight divided by the vanished weight is 1 over e to the s, that is e to the minus s. Since k times 100 is 1, this ratio shrinks by a factor of e, about 2.7, every 100 days. Drag the handle below to see the weight of any day.'
     ],
     html: '<h1 class="t-h1">Half the weight after [[180 days]]</h1>' +
@@ -409,10 +414,9 @@
       var g = ctx.g = {};
       var P = g.P = plot(ctx, el, P2);
       g.yax = yAxis(P, [[0, '0'], [0.5, '0.5'], [1, '1']], 'Time weight σ');
-      /* band of ages that occur at T_obs */
+      /* band of the ages that enter a score (0–365 days at both freezes); its label sits under the axis, left */
       g.band = S('rect', { x: P.px(0), y: P.t, width: P.px(MAX_AGE) - P.px(0), height: P.b - P.t, fill: 'rgba(233,237,245,.035)' }, P.grid);
-      g.bandL = txt(P.grid, P.px(MAX_AGE) - 6, P.t + 22, '', { anchor: 'end', size: 17 });
-      g.bandL.innerHTML = 'Ages at T<tspan baseline-shift="sub" font-size="12">obs</tspan><tspan>: 0–1,004 days</tspan>';
+      g.bandL = txt(P.grid, P.l, P.b + 64, 'Ages that enter a score: 0–' + n0(MAX_AGE) + ' days (shaded band)', { size: 17 });
       /* the straight-line attempt 1 − Δt/360: behind the ruler labels (which carry a halo) */
       g.lin = S('g', {}, P.grid);
       g.lin1 = S('path', { d: 'M' + P.px(0) + ',' + P.py(1) + 'L' + P.px(360) + ',' + P.py(0), fill: 'none', stroke: C.ink2, 'stroke-width': 3, 'stroke-dasharray': '9 7', 'stroke-linecap': 'round' }, g.lin);
@@ -421,36 +425,39 @@
       S('circle', { cx: P.px(180), cy: P.py(0.5), r: 6, fill: C.ink2, stroke: C.bg, 'stroke-width': 2 }, g.linMid);
       txt(g.linMid, P.px(180) + 14, P.py(0.5) - 10, '180 days → 1/2 ✓', { size: 19, fill: C.ink2, weight: 600, cls: 's5-halo' });
       g.linX = S('g', {}, g.lin);
-      var xe = P.px(LIN_END), ye = P.py(1 - LIN_END / 360);
+      var xe = P.px(LIN_END), ye = P.py(1 - LIN_END / 360), ly = P.py(0.4);
       S('path', { d: 'M' + (xe - 8) + ',' + (ye - 8) + 'L' + (xe + 8) + ',' + (ye + 8) + 'M' + (xe + 8) + ',' + (ye - 8) + 'L' + (xe - 8) + ',' + (ye + 8), stroke: C.hi, 'stroke-width': 3.5, 'stroke-linecap': 'round' }, g.linX);
-      txt(g.linX, xe + 16, ye + 7, '400 days → −0.11 · negative!', { size: 19, fill: C.hi, weight: 700, cls: 's5-halo' });
+      /* the label sits above the line's end (the x-axis runs out at 400 days), with a leader down to the ✕ */
+      S('path', { d: 'M' + (xe - 6) + ',' + (ly + 10) + 'L' + xe + ',' + (ye - 12), fill: 'none', stroke: C.hi, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, g.linX);
+      txt(g.linX, xe - 4, ly, n0(LIN_END) + ' days → −' + fmt(LIN_END / 360 - 1, 3) + ' · negative!', { anchor: 'end', size: 19, fill: C.hi, weight: 700, cls: 's5-halo' });
       gsap.set([g.lin1, g.lin2, g.linMid, g.linX], { autoAlpha: 0 });
-      /* the age ruler (s03-01): reversed at first (1,004 left, 0 right), then turns into the axis */
+      /* the age ruler (s03-01): reversed at first (365 left, 0 right), then turns into the axis */
       g.ruler = S('g', {}, P.grid);
       g.rLine = S('line', { x1: P.px(0), x2: P.px(MAX_AGE), y1: 0, y2: 0, stroke: C.ink2, 'stroke-width': 2 }, g.ruler);
       g.rTicks = AGES.map(function (a) {
         var tg = S('g', {}, g.ruler);
         S('line', { x1: 0, x2: 0, y1: -9, y2: 9, stroke: C.ink2, 'stroke-width': 2 }, tg);
-        txt(tg, 0, 34, a === MAX_AGE ? '1,004 days' : a === 0 ? '0 days' : String(a), { anchor: 'middle', size: 20, fill: C.ink2, cls: 'svg-mono s5-halo' });
+        txt(tg, 0, 34, a === MAX_AGE ? n0(MAX_AGE) + ' days' : a === 0 ? '0 days' : String(a), { anchor: 'middle', size: 20, fill: C.ink2, cls: 'svg-mono s5-halo' });
         return { g: tg, a: a };
       });
       g.xTitle = txt(P.grid, P.r, P.b + 64, 'Δt = age in days', { anchor: 'end', size: 20, fill: C.ink2 });
-      /* σ curve, points, ratio bars */
-      var d = curvePath(P, sigma, 0, 1100, 220);
+      /* σ curve (ages 0–365 only), points, ratio bars */
+      var d = curvePath(P, sigma, 0, MAX_AGE, 146);
       g.curve = S('path', { d: d, fill: 'none', stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, P.main);
       gsap.set(g.curve, { autoAlpha: 0 });
       g.cross = S('g', {}, P.under);
       S('line', { x1: P.l, x2: P.px(T0), y1: P.py(0.5), y2: P.py(0.5), stroke: C.hi, 'stroke-width': 1.5, 'stroke-dasharray': '5 6' }, g.cross);
       S('line', { x1: P.px(T0), x2: P.px(T0), y1: P.py(0.5), y2: P.b, stroke: C.hi, 'stroke-width': 1.5, 'stroke-dasharray': '5 6' }, g.cross);
       gsap.set(g.cross, { autoAlpha: 0 });
-      var PTS = [[0, 'today', 'r'], [90, '90 days', 'r'], [180, '180 days', 'r'], [365, '1 year', 'r'], [730, '2 years', 'u'], [MAX_AGE, '1,004 days', 'u']];
+      /* points = DECK_DATA.params.decay.table (0, 90, 180, 273, 365 days); the last label goes below-left of its point */
+      var PTS = DEC_TAB.map(function (r) { return [r[0], r[0] === 0 ? 'today' : r[0] === MAX_AGE ? '1 year' : r[0] + ' days', r[0] === MAX_AGE ? 'dl' : 'r', r[1]]; });
       g.pts = PTS.map(function (p) {
         var x = P.px(p[0]), y = P.py(sigma(p[0])), pg = S('g', {}, P.over);
         S('circle', { cx: x, cy: y, r: 7, fill: C.ink, stroke: C.bg, 'stroke-width': 2 }, pg);
-        var v = p[0] === 180 ? '0.5' : p[0] === MAX_AGE ? fmt(sigma(p[0]), 4) : fmt(sigma(p[0]), 3);
+        var v = p[0] === 180 ? '0.5' : fmt(p[3], 3);
         var lab = p[1] + ' ' + v;
         if (p[2] === 'r') txt(pg, x + 14, y - 10, lab, { size: 19, fill: p[0] === 180 ? C.hi : C.ink, weight: 600, cls: 's5-halo' });
-        else txt(pg, x, y - (p[0] === MAX_AGE ? 42 : 18), lab, { anchor: p[0] === MAX_AGE ? 'end' : 'middle', size: 19, fill: C.ink, weight: 600, cls: 's5-halo' });   /* EN: 1,004-day label raised, clear of the 2-year label */
+        else txt(pg, x - 12, y + 28, lab, { anchor: 'end', size: 19, fill: C.ink, weight: 600, cls: 's5-halo' });
         gsap.set(pg, { autoAlpha: 0 });
         return pg;
       });
@@ -469,9 +476,9 @@
       g.hit = S('rect', { x: P.l - 10, y: P.b - 30, width: P.r - P.l + 20, height: 64, fill: 'transparent', 'class': 'no-advance', style: 'cursor:ew-resize' }, P.over);
       gsap.set([g.hd, g.hit], { autoAlpha: 0 });
       g.state = { dt: 0, curve: false };
-      /* checklist (upper right of the plot) */
+      /* checklist (upper right of the plot, above the curve and right of the 90- and 180-day labels) */
       var ck = g.check = H('div', 's5-check', el); ck.setAttribute('data-in', 'none');
-      ck.style.left = (P2.x + P.px(500)) + 'px'; ck.style.top = (P2.y + P.t + 30) + 'px';
+      ck.style.left = (P2.x + P.px(XMAX * 0.52)) + 'px'; ck.style.top = (P2.y + P.t - 40) + 'px';   /* bottom stays above the 180-day labels */
       H('div', 't', ck, 'What we want');
       g.items = ['between 0 and 1', 'large for new events', 'smaller with age, smoothly', 'exactly 1/2 at 180 days'].map(function (t, k) {
         var cross = k === 0 ? '<path class="xx" d="M5,5 L25,25 M25,5 L5,25" fill="none" stroke="' + C.hi + '" stroke-width="3.5" stroke-linecap="round"/>' : '';
@@ -495,7 +502,7 @@
         }).join('') +
         '<text x="0" y="14" fill="' + C.ink3 + '" font-size="16">← close to 0, but never 0 · grows fast to the right →</text></svg>';
       g.dv = Deriv(ctx, q(el, '#dv'), { head: 'Derivation', lines: [
-        { tex: '1-\\frac{\\Delta t}{360}', display: false, note: 'Try a straight line · 180 days → 1 − 1/2 = 1/2 ✓ · but 400 days → 1&nbsp;−&nbsp;400/360&nbsp;≈&nbsp;−0.11 <b style="color:var(--c-hi)">✕ negative!</b>' },
+        { tex: '1-\\frac{\\Delta t}{360}', display: false, note: 'Try a straight line · 180 days → 1 − 1/2 = 1/2 ✓ · but 360 days → 0, 365 days → 1&nbsp;−&nbsp;365/360&nbsp;≈&nbsp;−0.014 <b style="color:var(--c-hi)">✕ negative!</b>' },
         { tex: 's=k\\,(\\Delta t-t_0)', display: false, note: 'Penalty s: how much older than 180 days · e.g. Δt&nbsp;=&nbsp;0 gives s&nbsp;=&nbsp;0.01&nbsp;×&nbsp;(0&nbsp;−&nbsp;180)&nbsp;=&nbsp;−1.8', html: sline },
         { tex: 'e^{-1.8}=\\frac{1}{e^{1.8}}=\\frac{1}{6.05}\\approx0.165', display: false, note: 'Negative exponent: 1 ÷ (positive exponent) · so eˢ is always above 0', html: etab },
         { tex: '\\sigma=\\frac{1}{1+e^{s}}', note: 'The denominator 1 + eˢ is always above 1 → σ lies between 0 and 1 ✓ · s = 0 → 1/(1+1) = 1/2 ✓ · large s → 0 ✓ · very negative s → 1 ✓ (s&nbsp;=&nbsp;−5 → e⁻⁵&nbsp;=&nbsp;0.007 → σ&nbsp;=&nbsp;0.993) · Δt&nbsp;=&nbsp;0 → 1/(1+0.165)&nbsp;=&nbsp;0.858' },
@@ -517,7 +524,7 @@
       setHandle(ctx, 0);
       /* drag */
       var drag = false;
-      function pick(e) { var p = ctx.toStage(e); var dt = (p.x - P2.x - P.l) / (P.r - P.l) * 1100; dt = Math.max(0, Math.min(1100, Math.round(dt))); setHandle(ctx, dt); }
+      function pick(e) { var p = ctx.toStage(e); var dt = (p.x - P2.x - P.l) / (P.r - P.l) * XMAX; dt = Math.max(0, Math.min(MAX_AGE, Math.round(dt))); setHandle(ctx, dt); }
       [g.hd, g.hit].forEach(function (n) {
         ctx.on(n, 'pointerdown', function (e) { if (+gsap.getProperty(g.hd, 'opacity') < 0.5) return; drag = true; try { n.setPointerCapture(e.pointerId); } catch (er) { /* ignore */ } pick(e); e.stopPropagation(); });
         ctx.on(n, 'pointermove', function (e) { if (drag) pick(e); });
@@ -601,6 +608,7 @@
       if (i === 6) {                                                  /* 1 − σ and the ratio σ / (1 − σ) = e^−s */
         g.state.curve = true;
         tl.add(g.dv.show(6), 0);
+        tl.to(g.check, { autoAlpha: 0, duration: 0.4 }, 0);           /* done (step 5); the 300-day ratio bar runs where it stood */
         tl.fromTo(g.ratio, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.5);
         tl.fromTo(qa(g.ratio, 'rect'), { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, duration: 0.6, ease: E.out, stagger: 0.08 }, 0.5);
       }
@@ -637,7 +645,7 @@
       'Now the value weight. It grows with the amount, but however large the amount is, it never goes above 1. z is the amount in US dollars.',
       'Let me rewrite the formula. Call e to the minus b z "y". When z is 0, y is 1, and as z grows, y gets close to 0. Then V is 2 divided by 1 plus y, minus 1, and tidying up the fraction gives 1 minus y divided by 1 plus y.',
       'At 0 dollars y is 1, so V is 0. For a very large amount y is close to 0, so V gets close to 1. So V is at least 0 and never above 1. An unlimited approval is so large that computer arithmetic gives exactly 1. The curve stops just under the ceiling.',
-      'But the analysis plan fixed the slope b at 1, with amounts in the token\'s raw units. A base unit is the smallest piece of a token. One USDC is one million base units. Then any amount above 10 base units already gives V above 0.99991, less than one ten-thousandth below 1. In the registered analysis that was the case for 99.52% of transfers and 99.78% of latest allowances. The amount played no part, and this is one of the reasons the amounts were later revised.'
+      'But the analysis plan fixed the slope b at 1, with amounts in the token\'s raw units. A base unit is the smallest piece of a token. One USDC is one million base units. Then any amount above 10 base units already gives V above 0.99991, less than one ten-thousandth below 1. In the registered analysis that was the case for 99.52% of transfers and 99.78% of latest allowances. The amount played no part, and this is one of the reasons the revised analysis measures amounts in US dollars.'
     ],
     html: '<h1 class="t-h1">However large, never above [[1]]</h1>' +
       '<div class="s5-panel" id="pn" data-in="none">' +
@@ -655,7 +663,7 @@
       var P = g.P = plot(ctx, el, P3);
       yAxis(P, [[0, '0'], [0.5, '0.5'], [1, '1']], '');
       txt(P.grid, P.l, P.t - 60, 'Value weight V', { size: 20, fill: C.ink2 });
-      xAxis(P, [[0, '0'], [100, '100'], [200, '200'], [300, '300'], [400, '400'], [500, '500']], 'z = amount in USD (drawn with b = ln 3 / 62, next slide)');
+      xAxis(P, [[0, '0'], [100, '100'], [200, '200'], [300, '300'], [400, '400'], [500, '500']], 'z = amount in USD (drawn with b = ln 3 / ' + n0(MA) + ', next slide)');
       /* glass ceiling at V = 1 */
       var gl = S('g', {}, P.under);
       var gid = uid('glass');
@@ -749,7 +757,7 @@
   };
 
   /* ================================================================ s05-04 */
-  var COINS = [3, 12, 25, 48, 62, 90, 150, 400, 2000];               /* example amounts; the 5th of 9 is the median */
+  var COINS = [3, 12, 25, 48, MA, 150, 240, 600, 2000];              /* example amounts; the 5th of 9 is the median = m_A */
   var SHUF = [6, 0, 7, 4, 8, 2, 5, 1, 3];                            /* initial (unsorted) order, indices into COINS */
   var P4 = { x: 96, y: 418, w: 920, h: 460, l: 80, r: 880, t: 40, b: 352, xd: [0, 600] };
   var s4 = {
@@ -764,7 +772,7 @@
       'Now put y back: e to the minus b m is one third. A negative exponent means 1 divided by the positive exponent, so 1 divided by e to the b m is one third. So e to the b m is 3. I fold the finished steps into one line.',
       'To what power must we raise e to get 3? e is about 2.7 and e squared is about 7.4, so the answer lies between 1 and 2, about 1.0986. We write this answer as ln 3. So b times m is ln 3.',
       'Divide both sides by m, and b is ln 3 divided by m.',
-      'Let me check. At twice the median, e to the 2 b m is 3 times 3, which is 9, so y is one ninth, and V is eight ninths divided by ten ninths, 0.8. At half the median, e to the b m over 2 times itself must give 3, so it is the square root of 3, about 1.732. So y is about 0.577 and V about 0.27. Differences in amount show up evenly in the weight. For transfers the median was 200 dollars, for allowances 62 dollars. These values come only from records up to 31 March, so no information from the test period enters them. You can change the amount with the handle below.'
+      'Let me check. At twice the median, e to the 2 b m is 3 times 3, which is 9, so y is one ninth, and V is eight ninths divided by ten ninths, 0.8. At half the median, e to the b m over 2 times itself must give 3, so it is the square root of 3, about 1.732. So y is about 0.577 and V about 0.27. Differences in amount show up evenly in the weight. For transfers the median is ' + n0(MT) + ' dollars, for allowances ' + n0(MA) + ' dollars. These values come only from the W0 score window, 1 April 2025 to 31 March 2026, so no information from the test period enters them. You can change the amount with the handle below.'
     ],
     html: '<h1 class="t-h1">Give the [[median]] a weight of 1/2</h1>' +
       '<div class="abs s5-note" id="cap1" style="left:96px;top:356px;width:880px"></div>' +
@@ -786,7 +794,7 @@
         gsap.set(cg, { x: g.coinPos(slot), y: 74 });
         return { g: cg, amt: amt, ci: ci, r: r };
       });
-      g.mLab = txt(csvg, g.coinPos(4), 22, 'm = 62 USD (the middle)', { anchor: 'middle', size: 21, fill: C.hi, weight: 700 });
+      g.mLab = txt(csvg, g.coinPos(4), 22, 'm = ' + n0(MA) + ' USD (the middle)', { anchor: 'middle', size: 21, fill: C.hi, weight: 700 });
       gsap.set(g.mLab, { autoAlpha: 0 });
       g.cap1 = q(el, '#cap1');
       g.cap1.innerHTML = 'Median m = the middle value when the amounts are lined up <span class="example-mark" style="margin-left:8px">Example · fifth of nine</span>';
@@ -818,10 +826,10 @@
       var lg = g.leg = S('g', {}, P.over);
       var lx = P.px(250), ly = P.py(0.4);                              /* five lines in English (the counts get their own lines) */
       S('line', { x1: lx, x2: lx + 30, y1: ly - 6, y2: ly - 6, stroke: C.xfer, 'stroke-width': 4 }, lg);
-      txt(lg, lx + 42, ly, 'Transfers m_T = 200 USD → b_T = ln 3 / 200', { size: 20, fill: C.ink });
+      txt(lg, lx + 42, ly, 'Transfers m_T = ' + n0(MT) + ' USD → b_T = ln 3 / ' + n0(MT), { size: 20, fill: C.ink });
       S('line', { x1: lx, x2: lx + 30, y1: ly + 26, y2: ly + 26, stroke: C.allow, 'stroke-width': 4 }, lg);
-      txt(lg, lx + 42, ly + 32, 'Allowances m_A = 62 USD → b_A = ln 3 / 62', { size: 20, fill: C.ink });
-      txt(lg, lx, ly + 62, 'Up to t₁ (31 March) only · 2 significant digits', { size: 17, fill: C.ink2 });
+      txt(lg, lx + 42, ly + 32, 'Allowances m_A = ' + n0(MA) + ' USD → b_A = ln 3 / ' + n0(MA), { size: 20, fill: C.ink });
+      txt(lg, lx, ly + 62, 'W0 score window only (Apr 2025 – Mar 2026) · 2 sig. digits', { size: 17, fill: C.ink2 });
       txt(lg, lx, ly + 84, 'Transfers: ' + n0(N_TRANSFERS) + ', median ' + fmt(MT_RAW, 2) + ' → ' + MT, { size: 17, fill: C.ink2 });
       txt(lg, lx, ly + 106, 'Allowances: ' + n0(N_FINITE_ALLOW) + ', median ' + fmt(MA_RAW, 2) + ' → ' + MA, { size: 17, fill: C.ink2 });
       gsap.set(lg, { autoAlpha: 0 });
@@ -921,15 +929,18 @@
   }
 
   /* ================================================================ s05-05 */
-  var EV_T = [[0, 400, 'today'], [180, 200, '180 days ago'], [365, 100, '1 year ago']];      /* example: (age, dollars) */
-  var EV_A = [['USDC', 30, Infinity, 'unlimited · 30 days ago'], ['WETH', 400, MA, '62 USD · 400 days ago']];
+  var EV_T = [[0, 2 * MT, 'today'], [180, MT, '180 days ago'], [MAX_AGE, 100, '1 year ago']];  /* example: (age, dollars); 2 m_T and m_T give V = 0.8 and 0.5 */
+  var EV_A = [['USDC', 30, Infinity, 'unlimited · 30 days ago'], ['WETH', 300, MA, n0(MA) + ' USD · 300 days ago']];   /* both set inside the score window */
   function w4(v) { return f4(v); }
+  var WT5 = EV_T.map(function (ev) { return sigma(ev[0]) * V(ev[1], BT); });                       /* 0.6865, 0.25, 0.0424 */
+  var WA5 = EV_A.map(function (ev) { return sigma(ev[1]) * (ev[2] === Infinity ? 1 : V(ev[2], BA)); }); /* 0.8176, 0.1157 */
+  function sum5(a) { return a.reduce(function (s, v) { return s + v; }, 0); }
   var s5 = {
     id: 's05-05', title: 'Weights and restarts of the two graphs', time: 55, steps: 4,
     notes: [
       'Both graphs use the same weight formula, but they add the weights up differently and restart in slightly different places.',
-      'The transfer graph adds, for every transfer that u sent to v, the time weight times the value weight. For example, if u sent 400 dollars today, 200 dollars 180 days ago and 100 dollars a year ago, we add 0.6865, 0.25 and 0.0364, about 0.973.',
-      'The allowance graph uses only the latest approval of each token, because a new approval overwrites the earlier one. If u made an unlimited USDC approval 30 days ago, that gives 0.8176, and a 62-dollar WETH approval 400 days ago gives 0.0499, together about 0.867.',
+      'The transfer graph adds, for every transfer that u sent to v, the time weight times the value weight. For example, if u sent ' + n0(2 * MT) + ' dollars today, ' + n0(MT) + ' dollars 180 days ago and 100 dollars a year ago, we add ' + WT5.map(w4s).slice(0, 2).join(', ') + ' and ' + w4s(WT5[2]) + ', about ' + fmt(sum5(WT5), 3) + '.',
+      'The allowance graph uses only the latest approval of each token inside the score window, because a new approval overwrites the earlier one. If u made an unlimited USDC approval 30 days ago, that gives ' + w4s(WA5[0]) + ', and a ' + n0(MA) + '-dollar WETH approval 300 days ago gives ' + w4s(WA5[1]) + ', together about ' + fmt(sum5(WA5), 3) + '.',
       'The restarts differ too. AWP restarts more often at active addresses that recently sent to many counterparties. Adding up, over the recipients, the time weight of the latest transfer to each gives the activeness X. Several transfers to the same recipient count only once, by the latest one. In this example u sent three times, all to v, so only today\'s transfer counts, 0.8581. So X_u is 0.8581. EndorseRank restarts uniformly, from every node alike.',
       'Why uniformly? Because we want to measure the contracts that receive approvals, not to raise the owners who grant many approvals. This study wrote this choice into the analysis plan before it extracted any data, and the plan also said to report the variant with AWP-style restarts beside it.'
     ],
@@ -948,7 +959,7 @@
         '<div class="s5-kind c-allow"><i style="background:var(--c-allow)"></i>Allowances · EndorseRank</div>' +
         '<div class="s5-l"><b>Only the latest allowance</b> per token, σ × V</div>' +
         '<div class="s5-tx">$w_A(u,v)=\\sum_{\\mathrm{token}}\\sigma\\bigl(\\Delta t^{\\star}\\bigr)\\,V\\bigl(a^{\\star}\\bigr)$</div>' +
-        '<div class="s5-sym"><span>$a^{\\star}$ USD amount of the latest allowance</span><span>$\\Delta t^{\\star}$ its age in days</span></div>' +
+        '<div class="s5-sym"><span>$a^{\\star}$ USD amount of the latest allowance in the window</span><span>$\\Delta t^{\\star}$ its age in days</span></div>' +
         '<div id="figA" style="position:relative;height:250px"></div>' +
         '<div id="rsA" data-in="none"><div class="s5-l">Restart: [[uniform]] over all nodes ($\\pi_u=1/|V|$)</div>' +
           '<div class="s5-note">Owners who grant many approvals get no extra share</div></div>' +
@@ -966,7 +977,7 @@
         var x = 150 + k * 195;                                         /* EN: wider spacing for the longer labels */
         var dot = S('circle', { cx: x, cy: 70, r: 15, fill: C.bg3, stroke: C.xfer, 'stroke-width': 2.5 }, eg);
         txt(eg, x, 36, ev[2] + ' · ' + ev[1] + ' USD', { anchor: 'middle', size: 18, fill: C.ink2 });
-        txt(eg, x, 116, fmt(s0, 4) + ' × ' + (ev[1] === 400 ? '0.8' : ev[1] === 200 ? '0.5' : fmt(v0, 4)), { anchor: 'middle', size: 18, fill: C.ink, cls: 'svg-mono' });
+        txt(eg, x, 116, fmt(s0, 4) + ' × ' + (ev[1] === 2 * MT ? '0.8' : ev[1] === MT ? '0.5' : fmt(v0, 4)), { anchor: 'middle', size: 18, fill: C.ink, cls: 'svg-mono' });
         txt(eg, x, 140, '= ' + w4(s0 * v0), { anchor: 'middle', size: 18, fill: C.xfer, cls: 'svg-mono', weight: 700 });
         gsap.set(eg, { autoAlpha: 0 });
         return { g: eg, dot: dot, x: x, w: s0 * v0 };
@@ -1077,8 +1088,8 @@
       'The weights of the coupled score C-PR are a little different. C-PR does not put V on the amounts; it adds the dollars as they are.',
       'First we convert amounts to dollars. A base unit is the smallest piece of a token, and we write their number as n. We multiply n by 10 to the power minus the number of decimals, and then by the price of that day. Multiplying by 10 to the minus 6 means dividing by 1,000,000. USDC has 6 decimals, so 1,000,000 base units are 1 USDC, about 1 dollar.',
       'But an unlimited approval is a huge number of base units, close to 2 to the 256th, so if we left it as it is, it would take the whole allowance row of an owner on its own. The same owner\'s 500-dollar approval does not even show.',
-      'So we set a cap U: a single allowance counts at most 20,000 dollars. We take the smaller of the two. Then the unlimited approval counts 20,000 dollars and the 500-dollar approval 500 dollars, which splits the row 97.6% to 2.4%. 20,000 dollars is the 99th percentile of single transfer amounts up to 31 March, 20,266 dollars, rounded to two significant digits.',
-      'In the data, 45.8% of latest allowances are unlimited, and 53.8% are at or above the cap. 797,852 owners hold unlimited and finite allowances side by side. At first the cap was defined as the 99th percentile of the finite allowances, but that value was around 10 to the 47th dollars, so it could not work as a cap. So this definition was amended and committed before any revised score was computed.'
+      'So we set a cap U: a single allowance counts at most ' + n0(U) + ' dollars. We take the smaller of the two. Then the unlimited approval counts ' + n0(U) + ' dollars and the 500-dollar approval 500 dollars, which splits the row ' + fmt(U / (U + 500) * 100, 1) + '% to ' + fmt(500 / (U + 500) * 100, 1) + '%. ' + n0(U) + ' dollars is the 99th percentile of single transfer amounts in the W0 score window, 1 April 2025 to 31 March 2026, ' + n0(P99T) + ' dollars, rounded to two significant digits.',
+      'In the data, ' + pct(UNL) + ' of latest allowances are unlimited, and ' + pct(ATCAP) + ' are at or above the cap. ' + n0(BOTH) + ' owners hold unlimited and finite allowances side by side. Why not take the cap from the allowances themselves? The 99th percentile of the finite allowances alone is about 10 to the power ' + E99A + ' dollars, so a cap taken from them would leave the unlimited approvals in charge of the rows. That is why the cap comes from the transfer amounts.'
     ],
     html: '<h1 class="t-h1">Keep an unlimited approval from [[swallowing]] the row</h1>' +
       '<div class="s5-amt" data-step="1">' +
@@ -1091,11 +1102,11 @@
         '<div class="s5-tx" style="font-size:26px">$$\\tilde w_A(u,v)=\\sum_{\\mathrm{token}}\\min\\bigl(a^{\\star},\\,\\ch{U}\\bigr),\\qquad \\tilde w_T(u,v)=\\sum_{e:\\,u\\to v}x_e\\,\\sigma(\\Delta t_e)$$</div>' +
         '<div class="s5-note">thesis Eq.&nbsp;(3.8) · min(a, U) = the smaller of the two: U if unlimited, 500&nbsp;if&nbsp;500&nbsp;USD</div>' +
         '<div data-step="3"><div class="s5-L">Cap each allowance at <span class="c-hi">U&nbsp;=&nbsp;' + n0(U) + '&nbsp;USD</span></div>' +
-          '<div class="s5-note">U = 99th percentile of single transfer amounts up to t₁ (31&nbsp;March), ' + n0(P99T) + '&nbsp;USD, rounded to two significant digits</div>' +
-          '<div class="s5-tx" style="font-size:26px;margin-top:6px">$\\frac{20{,}000}{20{,}000+500}=0.976,\\qquad \\frac{500}{20{,}500}=0.024$</div></div>' +
+          '<div class="s5-note">U = 99th percentile of single transfer amounts in the W0 score window (1&nbsp;Apr&nbsp;2025 – 31&nbsp;Mar&nbsp;2026), ' + n0(P99T) + '&nbsp;USD, rounded to two significant digits</div>' +
+          '<div class="s5-tx" style="font-size:26px;margin-top:6px">$\\frac{' + texN(S1) + '}{' + texN(S1) + '+' + texN(S2) + '}=' + fmt(S1 / (S1 + S2), 3) + ',\\qquad \\frac{' + texN(S2) + '}{' + texN(S1 + S2) + '}=' + fmt(S2 / (S1 + S2), 3) + '$</div></div>' +
         '<div data-step="4" style="margin-top:22px;padding-top:16px;border-top:1px solid var(--line)">' +
           '<div class="s5-note">Latest allowances: unlimited <b>' + pct(UNL) + '</b> · at or above the cap <b>' + pct(ATCAP) + '</b> · owners holding both unlimited and finite ones <b>' + n0(BOTH) + '</b></div>' +
-          '<div class="s5-note" style="margin-top:8px">The first definition (99th percentile of finite allowances) was about <b>10⁴⁷&nbsp;USD</b> → no use as a cap, so it was amended before any revised score was computed <span class="mono ink-3">(2705b28)</span></div></div>' +
+          '<div class="s5-note" style="margin-top:8px">The 99th percentile of the finite allowances themselves is about <b>10' + sup(E99A) + '&nbsp;USD</b> → as a cap it would leave unlimited approvals in charge of the rows · so U comes from the transfers</div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -1125,7 +1136,7 @@
       gsap.set(g.zig, { autoAlpha: 0 });
       g.piece = S('rect', { x: x1 - bw / 2, y: P.t - 60, width: bw, height: P.py(U) - P.t + 60, fill: C.allow, 'fill-opacity': 0.5 }, P.over);
       gsap.set(g.piece, { autoAlpha: 0 });
-      /* exponent ladder for 1e47 (step 4) */
+      /* exponent ladder for the p99 of the finite allowances, ≈ 1e63 (step 4) */
       g.ladder = S('text', { x: P.px(0.75), y: P.t + 30, 'text-anchor': 'middle', fill: C.hi, 'font-size': 20, 'font-weight': 800 }, P.over);
       gsap.set(g.ladder, { autoAlpha: 0 });
       /* one owner's row as a 100 % bar */
@@ -1176,11 +1187,11 @@
       if (i === 4) {
         var st = { e: 4 };
         tl.set(g.ladder, { autoAlpha: 1 }, 0.2);
-        tl.to(st, { e: 47, duration: 1.4, ease: 'power2.in', onUpdate: function () { g.ladder.textContent = '10' + sup(Math.round(st.e)) + ' USD'; } }, 0.2);
+        tl.to(st, { e: E99A, duration: 1.4, ease: 'power2.in', onUpdate: function () { g.ladder.textContent = '10' + sup(Math.round(st.e)) + ' USD'; } }, 0.2);
         tl.to(g.ladder, { y: -16, duration: 0.15, yoyo: true, repeat: 1 }, 1.6);
         tl.call(function () {                                     /* English: two right-aligned lines, clear of the row on the right */
           g.ladder.textContent = ''; g.ladder.setAttribute('font-size', 18); g.ladder.setAttribute('text-anchor', 'end');
-          [['First definition:', -22], ['about 10' + sup(47) + ' USD', 0]].forEach(function (ln) { S('tspan', { x: P.r + 6, y: P.t + 30 + ln[1] }, g.ladder).textContent = ln[0]; });
+          [['p99 of finite allowances:', -22], ['about 10' + sup(E99A) + ' USD', 0]].forEach(function (ln) { S('tspan', { x: P.r + 6, y: P.t + 30 + ln[1] }, g.ladder).textContent = ln[0]; });
         }, null, 1.9);
       }
     },

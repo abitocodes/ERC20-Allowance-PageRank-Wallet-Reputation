@@ -7,25 +7,26 @@
    s07-03  동점이 있으면: τ_b               (same cards and pentagon; tie groups; the 10 × 9 rectangle
                                              morphs into the square of equal area → √90; τ_b = 0.738;
                                              side panel: Spearman's ρ)
-   s07-04  부트스트랩: 다시 뽑아 400번     (a bag of 15,107 dots, the light dot draws with replacement,
+   s07-04  부트스트랩: 다시 뽑아 400번     (a bag of 6,483 dots, the light dot draws with replacement,
                                              a histogram fills, 2.5 % cut on each side, the middle band
                                              squashes into the interval bar G9)
    s07-05  짝지어 빼기, 허용 폭, 본페로니  (two overlapping intervals vs their paired difference;
                                              joint scatter; toy table of three resamples; δ band;
                                              5 % → 2.5 % + 2.5 %)
 
-   Numbers and sources (revised digest = R)
-     0.585 [0.578, 0.592]     R§2 families.endorserank.allowance  (construct check)
-     0.250 [0.237, 0.262]     R§6 taus.t1_in_approve_degree.future_new_approvers  (W0)
-     0.231 [0.220, 0.242]     R§6 taus.endorserank.future_new_approvers  (W0)
-     −0.019 [−0.026, −0.011]  R§6 contrasts_after[3]  (post hoc)
-     114,103,171 pairs        R§3 inter_method.concordance.pairs
+   Numbers and sources (revised digest = R, experiments/data/3-published-results-for-thesis/revised-usd-12m)
+     0.560 [0.548, 0.571]     R§2 families.endorserank.allowance  (construct check)
+     0.329 [0.312, 0.343]     R§6 taus.cpr_l50.future_new_approvers  (W0, C-PR λ = 0.5)
+     0.303 [0.287, 0.319]     R§6 taus.endorserank.future_new_approvers  (W0)
+     +0.026 [0.016, 0.037]    R§6 contrasts_after[6]  (C-PR − EndorseRank, post hoc)
+     21,011,403 pairs         R§3 inter_method.concordance.pairs (DECK_DATA.results.revised.same_window)
+     6,483 contracts          R§1 cohort (DECK_DATA.results.revised.same_window.cohort)
      B = 400, seed 42, B = 2,000, δ = 0.010, 97.5 %   params.stats; R§7 delta; R§7 neutral blocks
      0.13 × bootstrap SE      thesis Ch. 3, Statistical tests (Uncertainty) — notes only
      family τ = mean of its 2 proxies  thesis Ch. 3, Family aggregation
    Illustrations (예시, computed here): five cards A–E (score 5…1, label 3,4,1,1,0): n_c 8,
    n_d 1, one label tie, τ_a 0.7, τ_b 7/√90 = 0.738, mid-rank ρ 0.872 (the no-tie formula's
-   0.875 is in the notes only); s07-05 toy table (0.27/0.25, 0.23/0.21, 0.25/0.23); the
+   0.875 is in the notes only); s07-05 toy table (0.35/0.32, 0.31/0.28, 0.33/0.30); the
    histogram shape, the bag of dots and the joint scatter (only the cut points are digest values).
    ========================================================================= */
 (function () {
@@ -35,15 +36,17 @@
   var NS = 'http://www.w3.org/2000/svg';
   var STP = (DATA.params || {}).stats || {};
   var B = STP.B || 400, SEED = STP.seed != null ? STP.seed : 42, B2 = STP.B_neutral || 2000, DELTA = STP.delta || 0.01;
-  var PAIRS = 114103171, NCOH = 15107;
+  var PAIRS = 21011403, NCOH = 6483;
   try { PAIRS = DATA.results.revised.same_window.inter_method.concordance.pairs || PAIRS; } catch (e) { /* digest value */ }
   try { NCOH = DATA.results.revised.same_window.cohort || NCOH; } catch (e) { /* digest value */ }
   /* digest strings (copied, so that the printed digits are the digest's) */
-  var FAM_ER_A = '0.585 [0.578, 0.592]';
-  var W0_DEG = '0.250 [0.237, 0.262]', W0_ER = '0.231 [0.220, 0.242]', W0_DIFF = '−0.019 [−0.026, −0.011]';
+  var FAM_ER_A = '0.560 [0.548, 0.571]';
+  /* s07-05: W0, new approval pairs: C-PR (λ = 0.5) and EndorseRank overlap separately, the paired difference excludes 0 */
+  var W0_CPR = '0.329 [0.312, 0.343]', W0_ER = '0.303 [0.287, 0.319]', W0_DIFF = '+0.026 [0.016, 0.037]';
 
   function nums(s) { return String(s).replace(/−/g, '-').match(/-?\d+(?:\.\d+)?/g).map(Number); }
   function mfmt(v, d) { return fmt(v, d).replace(/^-/, '−'); }
+  function tau0(s) { return String(s).split(' ')[0]; }               /* '0.329 [0.312, 0.343]' → '0.329' */
   function svgEl(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
     if (attrs) for (var k in attrs) { if (attrs[k] != null) e.setAttribute(k, attrs[k]); }
@@ -138,7 +141,7 @@
     '.s7-var th{font-size:17px;font-weight:600;color:var(--ink-3);text-align:right;padding:2px 8px;border-bottom:1px solid var(--line)}',
     '.s7-var td{text-align:right;padding:2px 8px;color:var(--ink)}',
     '.s7-var td.l, .s7-var th.l{text-align:left;color:var(--ink-2)}',
-    '.s7-var th.c-deg{color:var(--c-deg)}', '.s7-var th.c-allow{color:var(--c-allow)}',
+    '.s7-var th.c-deg{color:var(--c-deg)}', '.s7-var th.c-allow{color:var(--c-allow)}', '.s7-var th.c-cpr{color:var(--c-cpr)}',
     '.s7-var td.d{font-weight:800}',
     '.s7-var .nt{font-size:19px;line-height:27px;color:var(--ink);margin-top:6px}',
     '.s7-scale{display:flex;gap:16px;align-items:center;font-size:21px;line-height:30px;color:var(--ink-2)}',
@@ -338,7 +341,7 @@
       '먼저 쌍이 몇 개인지 세요. 계약을 사람이라고 생각하고 서로 한 번씩 악수한다고 해 볼게요. A는 자기를 뺀 4명과 악수해요. 다섯 명이 모두 4명씩 악수하니까 5 곱하기 4는 20이에요. 그런데 A와 B의 악수와 B와 A의 악수는 같은 악수라서 모든 악수를 두 번씩 셌어요. 그래서 2로 나눠 10번이에요. 식으로는 n 곱하기 n 빼기 1을 2로 나눠요.',
       '이제 쌍마다 봐요. 점수가 더 높은 쪽이 라벨도 더 높으면 순서가 맞는 쌍, 반대면 어긋나는 쌍이에요. A와 B는 점수는 A가 높은데 라벨은 B가 높아서 어긋나요. A와 C, A와 D, A와 E는 맞아요. 나머지도 세어 보면 맞는 쌍이 여덟, 어긋나는 쌍이 하나예요. C와 D는 라벨이 같아서 어느 쪽에도 세지 않아요.',
       '맞는 쌍에서 어긋나는 쌍을 빼고 전체 쌍으로 나누면 0.7이에요. 이것을 타우 a라고 써요. 동점을 따로 다루지 않는 기본 타우예요. 1이면 순서가 완전히 같고, 0이면 상관이 없고, −1이면 완전히 반대예요.',
-      '동점이 없을 때는 1 더하기 타우를 2로 나눈 값이, 아무 쌍이나 골랐을 때 두 줄의 순서가 같을 확률이에요. 실제 매칭 코호트에서는 계약 쌍이 1억 1천만 개가 넘어요.'
+      '동점이 없을 때는 1 더하기 타우를 2로 나눈 값이, 아무 쌍이나 골랐을 때 두 줄의 순서가 같을 확률이에요. 실제 매칭 코호트에서는 계약 쌍이 ' + fmt(Math.floor(PAIRS / 1e6) * 100, 0) + '만 개가 넘어요.'
     ],
     html:
       '<h1 class="t-h1">두 줄 세우기가 얼마나 [[같은 순서]]일까?</h1>' +
@@ -617,7 +620,11 @@
   /* ================================================================ s07-04 bootstrap */
   var BAG = { cx: 330, cy: 572, r: 200 };
   var SLOT = { x: 640, y0: 392, dy: 120, n: 8, w: 40, gap: 12 };
-  var HIST = { x: 1270, y: 300, w: 554, h: 400, lo: 0.572, hi: 0.598, base: 340 };
+  /* histogram axis: ±0.022 around the digest point estimate, ticks every 0.01 (0.538 … 0.582 for 0.560) */
+  var FE = nums(FAM_ER_A);
+  function r3(v) { return Math.round(v * 1000) / 1000; }
+  var HIST = { x: 1270, y: 300, w: 554, h: 400, lo: r3(FE[0] - 0.022), hi: r3(FE[0] + 0.022), base: 340 };
+  var HIST_TICKS = [-0.02, -0.01, 0, 0.01, 0.02].map(function (t) { return r3(FE[0] + t); });
   function bootValues() {
     /* 400 illustrative resample values: seeded normal draws, mapped so that the numpy-style
        2.5th / 97.5th percentiles land exactly on the digest's interval ends */
@@ -632,11 +639,11 @@
     id: 's07-04', title: '부트스트랩: 다시 뽑아 400번', time: 45, steps: 4,
     tags: function (step) { return step >= 4 ? ['construct', 'example'] : ['example']; },
     notes: [
-      '0.585 같은 숫자가 얼마나 믿을 만한지는 부트스트랩, 곧 다시 뽑기로 재요. 우리 손에는 계약 15,107개를 한 번 모은 것밖에 없어요. 계약을 다시 모았다면 타우가 얼마나 달라졌을지 알고 싶은데, 다시 모을 수는 없으니 주머니에서 다시 뽑아서 흉내 내요. 왼쪽 주머니에 매칭 코호트의 계약 15,107개가 들어 있어요.',
+      FE[0].toFixed(3) + ' 같은 숫자가 얼마나 믿을 만한지는 부트스트랩, 곧 다시 뽑기로 재요. 우리 손에는 계약 ' + fmt(NCOH, 0) + '개를 한 번 모은 것밖에 없어요. 계약을 다시 모았다면 타우가 얼마나 달라졌을지 알고 싶은데, 다시 모을 수는 없으니 주머니에서 다시 뽑아서 흉내 내요. 왼쪽 주머니에 매칭 코호트의 계약 ' + fmt(NCOH, 0) + '개가 들어 있어요.',
       '주머니에서 하나를 뽑아 적고 다시 넣어요. 이것을 계약 수만큼 하면, 원래와 크기는 같지만 조금 다른 새 표본이 생겨요. 다시 넣으니까 같은 계약이 두 번 뽑힐 수도 있어요. 새 표본마다 타우를 다시 계산해서 오른쪽에 하나씩 쌓아요. 화면의 막대 모양은 설명용 예시예요.',
       '이 일을 400번 해요. 뽑는 순서는 시드 42로 고정해서 누가 다시 해도 같은 결과가 나와요.',
-      '그렇게 얻은 400개 값을 작은 것부터 줄 세우고, 가장 작은 2.5%와 가장 큰 2.5%를 잘라 내면, 남은 가운데 범위가 95% 신뢰구간이에요. 400개 가운데 약 10번째와 390번째 값이에요. 엔도스랭크와 허락 지표 가족이면 0.578에서 0.592예요. 가족의 타우는 가족 안 지표 두 개, 받은 허락 수와 받은 허락액의 타우를 평균한 값이에요. 400번은 많지 않아서 시드를 바꿔 다시 하면 구간 끝이 조금 달라질 수 있어요. (고급) 논문 3장에 따르면 그 흔들림은 부트스트랩 표준오차의 약 0.13배예요.',
-      '이 가운데 띠를 납작하게 누르면, 앞으로 모든 결과 그림에 나오는 구간 막대가 돼요. 점은 0.585, 막대는 95% 구간이에요. 그리고 모든 점수가 같은 400개 표본을 함께 쓰는데, 이것이 다음 장의 핵심이에요.'
+      '그렇게 얻은 400개 값을 작은 것부터 줄 세우고, 가장 작은 2.5%와 가장 큰 2.5%를 잘라 내면, 남은 가운데 범위가 95% 신뢰구간이에요. 400개 가운데 약 10번째와 390번째 값이에요. 엔도스랭크와 허락 지표 가족이면 ' + FE[1].toFixed(3) + '부터 ' + FE[2].toFixed(3) + '까지예요. 가족의 타우는 가족 안 지표 두 개, 받은 허락 수와 받은 허락액의 타우를 평균한 값이에요. 400번은 많지 않아서 시드를 바꿔 다시 하면 구간 끝이 조금 달라질 수 있어요. (고급) 논문 3장에 따르면 그 흔들림은 부트스트랩 표준오차의 약 0.13배예요.',
+      '이 가운데 띠를 납작하게 누르면, 앞으로 모든 결과 그림에 나오는 구간 막대가 돼요. 점은 ' + FE[0].toFixed(3) + ', 막대는 95% 구간이에요. 그리고 모든 점수가 같은 400개 표본을 함께 쓰는데, 이것이 다음 장의 핵심이에요.'
     ],
     html:
       '<h1 class="t-h1">같은 주머니에서 [[다시 뽑아]] 400번</h1>' +
@@ -656,7 +663,7 @@
       '<p class="abs s7-note" data-step="4" style="left:96px;top:966px;width:1060px;color:var(--ink)">모든 점수가 같은 400개 표본을 함께 써요 → 다음 장의 ‘짝지은 차이’</p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
-      /* the bag: 15,107 dots in a disc (illustrative positions) */
+      /* the bag: NCOH (6,483) dots in a disc (illustrative positions) */
       var bagHost = q(el, '#bag'), size = 2 * BAG.r + 20;
       g.Kb = Comp.canvas(ctx, bagHost, { w: size, h: size, onResize: function (K) { drawBag(K); } });
       var rnd = Deck.util.rng(SEED + 1);
@@ -707,7 +714,7 @@
       function X(v) { return (v - HIST.lo) / (HIST.hi - HIST.lo) * HIST.w; }
       g.X = X;
       svgEl('line', { x1: 0, x2: HIST.w, y1: HIST.base, y2: HIST.base, stroke: C.ink2, 'stroke-width': 1.5 }, hs);
-      [0.575, 0.580, 0.585, 0.590, 0.595].forEach(function (t) {
+      HIST_TICKS.forEach(function (t) {
         svgEl('line', { x1: X(t), x2: X(t), y1: HIST.base, y2: HIST.base + 8, stroke: C.ink2, 'stroke-width': 1.5 }, hs);
         var tt = svgEl('text', { x: X(t), y: HIST.base + 30, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'tnum svg-mono' }, hs); tt.textContent = t.toFixed(3);
       });
@@ -802,8 +809,8 @@
         tl.fromTo([g.pL, g.pR], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.7);
         tl.fromTo(g.band, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.9);
         tl.fromTo(g.pM, { autoAlpha: 0, scale: 0.6, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: E.stamp }, 1.0);
-        tl.add(ctx.count(g.eL, 0.570, g.lo, { decimals: 3, final: g.lo.toFixed(3), duration: 0.9 }), 1.0);
-        tl.add(ctx.count(g.eR, 0.600, g.hi, { decimals: 3, final: g.hi.toFixed(3), duration: 0.9 }), 1.0);
+        tl.add(ctx.count(g.eL, HIST.lo, g.lo, { decimals: 3, final: g.lo.toFixed(3), duration: 0.9 }), 1.0);
+        tl.add(ctx.count(g.eR, HIST.hi, g.hi, { decimals: 3, final: g.hi.toFixed(3), duration: 0.9 }), 1.0);
         tl.fromTo([g.eL, g.eR], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 1.0);
         tl.fromTo(g.foot, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, 1.4);
       }
@@ -827,10 +834,10 @@
     id: 's07-05', title: '짝지어 빼기 Δτ, 허용 폭, 본페로니', time: 55, steps: 5,
     tags: function (step) { return step >= 4 ? ['posthoc', 'example'] : step >= 2 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
-      '두 점수를 비교할 때는 구간 두 개를 따로 보지 않고, 같은 표본에서 차이를 직접 계산해요. 실제 예로, W0에서 새 허락 쌍을 맞히는 데 받은 허락 수와 엔도스랭크를 견줘 볼게요. 이 비교는 라벨을 본 뒤에 계산한 사후 비교예요.',
-      '받은 허락 수는 0.250, 엔도스랭크는 0.231이에요. 두 구간이 서로 겹쳐서, 따로 보면 차이가 있는지 알기 어려워요.',
-      '그런데 두 점수는 같은 400개 표본에서 함께 계산돼요. 어떤 표본에서 하나가 높게 나오면 다른 하나도 높게 나오는 식으로 함께 오르내려요. 오른쪽 점들은 그 모양을 보여 주는 예시예요. 아래 표도 예시 숫자예요. 표본 셋에서 두 타우는 0.27, 0.23, 0.25처럼 0.02씩 오르내리지만, 차이는 매번 −0.02로 같아요. 함께 오르내리니까 차이는 덜 흔들려요. 같은 저울로 잰 두 사람의 몸무게 차이가 저울 오차에 덜 흔들리는 것과 같아요. (고급) 식으로는 차이의 분산이 두 분산의 합에서 2 곱하기 공분산을 뺀 값이라서, 함께 오르내리면 그만큼 작아져요.',
-      '그래서 같은 400개 표본마다 차이를 계산하면, 그 구간은 −0.026에서 −0.011로 0을 완전히 비켜 가요. 따로 보면 겹쳐도, 짝지어 보면 갈려요. 허락 쪽에서는 그냥 센 수가 엔도스랭크보다 조금 더 잘 맞혔어요.',
+      '두 점수를 비교할 때는 구간 두 개를 따로 보지 않고, 같은 표본에서 차이를 직접 계산해요. 실제 예로, W0에서 새 허락 쌍을 맞히는 데 이 논문의 점수 C-PR과 엔도스랭크를 견줘 볼게요. 이 비교는 라벨을 본 뒤에 계산한 사후 비교예요.',
+      'C-PR은 ' + tau0(W0_CPR) + ', 엔도스랭크는 ' + tau0(W0_ER) + '이에요. 두 구간이 서로 조금 겹쳐서, 따로 보면 차이가 있는지 알기 어려워요.',
+      '그런데 두 점수는 같은 400개 표본에서 함께 계산돼요. 어떤 표본에서 하나가 높게 나오면 다른 하나도 높게 나오는 식으로 함께 오르내려요. 오른쪽 점들은 그 모양을 보여 주는 예시예요. 아래 표도 예시 숫자예요. 표본 셋에서 두 타우는 0.35, 0.31, 0.33처럼 0.02씩 오르내리지만, 차이는 매번 +0.03으로 같아요. 함께 오르내리니까 차이는 덜 흔들려요. 같은 저울로 잰 두 사람의 몸무게 차이가 저울 오차에 덜 흔들리는 것과 같아요. (고급) 식으로는 차이의 분산이 두 분산의 합에서 2 곱하기 공분산을 뺀 값이라서, 함께 오르내리면 그만큼 작아져요.',
+      '그래서 같은 400개 표본마다 차이를 계산하면, 그 구간은 ' + nums(W0_DIFF)[1].toFixed(3) + '부터 ' + nums(W0_DIFF)[2].toFixed(3) + '까지라서 0을 완전히 비켜 가요. 따로 보면 겹쳐도, 짝지어 보면 갈려요. 이 예에서는 C-PR이 엔도스랭크보다 조금 더 잘 맞혔어요.',
       '정한 폭보다 더 나쁘지 않은지만 보는 판정도 있어요. 비열등성이라고 해요. 허용 폭 델타는 0.01이고, 차이 구간의 아래 끝이 −0.01보다 위면 통과예요. 그림의 두 막대는 설명용 예시예요.',
       '마지막으로 본페로니예요. 판정을 두 개 함께 하면 어느 하나가 우연히 틀릴 기회가 늘어나요. 이 두 판정은 09에서 P와 Q라는 이름으로 나와요. 그래서 실수 허용치 5%를 둘이 2.5%씩 나눠 가지고, 각각 97.5% 구간을 써요. 이 두 판정은 2,000번 다시 뽑기로 계산했고, 값은 뒤의 규칙 장에서 봐요.'
     ],
@@ -842,27 +849,27 @@
       '<div class="abs s7-lines" data-step="3" style="left:96px;top:620px;width:1100px">' +
         '<p class="l" style="font-size:26px;line-height:38px">같은 ' + fmt(B, 0) + '개 표본에서 두 점수를 함께 계산 → 차이 Δτ도 ' + fmt(B, 0) + '개</p>' +
         '<p class="l" style="font-size:26px;line-height:38px">차이의 95% 구간이 0을 비켜 가면: 차이가 있다고 봐요</p>' +
-        '<p class="l" style="font-size:22px;line-height:32px;color:var(--ink-2)">이 예에서는 그냥 센 수(받은 허락 수)가 엔도스랭크보다 조금 더 잘 맞혔어요</p></div>' +
+        '<p class="l" style="font-size:22px;line-height:32px;color:var(--ink-2)">이 예에서는 C-PR이 엔도스랭크보다 조금 더 잘 맞혔어요</p></div>' +
       '<svg class="abs" id="sc" data-in="none" width="330" height="330" style="left:1396px;top:196px;overflow:visible"></svg>' +
       '<div class="abs s7-scale" id="scl" data-in="none" style="left:1240px;top:578px;width:584px">' +
         '<svg width="78" height="70" viewBox="0 0 78 70" fill="none" stroke="#A3ADBF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="40" width="66" height="24" rx="6"/><rect x="24" y="46" width="30" height="12" rx="2" stroke="#E9EDF5"/><circle cx="26" cy="14" r="6"/><path d="M26 20v14M18 26h16"/><circle cx="52" cy="10" r="6"/><path d="M52 16v18M44 23h16"/></svg>' +
         '<span>같은 저울로 잰 두 사람의 몸무게 차이는<br>저울 오차의 영향을 덜 받아요</span></div>' +
       '<div class="abs s7-var" id="var" data-in="none" style="left:1240px;top:656px;width:584px">' +
         '<div class="hd">예시 숫자 · 다시 뽑은 표본 셋</div>' +
-        '<table><tr><th class="l"></th><th class="c-deg">받은 허락 수 τ</th><th class="c-allow">엔도스랭크 τ</th><th>차이</th></tr>' +
-        '<tr><td class="l">표본 1</td><td>0.27</td><td>0.25</td><td class="d">−0.02</td></tr>' +
-        '<tr><td class="l">표본 2</td><td>0.23</td><td>0.21</td><td class="d">−0.02</td></tr>' +
-        '<tr><td class="l">표본 3</td><td>0.25</td><td>0.23</td><td class="d">−0.02</td></tr></table>' +
-        '<div class="nt">τ는 표본마다 ±0.02씩 흔들려도 차이는 매번 −0.02<br>→ 함께 오르내리니까 차이는 덜 흔들려요</div></div>' +
+        '<table><tr><th class="l"></th><th class="c-cpr">C-PR τ</th><th class="c-allow">엔도스랭크 τ</th><th>차이</th></tr>' +
+        '<tr><td class="l">표본 1</td><td>0.35</td><td>0.32</td><td class="d">+0.03</td></tr>' +
+        '<tr><td class="l">표본 2</td><td>0.31</td><td>0.28</td><td class="d">+0.03</td></tr>' +
+        '<tr><td class="l">표본 3</td><td>0.33</td><td>0.30</td><td class="d">+0.03</td></tr></table>' +
+        '<div class="nt">τ는 표본마다 ±0.02씩 흔들려도 차이는 매번 +0.03<br>→ 함께 오르내리니까 차이는 덜 흔들려요</div></div>' +
       '<div class="abs" id="mg" data-in="none" style="left:96px;top:780px;width:1100px;height:210px"></div>' +
       '<div class="abs" id="bf" data-in="none" style="left:1130px;top:806px;width:694px;height:180px"></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
-      var a = nums(W0_DEG), b = nums(W0_ER), d = nums(W0_DIFF);
+      var a = nums(W0_CPR), b = nums(W0_ER), d = nums(W0_DIFF);
       var fm3 = function (v) { return mfmt(v, 3); };
-      g.F1 = Comp.forest(ctx, q(el, '#f1'), { w: 1100, rowH: 74, labelWidth: 300, valueWidth: 300, domain: [0.2, 0.28], ticks: [0.2, 0.22, 0.24, 0.26, 0.28], zero: false,
+      g.F1 = Comp.forest(ctx, q(el, '#f1'), { w: 1100, rowH: 74, labelWidth: 300, valueWidth: 300, domain: [0.28, 0.36], ticks: [0.28, 0.3, 0.32, 0.34, 0.36], zero: false,
         tickFormat: function (t) { return t.toFixed(2); }, hidden: true, top: 14,
-        rows: [{ label: '받은 허락 수', sub: '원시 차수 · 동결일의 값', est: a[0], lo: a[1], hi: a[2], color: 'deg', text: W0_DEG },
+        rows: [{ label: 'C-PR', sub: 'λ = 0.5 · 이 논문의 점수', est: a[0], lo: a[1], hi: a[2], color: 'cpr', text: W0_CPR },
                { label: '엔도스랭크', sub: '고르게 다시 출발', est: b[0], lo: b[1], hi: b[2], color: 'allow', text: W0_ER }] });
       /* overlap band between the two intervals */
       var ox0 = g.F1.x(Math.max(a[1], b[1])), ox1 = g.F1.x(Math.min(a[2], b[2]));
@@ -870,18 +877,20 @@
       g.F1.svg.insertBefore(g.ov, g.F1.svg.firstChild);
       g.ovl = svgEl('text', { x: (ox0 + ox1) / 2, y: 6, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 20, 'font-weight': 700 }, g.F1.svg); g.ovl.textContent = '겹쳐요';
       gsap.set([g.ov, g.ovl], { autoAlpha: 0 });
-      g.F2 = Comp.forest(ctx, q(el, '#f2'), { w: 1100, rowH: 80, labelWidth: 300, valueWidth: 300, domain: [-0.04, 0.02], ticks: [-0.04, -0.03, -0.02, -0.01, 0, 0.01, 0.02],
+      g.F2 = Comp.forest(ctx, q(el, '#f2'), { w: 1100, rowH: 80, labelWidth: 300, valueWidth: 300, domain: [-0.02, 0.04], ticks: [-0.02, -0.01, 0, 0.01, 0.02, 0.03, 0.04],
         tickFormat: function (t) { return mfmt(t, 2); }, hidden: true, top: 14,
-        rows: [{ label: '짝지은 차이 Δτ', sub: '엔도스랭크 − 받은 허락 수', est: d[0], lo: d[1], hi: d[2], color: 'ink', text: W0_DIFF }] });
+        rows: [{ label: '짝지은 차이 Δτ', sub: 'C-PR − 엔도스랭크', est: d[0], lo: d[1], hi: d[2], color: 'ink', text: W0_DIFF }] });
       gsap.set(g.F2.svg, { autoAlpha: 0 });
-      g.gap = svgEl('text', { x: g.F2.x(-0.005), y: 14 + 40 - 22, 'text-anchor': 'middle', fill: C.ink, 'font-size': 22, 'font-weight': 800 }, g.F2.svg); g.gap.textContent = '갈려요';
-      g.gapA = svgEl('path', { d: 'M' + g.F2.x(d[2]) + ',' + (14 + 40 + 16) + ' L' + g.F2.x(0) + ',' + (14 + 40 + 16), stroke: C.ink, 'stroke-width': 2, fill: 'none', 'marker-end': null }, g.F2.svg);
+      /* the gap between 0 and the near end of the interval (here: 0 … lower end, the difference is above 0) */
+      var gp0 = d[2] < 0 ? d[2] : 0, gp1 = d[2] < 0 ? 0 : d[1];
+      g.gap = svgEl('text', { x: g.F2.x((gp0 + gp1) / 2), y: 14 + 40 - 22, 'text-anchor': 'middle', fill: C.ink, 'font-size': 22, 'font-weight': 800 }, g.F2.svg); g.gap.textContent = '갈려요';
+      g.gapA = svgEl('path', { d: 'M' + g.F2.x(gp0) + ',' + (14 + 40 + 16) + ' L' + g.F2.x(gp1) + ',' + (14 + 40 + 16), stroke: C.ink, 'stroke-width': 2, fill: 'none', 'marker-end': null }, g.F2.svg);
       gsap.set([g.gap, g.gapA], { autoAlpha: 0 });
       /* joint scatter of 400 illustrative pairs (τ_A, τ_B), one per resample */
       var sc = q(el, '#sc'), W = 300, rnd = Deck.util.rng(SEED + 5);
       g.sc = sc;
       svgEl('rect', { x: 0, y: 0, width: W, height: W, rx: 12, fill: 'rgba(16,21,31,.7)', stroke: C.line }, sc);
-      var xl = svgEl('text', { x: W / 2, y: W + 28, 'text-anchor': 'middle', fill: C.deg, 'font-size': 18, 'font-weight': 600 }, sc); xl.textContent = '받은 허락 수의 τ';
+      var xl = svgEl('text', { x: W / 2, y: W + 28, 'text-anchor': 'middle', fill: C.cpr, 'font-size': 18, 'font-weight': 600 }, sc); xl.textContent = 'C-PR의 τ';
       var yl = svgEl('text', { x: -14, y: W / 2, 'text-anchor': 'middle', fill: C.allow, 'font-size': 18, 'font-weight': 600, transform: 'rotate(-90 -14 ' + W / 2 + ')' }, sc); yl.textContent = '엔도스랭크의 τ';
       var ex = svgEl('text', { x: W - 8, y: 22, 'text-anchor': 'end', fill: C.ink3, 'font-size': 16 }, sc); ex.textContent = '점 400개 · 예시';
       svgEl('line', { x1: 20, y1: W - 20, x2: W - 20, y2: 20, stroke: C.ink3, 'stroke-width': 1.2, 'stroke-dasharray': '4 6' }, sc);
@@ -895,7 +904,7 @@
       }
       g.P = P;
       g.cross = svgEl('g', {}, sc);
-      g.chx = svgEl('line', { x1: 0, y1: W, x2: 0, y2: 0, stroke: C.deg, 'stroke-width': 1.5, 'stroke-dasharray': '3 4' }, g.cross);
+      g.chx = svgEl('line', { x1: 0, y1: W, x2: 0, y2: 0, stroke: C.cpr, 'stroke-width': 1.5, 'stroke-dasharray': '3 4' }, g.cross);
       g.chy = svgEl('line', { x1: 0, y1: 0, x2: 0, y2: 0, stroke: C.allow, 'stroke-width': 1.5, 'stroke-dasharray': '3 4' }, g.cross);
       g.chd = svgEl('circle', { r: 7, fill: 'none', stroke: '#fff', 'stroke-width': 2.5 }, g.cross);
       gsap.set(g.cross, { autoAlpha: 0 });

@@ -3,15 +3,16 @@
    s02-01  디파이를 한 장으로             (three contract cards, each with a one-shot mini animation)
    s02-02  송금과 허락은 다른 일이에요     (transfer = coins flow; allowance = a standing promise:
                                           transferFrom, overwrite, revoke)
-   s02-03  허락은 믿음처럼 보여요 — 하지만 (40 + 40 identical arrows; 45.8 % unlimited)
+   s02-03  허락은 믿음처럼 보여요 — 하지만 (40 + 40 identical arrows; 49.8 % unlimited)
    s02-04  점수를 받는 쪽은 계약이에요     (scan brackets lock onto contracts only)
    s02-05  무대: 아비트럼 원              (CSS-3D plates, falling log particles; the Arbitrum plate
                                           turns edge-on into the time axis of s03-01)
 
    Numbers and sources
-     45.8 % = 5,763,757 / 12,590,613 positive latest allowances at T_obs that are unlimited
-       (revised digest R§D amounts.unlimited_share 0.4578, amounts.unlimited_allowances,
-        amounts.latest_allowances_tobs = DECK_DATA.scale.revised.amounts; thesis App. D, Ch. 4)
+     49.8 % = 2,084,669 / 4,185,287 positive latest allowances at T_obs, set inside the T_obs score
+       window (2025-07-01 – 2026-06-30), that are unlimited (revised digest, revised-usd-12m:
+       amounts.unlimited_share 0.4981, amounts.unlimited_allowances, amounts.latest_allowances_tobs
+       = DECK_DATA.scale.revised.amounts; thesis App. D, table usd-tokens)
      block 513,216,506 = experiments/data/1-raw-blockchain-extracts/cohort/candidate_account_types.json
        block_number (thesis Ch. 3, "Account type"): the eth_getCode block of the cohort candidates only;
        holdout spenders and GMX accounts outside the candidates were read at later blocks within
@@ -29,9 +30,9 @@
   var DATA = window.DECK_DATA || {};
   var NS = 'http://www.w3.org/2000/svg';
   var AMT = (((DATA.scale || {}).revised || {}).amounts) || {};
-  var UNL = AMT.unlimited_allowances != null ? AMT.unlimited_allowances : 5763757;
-  var LATEST = AMT.latest_allowances_tobs != null ? AMT.latest_allowances_tobs : 12590613;
-  var UNL_SHARE = AMT.unlimited_share != null ? AMT.unlimited_share : 0.4578;
+  var UNL = AMT.unlimited_allowances != null ? AMT.unlimited_allowances : 2084669;
+  var LATEST = AMT.latest_allowances_tobs != null ? AMT.latest_allowances_tobs : 4185287;
+  var UNL_SHARE = AMT.unlimited_share != null ? AMT.unlimited_share : 0.4981;
   var CHAIN_ID = ((DATA.params || {}).chain || {}).id || 42161;
   var GETCODE_BLOCK = 513216506; /* candidate_account_types.json block_number */
   var CLIP_N = 0;
@@ -221,7 +222,7 @@
       '송금은 토큰이 실제로 옮겨 가는 일이에요. 보낸 쪽에서 받는 쪽으로 동전이 흘러가요.',
       '허락은 달라요. 토큰 주인이 어떤 계약에게 "내 토큰을 얼마까지 꺼내 써도 돼요"라고 약속해 두는 거예요. ERC-20 규칙의 approve 함수로, 또는 그 확장(EIP-2612)인 서명 허락 permit으로 허락하고, 어느 쪽이든 Approval이라는 같은 기록이 남아요. 그래서 이 화살표는 흐르지 않고 가만히 남아 있어요. 1,000 USDC는 설명을 위한 예시예요.',
       '나중에 스펜더 계약은 transferFrom으로 허락받은 만큼 주인의 토큰을 실제로 옮길 수 있어요. 이 연구가 쓰는 값은 마지막 허락 기록에 적힌 금액이에요.',
-      '같은 주인과 같은 계약, 같은 토큰이면 가장 최근 허락이 앞의 것을 덮어써요. 그래서 이 연구는 주인–스펜더–토큰마다 마지막 허락 하나만 화살표로 써요.',
+      '같은 주인과 같은 계약, 같은 토큰이면 가장 최근 허락이 앞의 것을 덮어써요. 그래서 이 연구는 주인–스펜더–토큰마다 마지막 허락 하나만 화살표로 써요. 점수를 얼리는 날 전 12개월 안에 정해진 허락만 세요.',
       '금액을 0으로 허락하면 거두는 것이 돼요. 거둔 허락은 화살표로 남지 않아요.'
     ],
     html:
@@ -346,7 +347,7 @@
       '허락은 내 토큰을 맡기는 행동이라서, 받는 계약에 대한 믿음처럼 읽을 수 있어요. 웹에서 링크가 인용처럼 읽히는 것과 비슷해요.',
       '많은 주인이 한 계약을 허락하면, 그 계약은 많은 보증을 받은 것처럼 보여요.',
       '하지만 조심해야 해요. 피싱 사이트에 속아서 누른 허락도 정직한 허락과 똑같은 기록을 남겨요. 화살표만 보면 두 상자는 구별되지 않아요.',
-      '사람들은 그냥 편해서 허락을 누르기도 해요. 이 연구의 데이터에서도 관측 기간 끝의 마지막 허락 1,259만 개 가운데 45.8%가 무제한 허락이었어요. 그래서 이 논문은 허락을 확실한 믿음의 증거가 아니라, 보증으로 "읽을 수 있는" 신호로 다뤄요.'
+      '사람들은 그냥 편해서 허락을 누르기도 해요. 이 연구의 데이터에서도 2026년 6월 30일까지 12개월 안에 정해진 마지막 허락 약 ' + fmt(Math.round(LATEST / 1e4)) + '만 개 가운데 ' + fmt(UNL_SHARE * 100, 1) + '%가 무제한 허락이었어요. 그래서 이 논문은 허락을 확실한 믿음의 증거가 아니라, 보증으로 "읽을 수 있는" 신호로 다뤄요.'
     ],
     html:
       '<h1 class="t-h1">허락 = 내 토큰을 [[맡기는]] 행동</h1>' +
@@ -358,7 +359,7 @@
         '<div class="w">' + ICON.hook + '<div class="t">속아서 누른 허락도 똑같은 기록을 남겨요</div></div>' +
         '<div class="w">' + ICON.inf + '<div><div class="t">무제한 허락이 흔해요</div>' +
           '<div class="big"><span class="n" id="pct">' + fmt(UNL_SHARE * 100, 1) + '%</span><span class="u">마지막 허락 가운데</span></div>' +
-          '<div class="s02-src">' + fmt(UNL) + ' / ' + fmt(LATEST) + ' · T_obs의 양수인 마지막 허락</div></div></div>' +
+          '<div class="s02-src">' + fmt(UNL) + ' / ' + fmt(LATEST) + '<br>T_obs의 양수인 마지막 허락 · 12개월 점수 기간 안</div></div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -428,7 +429,7 @@
         tl.fromTo(g.qText, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 2.6);
       }
       if (i === 3) {
-        /* 믿음 -> 보증으로 읽기: strike and rewrite; then the three cautions; 45.8 % counts up */
+        /* 믿음 -> 보증으로 읽기: strike and rewrite; then the three cautions; the unlimited share counts up */
         tl.add(Comp.strike(ctx, g.belief, '보증으로 <b>읽기</b><small>확실한 증거는 아니에요</small>'), 0);
         tl.fromTo(g.warn, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power3.out', stagger: 0.16 }, 1.2);
         tl.add(ctx.count(el.querySelector('#pct'), 0, UNL_SHARE * 100, { decimals: 1, suffix: '%', final: fmt(UNL_SHARE * 100, 1) + '%', duration: 1.4 }), 1.55);
@@ -602,9 +603,9 @@
       g.axis = el.querySelector('#axis');
       gsap.set(g.axis, { autoAlpha: 0 });
       /* particles: approval logs (amber) and transfer logs (sky), in the ratio of the
-         revised ego rows (224,954,202 : 1,149,168,538 ≈ 1 : 5.1) */
+         revised ego rows of the T_obs score window (85,986,562 : 442,722,039 ≈ 1 : 5.1) */
       var rows = (((DATA.scale || {}).revised || {}).rows || {}).revised_ego || {};
-      g.pA = rows.approvals && rows.transfers ? rows.approvals / (rows.approvals + rows.transfers) : 0.164;
+      g.pA = rows.approvals && rows.transfers ? rows.approvals / (rows.approvals + rows.transfers) : 0.163;
       g.K = Comp.canvas(ctx, el.querySelector('#parts'), { w: 1000, h: 760, onResize: function () { if (g.drawParts) g.drawParts(); } });
       g.parts = []; g.rnd = ctx.rng(7); g.spawn = false;
     },

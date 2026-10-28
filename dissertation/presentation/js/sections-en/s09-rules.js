@@ -4,45 +4,51 @@
    s09-01  What was fixed, and when  vertical commit stem (git-graph look, folded time axis); locks
                                      click shut; "seconds zoom" panel counts 13:41:27 → 37 (10 s) and
                                      16:49:32 → 33 → 40 (8 s); the "results known from here" line;
-                                     three revision commits with hollow locks, each followed by its query
+                                     below it, with no time, the revised analysis as defined after the
+                                     registered results were known (US-dollar amounts, five tokens,
+                                     twelve-month score windows): re-analysis loop, no lock
    s09-02  Rule A                     checklist cards + paired-difference bars (W0) + same-window part
                                      (C-PR outside the better layer's band) → stamp "not met" + re-analysis
-   s09-03  Rule B                     one number line −0.11 … +0.13, rose hatched margin [−δ, 0];
-                                     F1 ✓, F2 ✕, F3 ✕ with a ×10 zoom on the lower end (−0.014 vs −0.010)
+   s09-03  Rule B                     one number line −0.11 … +0.21, rose hatched margin [−δ, 0];
+                                     F1 ✓, F2 ✕, F3 ✕ with a ×200 zoom on the lower end (−0.01005 vs −0.01000)
    s09-04  Outside the rules          two forest panels (new approval pairs | new senders): C-PR minus
                                      EndorseRank, AWP, AWP among receiving spenders, EndorseRank with
                                      activity restarts and the count of the same edge type; W0 filled,
                                      W1 hollow; post hoc tag, no verdict (sources at var B4)
    s09-05  Registered vs revised      three reasons (flat V curve, 12-digit ladder, spam token) +
-                                     two-column table, "=" between the verdicts
+                                     two-column table, "=" between equal verdicts and "≠" on R1
    s09-06  R1–R3                     70 W1 traders as a dot grid (37 recipients, 9 liquidated); outcome
                                      definition; P and Q (W1) with 95 % bars and 97.5 % brackets; the
-                                     registered sentences typed out; R3 profit-share bars (W1).
-                                     W0 values (P, Q, 88 traders, 40/40, 75.0 %) are in the narration only
+                                     registered sentences typed out (R1 met, R2 not met); R3 profit-share
+                                     bars (W1). W0 values (P, Q, 87 traders, 39/39, 75.0 %) and the
+                                     registered analysis's R1 are in the narration only
 
-   Numbers and sources (R = revised digest, the thesis's main analysis; G = registered digest)
-     13:41:27 / 13:41:37            G§D timing.plan_commit_43d8045_utc / timing.scan_a created
-     16:49:32 / 16:49:40            G§D timing.registration_commit_0d3a057_utc / timing.scan_b created
-     16:49:33 · override "no" · SHA-256   R§1 W1 extraction: started at / override used / SHA-256
-     07:54:35 (a897475)             R§D timing.revision_commit_utc
-     08:12:44 (09dfc32), 11:24:01 (2705b28)   git log (DECK_DATA.timeline.commits; thesis Ch. 3 gives 08:12, 11:24)
-     08:16:11, 11:24:57 (56 s)      D:bq_ledger.json jobs[].at (DECK_DATA.timeline.ledger_jobs, gaps)
-     rule A  +0.029 [0.022, 0.036], −0.034 [−0.040, −0.029]   R§6 contrasts_prefixed[0], [1]
-             0.365 vs [0.653, 0.666]; 0.477 vs [0.590, 0.604]; 0.142 vs 0.011 / 0.404   R§3 rule_a_secondary
-             registered +0.008 [0.003, 0.013], −0.030 [−0.034, −0.026]   G§6 contrasts_prefixed
-     rule B  F1 +0.110 [0.098, 0.122], F2 −0.028 [−0.033, −0.023], F3 +0.000 [−0.014, 0.010]   R§7 rule_b
-             δ = 0.010 R§7 delta; half-width 0.0040 = calc from G§6 contrasts_prefixed[1] (thesis Ch. 3/4)
-             traders 70 R§7; F3 τ 0.350 [0.236, 0.461] R§7 trader_taus.cpr_l50 / cpr_l0
-             AWP F2 −0.067 [−0.072, −0.061] R§7 sensitivity_awp.F2
-             registered F1 +0.101 [0.092, 0.111], F2 −0.025 [−0.029, −0.021], F3 −0.044 [−0.100, −0.002]  G§7
-     table   27,844/15,107 · 33,101/17,050 · 34,587/18,152 · 0.217/0.174 · verdicts   G / R (thesis table
-             registered-vs-revised); 0.9978 / 0.9952 G§D allowances_ge10_share / transfers_ge10_share
-     R1–R3   70 / 88 R§7 neutral_w1.n / neutral_w0.n; 9 liquidated R§7 traders_liquidated
-             P W1 +0.084 [−0.013, 0.176], 97.5 % [−0.026, 0.188]; P W0 +0.182, 97.5 % [0.032, 0.338]
-             Q W1 −0.041 [−0.135, 0.050], 97.5 % [−0.148, 0.064]; Q W0 −0.014, 97.5 % [−0.161, 0.151]
-             R3: −0.196 [−0.364, −0.046] (profitable share), −0.252 [−0.391, −0.120] (non-loss share)
-             37/37, 40/40, 72.7 %, 75.0 % neutral_w1/w0.recipients; 0.310 [0.184, 0.425] neutral_w1.taus.in_degree
-             verdicts R§7 neutral_rules (G§7: same)
+   Every number is read from DECK_DATA (data/results.js, data/timeline.js); the strings in the code
+   are fallbacks written as in the thesis. R = revised analysis (revised-usd-12m, the thesis's main
+   analysis), G = registered analysis.
+     13:41:27 / 13:41:37 / 10 s     timeline.commits 43d8045 / events scan_a_created / gaps.plan_commit_to_scan_a_created_s
+     16:49:32 / 16:49:33 / 16:49:40 timeline.commits 0d3a057 / events w1_extraction_started / scan_b_created
+     override "no" · SHA-256        R§1 W1 extraction: override used / SHA-256
+     scan A 2023-10-01 … 2026-06-30, scan B July–September 2026   timeline.periods extraction / w1_labels
+     rule A  +0.031 [0.021, 0.042], −0.030 [−0.040, −0.020]   R verdicts.revised.rule_a_primary.contrasts
+             0.400 vs [0.691, 0.709]; 0.449 vs [0.550, 0.572]; 0.142 vs 0.028 / 0.402   R rule_a_secondary
+             registered +0.008 [0.003, 0.013], −0.030 [−0.034, −0.026]   G w0.contrasts_prefixed
+     rule B  F1 +0.170 [0.149, 0.189], F2 −0.025 [−0.038, −0.015], F3 0.000 [−0.010, 0.010]   R verdicts.revised.rule_b.F
+             F3 lower end −0.01005, just below −δ; C-PR and its transfer layer both 0.282 (F3 ta / tb)
+             δ = 0.010 R w1.delta; half-width 0.0040 = calc from G w0.contrasts_prefixed[1] (thesis Ch. 4)
+             7,960 spenders, 70 traders R w1; AWP F2 −0.075 [−0.085, −0.065] R w1.sensitivity_awp.F2
+             in-approve degree 0.381 on new approval pairs R w1.spender_taus
+             registered F1 +0.101 [0.092, 0.111], F2 −0.025 [−0.029, −0.021], F3 −0.044 [−0.100, −0.002]  G w1.rule_b
+     table   27,844/6,483 · 33,101/7,914 · 34,587/7,960 · 0.217/0.199 · verdicts, the same except R1
+             (thesis table registered-vs-revised); 0.9978 / 0.9952 G§D allowances_ge10_share / transfers_ge10_share
+     R1–R3   70 / 87 R w1.neutral_w1.n / neutral_w0.n; 9 liquidated R w1.traders_liquidated
+             P W1 +0.141 [0.037, 0.240], 97.5 % [0.026, 0.256]; stratified +0.145 [0.040, 0.328];
+             P W0 +0.095, 97.5 % [−0.041, 0.263]; Q W1 +0.023 [−0.062, 0.113], 97.5 % [−0.071, 0.127];
+             Q W0 −0.012, 97.5 % [−0.177, 0.168]   R verdicts.revised.P_w1 / Q_w1 / P_w0 / Q_w0
+             R3: −0.162 [−0.295, −0.025] (profitable share), −0.222 [−0.328, −0.106] (non-loss share)
+             37/37, 39/39, 72.7 %, 75.0 % neutral_w1/w0.recipients; τ 0.394 / 0.253 neutral_w1.taus
+             verdicts R verdicts.revised.R1–R3 (met, not met, applies); G w1.neutral_rules: R1 not met
+             (P W1 +0.063), R2 and R3 the same
    ========================================================================= */
 (function () {
   'use strict';
@@ -83,6 +89,40 @@
   };
   var LOOP_SVG = '<svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15.6 8.4A6 6 0 1 0 16 12"/><path d="M16.2 4.3v4.2H12"/></svg>';
 
+  /* ------------------------------------------------------------ data (DECK_DATA first; the strings are fallbacks as in the thesis) */
+  function pk(o, keys) { for (var i = 0; i < keys.length; i++) { if (o == null) return null; o = o[keys[i]]; } return o == null ? null : o; }
+  function num(v, d) { return typeof v === 'number' ? v : d; }
+  function okIv(a) { return !!a && a.length >= 3 && typeof a[0] === 'number' && typeof a[1] === 'number' && typeof a[2] === 'number'; }
+  /* a contrast ({d: [Δτ, lo, hi]} or the bare array) written as '+0.031 [0.021, 0.042]' */
+  function cs(c, dflt) { var d = c && c.d ? c.d : c; return okIv(d) ? sfmt(d[0], 3) + ' [' + mfmt(d[1], 3) + ', ' + mfmt(d[2], 3) + ']' : dflt; }
+  function n0(v, dflt) { return typeof v === 'number' ? fmt(v, 0) : dflt; }
+  function n3(v, dflt) { return typeof v === 'number' ? mfmt(v, 3) : dflt; }
+  function pct1(v, dflt) { return typeof v === 'number' ? fmt(v * 100, 1) + '%' : dflt; }
+  var RES = DATA.results || {}, RV = RES.revised || {}, RG = RES.registered || {}, VR = pk(RES, ['verdicts', 'revised']) || {};
+  var TL = DATA.timeline || {};
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function hms(iso, dflt) { var m = /T(\d\d:\d\d:\d\d)/.exec(iso || ''); return m ? m[1] : dflt; }
+  function evT(id) { var e = (TL.events || []).filter(function (x) { return x.id === id; })[0]; return e ? e.t : null; }
+  function cmT(sh) { var c = (TL.commits || []).filter(function (x) { return x.short === sh; })[0]; return c ? c.utc : null; }
+  function period(id) { return (TL.periods || []).filter(function (x) { return x.id === id; })[0] || {}; }
+  function eDay(iso, short) { var m = /^(\d{4})-(\d\d)-(\d\d)/.exec(iso || ''); return m ? (+m[3]) + ' ' + (short ? MONTHS[+m[2] - 1].slice(0, 3) : MONTHS[+m[2] - 1]) + ' ' + m[1] : null; }
+  var T9 = (function () {
+    var pa = period('extraction'), pb = period('w1_labels'), mb = /^(\d{4})-(\d\d)/.exec(pb.from || ''), me = /^\d{4}-(\d\d)/.exec(pb.to || '');
+    return {
+      day: eDay(cmT('43d8045')) || '9 October 2026',
+      plan: hms(cmT('43d8045'), '13:41:27'), scanA: hms(evT('scan_a_created'), '13:41:37'),
+      reg: hms(cmT('0d3a057'), '16:49:32'), manifest: hms(evT('w1_extraction_started'), '16:49:33'), scanB: hms(evT('scan_b_created'), '16:49:40'),
+      gapA: num(pk(TL, ['gaps', 'plan_commit_to_scan_a_created_s']), 10),
+      gapM: num(pk(TL, ['gaps', 'registration_commit_to_w1_extraction_start_s']), 1),
+      gapB: num(pk(TL, ['gaps', 'registration_commit_to_scan_b_created_s']), 8),
+      spanA: (eDay(pa.from, true) && eDay(pa.to, true)) ? eDay(pa.from, true) + ' – ' + eDay(pa.to, true) : '1 Oct 2023 – 30 Jun 2026',
+      spanAsay: (eDay(pa.from) && eDay(pa.to)) ? eDay(pa.from) + ' to ' + eDay(pa.to) : '1 October 2023 to 30 June 2026',
+      spanB: (mb && me) ? MONTHS[+mb[2] - 1] + '–' + MONTHS[+me[1] - 1] + ' ' + mb[1] : 'July–September 2026'
+    };
+  })();
+  function hmsNum(s) { var p = String(s).split(':'); return [+p[0], +p[1], +p[2]]; }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
   /* ------------------------------------------------------------ styles */
   var CSS = [
     /* s09-01 */
@@ -94,6 +134,7 @@
     '.s9-node.small .k{font-size:22px;color:var(--ink-2);font-weight:500}',
     '.s9-node .note{font-size:20px;line-height:28px;color:var(--ink-2)}',
     '.s9-node .note b{color:var(--ink);font-variant-numeric:tabular-nums}',
+    '.s9-node .tg{font-size:20px;line-height:26px;font-weight:700;color:var(--ink);border:1.5px solid var(--ink-3);border-radius:13px;padding:0 12px}',
     '.s9-time{position:absolute;width:210px;left:96px;text-align:right;font-family:var(--font-mono);font-size:21px;line-height:28px;color:var(--ink-2);letter-spacing:0;transform:translateY(-50%)}',
     '.s9-date{position:absolute;left:96px;font-size:19px;line-height:26px;color:var(--ink-3);font-weight:600}',
     '.s9-lockw{position:absolute;left:308px;width:44px;height:44px;margin-top:-22px;border-radius:22px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--ink)}',
@@ -156,6 +197,7 @@
     '.s9-tr .b{width:280px;text-align:left;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}',
     '.s9-tr.vd .a,.s9-tr.vd .b{font-weight:800}',
     '.s9-tr.vd .eq{color:var(--ink);font-size:30px}',
+    '.s9-tr.vd.df .eq{color:var(--c-hi)}',
     '.s9-bold{font-size:28px;line-height:40px;font-weight:800;color:var(--ink)}',
     /* s09-06 */
     '.s9-wl{font-size:20px;line-height:30px;color:var(--ink-2)}',
@@ -221,69 +263,67 @@
   function lin(d0, d1, x0, x1) { return function (v) { return x0 + (v - d0) / (d1 - d0) * (x1 - x0); }; }
 
   /* ================================================================ s09-01 timeline of commits */
-  var STEM = { x: 330, y0: 206, y1: 820 };
+  var STEM = { x: 330, y0: 206, y1: 716 };
   var N1 = [
-    { y: 236, t: '13:41:27', html: '<span class="k">Analysis plan commit</span><span class="code">43d8045</span><span class="sub">before this study extracted any log</span>', lock: 'closed', step: 1 },
-    { y: 298, t: '13:41:37', html: '<span class="k">Scan A starts</span><span class="chip">10 s later</span>', step: 1, late: 1.9 },
-    { y: 364, t: 'same day', html: '<span class="k">Cohort · labels · same-window and W0 results</span><span class="sub">→ rule A judged</span>', step: 2 },
-    { y: 452, t: '16:49:32', html: '<span class="k">W1 registration commit</span><span class="code">0d3a057</span><span class="sub">rule B · R1–R3 · margin · verdict wording</span>', lock: 'closed', step: 3 },
-    { y: 508, t: '16:49:33', html: '<span class="k">Extraction manifest written</span><span class="sub">SHA-256 of both files · override not used</span>', step: 3, small: true, late: 1.2 },
-    { y: 562, t: '16:49:40', html: '<span class="k">Scan B starts</span><span class="chip">8 s later</span>', step: 3, late: 2.0 },
-    { y: 680, t: '07:54:35', html: '<span class="k">Amount revision document</span><span class="code">a897475</span>', lock: 'hollow', step: 5 },
-    { y: 738, t: '08:12:44', html: '<span class="k">Five tokens and prices</span><span class="code">09dfc32</span><span class="note">→ 08:16 query: five-token tables</span>', lock: 'hollow', step: 5 },
-    { y: 796, t: '11:24:01', html: '<span class="k">Cap U amended</span><span class="code">2705b28</span><span class="note">→ <b>11:24:57</b> first input of the revised scores</span>', lock: 'hollow', step: 5 }
+    { y: 236, t: T9.plan, html: '<span class="k">Analysis plan commit</span><span class="code">43d8045</span><span class="sub">before this study extracted any log</span>', lock: 'closed' },
+    { y: 298, t: T9.scanA, html: '<span class="k">Scan A starts</span><span class="chip">' + T9.gapA + ' s later</span><span class="sub">logs of ' + T9.spanA + '</span>' },
+    { y: 364, t: 'same day', html: '<span class="k">Cohort · labels · same-window and W0 results</span><span class="sub">→ rule A judged</span>' },
+    { y: 452, t: T9.reg, html: '<span class="k">W1 registration commit</span><span class="code">0d3a057</span><span class="sub">rule B · R1–R3 · margin · verdict wording</span>', lock: 'closed' },
+    { y: 508, t: T9.manifest, html: '<span class="k">Extraction manifest written</span><span class="sub">SHA-256 of both files · override not used</span>', small: true },
+    { y: 562, t: T9.scanB, html: '<span class="k">Scan B starts</span><span class="chip">' + T9.gapB + ' s later</span><span class="sub">logs of ' + T9.spanB + '</span>' },
+    /* the revised analysis: no time, no lock (defined after the registered results were known) */
+    { y: 690, t: 'afterwards', html: '<span class="k">Revised analysis defined</span><span class="re">' + LOOP_SVG + '</span><span class="tg">US-dollar amounts</span><span class="tg">five tokens</span><span class="tg">twelve-month score windows</span>', rev: true }
   ];
   var slide1 = {
     id: 's09-01', title: 'What was fixed, and when', time: 60, steps: 6,
     tags: function (s) { return s >= 5 ? ['plan', 'registered', 'reanalysis'] : s >= 3 ? ['plan', 'registered'] : s >= 1 ? ['plan'] : []; },
     notes: [
-      'What I cared about most in this study is the order of events. This stem puts the commits to the public repository and the data extractions in time order. The wavy marks are where time is folded.',
-      'At 13:41:27 UTC on 9 October, before this study had extracted any data, I committed the analysis plan to the public repository. The lock clicks shut. If we zoom in to seconds on the right, the first extraction started exactly 10 seconds later.',
+      'What I cared about most in this study is the order of events. This stem puts the commits to the public repository and the data extractions in time order. The wavy mark is where time is folded.',
+      'At ' + T9.plan + ' UTC on ' + T9.day.replace(/ \d{4}$/, '') + ', before this study had extracted any data, I committed the analysis plan to the public repository. The lock clicks shut. If we zoom in to seconds on the right, the first extraction started exactly ' + T9.gapA + ' seconds later. It extracted the logs from ' + T9.spanAsay + '.',
       'The same day I built the cohort and the labels, computed the same-window and W0 results, and judged rule A.',
-      'After seeing those W0 results, I registered what would be tested in W1. That is the commit at 16:49:32. One second later the extraction manifest began to be written, and 8 seconds after the commit the extraction of the July to September logs started. The extraction script does not run without the registration commit, and the manifest records the SHA-256 of both files and that the override was not used.',
-      'Up to here is the registered analysis. Below this line, I knew the results of the registered analysis.',
-      'The next day I found a problem with the units of the amounts, and I revised the amounts to US dollars. This change came after seeing the registered results, so these locks are hollow. I committed the revision document and the five tokens, computed the dollar medians and percentiles, and then amended the definition of the cap U and committed it. The pair tables, proxies, labels and revised scores were all built after the last commit, at 11:24:01. The first pair table was finished 56 seconds after that commit.',
-      'So the plan and the registration came before this study\'s data extraction, and that is the registered analysis. The revision came after the registered results, but it was committed before any revised score was computed. That is the revised analysis, and I call every verdict that applies the registered rules to it a re-analysis.'
+      'After seeing those W0 results, I registered what would be tested in W1. That is the commit at ' + T9.reg + '. ' + (T9.gapM === 1 ? 'One second' : T9.gapM + ' seconds') + ' later the extraction manifest began to be written, and ' + T9.gapB + ' seconds after the commit the extraction of the July to September logs started. The extraction script does not run without the registration commit, and the manifest records the SHA-256 of both files and that the override was not used.',
+      'Next came the W1 evaluation and the other results of the registered analysis. Below this line, I knew the results of the registered analysis.',
+      'After those results were known, I defined the revised analysis: amounts in US dollars, five tokens, and scores from the twelve months before each freeze. It was defined after seeing the registered results, so it has no lock, and none of its results is a registered result. It applies the rules and thresholds fixed in advance, unchanged. We will see shortly why it was defined this way.',
+      'So the plan and the registration were each fixed before the logs they judge were extracted, and that is the registered analysis. The US-dollar amounts, the five tokens and the twelve-month score windows were defined after the registered results were known, and that is the revised analysis, the main analysis of the thesis. I call every verdict that applies the registered rules to it a re-analysis.'
     ],
     html: function () {
       var s = '<h1 class="t-h1">The rules were [[locked]] first, then the data were extracted</h1>';
       s += '<svg class="abs" id="stem" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>';
-      s += '<div class="s9-date" id="d1" data-in="none" style="top:180px">9 October 2026 · UTC</div>';
-      s += '<div class="s9-date" id="d2" data-in="none" style="top:636px">10 October 2026</div>';
+      s += '<div class="s9-date" id="d1" data-in="none" style="top:180px">' + T9.day + ' · UTC</div>';
       N1.forEach(function (n, i) {
         s += '<div class="s9-time" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.t + '</div>';
         if (n.lock) s += '<div class="s9-lockw ' + n.lock + '" data-lk="' + i + '" data-in="none" style="top:' + n.y + 'px">' + LOCK() + '</div>';
-        s += '<div class="s9-node' + (n.small ? ' small' : '') + '" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.html.replace('</span><span class="note">', '</span><span class="re">' + LOOP_SVG + '</span><span class="note">') + (n.lock === 'hollow' && n.html.indexOf('class="note"') < 0 ? '<span class="re">' + LOOP_SVG + '</span>' : '') + '</div>';
+        s += '<div class="s9-node' + (n.small ? ' small' : '') + '" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.html + '</div>';
       });
       s += '<div class="s9-sep" id="sep" data-in="none" style="top:616px"></div>';
       s += '<div class="s9-septx" id="septx" data-in="none" style="left:680px;top:600px">Registered results known from here on</div>';
-      s += '<div class="s9-zoom" id="zoom" data-in="none"><div class="hd" id="zhd">Zoomed to seconds</div><div class="clk" id="clk">13:41:27</div><div class="gap" id="zgap">0 s</div>' +
+      s += '<div class="s9-zoom" id="zoom" data-in="none"><div class="hd" id="zhd">Zoomed to seconds</div><div class="clk" id="clk">' + T9.plan + '</div><div class="gap" id="zgap">0 s</div>' +
         '<svg id="zr" width="584" height="150" viewBox="0 0 584 150"></svg><div class="cap" id="zcap"></div></div>';
-      s += '<div class="abs s9-bot" id="bot1" data-in="none" style="left:96px;top:846px;width:1728px"><b>Plan and registration came before this study\'s data extraction</b> → registered analysis<br><b>The revision came after the registered results, but was committed before any revised score</b> → revised analysis (re-analysis)</div>';
-      s += '<div class="abs s9-small" id="bot2" data-in="none" style="left:96px;top:934px;width:1728px">The extraction script does not run without the registration commit · the manifest records the SHA-256 of both files and “override not used” · commit times from git log, query times from the BigQuery ledger</div>';
+      s += '<div class="abs s9-bot" id="bot1" data-in="none" style="left:96px;top:846px;width:1728px"><b>Plan and registration came before the extraction of the logs they judge</b> → registered analysis<br><b>US dollars, five tokens, twelve-month windows: set after the registered results</b> → revised analysis (re-analysis)</div>';
+      s += '<div class="abs s9-small" id="bot2" data-in="none" style="left:96px;top:934px;width:1728px">The extraction script does not run without the registration commit · the manifest records the SHA-256 of both files and “override not used” · times from the commit record and the extraction run records</div>';
       return s;
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#stem');
-      /* stem with two folds (time folded between 13:43 and 16:49, and overnight) */
-      var F1 = 408, F2 = 640;
-      var d = 'M' + STEM.x + ',' + STEM.y0 + ' L' + STEM.x + ',' + (F1 - 10) + ' M' + STEM.x + ',' + (F1 + 10) + ' L' + STEM.x + ',' + (F2 - 10) + ' M' + STEM.x + ',' + (F2 + 10) + ' L' + STEM.x + ',' + STEM.y1;
+      /* stem with one fold (time folded between the end of scan A and the registration) */
+      var F1 = 408;
+      var d = 'M' + STEM.x + ',' + STEM.y0 + ' L' + STEM.x + ',' + (F1 - 10) + ' M' + STEM.x + ',' + (F1 + 10) + ' L' + STEM.x + ',' + STEM.y1;
       g.stem = svgEl('path', { d: d, stroke: '#3A4458', 'stroke-width': 4, fill: 'none', 'stroke-linecap': 'round' }, sv);
-      g.folds = [F1, F2].map(function (fy) {
+      g.folds = [F1].map(function (fy) {
         return svgEl('path', { d: 'M' + (STEM.x - 16) + ',' + (fy - 6) + ' q 8,-8 16,0 t 16,0 M' + (STEM.x - 16) + ',' + (fy + 6) + ' q 8,-8 16,0 t 16,0', stroke: C.ink3, 'stroke-width': 2, fill: 'none' }, sv);
       });
       g.head = svgEl('circle', { cx: STEM.x, cy: STEM.y0, r: 8, fill: '#fff', 'class': 'glow-white' }, sv);
-      g.dots = N1.map(function (n) { return svgEl('circle', { cx: STEM.x, cy: n.y, r: n.lock ? 0 : 7, fill: C.bg, stroke: C.ink3, 'stroke-width': 2.5 }, sv); });
+      g.dots = N1.map(function (n) { return svgEl('circle', { cx: STEM.x, cy: n.y, r: n.lock ? 0 : 7, fill: C.bg, stroke: C.ink3, 'stroke-width': 2.5, 'stroke-dasharray': n.rev ? '3 3' : null }, sv); });
       gsap.set(g.folds.concat([g.head]), { autoAlpha: 0 });
       g.times = qa(el, '.s9-time'); g.nodes = qa(el, '.s9-node'); g.locks = {};
       qa(el, '.s9-lockw').forEach(function (L) { g.locks[+L.getAttribute('data-lk')] = L; });
       gsap.set(g.times.concat(g.nodes), { autoAlpha: 0 });
       Object.keys(g.locks).forEach(function (k) { gsap.set(g.locks[k], { autoAlpha: 0.35 }); gsap.set(q(g.locks[k], '.sh'), { y: -5 }); });
-      g.d1 = q(el, '#d1'); g.d2 = q(el, '#d2'); g.sep = q(el, '#sep'); g.septx = q(el, '#septx');
+      g.d1 = q(el, '#d1'); g.sep = q(el, '#sep'); g.septx = q(el, '#septx');
       g.zoom = q(el, '#zoom'); g.clk = q(el, '#clk'); g.zgap = q(el, '#zgap'); g.zr = q(el, '#zr'); g.zcap = q(el, '#zcap'); g.zhd = q(el, '#zhd');
       g.bot1 = q(el, '#bot1'); g.bot2 = q(el, '#bot2');
-      gsap.set([g.d2, g.sep, g.septx, g.zoom, g.bot1, g.bot2], { autoAlpha: 0 });
+      gsap.set([g.sep, g.septx, g.zoom, g.bot1, g.bot2], { autoAlpha: 0 });
     },
     enter: function (el, ctx) {
       var g = ctx.g, tl = ctx.tl();
@@ -300,7 +340,11 @@
       var g = ctx.g, tl = ctx.tl();
       function showNode(k, at) {
         tl.fromTo([g.times[k], g.nodes[k]], { autoAlpha: 0, x: -14 }, { autoAlpha: 1, x: 0, duration: dur(ctx, 0.4), ease: E.out }, at);
-        tl.to(g.dots[k], { attr: { fill: C.ink, stroke: C.ink }, duration: 0.3 }, at);
+        tl.to(g.dots[k], { attr: { fill: N1[k].rev ? C.bg : C.ink, stroke: C.ink }, duration: 0.3 }, at);
+      }
+      function clockAt(cfg, s) {
+        var t = cfg.start[0] * 3600 + cfg.start[1] * 60 + cfg.start[2] + s;
+        return pad2(Math.floor(t / 3600) % 24) + ':' + pad2(Math.floor(t / 60) % 60) + ':' + pad2(t % 60);
       }
       function lockShut(k, at) {
         var L = g.locks[k];
@@ -337,23 +381,23 @@
         var st = { s: 0 };
         tl.fromTo(st, { s: 0 }, { s: cfg.n, duration: dur(ctx, Math.min(2.0, 0.2 * cfg.n + 0.4)), ease: 'none',
           onUpdate: function () {
-            var s = st.s, sec = cfg.start[2] + Math.floor(s + 1e-6);
-            g.clk.textContent = cfg.start[0] + ':' + cfg.start[1] + ':' + (sec < 10 ? '0' : '') + sec;
+            var s = st.s;
+            g.clk.textContent = clockAt(cfg, Math.floor(s + 1e-6));
             g.zgap.textContent = Math.floor(s + 1e-6) + ' s';
             if (g.sweep) g.sweep.setAttribute('x2', g.X(s));
             if (g.zmarks) g.zmarks.forEach(function (m) { if (s >= m.s - 1e-6 && !m.on) { m.on = true; ctx.add(function () { gsap.fromTo(m.g, { autoAlpha: 0, scale: 0.5, svgOrigin: g.X(m.s) + ' 60' }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.3), ease: E.stamp }); }); } });
           },
           onComplete: function () {
-            var sec = cfg.start[2] + cfg.n;
-            g.clk.textContent = cfg.start[0] + ':' + cfg.start[1] + ':' + (sec < 10 ? '0' : '') + sec;
+            g.clk.textContent = clockAt(cfg, cfg.n);
             g.zgap.textContent = cfg.n + ' s'; if (g.sweep) g.sweep.setAttribute('x2', g.X(cfg.n));
             if (g.zmarks) g.zmarks.forEach(function (m) { m.on = true; gsap.set(m.g, { autoAlpha: 1, scale: 1 }); });
           } }, at + 0.75);
       }
+      var zday = T9.day.replace(/ \d{4}$/, '');
       if (i === 1) {
         showNode(0, 0); lockShut(0, 0.15);
-        zoom({ y: 236, n: 10, start: ['13', '41', 27], hd: '9 October · zoomed to seconds', cap: 'Plan commit → first extraction: <b class="ink">10 s</b>',
-          marks: [{ s: 0, label: 'Plan commit' }, { s: 10, label: 'Scan A starts' }] }, 0.5);
+        zoom({ y: 236, n: T9.gapA, start: hmsNum(T9.plan), hd: zday + ' · zoomed to seconds', cap: 'Plan commit → first extraction: <b class="ink">' + T9.gapA + ' s</b>',
+          marks: [{ s: 0, label: 'Plan commit' }, { s: T9.gapA, label: 'Scan A starts' }] }, 0.5);
         showNode(1, 3.1);
       }
       if (i === 2) {
@@ -361,8 +405,8 @@
       }
       if (i === 3) {
         showNode(3, 0); lockShut(3, 0.15);
-        zoom({ y: 452, n: 8, start: ['16', '49', 32], hd: '9 October · zoomed to seconds', cap: 'Registration commit → manifest <b class="ink">1 s</b> → W1 extraction <b class="ink">8 s</b>',
-          marks: [{ s: 0, label: 'Registration commit' }, { s: 1, label: 'Manifest', fill: C.ink2 }, { s: 8, label: 'Scan B starts' }] }, 0.5);
+        zoom({ y: 452, n: T9.gapB, start: hmsNum(T9.reg), hd: zday + ' · zoomed to seconds', cap: 'Registration commit → manifest <b class="ink">' + T9.gapM + ' s</b> → W1 extraction <b class="ink">' + T9.gapB + ' s</b>',
+          marks: [{ s: 0, label: 'Registration commit' }, { s: T9.gapM, label: 'Manifest', fill: C.ink2 }, { s: T9.gapB, label: 'Scan B starts' }] }, 0.5);
         showNode(4, 1.7); showNode(5, 2.7);
       }
       if (i === 4) {
@@ -371,15 +415,12 @@
         tl.to(g.zoom, { autoAlpha: 0, duration: 0.4 }, 0);
       }
       if (i === 5) {
-        fadeUp(tl, g.d2, 0, 0.4);
-        [6, 7, 8].forEach(function (k, j) {
-          var at = 0.2 + j * 0.55;
-          showNode(k, at);
-          tl.to(g.locks[k], { autoAlpha: 1, duration: 0.3 }, at);
-          var re = q(g.nodes[k], '.re'); if (re) popIn(tl, re, at + 0.25);
-        });
-        zoom({ y: 796, n: 56, start: ['11', '24', 1], hd: '10 October · last revision commit → first input', cap: 'The revision came after the registered results, but was committed <b class="ink">before any revised score was computed</b>',
-          marks: [{ s: 0, label: '2705b28 commit' }, { s: 56, label: 'First pair table done' }] }, 1.9);
+        /* below the line, with no time and no lock: the revised analysis and its three definitions */
+        var rv = g.nodes[6], tgs = qa(rv, '.tg');
+        gsap.set(tgs, { autoAlpha: 0 });
+        showNode(6, 0.2);
+        var re = q(rv, '.re'); if (re) popIn(tl, re, 0.5);
+        tl.fromTo(tgs, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: dur(ctx, 0.35), ease: E.out, stagger: 0.2 }, 0.7);
       }
       if (i === 6) {
         fadeUp(tl, [g.bot1, g.bot2], 0.1, 0.5, 0.2);
@@ -388,20 +429,31 @@
   };
 
   /* ================================================================ s09-02 rule A */
-  var A2 = { x0: 900, x1: 1560, d: [-0.05, 0.05], rows: [{ y: 262, v: '+0.029 [0.022, 0.036]', g: '+0.008 [0.003, 0.013]', ok: true }, { y: 408, v: '−0.034 [−0.040, −0.029]', g: '−0.030 [−0.034, −0.026]', ok: false }] };
+  /* rule A on the revised scores (re-analysis) and in the registered analysis: W0 contrasts and the same-window part */
+  var RAP = (VR.rule_a_primary || {}).contrasts || pk(RV, ['w0', 'contrasts_prefixed']) || [];
+  var RAG = pk(RG, ['w0', 'contrasts_prefixed']) || [];
+  var A2 = { x0: 900, x1: 1560, d: [-0.05, 0.05], rows: [
+    { y: 262, v: cs(RAP[0], '+0.031 [0.021, 0.042]'), g: cs(RAG[0], '+0.008 [0.003, 0.013]'), ok: true },
+    { y: 408, v: cs(RAP[1], '−0.030 [−0.040, −0.020]'), g: cs(RAG[1], '−0.030 [−0.034, −0.026]'), ok: false }
+  ] };
+  var RAS = VR.rule_a_secondary || pk(RV, ['same_window', 'rule_a_secondary']) || {};
+  var SWT = RAS.transfer || {}, SWA = RAS.allowance || {}, SWS = RAS.sybil_stability || {};
   var SW2 = [
-    { hd: 'Transfer family', col: C.xfer, cpr: 0.365, band: [0.653, 0.666], bandCol: C.xfer, v: 'C-PR 0.365 · λ = 0: [0.653, 0.666]' },
-    { hd: 'Allowance family', col: C.allow, cpr: 0.477, band: [0.590, 0.604], bandCol: C.allow, v: 'C-PR 0.477 · λ = 1: [0.590, 0.604]' },
-    { hd: 'Sybil stability', col: C.ink, cpr: 0.142, ticks: [[0.011, C.allow, 'λ=1 0.011'], [0.404, C.xfer, 'λ=0 0.404']], v: 'C-PR 0.142 · λ = 1: 0.011 · λ = 0: 0.404' }
+    { hd: 'Transfer family', col: C.xfer, cpr: num(SWT.cpr, 0.4001), band: SWT.best_ci || [0.6913, 0.7092], bandCol: C.xfer },
+    { hd: 'Allowance family', col: C.allow, cpr: num(SWA.cpr, 0.449), band: SWA.best_ci || [0.5497, 0.5724], bandCol: C.allow },
+    { hd: 'Sybil stability', col: C.ink, cpr: num(SWS.cpr_l50, 0.1421), ticks: [[num(SWS.cpr_l100, 0.027546), C.allow], [num(SWS.cpr_l0, 0.4022), C.xfer]] }
   ];
+  SW2[0].v = 'C-PR ' + n3(SW2[0].cpr) + ' · λ = 0: [' + n3(SW2[0].band[0]) + ', ' + n3(SW2[0].band[1]) + ']';
+  SW2[1].v = 'C-PR ' + n3(SW2[1].cpr) + ' · λ = 1: [' + n3(SW2[1].band[0]) + ', ' + n3(SW2[1].band[1]) + ']';
+  SW2[2].v = 'C-PR ' + n3(SW2[2].cpr) + ' · λ = 1: ' + n3(SW2[2].ticks[0][0]) + ' · λ = 0: ' + n3(SW2[2].ticks[1][0]);
   var slide2 = {
     id: 's09-02', title: 'Rule A (analysis plan, fixed before this study\'s extraction)', time: 45, steps: 5,
     tags: function (s) { return s >= 5 ? ['plan', 'reanalysis', 'registered-analysis'] : s >= 1 ? ['plan', 'reanalysis'] : ['plan']; },
     notes: [
       'Rule A is the rule I wrote into the analysis plan before this study extracted any data. In W0, C-PR, which mixes the two edge types, must do no worse than the allowance layer walked alone, and at the same time better than the transfer layer walked alone. There is also a same-window part. The numbers on screen are a re-analysis: this rule applied unchanged to the revised scores.',
-      'The first condition. On new approval pairs, the paired difference of C-PR minus the allowance layer walked alone is 0.029. The interval lies above 0, so this condition is met.',
-      'On the second condition, C-PR was actually 0.034 lower than the transfer layer. The whole interval lies left of 0, so it is not met.',
-      'The same-window part failed on all three counts as well. On the transfer family and the allowance family, C-PR did not fall inside the interval of the better layer. On Sybil stability it had to be above both layers, but it was below the transfer layer.',
+      'The first condition. On new approval pairs, the paired difference of C-PR minus the allowance layer walked alone is ' + estOf(A2.rows[0].v).replace(/^\+/, '') + '. The interval lies above 0, so this condition is met.',
+      'On the second condition, C-PR was actually ' + estOf(A2.rows[1].v).replace(/^−/, '') + ' lower than the transfer layer. The whole interval lies left of 0, so it is not met.',
+      'The same-window part failed on all three counts as well. On the transfer family and the allowance family, C-PR fell short of the interval of the better layer. On Sybil stability it had to be above both layers, but it was above only the allowance layer.',
       'So rule A is not met. This verdict is a re-analysis: the rule fixed in advance, applied to the revised scores.',
       'In the registered analysis it was not met either. The gray hollow dots show those values.'
     ],
@@ -413,7 +465,7 @@
       '<svg class="abs" id="ax2" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
       '<div class="abs" id="sw2" data-in="none" style="left:800px;top:530px;width:1024px;height:132px"></div>' +
       '<div class="abs s9-verd" id="verd" data-in="none" style="left:96px;top:712px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span><span class="s9-line" id="reTx">The rule fixed in advance, applied to the revised scores. Not a registered test.</span></div>' +
-      '<div class="abs s9-tiny" id="gl" data-in="none" style="left:96px;top:806px;width:1728px">' + pill('registered-analysis') + 'Also not met in the registered analysis: ① <b>+0.008 [0.003, 0.013]</b> · ② <b>−0.030 [−0.034, −0.026]</b> · same-window part also not met (gray hollow dots)</div>',
+      '<div class="abs s9-tiny" id="gl" data-in="none" style="left:96px;top:806px;width:1728px">' + pill('registered-analysis') + 'Also not met in the registered analysis: ① <b>' + A2.rows[0].g + '</b> · ② <b>' + A2.rows[1].g + '</b> · same-window part also not met (gray hollow dots)</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax2'), X = lin(A2.d[0], A2.d[1], A2.x0, A2.x1);
@@ -438,9 +490,9 @@
         cell.innerHTML = '<div class="hd" style="color:' + c.col + '">' + c.hd + '</div><div class="v tnum">' + c.v + '</div>';
         host.appendChild(cell);
         var sv2 = svgEl('svg', { width: 330, height: 80, viewBox: '0 0 330 80' }, cell);
-        var x = lin(0, 0.7, 20, 310);
-        svgEl('line', { x1: x(0), x2: x(0.7), y1: 44, y2: 44, stroke: '#2C3547', 'stroke-width': 2 }, sv2);
-        [0, 0.35, 0.7].forEach(function (t) { txt(sv2, x(t), 70, fmt(t, t === 0 ? 0 : 2), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 14, 'class': 'tnum' }); });
+        var x = lin(0, 0.8, 20, 310);
+        svgEl('line', { x1: x(0), x2: x(0.8), y1: 44, y2: 44, stroke: '#2C3547', 'stroke-width': 2 }, sv2);
+        [0, 0.4, 0.8].forEach(function (t) { txt(sv2, x(t), 70, fmt(t, t === 0 ? 0 : 1), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 14, 'class': 'tnum' }); });
         var parts = [];
         if (c.band) parts.push(svgEl('rect', { x: x(c.band[0]) - 3, y: 32, width: x(c.band[1]) - x(c.band[0]) + 6, height: 24, rx: 5, fill: c.bandCol, opacity: 0.45 }, sv2));
         (c.ticks || []).forEach(function (t) { parts.push(svgEl('line', { x1: x(t[0]), x2: x(t[0]), y1: 30, y2: 58, stroke: t[1], 'stroke-width': 4, 'stroke-linecap': 'round' }, sv2)); });
@@ -501,32 +553,41 @@
   };
 
   /* ================================================================ s09-03 rule B */
-  var B3 = { x0: 620, x1: 1470, d: [-0.11, 0.13], vX: 1500, rows: [
-    { y: 276, k: 'F1 · new approval pairs', ds: '18,152 spenders · interval above 0 (superiority)', v: '+0.110 [0.098, 0.122]', g: '+0.101 [0.092, 0.111]', ok: true },
-    { y: 404, k: 'F2 · new transfer senders', ds: 'Spenders · lower end > −0.01 (non-inferiority)', v: '−0.028 [−0.033, −0.023]', g: '−0.025 [−0.029, −0.021]', ok: false },
-    { y: 532, k: 'F3 · liquidation-free close rate', ds: '70 contract traders · lower end > −0.01', v: '+0.000 [−0.014, 0.010]', g: '−0.044 [−0.100, −0.002]', ok: false }
+  /* rule B on the revised scores (re-analysis) and in the registered analysis */
+  var RBF = pk(VR, ['rule_b', 'F']) || pk(RV, ['w1', 'rule_b']) || {};
+  var RBG = pk(RG, ['w1', 'rule_b']) || {};
+  var DELTA = num(pk(RV, ['w1', 'delta']), 0.01);
+  var F3LO = okIv(pk(RBF, ['F3', 'd'])) ? RBF.F3.d[1] : -0.01005;
+  var F3TAU = n3(pk(RBF, ['F3', 'ta']), '0.282');
+  var B3 = { x0: 620, x1: 1470, d: [-0.11, 0.21], vX: 1500, rows: [
+    { y: 276, k: 'F1 · new approval pairs', ds: n0(pk(RV, ['w1', 'spenders']), '7,960') + ' spenders · interval above 0 (superiority)', v: cs(RBF.F1, '+0.170 [0.149, 0.189]'), g: cs(RBG.F1, '+0.101 [0.092, 0.111]'), ok: true },
+    { y: 404, k: 'F2 · new transfer senders', ds: 'Spenders · lower end > −0.01 (non-inferiority)', v: cs(RBF.F2, '−0.025 [−0.038, −0.015]'), g: cs(RBG.F2, '−0.025 [−0.029, −0.021]'), ok: false },
+    { y: 532, k: 'F3 · liquidation-free close rate', ds: n0(pk(RV, ['w1', 'traders']), '70') + ' contract traders · lower end > −0.01', v: cs(RBF.F3, '0.000 [−0.010, 0.010]'), g: cs(RBG.F3, '−0.044 [−0.100, −0.002]'), ok: false }
   ] };
+  /* the zoom on the F3 lower end: −δ ± 0.0005, about 200 times the main axis */
+  var ZH = 0.0005, ZF = Math.round(564 / (2 * ZH) / ((B3.x1 - B3.x0) / (B3.d[1] - B3.d[0])) / 100) * 100;
+  var F3GAP = mfmt(-DELTA - F3LO, 5), F3LOS = mfmt(F3LO, 5);
   var slide3 = {
     id: 's09-03', title: 'Rule B (W1, registered before this study\'s W1 extraction)', time: 50, steps: 5,
     tags: function (s) { return s >= 5 ? ['registered', 'reanalysis', 'registered-analysis'] : s >= 1 ? ['registered', 'reanalysis'] : ['registered']; },
     notes: [
       'Rule B is the rule I registered after seeing the W0 results and before this study extracted the W1 logs. To say that C-PR improves on the transfer layer walked alone, all three conditions must hold. Every row is the paired difference of C-PR minus the transfer layer walked alone. The rose hatching is the margin of 0.01. The numbers are from the revised analysis, a re-analysis that applies the registered rule unchanged.',
-      'On new approval pairs C-PR was clearly better: 0.110, with the interval well above 0. The gain we saw in W0 showed up again in the new window.',
-      'On new transfer senders it was −0.028, behind by more than the margin of 0.01. The whole interval lies left of the hatching.',
-      'On the traders\' liquidation-free close rate the two scores were exactly equal. The point estimate is 0. But if we zoom in on the lower end of the interval, it is −0.014, past the margin of −0.010 by 0.004. Narrowly not met.',
+      'On new approval pairs C-PR was clearly better: ' + estOf(B3.rows[0].v).replace(/^\+/, '') + ', with the interval well above 0. The gain we saw in W0 showed up again in the new window. But this is a gain over the transfer layer walked alone. Simply counting the owners that approve ranks this label better than C-PR (' + n3(pk(RV, ['w1', 'spender_taus', 'in_approve_degree', 'future_new_approvers', 0]), '0.381') + ' against ' + n3(pk(RBF, ['F1', 'ta']), '0.316') + ').',
+      'On new transfer senders it was ' + estOf(B3.rows[1].v) + ', behind by more than the margin of 0.01. The whole interval lies left of the hatching.',
+      'On the traders\' liquidation-free close rate C-PR and the transfer layer were exactly equal, both at ' + F3TAU + '. The point estimate is 0. Rounded, the lower end of the interval is −0.010, which looks equal to the margin. But if we zoom in about ' + ZF + ' times, the lower end is ' + F3LOS + ', below the margin of −0.01000 by ' + F3GAP + '. Narrowly not met.',
       'So rule B is not met either. This too is a re-analysis: the registered rule applied to the revised scores.',
-      'The margin of 0.01 is the half-width of the interval of the same contrast in W0 of the registered analysis, 0.0040, rounded up to two decimals. In the sensitivity analysis with AWP as the comparator, F2 was also not met, at −0.067, and on F3 the two scores were both 0.350. Rule B was not met in the registered analysis either.'
+      'The margin of 0.01 is the half-width of the interval of the same contrast in W0 of the registered analysis, 0.0040, rounded up to two decimals. In the sensitivity analysis with AWP as the comparator, F2 was also not met, at ' + estOf(cs(pk(RV, ['w1', 'sensitivity_awp', 'F2']), '−0.075 [−0.085, −0.065]')) + '. Rule B was not met in the registered analysis either.'
     ],
     html:
       '<h1 class="t-h1">Rule B: does C-PR [[improve]] on the transfer layer alone?</h1>' +
       '<p class="abs s9-fx" style="left:96px;top:160px;width:1728px">Every row: $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ · superiority = clearly above 0 · non-inferiority = any shortfall stays within $\\delta=0.01$ · all three must hold</p>' +
-      '<p class="abs s9-cap" id="cap3" data-in="none" style="left:96px;top:198px"><i></i>Colored bars = revised analysis (re-analysis) · rule and margin exactly as registered</p>' +
+      '<p class="abs s9-cap" id="cap3" data-in="none" style="left:96px;top:198px"><i></i>Colored bars = revised analysis (re-analysis) · registered rule</p>' +
       B3.rows.map(function (r, k) { return '<div class="s9-fl" data-r="' + k + '" data-in="none" style="top:' + (r.y - 34) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
       '<svg class="abs" id="ax3" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
-      '<div class="s9-inset" id="ins" data-in="none"><div class="hd">F3 lower end · zoomed ×10</div><svg id="inssv" width="644" height="200" viewBox="0 0 644 200"></svg></div>' +
+      '<div class="s9-inset" id="ins" data-in="none"><div class="hd">F3 lower end · zoomed about ×' + ZF + '</div><svg id="inssv" width="644" height="200" viewBox="0 0 644 200"></svg></div>' +
       '<div class="abs s9-verd" id="verd" data-in="none" style="left:96px;top:676px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span></div>' +
       '<div class="abs s9-tiny" id="sm" data-in="none" style="left:96px;top:776px;width:1076px">' +
-        '<div>' + pill('registered-analysis') + 'Also not met in the registered analysis: F1 <b>+0.101</b> · F2 <b>−0.025</b> · F3 <b>−0.044</b> (gray hollow dots)</div></div>',
+        '<div>' + pill('registered-analysis') + 'Also not met in the registered analysis: F1 <b>' + estOf(B3.rows[0].g) + '</b> · F2 <b>' + estOf(B3.rows[1].g) + '</b> · F3 <b>' + estOf(B3.rows[2].g) + '</b> (gray hollow dots)</div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax3'), X = lin(B3.d[0], B3.d[1], B3.x0, B3.x1);
@@ -537,7 +598,7 @@
       g.band = svgEl('rect', { x: X(-0.01), y: 232, width: X(0) - X(-0.01), height: 352, fill: 'url(#s9-hatch)' }, sv);
       g.bandL = svgEl('line', { x1: X(-0.01), x2: X(-0.01), y1: 228, y2: 584, stroke: C.hi, 'stroke-width': 2 }, sv);
       g.bandT = txt(sv, X(-0.01) - 8, 226, '−δ = −0.01', { 'text-anchor': 'end', fill: C.hi, 'font-size': 18, 'font-weight': 700 });
-      axis(sv, { scale: X, domain: B3.d, ticks: [-0.1, -0.05, 0, 0.05, 0.1], y0: 232, y1: 584, signed: true });
+      axis(sv, { scale: X, domain: B3.d, ticks: [-0.1, -0.05, 0, 0.05, 0.1, 0.15, 0.2], y0: 232, y1: 584, signed: true });
       g.rows = B3.rows.map(function (r) {
         var d = iv(r.v), gd = iv(r.g);
         var B = ivBar(sv, { scale: X, y: r.y, est: d.est, lo: d.lo, hi: d.hi, color: C.cpr, width: 7, r: 12 });
@@ -552,19 +613,19 @@
         return { B: B, G: G, vt: vt, est: e1, d: d, mk: mki };
       });
       g.fl = qa(el, '.s9-fl');
-      /* ×10 inset around the F3 lower end: domain [−0.022, 0.004] */
-      var ins = q(el, '#inssv'), Z = lin(-0.022, 0.004, 40, 604);
-      g.Z = Z;
-      svgEl('rect', { x: Z(-0.01), y: 46, width: Z(0) - Z(-0.01), height: 100, fill: 'url(#s9-hatch)' }, ins);
-      svgEl('line', { x1: Z(-0.01), x2: Z(-0.01), y1: 42, y2: 150, stroke: C.hi, 'stroke-width': 2.5 }, ins);
-      svgEl('line', { x1: Z(0), x2: Z(0), y1: 42, y2: 150, stroke: C.ink2, 'stroke-width': 1.6, 'stroke-dasharray': '5 6' }, ins);
-      svgEl('line', { x1: Z(-0.022), x2: Z(0.004), y1: 150, y2: 150, stroke: C.line, 'stroke-width': 1.5 }, ins);
-      [-0.02, -0.015, -0.01, -0.005, 0].forEach(function (t) { txt(ins, Z(t), 174, t === 0 ? '0' : mfmt(t, 3), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 16, 'class': 'tnum' }); });
-      g.zbar = svgEl('line', { x1: Z(-0.014), x2: Z(0.004) + 20, y1: 96, y2: 96, stroke: C.cpr, 'stroke-width': 9, 'stroke-linecap': 'round' }, ins);
-      g.zend = svgEl('circle', { cx: Z(-0.014), cy: 96, r: 7, fill: C.cpr, stroke: C.bg, 'stroke-width': 2 }, ins);
-      g.zgapL = svgEl('path', { d: 'M' + Z(-0.014) + ',70 L' + Z(-0.014) + ',62 L' + Z(-0.01) + ',62 L' + Z(-0.01) + ',70', fill: 'none', stroke: C.ink, 'stroke-width': 2 }, ins);
-      g.zgapT = txt(ins, (Z(-0.014) + Z(-0.01)) / 2, 54, '0.004', { 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 800, 'class': 'tnum' });
-      g.zlab = txt(ins, Z(-0.014), 128, 'lower end −0.014', { 'text-anchor': 'middle', fill: C.cpr, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' });
+      /* about ×200 inset around the F3 lower end: domain −δ ± 0.0005 (0 lies far to the right) */
+      var Z0 = -DELTA - ZH, Z1 = -DELTA + ZH, ins = q(el, '#inssv'), Z = lin(Z0, Z1, 40, 604);
+      var zlo = Math.max(Z0, Math.min(Z1, F3LO));
+      g.Z = Z; g.zlo = zlo; g.Z1 = Z1;
+      svgEl('rect', { x: Z(-DELTA), y: 46, width: Z(Z1) - Z(-DELTA), height: 100, fill: 'url(#s9-hatch)' }, ins);
+      svgEl('line', { x1: Z(-DELTA), x2: Z(-DELTA), y1: 42, y2: 150, stroke: C.hi, 'stroke-width': 2.5 }, ins);
+      svgEl('line', { x1: Z(Z0), x2: Z(Z1), y1: 150, y2: 150, stroke: C.line, 'stroke-width': 1.5 }, ins);
+      [Z0, -DELTA, Z1].forEach(function (t) { txt(ins, Z(t), 174, mfmt(t, 4), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 16, 'class': 'tnum' }); });
+      g.zbar = svgEl('line', { x1: Z(zlo), x2: Z(Z1) + 20, y1: 96, y2: 96, stroke: C.cpr, 'stroke-width': 9, 'stroke-linecap': 'round' }, ins);
+      g.zend = svgEl('circle', { cx: Z(zlo), cy: 96, r: 7, fill: C.cpr, stroke: C.bg, 'stroke-width': 2 }, ins);
+      g.zgapL = svgEl('path', { d: 'M' + Z(zlo) + ',70 L' + Z(zlo) + ',62 L' + Z(-DELTA) + ',62 L' + Z(-DELTA) + ',70', fill: 'none', stroke: C.ink, 'stroke-width': 2 }, ins);
+      g.zgapT = txt(ins, (Z(zlo) + Z(-DELTA)) / 2, 54, F3GAP, { 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 800, 'class': 'tnum' });
+      g.zlab = txt(ins, Z(zlo) - 16, 103, 'lower end ' + F3LOS, { 'text-anchor': 'end', fill: C.cpr, 'font-size': 18, 'font-weight': 700, 'class': 'tnum' });
       g.zv = txt(ins, 604, 54, 'narrowly not met', { 'text-anchor': 'end', fill: C.hi, 'font-size': 20, 'font-weight': 800 });
       gsap.set([g.zgapL, g.zgapT, g.zv], { autoAlpha: 0 });
       g.ins = q(el, '#ins'); g.verd = q(el, '#verd'); g.reTag = q(el, '#reTag'); g.sm = q(el, '#sm'); g.cap = q(el, '#cap3');
@@ -592,7 +653,7 @@
       if (i === 3) {
         row(2, 0.05, 0.8);
         /* lens from the lower end of F3 into the inset */
-        var ov = ctx.overlay(), xa = g.X(-0.022), xb = g.X(0.004), yr = B3.rows[2].y;
+        var ov = ctx.overlay(), xa = g.X(-DELTA) - 16, xb = g.X(-DELTA) + 16, yr = B3.rows[2].y;
         var mag = svgEl('rect', { x: xa, y: yr - 22, width: xb - xa, height: 44, rx: 8, fill: 'none', stroke: C.ink2, 'stroke-width': 1.6, 'stroke-dasharray': '5 5' }, ov);
         var lp = svgEl('path', { d: 'M' + xa + ',' + (yr + 22) + ' L' + xa + ',640 Q' + xa + ',760 1180,760', fill: 'none', stroke: C.ink2, 'stroke-width': 1.6, 'stroke-dasharray': '5 5' }, ov);
         var LL = lp.getTotalLength ? lp.getTotalLength() : 600;
@@ -600,8 +661,8 @@
         tl.fromTo(mag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 1.0);
         tl.fromTo(lp, { autoAlpha: 1, strokeDasharray: LL + ' ' + LL, strokeDashoffset: LL }, { strokeDashoffset: 0, duration: dur(ctx, 0.5), ease: E.io, onComplete: function () { lp.style.strokeDasharray = '5 5'; lp.style.strokeDashoffset = '0'; } }, 1.2);
         tl.fromTo(g.ins, { autoAlpha: 0, scale: 0.3, transformOrigin: '20% 0%' }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.9), ease: E.io }, 1.4);
-        tl.fromTo(g.zbar, { attr: { x1: g.Z(0.004) + 20 } }, { attr: { x1: g.Z(-0.014) }, duration: dur(ctx, 0.7), ease: E.out }, 2.1);
-        tl.fromTo(g.zend, { attr: { cx: g.Z(0.004) + 20 } }, { attr: { cx: g.Z(-0.014) }, duration: dur(ctx, 0.7), ease: E.out }, 2.1);
+        tl.fromTo(g.zbar, { attr: { x1: g.Z(g.Z1) + 20 } }, { attr: { x1: g.Z(g.zlo) }, duration: dur(ctx, 0.7), ease: E.out }, 2.1);
+        tl.fromTo(g.zend, { attr: { cx: g.Z(g.Z1) + 20 } }, { attr: { cx: g.Z(g.zlo) }, duration: dur(ctx, 0.7), ease: E.out }, 2.1);
         tl.fromTo([g.zgapL, g.zgapT], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 2.8);
         tl.fromTo(g.zv, { autoAlpha: 0, x: 10 }, { autoAlpha: 1, x: 0, duration: 0.4 }, 3.1);
       }
@@ -618,28 +679,42 @@
   };
 
   /* ================================================================ s09-04 C-PR beside every other score (post hoc) */
-  /* W0 first, W1 second; C-PR (λ = 0.5) minus the row's score. Sources (R = revised digest):
-     EndorseRank: R§6 contrasts_after[6] / R§7 endorserank_results.cpr_minus_endorserank_appr; supplementary w0/w1.cpr_minus_er_send
-     AWP: R§6 contrasts_after[8], [7] / R§7 sensitivity_awp.F1, F2
-     AWP, received a transfer: supplementary w0/w1.recv_cpr_minus_awp_{appr,send} (n 14,094 / 15,059)
+  /* W0 first, W1 second; C-PR (λ = 0.5) minus the row's score. Sources (R = revised analysis):
+     EndorseRank: R w0.contrasts_after (cpr_l50 − endorserank) / R w1.endorserank_results.cpr_minus_endorserank_appr; supplementary w0/w1.cpr_minus_er_send
+     AWP: R w0.contrasts_after (cpr_l50 − awp) / R w1.sensitivity_awp.F1, F2
+     AWP, received a transfer: supplementary w0/w1.recv_cpr_minus_awp_{appr,send} (n 6,489 / 6,567, recv_n)
      EndorseRank (activity restarts): supplementary w0/w1.cpr_minus_er_activity_{appr,send}
      counts: supplementary w0/w1.cpr_minus_degree_appr (in-approve degree) and cpr_minus_in_degree_send (transfer in-degree) */
-  var B4 = { d: [-0.10, 0.10], ys: [306, 390, 474, 558, 642], xA: [640, 1150], xB: [1290, 1800], rows: [
-    { k: 'EndorseRank', ds: 'reference walk over allowances alone', a: ['+0.021 [0.013, 0.028]', '+0.016 [0.010, 0.024]'], b: ['+0.062 [0.054, 0.070]', '+0.069 [0.061, 0.078]'], step: 1 },
-    { k: 'AWP', ds: 'published walk over transfers alone', a: ['+0.056 [0.042, 0.070]', '+0.081 [0.069, 0.095]'], b: ['−0.085 [−0.092, −0.078]', '−0.067 [−0.072, −0.061]'], step: 2 },
-    { k: 'AWP · received a transfer', ds: 'the contracts AWP can order', a: ['−0.037 [−0.045, −0.028]', '−0.017 [−0.025, −0.009]'], b: ['−0.073 [−0.079, −0.067]', '−0.056 [−0.061, −0.050]'], step: 2 },
-    { k: 'EndorseRank (activity)', ds: 'restarts at approving owners', a: ['−0.057 [−0.065, −0.049]', '−0.044 [−0.051, −0.038]'], b: ['−0.008 [−0.017, 0.001]', '+0.021 [0.012, 0.030]'], step: 3 },
-    { k: 'Count of the same edge', ds: 'left in-approve degree · right transfer in-degree', a: ['+0.002 [−0.007, 0.011]', '−0.017 [−0.024, −0.010]'], b: ['−0.042 [−0.049, −0.035]', '−0.045 [−0.051, −0.039]'], step: 3 }
+  var SUP = RV.supplementary || {}, S0 = SUP.w0 || {}, S1 = SUP.w1 || {};
+  var CA0 = pk(RV, ['w0', 'contrasts_after']) || [];
+  function after0(b, out) { return CA0.filter(function (c) { return c.a === 'cpr_l50' && c.b === b && c.outcome === out; })[0]; }
+  var B4 = { d: [-0.20, 0.20], ys: [306, 390, 474, 558, 642], xA: [640, 1150], xB: [1290, 1800], rows: [
+    { k: 'EndorseRank', ds: 'reference walk over allowances alone', step: 1,
+      a: [cs(after0('endorserank', 'future_new_approvers'), '+0.026 [0.016, 0.037]'), cs(pk(RV, ['w1', 'endorserank_results', 'cpr_minus_endorserank_appr']), '+0.017 [0.006, 0.029]')],
+      b: [cs(S0.cpr_minus_er_send, '+0.064 [0.052, 0.075]'), cs(S1.cpr_minus_er_send, '+0.064 [0.051, 0.076]')] },
+    { k: 'AWP', ds: 'published walk over transfers alone', step: 2,
+      a: [cs(after0('awp', 'future_new_approvers'), '+0.133 [0.114, 0.153]'), cs(pk(RV, ['w1', 'sensitivity_awp', 'F1']), '+0.159 [0.139, 0.178]')],
+      b: [cs(after0('awp', 'future_new_transfer_senders'), '−0.073 [−0.083, −0.063]'), cs(pk(RV, ['w1', 'sensitivity_awp', 'F2']), '−0.075 [−0.085, −0.065]')] },
+    { k: 'AWP · received a transfer', ds: 'the contracts AWP can order', step: 2,
+      a: [cs(S0.recv_cpr_minus_awp_appr, '+0.008 [−0.002, 0.020]'), cs(S1.recv_cpr_minus_awp_appr, '+0.022 [0.011, 0.033]')],
+      b: [cs(S0.recv_cpr_minus_awp_send, '−0.036 [−0.044, −0.026]'), cs(S1.recv_cpr_minus_awp_send, '−0.037 [−0.046, −0.028]')] },
+    { k: 'EndorseRank (activity)', ds: 'restarts at approving owners', step: 3,
+      a: [cs(S0.cpr_minus_er_activity_appr, '−0.003 [−0.014, 0.008]'), cs(S1.cpr_minus_er_activity_appr, '−0.019 [−0.029, −0.008]')],
+      b: [cs(S0.cpr_minus_er_activity_send, '+0.066 [0.055, 0.078]'), cs(S1.cpr_minus_er_activity_send, '+0.087 [0.075, 0.102]')] },
+    { k: 'Count of the same edge', ds: 'left in-approve degree · right transfer in-degree', step: 3,
+      a: [cs(S0.cpr_minus_degree_appr, '−0.063 [−0.076, −0.052]'), cs(S1.cpr_minus_degree_appr, '−0.065 [−0.077, −0.054]')],
+      b: [cs(S0.cpr_minus_in_degree_send, '−0.111 [−0.121, −0.100]'), cs(S1.cpr_minus_in_degree_send, '−0.115 [−0.128, −0.105]')] }
   ] };
+  function e4(k, side, w) { return estOf(B4.rows[k][side][w]).replace(/^[+−]/, ''); }
   var slideCpr = {
     id: 's09-04', title: 'Outside the rules: C-PR against every other score', time: 50, steps: 4,
     tags: ['posthoc'],
     notes: [
       'Rules A and B compare C-PR only with its own layers, because that is the only comparison that changes the coupling and nothing else. This slide steps outside the rules: C-PR minus every other score, computed after the labels were known. It decides nothing. Filled dots are W0, hollow dots W1.',
-      'Against EndorseRank, the walk over allowances alone, C-PR is higher on both labels in both windows: by 0.021 and 0.016 on new approval pairs and by 0.062 and 0.069 on new senders.',
-      'Against AWP, C-PR is higher on new approval pairs and lower on new senders. But the lead on new approval pairs comes from the spenders that AWP scores zero because they have no transfer edge. Among the spenders that had received a transfer, AWP is higher on both labels.',
-      'EndorseRank with activity restarts ranks new approval pairs above C-PR in both windows. Against the plain count of the same edge type, C-PR is level on new approval pairs in W0, below in W1, and below on new senders in both windows.',
-      'So C-PR improves on EndorseRank on every later label and gives an order to the contracts the transfer walk cannot order. But among the contracts the transfer walk can see, it does not beat AWP, and rules A and B stay not met.'
+      'Against EndorseRank, the walk over allowances alone, C-PR is higher on both labels in both windows: by ' + e4(0, 'a', 0) + ' and ' + e4(0, 'a', 1) + ' on new approval pairs and by ' + e4(0, 'b', 0) + ' and ' + e4(0, 'b', 1) + ' on new senders.',
+      'Against AWP, C-PR is far higher on new approval pairs and lower on new senders in both windows. Its lead on new approval pairs comes mainly from the spenders that AWP scores zero because they have no transfer edge. Among the spenders that had received a transfer, C-PR is level with AWP on new approval pairs in W0 and slightly ahead in W1, while AWP still ranks new senders higher.',
+      'Against EndorseRank with activity restarts, C-PR is level on new approval pairs in W0 and below in W1, and higher on new senders in both windows. Against the plain count of the same edge type, C-PR is below on both labels in both windows.',
+      'So C-PR ranks both labels above EndorseRank in both windows. Its lead over AWP on new approval pairs comes mainly from the spenders AWP scores zero, and AWP ranks later senders better in both windows. And the plain count of the same edge type ranks both labels better than C-PR. Rules A and B stay not met.'
     ],
     html:
       '<h1 class="t-h1">Outside the rules: C-PR against [[every other score]]</h1>' +
@@ -649,13 +724,13 @@
       '<div class="abs s9-ph" style="left:1290px;top:236px;width:510px">New transfer senders</div>' +
       B4.rows.map(function (r, k) { return '<div class="s9-fl s9-fl4" data-r="' + k + '" data-in="none" style="top:' + (B4.ys[k] - 32) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
       '<svg class="abs" id="ax4" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
-      '<div class="abs s9-bot" id="sum4" data-in="none" style="left:96px;top:756px;width:1728px">C-PR improves on EndorseRank on <b>every later label</b>. Among the contracts the transfer walk can see, it <b>does not beat AWP</b>, and rules A and B stay not met.</div>' +
-      '<div class="abs s9-tiny" id="tag4" data-in="none" style="left:96px;top:864px;width:1728px">' + pill('posthoc') + 'Revised analysis · 400 paired resamples · spenders that had received a transfer: <b>14,094</b> in W0, <b>15,059</b> in W1</div>',
+      '<div class="abs s9-bot" id="sum4" data-in="none" style="left:96px;top:756px;width:1728px">C-PR ranks both labels <b>above EndorseRank</b>. Its lead over AWP on new approval pairs comes mainly from <b>the contracts AWP scores zero</b>, and AWP ranks later senders better. It beats <b>neither plain count</b>.</div>' +
+      '<div class="abs s9-tiny" id="tag4" data-in="none" style="left:96px;top:864px;width:1728px">' + pill('posthoc') + 'Revised analysis · 400 paired resamples · spenders that had received a transfer: <b>' + n0(S0.recv_n, '6,489') + '</b> in W0, <b>' + n0(S1.recv_n, '6,567') + '</b> in W1</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax4');
       var XA = lin(B4.d[0], B4.d[1], B4.xA[0], B4.xA[1]), XB = lin(B4.d[0], B4.d[1], B4.xB[0], B4.xB[1]);
-      var y0 = B4.ys[0] - 40, y1 = B4.ys[B4.ys.length - 1] + 40, ticks = [-0.1, -0.05, 0, 0.05, 0.1];
+      var y0 = B4.ys[0] - 40, y1 = B4.ys[B4.ys.length - 1] + 40, ticks = [-0.2, -0.1, 0, 0.1, 0.2];
       axis(sv, { scale: XA, domain: B4.d, ticks: ticks, y0: y0, y1: y1, signed: true });
       axis(sv, { scale: XB, domain: B4.d, ticks: ticks, y0: y0, y1: y1, signed: true });
       g.rows = B4.rows.map(function (r, k) {
@@ -692,17 +767,28 @@
   };
 
   /* ================================================================ s09-05 registered vs revised */
+  /* registered | revised; verdict rows carry 1 (= the same) or 2 (≠); the verdict words are the thesis's
+     (table registered-vs-revised) and are checked against DECK_DATA below */
   var TR4 = [
-    ['Matched cohort (contracts)', '27,844', '15,107'],
-    ['W0 spender cohort', '33,101', '17,050'],
-    ['W1 spender cohort', '34,587', '18,152'],
-    ['EndorseRank vs AWP τ', '0.217', '0.174'],
+    ['Matched cohort (contracts)', n0(pk(RG, ['same_window', 'cohort']), '27,844'), n0(pk(RV, ['same_window', 'cohort']), '6,483')],
+    ['W0 spender cohort', n0(pk(RG, ['w0', 'spenders']), '33,101'), n0(pk(RV, ['w0', 'spenders']), '7,914')],
+    ['W1 spender cohort', n0(pk(RG, ['w1', 'spenders']), '34,587'), n0(pk(RV, ['w1', 'spenders']), '7,960')],
+    ['EndorseRank vs AWP τ', n3(pk(RG, ['same_window', 'inter_method', 'endorserank_vs_awp', 0]), '0.217'), n3(pk(RV, ['same_window', 'inter_method', 'endorserank_vs_awp', 0]), '0.199')],
     ['Rule A', 'not met', 'not met', 1],
     ['Rule B', 'not met', 'not met', 1],
-    ['R1 (count-level lead)', 'not met', 'not met', 1],
+    ['R1 (count-level lead)', 'not met', 'met', 2],
     ['R2 (PageRank-level lead)', 'not met', 'not met', 1],
     ['R3 (specificity)', 'applies', 'applies', 1]
   ];
+  (function checkVerdicts() {
+    var gR = pk(RG, ['w1', 'neutral_rules']) || {}, bad = [];
+    function same(v, want, name) { if (v != null && v !== want) bad.push(name); }
+    same(pk(RG, ['w0', 'rule_a_primary', 'pass']), false, 'G rule A'); same(pk(RG, ['w1', 'rule_b', 'decision']), false, 'G rule B');
+    same(gR.R1, false, 'G R1'); same(gR.R2, false, 'G R2'); same(gR.R3, true, 'G R3');
+    same(pk(VR, ['rule_a_primary', 'pass']), false, 'R rule A'); same(pk(VR, ['rule_b', 'decision']), false, 'R rule B');
+    same(VR.R1, true, 'R R1'); same(VR.R2, false, 'R R2'); same(VR.R3, true, 'R R3');
+    if (bad.length) { try { console.warn('[s09] DECK_DATA verdicts differ from the slide text: ' + bad.join(', ')); } catch (e) { /* ignore */ } }
+  })();
   var ICO4 = {
     flat: '<svg width="88" height="70" viewBox="0 0 88 70" fill="none"><path d="M8 62H84M8 62V6" stroke="#677083" stroke-width="2"/><path d="M8 62 C10 20 12 14 18 12 L84 12" stroke="#F5B43C" stroke-width="3"/><text x="70" y="30" fill="#A3ADBF" font-size="13" font-family="sans-serif">1</text><path d="M8 12h76" stroke="#677083" stroke-width="1" stroke-dasharray="3 3"/></svg>',
     ladder: '<svg width="88" height="70" viewBox="0 0 88 70" fill="none"><rect x="10" y="50" width="22" height="12" rx="2" fill="#3CC4FF" opacity=".8"/><rect x="50" y="8" width="22" height="54" rx="2" fill="#A3ADBF" opacity=".8"/><text x="21" y="44" text-anchor="middle" fill="#A3ADBF" font-size="13" font-family="sans-serif">10⁶</text><text x="44" y="16" text-anchor="end" fill="#A3ADBF" font-size="13" font-family="sans-serif">10¹⁸</text><path d="M4 62H84" stroke="#677083" stroke-width="2"/></svg>',
@@ -713,24 +799,24 @@
     tags: ['registered-analysis', 'reanalysis'],
     notes: [
       'So this thesis has two analyses.',
-      'The registered analysis is exactly as fixed in advance: the tokens\' raw base units and every token. The revised analysis changed the amounts to US dollars and the tokens to five, after seeing the registered results. The results in the main text of the thesis come from this one.',
-      'There were three reasons for the revision. In raw base units, almost every value weight was 1. The coupled score simply added amounts, although 1 USDC is 10 to the 6th base units and 1 WETH is 10 to the 18th, and an unlimited approval took over a whole row. And a spam token could write logs in the name of any address.',
-      'What matters is that every verdict was the same in both analyses. The cohorts shrank to about half, but not one verdict changed: rule A, rule B, and R1 to R3.',
-      'Still, let me be clear: the verdicts of the revised analysis are a re-analysis, not registered tests.'
+      'The registered analysis is exactly as fixed in advance: amounts in the tokens\' raw base units, every token, and scores from every log since 1 October 2023. The revised analysis was defined after seeing the registered results: amounts in US dollars, five tokens, and scores from the twelve months before each freeze. The results in the main text of the thesis come from this one.',
+      'There were three reasons for changing the amounts and the tokens. In raw base units, almost every value weight was 1. The coupled score simply added amounts, although 1 USDC is 10 to the 6th base units and 1 WETH is 10 to the 18th, and an unlimited approval took over a whole row. And a spam token could write logs in the name of any address.',
+      'The two analyses reach the same verdicts except one. The revised cohorts are much smaller, but rule A, rule B, R2 and R3 come out the same in both. The exception is R1: it is met on the revised scores and was not met in the registered analysis.',
+      'Still, let me be clear: the verdicts of the revised analysis are a re-analysis, not registered tests, and that includes R1 being met. Only the verdicts of the registered analysis are outcomes of tests fixed in advance.'
     ],
     html:
-      '<h1 class="t-h1">Two analyses, [[the same verdicts]]</h1>' +
-      '<p class="abs s9-line" id="rhd" data-in="none" style="left:96px;top:196px;color:var(--ink);font-weight:700">Three reasons for the revision <span class="s9-tiny">(found after the registered results were known)</span></p>' +
+      '<h1 class="t-h1">Two analyses, [[the same verdicts]] except R1</h1>' +
+      '<p class="abs s9-line" id="rhd" data-in="none" style="left:96px;top:196px;color:var(--ink);font-weight:700">Three defects of the registered setting <span class="s9-tiny">(why the amounts and tokens were changed)</span></p>' +
       '<div class="s9-rs" id="r1" data-in="none" style="top:244px">' + ICO4.flat + '<div class="t">① In raw base units almost every amount weighs 1 → the amount played no part<small>Registered analysis: 99.78% of allowances · 99.52% of transfers are 10 units or more → weight ≈ 1</small></div></div>' +
       '<div class="s9-rs" id="r2" data-in="none" style="top:404px">' + ICO4.ladder + '<div class="t">② C-PR added tokens whose units differ by 12 digits, and an unlimited approval took a whole row<small>1 USDC = 10⁶ units · 1 WETH = 10¹⁸ units · unlimited = 2²⁵⁶ − 1</small></div></div>' +
       '<div class="s9-rs" id="r3" data-in="none" style="top:552px">' + ICO4.spam + '<div class="t">③ Any token could write logs in any address\'s name<small>A spam token\'s log is no evidence that the named owner approved anything</small></div></div>' +
-      '<div class="s9-th" id="th1" data-in="none" style="left:1180px;width:280px;text-align:right"><div class="nm" style="color:var(--ink-3)">Registered analysis</div><div class="ds">As fixed in advance · raw base units · every token · b = 1</div></div>' +
-      '<div class="s9-th" id="th2" data-in="none" style="left:1550px;width:274px"><div class="nm">Revised analysis</div><div class="ds">Set after registered results · USD · five tokens · b = ln 3 / m · cap U</div></div>' +
+      '<div class="s9-th" id="th1" data-in="none" style="left:1180px;width:280px;text-align:right"><div class="nm" style="color:var(--ink-3)">Registered analysis</div><div class="ds">As fixed in advance · raw base units · every token · all logs since October 2023</div></div>' +
+      '<div class="s9-th" id="th2" data-in="none" style="left:1550px;width:274px"><div class="nm">Revised analysis</div><div class="ds">Set after the registered results · USD · five tokens · twelve months before each freeze</div></div>' +
       TR4.map(function (r, k) {
-        return '<div class="s9-tr' + (r[3] ? ' vd' : '') + '" data-r="' + k + '" data-in="none" style="top:' + (330 + k * 48) + 'px"><span class="l">' + r[0] + '</span><span class="a">' + r[1] + '</span><span class="eq">' + (r[3] ? '=' : '→') + '</span><span class="b">' + r[2] + '</span></div>';
+        return '<div class="s9-tr' + (r[3] ? ' vd' : '') + (r[3] === 2 ? ' df' : '') + '" data-r="' + k + '" data-in="none" style="top:' + (344 + k * 48) + 'px"><span class="l">' + r[0] + '</span><span class="a">' + r[1] + '</span><span class="eq">' + (r[3] === 2 ? '≠' : r[3] ? '=' : '') + '</span><span class="b">' + r[2] + '</span></div>';
       }).join('') +
-      '<p class="abs s9-bold" id="bold" data-in="none" style="left:96px;top:810px;width:1728px">Main text of the thesis = revised analysis · its verdicts are a re-analysis, not registered tests</p>' +
-      '<p class="abs s9-tiny" id="bsrc" data-in="none" style="left:96px;top:860px;width:1728px">Both analyses used the same rules and the same thresholds · the registered results are published unchanged</p>',
+      '<p class="abs s9-bold" id="bold" data-in="none" style="left:96px;top:810px;width:1728px">Main text of the thesis = revised analysis · its verdicts are a re-analysis, R1 being met included</p>' +
+      '<p class="abs s9-tiny" id="bsrc" data-in="none" style="left:96px;top:860px;width:1728px">Both analyses used the same rules and the same thresholds · only the registered verdicts are outcomes of tests fixed in advance · the registered results are published unchanged</p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       g.rs = ['#r1', '#r2', '#r3'].map(function (s) { return q(el, s); });
@@ -764,40 +850,58 @@
 
   /* ================================================================ s09-06 R1–R3 on trader outcomes */
   var P5 = { x0: 1150, x1: 1560, d: [-0.45, 0.4], vX: 1586 };
+  /* W1 on screen; W0 (P, Q, 87 traders, 39/39, 75.0 %) and the registered analysis's R1 are in the narration */
+  var NW1 = pk(RV, ['w1', 'neutral_w1']) || {}, NW0 = pk(RV, ['w1', 'neutral_w0']) || {};
+  var PW1 = VR.P_w1 || pk(NW1, ['grid', 'P', 'liquidation_free_rate']) || {}, QW1 = VR.Q_w1 || pk(NW1, ['grid', 'Q', 'liquidation_free_rate']) || {};
+  var PW0 = VR.P_w0 || pk(NW0, ['grid', 'P', 'liquidation_free_rate']) || {}, QW0 = VR.Q_w0 || pk(NW0, ['grid', 'Q', 'liquidation_free_rate']) || {};
+  function o975(c, dflt) { return c && c.d975 && c.d975.length === 2 ? c.d975 : dflt; }
+  function s975(a) { return '97.5% [' + mfmt(a[0], 3) + ', ' + mfmt(a[1], 3) + ']'; }
   var ROW5 = {
-    /* W1 only on screen; W0 (P +0.182, 97.5 % [0.032, 0.338]; Q −0.014, 97.5 % [−0.161, 0.151]) is in the narration */
-    P: { y: 436, k: 'P · count level', s: 'W1 · in-approve degree − transfer in-degree', v: '+0.084 [−0.013, 0.176]', outer: [-0.026, 0.188], vt: '+0.084', vo: '97.5% [−0.026, 0.188]' },
-    Q: { y: 588, k: 'Q · PageRank level', s: 'W1 · EndorseRank (activity restarts) − AWP', v: '−0.041 [−0.135, 0.050]', outer: [-0.148, 0.064], vt: '−0.041', vo: '97.5% [−0.148, 0.064]' }
+    P: { y: 436, k: 'P · count level', s: 'W1 · in-approve degree − transfer in-degree', v: cs(PW1, '+0.141 [0.037, 0.240]'), outer: o975(PW1, [0.026, 0.256]) },
+    Q: { y: 588, k: 'Q · PageRank level', s: 'W1 · EndorseRank (activity restarts) − AWP', v: cs(QW1, '+0.023 [−0.062, 0.113]'), outer: o975(QW1, [-0.071, 0.127]) }
   };
+  ['P', 'Q'].forEach(function (k) { ROW5[k].vt = estOf(ROW5[k].v); ROW5[k].vo = s975(ROW5[k].outer); });
   var R3ROWS = [
-    { y: 744, k: 'P · profitable share', v: '−0.196 [−0.364, −0.046]' },
-    { y: 790, k: 'P · non-loss share', v: '−0.252 [−0.391, −0.120]' }
+    { y: 744, k: 'P · profitable share', v: cs(pk(NW1, ['grid', 'P', 'profitable_share']), '−0.162 [−0.295, −0.025]') },
+    { y: 790, k: 'P · non-loss share', v: cs(pk(NW1, ['grid', 'P', 'non_loss_share']), '−0.222 [−0.328, −0.106]') }
   ];
+  var REC1 = pk(NW1, ['recipients', 'recipients']) || {}, OTH1 = pk(NW1, ['recipients', 'others']) || {};
+  var REC0 = pk(NW0, ['recipients', 'recipients']) || {}, OTH0 = pk(NW0, ['recipients', 'others']) || {};
+  var T5 = {
+    n1: num(NW1.n, 70), n0: num(NW0.n, 87), liq: num(pk(RV, ['w1', 'traders_liquidated']), 9),
+    rec1: num(REC1.n, 37), oth1: num(OTH1.n, 33), rec0: num(REC0.n, 39),
+    p1: pct1(OTH1.share_no_liquidation, '72.7%'), p0: pct1(OTH0.share_no_liquidation, '75.0%'),
+    tA: n3(pk(NW1, ['taus', 'in_approve_degree', 'liquidation_free_rate', 0]), '0.394'), tT: n3(pk(NW1, ['taus', 'in_degree', 'liquidation_free_rate', 0]), '0.253'),
+    strat: cs(pk(NW1, ['stratified', 'P']), '+0.145 [0.040, 0.328]'),
+    pw0: estOf(cs(PW0, '+0.095 [−0.027, 0.234]')), pw0o: s975(o975(PW0, [-0.041, 0.263])), qw0: estOf(cs(QW0, '−0.012 [−0.153, 0.149]')),
+    gP: estOf(cs(pk(RG, ['w1', 'neutral_w1', 'grid', 'P', 'liquidation_free_rate']), '+0.063 [−0.026, 0.148]'))
+  };
+  T5.othOk = T5.oth1 - T5.liq;
   var slide5 = {
     id: 's09-06', title: 'Outcomes built from neither edge type: R1–R3', time: 55, steps: 6,
     tags: function (s) { return s >= 6 ? ['registered', 'reanalysis', 'registered-analysis'] : s >= 3 ? ['registered', 'reanalysis'] : ['registered']; },
     notes: [
-      'The last rules compare the two edge types on outcomes built from neither of them. I looked at how contract traders on GMX V2 closed their positions over the next three months.',
-      'W1 has 70 traders. The amber rings are the 37 that had received approvals by the freeze date, and the rose dots are the 9 that were liquidated at least once in the three months.',
+      'The last rules compare the two edge types on outcomes built from neither of them. I looked at how contract traders on GMX V2 closed their positions over the next three months. The comparison and the wording of its conclusions were registered with rule B, before the W1 logs were extracted.',
+      'W1 has ' + T5.n1 + ' traders. The amber rings are the ' + T5.rec1 + ' that had received approvals in the score window, and the rose dots are the ' + T5.liq + ' that were liquidated at least once in the three months.',
       'The outcome is the liquidation-free close rate: 1 minus the share of closes that ended in liquidation. Because it is a rate, it does not go up just because a contract trades more.',
-      'P, the number of owners that approve minus the transfer in-degree, was 0.084 in W1, but its 97.5% interval contains 0. The rule also asked for P above 0 in W0, and W0\'s P was 0.182, so that condition held. But the W1 condition failed, so, in the wording registered in advance, the conclusion is that there is no count-level lead of allowance over transfer.',
-      'The PageRank comparison Q was −0.041 in W1, and its interval contains 0, so it is not resolved either. In W0, Q was −0.014.',
-      'R3 applies. On the profitable share and the non-loss share, the allowance side was actually lower. So if there is a signal, it concerns avoiding forced liquidation, not trading success.',
-      'The traders with approvals were never liquidated: all 37 in W1, and all 40 in W0 as well. Of the other traders, only 72.7% and 75.0% had no liquidation. That stands out, but the samples are only 70 and 88 traders, and the transfer in-degree also ranks this outcome fairly well, at 0.310, so I cannot say more here. These verdicts are a re-analysis too, and the registered analysis reached the same ones.'
+      'The number of owners that approve ranks this outcome at ' + T5.tA + ', the transfer in-degree at ' + T5.tT + '. P, their difference, is ' + ROW5.P.vt.replace(/^\+/, '') + ' in W1, and its 97.5% interval lies above 0. Stratified by the number of closes, P is ' + estOf(T5.strat).replace(/^\+/, '') + ', also with an interval above 0. The rule also asked for P above 0 in W0, and W0\'s P is ' + T5.pw0.replace(/^\+/, '') + ', positive, although its interval contains 0. So R1 is met: in the wording registered in advance, there is a count-level lead of allowance over transfer on later liquidation avoidance.',
+      'The PageRank comparison Q is ' + ROW5.Q.vt.replace(/^\+/, '') + ' in W1, and its interval contains 0, so it is not resolved. In W0, Q was ' + T5.qw0 + '. R2 is not met.',
+      'R3 applies. On the profitable share and the non-loss share, the allowance side was actually lower. Part of the non-loss gap is built into how it is counted, so R3 rests mainly on the profitable share. So the signal concerns avoiding forced liquidation, not trading success.',
+      'The traders with approvals were never liquidated: all ' + T5.rec1 + ' in W1, and all ' + T5.rec0 + ' in W0 as well. Of the other traders, only ' + T5.p1 + ' and ' + T5.p0 + ' had no liquidation. But the samples are only ' + T5.n1 + ' and ' + T5.n0 + ' traders. Every W1 recipient was approved by one and the same contract, so the recipients form one cluster, and the two windows share 56 traders, so W0 is not an independent second sample. These verdicts are a re-analysis too. The registered analysis reached the same verdicts on R2 and R3 but did not meet R1: it resolved P only in W0, and in W1 its P of ' + T5.gP.replace(/^\+/, '') + ' was not resolved. The two analyses differ on R1 only.'
     ],
     html:
-      '<h1 class="t-h1">On liquidation, [[no evidence]] that the allowance side leads</h1>' +
-      '<p class="abs s9-line" id="wcap" data-in="none" style="left:96px;top:192px;width:620px">Contract traders on GMX V2 · W1: <b>70</b></p>' +
+      '<h1 class="t-h1">On avoiding liquidation, the approval count [[leads]]</h1>' +
+      '<p class="abs s9-line" id="wcap" data-in="none" style="left:96px;top:192px;width:620px">Contract traders on GMX V2 · W1: <b>' + T5.n1 + '</b></p>' +
       '<svg class="abs" id="wf5" data-in="none" width="620" height="400" viewBox="0 0 620 400" style="left:96px;top:240px;overflow:visible"></svg>' +
       '<div class="abs s9-wl" id="wleg" data-in="none" style="left:96px;top:640px;width:640px">' +
-        '<div><i style="background:#E9EDF5;box-shadow:0 0 0 3px #F5B43C"></i>Traders with approvals <b class="ink">37</b> · none liquidated</div>' +
-        '<div><i style="background:#E9EDF5"></i>Other 33 · no liquidation <b class="ink">24</b> <i style="background:#FF6B8A;margin-left:14px"></i>liquidated <b class="ink">9</b></div></div>' +
+        '<div><i style="background:#E9EDF5;box-shadow:0 0 0 3px #F5B43C"></i>Traders with approvals <b class="ink">' + T5.rec1 + '</b> · none liquidated</div>' +
+        '<div><i style="background:#E9EDF5"></i>Other ' + T5.oth1 + ' · no liquidation <b class="ink">' + T5.othOk + '</b> <i style="background:#FF6B8A;margin-left:14px"></i>liquidated <b class="ink">' + T5.liq + '</b></div></div>' +
       '<div class="s9-def" id="def" data-in="none"><span class="k">Outcome · liquidation-free close rate</span><span style="white-space:nowrap">$=1-\\dfrac{\\text{liquidated closes}}{\\text{all closes}}$</span><span class="s9-tiny">Trading more does not raise it by itself</span></div>' +
       '<svg class="abs" id="ax5" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
-      '<div class="abs s9-rule" id="r1t" data-in="none" style="left:760px;top:494px"><span class="s9-v no">R1 not met</span> <span class="typed" id="r1s"></span></div>' +
+      '<div class="abs s9-rule" id="r1t" data-in="none" style="left:760px;top:494px"><span class="s9-v">R1 met</span> <span class="typed" id="r1s"></span></div>' +
       '<div class="abs s9-rule" id="r2t" data-in="none" style="left:760px;top:646px"><span class="s9-v no">R2 not met</span> <span class="typed" id="r2s"></span></div>' +
       '<div class="abs s9-rule" id="r3t" data-in="none" style="left:760px;top:868px"><span class="s9-v">R3 applies</span> <span class="typed" id="r3s"></span></div>' +
-      '<div class="abs s9-tiny" id="sm5" data-in="none" style="left:96px;top:742px;width:620px">All 37 traders with approvals avoided liquidation. That stands out, but the sample is small and the transfer in-degree also ranks this outcome at <b>0.310</b>, so we can say no more here.<div style="margin-top:8px">' + pill('registered-analysis') + 'Same verdicts in the registered analysis</div></div>',
+      '<div class="abs s9-tiny" id="sm5" data-in="none" style="left:96px;top:742px;width:620px">All ' + T5.rec1 + ' traders with approvals avoided liquidation (the others: ' + T5.p1 + '). But the sample is small, and all ' + T5.rec1 + ' were approved by one and the same contract, so they form one cluster.<div style="margin-top:8px">' + pill('registered-analysis') + 'R1 not met (W1 P <b>' + T5.gP + '</b>): the two analyses differ on R1 only</div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       /* 70 W1 traders from DECK_DATA.traders (37 recipients, 9 liquidated); fall back to the digest counts */
@@ -805,7 +909,7 @@
       if (T && T.in_approve_degree) {
         for (var i = 0; i < T.in_approve_degree.length; i++) list.push({ rec: T.in_approve_degree[i] > 0, liq: !T.no_liquidation[i] });
       } else {
-        for (var a = 0; a < 70; a++) list.push({ rec: a < 37, liq: a >= 61 });
+        for (var a = 0; a < T5.n1; a++) list.push({ rec: a < T5.rec1, liq: a >= T5.n1 - T5.liq });
       }
       list.sort(function (x, y) { return (y.rec - x.rec) || (x.liq - y.liq); });
       var sv = q(el, '#wf5');
@@ -880,7 +984,7 @@
         tl.add(ctx.count(R.est, 0, R.d.est, { decimals: 3, final: ROW5.P.vt, format: function (v) { return sfmt(v, 3); }, duration: 0.8 }), 0.35);
         tl.set(g.r1t, { autoAlpha: 1 }, 1.5);
         tl.fromTo(q(g.r1t, '.s9-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 1.5);
-        tl.add(typeIn(ctx, g.r1s, '“There is no count-level lead of allowance over transfer”'), 1.8);
+        tl.add(typeIn(ctx, g.r1s, '“A count-level lead of allowance over transfer on later liquidation avoidance”'), 1.8);
       }
       if (i === 4) {
         var Rq = g.rows.Q;
@@ -901,7 +1005,7 @@
         });
         tl.set(g.r3t, { autoAlpha: 1 }, 0.9);
         tl.fromTo(q(g.r3t, '.s9-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 0.9);
-        tl.add(typeIn(ctx, g.r3s, '“If there is a signal, it concerns forced-liquidation avoidance, not trading success”'), 1.2);
+        tl.add(typeIn(ctx, g.r3s, '“The signal concerns forced-liquidation avoidance, not trading success”'), 1.2);
       }
       if (i === 6) fadeUp(tl, g.sm, 0.1, 0.5);
     }

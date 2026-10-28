@@ -4,47 +4,56 @@
    s10-01  Sybil farm         the trap of s04-05 (two points that only point at each other) grows
                               into a ring of 20 fake addresses; rain = restart + dangling share;
                               derivation of the closed-cluster equation (thesis Ch. 5); a gauge
-                              rises 1 → 3.17× and d buttons 0.75 / 0.85 / 0.95 switch it
+                              rises 1 → 3.23× and d buttons 0.75 / 0.85 / 0.95 switch it
    s10-02  star-shaped farm   ten fake addresses pop around one target and approve it both ways;
                               derivation of r_t = c(1 + d f)/(1 − d²); a log bar compares f = 10
                               with the cohort's median, 90th percentile and top
-   s10-03  to the top         3D tower of the 15,107 matched-cohort contracts on a log EndorseRank
+   s10-03  to the top         3D tower of the 6,483 matched-cohort contracts on a log EndorseRank
                               axis (real data); the target climbs: one partner (the pair, 2 approvals)
-                              → 22 → 2,074 → ≈135,895 fake addresses (one pink point per 5 addresses,
-                              27,179 points at the top, so the scene stays light)
-   s10-04  speed and |E|      small world: one iteration = one multiplication per edge; edge piles;
-                              a 4× race 10.29 s vs 22.37 s; 2.17 ≈ 2.23; C-PR and S-PR; then, as its
-                              own last step with the rest dimmed, the small-sample stage chart
+                              → about 25 → 2,292 → 47,073 fake addresses (one pink point per 5
+                              addresses, 9,415 points at the top); approvals must be renewed in
+                              every twelve-month score window
+   s10-04  speed, iterations  small world: one iteration = one multiplication per edge; edge piles;
+                              a 2× race 2.66 s vs 8.53 s; 3.21 > 2.21, = 1.65 (iterations 94/57)
+                              × 1.95 (per iteration); C-PR and S-PR; then, as its own last step with
+                              the rest dimmed, the subsample stage chart (the time ratio follows the
+                              edge ratio at no stage)
 
-   Numbers and sources (R = revised digest = the thesis's main analysis)
-     |V| 6,219,063, |E| 11,210,114 (EndorseRank solver graph at T_obs) R§8 graph.nodes / graph.edges
-     6,221,665 / 7,884,602 (graphs as counted in s03)                 R§1 graph.allowance/transfer.nodes
-     2,602 = 6,221,665 − 6,219,063 and 2,246 = 7,884,602 − 7,882,356: addresses touched only by
-       pairs whose value weight is zero (left out of the solver graphs)  calc; thesis Ch. 4 §dataset
-     r_dang (the thesis's r_D: the total share of all dangling nodes) 0.3824 → 0.382;
-       farm factor 2.0648 / 3.1671 / 8.6819 at d = 0.75 / 0.85 / 0.95
-                                                                       R§8 damping.*.farm_factor
-     ring of 20: 3.1671                                                R§8 ring20 collects times share
-     c = 7.639e-8                                                      R§8 b common
-     star: f = 10, r_t 2.615e-6 (= closed form), 20 approvals, top 0.0318, ratio 8.224e-5
-                                                                       R§8 star.*
-     cohort quantiles p50 1.881e-7, p90 5.278e-6, p99 4.855e-4, top 0.0318 and farm sizes
-       0 / 21.38 (→ 22) / 2,073.9 (→ 2,074) / 135,894.8 (→ about 135,895)
-                                                                       R§8 farm size to reach cohort quantile
+   Numbers and sources (R = revised analysis, revised-usd-12m = the thesis's main analysis;
+   all read from DECK_DATA, the literals are fallbacks)
+     |V| 2,513,982, |E| 3,808,949 (EndorseRank solver graph at T_obs) sybil.revised.json.graph
+     2,514,846 / 3,603,300 (graphs as counted in s03)                 results.revised.same_window.graph
+     864 = 2,514,846 − 2,513,982 and 1,573 = 3,603,300 − 3,601,727: addresses whose pairs all
+       carry a value weight of zero (left out of the solver graphs)    calc; thesis Ch. 4 §dataset
+     r_dang (the thesis's r_D: the total share of all dangling nodes) 0.3939 → 0.394 (0.365, 0.419
+       at d = 0.75, 0.95); farm factor 2.0956 / 3.232 / 8.9626 → 2.10 / 3.23 / 8.96
+                                                                       sybil.revised.json.damping.*
+     ring of 20: 3.2317                                                ring20_collects_times_share
+     c = 1.928e-7                                                      b_common
+     star: f = 10, r_t 6.601e-6 (closed form 6.602e-6), 20 approvals, top 0.02781, ratio 2.374e-4
+       (about 1/4,200)                                                 star.*
+     cohort quantiles p50 5.817e-7, p90 1.557e-5, p99 1.354e-3, top 0.02781 and farm sizes
+       0 / 25.19 (about 25) / 2,291.7 (about 2,292) / 47,072.6 (about 47,073), rounded as in the
+       thesis (Ch. 5 and abstract: "about 25 … about 2,292 … about 47,073")
+                                                                       farm_size_to_reach_cohort_quantile
      median: the formula gives f ≤ 0 ("no farm"), but the target still needs one partner that it
-       approves and that approves it (thesis Ch. 5: "two addresses that approve each other already
-       score c/(1−d)") → shown as 1 fake address and 2 approvals; f = 1 in the star formula
-     2f approvals per window 2 (the pair) / 44 / 4,148 / 271,790; pair score c/(1−d) = 5.09e-7;
-       box heights r_t(f); 1 − d² = 0.2775; 0.0318 / c > 400,000      calc (DECK_DATA.sybil.revised)
-     tower points: log10 EndorseRank of the 15,107 contracts           D: cohort_scores.part000.parquet
-     benchmark: EndorseRank 10.294 s (SD 0.601), 879.7 MB, 69 it., |V| 6,219,063, |E| 11,210,114;
-       AWP 22.367 s, 1,712.6 MB, 92 it., 7,882,356, 25,001,216; C-PR (λ=0.5) 36.162 s, 9,151,010,
-       31,552,359, 79 it.; S-PR 34.422 s, 7,884,602, 25,018,892; ratios 2.17 and 2.23;
-       1 warm-up + 5 timed runs                                        R§10
-     stage ratios 3.98 2.49 2.60 2.57 2.23 (edges), 2.89 4.55 3.60 2.70 2.17 (time)
-                                                                       calc from R§10 scaling[0–4]
+       approves and that approves it → shown as 1 fake address and 2 approvals; f = 1 in the star
+       formula gives c/(1−d) = 1.29e-6 (pair_score)
+     2f approvals per window 2 (the pair) / 50 / 4,584 / 94,146 (thesis: about 94,000); box heights
+       r_t(f); 1 − d² = 0.2775; 0.0278 / c > 140,000 (highest_over_c 144,200)   calc
+     renewal: the score window keeps the approvals of the twelve months before each freeze, so a
+       farm emits its approvals again in every window                  thesis Ch. 5 §sybil-cost
+     tower points: log10 EndorseRank of the 6,483 contracts            contracts.log10.endorserank
+     benchmark: EndorseRank 2.657 s (SD 0.109), 325.3 MB, 57 it., |V| 2,513,982, |E| 3,808,949;
+       AWP 8.530 s, 663.7 MB, 94 it., 3,601,727, 8,426,124; C-PR (λ=0.5) 11.563 s, 4,111,490,
+       10,562,390, 82 it. (1.36 × AWP); S-PR 10.883 s, 3,603,300, 8,432,635, 151 it. = 56 (the
+       allowance layer, same_window.iterations.cpr_l100) + 95; ratios 3.21 (time) and 2.21
+       (edges), 1.43 (nodes), 1.65 (iterations), 1.95 (per iteration); 3.00 and 2.56 at d = 0.75,
+       0.95; 1 warm-up + 5 timed runs                                  benchmark.revised
+     stage ratios 2.85 2.95 2.73 2.21 (edges), 2.63 7.49 3.96 3.21 (time) at n = 1,000 … 6,483
+                                                                       calc from benchmark.revised.scaling
    Status tags: s10-01 … s10-03 'calc' (model values evaluated on the revised graph; no label,
-   no rule). s10-04 carries no tag (RQ3 is met largely by construction); every number on it is
+   no rule). s10-04 carries no tag (H3 / RQ2 hold largely by construction); every number on it is
    a benchmark measurement of the revised analysis, named as such on the slide.
    ========================================================================= */
 (function () {
@@ -71,7 +80,7 @@
   var uidN = 0;
   function uid(p) { uidN += 1; return 's10-' + p + '-' + uidN; }
   function sup(e) { return '<sup>' + (e < 0 ? '−' : '') + Math.abs(e) + '</sup>'; }
-  function sciH(s) { return s[0] + ' × 10' + sup(s[1]); }               /* ['2.62', -6] -> HTML */
+  function sciH(s) { return s[0] + ' × 10' + sup(s[1]); }               /* ['6.60', -6] -> HTML */
   function sciT(s) { return s[0] + '\\times10^{' + s[1] + '}'; }        /* -> TeX */
   function sciSvg(t, s, pre, post) {                                    /* -> SVG <text> */
     t.textContent = '';
@@ -87,36 +96,44 @@
   var SYR = pick(DATA, ['sybil', 'revised'], {});
   var SY = SYR.json || {};
   var DAMP = pick(DATA, ['params', 'pagerank', 'd'], 0.85);
-  var NODES = pick(SY, ['graph', 'nodes'], 6219063), NEDGES = pick(SY, ['graph', 'edges'], 11210114);
-  var RD = pick(SY, ['r_D'], 0.3824);
-  var FF = { '0.75': pick(SY, ['damping', '0.75', 'farm_factor'], 2.0648), '0.85': pick(SY, ['damping', '0.85', 'farm_factor'], 3.1671),
-    '0.95': pick(SY, ['damping', '0.95', 'farm_factor'], 8.6819) };
-  var RING20 = pick(SY, ['ring20_collects_times_share'], 3.1671);
-  var CC = pick(SY, ['b_common'], 7.639e-8);
+  var NODES = pick(SY, ['graph', 'nodes'], 2513982), NEDGES = pick(SY, ['graph', 'edges'], 3808949);
+  var RD = pick(SY, ['r_D'], 0.3939);
+  var RDD = { '0.75': pick(SY, ['damping', '0.75', 'r_D'], 0.3652), '0.95': pick(SY, ['damping', '0.95', 'r_D'], 0.4191) };
+  var FF = { '0.75': pick(SY, ['damping', '0.75', 'farm_factor'], 2.0956), '0.85': pick(SY, ['damping', '0.85', 'farm_factor'], 3.232),
+    '0.95': pick(SY, ['damping', '0.95', 'farm_factor'], 8.9626) };
+  var RING20 = pick(SY, ['ring20_collects_times_share'], 3.2317);
+  var CC = pick(SY, ['b_common'], 1.928e-7);
   var STAR = SY.star || {};
-  var STAR_M = STAR.m || 10, STAR_R = STAR.target_score || 2.615e-6, TOP = STAR.highest_cohort_endorserank || 0.0318;
+  var STAR_M = STAR.m || 10, STAR_R = STAR.target_score || 6.601e-6, TOP = STAR.highest_cohort_endorserank || 0.02781;
   var STAR_APPR = STAR.approvals_per_window || 20;
+  var STAR_RATIO = STAR.ratio_to_highest || STAR_R / TOP;
   var QS = SY.farm_size_to_reach_cohort_quantile || {};
-  var KP = SYR.key_points || {};
+  /* farm sizes: f solved from the closed form and rounded as the thesis rounds them ("about 25, 2,292, 47,073");
+     two approvals per farm address and score window */
   var Q = ['p50', 'p90', 'p99', 'p100'].map(function (k, i) {
-    var dflt = [[1.881e-7, 0, 0, 0], [5.278e-6, 21.3797, 22, 44], [4.855e-4, 2073.9281, 2074, 4148], [0.0318, 135894.8004, 135895, 271790]][i];
-    return { key: k, score: pick(QS, [k, 'score'], dflt[0]), f: pick(QS, [k, 'farm_addresses'], dflt[1]),
-      ceil: pick(KP, [k, 'farm_addresses_ceil'], dflt[2]), appr: pick(KP, [k, 'approvals_per_window'], dflt[3]) };
+    var dflt = [[5.817e-7, 0], [1.557e-5, 25.1891], [1.354e-3, 2291.74952], [0.02781, 47072.6474]][i];
+    var f = pick(QS, [k, 'farm_addresses'], dflt[1]), n = Math.round(f);
+    return { key: k, score: pick(QS, [k, 'score'], dflt[0]), f: f, n: n, appr: 2 * n };
   });
   var PAIR = SYR.pair_score || CC / (1 - DAMP);
-  /* graph sizes as s03 counts them (R§1); the solver graphs leave out the zero-value-weight addresses */
-  var G_ALLOW_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'allowance', 'nodes'], 6221665);
-  var G_XFER_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'transfer', 'nodes'], 7884602);
-  /* display strings, written as in the digest / thesis (checked against the data below) */
+  var TOP_C = pick(SYR, ['highest_over_c'], TOP / CC);                  /* the top score in units of c */
+  /* graph sizes as s03 counts them; the solver graphs leave out the zero-value-weight addresses */
+  var G_ALLOW_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'allowance', 'nodes'], 2514846);
+  var G_XFER_V = pick(DATA, ['results', 'revised', 'same_window', 'graph', 'transfer', 'nodes'], 3603300);
+  /* display strings, written as in the thesis (Ch. 5; checked against the data below) */
   var S = {
-    rD: '0.382', ff: { '0.75': '2.06', '0.85': '3.17', '0.95': '8.68' }, ring20: '3.17',
-    c: ['7.64', -8], star: ['2.62', -6], p50: ['1.88', -7], p90: ['5.28', -6], p99: ['4.86', -4], top: '0.0318',
-    pair: ['5.09', -7], nodes: fmt(NODES, 0), edges: fmt(NEDGES, 0)
+    rD: '0.394', rDd: { '0.75': '0.365', '0.95': '0.419' }, ff: { '0.75': '2.10', '0.85': '3.23', '0.95': '8.96' }, ring20: '3.23',
+    c: ['1.93', -7], star: ['6.60', -6], p50: ['5.82', -7], p90: ['1.56', -5], p99: ['1.35', -3], top: '0.0278',
+    pair: ['1.29', -6], ratio: ['2.4', -4], nodes: fmt(NODES, 0), edges: fmt(NEDGES, 0)
   };
+  var INV_RATIO = fmt(Math.round(1 / STAR_RATIO / 100) * 100, 0);        /* 1 / 2.374e-4 ≈ 4,200 */
+  var TOP_C_K = fmt(Math.floor(TOP_C / 1e4) * 1e4, 0);                  /* "more than 140,000 times c" */
   (function check() {
     function near(v, s, e) { var x = parseFloat(s) * Math.pow(10, e || 0); return Math.abs(v - x) <= Math.abs(x) * 0.006 + 1e-15; }
     var bad = [];
     if (!near(RD, S.rD)) bad.push('r_D');
+    ['0.75', '0.95'].forEach(function (k) { if (!near(RDD[k], S.rDd[k])) bad.push('r_D ' + k); });
+    if (Math.abs(STAR_RATIO - parseFloat(S.ratio[0]) * Math.pow(10, S.ratio[1])) > 0.06e-4) bad.push('star ratio');
     ['0.75', '0.85', '0.95'].forEach(function (k) { if (!near(FF[k], S.ff[k])) bad.push('farm factor ' + k); });
     if (!near(RING20, S.ring20)) bad.push('ring20');
     if (!near(CC, S.c[0], S.c[1])) bad.push('c');
@@ -132,19 +149,29 @@
     var m = pick(BMR, ['main', k], null) || {};
     return { s: m.mean_s || dflt[0], mb: m.peak_mb || dflt[1], it: m.iterations || dflt[2], v: m.nodes || dflt[3], e: m.edges || dflt[4] };
   }
-  var B_ER = bm('endorserank', [10.2942, 879.7489, 69, 6219063, 11210114]);
-  var B_AWP = bm('awp', [22.3674, 1712.5831, 92, 7882356, 25001216]);
-  var B_CPR = bm('cpr_l50', [36.1616, 1768.0676, 79, 9151010, 31552359]);
-  var B_SPR = bm('spr', [34.4221, 1235.78846, 158, 7884602, 25018892]);
+  var B_ER = bm('endorserank', [2.6569, 325.3234, 57, 2513982, 3808949]);
+  var B_AWP = bm('awp', [8.5296, 663.6928, 94, 3601727, 8426124]);
+  var B_CPR = bm('cpr_l50', [11.5635, 719.06, 82, 4111490, 10562390]);
+  var B_SPR = bm('spr', [10.8831, 509.4488, 151, 3603300, 8432635]);
   var R_TIME = pick(BMR, ['derived', 'time_ratio_awp_over_er'], B_AWP.s / B_ER.s);
   var R_EDGE = pick(BMR, ['derived', 'edge_ratio_awp_over_er'], B_AWP.e / B_ER.e);
+  /* the time ratio is the iteration ratio times the per-iteration ratio; the latter lies between the node and edge ratios */
+  var R_IT = B_AWP.it / B_ER.it, R_PER = (B_AWP.s / B_AWP.it) / (B_ER.s / B_ER.it), R_NODE = B_AWP.v / B_ER.v;
+  var R_CPR_AWP = B_CPR.s / B_AWP.s;
+  function dampRatio(k, dflt) { var e = pick(BMR, ['damping', k, 'endorserank', 'mean_s'], null), a = pick(BMR, ['damping', k, 'awp', 'mean_s'], null); return e && a ? a / e : dflt; }
+  var R_D75 = dampRatio('0.75', 2.998), R_D95 = dampRatio('0.95', 2.564);
+  /* S-PR's iterations include the allowance-layer solve that supplies its restart vector */
+  var IT_ALLOW = pick(DATA, ['results', 'revised', 'same_window', 'iterations', 'cpr_l100'], 56);
   var PROT = BMR.protocol || { warmup_runs: 1, timed_runs: 5 };
   var STAGES = (BMR.scaling || []).map(function (st) {
     return { n: st.n, er: st.endorserank.mean_s, awp: st.awp.mean_s, eE: st.endorserank.edges, eA: st.awp.edges };
   });
-  if (STAGES.length !== 5) STAGES = [[1000, 0.5802, 1.6774, 424888, 1692513], [2000, 0.9388, 4.272, 1263471, 3148826], [5000, 2.4959, 8.9948, 2988450, 7769268],
-    [10000, 6.2196, 16.82053, 6673167, 17180184], [15107, 10.2942, 22.3674, 11210114, 25001216]].map(function (a) { return { n: a[0], er: a[1], awp: a[2], eE: a[3], eA: a[4] }; });
+  if (STAGES.length < 2) STAGES = [[1000, 0.498, 1.3073, 485077, 1382177], [2000, 0.3183, 2.3829, 897812, 2647854], [5000, 1.6717, 6.6199, 2577926, 7035600],
+    [6483, 2.6569, 8.5296, 3808949, 8426124]].map(function (a) { return { n: a[0], er: a[1], awp: a[2], eE: a[3], eA: a[4] }; });
   STAGES.forEach(function (st) { st.rt = st.awp / st.er; st.re = st.eA / st.eE; });
+  var N_MAX = STAGES[STAGES.length - 1].n;
+  var K_PEAK = 0; STAGES.forEach(function (st, k) { if (st.rt > STAGES[K_PEAK].rt) K_PEAK = k; });
+  var SMALL_NS = STAGES.slice(0, -1).map(function (st) { return fmt(st.n, 0); });   /* the subsamples (the last stage is the full cohort) */
 
   /* ------------------------------------------------------------ section styles */
   var CSS = [
@@ -222,6 +249,7 @@
     '.s10-ratio .num{display:inline-block;font-variant-numeric:tabular-nums}',
     '.s10-frac{font-size:24px;line-height:34px;color:var(--ink-2)}',
     '.s10-frac .katex{font-size:26px}',
+    '.s10-frac b{color:var(--ink);font-weight:700}',
     '.s10-mul{position:absolute;padding:1px 9px;border-radius:10px;background:var(--bg-3);border:1px solid var(--c-allow);color:var(--ink);',
     '  font-size:17px;line-height:24px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;pointer-events:none}',
     '.s10-swc{font-size:22px;line-height:30px;color:var(--ink-2);white-space:nowrap}',
@@ -264,7 +292,7 @@
       'Call M the share held by the whole farm. In one sweep, two things come into the farm: the rain on each address, that is |S| times c, and d times M, which stays in the ring along the edges. No share leaves along an edge. So where does the rest, 1 minus d times M, go? It is the share with which the walker teleports, so it spreads evenly over every node of the graph. Teleportation is the only way out of the farm. The share that comes back to the farm is already in the rain.',
       'When the values stop changing, what goes out equals what comes in. The 1 minus d times M that leaves by teleportation equals the new rain, |S| times c. As a formula, M equals d M plus |S| c, and taking d M from both sides gives 1 minus d times M equals |S| c.',
       'Divide both sides by 1 minus d, write c out in full, and we get the equation of Chapter 5 of the thesis. The first fraction, |S| over |V|, is the farm\'s population share, the share it would get if everything were split fairly. The second fraction says how many times that share the farm collects. Without dangling nodes the second fraction is 1.',
-      'In the real allowance graph, r_dang, the sum of the shares held by the dangling nodes, is 0.382. Putting it in, 0.15 plus 0.85 times 0.382, divided by 0.15, gives 3.17 times. With d at 0.75 it is 2.06 times, and at 0.95 it is 8.68 times. The buttons below switch the gauge. When we added a ring of 20 addresses to the real graph and computed with the same code, we also got 3.17 times. All of these values were computed on the graph of the revised analysis. The solver graph used here has 6,219,063 nodes, 2,602 fewer than the 6,221,665 of the allowance graph we saw in section 03. That is because addresses whose pairs all carry amounts so small that their value weight is zero are left out of the solver graph.'
+      'In the real allowance graph, r_dang, the sum of the shares held by the dangling nodes, is ' + S.rD + '. Putting it in, 0.15 plus 0.85 times ' + S.rD + ', divided by 0.15, gives ' + S.ff['0.85'] + ' times. With d at 0.75 it is ' + S.ff['0.75'] + ' times, and at 0.95 it is ' + S.ff['0.95'] + ' times; r_dang itself moves a little with d, to ' + S.rDd['0.75'] + ' and ' + S.rDd['0.95'] + '. The buttons below switch the gauge. When we added a ring of 20 addresses to the real graph and computed with the same code, we also got ' + S.ring20 + ' times. All of these values were computed on the graph of the revised analysis, built from the approvals of the twelve months before T_obs. The solver graph used here has ' + S.nodes + ' nodes, ' + fmt(G_ALLOW_V - NODES, 0) + ' fewer than the ' + fmt(G_ALLOW_V, 0) + ' of the allowance graph we saw in section 03. That is because addresses whose pairs all carry amounts so small that their value weight is zero are left out of the solver graph.'
     ],
     html: function () {
       var chips = ['0.75', '0.85', '0.95'].map(function (k) {
@@ -507,8 +535,8 @@
       'The share of a is the sum of two things: the rain c that falls on everyone, and the share the target hands to a, d times r_t times P_{t,a}.',
       'The target\'s share works the same way. Take the rain c, and add d times the sum of the shares sent by the fake addresses. Since P_{a,t} is 1, we just add each r_a as it is.',
       'Put the second equation into the third. Expanding the brackets, c is added f times, and d squared times r_t times the sum of P_{t,a} is left. Everything the target hands out goes to the fake addresses, so that sum is 1.',
-      'Collect r_t on the left: r_t times 1 minus d squared equals c times 1 plus d f. Divide, and we get the main formula. Each extra fake address raises the score by the same amount, d c over 1 minus d squared, and it takes two approvals per window.',
-      'Let us put in numbers. 1 minus 0.85 squared is 0.2775. With c at 7.64 times 10 to the minus 8 and f equal to 10, the target\'s score is 2.62 times 10 to the minus 6. Adding the star to the real graph and computing gave the same value. On the scale below, it passes the cohort\'s median and reaches about half of the 90th percentile, but it is only about one twelve-thousandth of the top.'
+      'Collect r_t on the left: r_t times 1 minus d squared equals c times 1 plus d f. Divide, and we get the main formula. Each extra fake address raises the score by the same amount, d c over 1 minus d squared, and it takes two approvals. Because the score keeps only the approvals of the twelve months before each freeze, the farm has to make these approvals again in every score window.',
+      'Let us put in numbers. 1 minus 0.85 squared is 0.2775. With c at 1.93 times 10 to the minus 7 and f equal to 10, the target\'s score is 6.60 times 10 to the minus 6. Adding the star to the real graph and computing gave the same value. On the scale below, it passes the cohort\'s median but stays below half of the 90th percentile, and it reaches only 2.4 times 10 to the minus 4 of the top, roughly 1 part in ' + INV_RATIO + '.'
     ],
     html: function () {
       return '<h1 class="t-h1">f fake addresses feed [[one]] target contract</h1>' +
@@ -516,7 +544,7 @@
         '<div class="abs s10-fc" id="fc" style="left:96px;top:236px">f =<b id="fn">0</b><span class="ink-3"> · </span><b id="an" style="font-size:30px">0</b><span class="ink-3">approvals / window</span></div>' +
         '<svg class="abs" id="fig" data-in="none" width="1000" height="520" viewBox="0 0 1000 520" style="left:' + F2.x + 'px;top:' + F2.y + 'px;overflow:visible"></svg>' +
         '<p class="abs s10-cap" id="leg" style="left:96px;top:744px;width:1000px">$c$: the rain on every address (previous slide) · $d = 0.85$ · every arrow is an approval</p>' +
-        '<p class="abs s10-sum" id="sum" data-in="none" style="left:96px;top:796px;width:1040px"><span class="r">f = ' + STAR_M + ' → ' + sciH(S.star) + '</span> : above the median, ≈ half the 90th percentile, ≈ 1/12,000 of the top</p>' +
+        '<p class="abs s10-sum" id="sum" data-in="none" style="left:96px;top:796px;width:1040px"><span class="r">f = ' + STAR_M + ' → ' + sciH(S.star) + '</span> : above the median, below half the 90th percentile, ≈ 1/' + INV_RATIO + ' of the top</p>' +
         '<svg class="abs" id="logb" data-in="none" width="' + LOGB.w + '" height="150" viewBox="0 0 ' + LOGB.w + ' 150" style="left:' + LOGB.x + 'px;top:' + LOGB.y + 'px;overflow:visible"></svg>' +
         '<div class="abs s10-d" id="dv" style="left:1124px;top:166px;width:700px"></div>';
     },
@@ -577,7 +605,7 @@
       /* bracket f=10 … top */
       var tx = lx(TOP);
       g.br = svgEl('path', { d: 'M' + (fx + 16) + ',' + (ay - 30) + ' Q' + ((fx + tx) / 2) + ',' + (ay - 64) + ' ' + (tx - 6) + ',' + (ay - 22), fill: 'none', stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 5' }, lb);
-      g.brT = svgEl('text', { x: (fx + tx) / 2, y: ay - 56, 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 600 }, lb); g.brT.textContent = 'about 1/12,000';
+      g.brT = svgEl('text', { x: (fx + tx) / 2, y: ay - 56, 'text-anchor': 'middle', fill: C.ink, 'font-size': 20, 'font-weight': 600 }, lb); g.brT.textContent = 'about 1/' + INV_RATIO;
       gsap.set([lb], { autoAlpha: 0 });
       g.dv = derivePanel(ctx, q(el, '#dv'), [
         { tex: 'P_{a,t}=1', note: 'Fake address $a$ approves only target $t$ → only one way out' },
@@ -627,8 +655,8 @@
   /* ================================================================ s10-03 the 3D ladder */
   var TW = { lmin: -7.35, lmax: -1.25, H: 10, R: 1.7, ringR: 2.05 };
   function ty(l) { return (l - TW.lmin) / (TW.lmax - TW.lmin) * TW.H; }
-  var FARM_N = Q[3].ceil || 135895;
-  var FARM_PER = 5, FARM_PTS = Math.ceil(FARM_N / FARM_PER);   /* one pink point = 5 fake addresses (27,179 points) */
+  var FARM_N = Q[3].n || 47073;
+  var FARM_PER = 5, FARM_PTS = Math.ceil(FARM_N / FARM_PER);   /* one pink point = 5 fake addresses (9,415 points) */
   function farmPts(f) { return Math.max(0, Math.min(FARM_PTS, Math.ceil(f / FARM_PER - 1e-9))); }
   var CAMS = [
     { theta: 0.62, phi: 1.40, radius: 9.6, target: [0, 1.75, 0] },
@@ -651,25 +679,25 @@
     tags: ['calc'],
     notes: [
       'So how many fake addresses does it take to climb this ladder? Each point of the tower on the left is one contract of the matched cohort. The height is the EndorseRank score on a log scale, so each level up means a score ten times larger. Most contracts sit close to the floor. The box in the middle is the target contract whose score the attacker wants to raise. It starts at c, the score of an address that nobody approves.',
-      'The median is very cheap. It is enough for two addresses, the target contract and one fake address, to approve each other. The pink dashed circle in the picture is that partner, and it takes two approvals. Putting f = 1 into the star formula gives c times 1 plus d, divided by 1 minus d squared. Since 1 minus d squared is 1 minus d times 1 plus d, this cancels to c over 1 minus d, that is 5.09 times 10 to the minus 7. That is above the median. Solving the formula for f gives f of 0 or less, so the thesis says that no farm is needed. But there has to be one partner to approve each other, so in practice the attacker creates 1 fake address.',
-      'The 90th percentile is passed with 22 fake addresses. That is 44 approvals per window.',
-      'The 99th percentile takes 2,074. The numbers start to grow fast.',
-      'Reaching the top takes more than 130,000, about 135,895. That is more than 270,000 approvals per window. Each point of the pink haze covering the tower stands for five fake addresses. Note that this calculation leaves out one effect: a farm this large would also raise the total number of nodes and so lower c.',
-      'The top is this expensive because endorsement is concentrated. The top contract holds about 3% of the whole graph\'s share, more than 400,000 times c. In short, looking ordinary is cheap and the top is expensive. That is why this study concludes that none of its scores should be used on its own to raise a warning or to set a reward. Cutting the tokens down to five does not change the attack cost, because approving one of those tokens costs the attacker no more than approving any other token. If you drag the slider on the right, the box height and the number of pink points change with f, as the formula says.'
+      'The median is very cheap. It is enough for two addresses, the target contract and one fake address, to approve each other. The pink dashed circle in the picture is that partner, and it takes two approvals. Putting f = 1 into the star formula gives c times 1 plus d, divided by 1 minus d squared. Since 1 minus d squared is 1 minus d times 1 plus d, this cancels to c over 1 minus d, that is ' + S.pair[0] + ' times 10 to the minus ' + (-S.pair[1]) + '. That is above the median. Solving the formula for f gives f of 0 or less, so the thesis says that no farm is needed. But there has to be one partner to approve each other, so in practice the attacker creates 1 fake address.',
+      'About ' + fmt(Q[1].n, 0) + ' fake addresses reach the 90th percentile. That is about ' + fmt(Q[1].appr, 0) + ' approvals per score window.',
+      'The 99th percentile takes about ' + fmt(Q[2].n, 0) + '. The numbers start to grow fast.',
+      'Reaching the top takes about ' + fmt(Q[3].n, 0) + ', that is about ' + fmt(Math.round(Q[3].appr / 1000) * 1000, 0) + ' approvals per score window. Each point of the pink haze covering the tower stands for five fake addresses. Note that this calculation leaves out one effect: a farm this large would also raise the total number of nodes and so lower c.',
+      'The top is this expensive because endorsement is concentrated. The top contract holds about 3% of the whole graph\'s share, more than ' + TOP_C_K + ' times c. In short, looking ordinary is cheap and the top is expensive. And because the scores keep only the approvals of the twelve months before each freeze, a farm has to renew its approvals in every score window, at least once a year, to keep the target\'s rank. This study did not measure the gas price, so these counts are not turned into money. The same bound holds for C-PR, so no score should decide rewards without Sybil controls. Keeping only five tokens does not change the attack cost, because approving one of those tokens costs the attacker no more than approving any other token. If you drag the slider on the right, the box height and the number of pink points change with f, as the formula says.'
     ],
     html: function () {
       var rungs = [
-        { r: 4, q: 'top', n: 'about ' + fmt(Q[3].ceil, 0) },
-        { r: 3, q: '99th percentile', n: fmt(Q[2].ceil, 0) },
-        { r: 2, q: '90th percentile', n: fmt(Q[1].ceil, 0) },
+        { r: 4, q: 'top', n: 'about ' + fmt(Q[3].n, 0) },
+        { r: 3, q: '99th percentile', n: 'about ' + fmt(Q[2].n, 0) },
+        { r: 2, q: '90th percentile', n: 'about ' + fmt(Q[1].n, 0) },
         { r: 1, q: 'median', n: '1 partner', d: 'target and 1 partner approve each other (2 approvals)<br>the formula gives $f\\le 0$, i.e. no farm<br>$f=1$: $c(1+d)/(1-d^2)=c/(1-d)=$ ' + sciH(S.pair) }
       ];
       return '<h1 class="t-h1">Looking ordinary is [[cheap]]; the top is expensive</h1>' +
         '<div class="s10-3d" id="tw" data-in="none" style="left:96px;top:196px;width:1084px;height:764px"></div>' +
-        '<p class="abs s10-leg" id="leg" style="left:96px;top:166px;width:1100px"><i style="background:#F5B43C"></i>one contract (matched cohort, ' + fmt(pick(DATA, ['contracts', 'meta', 'n'], 15107), 0) + ') &nbsp; <i style="background:#FF6B8A"></i>' + FARM_PER + ' fake addresses &nbsp; · height = EndorseRank (log scale, one level up = 10×)</p>' +
+        '<p class="abs s10-leg" id="leg" style="left:96px;top:166px;width:1100px"><i style="background:#F5B43C"></i>one contract (matched cohort, ' + fmt(pick(DATA, ['contracts', 'meta', 'n'], 6483), 0) + ') &nbsp; <i style="background:#FF6B8A"></i>' + FARM_PER + ' fake addresses &nbsp; · height = EndorseRank (log scale, one level up = 10×)</p>' +
         '<p class="abs s10-foot" id="foot" style="left:110px;top:966px;width:1040px">box height = thesis formula $r_t=c\\,(1+d f)/(1-d^2)$ · leaves out that a bigger farm also enlarges $|V|$ and so lowers $c$</p>' +
         '<div class="abs s10-cnt" id="cnt" style="left:1196px;top:176px;width:640px">' +
-          '<div class="k">Fake addresses needed <span class="ink-3">(f rounded up · median: 1 partner)</span></div>' +
+          '<div class="k">Fake addresses needed <span class="ink-3">(f rounded · median: 1 partner)</span></div>' +
           '<div class="v"><span class="pre" id="pre" style="display:none">about</span><span id="fN">0</span></div>' +
           '<div class="s"><b id="aN">0</b> approvals per window <span class="ink-3">(2 per address)</span></div></div>' +
         '<div class="abs s10-rungs" id="rungs" style="left:1196px;top:440px;width:628px">' + rungs.map(function (r) {
@@ -677,9 +705,9 @@
             (r.d ? '<span class="dd">' + r.d + '</span>' : '') + '</div>';
         }).join('') + '</div>' +
         '<div class="abs s10-con" id="con" data-in="none" style="left:1196px;top:800px;width:628px">' +
-          '<p>The top contract holds <b>about 3%</b> of the whole share:<br>more than <b>400,000 times</b> $c$</p>' +
-          '<p class="big" style="font-size:25px">So no score should set a warning or reward alone</p>' +
-          '<p style="font-size:21px;line-height:30px">Keeping only five tokens leaves the attack cost unchanged</p></div>' +
+          '<p>The top holds <b>about 3%</b> of all share, over <b>' + TOP_C_K + '×</b> $c$</p>' +
+          '<p class="big" style="font-size:25px">So no score should decide rewards without Sybil controls</p>' +
+          '<p style="font-size:21px;line-height:30px">Approvals must be renewed in every twelve-month window · five tokens leave the cost unchanged</p></div>' +
         '<div class="abs s10-range no-advance" id="rng" data-in="none" style="left:1196px;top:384px;width:628px">' +
           '<span>Try it: f</span><input type="range" min="0" max="1000" step="1" value="1000" aria-label="number of fake addresses f"><span class="tnum" id="rv"></span></div>';
     },
@@ -712,7 +740,7 @@
         if (cur && cur.ctx !== ctx) { frozen = true; T.frameFns.length = 0; return; }
         tick0(dt);
       };
-      /* cohort points: real log10 EndorseRank of the 15,107 contracts (zero scores on the floor) */
+      /* cohort points: real log10 EndorseRank of the matched-cohort contracts (zero scores on the floor) */
       var cd = Comp.data.contracts();
       var L = cd && cd.log10.endorserank, n = L ? L.length : 0;
       var pos = new Float32Array(n * 3), col = new Float32Array(n * 3), rnd = ctx.rng(31);
@@ -803,10 +831,10 @@
         tl.add(moveBox(g, ty(lg(PAIR)), 0.9), 0.5);
         tl.call(function () { lightRing(g, 1); lightRung(g, 1); }, null, 1.0);
         /* count what is drawn: one partner, two approvals (the formula's f is ≤ 0: "no farm") */
-        tl.call(function () { g.fN.textContent = '1'; g.aN.textContent = '2'; }, null, 0.6);
+        tl.call(function () { g.fN.textContent = '1'; g.aN.textContent = '2'; g.pre.style.display = 'none'; }, null, 0.6);
       }
       if (i >= 2 && i <= 4) {
-        var tgt = Q[i - 1].ceil, f0 = i === 2 ? 1 : Q[i - 2].ceil;
+        var tgt = Q[i - 1].n, f0 = i === 2 ? 1 : Q[i - 2].n;
         if (i === 2) { tl.to(g.pair, { attr: { opacity: 0 }, duration: 0.3 }, 0.1); tl.to(g.pairTxt.el.firstChild, { autoAlpha: 0, duration: 0.3 }, 0.1); }
         var st = { f: f0 }, dd = i === 4 ? 3.0 : i === 3 ? 2.2 : 1.6;
         tl.to(st, { f: tgt, duration: dd, ease: i === 2 ? 'power1.inOut' : 'power2.in', onUpdate: function () {
@@ -815,7 +843,7 @@
         }, onComplete: function () {
           setF(g, tgt, false);
           g.fN.textContent = fmt(tgt, 0); g.aN.textContent = fmt(Q[i - 1].appr, 0);
-          if (i === 4) g.pre.style.display = '';
+          g.pre.style.display = '';   /* every rung is "about": f solved from the formula, rounded */
         } }, 0.3);
         tl.call(function () { lightRing(g, i); lightRung(g, i); }, null, 0.3 + dd);
         if (i === 3) tl.to(g.farm.material, { size: 4, duration: 1.0 }, 0.3 + dd * 0.5);
@@ -857,28 +885,28 @@
   }
   function lightRung(g, k) { var r = g.rungs[String(k)]; if (r) r.classList.add('on'); }
 
-  /* ================================================================ s10-04 speed follows |E| */
-  var PILE = { x: 96, y: 236, w: 330, h: 440, base: 420, cw: 110, xs: [36, 186], per: 50000, cols: 10, cell: 11, row: 7 };
-  var RACE = { x: 480, y: 236, w: 700, h: 470, x0: 0, sps: 15, rows: [58, 164, 270, 376], axis: 446, bh: 32 };
+  /* ================================================================ s10-04 speed follows graph size and iterations */
+  var PILE = { x: 96, y: 236, w: 330, h: 440, base: 420, cw: 110, xs: [36, 186], per: 20000, cols: 10, cell: 11, row: 7 };
+  var RACE = { x: 480, y: 236, w: 700, h: 470, x0: 0, sps: 48, tmax: 12, tick: 3, rows: [58, 164, 270, 376], axis: 446, bh: 32 };
   function rx(s) { return RACE.x0 + s * RACE.sps; }
   var SWX = 1206, SWY = 180, SWS = 0.5;
+  var RACE_SP = 2, RACE_SP2 = 4;   /* the races play 2× and 4× faster than real time */
 
   var slide4 = {
-    id: 's10-04', title: 'Speed follows the edge count (RQ3)', time: 45, steps: 5,
+    id: 's10-04', title: 'Speed follows graph size and iterations (RQ2)', time: 45, steps: 5,
     className: 's10',
     notes: [
-      'We also measured how fast the scores compute. As I said in section 04, one PageRank iteration does one multiplication per edge. This small world has four edges, so that is multiplications 1 to 4, four in all. The circled numbers are the order of the multiplications, not edge weights.',
-      'So first, the edge counts of the two graphs. On the same contracts, the allowance graph has 11,210,114 edges and the transfer graph has 25,001,216. The transfer side has 2.23 times as many. Building the matrix also takes one step per edge, so the amount of work is proportional to the number of edges. Proportional means that twice the edges is twice the work. As the small print below says, the solver graphs have slightly fewer nodes than the graph sizes we saw in section 03. The solver leaves out addresses whose amounts are all so small that their value weight is zero: 2,602 on the allowance side and 2,246 on the transfer side.',
-      'Now we start both computations at the same time, with the same solver. The screen runs 4 times faster than real time, and the clock shows real seconds. Each time is the mean of five timed runs after one warm-up run. EndorseRank finished in 10.29 seconds and AWP in 22.37 seconds.',
-      'AWP took 2.17 times as long, and it has 2.23 times as many edges. The iteration counts differ a little, 69 and 92, but the time ratio stays very close to the edge ratio. So EndorseRank is faster not because its algorithm is better, but because the allowance graph is sparse.',
-      'C-PR and S-PR, which also walk the transfer layer, took even longer than AWP. C-PR walks the 31,552,359 edges of the two graphs combined, and S-PR first sets its restart points with the allowance walk and then walks the transfer graph.',
-      'Finally, I also want to state a limitation. We also timed small samples drawn from the cohort: 1,000, 2,000, 5,000 and 10,000 contracts. The solid line is the time ratio and the dashed line is the edge ratio. In the small samples the two lines are quite far apart, so the time ratio did not follow the edge ratio well. Only in the two large stages, with 10,000 contracts or more, inside the box, were the two lines close. These stages are subsamples of one cohort, so they say nothing about graphs larger than that.'
+      'We also measured how fast the scores compute. As I said in section 04, one PageRank iteration does one multiplication per edge. This small world has four edges, so that is multiplications 1 to 4, four in all. The circled numbers are the order of the multiplications, not edge weights. Each iteration also does a few additions per node.',
+      'So first, the edge counts of the two graphs. On the same contracts, the allowance graph has ' + fmt(B_ER.e, 0) + ' edges and the transfer graph has ' + fmt(B_AWP.e, 0) + '. The transfer side has ' + fmt(R_EDGE, 2) + ' times as many edges and ' + fmt(R_NODE, 2) + ' times as many nodes. The work of one iteration grows with the edges and the nodes, and the whole time is that work times the number of iterations. As the small print below says, the solver graphs have slightly fewer nodes than the graph sizes we saw in section 03. The solver leaves out addresses whose amounts are all so small that their value weight is zero: ' + fmt(G_ALLOW_V - B_ER.v, 0) + ' on the allowance side and ' + fmt(G_XFER_V - B_AWP.v, 0) + ' on the transfer side.',
+      'Now we start both computations at the same time, with the same solver. The screen runs ' + RACE_SP + ' times faster than real time, and the clock shows real seconds. Each time is the mean of five timed runs after one warm-up run. EndorseRank finished in ' + fmt(B_ER.s, 2) + ' seconds and AWP in ' + fmt(B_AWP.s, 2) + ' seconds.',
+      'AWP took ' + fmt(R_TIME, 2) + ' times as long, although it has only ' + fmt(R_EDGE, 2) + ' times as many edges. The time ratio is larger than the edge ratio, because AWP also needs more iterations: ' + B_AWP.it + ' against ' + B_ER.it + ', ' + fmt(R_IT, 2) + ' times as many. One iteration of AWP takes ' + fmt(R_PER, 2) + ' times as long, between the node ratio of ' + fmt(R_NODE, 2) + ' and the edge ratio of ' + fmt(R_EDGE, 2) + '. Multiply the two and you get ' + fmt(R_TIME, 2) + '. With d at 0.75 or 0.95 the ratio becomes ' + fmt(R_D75, 2) + ' or ' + fmt(R_D95, 2) + ', so it does not follow the edge ratio. Both scores use the same solver, so the difference in speed comes from the size of each graph and from the iterations its walk needs there, which this benchmark does not separate. It is no advantage of the EndorseRank algorithm.',
+      'C-PR and S-PR, which also walk the transfer layer, took even longer than AWP. C-PR multiplies the matrices of both layers in every iteration, so although it needs fewer iterations, ' + B_CPR.it + ', it takes ' + fmt(B_CPR.s, 2) + ' seconds, ' + fmt(R_CPR_AWP, 2) + ' times as long as AWP. S-PR takes ' + fmt(B_SPR.s, 2) + ' seconds. It first sets its restart points with the allowance walk and then walks the transfer graph, so its ' + B_SPR.it + ' iterations are ' + IT_ALLOW + ' for the allowance layer and ' + (B_SPR.it - IT_ALLOW) + ' for the transfer walk.',
+      'Finally, I also want to state a limitation. We also timed subsamples drawn from the cohort: ' + SMALL_NS.slice(0, -1).join(', ') + (SMALL_NS.length > 1 ? ' and ' : '') + SMALL_NS[SMALL_NS.length - 1] + ' contracts. The solid line is the time ratio and the dashed line is the edge ratio. EndorseRank was faster at every stage, but at no stage did the time ratio follow the edge ratio. At ' + fmt(STAGES[K_PEAK].n, 0) + ' contracts the time ratio even reached ' + fmt(STAGES[K_PEAK].rt, 2) + '. The iterations each walk needs differ from stage to stage. These stages are subsamples of one cohort, so they say nothing about graphs larger than that.'
     ],
     html: function () {
       function detail(b) { return fmt(b.v, 0) + ' nodes · ' + b.it + ' iterations · memory ' + fmt(b.mb, 1) + ' MB'; }
-      var fracTeX = '\\frac{' + fmt(B_AWP.s, 2) + '\\text{ s}}{' + fmt(B_ER.s, 2) + '\\text{ s}}=' + fmt(R_TIME, 2) +
-        '\\quad\\approx\\quad\\frac{' + fmt(B_AWP.e, 0).replace(/,/g, '{,}') + '}{' + fmt(B_ER.e, 0).replace(/,/g, '{,}') + '}=' + fmt(R_EDGE, 2);
-      return '<h1 class="t-h1">The speed comes from the [[edge count]], not the algorithm</h1>' +
+      var fracTeX = '\\frac{' + fmt(B_AWP.s, 2) + '\\text{ s}}{' + fmt(B_ER.s, 2) + '\\text{ s}}=' + fmt(R_TIME, 2) + '=' + fmt(R_IT, 2) + '\\times' + fmt(R_PER, 2);
+      return '<h1 class="t-h1">Speed comes from [[graph size and iterations]]</h1>' +
         '<p class="s10-lead" style="top:168px;width:1080px;font-size:24px">Revised analysis · same contracts · same solver · mean of ' + (PROT.timed_runs || 5) + ' timed runs after ' + (PROT.warmup_runs || 1) + ' warm-up run</p>' +
         /* piles */
         '<div class="abs" id="pile" data-in="none" style="left:' + PILE.x + 'px;top:' + PILE.y + 'px;width:' + PILE.w + 'px;height:' + PILE.h + 'px"></div>' +
@@ -887,20 +915,20 @@
         '<div class="s10-pk c-xfer" id="pkA" data-in="none" style="left:' + (PILE.x + PILE.xs[1] + PILE.cw / 2 - 90) + 'px;width:180px">0</div>' +
         '<div class="s10-pn c-allow" style="left:' + (PILE.x + PILE.xs[0] + PILE.cw / 2 - 90) + 'px;top:' + (PILE.y + PILE.base + 10) + 'px;width:180px" id="pnE">EndorseRank</div>' +
         '<div class="s10-pn c-xfer" style="left:' + (PILE.x + PILE.xs[1] + PILE.cw / 2 - 90) + 'px;top:' + (PILE.y + PILE.base + 10) + 'px;width:180px" id="pnA">AWP</div>' +
-        '<p class="abs s10-foot" id="pleg" style="left:' + PILE.x + 'px;top:' + (PILE.y + PILE.base + 46) + 'px;width:' + (PILE.w + 40) + 'px">1 small arrow = 50,000 edges</p>' +
+        '<p class="abs s10-foot" id="pleg" style="left:' + PILE.x + 'px;top:' + (PILE.y + PILE.base + 46) + 'px;width:' + (PILE.w + 40) + 'px">1 small arrow = ' + fmt(PILE.per, 0) + ' edges</p>' +
         /* race */
         '<svg class="abs" id="race" width="' + RACE.w + '" height="' + RACE.h + '" viewBox="0 0 ' + RACE.w + ' ' + RACE.h + '" style="left:' + RACE.x + 'px;top:' + RACE.y + 'px;overflow:visible"></svg>' +
         '<div class="abs s10-clock" id="clock" style="left:' + (RACE.x + 300) + 'px;top:' + (RACE.y - 8) + 'px;width:400px">real time<b id="clk">0.00</b>s</div>' +
         /* ratios */
         '<div class="abs s10-ratio" id="ratio" data-in="none" style="left:96px;top:744px;width:1100px"><span class="k">time </span><span class="num" id="rt">' + fmt(R_TIME, 2) + '×</span>' +
-          '<span class="ap" id="ap">≈</span><span class="k">edges </span><span class="num" id="re">' + fmt(R_EDGE, 2) + '×</span></div>' +
-        '<p class="abs s10-frac" id="frac" data-in="none" style="left:96px;top:812px;width:1100px">$' + fracTeX + '$</p>' +
+          '<span class="ap" id="ap">&gt;</span><span class="k">edges </span><span class="num" id="re">' + fmt(R_EDGE, 2) + '×</span></div>' +
+        '<p class="abs s10-frac" id="frac" data-in="none" style="left:96px;top:812px;width:1100px">$' + fracTeX + '$ &nbsp;← iterations <b>' + fmt(R_IT, 2) + '×</b> (' + B_AWP.it + ' ÷ ' + B_ER.it + ') × one iteration <b>' + fmt(R_PER, 2) + '×</b></p>' +
         '<p class="abs s10-foot" id="vfoot" style="left:96px;top:946px;width:1100px;font-size:19px;line-height:26px">Nodes: the solver graphs leave out addresses whose amounts are all so small that their value weight is 0 (allowance ' + fmt(G_ALLOW_V - B_ER.v, 0) + ', transfer ' + fmt(G_XFER_V - B_AWP.v, 0) + '), so they have ' + fmt(B_ER.v, 0) + ' / ' + fmt(B_AWP.v, 0) + ' nodes <span class="ink-3">(the gap to ' + fmt(G_ALLOW_V, 0) + ' / ' + fmt(G_XFER_V, 0) + ' in 03)</span></p>' +
-        '<p class="abs s10-cap" id="small" data-in="none" style="left:96px;top:892px;width:1100px;font-size:23px;line-height:34px">C-PR ' + fmt(B_CPR.s, 2) + ' s (' + fmt(B_CPR.e, 0) + ' edges) · S-PR ' + fmt(B_SPR.s, 2) + ' s · walking the transfer layer means paying for its edges</p>' +
+        '<p class="abs s10-cap" id="small" data-in="none" style="left:96px;top:892px;width:1100px;font-size:23px;line-height:34px">C-PR ' + fmt(B_CPR.s, 2) + ' s = ' + fmt(R_CPR_AWP, 2) + ' × AWP · S-PR ' + fmt(B_SPR.s, 2) + ' s · walking the transfer layer means paying for its size</p>' +
         /* right column */
         '<div class="abs s10-swc" id="swc" style="left:1600px;top:' + (SWY + 52) + 'px;width:230px;white-space:normal">one iteration =<br>one multiplication<br>per edge<br><span class="ink-3">this small world:</span> <b id="mulN">0</b><br><span class="ink-3" style="font-size:18px"><span class="s10-cn">1</span>–<span class="s10-cn">4</span> = their order,<br>not edge weights</span></div>' +
         '<div class="abs s10-d" id="dv" style="left:1214px;top:446px;width:610px"></div>' +
-        '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">Small samples: the time ratio strays from the edge ratio<small>close only in the two large stages (10,000+ contracts) · ratios computed</small></div>' +
+        '<div class="abs s10-ct" id="ctt" data-in="none" style="left:1214px;top:806px;width:610px">At no stage does the time ratio follow the edge ratio<small>EndorseRank faster at every stage · ratios computed</small></div>' +
         '<svg class="abs" id="chart" data-in="none" width="610" height="140" viewBox="0 0 610 140" style="left:1214px;top:862px;overflow:visible"></svg>';
     },
     build: function (el, ctx) {
@@ -930,21 +958,21 @@
       /* race bars */
       var svg = g.race = q(el, '#race');
       var ax = svgEl('g', {}, svg);
-      for (var s = 0; s <= 40; s += 10) {
+      for (var s = 0; s <= RACE.tmax; s += RACE.tick) {
         svgEl('line', { x1: rx(s), x2: rx(s), y1: 30, y2: RACE.axis, stroke: 'rgba(233,237,245,.06)', 'stroke-width': 1 }, ax);
         var tt = svgEl('text', { x: rx(s), y: RACE.axis + 28, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'tnum' }, ax); tt.textContent = s + ' s';
       }
-      svgEl('line', { x1: rx(0), x2: rx(40), y1: RACE.axis, y2: RACE.axis, stroke: C.line, 'stroke-width': 1.5 }, ax);
+      svgEl('line', { x1: rx(0), x2: rx(RACE.tmax), y1: RACE.axis, y2: RACE.axis, stroke: C.line, 'stroke-width': 1.5 }, ax);
       function row(k, name, b, col, dashed) {
         var y = RACE.rows[k], gg = svgEl('g', {}, svg);
         var nm = svgEl('text', { x: rx(0), y: y - 12, fill: col, 'font-size': 22, 'font-weight': 700 }, gg); nm.textContent = name;
-        svgEl('rect', { x: rx(0), y: y, width: rx(40) - rx(0), height: RACE.bh, rx: 8, fill: 'rgba(233,237,245,.03)' }, gg);
+        svgEl('rect', { x: rx(0), y: y, width: rx(RACE.tmax) - rx(0), height: RACE.bh, rx: 8, fill: 'rgba(233,237,245,.03)' }, gg);
         var bar = svgEl('rect', { x: rx(0), y: y, width: 0, height: RACE.bh, rx: 8, fill: col, 'fill-opacity': dashed ? 0.18 : 0.85,
           stroke: dashed ? col : 'none', 'stroke-width': 2, 'stroke-dasharray': dashed ? '6 5' : null }, gg);
         var val = svgEl('text', { x: rx(b.s) + 12, y: y + RACE.bh / 2 + 8, fill: C.ink, 'font-size': 24, 'font-weight': 800, 'class': 'tnum' }, gg); val.textContent = fmt(b.s, 2) + ' s';
         var dt = svgEl('text', { x: rx(0), y: y + RACE.bh + 22, fill: C.ink3, 'font-size': 17, 'class': 'tnum' }, gg);
         dt.textContent = b === B_CPR ? fmt(b.v, 0) + ' nodes · ' + fmt(b.e, 0) + ' edges · ' + b.it + ' iterations' :
-          b === B_SPR ? fmt(b.v, 0) + ' nodes · ' + fmt(b.e, 0) + ' edges · two walks' :
+          b === B_SPR ? fmt(b.v, 0) + ' nodes · ' + fmt(b.e, 0) + ' edges · ' + b.it + ' iterations = ' + IT_ALLOW + ' + ' + (b.it - IT_ALLOW) :
           fmt(b.v, 0) + ' nodes · ' + b.it + ' iterations · memory ' + fmt(b.mb, 1) + ' MB';
         gsap.set(val, { autoAlpha: 0 });
         return { g: gg, bar: bar, val: val, b: b, nm: nm, dt: dt };
@@ -967,23 +995,22 @@
       /* derivation */
       g.dv = derivePanel(ctx, q(el, '#dv'), [
         { tex: 'r^{\\text{new}}_v\\;\\leftarrow\\;r^{\\text{new}}_v+d\\,r_u\\,P_{u,v}', note: 'one multiplication per edge $(u\\to v)$ → $|E|$ per sweep' },
-        { tex: 'T\\;\\approx\\;\\underbrace{\\text{build the matrix}}_{\\text{proportional to }|E|}+\\;I\\times\\underbrace{\\text{one sweep}}_{\\text{proportional to }|E|}', note: '$I$: number of iterations · proportional: 2× edges = 2× work' },
-        { tex: '\\frac{T_{\\text{AWP}}}{T_{\\text{ER}}}\\;\\approx\\;\\frac{|E|_{\\text{AWP}}}{|E|_{\\text{ER}}}', note: 'same solver · measured: ' + fmt(R_TIME, 2) + ' ≈ ' + fmt(R_EDGE, 2) }
-      ], 'Derivation · time and edge count');
+        { tex: 'T\\;\\approx\\;\\text{build the matrix}+\\;I\\times\\underbrace{\\text{one sweep}}_{\\text{grows with }|E|\\text{ and }|V|}', note: '$I$: number of iterations · each walk needs its own $I$' },
+        { tex: '\\frac{T_{\\text{AWP}}}{T_{\\text{ER}}}=\\frac{I_{\\text{AWP}}}{I_{\\text{ER}}}\\cdot\\frac{t_{\\text{AWP}}}{t_{\\text{ER}}}=' + fmt(R_IT, 2) + '\\cdot' + fmt(R_PER, 2), note: '$t$: time of one iteration · same solver for both' }
+      ], 'Derivation · time and iterations');
       /* stage chart */
       var ch = g.chart = q(el, '#chart');
-      var cx0 = 60, cx1 = 540, cy0 = 104, cy1 = 6, rmin = 1.5, rmax = 5;
-      function cX(n) { return cx0 + (lg(n) - 3) / (lg(15107) - 3) * (cx1 - cx0); }
+      var cx0 = 60, cx1 = 540, cy0 = 104, cy1 = 6, rmin = 1, rmax = 9;
+      function cX(n) { return cx0 + (lg(n) - 3) / (lg(N_MAX) - 3) * (cx1 - cx0); }
       function cY(r) { return cy0 - (r - rmin) / (rmax - rmin) * (cy0 - cy1); }
-      [2, 3, 4, 5].forEach(function (r) {
+      [2, 4, 6, 8].forEach(function (r) {
         svgEl('line', { x1: cx0, x2: cx1, y1: cY(r), y2: cY(r), stroke: 'rgba(233,237,245,.07)', 'stroke-width': 1 }, ch);
         var t = svgEl('text', { x: cx0 - 10, y: cY(r) + 6, 'text-anchor': 'end', fill: C.ink3, 'font-size': 16, 'class': 'tnum' }, ch); t.textContent = '×' + r;
       });
-      g.band = svgEl('rect', { x: cX(10000) - 18, y: cy1 - 4, width: cX(15107) - cX(10000) + 36, height: cy0 - cy1 + 8, rx: 10, fill: 'rgba(233,237,245,.07)', stroke: 'rgba(233,237,245,.25)', 'stroke-width': 1 }, ch);
       STAGES.forEach(function (st) {
         var t = svgEl('text', { x: cX(st.n), y: cy0 + 26, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 15, 'class': 'tnum' }, ch); t.textContent = fmt(st.n, 0);
       });
-      var tN = svgEl('text', { x: cX(15107), y: cy0 + 46, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 15 }, ch); tN.textContent = 'contracts';   /* under the last stage: the English word is too wide to sit after it */
+      var tN = svgEl('text', { x: cX(N_MAX), y: cy0 + 46, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 15 }, ch); tN.textContent = 'contracts';   /* under the last stage: the English word is too wide to sit after it */
       function line(key, col, dash) {
         var d = STAGES.map(function (st, k) { return (k ? 'L' : 'M') + cX(st.n).toFixed(1) + ',' + cY(st[key]).toFixed(1); }).join(' ');
         var p = svgEl('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 3, 'stroke-dasharray': dash || null, 'stroke-linejoin': 'round' }, ch);
@@ -992,8 +1019,10 @@
       }
       g.lE = line('re', C.ink2, '7 6');
       g.lT = line('rt', C.ink);
-      var la = svgEl('text', { x: cX(STAGES[2].n), y: cY(STAGES[2].re) + 26, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 17, 'font-weight': 600 }, ch); la.textContent = 'edge ratio ' + fmt(STAGES[2].re, 2);
-      var lb2 = svgEl('text', { x: cX(STAGES[2].n), y: cY(STAGES[2].rt) - 12, 'text-anchor': 'middle', fill: C.ink, 'font-size': 17, 'font-weight': 600 }, ch); lb2.textContent = 'time ratio ' + fmt(STAGES[2].rt, 2);
+      /* label both lines at the stage where the time ratio peaks (n = 2,000) */
+      var SP = STAGES[K_PEAK];
+      var la = svgEl('text', { x: cX(SP.n), y: cY(SP.re) + 26, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 17, 'font-weight': 600 }, ch); la.textContent = 'edge ratio ' + fmt(SP.re, 2);
+      var lb2 = svgEl('text', { x: cX(SP.n), y: cY(SP.rt) - 12, 'text-anchor': 'middle', fill: C.ink, 'font-size': 17, 'font-weight': 600 }, ch); lb2.textContent = 'time ratio ' + fmt(SP.rt, 2);
       g.chLbl = [la, lb2];
       g.ctt = q(el, '#ctt');
       gsap.set([ch, g.ctt], { autoAlpha: 0 });
@@ -1025,7 +1054,7 @@
       }
       if (i === 2) {
         /* the race, 4× real time; the clock shows real seconds */
-        var st = { t: 0 }, sp = 4, rows = g.rows.slice(0, 2);
+        var st = { t: 0 }, sp = RACE_SP, rows = g.rows.slice(0, 2);
         tl.to(st, { t: B_AWP.s, duration: B_AWP.s / sp, ease: 'none', onUpdate: function () {
           rows.forEach(function (r) { r.bar.setAttribute('width', rx(Math.min(st.t, r.b.s)) - rx(0)); });
           g.clk.textContent = fmt(st.t, 2);
@@ -1045,7 +1074,7 @@
         tl.add(g.dv.show(3), 1.2);
       }
       if (i === 4) {
-        var rows2 = g.rows.slice(2), st2 = { t: 0 }, sp2 = 8;
+        var rows2 = g.rows.slice(2), st2 = { t: 0 }, sp2 = RACE_SP2;
         tl.fromTo(rows2.map(function (r) { return r.g; }), { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.1, ease: E.out }, 0);
         tl.to(st2, { t: B_CPR.s, duration: B_CPR.s / sp2, ease: 'none', onUpdate: function () {
           rows2.forEach(function (r) { r.bar.setAttribute('width', rx(Math.min(st2.t, r.b.s)) - rx(0)); });
@@ -1067,7 +1096,6 @@
           tl.fromTo(Ln.dots, { autoAlpha: 0, scale: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.25, stagger: 0.2, ease: E.stamp }, 0.6 + k * 0.3);
         });
         tl.fromTo(g.chLbl, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 1.5);
-        tl.fromTo(g.band, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 1.8);
       }
     }
   };

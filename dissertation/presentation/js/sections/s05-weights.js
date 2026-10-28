@@ -14,19 +14,19 @@
    s05-05  두 그래프의 무게와 다시 출발   AWP: every transfer adds σ·V; EndorseRank: latest approval per
                                          token; restart halos (activeness vs uniform)
    s05-06  달러로 바꾸기와 상한 U        base units → dollars; one owner's row swallowed by an unlimited
-                                         approval; the cap U cuts it to 97.6 % / 2.4 %
+                                         approval; the cap U cuts it to 97.4 % / 2.6 %
 
-   Numbers and sources
-     k = 0.01, t0 = 180 days, m_T = 200, m_A = 62, raw medians 203.7129 / 61.5102, b_T, b_A, U = 20,000,
-     raw p99 of transfers 20,266.4, first cap definition ≈ 1e47 — DECK_DATA.params (decay, value, cap) =
-       revised digest R§D constants.*
-     σ(0) = 0.8581 — R§8 sigma0; σ table 0.711 / 0.5 / 0.136 / 0.004 / 0.0003 — computed from k, t0 (계산)
-     transfers 1,073,838,657 and finite allowances 6,491,970 up to t1 — R§D constants.raw.n_transfers,
-       constants.raw.n_finite_allowances (digest values, written here)
+   Numbers and sources (R = revised digest, experiments/data/3-published-results-for-thesis/revised-usd-12m)
+     k = 0.01, t0 = 180 days, m_T = 170, m_A = 100, raw medians 169.331 / 99.97, b_T, b_A, U = 19,000,
+     raw p99 of transfers 18,575.3, p99 of the finite allowances ≈ 1e63 — DECK_DATA.params (decay, value,
+       cap) = R§D constants.*, all from the W0 score window (2025-04-01 to t1)
+     σ(0) = 0.8581 — R§8 sigma0; σ at 0 / 90 / 180 / 273 / 365 days = DECK_DATA.params.decay.table;
+       ages 0–365 days = DECK_DATA.timeline.anchors.max_age_days_tobs (score window of twelve months)
+     transfers 492,666,999 and finite allowances 2,324,723 in the W0 score window — R§D
+       constants.raw.n_transfers, constants.raw.n_finite_allowances (digest values, written here)
      99.52 %, 99.78 % (≥ 10 base units) — registered digest G§D amounts.*_ge10_share
        = DECK_DATA.scale.registered.amounts, status tag 등록 분석
-     45.8 %, 53.8 %, 797,852 — R§D amounts.* = DECK_DATA.scale.revised.amounts
-     2705b28 — revised digest header (code revision of the amended cap)
+     49.8 %, 55.7 %, 256,803 — R§D amounts.* = DECK_DATA.scale.revised.amounts
      every dollar amount, date and token on s05-01, s05-04 (coins), s05-05 and s05-06 is 예시;
        their weights are computed with the formulas above (계산)
    ========================================================================= */
@@ -37,18 +37,20 @@
   var DATA = window.DECK_DATA || {};
   var PRM = DATA.params || {}, DEC = PRM.decay || {}, VAL = PRM.value || {}, CAP = PRM.cap || {};
   var K = DEC.k != null ? DEC.k : 0.01, T0 = DEC.t0_days != null ? DEC.t0_days : 180;
-  var MT = VAL.m_T || 200, MA = VAL.m_A || 62, MT_RAW = VAL.m_T_raw || 203.7129, MA_RAW = VAL.m_A_raw || 61.5102;
+  var MT = VAL.m_T || 170, MA = VAL.m_A || 100, MT_RAW = VAL.m_T_raw || 169.331, MA_RAW = VAL.m_A_raw || 99.97;
   var LN3 = Math.log(3), BT = LN3 / MT, BA = LN3 / MA;
-  var U = CAP.U_usd || 20000, P99T = CAP.p99_transfer_usd_raw || 20266.3877;
+  var U = CAP.U_usd || 19000, P99T = CAP.p99_transfer_usd_raw || 18575.2783;
+  var P99A = CAP.p99_finite_allowance_usd_raw || 9.232e62, E99A = Math.round(Math.log(P99A) / Math.LN10);   /* ≈ 1e63 */
   var AMR = (((DATA.scale || {}).revised || {}).amounts) || {};
   var AMG = (((DATA.scale || {}).registered || {}).amounts) || {};
-  var UNL = AMR.unlimited_share != null ? AMR.unlimited_share : 0.4578;
-  var ATCAP = AMR.allowances_at_or_above_cap_share != null ? AMR.allowances_at_or_above_cap_share : 0.5382;
-  var BOTH = AMR.owners_with_both_kinds != null ? AMR.owners_with_both_kinds : 797852;
+  var UNL = AMR.unlimited_share != null ? AMR.unlimited_share : 0.4981;
+  var ATCAP = AMR.allowances_at_or_above_cap_share != null ? AMR.allowances_at_or_above_cap_share : 0.5571;
+  var BOTH = AMR.owners_with_both_kinds != null ? AMR.owners_with_both_kinds : 256803;
   var GE10T = AMG.transfers_ge10_share != null ? AMG.transfers_ge10_share : 0.9952;
   var GE10A = AMG.allowances_ge10_share != null ? AMG.allowances_ge10_share : 0.9978;
-  var N_TRANSFERS = 1073838657, N_FINITE_ALLOW = 6491970;          /* R§D constants.raw.* */
-  var MAX_AGE = 1004;                                              /* oldest event at T_obs (thesis Ch. 3) */
+  var N_TRANSFERS = 492666999, N_FINITE_ALLOW = 2324723;           /* R§D constants.raw.* (W0 score window) */
+  var MAX_AGE = (((DATA.timeline || {}).anchors || {}).max_age_days_tobs) || 365;   /* oldest age in a score window (thesis Ch. 3) */
+  var DEC_TAB = DEC.table || [[0, 0.8581], [90, 0.7109], [180, 0.5], [273, 0.2829], [365, 0.1359]];
 
   function sigma(dt) { return 1 / (1 + Math.exp(K * (dt - T0))); }
   function V(z, b) { return 2 / (1 + Math.exp(-b * z)) - 1; }
@@ -59,6 +61,10 @@
   function n0(v) { return fmt(v, 0); }
   function pct(v) { return fmt(v * 100, 1) + '%'; }
   function pct2(v) { return fmt(v * 100, 2) + '%'; }
+  /* Korean reading of a count for the notes: 19000 → '1만 9,000', 256803 → '25만 6,803' */
+  function man(v) { v = Math.round(v); var m = Math.floor(v / 10000), r = v % 10000; return m ? n0(m) + '만' + (r ? ' ' + n0(r) : '') : n0(r); }
+  function texN(v) { return n0(v).replace(/,/g, '{,}'); }           /* 19000 → '19{,}000' for KaTeX */
+  function w4s(v) { return f4(v).replace(/0+$/, '').replace(/\.$/, ''); }   /* 0.2500 → '0.25' */
 
   /* ------------------------------------------------------------ section styles */
   var CSS = [
@@ -284,12 +290,12 @@
   }
   function miniSigma() {
     var w = 250, h = 120, s = '<svg class="mini" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '">', d = '';
-    for (var i = 0; i <= 60; i++) { var dt = i / 60 * 800, x = 10 + dt / 800 * 230, y = 104 - sigma(dt) * 86; d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
+    for (var i = 0; i <= 60; i++) { var dt = i / 60 * MAX_AGE, x = 10 + dt / MAX_AGE * 230, y = 104 - sigma(dt) * 86; d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1); }
     s += '<line x1="10" x2="240" y1="104" y2="104" stroke="' + C.line + '" stroke-width="1.5"/>';
     s += '<path d="' + d + '" fill="none" stroke="' + C.ink2 + '" stroke-width="2.5"/>';
-    var x1 = 10 + 1 / 800 * 230, y1 = 104 - sigma(1) * 86, x2 = 10 + 730 / 800 * 230, y2 = 104 - sigma(730) * 86;
+    var x1 = 10 + 1 / MAX_AGE * 230, y1 = 104 - sigma(1) * 86, x2 = 10 + 230, y2 = 104 - sigma(MAX_AGE) * 86;   /* 1 day and 365 days (first day of the score window) */
     s += '<circle cx="' + x1 + '" cy="' + y1 + '" r="6" fill="' + C.ink + '"/><text x="' + (x1 + 12) + '" y="' + (y1 + 4) + '" fill="' + C.ink2 + '" font-size="16">어제</text>';
-    s += '<circle class="old" cx="' + x2 + '" cy="' + y2 + '" r="6" fill="' + C.ink + '"/><text class="old" x="' + (x2 - 4) + '" y="' + (y2 - 14) + '" fill="' + C.ink2 + '" font-size="16" text-anchor="end">2년 전</text>';
+    s += '<circle class="old" cx="' + x2 + '" cy="' + y2 + '" r="6" fill="' + C.ink + '"/><text class="old" x="' + (x2 - 4) + '" y="' + (y2 - 14) + '" fill="' + C.ink2 + '" font-size="16" text-anchor="end">1년 전</text>';
     return s + '</svg>';
   }
   function miniV() {
@@ -308,13 +314,13 @@
     id: 's05-01', title: '왜 화살표마다 무게가 다를까', time: 30, steps: 3,
     notes: [
       '앞에서는 화살표의 무게를 2, 1, 3, 1로 그냥 정해 두었어요. 실제 데이터에서는 이 무게를 어떻게 정할까요? 같은 허락이라도 무게가 달라야 해요.',
-      '어제 한 허락과 2년 전에 한 허락은 지금 뜻하는 바가 달라요. 오래된 허락일수록 가볍게 세요. 이것이 시간 무게 시그마예요.',
+      '어제 한 허락과 1년 전에 한 허락은 지금 뜻하는 바가 달라요. 오래된 허락일수록 가볍게 세요. 이것이 시간 무게 시그마예요.',
       '5달러 허락과 5,000달러 허락도 달라요. 큰 허락일수록 무겁게 세되, 아무리 커도 끝이 있게 만들어요. 이것이 금액 무게 V예요.',
       '그래서 한 사건의 무게는 시간 무게와 금액 무게를 곱한 값이에요. 이 방식은 송금 그래프로 점수를 매기는 AWP가 처음 쓴 것이고, 이 연구는 같은 무게를 허락 그래프에도 그대로 가져왔어요. 다음 두 장에서 두 무게를 하나씩 끌어낼게요.'
     ],
     html: '<h1 class="t-h1">같은 허락이라도 [[무게]]가 달라요</h1>' +
       '<p class="s5-sub">앞에서는 무게를 2, 1, 3, 1로 정해 두었어요 · 실제로는 어떻게 정할까요?</p>' +
-      '<div class="s5-row" id="r1" data-step="1" style="top:258px">' + clockIcon() + '<div class="tt"><div class="h">어제 한 허락 vs <span id="old">2년 전</span> 허락</div>' +
+      '<div class="s5-row" id="r1" data-step="1" style="top:258px">' + clockIcon() + '<div class="tt"><div class="h">어제 한 허락 vs <span id="old">1년 전</span> 허락</div>' +
         '<div class="s">오래될수록 가볍게 → <b>시간 무게 σ</b></div></div>' + miniSigma() + '</div>' +
       '<div class="s5-row" id="r2" data-step="2" style="top:452px">' + coinIcon() + '<div class="tt"><div class="h">5달러 허락 vs 5,000달러 허락</div>' +
         '<div class="s">클수록 무겁게 · 1을 넘지 않게 → <b>금액 무게 V</b></div></div>' + miniV() + '</div>' +
@@ -341,7 +347,7 @@
       var g = ctx.g, tl = ctx.tl();
       if (i === 1) {
         tl.add(g.AB.setLabel('어제'), 0.1);
-        tl.add(g.AC.setLabel('2년 전'), 0.1);
+        tl.add(g.AC.setLabel('1년 전'), 0.1);
         tl.to(g.example, { autoAlpha: 1, duration: 0.3 }, 0.3);
         var r1 = q(el, '#r1');
         tl.fromTo(q(r1, '.hand-m'), { rotation: 0, svgOrigin: '36 36' }, { rotation: 720, svgOrigin: '36 36', duration: 1.6, ease: 'power2.inOut' }, 0.5);
@@ -377,20 +383,21 @@
   };
 
   /* ================================================================ s05-02 */
-  var P2 = { x: 96, y: 236, w: 920, h: 600, l: 80, r: 890, t: 52, b: 520, xd: [0, 1100] };
-  var AGES = [0, 180, 365, 730, MAX_AGE];
-  var LIN_END = 400;                                               /* the straight line 1 − Δt/360, drawn to 400 days */
+  var XMAX = MAX_AGE + 35;                                         /* x-axis to 400 days: the band of ages 0–365 and a small margin */
+  var P2 = { x: 96, y: 236, w: 920, h: 600, l: 80, r: 890, t: 52, b: 520, xd: [0, XMAX] };
+  var AGES = DEC_TAB.map(function (r) { return r[0]; });           /* ruler ticks = ages of the decay table: 0, 90, 180, 273, 365 */
+  var LIN_END = MAX_AGE;                                           /* the straight line 1 − Δt/360, drawn to the oldest age: 365 days → −0.014 */
   var EXP_S = [-2, -1, 0, 1, 2];                                   /* e^s table: 0.14, 0.37, 1, 2.7, 7.4 (계산) */
   function sx(s) { return 20 + (s + 2) / 4 * 600; }                /* s-axis of the derivation pictures */
   var s2 = {
     id: 's05-02', title: '시간 무게 σ(Δt): 180일이면 반', time: 60, steps: 6,
     notes: [
-      '시간 무게부터 만들어 볼게요. 가로축은 사건이 기준일보다 며칠 전에 일어났는지예요. 데이터 부분에서 본 나이 자가 돌아서 가로축이 됐어요. 가장 오래된 기록은 1,004일 전이에요.',
+      '시간 무게부터 만들어 볼게요. 가로축은 사건이 기준일보다 며칠 전에 일어났는지예요. 데이터 부분에서 본 나이 자가 돌아서 가로축이 됐어요. 점수는 기준일 전 12달의 기록으로 매기니까, 가장 오래된 기록은 365일 전이에요.',
       '바라는 것은 네 가지예요. 0과 1 사이일 것, 새것은 크게, 오래될수록 부드럽게 작아질 것, 그리고 180일에 딱 절반일 것.',
-      '가장 쉬운 방법은 직선이에요. 1에서 시작해서 하루에 360분의 1씩 빼면, 180일에 딱 절반이에요. 그런데 360일이 지나면 0보다 작아져요. 400일 전 일은 마이너스 0.11이 돼요. 무게가 음수일 수는 없으니까 직선은 안 돼요.',
+      '가장 쉬운 방법은 직선이에요. 1에서 시작해서 하루에 360분의 1씩 빼면, 180일에 딱 절반이에요. 그런데 360일이면 0이 되고, 그보다 오래되면 0보다 작아져요. 점수 기간의 첫날 일, 곧 365일 전 일은 마이너스 0.014가 돼요. 무게가 음수일 수는 없으니까 직선은 안 돼요.',
       '그래서 다른 길로 가요. 먼저 180일보다 얼마나 오래됐는지를 벌점 s로 재요. s는 k 곱하기, 델타 t 빼기 180이에요. k는 0.01이에요. 오늘 일어난 일은 s가 마이너스 1.8, 180일 전 일은 0, 1년 전 일은 1.85예요.',
       '이 벌점을 e의 지수에 올려요. e는 약 2.718인 자연 상수예요. e의 1제곱은 약 2.7, 2제곱은 약 7.4이고, 0제곱은 1이에요. 지수가 음수면 뒤집어서 나눠요. e의 마이너스 1제곱은 1 나누기 e라서 약 0.37, 마이너스 2제곱은 약 0.14예요. 그래서 e의 s제곱은 s가 무엇이든 언제나 0보다 커요. 오늘 일어난 일이면 e의 마이너스 1.8제곱, 곧 1 나누기 6.05, 약 0.165예요.',
-      '이제 1을, 1 더하기 e의 s제곱으로 나눠요. 분모는 언제나 1보다 크니까 결과는 언제나 0과 1 사이예요. s가 0이면 1 나누기 2라서 딱 절반이고, s가 크면 0에 가까워져요. s가 아주 큰 음수면 1에 가까워져요. 예를 들어 s가 마이너스 5면 e의 마이너스 5제곱은 0.007이라서 시그마는 0.993이에요. 네 가지가 모두 맞아요. 그래서 오늘 일어난 일은 0.858, 1년 전 일은 0.136, 2년 전 일은 0.004만큼만 세요. 논문은 e의 무엇 제곱을 exp라고도 써요. 같은 뜻이에요. 이것이 논문 3장의 로지스틱 감쇠 식이에요.',
+      '이제 1을, 1 더하기 e의 s제곱으로 나눠요. 분모는 언제나 1보다 크니까 결과는 언제나 0과 1 사이예요. s가 0이면 1 나누기 2라서 딱 절반이고, s가 크면 0에 가까워져요. s가 아주 큰 음수면 1에 가까워져요. 예를 들어 s가 마이너스 5면 e의 마이너스 5제곱은 0.007이라서 시그마는 0.993이에요. 네 가지가 모두 맞아요. 그래서 오늘 일어난 일은 0.858, 90일 전 일은 0.711, 1년 전 일, 곧 점수 기간의 첫날 일은 0.136만큼만 세요. 논문은 e의 무엇 제곱을 exp라고도 써요. 같은 뜻이에요. 이것이 논문 3장의 로지스틱 감쇠 식이에요.',
       '덧붙이면, 1 빼기 시그마는 e의 s제곱을, 1 더하기 e의 s제곱으로 나눈 값이에요. 그래서 남은 무게를 사라진 무게로 나누면 1 나누기 e의 s제곱, 곧 e의 마이너스 s제곱이에요. k 곱하기 100이 1이라서, 100일이 지날 때마다 이 비가 e배, 약 2.7배씩 줄어요. 아래 손잡이를 끌면 그날의 무게를 바로 볼 수 있어요.'
     ],
     html: '<h1 class="t-h1">[[180일]]이 지나면 무게가 반</h1>' +
@@ -402,10 +409,9 @@
       var g = ctx.g = {};
       var P = g.P = plot(ctx, el, P2);
       g.yax = yAxis(P, [[0, '0'], [0.5, '0.5'], [1, '1']], '시간 무게 σ');
-      /* band of ages that occur at T_obs */
+      /* band of the ages that enter a score (0–365 days at both freezes); its label sits under the axis, left */
       g.band = S('rect', { x: P.px(0), y: P.t, width: P.px(MAX_AGE) - P.px(0), height: P.b - P.t, fill: 'rgba(233,237,245,.035)' }, P.grid);
-      g.bandL = txt(P.grid, P.px(MAX_AGE) - 6, P.t + 22, '', { anchor: 'end', size: 17 });
-      g.bandL.innerHTML = 'T<tspan baseline-shift="sub" font-size="12">obs</tspan><tspan>에 있는 나이: 0–1,004일</tspan>';
+      g.bandL = txt(P.grid, P.l, P.b + 64, '점수에 들어가는 나이: 0–' + n0(MAX_AGE) + '일 (색칠한 띠)', { size: 17 });
       /* the straight-line attempt 1 − Δt/360: behind the ruler labels (which carry a halo) */
       g.lin = S('g', {}, P.grid);
       g.lin1 = S('path', { d: 'M' + P.px(0) + ',' + P.py(1) + 'L' + P.px(360) + ',' + P.py(0), fill: 'none', stroke: C.ink2, 'stroke-width': 3, 'stroke-dasharray': '9 7', 'stroke-linecap': 'round' }, g.lin);
@@ -414,36 +420,39 @@
       S('circle', { cx: P.px(180), cy: P.py(0.5), r: 6, fill: C.ink2, stroke: C.bg, 'stroke-width': 2 }, g.linMid);
       txt(g.linMid, P.px(180) + 14, P.py(0.5) - 10, '180일 → 1/2 ✓', { size: 19, fill: C.ink2, weight: 600, cls: 's5-halo' });
       g.linX = S('g', {}, g.lin);
-      var xe = P.px(LIN_END), ye = P.py(1 - LIN_END / 360);
+      var xe = P.px(LIN_END), ye = P.py(1 - LIN_END / 360), ly = P.py(0.4);
       S('path', { d: 'M' + (xe - 8) + ',' + (ye - 8) + 'L' + (xe + 8) + ',' + (ye + 8) + 'M' + (xe + 8) + ',' + (ye - 8) + 'L' + (xe - 8) + ',' + (ye + 8), stroke: C.hi, 'stroke-width': 3.5, 'stroke-linecap': 'round' }, g.linX);
-      txt(g.linX, xe + 16, ye + 7, '400일 → −0.11 · 음수!', { size: 19, fill: C.hi, weight: 700, cls: 's5-halo' });
+      /* the label sits above the line's end (the x-axis runs out at 400 days), with a leader down to the ✕ */
+      S('path', { d: 'M' + (xe - 6) + ',' + (ly + 10) + 'L' + xe + ',' + (ye - 12), fill: 'none', stroke: C.hi, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, g.linX);
+      txt(g.linX, xe - 4, ly, n0(LIN_END) + '일 → −' + fmt(LIN_END / 360 - 1, 3) + ' · 음수!', { anchor: 'end', size: 19, fill: C.hi, weight: 700, cls: 's5-halo' });
       gsap.set([g.lin1, g.lin2, g.linMid, g.linX], { autoAlpha: 0 });
-      /* the age ruler (s03-01): reversed at first (1,004 left, 0 right), then turns into the axis */
+      /* the age ruler (s03-01): reversed at first (365 left, 0 right), then turns into the axis */
       g.ruler = S('g', {}, P.grid);
       g.rLine = S('line', { x1: P.px(0), x2: P.px(MAX_AGE), y1: 0, y2: 0, stroke: C.ink2, 'stroke-width': 2 }, g.ruler);
       g.rTicks = AGES.map(function (a) {
         var tg = S('g', {}, g.ruler);
         S('line', { x1: 0, x2: 0, y1: -9, y2: 9, stroke: C.ink2, 'stroke-width': 2 }, tg);
-        txt(tg, 0, 34, a === MAX_AGE ? '1,004일' : a === 0 ? '0일' : String(a), { anchor: 'middle', size: 20, fill: C.ink2, cls: 'svg-mono s5-halo' });
+        txt(tg, 0, 34, a === MAX_AGE ? n0(MAX_AGE) + '일' : a === 0 ? '0일' : String(a), { anchor: 'middle', size: 20, fill: C.ink2, cls: 'svg-mono s5-halo' });
         return { g: tg, a: a };
       });
       g.xTitle = txt(P.grid, P.r, P.b + 64, 'Δt = 기준일보다 며칠 전 (일)', { anchor: 'end', size: 20, fill: C.ink2 });
-      /* σ curve, points, ratio bars */
-      var d = curvePath(P, sigma, 0, 1100, 220);
+      /* σ curve (ages 0–365 only), points, ratio bars */
+      var d = curvePath(P, sigma, 0, MAX_AGE, 146);
       g.curve = S('path', { d: d, fill: 'none', stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, P.main);
       gsap.set(g.curve, { autoAlpha: 0 });
       g.cross = S('g', {}, P.under);
       S('line', { x1: P.l, x2: P.px(T0), y1: P.py(0.5), y2: P.py(0.5), stroke: C.hi, 'stroke-width': 1.5, 'stroke-dasharray': '5 6' }, g.cross);
       S('line', { x1: P.px(T0), x2: P.px(T0), y1: P.py(0.5), y2: P.b, stroke: C.hi, 'stroke-width': 1.5, 'stroke-dasharray': '5 6' }, g.cross);
       gsap.set(g.cross, { autoAlpha: 0 });
-      var PTS = [[0, '오늘', 'r'], [90, '90일', 'r'], [180, '180일', 'r'], [365, '1년', 'r'], [730, '2년', 'u'], [MAX_AGE, '1,004일', 'u']];
+      /* points = DECK_DATA.params.decay.table (0, 90, 180, 273, 365 days); the last label goes below-left of its point */
+      var PTS = DEC_TAB.map(function (r) { return [r[0], r[0] === 0 ? '오늘' : r[0] === MAX_AGE ? '1년' : r[0] + '일', r[0] === MAX_AGE ? 'dl' : 'r', r[1]]; });
       g.pts = PTS.map(function (p) {
         var x = P.px(p[0]), y = P.py(sigma(p[0])), pg = S('g', {}, P.over);
         S('circle', { cx: x, cy: y, r: 7, fill: C.ink, stroke: C.bg, 'stroke-width': 2 }, pg);
-        var v = p[0] === 180 ? '0.5' : p[0] === MAX_AGE ? fmt(sigma(p[0]), 4) : fmt(sigma(p[0]), 3);
+        var v = p[0] === 180 ? '0.5' : fmt(p[3], 3);
         var lab = p[1] + ' ' + v;
         if (p[2] === 'r') txt(pg, x + 14, y - 10, lab, { size: 19, fill: p[0] === 180 ? C.hi : C.ink, weight: 600, cls: 's5-halo' });
-        else txt(pg, x, y - 18, lab, { anchor: p[0] === MAX_AGE ? 'end' : 'middle', size: 19, fill: C.ink, weight: 600, cls: 's5-halo' });
+        else txt(pg, x - 12, y + 28, lab, { anchor: 'end', size: 19, fill: C.ink, weight: 600, cls: 's5-halo' });
         gsap.set(pg, { autoAlpha: 0 });
         return pg;
       });
@@ -462,9 +471,9 @@
       g.hit = S('rect', { x: P.l - 10, y: P.b - 30, width: P.r - P.l + 20, height: 64, fill: 'transparent', 'class': 'no-advance', style: 'cursor:ew-resize' }, P.over);
       gsap.set([g.hd, g.hit], { autoAlpha: 0 });
       g.state = { dt: 0, curve: false };
-      /* checklist (upper right of the plot) */
+      /* checklist (upper right of the plot, above the curve and right of the 90- and 180-day labels) */
       var ck = g.check = H('div', 's5-check', el); ck.setAttribute('data-in', 'none');
-      ck.style.left = (P2.x + P.px(500)) + 'px'; ck.style.top = (P2.y + P.t + 30) + 'px';
+      ck.style.left = (P2.x + P.px(XMAX * 0.52)) + 'px'; ck.style.top = (P2.y + P.t - 40) + 'px';   /* bottom stays above the 180-day labels */
       H('div', 't', ck, '원하는 성질');
       g.items = ['0과 1 사이', '새것은 크게', '오래될수록 작게, 부드럽게', '180일에 딱 1/2'].map(function (t, k) {
         var cross = k === 0 ? '<path class="xx" d="M5,5 L25,25 M25,5 L5,25" fill="none" stroke="' + C.hi + '" stroke-width="3.5" stroke-linecap="round"/>' : '';
@@ -488,7 +497,7 @@
         }).join('') +
         '<text x="0" y="14" fill="' + C.ink3 + '" font-size="16">← 0에 가까워져도 0은 안 돼요 · 오른쪽으로는 빠르게 커져요 →</text></svg>';
       g.dv = Deriv(ctx, q(el, '#dv'), { head: '유도', lines: [
-        { tex: '1-\\frac{\\Delta t}{360}', display: false, note: '직선으로 해 보면 · 180일 → 1 − 1/2 = 1/2 ✓ · 그런데 400일 → 1 − 400/360 ≈ −0.11 <b style="color:var(--c-hi)">✕ 음수!</b>' },
+        { tex: '1-\\frac{\\Delta t}{360}', display: false, note: '직선으로 해 보면 · 180일 → 1 − 1/2 = 1/2 ✓ · 그런데 360일 → 0, 365일 → 1 − 365/360 ≈ −0.014 <b style="color:var(--c-hi)">✕ 음수!</b>' },
         { tex: 's=k\\,(\\Delta t-t_0)', display: false, note: '벌점 s: 180일보다 얼마나 오래됐나 · 예: Δt = 0이면 s = 0.01 × (0 − 180) = −1.8', html: sline },
         { tex: 'e^{-1.8}=\\frac{1}{e^{1.8}}=\\frac{1}{6.05}\\approx0.165', display: false, note: '지수가 음수면 1 ÷ (양수 지수) · 그래서 eˢ는 언제나 0보다 커요', html: etab },
         { tex: '\\sigma=\\frac{1}{1+e^{s}}', note: '분모 1 + eˢ는 언제나 1보다 커요 → σ는 0과 1 사이 ✓ · s = 0 → 1/(1+1) = 1/2 ✓ · s가 크면 → 0 ✓ · s가 아주 큰 음수면 → 1 ✓ (s = −5 → e⁻⁵ = 0.007 → σ = 0.993) · Δt = 0 → 1/(1+0.165) = 0.858' },
@@ -510,7 +519,7 @@
       setHandle(ctx, 0);
       /* drag */
       var drag = false;
-      function pick(e) { var p = ctx.toStage(e); var dt = (p.x - P2.x - P.l) / (P.r - P.l) * 1100; dt = Math.max(0, Math.min(1100, Math.round(dt))); setHandle(ctx, dt); }
+      function pick(e) { var p = ctx.toStage(e); var dt = (p.x - P2.x - P.l) / (P.r - P.l) * XMAX; dt = Math.max(0, Math.min(MAX_AGE, Math.round(dt))); setHandle(ctx, dt); }
       [g.hd, g.hit].forEach(function (n) {
         ctx.on(n, 'pointerdown', function (e) { if (+gsap.getProperty(g.hd, 'opacity') < 0.5) return; drag = true; try { n.setPointerCapture(e.pointerId); } catch (er) { /* ignore */ } pick(e); e.stopPropagation(); });
         ctx.on(n, 'pointermove', function (e) { if (drag) pick(e); });
@@ -594,6 +603,7 @@
       if (i === 6) {                                                  /* 1 − σ and the ratio σ / (1 − σ) = e^−s */
         g.state.curve = true;
         tl.add(g.dv.show(6), 0);
+        tl.to(g.check, { autoAlpha: 0, duration: 0.4 }, 0);           /* done (step 5); the 300-day ratio bar runs where it stood */
         tl.fromTo(g.ratio, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.5);
         tl.fromTo(qa(g.ratio, 'rect'), { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, duration: 0.6, ease: E.out, stagger: 0.08 }, 0.5);
       }
@@ -630,7 +640,7 @@
       '이제 금액 무게예요. 금액이 클수록 무게가 커지되, 아무리 커도 1을 넘지 않게 만든 식이에요. z는 달러 금액이에요.',
       '식을 정리해 볼게요. e의 마이너스 b z 제곱을 y라고 두면, z가 0일 때 y는 1이고, z가 커질수록 y는 0에 가까워져요. 그러면 V는 2 나누기 1 더하기 y, 빼기 1이고, 분수를 정리하면 1 빼기 y를 1 더하기 y로 나눈 꼴이 돼요.',
       '0달러면 y가 1이라서 0, 금액이 아주 크면 y가 0에 가까워서 1에 가까워져요. 그래서 V는 0 이상이고 1을 넘지 않아요. 무제한 허락은 금액이 너무 커서 컴퓨터 계산으로는 딱 1이 돼요. 곡선이 천장에 닿을 듯 멈춰요.',
-      '그런데 분석 계획은 기울기 b를 1로, 금액을 토큰의 원래 단위로 정해 두었어요. 기본 단위는 토큰의 가장 작은 조각이에요. 1 USDC는 기본 단위 100만 개예요. 그러면 10 기본 단위만 넘어도 V가 0.99991보다 커서, 1에서 1만분의 1도 떨어지지 않아요. 등록 분석에서는 송금의 99.52%, 마지막 허락의 99.78%가 그랬어요. 금액이 아무 역할도 하지 못했고, 이것이 나중에 금액을 고친 이유 가운데 하나예요.'
+      '그런데 분석 계획은 기울기 b를 1로, 금액을 토큰의 원래 단위로 정해 두었어요. 기본 단위는 토큰의 가장 작은 조각이에요. 1 USDC는 기본 단위 100만 개예요. 그러면 10 기본 단위만 넘어도 V가 0.99991보다 커서, 1에서 1만분의 1도 떨어지지 않아요. 등록 분석에서는 송금의 99.52%, 마지막 허락의 99.78%가 그랬어요. 금액이 아무 역할도 하지 못했고, 이것이 수정 분석이 금액을 달러로 재는 이유 가운데 하나예요.'
     ],
     html: '<h1 class="t-h1">아무리 커도 [[1]]을 넘지 않아요</h1>' +
       '<div class="s5-panel" id="pn" data-in="none">' +
@@ -648,7 +658,7 @@
       var P = g.P = plot(ctx, el, P3);
       yAxis(P, [[0, '0'], [0.5, '0.5'], [1, '1']], '');
       txt(P.grid, P.l, P.t - 60, '금액 무게 V', { size: 20, fill: C.ink2 });
-      xAxis(P, [[0, '0'], [100, '100'], [200, '200'], [300, '300'], [400, '400'], [500, '500']], 'z = 달러 금액 (그림의 b = ln 3 / 62, 다음 장)');
+      xAxis(P, [[0, '0'], [100, '100'], [200, '200'], [300, '300'], [400, '400'], [500, '500']], 'z = 달러 금액 (그림의 b = ln 3 / ' + n0(MA) + ', 다음 장)');
       /* glass ceiling at V = 1 */
       var gl = S('g', {}, P.under);
       var gid = uid('glass');
@@ -742,7 +752,7 @@
   };
 
   /* ================================================================ s05-04 */
-  var COINS = [3, 12, 25, 48, 62, 90, 150, 400, 2000];               /* 예시 amounts; the 5th of 9 is the median */
+  var COINS = [3, 12, 25, 48, MA, 150, 240, 600, 2000];              /* 예시 amounts; the 5th of 9 is the median = m_A */
   var SHUF = [6, 0, 7, 4, 8, 2, 5, 1, 3];                            /* initial (unsorted) order, indices into COINS */
   var P4 = { x: 96, y: 418, w: 920, h: 460, l: 80, r: 880, t: 40, b: 352, xd: [0, 600] };
   var s4 = {
@@ -757,7 +767,7 @@
       'y를 원래대로 되돌리면 e의 마이너스 b m 제곱이 3분의 1이에요. 지수가 음수면 1 나누기 양수 지수라서, 1 나누기 e의 b m 제곱이 3분의 1이에요. 그러니 e의 b m 제곱은 3이에요. 끝난 단계는 한 줄로 접어 둘게요.',
       'e를 몇 제곱해야 3이 될까요? e는 약 2.7이고 e의 제곱은 약 7.4니까, 답은 1과 2 사이, 약 1.0986이에요. 이 답을 ln 3이라고 써요. 그래서 b 곱하기 m은 ln 3이에요.',
       '양변을 m으로 나누면, b는 ln 3을 m으로 나눈 값이에요.',
-      '확인해 볼게요. 중앙값의 두 배면 e의 2bm제곱은 3을 두 번 곱한 9라서 y는 9분의 1이고, V는 9분의 8을 9분의 10으로 나눈 0.8이에요. 절반이면 e의 bm/2 제곱을 두 번 곱해야 3이니까 그 값은 루트 3, 약 1.732예요. 그래서 y는 약 0.577, V는 약 0.27이에요. 금액 차이가 무게에 고르게 드러나요. 송금은 중앙값이 200달러, 허락은 62달러였어요. 이 값은 3월 31일까지의 기록만으로 구해서, 시험 기간의 정보가 섞이지 않았어요. 아래 손잡이로 금액을 바꿔 볼 수 있어요.'
+      '확인해 볼게요. 중앙값의 두 배면 e의 2bm제곱은 3을 두 번 곱한 9라서 y는 9분의 1이고, V는 9분의 8을 9분의 10으로 나눈 0.8이에요. 절반이면 e의 bm/2 제곱을 두 번 곱해야 3이니까 그 값은 루트 3, 약 1.732예요. 그래서 y는 약 0.577, V는 약 0.27이에요. 금액 차이가 무게에 고르게 드러나요. 송금은 중앙값이 ' + n0(MT) + '달러, 허락은 ' + n0(MA) + '달러예요. 이 값은 W0 점수 기간, 곧 2025년 4월 1일부터 2026년 3월 31일까지의 기록만으로 구해서, 시험 기간의 정보가 섞이지 않았어요. 아래 손잡이로 금액을 바꿔 볼 수 있어요.'
     ],
     html: '<h1 class="t-h1">[[중앙값]]의 무게를 1/2로</h1>' +
       '<div class="abs s5-note" id="cap1" style="left:96px;top:356px;width:880px"></div>' +
@@ -779,7 +789,7 @@
         gsap.set(cg, { x: g.coinPos(slot), y: 74 });
         return { g: cg, amt: amt, ci: ci, r: r };
       });
-      g.mLab = txt(csvg, g.coinPos(4), 22, 'm = 62달러 (한가운데)', { anchor: 'middle', size: 21, fill: C.hi, weight: 700 });
+      g.mLab = txt(csvg, g.coinPos(4), 22, 'm = ' + n0(MA) + '달러 (한가운데)', { anchor: 'middle', size: 21, fill: C.hi, weight: 700 });
       gsap.set(g.mLab, { autoAlpha: 0 });
       g.cap1 = q(el, '#cap1');
       g.cap1.innerHTML = '중앙값 m = 금액을 줄 세웠을 때 한가운데 값 <span class="example-mark" style="margin-left:8px">예시 · 아홉 개 중 다섯 번째</span>';
@@ -811,10 +821,10 @@
       var lg = g.leg = S('g', {}, P.over);
       var lx = P.px(250), ly = P.py(0.32);
       S('line', { x1: lx, x2: lx + 30, y1: ly - 6, y2: ly - 6, stroke: C.xfer, 'stroke-width': 4 }, lg);
-      txt(lg, lx + 42, ly, '송금 m_T = 200달러 → b_T = ln 3 / 200', { size: 20, fill: C.ink });
+      txt(lg, lx + 42, ly, '송금 m_T = ' + n0(MT) + '달러 → b_T = ln 3 / ' + n0(MT), { size: 20, fill: C.ink });
       S('line', { x1: lx, x2: lx + 30, y1: ly + 26, y2: ly + 26, stroke: C.allow, 'stroke-width': 4 }, lg);
-      txt(lg, lx + 42, ly + 32, '허락 m_A = 62달러 → b_A = ln 3 / 62', { size: 20, fill: C.ink });
-      txt(lg, lx, ly + 66, 't₁(3월 31일)까지 기록만 · 두 자리로 반올림', { size: 17, fill: C.ink2 });
+      txt(lg, lx + 42, ly + 32, '허락 m_A = ' + n0(MA) + '달러 → b_A = ln 3 / ' + n0(MA), { size: 20, fill: C.ink });
+      txt(lg, lx, ly + 66, 'W0 점수 기간(2025.4.1–2026.3.31)의 기록만 · 두 자리로 반올림', { size: 17, fill: C.ink2 });
       txt(lg, lx, ly + 90, '송금 ' + n0(N_TRANSFERS) + '건 ' + fmt(MT_RAW, 2) + ' → ' + MT + ' · 허락 ' + n0(N_FINITE_ALLOW) + '건 ' + fmt(MA_RAW, 2) + ' → ' + MA, { size: 17, fill: C.ink2 });
       gsap.set(lg, { autoAlpha: 0 });
       /* derivation */
@@ -913,15 +923,18 @@
   }
 
   /* ================================================================ s05-05 */
-  var EV_T = [[0, 400, '오늘'], [180, 200, '180일 전'], [365, 100, '1년 전']];      /* 예시: (age, dollars) */
-  var EV_A = [['USDC', 30, Infinity, '무제한 · 30일 전'], ['WETH', 400, MA, '62달러 · 400일 전']];
+  var EV_T = [[0, 2 * MT, '오늘'], [180, MT, '180일 전'], [MAX_AGE, 100, '1년 전']];  /* 예시: (age, dollars); 2 m_T and m_T give V = 0.8 and 0.5 */
+  var EV_A = [['USDC', 30, Infinity, '무제한 · 30일 전'], ['WETH', 300, MA, n0(MA) + '달러 · 300일 전']];   /* both set inside the score window */
   function w4(v) { return f4(v); }
+  var WT5 = EV_T.map(function (ev) { return sigma(ev[0]) * V(ev[1], BT); });                       /* 0.6865, 0.25, 0.0424 */
+  var WA5 = EV_A.map(function (ev) { return sigma(ev[1]) * (ev[2] === Infinity ? 1 : V(ev[2], BA)); }); /* 0.8176, 0.1157 */
+  function sum5(a) { return a.reduce(function (s, v) { return s + v; }, 0); }
   var s5 = {
     id: 's05-05', title: '두 그래프의 무게와 다시 출발', time: 55, steps: 4,
     notes: [
       '두 그래프는 같은 무게 식을 쓰지만, 쌓는 방법과 다시 출발하는 곳이 조금 달라요.',
-      '송금 그래프는 u가 v에게 보낸 모든 송금마다 시간 무게와 금액 무게를 곱해 더해요. 예를 들어 오늘 400달러, 180일 전 200달러, 1년 전 100달러를 보냈다면 0.6865, 0.25, 0.0364를 더해 약 0.973이에요.',
-      '허락 그래프는 토큰마다 가장 최근 허락 하나만 써요. 허락은 새로 하면 앞의 것을 덮어쓰기 때문이에요. USDC 무제한 허락을 30일 전에 했다면 0.8176, WETH 62달러 허락을 400일 전에 했다면 0.0499, 더해서 약 0.867이에요.',
+      '송금 그래프는 u가 v에게 보낸 모든 송금마다 시간 무게와 금액 무게를 곱해 더해요. 예를 들어 오늘 ' + n0(2 * MT) + '달러, 180일 전 ' + n0(MT) + '달러, 1년 전 100달러를 보냈다면, ' + WT5.map(w4s).join(', ') + ' 세 값을 더해서 ' + fmt(sum5(WT5), 3) + '쯤이에요.',
+      '허락 그래프는 토큰마다 점수 기간 안의 가장 최근 허락 하나만 써요. 허락은 새로 하면 앞의 것을 덮어쓰기 때문이에요. USDC 무제한 허락을 30일 전에 했다면 ' + w4s(WA5[0]) + ', WETH ' + n0(MA) + '달러 허락을 300일 전에 했다면 ' + w4s(WA5[1]) + ', 두 값을 더해서 ' + fmt(sum5(WA5), 3) + '쯤이에요.',
       '다시 출발하는 곳도 달라요. AWP는 최근에 여러 상대에게 송금한 활발한 주소에서 더 자주 다시 출발해요. 받는 상대마다 가장 최근 송금의 시간 무게를 더한 것을 활발함 X라고 해요. 같은 상대에게 여러 번 보내도 가장 최근 한 번만 세요. 이 예에서 u는 v 한 곳에만 세 번 보냈으니, 오늘 보낸 송금의 0.8581 하나만 세요. 그래서 X_u는 0.8581이에요. 엔도스랭크는 모든 점에서 똑같이 다시 출발해요.',
       '왜 똑같이 했을까요? 허락을 많이 해 준 주인을 높이는 것이 아니라, 허락을 받은 계약을 재려는 것이기 때문이에요. 이 선택은 이 연구가 데이터를 꺼내기 전에 분석 계획에 적어 두었고, AWP식 다시 출발을 쓴 변형도 함께 보고하기로 했어요.'
     ],
@@ -940,7 +953,7 @@
         '<div class="s5-kind c-allow"><i style="background:var(--c-allow)"></i>허락 · 엔도스랭크</div>' +
         '<div class="s5-l">토큰마다 <b>마지막 허락 하나만</b>, σ × V</div>' +
         '<div class="s5-tx">$w_A(u,v)=\\sum_{\\mathrm{token}}\\sigma\\bigl(\\Delta t^{\\star}\\bigr)\\,V\\bigl(a^{\\star}\\bigr)$</div>' +
-        '<div class="s5-sym"><span>$a^{\\star}$ 마지막 허락의 달러 금액</span><span>$\\Delta t^{\\star}$ 그 허락이 며칠 전인지</span></div>' +
+        '<div class="s5-sym"><span>$a^{\\star}$ 점수 기간 안 마지막 허락의 달러 금액</span><span>$\\Delta t^{\\star}$ 그 허락이 며칠 전인지</span></div>' +
         '<div id="figA" style="position:relative;height:250px"></div>' +
         '<div id="rsA" data-in="none"><div class="s5-l">다시 출발: 모든 점에 [[똑같이]] ($\\pi_u=1/|V|$)</div>' +
           '<div class="s5-note">허락을 많이 해 준 주인에게 몫을 더 주지 않아요</div></div>' +
@@ -958,7 +971,7 @@
         var x = 150 + k * 190;
         var dot = S('circle', { cx: x, cy: 70, r: 15, fill: C.bg3, stroke: C.xfer, 'stroke-width': 2.5 }, eg);
         txt(eg, x, 36, ev[2] + ' · ' + ev[1] + '달러', { anchor: 'middle', size: 18, fill: C.ink2 });
-        txt(eg, x, 116, fmt(s0, 4) + ' × ' + (ev[1] === 400 ? '0.8' : ev[1] === 200 ? '0.5' : fmt(v0, 4)), { anchor: 'middle', size: 18, fill: C.ink, cls: 'svg-mono' });
+        txt(eg, x, 116, fmt(s0, 4) + ' × ' + (ev[1] === 2 * MT ? '0.8' : ev[1] === MT ? '0.5' : fmt(v0, 4)), { anchor: 'middle', size: 18, fill: C.ink, cls: 'svg-mono' });
         txt(eg, x, 140, '= ' + w4(s0 * v0), { anchor: 'middle', size: 18, fill: C.xfer, cls: 'svg-mono', weight: 700 });
         gsap.set(eg, { autoAlpha: 0 });
         return { g: eg, dot: dot, x: x, w: s0 * v0 };
@@ -1069,8 +1082,8 @@
       '결합 점수 C-PR에 쓰는 무게는 조금 달라요. C-PR은 금액에 V를 씌우지 않고 달러를 그대로 더해요.',
       '먼저 금액을 달러로 바꿔요. 기본 단위는 토큰의 가장 작은 조각이고, 그 개수를 n이라고 써요. n에 10의 마이너스 소수 자릿수 제곱을 곱하고, 그날 가격을 곱해요. 10의 마이너스 6제곱을 곱한다는 것은 1,000,000으로 나눈다는 뜻이에요. USDC는 소수 자릿수가 6이라서 1,000,000 기본 단위가 1 USDC, 약 1달러예요.',
       '그런데 무제한 허락은 기본 단위로 2의 256제곱에 가까운 엄청난 수라서, 그대로 두면 한 주인의 허락 줄 전체를 혼자 차지해 버려요. 같은 주인의 500달러짜리 허락은 보이지도 않아요.',
-      '그래서 허락 하나는 최대 2만 달러까지만 세도록 상한 U를 두었어요. 둘 중 작은 값을 쓰는 거예요. 그러면 무제한 허락은 2만 달러, 500달러 허락은 500달러로 세서, 줄을 97.6%와 2.4%로 나눠요. 2만 달러는 3월 31일까지 송금 한 건 금액의 99번째 백분위, 20,266달러를 두 자리로 반올림한 값이에요.',
-      '실제로 마지막 허락의 45.8%가 무제한이고, 53.8%가 상한 이상이에요. 무제한과 유한한 허락을 함께 가진 주인도 79만 7,852명이에요. 처음에는 상한을 유한한 허락의 99번째 백분위로 정했는데, 그 값이 10의 47제곱 달러쯤이라 상한 구실을 못 했어요. 그래서 수정 점수를 하나도 계산하기 전에 이 정의를 고쳐서 커밋했어요.'
+      '그래서 허락 하나는 최대 ' + man(U) + '달러까지만 세도록 상한 U를 두었어요. 둘 중 작은 값을 쓰는 거예요. 그러면 무제한 허락은 ' + man(U) + '달러, 500달러 허락은 500달러로 세서, 줄을 ' + fmt(U / (U + 500) * 100, 1) + '%와 ' + fmt(500 / (U + 500) * 100, 1) + '%로 나눠요. ' + man(U) + '달러는 W0 점수 기간, 곧 2025년 4월 1일부터 2026년 3월 31일까지 송금 한 건 금액의 99번째 백분위, ' + man(P99T) + '달러를 두 자리로 반올림한 값이에요.',
+      '실제로 마지막 허락의 ' + pct(UNL) + '가 무제한이고, ' + pct(ATCAP) + '가 상한 이상이에요. 무제한과 유한한 허락을 함께 가진 주인도 ' + man(BOTH) + '명이에요. 그러면 상한을 허락 금액에서 정하면 어떨까요? 유한한 허락만 모아도 99번째 백분위가 10의 ' + E99A + '제곱 달러쯤이라서, 그 값을 상한으로 쓰면 무제한 허락이 여전히 줄을 혼자 차지해요. 그래서 상한은 송금 금액에서 정해요.'
     ],
     html: '<h1 class="t-h1">무제한 허락이 줄 전체를 [[삼키지]] 않게</h1>' +
       '<div class="s5-amt" data-step="1">' +
@@ -1083,11 +1096,11 @@
         '<div class="s5-tx" style="font-size:26px">$$\\tilde w_A(u,v)=\\sum_{\\mathrm{token}}\\min\\bigl(a^{\\star},\\,\\ch{U}\\bigr),\\qquad \\tilde w_T(u,v)=\\sum_{e:\\,u\\to v}x_e\\,\\sigma(\\Delta t_e)$$</div>' +
         '<div class="s5-note">논문 식 (3.8) · min(a, U) = 둘 중 작은 것: 무제한이면 U, 500달러면 500</div>' +
         '<div data-step="3"><div class="s5-L">허락 하나는 최대 <span class="c-hi">U = ' + n0(U) + '달러</span>로 세요</div>' +
-          '<div class="s5-note">U = t₁(3월 31일)까지 송금 한 건 금액의 99번째 백분위 (' + n0(P99T) + '달러)를 두 자리로 반올림</div>' +
-          '<div class="s5-tx" style="font-size:26px;margin-top:6px">$\\frac{20{,}000}{20{,}000+500}=0.976,\\qquad \\frac{500}{20{,}500}=0.024$</div></div>' +
+          '<div class="s5-note">U = W0 점수 기간(2025.4.1–2026.3.31) 송금 한 건 금액의 99번째 백분위 (' + n0(P99T) + '달러)를 두 자리로 반올림</div>' +
+          '<div class="s5-tx" style="font-size:26px;margin-top:6px">$\\frac{' + texN(S1) + '}{' + texN(S1) + '+' + texN(S2) + '}=' + fmt(S1 / (S1 + S2), 3) + ',\\qquad \\frac{' + texN(S2) + '}{' + texN(S1 + S2) + '}=' + fmt(S2 / (S1 + S2), 3) + '$</div></div>' +
         '<div data-step="4" style="margin-top:22px;padding-top:16px;border-top:1px solid var(--line)">' +
           '<div class="s5-note">마지막 허락 중 무제한 <b>' + pct(UNL) + '</b> · 상한 이상 <b>' + pct(ATCAP) + '</b> · 무제한과 유한을 함께 가진 주인 <b>' + n0(BOTH) + '명</b></div>' +
-          '<div class="s5-note" style="margin-top:8px">처음 정의 (유한 허락의 99번째 백분위)는 약 <b>10⁴⁷달러</b> → 상한 구실을 못 해서, 수정 점수를 계산하기 전에 고쳤어요 <span class="mono ink-3">(2705b28)</span></div></div>' +
+          '<div class="s5-note" style="margin-top:8px">유한 허락 자체의 99번째 백분위는 약 <b>10' + sup(E99A) + '달러</b> → 이 값을 상한으로 쓰면 무제한 허락이 여전히 줄을 차지해요 · 그래서 U는 송금 금액에서 정해요</div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -1117,7 +1130,7 @@
       gsap.set(g.zig, { autoAlpha: 0 });
       g.piece = S('rect', { x: x1 - bw / 2, y: P.t - 60, width: bw, height: P.py(U) - P.t + 60, fill: C.allow, 'fill-opacity': 0.5 }, P.over);
       gsap.set(g.piece, { autoAlpha: 0 });
-      /* exponent ladder for 1e47 (step 4) */
+      /* exponent ladder for the p99 of the finite allowances, ≈ 1e63 (step 4) */
       g.ladder = S('text', { x: P.px(0.75), y: P.t + 30, 'text-anchor': 'middle', fill: C.hi, 'font-size': 20, 'font-weight': 800 }, P.over);
       gsap.set(g.ladder, { autoAlpha: 0 });
       /* one owner's row as a 100 % bar */
@@ -1167,9 +1180,12 @@
       if (i === 4) {
         var st = { e: 4 };
         tl.set(g.ladder, { autoAlpha: 1 }, 0.2);
-        tl.to(st, { e: 47, duration: 1.4, ease: 'power2.in', onUpdate: function () { g.ladder.textContent = '10' + sup(Math.round(st.e)) + '달러'; } }, 0.2);
+        tl.to(st, { e: E99A, duration: 1.4, ease: 'power2.in', onUpdate: function () { g.ladder.textContent = '10' + sup(Math.round(st.e)) + '달러'; } }, 0.2);
         tl.to(g.ladder, { y: -16, duration: 0.15, yoyo: true, repeat: 1 }, 1.6);
-        tl.call(function () { g.ladder.textContent = '처음 정의: 약 10' + sup(47) + '달러'; g.ladder.setAttribute('font-size', 18); }, null, 1.9);
+        tl.call(function () {                                     /* two right-aligned lines, clear of the row on the right */
+          g.ladder.textContent = ''; g.ladder.setAttribute('font-size', 18); g.ladder.setAttribute('text-anchor', 'end');
+          [['유한 허락의 99번째 백분위', -22], ['약 10' + sup(E99A) + '달러', 0]].forEach(function (ln) { S('tspan', { x: P.r + 6, y: P.t + 30 + ln[1] }, g.ladder).textContent = ln[0]; });
+        }, null, 1.9);
       }
     },
     tags: ['example']

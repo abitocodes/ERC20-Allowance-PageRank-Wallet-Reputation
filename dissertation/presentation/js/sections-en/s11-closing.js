@@ -2,7 +2,7 @@
    s11-closing — Conclusion (English edition; STORYBOARD.md §2, s11-01 … s11-05)
 
    s11-01  Answers to the RQs    five RQ cards; on entry the representative pictures of the talk fly
-                                 back in as dim thumbnails (rank scatter of the real 15,107 contracts,
+                                 back in as dim thumbnails (rank scatter of the real 6,483 contracts,
                                  family bars, race bars, interval bars, verdict stamps); each click
                                  brings one card forward with its answer and status; then the
                                  out-of-both-edges line and the five objective chips
@@ -16,16 +16,19 @@
    s11-05  Thank you             the small world as a constellation; the allowance arrow underlines
                                  the thanks; then everything stops for the questions
 
-   Numbers and sources (R = revised digest = the thesis's main analysis)
-     τ 0.174 [0.163, 0.185]                    R§3 inter_method.endorserank_vs_awp
-     0.585 (EndorseRank × allowance), 0.572 (AWP × transfer)        R§2 families
-     2.17, 2.23                                R§10 derived ratios
-     W1 contrasts in the RQ4 thumbnail: AWP − transfer in-degree +0.022 [0.017, 0.027],
-       EndorseRank − in-approve degree −0.034 [−0.038, −0.029]       R§7 (after the labels)
+   Numbers and sources (R = revised digest, revised-usd-12m = the thesis's main analysis)
+     τ 0.199 [0.181, 0.221]                    R§3 inter_method.endorserank_vs_awp
+     0.560 (EndorseRank × allowance), 0.736 (AWP × transfer)        R§2 families
+     time 3.21, edges 2.21, iterations 94 / 57, C-PR 1.36 × AWP      R§10 benchmark (main, derived)
+     W1 contrasts in the RQ3 thumbnail: AWP − transfer in-degree −0.041 [−0.047, −0.034],
+       EndorseRank − in-approve degree −0.082 [−0.090, −0.073]       R§7 (after the labels)
+     P (W1) +0.141, 97.5 % [0.026, 0.256]: R1 met (re-analysis)      R§7 neutral_w1.grid.P
      objectives O1–O5: thesis Ch. 5, Table objectives-achievement (Outcome column)
-     70 / 88 traders (W1 / W0)                 R§7 neutral_w1.n / neutral_w0.n
-     "N": a placeholder, no contract is meant; "October–December 2026": thesis Ch. 6, future work
-     repository: thesis Ch. 3, Reproducibility
+     70 / 87 traders (W1 / W0)                 R§7 neutral_w1.n / neutral_w0.n
+     next steps: thesis Ch. 6, future work ("N": a placeholder, no contract is meant;
+       "October–December 2026": the example window of the registered test); the contract-risk
+       labels of the fourth card are the deck's own suggestion
+     repository: thesis Ch. 3, Reproducibility; digest folder: thesis App. (revised-usd-12m)
    ========================================================================= */
 (function () {
   'use strict';
@@ -54,18 +57,25 @@
 
   /* ------------------------------------------------------------ data */
   var RV = pick(DATA, ['results', 'revised'], {});
-  var TAU = pick(RV, ['same_window', 'inter_method', 'endorserank_vs_awp'], [0.1738, 0.1632, 0.1848]);
+  var TAU = pick(RV, ['same_window', 'inter_method', 'endorserank_vs_awp'], [0.19948, 0.1809, 0.2211]);
   var FAM = pick(RV, ['same_window', 'families'], {});
-  var F_ER_A = pick(FAM, ['endorserank', 'allowance', 0], 0.5849), F_ER_T = pick(FAM, ['endorserank', 'transfer', 0], 0.1579);
-  var F_AWP_T = pick(FAM, ['awp', 'transfer', 0], 0.5723), F_AWP_A = pick(FAM, ['awp', 'allowance', 0], 0.193);
+  var F_ER_A = pick(FAM, ['endorserank', 'allowance', 0], 0.5598), F_ER_T = pick(FAM, ['endorserank', 'transfer', 0], 0.19649);
+  var F_AWP_T = pick(FAM, ['awp', 'transfer', 0], 0.7358), F_AWP_A = pick(FAM, ['awp', 'allowance', 0], 0.2263);
   var BM = pick(DATA, ['benchmark', 'revised', 'main'], {});
-  var T_ER = pick(BM, ['endorserank', 'mean_s'], 10.2942), T_AWP = pick(BM, ['awp', 'mean_s'], 22.3674);
-  var T_CPR = pick(BM, ['cpr_l50', 'mean_s'], 36.1616);
-  var R_TIME = pick(DATA, ['benchmark', 'revised', 'derived', 'time_ratio_awp_over_er'], 2.1728);
-  var R_EDGE = pick(DATA, ['benchmark', 'revised', 'derived', 'edge_ratio_awp_over_er'], 2.2302);
-  var W1C_AWP = pick(RV, ['w1', 'endorserank_results', 'awp_minus_degree_send', 'd'], [0.02186, 0.01694, 0.02708]);
-  var W1C_ER = pick(RV, ['w1', 'endorserank_results', 'endorserank_minus_degree_appr', 'd'], [-0.03377, -0.03802, -0.02901]);
-  var N_W1 = pick(RV, ['w1', 'neutral_w1', 'n'], 70), N_W0 = pick(RV, ['w1', 'neutral_w0', 'n'], 88);
+  var T_ER = pick(BM, ['endorserank', 'mean_s'], 2.6569), T_AWP = pick(BM, ['awp', 'mean_s'], 8.5296);
+  var T_CPR = pick(BM, ['cpr_l50', 'mean_s'], 11.5635);
+  var IT_ER = pick(BM, ['endorserank', 'iterations'], 57), IT_AWP = pick(BM, ['awp', 'iterations'], 94);
+  var R_TIME = pick(DATA, ['benchmark', 'revised', 'derived', 'time_ratio_awp_over_er'], 3.2104);
+  var R_EDGE = pick(DATA, ['benchmark', 'revised', 'derived', 'edge_ratio_awp_over_er'], 2.2122);
+  /* the time ratio = the ratio of iterations × the ratio of the time per iteration (thesis Ch. 4: 1.65 × 1.95) */
+  var R_ITER = IT_AWP / IT_ER, R_PER_IT = (T_AWP / IT_AWP) / (T_ER / IT_ER), R_CPR_AWP = T_CPR / T_AWP;
+  var W1C_AWP = pick(RV, ['w1', 'endorserank_results', 'awp_minus_degree_send', 'd'], [-0.0409, -0.04729, -0.03445]);
+  var W1C_ER = pick(RV, ['w1', 'endorserank_results', 'endorserank_minus_degree_appr', 'd'], [-0.08169, -0.09001, -0.07284]);
+  var N_W1 = pick(RV, ['w1', 'neutral_w1', 'n'], 70), N_W0 = pick(RV, ['w1', 'neutral_w0', 'n'], 87);
+  /* R1: P = in-approve degree − transfer in-degree on the W1 traders' liquidation-free close rate
+     (Bonferroni 97.5 % interval d975) */
+  var P_W1 = pick(RV, ['w1', 'neutral_w1', 'grid', 'P', 'liquidation_free_rate'], { d: [0.1413, 0.03688, 0.24], d975: [0.02599, 0.2559] });
+  var P_W1_D = P_W1.d || [0.1413], P_W1_CI = P_W1.d975 || [0.02599, 0.2559];
 
   /* ------------------------------------------------------------ styles */
   var CSS = [
@@ -140,14 +150,14 @@
   var CX = [96, 446, 796, 1146, 1496];
   var CARDS = [
     { k: 'RQ1', q: 'The two single-edge walks?', a: 'Different orders, own checks', sb: '<span style="font-size:20px;letter-spacing:-.02em">τ = ' + fmt(TAU[0], 3) + ' (neither 0 nor 1)<br>EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b></span>', tags: [plainPill('Largely by construction')] },
-    { k: 'RQ2', q: 'How long does each take?', a: 'Time follows the edge count', sb: 'Time <b>' + fmt(R_TIME, 2) + '×</b> ≈ edges <b>' + fmt(R_EDGE, 2) + '×</b><br>C-PR, walking both edge sets, is the slowest', tags: [] },
-    { k: 'RQ3', q: 'Do they predict later events? Better than the count?', a: 'Every score predicts', sb: 'On transfers AWP beats the count; on allowances <span class="em" id="em4">the count beats EndorseRank</span>; C-PR beats neither count', tags: [Deck.tagHTML('posthoc')] },
+    { k: 'RQ2', q: 'How long does each take?', a: 'Time follows graph size and iterations', sb: 'Time <b>' + fmt(R_TIME, 2) + '×</b> · edges <b>' + fmt(R_EDGE, 2) + '×</b><br><b>' + fmt(R_ITER, 2) + '×</b> the iterations,<br><b>' + fmt(R_PER_IT, 2) + '×</b> per iteration<br>C-PR, walking both edge sets, is the slowest', tags: [] },
+    { k: 'RQ3', q: 'Do they predict later events? Better than the count?', a: 'Every score predicts', sb: 'But <span class="em" id="em4">no PageRank beats the count</span> of its own edges: AWP, EndorseRank and C-PR all fall short', tags: [Deck.tagHTML('posthoc')] },
     { k: 'RQ4', q: 'Does C-PR beat each layer alone?', a: 'No: rule A not met', sb: 'No worse than the allowance layer,<br>below the transfer layer on new senders<br>Same in the registered analysis', tags: [Deck.tagHTML('reanalysis')] },
-    { k: 'RQ5', q: 'Do allowances improve the transfer walk?', a: 'No: rule B not met', sb: 'Better on new approval pairs, worse than the margin on new senders<br>Post hoc: above EndorseRank on every label', tags: [Deck.tagHTML('reanalysis'), Deck.tagHTML('posthoc')] }
+    { k: 'RQ5', q: 'Do allowances improve the transfer walk?', a: 'No: rule B not met', sb: 'Better on new approval pairs, worse than the margin on new senders<br>Post hoc: above EndorseRank on both labels', tags: [Deck.tagHTML('reanalysis'), Deck.tagHTML('posthoc')] }
   ];
   var OCH = [
     { cls: '', html: '<b>O1</b>Met' }, { cls: '', html: '<b>O2</b>Met' },
-    { cls: 'part', html: '<b>O3 partly met</b>Prediction met; beating the count: AWP only' },
+    { cls: 'part', html: '<b>O3 partly met</b>Prediction met; no PageRank beats the count' },
     { cls: 'fail', html: '<b>O4 not met</b>Rule A, also in the registered analysis' },
     { cls: 'fail', html: '<b>O5 not met</b>Rule B, also in the registered analysis' }
   ];
@@ -155,13 +165,13 @@
     id: 's11-01', title: 'Answers to the research questions', time: 40, steps: 7,
     notes: [
       'Let me answer the five questions. The key pictures of the talk have come back as small tiles. Each question is paired with the objective of the same number.',
-      'First, EndorseRank and AWP, the walks over one edge type each, order the contracts differently. Kendall\'s tau is 0.174, neither 0 nor 1. And each agrees most with the proxies built from its own edges: EndorseRank 0.585 with the allowance proxies, AWP 0.572 with the transfer proxies. Both results follow to some degree by construction.',
-      'Second, computing time follows the number of edges. The time is 2.17 times, the edges 2.23 times. It is the same solver, so the speed comes from the graph, and C-PR, which walks both edge sets, takes longest.',
-      'Third, every score predicted later events to some degree. But on the transfer side AWP beat the plain count, and on the allowance side the plain count beat EndorseRank. C-PR did not beat the count of the same edge type either. These are post hoc comparisons, made after seeing the labels.',
+      'First, EndorseRank and AWP, the walks over one edge type each, order the contracts differently. Kendall\'s tau is ' + fmt(TAU[0], 3) + ', neither 0 nor 1. And each agrees most with the proxies built from its own edges: EndorseRank ' + fmt(F_ER_A, 3) + ' with the allowance proxies, AWP ' + fmt(F_AWP_T, 3) + ' with the transfer proxies. Both results follow to some degree by construction.',
+      'Second, computing time follows the size of the graph together with the number of iterations, the rounds the computation repeats until the answer settles. AWP takes ' + fmt(R_TIME, 2) + ' times as long as EndorseRank, on ' + fmt(R_EDGE, 2) + ' times as many edges. It needs ' + IT_AWP + ' iterations against ' + IT_ER + ', ' + fmt(R_ITER, 2) + ' times as many, and each iteration takes ' + fmt(R_PER_IT, 2) + ' times as long; multiplied together, these give the time ratio. It is the same solver, so the speed comes from the graph and the iterations, not from the algorithm, and C-PR, which walks both edge sets, takes longest: ' + fmt(R_CPR_AWP, 2) + ' times as long as AWP.',
+      'Third, every score predicted later events to some degree. But no PageRank beat the plain count. In both windows the transfer in-degree beat AWP on the transfer side, and the in-approve degree beat EndorseRank on the allowance side. EndorseRank with AWP-style restarts fell short by less, but it still fell short, and C-PR did not beat the count of the same edge type either. The restart rule changes how far a walk falls short of its count, not whether it does. These are post hoc comparisons, made after seeing the labels.',
       'Fourth, C-PR, the score of this thesis, did not meet rule A, which asked it to beat each layer walked alone. It was no worse than the allowance layer but fell behind the transfer layer on new senders. This is a re-analysis that applies the rule to the revised scores, and the registered analysis gave the same verdict.',
-      'Fifth, rule B, which asked whether adding the allowance layer improves a transfer walk, was not met either. New approval pairs improved, but on new senders C-PR fell behind by more than the margin. Outside the rules, C-PR was above EndorseRank on every label, but its lead over AWP on new approval pairs came from contracts that AWP scores zero.',
-      'In addition, on an outcome found in neither edge type, such as avoiding liquidation, there was no evidence that the allowance side leads, and the comparison between the PageRank versions was not resolved. This too is a re-analysis that applies the registered rules to the revised scores.',
-      'As for the objectives, the first two were met, but both largely by construction. The third was only partly met: prediction was met, but only AWP did better than the count. The fourth and fifth were not met, and the same holds in the registered analysis.'
+      'Fifth, rule B, which asked whether adding the allowance layer improves a transfer walk, was not met either. New approval pairs improved, but on new senders C-PR fell behind by more than the margin, and on the traders\' liquidation-free close rate a loss beyond the margin could not be ruled out. Outside the rules, C-PR was above EndorseRank on both spender labels in both windows. Its lead over AWP on new approval pairs came mainly from contracts that AWP scores zero; among the other contracts the two were level in W0, with a small lead for C-PR in W1.',
+      'In addition, on an outcome found in neither edge type, avoiding liquidation, the in-approve degree led the transfer in-degree in W1, the registered window. The difference is +' + fmt(P_W1_D[0], 3) + ', and its 97.5% interval, ' + fmt(P_W1_CI[0], 3) + ' to ' + fmt(P_W1_CI[1], 3) + ', lies above zero, so R1 is met. In W0 the difference was positive but not resolved, and the comparison between the PageRank versions was not resolved either. The signal concerns avoiding forced liquidation, not trading well, and the trader samples are small. This too is a re-analysis that applies the registered rules to the revised scores; the registered analysis resolved the difference only in W0 and did not meet R1.',
+      'As for the objectives, the first two were met, but both largely by construction. The third was only partly met: prediction was met, but no PageRank did better than the count. The fourth and fifth were not met, and the same holds in the registered analysis.'
     ],
     html: function () {
       var cards = CARDS.map(function (c, i) {
@@ -173,7 +183,7 @@
       var och = OCH.map(function (o, i) { return '<div class="s11-oc ' + o.cls + '" data-in="none" style="left:' + CX[i] + 'px">' + o.html + '</div>'; }).join('');
       return '<h1 class="t-h1">Five questions, [[five answers]]</h1>' + cards + och +
         '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[1] + 326 - CX[0] - 40) + 'px"><span>Both largely by construction</span></div>' +
-        '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1728px"><span><b>Outcome in neither edge type</b> (liquidation avoidance): no evidence that the allowance side leads · PageRank versions not resolved</span>' + Deck.tagHTML('reanalysis') + '</div>';
+        '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1728px"><span><b>Outcome in neither edge type</b> (liquidation avoidance): in W1 the in-approve degree leads the transfer in-degree (R1 met) · W0 and the PageRank pair not resolved</span>' + Deck.tagHTML('reanalysis') + '</div>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -219,7 +229,7 @@
   /* the five thumbnails: real data where the picture is data */
   function drawThumbs(ctx, g) {
     var W = 290, H = 128;
-    /* RQ1: rank scatter, EndorseRank percentile × AWP percentile, all 15,107 contracts;
+    /* RQ1: rank scatter, EndorseRank percentile × AWP percentile, all contracts of the matched cohort;
        amber where EndorseRank ranks the contract higher, sky where AWP does (as in s08-02) */
     var K = Comp.canvas(ctx, g.ths[0], { w: W, h: H, onResize: function (k) { scatter(k); } });
     function scatter(k) {
@@ -236,16 +246,18 @@
       c.strokeRect(13.5, 11.5, W - 27, H - 23);
     }
     scatter(K);
-    /* RQ2: race bars (EndorseRank, AWP, C-PR solve times) */
+    /* RQ2: race bars (EndorseRank, AWP, C-PR solve times), the slowest 240 px long */
     var s3 = Comp.svg(ctx, g.ths[1], { w: W, h: H });
-    var sc = 6.8;
+    var sc = 240 / Math.max(T_ER, T_AWP, T_CPR);
     svgEl('rect', { x: 20, y: 24, width: T_ER * sc, height: 20, rx: 6, fill: C.allow }, s3);
     svgEl('rect', { x: 20, y: 54, width: T_AWP * sc, height: 20, rx: 6, fill: C.xfer }, s3);
     svgEl('rect', { x: 20, y: 84, width: T_CPR * sc, height: 20, rx: 6, fill: C.cpr }, s3);
     svgEl('line', { x1: 20, x2: 20, y1: 16, y2: 112, stroke: C.ink3, 'stroke-width': 1.5 }, s3);
-    /* RQ3: interval bars around zero (W1, after the labels) */
+    /* RQ3: interval bars against zero (W1, after the labels: PageRank − its own count); the scale
+       spans both intervals and zero, so a bar left of the dashed line means the count is better */
     var s4 = Comp.svg(ctx, g.ths[2], { w: W, h: H });
-    function X(v) { return 145 + v * 2400; }
+    var lo = Math.min(0, W1C_AWP[1], W1C_ER[1]), hi = Math.max(0, W1C_AWP[2], W1C_ER[2]);
+    function X(v) { return 24 + (v - lo) / ((hi - lo) || 1) * (W - 48); }
     svgEl('line', { x1: X(0), x2: X(0), y1: 14, y2: H - 14, stroke: C.ink2, 'stroke-width': 1.5, 'stroke-dasharray': '4 4' }, s4);
     [[W1C_AWP, 44, C.xfer], [W1C_ER, 86, C.allow]].forEach(function (r) {
       svgEl('line', { x1: X(r[0][1]), x2: X(r[0][2]), y1: r[1], y2: r[1], stroke: r[2], 'stroke-width': 5, 'stroke-linecap': 'round' }, s4);
@@ -273,7 +285,7 @@
     id: 's11-02', title: 'What this study adds', time: 30, steps: 2,
     notes: [
       'This study adds five things.',
-      'First, C-PR, which walks both edge types in one walk, and its test by rules fixed in advance. The rules were not met, but outside them C-PR was above EndorseRank on every label. Second, EndorseRank, the reference score that uses the allowance as an edge of contract reputation. Third, an evaluation design that sets every score against the raw count before smoothing, in the same window and in two windows outside it. Fourth, a closed form that shows what a uniformly restarted walk computes at a depth-one spender. Fifth, a comparison registered in advance on an outcome found in neither edge type.',
+      'First, C-PR, which walks both edge types in one walk, and its test by rules fixed in advance. The rules were not met, but outside them C-PR was above EndorseRank on both spender labels in both windows. Second, EndorseRank, the reference score that uses the allowance as an edge of contract reputation. Third, an evaluation design that sets every score against the raw count before smoothing, in the same window and in two windows outside it; out of window no PageRank beat its count. Fourth, a closed form that shows what a uniformly restarted walk computes at a depth-one spender. Fifth, a comparison registered in advance on an outcome found in neither edge type. In W1, the registered window, the in-approve degree ranked liquidation avoidance better than the transfer in-degree, in a re-analysis of the revised scores.',
       'The PageRank algorithm and AWP\'s weights are borrowed. What is new is the walk that ties the two edge types together, the kind of edge, and the way they were tested.'
     ],
     html: function () {
@@ -281,7 +293,7 @@
       function tile(i, inner) { var T = t[i]; return '<div class="s11-tile" data-in="none" data-i="' + i + '" style="left:' + T.x + 'px;top:' + T.y + 'px;width:' + T.w + 'px;height:' + T.h + 'px"><span class="no">' + T.n + '</span>' + inner + '</div>'; }
       return '<h1 class="t-h1">[[Five]] contributions</h1>' +
         tile(0, '<div class="vis" id="v4" style="top:90px;height:300px"></div>' +
-          '<div class="tx"><span class="big c-cpr">C-PR</span><br>One walk over both edge types<small>Tested by rules A and B fixed in advance, both not met · outside the rules, above EndorseRank on every label</small></div>') +
+          '<div class="tx"><span class="big c-cpr">C-PR</span><br>One walk over both edge types<small>Tested by rules A and B fixed in advance, both not met · outside the rules, above EndorseRank on both spender labels</small></div>') +
         tile(1, '<svg class="vis" id="v1" width="532" height="190" viewBox="0 0 600 380" style="top:40px"></svg>' +
           '<div class="tx">EndorseRank: allowances as reputation<br>edges, the reference score</div>') +
         tile(2, '<svg class="vis" id="v2" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
@@ -361,7 +373,7 @@
     { i: ico('<circle cx="13" cy="20" r="7"/><path d="M20 20h16M30 20v6M35 20v4"/>'), t: 'No off-chain information besides prices and the token list: <span>it cannot tell whether approving owners are different people</span>' },
     { i: ico('<path d="M14 11l-9 9 9 9M26 11l9 9-9 9M23 8l-6 24"/>'), t: 'A reputation of contracts only: <span>it says nothing about whether the code is safe</span>' },
     { i: '<svg viewBox="0 0 40 40" fill="none"><rect x="5" y="5" width="30" height="30" rx="8" stroke="#A3ADBF" stroke-width="2.4"/><text x="20" y="21" text-anchor="middle" dominant-baseline="middle" fill="#A3ADBF" font-size="13" class="svg-mono">{ }</text></svg>', t: 'Only contracts were scored: <span>it says nothing about EOAs</span>' },
-    { i: Deck.ICONS.loop, t: 'The revised analysis was set after the registered results were known → <span>its verdicts are a re-analysis</span>' },
+    { i: Deck.ICONS.loop, t: 'Dollar amounts, five tokens and 12-month score windows were set after the registered results → <span>verdicts are a re-analysis</span>' },
     { i: Deck.ICONS.eye, t: 'The comparisons with the raw count and the activity-restart variant are <span>post hoc</span>' },
     { i: ico('<circle cx="8" cy="10" r="3"/><circle cx="32" cy="9" r="3"/><circle cx="20" cy="22" r="3.5"/><circle cx="9" cy="32" r="3"/><circle cx="33" cy="31" r="3"/><path d="M10.5 12l7 8M29.5 11l-7 9M11 30l7-6M31 29l-8.5-5"/>'), t: 'Ego network (only edges that touch the cohort) · five tokens · Arbitrum One · <span>these months only</span>' },
     { i: ico('<circle cx="10" cy="10" r="3"/><circle cx="20" cy="10" r="3"/><circle cx="30" cy="10" r="3"/><circle cx="10" cy="20" r="3"/><circle cx="20" cy="20" r="3"/><circle cx="10" cy="30" r="3"/>'), t: 'The trader samples are small <span>(W1: ' + N_W1 + ' · W0: ' + N_W0 + ')</span>' },
@@ -371,8 +383,8 @@
     id: 's11-03', title: 'Limitations', time: 35, steps: 2,
     notes: [
       'Let me also be clear about the limitations.',
-      'These scores use no off-chain information except daily prices and the token list, so we cannot tell whether the owners who approve a contract are really different people. It is only a reputation of contracts; it says nothing about whether the code is safe. Only contracts received scores, so it says nothing at all about EOAs. The revised analysis in the main text was set after the registered results were known, so its verdicts are a re-analysis.',
-      'The comparisons with the raw count and the activity-restart variant were made after seeing the labels. And the results come from an ego network that keeps only the edges touching the cohort, from five tokens, from one chain, Arbitrum One, and from these months only. The trader samples are small, 70 in W1 and 88 in W0, and the score with uniform restarts is weak against closed farms.'
+      'These scores use no off-chain information except daily prices and the token list, so we cannot tell whether the owners who approve a contract are really different people. It is only a reputation of contracts; it says nothing about whether the code is safe. Only contracts received scores, so it says nothing at all about EOAs. The revised analysis in the main text, that is, the amounts in US dollars, the five tokens and the twelve-month score windows before each freeze, was set after the registered results were known, so its verdicts are a re-analysis.',
+      'The comparisons with the raw count and the activity-restart variant were made after seeing the labels. And the results come from an ego network that keeps only the edges touching the cohort, from five tokens, from one chain, Arbitrum One, and from these months only. The trader samples are small, ' + N_W1 + ' in W1 and ' + N_W0 + ' in W0, and the score with uniform restarts is weak against closed farms.'
     ],
     html: function () {
       function rows(a, step) {
@@ -400,8 +412,8 @@
   }
   var WQ = 'Allow this contract to spend your USDC?';
   var NEXT = [
-    { t: 'Register the activity-restart variant on a new window and test it against the count', s: 'Depth-one and deeper spenders reported separately', hyp: true },
-    { t: 'A registered test of the revised analysis itself', s: 'e.g. registered before the October–December 2026 logs are extracted' },
+    { t: 'Deeper sample: does propagation add to the count?', s:'EndorseRank and its activity-restart variant against the count on new data · depth-one and deeper spenders apart', hyp: true },
+    { t: 'A registered test of the revised analysis itself', s: 'USD amounts, five tokens and 12-month score windows fixed; e.g. registered before the October–December 2026 logs are extracted' },
     { t: 'Restart only from trusted seeds to block farms', s: 'Under uniform restarts a closed farm collects share' },
     { t: 'Compare with contract-risk labels (drainers, rug pulls)', s: 'See whether the score says anything about risk beyond activity' }
   ];
@@ -410,9 +422,9 @@
     carrier: false,
     notes: [
       'So what could that first window show?',
-      'The window from the start opens again. This time it has one more line: the number of distinct owner addresses that approved this contract. Owners are addresses, not people, so the line counts addresses, not persons. By the results of this study, this number is a public signal that any service can compute without PageRank, and EndorseRank did not beat it out of window either. The N on the screen is a placeholder and does not point to any particular contract.',
+      'The window from the start opens again. This time it has one more line: the number of distinct owner addresses that approved this contract. Owners are addresses, not people, so the line counts addresses, not persons. By the results of this study, this number is a public signal that any service can compute without PageRank, and out of window, in both windows, it ranked later approvals better than every PageRank of the study. That comparison was made after seeing the labels. The N on the screen is a placeholder and does not point to any particular contract.',
       'But this number only says how widely the contract is approved. A low number is a reason to look closer, but a high number is no reason to sign. That is why the cursor only rests on the Approve button.',
-      'For further research I have four things in mind. First, register the activity-restart variant in advance on a new window and test it against the count; for now this is only a hypothesis. Second, redo the revised analysis itself as a registered test. Third, restart only from trusted seeds, to block farms. And fourth, compare the scores with real contract-risk labels.'
+      'For further research I have four things in mind. First, extract a deeper sample and test EndorseRank and its activity-restart variant against the count on new data, with depth-one and deeper spenders reported separately, to see what the walk adds to the count; for now this is only a hypothesis. Second, redo the revised analysis itself as a registered test, with its US-dollar amounts, five tokens and twelve-month score windows fixed in advance. Third, restart only from trusted seeds, to block farms. And fourth, compare the scores with real contract-risk labels.'
     ],
     html: function () {
       var win = WP ? WP.html({ id: 'win', top: WT, question: WQ, code: '' }) : fallbackWallet();
@@ -425,8 +437,8 @@
           '<div>High count <span class="ne" id="ne">≠</span> [[reason to sign]]</div></div>' +
         '<div class="abs s11-nx" id="nx" data-in="none" style="left:820px;top:196px;width:1004px"><h2 class="t-h2">Next steps</h2>' +
           NEXT.map(function (n, i) {
-            return '<div class="s11-nc"><span class="n">' + (i + 1) + '</span><span class="t"' + (n.hyp ? ' style="padding-right:260px"' : '') + '>' + esc(n.t) + '<small>' + esc(n.s) + '</small></span>' +
-              (n.hyp ? '<span class="s11-hyp" id="hyp">' + Deck.tagHTML({ en: 'Hypothesis · post hoc', icon: 'eye', key: 'hypothesis' }) + '</span>' : '') + '</div>';
+            return '<div class="s11-nc"><span class="n">' + (i + 1) + '</span><span class="t"' + (n.hyp ? ' style="padding-right:170px"' : '') + '>' + esc(n.t) + '<small>' + esc(n.s) + '</small></span>' +
+              (n.hyp ? '<span class="s11-hyp" id="hyp">' + Deck.tagHTML({ en: 'Hypothesis', icon: 'hollow', key: 'hypothesis' }) + '</span>' : '') + '</div>';
           }).join('') + '</div>' +
         '<svg class="abs" id="lay" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible;pointer-events:none"></svg>';
     },
@@ -509,7 +521,7 @@
         '<svg class="abs" id="ul" data-in="none" width="1920" height="60" viewBox="0 0 1920 60" style="left:0;top:628px;overflow:visible"></svg>' +
         '<p class="s11-thx t-body-l ink-2" id="qa" data-in="none" style="top:690px">Questions are welcome</p>' +
         '<p class="s11-small" id="sm1" data-in="none" style="top:846px">Supervisor <b>' + sup + '</b> · Co-supervisors <b>' + co + '</b> · ' + esc(META.university || 'University of South Africa') + ' (UNISA)</p>' +
-        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">Code and results: github.com/abitocodes/phd_works · results digest: experiments/data/3-published-results-for-thesis/revised-usd/</p>';
+        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">Code and results: github.com/abitocodes/phd_works · results digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};

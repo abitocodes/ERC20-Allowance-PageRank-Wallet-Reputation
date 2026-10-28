@@ -7,25 +7,26 @@
    s07-03  With ties: τ_b                   (same cards and pentagon; tie groups; the 10 × 9 rectangle
                                              morphs into the square of equal area → √90; τ_b = 0.738;
                                              side panel: Spearman's ρ)
-   s07-04  Bootstrap: resample 400 times    (a bag of 15,107 dots, the light dot draws with replacement,
+   s07-04  Bootstrap: resample 400 times    (a bag of 6,483 dots, the light dot draws with replacement,
                                              a histogram fills, 2.5 % cut on each side, the middle band
                                              squashes into the interval bar G9)
    s07-05  Paired difference, margin,       (two overlapping intervals vs their paired difference;
            Bonferroni                        joint scatter; toy table of three resamples; δ band;
                                              5 % → 2.5 % + 2.5 %)
 
-   Numbers and sources (revised digest = R)
-     0.585 [0.578, 0.592]     R§2 families.endorserank.allowance  (construct check)
-     0.250 [0.237, 0.262]     R§6 taus.t1_in_approve_degree.future_new_approvers  (W0)
-     0.231 [0.220, 0.242]     R§6 taus.endorserank.future_new_approvers  (W0)
-     −0.019 [−0.026, −0.011]  R§6 contrasts_after[3]  (post hoc)
-     114,103,171 pairs        R§3 inter_method.concordance.pairs
+   Numbers and sources (revised digest = R, experiments/data/3-published-results-for-thesis/revised-usd-12m)
+     0.560 [0.548, 0.571]     R§2 families.endorserank.allowance  (construct check)
+     0.329 [0.312, 0.343]     R§6 taus.cpr_l50.future_new_approvers  (W0, C-PR λ = 0.5)
+     0.303 [0.287, 0.319]     R§6 taus.endorserank.future_new_approvers  (W0)
+     +0.026 [0.016, 0.037]    R§6 contrasts_after[6]  (C-PR − EndorseRank, post hoc)
+     21,011,403 pairs         R§3 inter_method.concordance.pairs (DECK_DATA.results.revised.same_window)
+     6,483 contracts          R§1 cohort (DECK_DATA.results.revised.same_window.cohort)
      B = 400, seed 42, B = 2,000, δ = 0.010, 97.5 %   params.stats; R§7 delta; R§7 neutral blocks
      0.13 × bootstrap SE      thesis Ch. 3, Statistical tests (Uncertainty) — notes only
      family τ = mean of its 2 proxies  thesis Ch. 3, Family aggregation
    Illustrations (example, computed here): five cards A–E (score 5…1, label 3,4,1,1,0): n_c 8,
    n_d 1, one label tie, τ_a 0.7, τ_b 7/√90 = 0.738, mid-rank ρ 0.872 (the no-tie formula's
-   0.875 is in the notes only); s07-05 toy table (0.27/0.25, 0.23/0.21, 0.25/0.23); the
+   0.875 is in the notes only); s07-05 toy table (0.35/0.32, 0.31/0.28, 0.33/0.30); the
    histogram shape, the bag of dots and the joint scatter (only the cut points are digest values).
    ========================================================================= */
 (function () {
@@ -35,15 +36,17 @@
   var NS = 'http://www.w3.org/2000/svg';
   var STP = (DATA.params || {}).stats || {};
   var B = STP.B || 400, SEED = STP.seed != null ? STP.seed : 42, B2 = STP.B_neutral || 2000, DELTA = STP.delta || 0.01;
-  var PAIRS = 114103171, NCOH = 15107;
+  var PAIRS = 21011403, NCOH = 6483;
   try { PAIRS = DATA.results.revised.same_window.inter_method.concordance.pairs || PAIRS; } catch (e) { /* digest value */ }
   try { NCOH = DATA.results.revised.same_window.cohort || NCOH; } catch (e) { /* digest value */ }
   /* digest strings (copied, so that the printed digits are the digest's) */
-  var FAM_ER_A = '0.585 [0.578, 0.592]';
-  var W0_DEG = '0.250 [0.237, 0.262]', W0_ER = '0.231 [0.220, 0.242]', W0_DIFF = '−0.019 [−0.026, −0.011]';
+  var FAM_ER_A = '0.560 [0.548, 0.571]';
+  /* s07-05: W0, new approval pairs: C-PR (λ = 0.5) and EndorseRank overlap separately, the paired difference excludes 0 */
+  var W0_CPR = '0.329 [0.312, 0.343]', W0_ER = '0.303 [0.287, 0.319]', W0_DIFF = '+0.026 [0.016, 0.037]';
 
   function nums(s) { return String(s).replace(/−/g, '-').match(/-?\d+(?:\.\d+)?/g).map(Number); }
   function mfmt(v, d) { return fmt(v, d).replace(/^-/, '−'); }
+  function tau0(s) { return String(s).split(' ')[0]; }               /* '0.329 [0.312, 0.343]' → '0.329' */
   function svgEl(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
     if (attrs) for (var k in attrs) { if (attrs[k] != null) e.setAttribute(k, attrs[k]); }
@@ -138,7 +141,7 @@
     '.s7-var th{font-size:17px;font-weight:600;color:var(--ink-3);text-align:right;padding:2px 8px;border-bottom:1px solid var(--line)}',
     '.s7-var td{text-align:right;padding:2px 8px;color:var(--ink)}',
     '.s7-var td.l, .s7-var th.l{text-align:left;color:var(--ink-2)}',
-    '.s7-var th.c-deg{color:var(--c-deg)}', '.s7-var th.c-allow{color:var(--c-allow)}',
+    '.s7-var th.c-deg{color:var(--c-deg)}', '.s7-var th.c-allow{color:var(--c-allow)}', '.s7-var th.c-cpr{color:var(--c-cpr)}',
     '.s7-var td.d{font-weight:800}',
     '.s7-var .nt{font-size:19px;line-height:27px;color:var(--ink);margin-top:6px}',
     '.s7-scale{display:flex;gap:16px;align-items:center;font-size:21px;line-height:30px;color:var(--ink-2)}',
@@ -338,7 +341,7 @@
       'First, let’s count the pairs. Think of the contracts as people who each shake hands once with everyone else. A shakes hands with the 4 others. All five shake 4 hands each, so 5 times 4 is 20. But A shaking hands with B and B shaking hands with A is the same handshake, so we counted every handshake twice. Dividing by 2 gives 10. As a formula: n times n minus 1, divided by 2.',
       'Now look at each pair. If the contract with the higher score also has the higher label, the pair is concordant; if it is the other way round, it is discordant. For A and B, A has the higher score but B has the higher label, so they are discordant. A with C, A with D and A with E are concordant. Counting the rest, there are eight concordant pairs and one discordant pair. C and D have the same label, so they count as neither.',
       'Take the concordant pairs minus the discordant pairs and divide by all the pairs: that gives 0.7. We write this as tau a. It is the basic tau, which does not treat ties separately. 1 means the order is exactly the same, 0 means no relation, and −1 means exactly the opposite.',
-      'When there are no ties, 1 plus tau, divided by 2, is the probability that a randomly chosen pair is in the same order in both rankings. In the actual matched cohort there are more than 110 million contract pairs.'
+      'When there are no ties, 1 plus tau, divided by 2, is the probability that a randomly chosen pair is in the same order in both rankings. In the actual matched cohort there are more than ' + Math.floor(PAIRS / 1e6) + ' million contract pairs.'
     ],
     html:
       '<h1 class="t-h1">How closely do two rankings keep the [[same order]]?</h1>' +
@@ -617,7 +620,11 @@
   /* ================================================================ s07-04 bootstrap */
   var BAG = { cx: 330, cy: 572, r: 200 };
   var SLOT = { x: 640, y0: 392, dy: 120, n: 8, w: 40, gap: 12 };
-  var HIST = { x: 1270, y: 300, w: 554, h: 400, lo: 0.572, hi: 0.598, base: 340 };
+  /* histogram axis: ±0.022 around the digest point estimate, ticks every 0.01 (0.538 … 0.582 for 0.560) */
+  var FE = nums(FAM_ER_A);
+  function r3(v) { return Math.round(v * 1000) / 1000; }
+  var HIST = { x: 1270, y: 300, w: 554, h: 400, lo: r3(FE[0] - 0.022), hi: r3(FE[0] + 0.022), base: 340 };
+  var HIST_TICKS = [-0.02, -0.01, 0, 0.01, 0.02].map(function (t) { return r3(FE[0] + t); });
   function bootValues() {
     /* 400 illustrative resample values: seeded normal draws, mapped so that the numpy-style
        2.5th / 97.5th percentiles land exactly on the digest's interval ends */
@@ -632,11 +639,11 @@
     id: 's07-04', title: 'Bootstrap: resample 400 times', time: 45, steps: 4,
     tags: function (step) { return step >= 4 ? ['construct', 'example'] : ['example']; },
     notes: [
-      'How far we can trust a number like 0.585 is measured with the bootstrap, that is, by resampling. All we have is one collection of 15,107 contracts. We would like to know how much tau would change if we collected the contracts again. We cannot do that, so we imitate it by drawing again from a bag. The bag on the left holds the 15,107 contracts of the matched cohort.',
+      'How far we can trust a number like ' + FE[0].toFixed(3) + ' is measured with the bootstrap, that is, by resampling. All we have is one collection of ' + fmt(NCOH, 0) + ' contracts. We would like to know how much tau would change if we collected the contracts again. We cannot do that, so we imitate it by drawing again from a bag. The bag on the left holds the ' + fmt(NCOH, 0) + ' contracts of the matched cohort.',
       'I draw one contract from the bag, write it down and put it back. Doing this as many times as there are contracts gives a new sample of the same size as the original, but slightly different. Because each contract goes back in, the same contract can be drawn twice. For every new sample I compute tau again and stack it on the right, one by one. The shape of the bars on screen is an illustration.',
       'We do this 400 times. The draws are fixed by seed 42, so anyone who reruns it gets the same result.',
-      'We sort those 400 values from smallest to largest and cut off the smallest 2.5% and the largest 2.5%. The middle range that remains is the 95% confidence interval. Out of 400, that is about the 10th and the 390th value. For EndorseRank and the allowance family, it runs from 0.578 to 0.592. The family’s tau is the mean of the taus of its two proxies, the in-approve degree and the in-approve value. 400 resamples are not many, so with another seed the interval ends could move a little. (Advanced) According to Chapter 3 of the thesis, that wobble is about 0.13 times the bootstrap standard error.',
-      'If we press this middle band flat, it becomes the interval bar that appears in every result figure from now on. The dot is 0.585, and the bar is the 95% interval. And every score uses the same 400 samples. That is the key to the next slide.'
+      'We sort those 400 values from smallest to largest and cut off the smallest 2.5% and the largest 2.5%. The middle range that remains is the 95% confidence interval. Out of 400, that is about the 10th and the 390th value. For EndorseRank and the allowance family, it runs from ' + FE[1].toFixed(3) + ' to ' + FE[2].toFixed(3) + '. The family’s tau is the mean of the taus of its two proxies, the in-approve degree and the in-approve value. 400 resamples are not many, so with another seed the interval ends could move a little. (Advanced) According to Chapter 3 of the thesis, that wobble is about 0.13 times the bootstrap standard error.',
+      'If we press this middle band flat, it becomes the interval bar that appears in every result figure from now on. The dot is ' + FE[0].toFixed(3) + ', and the bar is the 95% interval. And every score uses the same 400 samples. That is the key to the next slide.'
     ],
     html:
       '<h1 class="t-h1">[[Resample]] from the same bag, 400 times</h1>' +
@@ -656,7 +663,7 @@
       '<p class="abs s7-note" data-step="4" style="left:96px;top:966px;width:1060px;color:var(--ink)">Every score uses the same 400 samples → the ‘paired difference’ on the next slide</p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
-      /* the bag: 15,107 dots in a disc (illustrative positions) */
+      /* the bag: NCOH (6,483) dots in a disc (illustrative positions) */
       var bagHost = q(el, '#bag'), size = 2 * BAG.r + 20;
       g.Kb = Comp.canvas(ctx, bagHost, { w: size, h: size, onResize: function (K) { drawBag(K); } });
       var rnd = Deck.util.rng(SEED + 1);
@@ -707,7 +714,7 @@
       function X(v) { return (v - HIST.lo) / (HIST.hi - HIST.lo) * HIST.w; }
       g.X = X;
       svgEl('line', { x1: 0, x2: HIST.w, y1: HIST.base, y2: HIST.base, stroke: C.ink2, 'stroke-width': 1.5 }, hs);
-      [0.575, 0.580, 0.585, 0.590, 0.595].forEach(function (t) {
+      HIST_TICKS.forEach(function (t) {
         svgEl('line', { x1: X(t), x2: X(t), y1: HIST.base, y2: HIST.base + 8, stroke: C.ink2, 'stroke-width': 1.5 }, hs);
         var tt = svgEl('text', { x: X(t), y: HIST.base + 30, 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'tnum svg-mono' }, hs); tt.textContent = t.toFixed(3);
       });
@@ -802,8 +809,8 @@
         tl.fromTo([g.pL, g.pR], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.7);
         tl.fromTo(g.band, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0.9);
         tl.fromTo(g.pM, { autoAlpha: 0, scale: 0.6, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: E.stamp }, 1.0);
-        tl.add(ctx.count(g.eL, 0.570, g.lo, { decimals: 3, final: g.lo.toFixed(3), duration: 0.9 }), 1.0);
-        tl.add(ctx.count(g.eR, 0.600, g.hi, { decimals: 3, final: g.hi.toFixed(3), duration: 0.9 }), 1.0);
+        tl.add(ctx.count(g.eL, HIST.lo, g.lo, { decimals: 3, final: g.lo.toFixed(3), duration: 0.9 }), 1.0);
+        tl.add(ctx.count(g.eR, HIST.hi, g.hi, { decimals: 3, final: g.hi.toFixed(3), duration: 0.9 }), 1.0);
         tl.fromTo([g.eL, g.eR], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 1.0);
         tl.fromTo(g.foot, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: E.out }, 1.4);
       }
@@ -827,10 +834,10 @@
     id: 's07-05', title: 'Paired difference Δτ, margin, Bonferroni', time: 55, steps: 5,
     tags: function (step) { return step >= 4 ? ['posthoc', 'example'] : step >= 2 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
-      'When we compare two scores, we do not look at their two intervals separately. We compute the difference directly on the same samples. As a real example, let’s compare the in-approve degree and EndorseRank at predicting new approval pairs in W0. This comparison was computed after the labels were seen, so it is post hoc.',
-      'The in-approve degree is 0.250 and EndorseRank is 0.231. The two intervals overlap, so looked at separately, it is hard to tell whether there is a difference.',
-      'But the two scores are computed together on the same 400 samples. When one comes out high on a sample, the other comes out high too, so they rise and fall together. The dots on the right are an example that shows this pattern. The table below also uses example numbers. Over three samples the two taus move by 0.02 at a time, like 0.27, 0.23, 0.25, but the difference is −0.02 every time. Because they move together, the difference moves less. It is like weighing two people on the same scale: the difference between their weights is less affected by the scale’s error. (Advanced) As a formula, the variance of the difference is the sum of the two variances minus 2 times the covariance, so when they move together it gets smaller by that much.',
-      'So when we compute the difference on each of the same 400 samples, its interval runs from −0.026 to −0.011 and stays fully clear of 0. Separately they overlap; paired, they separate. On the allowance side, the plain count predicted a little better than EndorseRank.',
+      'When we compare two scores, we do not look at their two intervals separately. We compute the difference directly on the same samples. As a real example, let’s compare C-PR, the score of this thesis, and EndorseRank at predicting new approval pairs in W0. This comparison was computed after the labels were seen, so it is post hoc.',
+      'C-PR is ' + tau0(W0_CPR) + ' and EndorseRank is ' + tau0(W0_ER) + '. The two intervals overlap a little, so looked at separately, it is hard to tell whether there is a difference.',
+      'But the two scores are computed together on the same 400 samples. When one comes out high on a sample, the other comes out high too, so they rise and fall together. The dots on the right are an example that shows this pattern. The table below also uses example numbers. Over three samples the two taus move by 0.02 at a time, like 0.35, 0.31, 0.33, but the difference is +0.03 every time. Because they move together, the difference moves less. It is like weighing two people on the same scale: the difference between their weights is less affected by the scale’s error. (Advanced) As a formula, the variance of the difference is the sum of the two variances minus 2 times the covariance, so when they move together it gets smaller by that much.',
+      'So when we compute the difference on each of the same 400 samples, its interval runs from ' + nums(W0_DIFF)[1].toFixed(3) + ' to ' + nums(W0_DIFF)[2].toFixed(3) + ' and stays fully clear of 0. Separately they overlap; paired, they separate. In this example C-PR predicted a little better than EndorseRank.',
       'There is also a verdict that only asks whether one score is not worse by more than a set margin. This is called non-inferiority. The margin delta is 0.01, and the verdict passes if the lower end of the difference interval lies above −0.01. The two bars in the figure are illustrations.',
       'Finally, Bonferroni. When we make two verdicts together, the chance that one of them is wrong by luck goes up. These two verdicts appear in section 09 under the names P and Q. So the two split the 5% error budget into 2.5% each, and each uses a 97.5% interval. These two verdicts were computed with 2,000 resamples, and we will see their values later, in the section on the rules.'
     ],
@@ -842,27 +849,27 @@
       '<div class="abs s7-lines" data-step="3" style="left:96px;top:620px;width:1100px">' +
         '<p class="l" style="font-size:26px;line-height:38px">Both scores computed on the same ' + fmt(B, 0) + ' samples → also ' + fmt(B, 0) + ' differences Δτ</p>' +
         '<p class="l" style="font-size:26px;line-height:38px">If the 95% interval of the difference excludes 0, we count it as a difference</p>' +
-        '<p class="l" style="font-size:22px;line-height:32px;color:var(--ink-2)">Here the plain count (in-approve degree) predicted a little better than EndorseRank</p></div>' +
+        '<p class="l" style="font-size:22px;line-height:32px;color:var(--ink-2)">Here C-PR predicted a little better than EndorseRank</p></div>' +
       '<svg class="abs" id="sc" data-in="none" width="330" height="330" style="left:1396px;top:196px;overflow:visible"></svg>' +
       '<div class="abs s7-scale" id="scl" data-in="none" style="left:1240px;top:578px;width:584px">' +
         '<svg width="78" height="70" viewBox="0 0 78 70" fill="none" stroke="#A3ADBF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="40" width="66" height="24" rx="6"/><rect x="24" y="46" width="30" height="12" rx="2" stroke="#E9EDF5"/><circle cx="26" cy="14" r="6"/><path d="M26 20v14M18 26h16"/><circle cx="52" cy="10" r="6"/><path d="M52 16v18M44 23h16"/></svg>' +
         '<span>Two people on the same scale: the<br>scale’s error affects their difference less</span></div>' +
       '<div class="abs s7-var" id="var" data-in="none" style="left:1240px;top:656px;width:584px">' +
         '<div class="hd">Example numbers · three resamples</div>' +
-        '<table><tr><th class="l"></th><th class="c-deg">in-approve degree τ</th><th class="c-allow">EndorseRank τ</th><th>difference</th></tr>' +
-        '<tr><td class="l">sample 1</td><td>0.27</td><td>0.25</td><td class="d">−0.02</td></tr>' +
-        '<tr><td class="l">sample 2</td><td>0.23</td><td>0.21</td><td class="d">−0.02</td></tr>' +
-        '<tr><td class="l">sample 3</td><td>0.25</td><td>0.23</td><td class="d">−0.02</td></tr></table>' +
-        '<div class="nt">τ moves by ±0.02 per sample, the difference is −0.02 every time<br>→ they move together, so the difference moves less</div></div>' +
+        '<table><tr><th class="l"></th><th class="c-cpr">C-PR τ</th><th class="c-allow">EndorseRank τ</th><th>difference</th></tr>' +
+        '<tr><td class="l">sample 1</td><td>0.35</td><td>0.32</td><td class="d">+0.03</td></tr>' +
+        '<tr><td class="l">sample 2</td><td>0.31</td><td>0.28</td><td class="d">+0.03</td></tr>' +
+        '<tr><td class="l">sample 3</td><td>0.33</td><td>0.30</td><td class="d">+0.03</td></tr></table>' +
+        '<div class="nt">τ moves by ±0.02 per sample, the difference is +0.03 every time<br>→ they move together, so the difference moves less</div></div>' +
       '<div class="abs" id="mg" data-in="none" style="left:96px;top:780px;width:1100px;height:210px"></div>' +
       '<div class="abs" id="bf" data-in="none" style="left:1130px;top:806px;width:694px;height:180px"></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
-      var a = nums(W0_DEG), b = nums(W0_ER), d = nums(W0_DIFF);
+      var a = nums(W0_CPR), b = nums(W0_ER), d = nums(W0_DIFF);
       var fm3 = function (v) { return mfmt(v, 3); };
-      g.F1 = Comp.forest(ctx, q(el, '#f1'), { w: 1100, rowH: 74, labelWidth: 300, valueWidth: 300, domain: [0.2, 0.28], ticks: [0.2, 0.22, 0.24, 0.26, 0.28], zero: false,
+      g.F1 = Comp.forest(ctx, q(el, '#f1'), { w: 1100, rowH: 74, labelWidth: 300, valueWidth: 300, domain: [0.28, 0.36], ticks: [0.28, 0.3, 0.32, 0.34, 0.36], zero: false,
         tickFormat: function (t) { return t.toFixed(2); }, hidden: true, top: 14,
-        rows: [{ label: 'In-approve degree', sub: 'raw degree · at the freeze date', est: a[0], lo: a[1], hi: a[2], color: 'deg', text: W0_DEG },
+        rows: [{ label: 'C-PR', sub: 'λ = 0.5 · score of this thesis', est: a[0], lo: a[1], hi: a[2], color: 'cpr', text: W0_CPR },
                { label: 'EndorseRank', sub: 'uniform restarts', est: b[0], lo: b[1], hi: b[2], color: 'allow', text: W0_ER }] });
       /* overlap band between the two intervals */
       var ox0 = g.F1.x(Math.max(a[1], b[1])), ox1 = g.F1.x(Math.min(a[2], b[2]));
@@ -870,20 +877,22 @@
       g.F1.svg.insertBefore(g.ov, g.F1.svg.firstChild);
       g.ovl = svgEl('text', { x: (ox0 + ox1) / 2, y: 6, 'text-anchor': 'middle', fill: C.ink2, 'font-size': 20, 'font-weight': 700 }, g.F1.svg); g.ovl.textContent = 'overlap';
       gsap.set([g.ov, g.ovl], { autoAlpha: 0 });
-      g.F2 = Comp.forest(ctx, q(el, '#f2'), { w: 1100, rowH: 80, labelWidth: 300, valueWidth: 300, domain: [-0.04, 0.02], ticks: [-0.04, -0.03, -0.02, -0.01, 0, 0.01, 0.02],
+      g.F2 = Comp.forest(ctx, q(el, '#f2'), { w: 1100, rowH: 80, labelWidth: 300, valueWidth: 300, domain: [-0.02, 0.04], ticks: [-0.02, -0.01, 0, 0.01, 0.02, 0.03, 0.04],
         tickFormat: function (t) { return mfmt(t, 2); }, hidden: true, top: 14,
-        rows: [{ label: 'Paired difference Δτ', sub: 'EndorseRank − in-approve degree', est: d[0], lo: d[1], hi: d[2], color: 'ink', text: W0_DIFF }] });
+        rows: [{ label: 'Paired difference Δτ', sub: 'C-PR − EndorseRank', est: d[0], lo: d[1], hi: d[2], color: 'ink', text: W0_DIFF }] });
       gsap.set(g.F2.svg, { autoAlpha: 0 });
       /* English: the longer sub-label would touch the axis at 20px */
       if (g.F2.rows[0].sub) g.F2.rows[0].sub.setAttribute('font-size', 18);
-      g.gap = svgEl('text', { x: g.F2.x(-0.005), y: 14 + 40 - 22, 'text-anchor': 'middle', fill: C.ink, 'font-size': 22, 'font-weight': 800 }, g.F2.svg); g.gap.textContent = 'apart';
-      g.gapA = svgEl('path', { d: 'M' + g.F2.x(d[2]) + ',' + (14 + 40 + 16) + ' L' + g.F2.x(0) + ',' + (14 + 40 + 16), stroke: C.ink, 'stroke-width': 2, fill: 'none', 'marker-end': null }, g.F2.svg);
+      /* the gap between 0 and the near end of the interval (here: 0 … lower end, the difference is above 0) */
+      var gp0 = d[2] < 0 ? d[2] : 0, gp1 = d[2] < 0 ? 0 : d[1];
+      g.gap = svgEl('text', { x: g.F2.x((gp0 + gp1) / 2), y: 14 + 40 - 22, 'text-anchor': 'middle', fill: C.ink, 'font-size': 22, 'font-weight': 800 }, g.F2.svg); g.gap.textContent = 'apart';
+      g.gapA = svgEl('path', { d: 'M' + g.F2.x(gp0) + ',' + (14 + 40 + 16) + ' L' + g.F2.x(gp1) + ',' + (14 + 40 + 16), stroke: C.ink, 'stroke-width': 2, fill: 'none', 'marker-end': null }, g.F2.svg);
       gsap.set([g.gap, g.gapA], { autoAlpha: 0 });
       /* joint scatter of 400 illustrative pairs (τ_A, τ_B), one per resample */
       var sc = q(el, '#sc'), W = 300, rnd = Deck.util.rng(SEED + 5);
       g.sc = sc;
       svgEl('rect', { x: 0, y: 0, width: W, height: W, rx: 12, fill: 'rgba(16,21,31,.7)', stroke: C.line }, sc);
-      var xl = svgEl('text', { x: W / 2, y: W + 28, 'text-anchor': 'middle', fill: C.deg, 'font-size': 18, 'font-weight': 600 }, sc); xl.textContent = 'τ of in-approve degree';
+      var xl = svgEl('text', { x: W / 2, y: W + 28, 'text-anchor': 'middle', fill: C.cpr, 'font-size': 18, 'font-weight': 600 }, sc); xl.textContent = 'τ of C-PR';
       var yl = svgEl('text', { x: -14, y: W / 2, 'text-anchor': 'middle', fill: C.allow, 'font-size': 18, 'font-weight': 600, transform: 'rotate(-90 -14 ' + W / 2 + ')' }, sc); yl.textContent = 'τ of EndorseRank';
       var ex = svgEl('text', { x: W - 8, y: 22, 'text-anchor': 'end', fill: C.ink3, 'font-size': 16 }, sc); ex.textContent = '400 dots · example';
       svgEl('line', { x1: 20, y1: W - 20, x2: W - 20, y2: 20, stroke: C.ink3, 'stroke-width': 1.2, 'stroke-dasharray': '4 6' }, sc);
@@ -897,7 +906,7 @@
       }
       g.P = P;
       g.cross = svgEl('g', {}, sc);
-      g.chx = svgEl('line', { x1: 0, y1: W, x2: 0, y2: 0, stroke: C.deg, 'stroke-width': 1.5, 'stroke-dasharray': '3 4' }, g.cross);
+      g.chx = svgEl('line', { x1: 0, y1: W, x2: 0, y2: 0, stroke: C.cpr, 'stroke-width': 1.5, 'stroke-dasharray': '3 4' }, g.cross);
       g.chy = svgEl('line', { x1: 0, y1: 0, x2: 0, y2: 0, stroke: C.allow, 'stroke-width': 1.5, 'stroke-dasharray': '3 4' }, g.cross);
       g.chd = svgEl('circle', { r: 7, fill: 'none', stroke: '#fff', 'stroke-width': 2.5 }, g.cross);
       gsap.set(g.cross, { autoAlpha: 0 });

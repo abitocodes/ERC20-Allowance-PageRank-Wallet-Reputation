@@ -3,15 +3,16 @@
    s02-01  DeFi in one picture              (three contract cards, each with a one-shot mini animation)
    s02-02  Transfers and allowances differ  (transfer = coins flow; allowance = a standing promise:
                                             transferFrom, overwrite, revoke)
-   s02-03  Allowances look like trust, but  (40 + 40 identical arrows; 45.8 % unlimited)
+   s02-03  Allowances look like trust, but  (40 + 40 identical arrows; 49.8 % unlimited)
    s02-04  The scored objects are contracts (scan brackets lock onto contracts only)
    s02-05  The setting: Arbitrum One        (CSS-3D plates, falling log particles; the Arbitrum plate
                                             turns edge-on into the time axis of s03-01)
 
    Numbers and sources
-     45.8 % = 5,763,757 / 12,590,613 positive latest allowances at T_obs that are unlimited
-       (revised digest R§D amounts.unlimited_share 0.4578, amounts.unlimited_allowances,
-        amounts.latest_allowances_tobs = DECK_DATA.scale.revised.amounts; thesis App. D, Ch. 4)
+     49.8 % = 2,084,669 / 4,185,287 positive latest allowances at T_obs, set inside the T_obs score
+       window (2025-07-01 – 2026-06-30), that are unlimited (revised digest, revised-usd-12m:
+       amounts.unlimited_share 0.4981, amounts.unlimited_allowances, amounts.latest_allowances_tobs
+       = DECK_DATA.scale.revised.amounts; thesis App. D, table usd-tokens)
      block 513,216,506 = experiments/data/1-raw-blockchain-extracts/cohort/candidate_account_types.json
        block_number (thesis Ch. 3, "Account type"): the eth_getCode block of the cohort candidates only;
        holdout spenders and GMX accounts outside the candidates were read at later blocks within
@@ -29,9 +30,9 @@
   var DATA = window.DECK_DATA || {};
   var NS = 'http://www.w3.org/2000/svg';
   var AMT = (((DATA.scale || {}).revised || {}).amounts) || {};
-  var UNL = AMT.unlimited_allowances != null ? AMT.unlimited_allowances : 5763757;
-  var LATEST = AMT.latest_allowances_tobs != null ? AMT.latest_allowances_tobs : 12590613;
-  var UNL_SHARE = AMT.unlimited_share != null ? AMT.unlimited_share : 0.4578;
+  var UNL = AMT.unlimited_allowances != null ? AMT.unlimited_allowances : 2084669;
+  var LATEST = AMT.latest_allowances_tobs != null ? AMT.latest_allowances_tobs : 4185287;
+  var UNL_SHARE = AMT.unlimited_share != null ? AMT.unlimited_share : 0.4981;
   var CHAIN_ID = ((DATA.params || {}).chain || {}).id || 42161;
   var GETCODE_BLOCK = 513216506; /* candidate_account_types.json block_number */
   var CLIP_N = 0;
@@ -221,7 +222,7 @@
       'A transfer means tokens actually move. The coins flow from the sender to the recipient.',
       'An allowance is different. The token owner promises a contract: "you may take up to this much of my tokens." The owner grants it with the approve function of the ERC-20 standard, or with permit, the signature-based approval of its extension EIP-2612, and either way the same record, an Approval event, is left behind. So this arrow does not flow; it just stays in place. The 1,000 USDC is an example for the explanation.',
       'Later, the spender contract can call transferFrom to actually move the owner\'s tokens, up to the approved amount. The value this study uses is the amount written in the latest approval record.',
-      'For the same owner, the same contract and the same token, the most recent approval overwrites the earlier one. So for each owner, spender and token, this study uses only the latest allowance as an edge.',
+      'For the same owner, the same contract and the same token, the most recent approval overwrites the earlier one. So for each owner, spender and token, this study uses only the latest allowance as an edge, and it counts only allowances set in the twelve months before the day the scores are frozen.',
       'Approving an amount of zero revokes the allowance. A revoked allowance leaves no edge.'
     ],
     html:
@@ -346,7 +347,7 @@
       'An approval entrusts my tokens to a contract, so it can be read as trust in the contract that receives it. It is like the way a link on the web can be read as a citation.',
       'When many owners approve one contract, that contract looks as if it has received many endorsements.',
       'But we have to be careful. An approval clicked by someone tricked by a phishing site leaves exactly the same record as an honest one. From the arrows alone, the two boxes cannot be told apart.',
-      'People also approve simply because it is convenient. In this study\'s data, too, 45.8% of the 12.59 million latest allowances at the end of the observation window were unlimited approvals. So this thesis treats an allowance not as firm evidence of trust but as a signal that "can be read" as an endorsement.'
+      'People also approve simply because it is convenient. In this study\'s data, too, ' + fmt(UNL_SHARE * 100, 1) + '% of the about ' + fmt(LATEST / 1e6, 2) + ' million latest allowances set in the twelve months up to 30 June 2026 were unlimited approvals. So this thesis treats an allowance not as firm evidence of trust but as a signal that "can be read" as an endorsement.'
     ],
     html:
       '<h1 class="t-h1">Approval = [[entrusting]] my tokens</h1>' +
@@ -358,7 +359,7 @@
         '<div class="w">' + ICON.hook + '<div class="t">A tricked approval leaves the same record</div></div>' +
         '<div class="w">' + ICON.inf + '<div><div class="t">Unlimited approvals are common</div>' +
           '<div class="big"><span class="n" id="pct">' + fmt(UNL_SHARE * 100, 1) + '%</span><span class="u">of latest allowances</span></div>' +
-          '<div class="s02-src">' + fmt(UNL) + ' / ' + fmt(LATEST) + '<br>positive latest allowances at T_obs</div></div></div>' +
+          '<div class="s02-src">' + fmt(UNL) + ' / ' + fmt(LATEST) + '<br>positive latest allowances at T_obs, set in the 12-month score window</div></div></div>' +
       '</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -428,7 +429,7 @@
         tl.fromTo(g.qText, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4 }, 2.6);
       }
       if (i === 3) {
-        /* evidence of trust -> read as endorsement: strike and rewrite; then the three cautions; 45.8 % counts up */
+        /* evidence of trust -> read as endorsement: strike and rewrite; then the three cautions; the unlimited share counts up */
         tl.add(Comp.strike(ctx, g.belief, '<b>Read</b> as endorsement<small>Not firm evidence</small>'), 0);
         tl.fromTo(g.warn, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power3.out', stagger: 0.16 }, 1.2);
         tl.add(ctx.count(el.querySelector('#pct'), 0, UNL_SHARE * 100, { decimals: 1, suffix: '%', final: fmt(UNL_SHARE * 100, 1) + '%', duration: 1.4 }), 1.55);
@@ -603,9 +604,9 @@
       g.axis = el.querySelector('#axis');
       gsap.set(g.axis, { autoAlpha: 0 });
       /* particles: approval logs (amber) and transfer logs (sky), in the ratio of the
-         revised ego rows (224,954,202 : 1,149,168,538 ≈ 1 : 5.1) */
+         revised ego rows of the T_obs score window (85,986,562 : 442,722,039 ≈ 1 : 5.1) */
       var rows = (((DATA.scale || {}).revised || {}).rows || {}).revised_ego || {};
-      g.pA = rows.approvals && rows.transfers ? rows.approvals / (rows.approvals + rows.transfers) : 0.164;
+      g.pA = rows.approvals && rows.transfers ? rows.approvals / (rows.approvals + rows.transfers) : 0.163;
       g.K = Comp.canvas(ctx, el.querySelector('#parts'), { w: 1000, h: 760, onResize: function () { if (g.drawParts) g.drawParts(); } });
       g.parts = []; g.rnd = ctx.rng(7); g.spawn = false;
     },

@@ -13,7 +13,7 @@
    s04-04  표로 한 번에: 이동 행렬         4×4 table; arrows fly into cells; 3D flip about the diagonal = Pᵀ
    s04-05  두 가지 문제                  leak at the dangling node (1 → 0.75 → 0.25 → 0); D ⇄ E trap
    s04-06  고치기: 감쇠 계수 d와 다시 출발  three pieces of Eq. pagerank fill r^(1) = (0.0906, 0.2323, 0.1615, 0.5156)
-   s04-07  거듭제곱 반복                 23 iterations to ε = 1e-8; 69 / 92 on the real graphs; live d slider
+   s04-07  거듭제곱 반복                 23 iterations to ε = 1e-8; 57 / 94 on the real graphs; live d slider
 
    Numbers and sources
      weights 2, 1, 3, 1; o = 3, 3, 1, 0; d = 0.85; 0.0375 = 0.15/4; r^(1) = (0.0906, 0.2323, 0.1615, 0.5156);
@@ -23,7 +23,8 @@
      change values 0.531, 0.135, …; slider values — computed here in the browser (power iteration
        of Eq. pagerank on the toy graph), status tags 계산 / 예시
      d = 0.85, ε = 1e-8, I_max = 300 — DECK_DATA.params.pagerank (R§10 Protocol)
-     69 (EndorseRank), 92 (AWP) iterations at T_obs — DECK_DATA.scale.revised.iterations_tobs (R§1)
+     57 (EndorseRank), 94 (AWP) iterations at T_obs — DECK_DATA.scale.revised.iterations_tobs (R§1);
+       solve time = graph size (|E|, |V|) per iteration × iterations (thesis Ch. 4 benchmark), notes only
    ========================================================================= */
 (function () {
   'use strict';
@@ -36,8 +37,8 @@
   var TOL = PRP.tol != null ? PRP.tol : 1e-8;
   var IMAX = PRP.max_iter != null ? PRP.max_iter : 300;
   var ITS = (((DATA.scale || {}).revised || {}).iterations_tobs) || {};
-  var IT_ER = ITS.endorserank != null ? ITS.endorserank : 69;
-  var IT_AWP = ITS.awp != null ? ITS.awp : 92;
+  var IT_ER = ITS.endorserank != null ? ITS.endorserank : 57;
+  var IT_AWP = ITS.awp != null ? ITS.awp : 94;
 
   /* ------------------------------------------------------------ geometry of the locked stage */
   var WX = 96, WY = 236;                       /* small-world wrapper (stage px) */
@@ -1197,7 +1198,7 @@
       '실제로는 이 식을 한 번에 풀지 않고, 같은 계산을 되풀이해요. 이것을 거듭제곱 반복이라고 해요. 처음에는 모든 점에 4분의 1씩 줘요.',
       '식을 한 번 적용하면 D 쪽으로 몫이 기울어요. A는 0.0375에 0.2125 곱하기 0.25를 더해서 0.0906이 돼요. 얼마나 바뀌었는지는 칸마다 차이의 크기를 모두 더해서 재요. 빼기 표시는 떼고 크기만 더해요. 이것을 두 줄 막대 기호로 써요. 첫 번에는 0.531이에요. 오른쪽 그래프의 점이 그 변화량이에요. 세로 눈금은 한 칸 내려갈 때마다 100분의 1로 작아져요. 1, 0.01, 0.0001, 100만분의 1, 1억분의 1이에요.',
       '되풀이할수록 바뀌는 양이 줄어들고, 23번째에 변화량이 1억분의 1보다 작아져서 멈춰요. 이 기준을 엡실론이라고 써요. 아무리 길어도 300번에서는 멈추게 정해 두었어요. 최종 순서는 D, B, C, A예요. D는 두 금고에게서 보증을 받고, 그 금고들도 A에게서 보증을 받았기 때문이에요. A의 몫 0.1375는 다시 출발 몫 0.0375와 D에서 모아 온 0.1000을 더한 값이에요.',
-      '실제 허락 그래프에서는 69번, 송금 그래프에서는 92번 만에 멈췄어요. 한 번 되풀이할 때 화살표 하나마다 곱셈 한 번을 하니까, 걸리는 시간은 화살표 수를 따라가요. 이것은 10번째 부분에서 다시 나와요.',
+      '실제 허락 그래프에서는 ' + IT_ER + '번, 송금 그래프에서는 ' + IT_AWP + '번 만에 멈췄어요. 한 번 되풀이할 때 화살표 하나마다 곱셈 한 번을 하니까, 화살표가 많은 그래프일수록 한 번에 걸리는 시간이 길어요. 그래서 전체 시간은 그래프의 크기와 되풀이 횟수가 함께 정해요. 이것은 10번째 부분에서 다시 나와요.',
       'd를 직접 바꿔 볼게요. d가 0이면 화살표를 전혀 따라가지 않아서 모두 4분의 1이에요. d가 커질수록 화살표가 중요해져서 D가 커지고 A가 작아지고, 멈추기까지 되풀이도 많아져요. 이 값들은 브라우저가 그 자리에서 계산한 거예요.'
     ],
     html: '<h1 class="t-h1">같은 계산을 [[되풀이]]하면 값이 멈춰요</h1>' + panelBg(7) +
@@ -1216,7 +1217,7 @@
           '<div data-step="3" data-step-out="4"><div class="s4-note">실제 그래프에서는 (수정 분석, T<sub>obs</sub>)</div><div class="s4-real">' +
             '<div class="it"><span class="n c-allow" id="r1">' + IT_ER + '</span><span class="k">엔도스랭크 · 허락 그래프</span></div>' +
             '<div class="it"><span class="n c-xfer" id="r2">' + IT_AWP + '</span><span class="k">AWP · 송금 그래프</span></div></div>' +
-            '<div class="s4-note">한 번 되풀이 = 화살표마다 곱셈 한 번 → 걸리는 시간은 <b class="ink">화살표 수</b>를 따라가요</div></div>' +
+            '<div class="s4-note">한 번 = 화살표마다 곱셈 한 번 → 시간은 <b class="ink">그래프 크기와 되풀이 횟수</b>로 정해져요</div></div>' +
           '<div data-step="4"><div class="s4-l">d를 바꿔 보세요 (왼쪽 아래)</div><div class="s4-note" id="dnote">값은 브라우저가 그 자리에서 계산해요 · d = 0이면 모두 0.25</div></div>' +
         '</div>' +
       '</div>' +
