@@ -1,0 +1,100 @@
+% Shared preamble of the Korean reading editions of manuscripts A and B (XeLaTeX).
+% Each main.tex loads it with \input{../common/preamble} after \documentclass[11pt]{article}.
+
+\usepackage[a4paper,top=24mm,bottom=26mm,left=25mm,right=25mm,headheight=14pt]{geometry}
+
+% Fonts: Latin in Times/Arial; Hangul in KoPubWorld (with a real bold) where installed,
+% then Noto CJK KR, then the Batang and Malgun Gothic that ship with Windows.
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+\IfFontExistsTF{Arial}{\setsansfont{Arial}[Scale=0.95]}{\setsansfont{TeX Gyre Heros}[Scale=0.95]}
+\IfFontExistsTF{Consolas}{\setmonofont{Consolas}[Scale=0.9]}{}
+\usepackage{kotex}
+\IfFontExistsTF{KoPubWorldBatang Medium}{%
+  \setmainhangulfont{KoPubWorldBatang Medium}[BoldFont={KoPubWorldBatang Bold},AutoFakeSlant=0.15]%
+}{\IfFontExistsTF{Noto Serif CJK KR}{%
+  \setmainhangulfont{Noto Serif CJK KR}[AutoFakeSlant=0.15]%
+}{\setmainhangulfont{Batang}[AutoFakeSlant=0.15]}}
+\IfFontExistsTF{KoPubWorldDotum Medium}{%
+  \setsanshangulfont{KoPubWorldDotum Medium}[BoldFont={KoPubWorldDotum Bold},AutoFakeSlant=0.15]%
+}{\IfFontExistsTF{Noto Sans CJK KR}{%
+  \setsanshangulfont{Noto Sans CJK KR}[AutoFakeSlant=0.15]%
+}{\setsanshangulfont{Malgun Gothic}[AutoFakeSlant=0.15]}}
+\setmonohangulfont{Malgun Gothic}
+
+\linespread{1.3}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em plus 0.2em minus 0.1em}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+
+\usepackage{amsmath,amssymb}
+\usepackage{array,booktabs,tabularx,multirow}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\setlist{itemsep=0.3em,topsep=0.2em,parsep=0.2em,leftmargin=1.7em}
+\usepackage[font=small,labelfont={bf,sf},labelsep=period,justification=raggedright,
+  singlelinecheck=false,skip=5pt]{caption}
+
+\usepackage{titlesec}
+\titleformat{\section}{\sffamily\Large\bfseries}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\large\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\sffamily\normalsize\bfseries}{\thesubsubsection}{0.6em}{}
+\titleformat{\paragraph}[runin]{\sffamily\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.5em}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.4em}
+\titlespacing*{\subsubsection}{0pt}{0.9em}{0.3em}
+\titlespacing*{\paragraph}{0pt}{0.6em}{0.6em}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\sffamily\ShortTitle}
+\fancyhead[R]{\small\sffamily 쉬운 한국어 해설판}
+\fancyfoot[C]{\small\thepage}
+\newcommand{\ShortTitle}{}
+
+\usepackage{longtable}
+\usepackage{cite}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+
+\renewcommand{\figurename}{그림}
+\renewcommand{\tablename}{표}
+\renewcommand{\refname}{참고문헌}
+\renewcommand{\contentsname}{차례}
+
+% Boxes. yoji: the gist of a section; puri: an explanation for the reader.
+% Neither box is part of the English manuscript; the text outside the boxes is.
+\newtcolorbox{yoji}{enhanced,breakable,colback=black!5,colframe=black!5,boxrule=0pt,arc=0pt,
+  borderline west={2.5pt}{0pt}{black!50},left=9pt,right=8pt,top=5pt,bottom=5pt,
+  before skip=0.5em,after skip=0.9em,fontupper=\small,
+  before upper={\textsf{\textbf{요점}}\quad}}
+\newtcolorbox{puri}[1][쉽게 풀면]{enhanced,breakable,colback=blue!3,colframe=blue!35!black!45,
+  boxrule=0.5pt,arc=1.5pt,left=8pt,right=8pt,top=4pt,bottom=5pt,before skip=0.7em,after skip=0.9em,
+  fontupper=\small,title={#1},fonttitle=\sffamily\bfseries\small,coltitle=black!85,
+  colbacktitle=blue!9,toptitle=1pt,bottomtitle=1pt}
+
+% Title block: \KoTitle{Korean title}{English title}{authors}{venue and source}
+\newcommand{\KoTitle}[4]{%
+  \thispagestyle{plain}%
+  {\raggedright
+  {\sffamily\bfseries\LARGE #1\par}\vspace{0.7em}
+  {\large #2\par}\vspace{0.9em}
+  {\small #3\par}\vspace{0.3em}
+  {\small\color{black!70}#4\par}}
+  \vspace{0.6em}\hrule\vspace{0.4em}}
+
+% Numbers written only to illustrate (check_numbers.py skips what this wraps).
+\newcommand{\ill}[1]{#1}
+\newcommand{\dt}{\Delta\tau}
+\newcommand{\Tobs}{T_{\mathrm{obs}}}
+% A table cell that wraps.
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}

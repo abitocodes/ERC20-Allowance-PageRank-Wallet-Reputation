@@ -1,0 +1,45 @@
+%======================================================================
+\section*{투고 서류에 들어가는 것}
+\addcontentsline{toc}{section}{투고 서류에 들어가는 것}
+
+\begin{yoji}
+IEEE Access 양식의 나머지 부분이에요. 핵심어, 서지 정보, 감사의 말, 저자 기여, 이해 충돌, 자료 공개, 저자 소개가 있어요. 영문 원고에서는 핵심어와 서지 정보가 첫머리에, 나머지는 부록 A 뒤에 있어요.
+\end{yoji}
+
+\subsection*{핵심어}
+블록체인, 탈중앙 금융, 다층 네트워크, 부정적 결과, 페이지랭크, 사전 등록, 평판 시스템, 스마트 계약, 시빌 공격, 토큰 허락.
+
+\subsection*{서지 정보}
+양식 머리의 출판 날짜와 DOI 칸에는 양식의 자리 표시가 들어 있어요. 날짜 칸은 xxxx 00, 0000이고, DOI 칸은 \path{10.1109/ACCESS.2024.0429000}이에요. 교신 저자는 Taehong Kwon(thkwon@enu-tech.co.kr)이에요. 이 연구는 외부 연구비를 받지 않았어요.
+
+\subsection*{감사의 말}
+저자들은 1저자의 박사 연구를 지원한 남아프리카 대학교(University of South Africa) 컴퓨팅 학부에 감사해요. 이 연구는 그 박사 연구의 일부예요. 사건 로그는 Google BigQuery에 있는 공개 아비트럼 원 자료에서 가져왔어요. 이 연구의 BigQuery 작업 56개에는 모두 합쳐 USD 42.24가 청구됐어요. 이 원고를 준비하면서 저자들은 글과 분석 스크립트의 언어 다듬기, 구성 고치기, 점검을 돕는 데 Claude(Anthropic)를 썼어요. 이 도구를 쓴 뒤 저자들은 내용을 검토하고 필요한 만큼 고쳤으며, 발표되는 글의 내용에 모든 책임을 져요.
+
+\subsection*{저자 기여}
+\begin{itemize}
+\item Taehong Kwon: 연구 구상, 방법론, 소프트웨어, 자료 관리, 형식 분석, 초고 쓰기.
+\item Ernest Mnkandla: 지도, 검토와 편집.
+\item Donatien Koulla Moulla: 지도, 검토와 편집.
+\item David Sena Attipoe: 지도, 검토와 편집.
+\end{itemize}
+
+\subsection*{이해 충돌}
+저자들은 이 글이 보고하는 연구에 영향을 준 것처럼 보일 수 있는 금전적 이해관계나 개인적 관계를 알지 못한다고 밝혀요.
+
+\subsection*{자료 공개}
+이 연구는 공개 블록체인 자료, 공개된 하루 토큰 가격, 공개된 Chainlink 피드 목록만 쓰고, 사람 참여자가 없어요.
+\begin{itemize}
+\item 코드, 설정, 계획, 등록, 개정 문서, 추출 매니페스트, 비용 장부, 계약별 점수 파일, 기계가 읽는 결과 요약과 그 SHA-256 체크섬은 공개 저장소 \url{https://github.com/abitocodes/phd_works}의 폴더 \path{1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/experiments}에 있어요. 표~\ref{tab:ids}의 처음 일곱 커밋에서는 이 폴더의 이름이 \path{ERC20-Allowance-PageRank-Contract-Reputation/experiments}예요.
+\item 등록 결과는 \path{data/3-published-results-for-thesis/}에, 수정 결과는 그 아래 폴더 \path{revised-usd-12m/}에 있어요. 수정 결과는 \sha{950a7a4}에 커밋했고, 코드 리비전 \sha{0a94215}로 계산했어요.
+\item 추출한 그래프 표는 저자들의 BigQuery 프로젝트에 보관해요. 커밋된 질의로 공개 로그 표에서 다시 만들 수 있어요.
+\item 이 원고의 소스, 표와 그림 스크립트, 보조 자료(자료를 추출하고 모으는 질의, 탐색적 점검 스크립트와 그 출력)는 \url{https://github.com/abitocodes/phd-dissertation-draft-en}의 폴더 \path{manuscripts/B-ieee-access}에 있어요.
+\end{itemize}
+점수는 계약만 줄 세워요. 외부 소유 계정은 주인, 보낸 쪽, 받는 쪽으로 그래프에 들어가요. 블록체인 밖의 신원은 모으지도 잇지도 않았고, 원고는 모아 낸 결과만 보고해요.
+
+\subsection*{저자 소개}
+\begin{itemize}
+\item \textbf{Taehong Kwon}: 남아프리카공화국 요하네스버그, 남아프리카 대학교 컴퓨팅 학부의 컴퓨터 과학 박사 후보생이에요. 관심 분야는 온체인 평판, 탈중앙 금융, 그래프 기반 순위 매기기예요.
+\item \textbf{Ernest Mnkandla}: 같은 학부의 교수예요. 관심 분야는 소프트웨어 공학과 인공지능이에요.
+\item \textbf{Donatien Koulla Moulla}: 같은 학부 CAIDS(Centre for Augmented Intelligence and Data Science) 소속이에요.
+\item \textbf{David Sena Attipoe}: 같은 학부 CAIDS 소속이에요.
+\end{itemize}
