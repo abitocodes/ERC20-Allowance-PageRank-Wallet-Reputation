@@ -1,6 +1,6 @@
 # dissertation
 
-학위논문 원고, 발표 자료, 원고를 쓸 때 지키는 메모입니다.
+학위논문 원고와 발표 자료입니다. 원고를 쓸 때 지키는 메모(`notes/`)는 저자들의 비공개 저장소에 둡니다.
 
 | 폴더 | 내용 |
 |---|---|
@@ -8,14 +8,13 @@
 | [`overleaf-github-ko/`](overleaf-github-ko/) | 영문 원고를 쉬운 한국어로 옮긴 번역본(LaTeX, `main.pdf`). 번역 기준은 그 폴더의 `TRANSLATION-GUIDE.md`, 원문이 바뀌면 바뀐 문단만 다시 옮기고 `scripts/check_ko.py`로 대조합니다. |
 | [`manuscripts-ko/`](manuscripts-ko/) | 투고 원고 A·B를 저자가 읽으려고 쉬운 한국어로 풀어 쓴 해설판(LaTeX, `A-plos-one/main.pdf`, `B-ieee-access/main.pdf`). 문장 대 문장 번역이 아니고, 수는 `check_numbers.py`로 영문 원고와 대조합니다. Overleaf에는 올리지 않습니다. |
 | [`presentation/`](presentation/) | 학위논문 발표 자료: HTML 슬라이드 59장(한국어판, 영문판), 한 파일 판과 한국어 인쇄판 PDF, 해설 영상 도구 |
-| [`notes/`](notes/) | 원고 작성 규칙과 메모. 빌드에 들어가지 않습니다. |
 | [`tools/numbers/`](tools/numbers/) | 결과 요약이 바뀌었을 때 원고 수치를 옛 요약과 새 요약에 대조하는 도구 |
 
-서브모듈의 이름(`.gitmodules`의 `2-Dissertation-Draft/overleaf-github`)은 일부러 옛 이름 그대로 둡니다. 이름이 곧 작업본마다 서브모듈의 git 데이터를 두는 곳(`.git/modules/<이름>`)이라, 바꾸면 기존 작업본이 원고를 다시 받습니다.
+서브모듈은 이 저장소 최상위의 `.gitmodules`에 `dissertation/overleaf-github`라는 이름으로 있습니다.
 
 ## 원고 고치기
 
-1. [`notes/`](notes/)의 규칙을 읽습니다. `_writing-brief.md`부터 읽습니다.
+1. 원고 작성 규칙(저자들의 비공개 메모, `_writing-brief.md`부터)을 읽습니다.
 2. `overleaf-github/`의 장 파일(`Chapter-*/index.tex`)을 고칩니다. 원고 본문은 영어로 씁니다.
 3. `overleaf-github/`에서 `.\build.ps1`로 통합본과 장별 PDF를 빌드합니다(xelatex → biber → xelatex 두 번). 오류 0, 정의되지 않은 참조 0을 확인합니다. MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
 4. 서브모듈에서 커밋·푸시한 뒤, 이 저장소에서 서브모듈 포인터를 커밋합니다.
@@ -28,4 +27,4 @@ UNISA 학위를 받으려면 인정 학술지에 투고한 원고 2편이 필요
 
 ## 남은 일
 
-[`notes/_todo.md`](notes/_todo.md)에 있습니다. 지도교수 검토 전이고, 수정 분석을 주 분석으로 할지 지도교수가 아직 확인하지 않았습니다. 그 밖에 UNISA의 다른 공식 언어 두 가지로 된 제목·초록·핵심어(대학 언어 서비스가 번역), 연구 윤리 승인 번호와 날짜, 초록 길이 확인 등이 남아 있습니다.
+저자들의 비공개 메모(`_todo.md`)에 있습니다. 지도교수 검토 전이고, 수정 분석을 주 분석으로 할지 지도교수가 아직 확인하지 않았습니다. 그 밖에 UNISA의 다른 공식 언어 두 가지로 된 제목·초록·핵심어(대학 언어 서비스가 번역), 연구 윤리 승인 번호와 날짜, 초록 길이 확인 등이 남아 있습니다.

@@ -1,0 +1,3 @@
+[submodule "dissertation/overleaf-github"]
+	path = dissertation/overleaf-github
+	url = https://github.com/abitocodes/phd-dissertation-draft-en.git

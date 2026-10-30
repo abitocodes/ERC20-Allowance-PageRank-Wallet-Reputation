@@ -6,9 +6,9 @@
 |------|------|------|
 | `wallet-reputation-experiments/` | 지갑 평판 연구의 실험 코드와 데이터 | `dissertation/wallet-reputation-experiments/` |
 | `overleaf-github-ko/` | 지갑 평판 원고의 쉬운 한국어 번역본 | `dissertation/overleaf-github-ko/` |
-| `local-other/` | 원고 PDF 초안, 한국어 초안(`kr/`), 교수님 피드백 원문(`sources/`), 요약·번역 | `dissertation/local-other/` |
+| `local-other/` | 원고 PDF 초안, 한국어 초안(`kr/`), 요약·번역. 교수님 피드백 원문(`sources/`)은 저자들의 비공개 저장소에 둡니다. | `dissertation/local-other/` |
 | `customized-books/` | 어린이 책 『허락의 화살표』와 한국어 오디오북 | `dissertation/customized-books/` |
-| `professor-feedback-summary.md` | 연구계획서·초안에 받은 교수님·심사위원 피드백 정리 | `dissertation/professor-feedback-summary.md` |
+| `professor-feedback-summary.md` | 연구계획서·초안에 받은 교수님·심사위원 피드백 정리. 저자들의 비공개 저장소에 둡니다. | `dissertation/professor-feedback-summary.md` |
 
 ## 알아둘 것
 

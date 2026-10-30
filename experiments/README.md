@@ -3,8 +3,8 @@
 학위논문의 실험 코드와 데이터입니다. BigQuery에서 Arbitrum One 로그를 받아 허락·송금 그래프를 만들고, 점수를 계산해 평가한 뒤, 원고의 표와 그림을 만듭니다. 무엇을 왜 재는지는 학위논문 폴더의 [`README.md`](../README.md)에 있습니다.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../../../.github/readme/code-to-manuscript-dark.png">
-  <img alt="코드에서 원고까지: BigQuery 공개 로그, 원시 표(공개 Google Drive와 주고받음), 분석 계획을 따르는 점수와 평가, 평가 요약을 거쳐 export_latex.py가 원고의 표와 그림을, publish_results.py가 수치 요약을 만듦" src="../../../.github/readme/code-to-manuscript-light.png" width="880">
+  <source media="(prefers-color-scheme: dark)" srcset="../.github/readme/code-to-manuscript-dark.png">
+  <img alt="코드에서 원고까지: BigQuery 공개 로그, 원시 표(공개 Google Drive와 주고받음), 분석 계획을 따르는 점수와 평가, 평가 요약을 거쳐 export_latex.py가 원고의 표와 그림을, publish_results.py가 수치 요약을 만듦" src="../.github/readme/code-to-manuscript-light.png" width="880">
 </picture>
 
 도식의 `data/`, `scripts/`, `docs/`, `config/`는 이 폴더 아래에 있고, 표·그림·PDF·투고 원고는 원고 서브모듈(`../dissertation/overleaf-github/`)에 있습니다.

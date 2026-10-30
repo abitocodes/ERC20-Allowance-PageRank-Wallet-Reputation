@@ -1,0 +1,14 @@
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.dvi
+*.toc
+__pycache__/
+.DS_Store
+# dissertation QA page screenshots (local only)
+**/_qa_pages/
+# dissertation per-chapter build aux snapshots
+**/_chapter_aux_backup/
+# 보관한 지갑 평판 데이터의 parquet도 Google Drive에만 둔다(experiments/scripts/drive_sync.py)
+archive/wallet-reputation-experiments/data/**/*.parquet
