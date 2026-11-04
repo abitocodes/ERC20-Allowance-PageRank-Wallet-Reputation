@@ -12,7 +12,9 @@ one fails the run, and so does a glyph missing from the font.
 Output: figures/fig_contrasts.pdf and figures/fig_lambda_sweep.pdf next to this script.
 Nothing is written into the English folder.
 
-usage: python -I -X utf8 make_ko_figures.py --phd-works D:/Github/phd_works   (or set PHD_WORKS)
+usage: python -I -X utf8 make_ko_figures.py --repo PATH   (or set CONTRACT_REP_REPO)
+PATH is a checkout of github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation, or of the
+authors' repository that holds it as a submodule.
 """
 
 from __future__ import annotations
@@ -100,10 +102,11 @@ def translate(text: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--phd-works", default=os.environ.get("PHD_WORKS"))
+    ap.add_argument("--repo", "--phd-works", dest="repo",
+                    default=os.environ.get("CONTRACT_REP_REPO") or os.environ.get("PHD_WORKS"))
     args = ap.parse_args()
-    if not args.phd_works:
-        sys.exit("pass --phd-works PATH or set PHD_WORKS")
+    if not args.repo:
+        sys.exit("pass --repo PATH or set CONTRACT_REP_REPO")
 
     spec = importlib.util.spec_from_file_location("make_figures_b", EN_SCRIPT)
     en = importlib.util.module_from_spec(spec)
@@ -130,7 +133,7 @@ def main() -> int:
         written.append(target)
 
     Figure.savefig = save_korean
-    data = en.load(en.published_dirs(Path(args.phd_works).resolve()))
+    data = en.load(en.published_dirs(Path(args.repo).resolve()))
     en.sweep(data)
     en.forest(data)
     for p in written:

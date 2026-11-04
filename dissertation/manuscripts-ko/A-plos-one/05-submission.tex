@@ -12,10 +12,10 @@ PLOS ONE 양식이 요구하는 윤리 진술, 자료 공개, 생성형 AI 사�
 \subsection{자료 공개}
 
 \begin{itemize}
-\item \textbf{저장소의 내용:} 평가 코드, 버전을 붙인 설정 파일, SQL 질의, 분석 계획, W1 등록, 수정 분석을 정의하는 문서, 추출 목록(manifest), 모든 표 뒤에 있는 기계가 읽는 요약과 그 SHA-256 체크섬, 모든 계수 뒤에 있는 계약별 점수와 라벨이에요. 이것들은 Git 저장소 \nolinkurl{https://github.com/abitocodes/phd_works}에서 누구나 받을 수 있어요.
-\item \textbf{커밋과 폴더:} 계획(커밋 \texttt{43d8045}), 등록(\texttt{0d3a057}), 등록 분석의 결과(\texttt{8d8b568})는 그 커밋들에서 폴더 \nolinkurl{1-Dissertation-Works/ERC20-Allowance-PageRank-Contract-Reputation/experiments}에 있어요. 수정 분석의 결과는 코드 리비전 \texttt{0a94215}에서 계산했고 커밋 \texttt{950a7a4}로 냈어요. 이 커밋에서는 같은 폴더의 이름이 \nolinkurl{1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/experiments}예요(\url{https://github.com/abitocodes/phd_works/tree/950a7a4cd9401002b3be9348797b4a8dd9d9f075/1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/experiments}).
+\item \textbf{저장소의 내용:} 평가 코드, 버전을 붙인 설정 파일, SQL 질의, 분석 계획, W1 등록, 수정 분석을 정의하는 문서, 추출 목록(manifest), 모든 표 뒤에 있는 기계가 읽는 요약과 그 SHA-256 체크섬이에요. 이것들은 Git 저장소 \nolinkurl{https://github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation}의 폴더 \nolinkurl{experiments}에서 누구나 받을 수 있어요.
+\item \textbf{커밋과 폴더:} 이 저장소는 저자들의 비공개 Git 저장소에 있는 이 연구의 폴더를 커밋 기록과 함께 옮겨 실은 것이에요. 옮긴 커밋은 원래의 작성자, 시각, 메시지, 파일 내용을 그대로 지니지만 식별자는 새것이고, 원래 식별자는 저장소의 파일 \nolinkurl{HISTORY.md}에 있어요. 추출 목록과 결과 요약 목록(digest)에는 원래 식별자가 적혀 있어요. 계획(커밋 \texttt{d060f3a}), 등록(\texttt{1747e64}), 등록 분석의 결과(\texttt{344017e})는 그 커밋들에서 그 폴더에 있어요. 수정 분석의 결과는 코드 리비전 \texttt{77a1e49}에서 계산했고 \texttt{dbe9ad6}에 커밋했어요(\url{https://github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation/tree/dbe9ad614cd5038fe381f07a44eff3bff50b16d5/experiments}).
 \item \textbf{요약의 위치:} \nolinkurl{data/3-published-results-for-thesis/}(등록 분석)과 그 아래 폴더 \nolinkurl{revised-usd-12m/}(수정 분석).
-\item \textbf{계약별 파일:} 두 분석의 계약별 파일은 공개 Google Drive 폴더에 parquet 파일로 두었어요. 그 링크와 체크섬은 폴더의 파일 \nolinkurl{drive-manifest.json}(커밋 \texttt{ac7d32a})에 있어요.
+\item \textbf{계약별 파일:} 두 분석의 계약별 점수와 라벨은 공개 Google Drive 폴더에 parquet 파일로 두었어요. 그 링크와 체크섬은 폴더의 파일 \nolinkurl{drive-manifest.json}(커밋 \texttt{ce4e9d8})에 있어요.
 \item \textbf{대조 스크립트:} 닫힌 식과 트레이더 값을 그 파일들과 대조하는 스크립트는 \nolinkurl{https://github.com/abitocodes/phd-dissertation-draft-en}의 폴더 \nolinkurl{analysis/}에, 이 원고의 표와 그림 1을 만드는 스크립트는 그 저장소의 폴더 \nolinkurl{manuscripts/A-plos-one/}에 있어요.
 \item \textbf{보조 자료:} 사전 명세 문서는 S1 File에도 있고, 질의는 S1 Text에 있어요.
 \item \textbf{BigQuery:} 공개 BigQuery 표는 버전이 붙은 스냅숏이 아니에요. 그래서 추출한 그래프 표는 저자들의 BigQuery 프로젝트에 두었고, 저장소에는 그 목록이 있어요. 연구 전체의 BigQuery 작업은 6.76~TiB를 청구했고 비용은 USD~42.24였어요.
@@ -40,7 +40,7 @@ PLOS ONE 양식이 요구하는 윤리 진술, 자료 공개, 생성형 AI 사�
 
 \begin{itemize}
 \item \textbf{S1 Text. 이벤트 풀기, 값 매기기, 라벨 식, 추출 질의.} ERC-20과 GMX~V2 이벤트의 토픽 해시와 풀어낸 필드, 계정 종류 규칙, 토큰 규칙과 달러 값 매기기, 점수 기간과 상수, 스펜더 라벨과 트레이더 라벨의 정확한 식, SQL 틀, 그리고 수로 재지 않은 자료의 성질.
-\item \textbf{S1 File. 사전 명세 문서.} 분석 계획(커밋 \texttt{43d8045})과 W1 등록(커밋 \texttt{0d3a057}, SHA-256은 추출 목록에 기록)을 커밋 식별자와 해시와 함께 글자 그대로 옮긴 것.
+\item \textbf{S1 File. 사전 명세 문서.} 분석 계획(커밋 \texttt{d060f3a})과 W1 등록(커밋 \texttt{1747e64}, SHA-256은 추출 목록에 기록)을 공개 저장소와 저자들 저장소의 커밋 식별자, 해시와 함께 글자 그대로 옮긴 것.
 \item \textbf{S1 Table. 창, 코호트, 그래프, 금액.} 같은 기간 평가와 두 홀드아웃 창의 묘사 통계. 매칭 코호트부터 허락을 받은 트레이더까지.
 \item \textbf{S2 Table. 트레이더 결과 비교의 모든 대비.} 두 창, 트레이더 라벨 여섯 개에서 등록한 모든 쌍의 95\% 구간과 97.5\% 구간, 층화한 행. 수정 분석과 등록 분석 모두.
 \end{itemize}
