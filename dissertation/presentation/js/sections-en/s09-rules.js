@@ -26,8 +26,8 @@
    Every number is read from DECK_DATA (data/results.js, data/timeline.js); the strings in the code
    are fallbacks written as in the thesis. R = revised analysis (revised-usd-12m, the thesis's main
    analysis), G = registered analysis.
-     13:41:27 / 13:41:37 / 10 s     timeline.commits 43d8045 / events scan_a_created / gaps.plan_commit_to_scan_a_created_s
-     16:49:32 / 16:49:33 / 16:49:40 timeline.commits 0d3a057 / events w1_extraction_started / scan_b_created
+     13:41:27 / 13:41:37 / 10 s     timeline.commits d060f3a / events scan_a_created / gaps.plan_commit_to_scan_a_created_s
+     16:49:32 / 16:49:33 / 16:49:40 timeline.commits 1747e64 / events w1_extraction_started / scan_b_created
      override "no" · SHA-256        R§1 W1 extraction: override used / SHA-256
      scan A 2023-10-01 … 2026-06-30, scan B July–September 2026   timeline.periods extraction / w1_labels
      rule A  +0.031 [0.021, 0.042], −0.030 [−0.040, −0.020]   R verdicts.revised.rule_a_primary.contrasts
@@ -109,9 +109,9 @@
   var T9 = (function () {
     var pa = period('extraction'), pb = period('w1_labels'), mb = /^(\d{4})-(\d\d)/.exec(pb.from || ''), me = /^\d{4}-(\d\d)/.exec(pb.to || '');
     return {
-      day: eDay(cmT('43d8045')) || '9 October 2026',
-      plan: hms(cmT('43d8045'), '13:41:27'), scanA: hms(evT('scan_a_created'), '13:41:37'),
-      reg: hms(cmT('0d3a057'), '16:49:32'), manifest: hms(evT('w1_extraction_started'), '16:49:33'), scanB: hms(evT('scan_b_created'), '16:49:40'),
+      day: eDay(cmT('d060f3a')) || '9 October 2026',
+      plan: hms(cmT('d060f3a'), '13:41:27'), scanA: hms(evT('scan_a_created'), '13:41:37'),
+      reg: hms(cmT('1747e64'), '16:49:32'), manifest: hms(evT('w1_extraction_started'), '16:49:33'), scanB: hms(evT('scan_b_created'), '16:49:40'),
       gapA: num(pk(TL, ['gaps', 'plan_commit_to_scan_a_created_s']), 10),
       gapM: num(pk(TL, ['gaps', 'registration_commit_to_w1_extraction_start_s']), 1),
       gapB: num(pk(TL, ['gaps', 'registration_commit_to_scan_b_created_s']), 8),
@@ -265,10 +265,10 @@
   /* ================================================================ s09-01 timeline of commits */
   var STEM = { x: 330, y0: 206, y1: 716 };
   var N1 = [
-    { y: 236, t: T9.plan, html: '<span class="k">Analysis plan commit</span><span class="code">43d8045</span><span class="sub">before this study extracted any log</span>', lock: 'closed' },
+    { y: 236, t: T9.plan, html: '<span class="k">Analysis plan commit</span><span class="code">d060f3a</span><span class="sub">before this study extracted any log</span>', lock: 'closed' },
     { y: 298, t: T9.scanA, html: '<span class="k">Scan A starts</span><span class="chip">' + T9.gapA + ' s later</span><span class="sub">logs of ' + T9.spanA + '</span>' },
     { y: 364, t: 'same day', html: '<span class="k">Cohort · labels · same-window and W0 results</span><span class="sub">→ rule A judged</span>' },
-    { y: 452, t: T9.reg, html: '<span class="k">W1 registration commit</span><span class="code">0d3a057</span><span class="sub">rule B · R1–R3 · margin · verdict wording</span>', lock: 'closed' },
+    { y: 452, t: T9.reg, html: '<span class="k">W1 registration commit</span><span class="code">1747e64</span><span class="sub">rule B · R1–R3 · margin · verdict wording</span>', lock: 'closed' },
     { y: 508, t: T9.manifest, html: '<span class="k">Extraction manifest written</span><span class="sub">SHA-256 of both files · override not used</span>', small: true },
     { y: 562, t: T9.scanB, html: '<span class="k">Scan B starts</span><span class="chip">' + T9.gapB + ' s later</span><span class="sub">logs of ' + T9.spanB + '</span>' },
     /* the revised analysis: no time, no lock (defined after the registered results were known) */
@@ -278,8 +278,8 @@
     id: 's09-01', title: 'What was fixed, and when', time: 60, steps: 6,
     tags: function (s) { return s >= 5 ? ['plan', 'registered', 'reanalysis'] : s >= 3 ? ['plan', 'registered'] : s >= 1 ? ['plan'] : []; },
     notes: [
-      'What I cared about most in this study is the order of events. This stem puts the commits to the public repository and the data extractions in time order. The wavy mark is where time is folded.',
-      'At ' + T9.plan + ' UTC on ' + T9.day.replace(/ \d{4}$/, '') + ', before this study had extracted any data, I committed the analysis plan to the public repository. The lock clicks shut. If we zoom in to seconds on the right, the first extraction started exactly ' + T9.gapA + ' seconds later. It extracted the logs from ' + T9.spanAsay + '.',
+      'What I cared about most in this study is the order of events. This stem puts the commits to the Git repository and the data extractions in time order. The commit numbers are those of the public repository, which holds this record with its times and contents. The wavy mark is where time is folded.',
+      'At ' + T9.plan + ' UTC on ' + T9.day.replace(/ \d{4}$/, '') + ', before this study had extracted any data, I committed the analysis plan to the Git repository. The lock clicks shut. If we zoom in to seconds on the right, the first extraction started exactly ' + T9.gapA + ' seconds later. It extracted the logs from ' + T9.spanAsay + '.',
       'The same day I built the cohort and the labels, computed the same-window and W0 results, and judged rule A.',
       'After seeing those W0 results, I registered what would be tested in W1. That is the commit at ' + T9.reg + '. ' + (T9.gapM === 1 ? 'One second' : T9.gapM + ' seconds') + ' later the extraction manifest began to be written, and ' + T9.gapB + ' seconds after the commit the extraction of the July to September logs started. The extraction script does not run without the registration commit, and the manifest records the SHA-256 of both files and that the override was not used.',
       'Next came the W1 evaluation and the other results of the registered analysis. Below this line, I knew the results of the registered analysis.',

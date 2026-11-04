@@ -112,8 +112,8 @@ node build_print.mjs --keep DIR              # 쪽 그림과 print.html을 DIR�
 
 | 표시 | 영문판 표시 | 뜻 |
 |---|---|---|
-| 미리 정함(계획) | Fixed in advance (plan) | 분석 계획(커밋 43d8045)이 이 연구의 추출 전에 정한 비교: 규칙 A |
-| 등록함(W1) | Registered (W1) | W1 등록(0d3a057)이 이 연구의 W1 추출 전에 정한 비교: 규칙 B 등 |
+| 미리 정함(계획) | Fixed in advance (plan) | 분석 계획(커밋 d060f3a)이 이 연구의 추출 전에 정한 비교: 규칙 A |
+| 등록함(W1) | Registered (W1) | W1 등록(1747e64)이 이 연구의 W1 추출 전에 정한 비교: 규칙 B 등 |
 | 재분석 | Re-analysis | 그 규칙을 수정 점수에 다시 적용한 판정이에요. 등록 시험이 아니에요 |
 | 사후(라벨 본 뒤) | Post hoc (after the labels) | 라벨을 본 뒤에 계산한 비교 |
 | 탐색적 | Exploratory | 규칙 없이 살펴본 실행 |
@@ -146,16 +146,16 @@ node build_print.mjs --keep DIR              # 쪽 그림과 print.html을 DIR�
 
 ## 4. 숫자는 어디서 오나
 
-화면의 숫자는 몇 가지(아래 목록)를 빼고 모두 `data/*.js`에서 와요. 이 파일들은 `tools/build_data.py`가 `phd_works` 저장소의 실험 결과에서 읽어 만들어요. 손으로 고치지 않아요.
+화면의 숫자는 몇 가지(아래 목록)를 빼고 모두 `data/*.js`에서 와요. 이 파일들은 `tools/build_data.py`가 공개 저장소(`ERC20-Allowance-PageRank-Wallet-Reputation`)의 실험 결과에서 읽어 만들어요. 손으로 고치지 않아요.
 
-| 출처 (`phd_works/1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/` 아래) | 뜻 |
+| 출처 (공개 저장소의 맨 위 기준) | 뜻 |
 |---|---|
 | `experiments/data/3-published-results-for-thesis/revised-usd-12m/results_digest.md`와 그 폴더의 JSON | **수정 분석** — 논문의 주 분석(달러 금액, 다섯 토큰, 동결 전 12개월의 점수 기간) |
 | `experiments/data/3-published-results-for-thesis/results_digest.md`와 그 폴더의 JSON | **등록 분석** — 화면에서 늘 '등록 분석'이라고 밝혀요 |
 | `experiments/data/2-processed-tables-and-evaluations/revised-usd-12m/…/*.parquet` | 계약별 점수(같은 기간 코호트, 홀드아웃 W0, 기간 W1의 스펜더·트레이더) |
 | `experiments/data/0-usd-token-list-and-prices/` | 토큰 목록, 하루 달러 가격, `usd-12m/`의 상수 m_T·m_A·U와 점수 기간의 토큰별 행 수 |
 | `experiments/config/contract_reputation.yaml`, `experiments/data/bq_ledger.json` | 설정값, 빅쿼리 비용 장부 |
-| `git -C phd_works show <커밋>` | 43d8045(분석 계획)와 0d3a057(W1 등록)의 커밋 시각. 수정 분석의 정의에는 시각을 붙이지 않아요(논문처럼 '등록 결과를 본 뒤'라고만 해요) |
+| `git show <커밋>`(공개 저장소) | d060f3a(분석 계획)와 1747e64(W1 등록)의 커밋 시각. 공개 저장소는 저자들의 비공개 저장소(`phd_works`)에서 이 폴더의 기록을 시각과 내용 그대로 옮겨 실은 것이고, 원래 번호 43d8045와 0d3a057은 매니페스트와 describe.json에 적혀 있어요(그 저장소의 `HISTORY.md`가 대응시켜요). 수정 분석의 정의에는 시각을 붙이지 않아요(논문처럼 '등록 결과를 본 뒤'라고만 해요) |
 
 | 데이터 파일 | 담긴 것 |
 |---|---|
@@ -179,8 +179,8 @@ node build_print.mjs --keep DIR              # 쪽 그림과 print.html을 DIR�
 
 ```bash
 # 필요한 것: Python 3.9 이상, numpy, pandas, pyarrow, pyyaml, scipy(검사용)
-python3 tools/build_data.py                 # phd_works 위치는 이 파일 위치에서 찾아요
-python3 tools/build_data.py /path/to/phd_works --out data
+python3 tools/build_data.py                 # 저장소 위치는 이 파일 위치에서 찾아요(또는 CONTRACT_REP_REPO)
+python3 tools/build_data.py /path/to/ERC20-Allowance-PageRank-Wallet-Reputation --out data
 python3 tools/build_data.py --no-verify     # 검사 건너뛰기
 ```
 

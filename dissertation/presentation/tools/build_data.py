@@ -1,22 +1,25 @@
 #!/usr/bin/env python3
 """Build the data files of the thesis slide deck (dissertation/presentation/data/*.js).
 
-Every number the slides show is read here from the experiment outputs of phd_works and written
+Every number the slides show is read here from the experiment outputs of the study and written
 into classic scripts that assign into ``window.DECK_DATA``, so the deck works when index.html is
 opened by double-click (file://) as well as over http, without fetch() or ES modules.
 
 Usage
 -----
-    python3 build_data.py [PHD_WORKS] [--out DIR] [--no-verify]
+    python3 build_data.py [REPO] [--out DIR] [--no-verify]
 
-``PHD_WORKS`` is the root of the phd_works repository (the folder that holds
-``1-Dissertation-Works/``). It is taken, in this order, from the positional argument, from the
-environment variable ``PHD_WORKS``, or from the location of this script
-(``<PHD_WORKS>/1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/dissertation/
-presentation/tools/build_data.py``). ``--out`` defaults to ``../data`` next to this script.
+``REPO`` is the root of a checkout of the public repository
+https://github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation (the folder that holds
+``experiments/``), with its history. A checkout of the authors' private repository, which holds the
+public one as the submodule ``1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation``,
+also works. ``REPO`` is taken, in this order, from the positional argument, from the environment
+variable ``CONTRACT_REP_REPO`` (or ``PHD_WORKS``), or from the location of this script
+(``<REPO>/dissertation/presentation/tools/build_data.py``). ``--out`` defaults to ``../data`` next
+to this script.
 
-Sources (all under ``<PHD_WORKS>/1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/``)
--------------------------------------------------------------------------------------------------
+Sources (all under ``<REPO>/``)
+-------------------------------
 - ``experiments/data/3-published-results-for-thesis/revised-usd-12m/``: summaries of the revised
   analysis (the thesis's main analysis: USD amounts, five tokens, scores from the twelve months
   before each freeze) and its ``results_digest.md``;
@@ -28,7 +31,9 @@ Sources (all under ``<PHD_WORKS>/1-Dissertation-Works/ERC20-Allowance-PageRank-W
 - ``experiments/data/0-usd-token-list-and-prices/``: listed tokens, daily USD closes; ``usd-12m/``:
   the constants and the token rows of the twelve-month score windows;
 - ``experiments/data/bq_ledger.json`` and ``experiments/config/contract_reputation.yaml``;
-- ``git -C <PHD_WORKS> show`` for the commit times of 43d8045 and 0d3a057. The deck does not date the
+- ``git -C <REPO> show`` for the commit times of d060f3a and 1747e64, the plan and the W1
+  registration in the public repository (43d8045 and 0d3a057 in the authors' repository; the
+  public history keeps their times and contents, and its HISTORY.md maps the identifiers). The deck does not date the
   definitions of the revised analysis (the thesis says only that they followed the registered results).
 
 Nothing is fitted or re-estimated. A few quantities are *derived* from the per-contract parquet
@@ -62,15 +67,19 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+# The public repository as a submodule of the authors' private repository.
 PROJECT_REL = Path("1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation")
+# Commits of the public repository; ORIGINAL gives the identifiers of the authors' repository,
+# which the extraction manifest and describe.json record.
 COMMITS = {
-    "43d8045": "Analysis plan and configuration fixed before this study extracted any log",
-    "0d3a057": "W1 registration, extraction and evaluation code committed before scan B",
+    "d060f3a": "Analysis plan and configuration fixed before this study extracted any log",
+    "1747e64": "W1 registration, extraction and evaluation code committed before scan B",
 }
 COMMITS_KO = {
-    "43d8045": "분석 계획과 설정 고정(이 연구의 로그 추출 전)",
-    "0d3a057": "W1 등록 문서와 추출·평가 코드 커밋(2차 추출 전)",
+    "d060f3a": "분석 계획과 설정 고정(이 연구의 로그 추출 전)",
+    "1747e64": "W1 등록 문서와 추출·평가 코드 커밋(2차 추출 전)",
 }
+ORIGINAL = {"d060f3a": "43d8045", "1747e64": "0d3a057"}
 
 METHODS = [
     # key, English, Korean (glossary), short, edges walked, restarts
@@ -135,10 +144,10 @@ NOTES = {
     "revised_ko": ("수정 분석 = 논문의 주 결과예요. 금액은 달러, 토큰은 다섯 개, 점수는 동결마다 그 전 12개월로 "
                    "만들어요. 등록 결과를 본 뒤 정했기 때문에 등록된 결과가 아니에요. 규칙 판정은 재분석이에요."),
     "registered": ("Registered analysis: raw base units, every ERC-20 token, b = 1. Rule A fixed in the "
-                   "plan (43d8045) before this study extracted any log; rule B, P/Q and R1-R3 fixed in the W1 "
-                   "registration (0d3a057) before scan B."),
-    "registered_ko": ("등록 분석: 원래 단위, 모든 ERC-20 토큰, b = 1이에요. 규칙 A는 이 연구의 로그 추출 전 계획(43d8045)에서, "
-                      "규칙 B·P/Q·R1–R3는 2차 추출 전 W1 등록(0d3a057)에서 미리 정했어요."),
+                   "plan (d060f3a) before this study extracted any log; rule B, P/Q and R1-R3 fixed in the W1 "
+                   "registration (1747e64) before scan B."),
+    "registered_ko": ("등록 분석: 원래 단위, 모든 ERC-20 토큰, b = 1이에요. 규칙 A는 이 연구의 로그 추출 전 계획(d060f3a)에서, "
+                      "규칙 B·P/Q·R1–R3는 2차 추출 전 W1 등록(1747e64)에서 미리 정했어요."),
     "same_window": ("Same-window agreement with the families is an intended-construct check: part of it is "
                     "built in, and it is not validation or evidence of predictive power."),
     "same_window_ko": "같은 기간 일치도는 의도한 구성개념 점검이에요. 일부는 만든 방식 때문에 저절로 생기고, 검증이 아니에요.",
@@ -306,8 +315,10 @@ def method_labels():
 
 class Ctx:
     def __init__(self, phd: Path, out: Path):
+        if not (phd / "experiments").is_dir() and (phd / PROJECT_REL / "experiments").is_dir():
+            phd = phd / PROJECT_REL  # a checkout of the authors' repository: use its public submodule
         self.phd = phd
-        self.proj = phd / PROJECT_REL
+        self.proj = phd
         self.exp = self.proj / "experiments"
         self.data = self.exp / "data"
         self.pub = self.data / "3-published-results-for-thesis"
@@ -474,15 +485,16 @@ def build_timeline(c: Ctx, digests):
     ledger = c.j(c.data / "bq_ledger.json")
     cfg_path = c.exp / "config/contract_reputation.yaml"
     commits = []
-    fallback = {"43d8045": reg_desc["timing"].get("plan_commit_43d8045_utc"),
-                "0d3a057": reg_desc["timing"].get("registration_commit_0d3a057_utc")}
+    fallback = {"d060f3a": reg_desc["timing"].get("plan_commit_43d8045_utc"),
+                "1747e64": reg_desc["timing"].get("registration_commit_0d3a057_utc")}
     for short, what in COMMITS.items():
         g = git_commit(c.phd, short)
         if g is None:
             g = {"short": short, "utc": zulu(fallback[short]) if fallback.get(short) else None,
                  "source": "describe.json timing (git unavailable)"}
         else:
-            g["source"] = "git -C <PHD_WORKS> show"
+            g["source"] = "git -C <REPO> show (public repository)"
+        g["original"] = ORIGINAL[short]
         g["what"] = what
         g["what_ko"] = COMMITS_KO[short]
         commits.append(g)
@@ -513,9 +525,9 @@ def build_timeline(c: Ctx, digests):
         return int((datetime.fromisoformat(b.replace("Z", "+00:00")) - datetime.fromisoformat(a.replace("Z", "+00:00"))).total_seconds())
     cm = {x["short"]: x["utc"] for x in commits}
     ev = {e["id"]: e["t"] for e in events}
-    gaps = {"plan_commit_to_scan_a_created_s": gap(cm["43d8045"], ev["scan_a_created"]),
-            "registration_commit_to_w1_extraction_start_s": gap(cm["0d3a057"], ev["w1_extraction_started"]),
-            "registration_commit_to_scan_b_created_s": gap(cm["0d3a057"], ev["scan_b_created"])}
+    gaps = {"plan_commit_to_scan_a_created_s": gap(cm["d060f3a"], ev["scan_a_created"]),
+            "registration_commit_to_w1_extraction_start_s": gap(cm["1747e64"], ev["w1_extraction_started"]),
+            "registration_commit_to_scan_b_created_s": gap(cm["1747e64"], ev["scan_b_created"])}
     jobs = [{"at": zulu(j["at"]), "label": j["label"], "sql": j.get("sql"),
              "tib_billed": sig((j.get("bytes_billed") or 0) / 2 ** 40), "usd": safe(j.get("usd"))}
             for j in ledger["jobs"]]
@@ -531,7 +543,7 @@ def build_timeline(c: Ctx, digests):
                      "git; scan times from the registered describe.json timing block; gaps in seconds below."),
             "sources": [c.rel(c.pub / "describe/describe.json"), c.rel(c.pub_rev / "describe/describe.json"),
                         c.rel(c.pub / "registered-w1/extraction_manifest.json"), c.rel(c.data / "bq_ledger.json"),
-                        c.rel(cfg_path), "git log of phd_works"],
+                        c.rel(cfg_path), "git log of the public repository"],
         },
         "periods": [
             {"id": "extraction", "en": "Scan A (extracted logs; the registered analysis scores all of it)",
@@ -687,15 +699,15 @@ def build_results(c: Ctx):
             "status_by_block": {
                 "same_window.families/per_proxy": "intended-construct check (not validation)",
                 "same_window.contrasts": "post hoc (reported beside rule A secondary; do not decide it)",
-                "same_window.rule_a_secondary": "rule A, secondary part" + (" (re-analysis)" if name == "revised" else " (registered, plan 43d8045)"),
-                "w0.contrasts_prefixed": "rule A, primary part" + (" (re-analysis)" if name == "revised" else " (registered, plan 43d8045)"),
+                "same_window.rule_a_secondary": "rule A, secondary part" + (" (re-analysis)" if name == "revised" else " (registered, plan d060f3a)"),
+                "w0.contrasts_prefixed": "rule A, primary part" + (" (re-analysis)" if name == "revised" else " (registered, plan d060f3a)"),
                 "w0.contrasts_after": "post hoc",
                 "w0.receiving": "post hoc restriction",
                 "w0.traders": "exploratory (no rule)",
-                "w1.rule_b": "rule B (F1-F3 decide; F4-F6 reported beside)" + (" (re-analysis)" if name == "revised" else " (registered, 0d3a057)"),
+                "w1.rule_b": "rule B (F1-F3 decide; F4-F6 reported beside)" + (" (re-analysis)" if name == "revised" else " (registered, 1747e64)"),
                 "w1.sensitivity_awp/isolated": "registered sensitivity analyses, do not enter the decision",
                 "w1.endorserank_results": "not registered; computed after the W1 labels were known",
-                "w1.neutral_rules": "R1-R3" + (" (re-analysis)" if name == "revised" else " (registered, 0d3a057)"),
+                "w1.neutral_rules": "R1-R3" + (" (re-analysis)" if name == "revised" else " (registered, 1747e64)"),
                 "supplementary": "post hoc, outside every rule",
                 "robustness": "sensitivity checks (sample definition: not in the plan; run after the W1 labels)",
             },
@@ -788,7 +800,7 @@ def build_results(c: Ctx):
     # --- neutral grid
     res["neutral"] = {
         "meta": {"note": ("Comparison on GMX V2 trader labels built from neither edge type, registered with rule B "
-                          "(0d3a057). W1 primary, W0 secondary. On the revised scores it is a re-analysis."),
+                          "(1747e64). W1 primary, W0 secondary. On the revised scores it is a re-analysis."),
                  "rules_en": {"R1": "count-level lead: 97.5% interval of P and 95% interval of stratified P above 0 in W1, and P > 0 in W0",
                               "R2": "PageRank-level lead: 97.5% interval of Q above 0 in W1 and Q > 0 in W0",
                               "R3": "specificity: P on the profitable or non-loss share in W1 below 0 with a 95% interval excluding 0"},
@@ -1226,7 +1238,7 @@ def write_js(out: Path, key: str, obj, sources):
     out.mkdir(parents=True, exist_ok=True)
     body = json.dumps(clean(obj), ensure_ascii=True, separators=(",", ":"), allow_nan=False)
     head = ("/* Generated by dissertation/presentation/tools/build_data.py -- do not edit by hand.\n"
-            "   Sources (relative to phd_works): " + "; ".join(sorted(set(sources)))[:3000].replace("*/", "* /") + " */\n")
+            "   Sources (relative to the repository root): " + "; ".join(sorted(set(sources)))[:3000].replace("*/", "* /") + " */\n")
     p = out / f"{key}.js"
     p.write_text(head + "window.DECK_DATA = window.DECK_DATA || {};\nwindow.DECK_DATA." + key + " = " + body + ";\n",
                  encoding="utf-8")
@@ -1236,12 +1248,14 @@ def write_js(out: Path, key: str, obj, sources):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
                                  formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
-    ap.add_argument("phd_works", nargs="?", help="root of the phd_works repository (default: $PHD_WORKS or derived from this file)")
+    ap.add_argument("phd_works", nargs="?", metavar="REPO",
+                    help="root of the public repository (default: $CONTRACT_REP_REPO, $PHD_WORKS or derived from this file)")
     ap.add_argument("--out", help="output folder (default: ../data next to this script)")
     ap.add_argument("--no-verify", action="store_true", help="skip the comparison with the digests")
     args = ap.parse_args(argv)
     here = Path(__file__).resolve()
-    phd = Path(args.phd_works or os.environ.get("PHD_WORKS") or here.parents[5]).resolve()
+    phd = Path(args.phd_works or os.environ.get("CONTRACT_REP_REPO") or os.environ.get("PHD_WORKS")
+               or here.parents[3]).resolve()
     out = Path(args.out).resolve() if args.out else here.parent.parent / "data"
     c = Ctx(phd, out)
     import yaml
@@ -1290,7 +1304,7 @@ def main(argv=None) -> int:
         "notes": NOTES,
         "generated_utc": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "generator": "dissertation/presentation/tools/build_data.py",
-        "phd_works_layout": str(PROJECT_REL.as_posix()),
+        "repository": "https://github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation",
         "digests_written_utc": {k: v["written_utc"] for k, v in digests.items()},
         "files": {k: {"file": f"data/{k}.js", "bytes": p.stat().st_size} for k, p in files.items()},
         "sources": [{"path": rel, "sha256": sha256(p), "bytes": p.stat().st_size}

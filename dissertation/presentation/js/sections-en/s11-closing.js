@@ -521,7 +521,7 @@
         '<svg class="abs" id="ul" data-in="none" width="1920" height="60" viewBox="0 0 1920 60" style="left:0;top:628px;overflow:visible"></svg>' +
         '<p class="s11-thx t-body-l ink-2" id="qa" data-in="none" style="top:690px">Questions are welcome</p>' +
         '<p class="s11-small" id="sm1" data-in="none" style="top:846px">Supervisor <b>' + sup + '</b> · Co-supervisors <b>' + co + '</b> · ' + esc(META.university || 'University of South Africa') + ' (UNISA)</p>' +
-        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">Code and results: github.com/abitocodes/phd_works · results digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
+        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">Code and results: github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation · results digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};

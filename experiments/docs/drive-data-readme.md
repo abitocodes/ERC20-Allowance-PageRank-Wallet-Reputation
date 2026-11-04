@@ -2,8 +2,9 @@
 
 This folder holds the blockchain data of the doctoral dissertation above (UNISA). The code that
 extracted and analysed it, and the dissertation itself, are in the public repository
-https://github.com/abitocodes/phd_works, folder
-`1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation/`.
+https://github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation (the repository paths
+below are relative to it; the dissertation's source is its submodule `dissertation/overleaf-github`,
+https://github.com/abitocodes/phd-dissertation-draft-en).
 
 All data come from Arbitrum One, 2023-10-01 to 2026-09-30, extracted from the public BigQuery
 table `bigquery-public-data.goog_blockchain_arbitrum_one_us.logs`. Token prices are DefiLlama

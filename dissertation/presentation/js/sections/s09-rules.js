@@ -26,8 +26,8 @@
    Every number is read from DECK_DATA (data/results.js, data/timeline.js); the strings in the code
    are fallbacks written as in the thesis. R = revised analysis (revised-usd-12m, the thesis's main
    analysis), G = registered analysis.
-     13:41:27 / 13:41:37 / 10 s     timeline.commits 43d8045 / events scan_a_created / gaps.plan_commit_to_scan_a_created_s
-     16:49:32 / 16:49:33 / 16:49:40 timeline.commits 0d3a057 / events w1_extraction_started / scan_b_created
+     13:41:27 / 13:41:37 / 10 s     timeline.commits d060f3a / events scan_a_created / gaps.plan_commit_to_scan_a_created_s
+     16:49:32 / 16:49:33 / 16:49:40 timeline.commits 1747e64 / events w1_extraction_started / scan_b_created
      override "no" · SHA-256        R§1 W1 extraction: override used / SHA-256
      scan A 2023-10-01 … 2026-06-30, scan B July–September 2026   timeline.periods extraction / w1_labels
      rule A  +0.031 [0.021, 0.042], −0.030 [−0.040, −0.020]   R verdicts.revised.rule_a_primary.contrasts
@@ -114,9 +114,9 @@
   var T9 = (function () {
     var pa = period('extraction'), pb = period('w1_labels'), mb = /^(\d{4})-(\d\d)/.exec(pb.from || ''), me = /^\d{4}-(\d\d)/.exec(pb.to || '');
     return {
-      day: kDay(cmT('43d8045')) || '2026년 10월 9일',
-      plan: hms(cmT('43d8045'), '13:41:27'), scanA: hms(evT('scan_a_created'), '13:41:37'),
-      reg: hms(cmT('0d3a057'), '16:49:32'), manifest: hms(evT('w1_extraction_started'), '16:49:33'), scanB: hms(evT('scan_b_created'), '16:49:40'),
+      day: kDay(cmT('d060f3a')) || '2026년 10월 9일',
+      plan: hms(cmT('d060f3a'), '13:41:27'), scanA: hms(evT('scan_a_created'), '13:41:37'),
+      reg: hms(cmT('1747e64'), '16:49:32'), manifest: hms(evT('w1_extraction_started'), '16:49:33'), scanB: hms(evT('scan_b_created'), '16:49:40'),
       gapA: num(pk(TL, ['gaps', 'plan_commit_to_scan_a_created_s']), 10),
       gapM: num(pk(TL, ['gaps', 'registration_commit_to_w1_extraction_start_s']), 1),
       gapB: num(pk(TL, ['gaps', 'registration_commit_to_scan_b_created_s']), 8),
@@ -270,10 +270,10 @@
   /* ================================================================ s09-01 timeline of commits */
   var STEM = { x: 330, y0: 206, y1: 716 };
   var N1 = [
-    { y: 236, t: T9.plan, html: '<span class="k">분석 계획 커밋</span><span class="code">43d8045</span><span class="sub">이 연구가 로그를 하나도 꺼내기 전</span>', lock: 'closed' },
+    { y: 236, t: T9.plan, html: '<span class="k">분석 계획 커밋</span><span class="code">d060f3a</span><span class="sub">이 연구가 로그를 하나도 꺼내기 전</span>', lock: 'closed' },
     { y: 298, t: T9.scanA, html: '<span class="k">1차 추출(scan A) 시작</span><span class="chip">' + T9.gapA + '초 뒤</span><span class="sub">' + T9.spanA + '의 기록</span>' },
     { y: 364, t: '같은 날', html: '<span class="k">코호트 · 라벨 · 같은 기간과 W0 결과</span><span class="sub">→ 규칙 A 판정</span>' },
-    { y: 452, t: T9.reg, html: '<span class="k">W1 등록 커밋</span><span class="code">0d3a057</span><span class="sub">규칙 B · R1–R3 · 허용 폭 · 판정 문장</span>', lock: 'closed' },
+    { y: 452, t: T9.reg, html: '<span class="k">W1 등록 커밋</span><span class="code">1747e64</span><span class="sub">규칙 B · R1–R3 · 허용 폭 · 판정 문장</span>', lock: 'closed' },
     { y: 508, t: T9.manifest, html: '<span class="k">추출 기록서 작성</span><span class="sub">두 파일의 SHA-256 · 예외 사용 안 함</span>', small: true },
     { y: 562, t: T9.scanB, html: '<span class="k">2차 추출(scan B) 시작</span><span class="chip">' + T9.gapB + '초 뒤</span><span class="sub">' + T9.spanB + '의 기록</span>' },
     /* the revised analysis: no time, no lock (defined after the registered results were known) */
@@ -283,8 +283,8 @@
     id: 's09-01', title: '언제, 무엇을 정했나', time: 60, steps: 6,
     tags: function (s) { return s >= 5 ? ['plan', 'registered', 'reanalysis'] : s >= 3 ? ['plan', 'registered'] : s >= 1 ? ['plan'] : []; },
     notes: [
-      '이 연구에서 가장 신경 쓴 것은 순서예요. 이 줄기는 공개 저장소의 커밋과 데이터 추출을 시간 순서로 놓은 거예요. 물결 표시는 시간을 접은 곳이에요.',
-      T9.day.replace(/^\d{4}년 /, '') + ' ' + T9.plan.replace(/^(\d\d):(\d\d):(\d\d)$/, function (m, a, b, c) { return (+a) + '시 ' + (+b) + '분 ' + (+c) + '초'; }) + ', 이 연구가 데이터를 하나도 꺼내기 전에 분석 계획을 공개 저장소에 커밋했어요. 자물쇠가 잠기죠. 오른쪽에서 초 단위로 늘려 보면, 정확히 ' + T9.gapA + '초 뒤에 첫 추출이 시작됐어요. 이 추출이 ' + T9.spanAsay + '의 기록을 꺼냈어요.',
+      '이 연구에서 가장 신경 쓴 것은 순서예요. 이 줄기는 Git 저장소에 한 커밋과 데이터 추출을 시간 순서로 놓은 거예요. 커밋 번호는 이 기록을 시각과 내용 그대로 옮겨 실은 공개 저장소의 번호예요. 물결 표시는 시간을 접은 곳이에요.',
+      T9.day.replace(/^\d{4}년 /, '') + ' ' + T9.plan.replace(/^(\d\d):(\d\d):(\d\d)$/, function (m, a, b, c) { return (+a) + '시 ' + (+b) + '분 ' + (+c) + '초'; }) + ', 이 연구가 데이터를 하나도 꺼내기 전에 분석 계획을 Git 저장소에 커밋했어요. 자물쇠가 잠기죠. 오른쪽에서 초 단위로 늘려 보면, 정확히 ' + T9.gapA + '초 뒤에 첫 추출이 시작됐어요. 이 추출이 ' + T9.spanAsay + '의 기록을 꺼냈어요.',
       '같은 날 코호트와 라벨을 만들고, 같은 기간과 W0 결과를 계산해서 규칙 A를 판정했어요.',
       '그 W0 결과를 본 다음, W1에서 무엇을 시험할지를 등록했어요. ' + T9.reg.replace(/^(\d\d):(\d\d):(\d\d)$/, function (m, a, b, c) { return (+a) + '시 ' + (+b) + '분 ' + (+c) + '초'; }) + ' 커밋이에요. ' + T9.gapM + '초 뒤에 추출 기록서가 쓰이기 시작했고, ' + T9.gapB + '초 뒤에 7월부터 9월까지의 기록을 꺼냈어요. 추출 스크립트는 등록 커밋이 없으면 돌지 않고, 기록서에는 두 파일의 SHA-256과 예외를 쓰지 않았다는 기록이 남아 있어요.',
       '그다음에 등록 분석의 W1 평가와 나머지 결과가 나왔어요. 이 선 아래부터는 등록 분석의 결과를 알고 있었어요.',

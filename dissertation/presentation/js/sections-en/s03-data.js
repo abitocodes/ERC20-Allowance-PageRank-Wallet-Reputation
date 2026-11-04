@@ -206,7 +206,7 @@
       'The data are the public records of Arbitrum One. Let me spread three years out on this time axis.',
       'Scan A extracted the records of 33 months, from 1 October 2023 to 30 June 2026. The amber band on top is the approval records extracted for each month, and the sky-blue band below is the transfer records. They cover every token, and the registered analysis built its scores from all of them. Each band is scaled to its own height, so please compare only their shapes. Add the three months of the label window W1 and it is exactly three years.',
       'We tested twice. In W0 the scores were frozen on 31 March 2026 and graded on what happened from April to June. The main analysis of this thesis builds every score only from the twelve months before the freeze, so the W0 scores come from the records of 1 April 2025 to 31 March 2026. These twelve-month score windows were set, together with the amounts in US dollars and the five tokens, after the registered results were known.',
-      'In W1 the scores were frozen on 30 June and graded on what happened from July to September. Here the scores come from the twelve months from 1 July 2025 to 30 June 2026, and the same-window checks use these scores too. This study extracted the July to September records, scan B, only after commit 0d3a057, which committed the grading rules to the public repository as the registration. That is why there is a lock on it.',
+      'In W1 the scores were frozen on 30 June and graded on what happened from July to September. Here the scores come from the twelve months from 1 July 2025 to 30 June 2026, and the same-window checks use these scores too. This study extracted the July to September records, scan B, only after commit 1747e64, which committed the grading rules to the Git repository as the registration. That is why there is a lock on it.',
       'Last is the age ruler. The time weight is measured backward from T_obs, that is, 30 June 2026. Because the score window is twelve months long, even the oldest record is ' + n0(N.maxAge) + ' days old. This ruler comes back later when I explain the time weight.'
     ],
     html:
@@ -263,7 +263,7 @@
       var x1 = TL.x('2026-07-01'), x2 = TL.x('2026-10-01');
       var note = el.querySelector('#w1note');
       note.style.left = (AX.left + x1 + 6) + 'px'; note.style.top = (AX.top + 150) + 'px'; note.style.width = (x2 - x1 - 12) + 'px';
-      note.innerHTML = '<div class="s3-lockcard">' + LOCK_SVG + '<span>Extracted after registration commit</span><span class="mono">0d3a057</span></div>';
+      note.innerHTML = '<div class="s3-lockcard">' + LOCK_SVG + '<span>Extracted after registration commit</span><span class="mono">1747e64</span></div>';
       gsap.set(note, { autoAlpha: 0 });
       /* age ruler (step 4): from T_obs back to the first day of its score window */
       var R = g.ruler = S('g', {}, TL.svg), ry = 590, xo = TL.x(TOBS);

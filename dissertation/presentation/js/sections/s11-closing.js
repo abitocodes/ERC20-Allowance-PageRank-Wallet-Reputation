@@ -522,7 +522,7 @@
         '<svg class="abs" id="ul" data-in="none" width="1920" height="60" viewBox="0 0 1920 60" style="left:0;top:628px;overflow:visible"></svg>' +
         '<p class="s11-thx t-body-l ink-2" id="qa" data-in="none" style="top:690px">질문을 받을게요</p>' +
         '<p class="s11-small" id="sm1" data-in="none" style="top:846px">지도교수 <b>' + sup + '</b> · 공동 지도교수 <b>' + co + '</b> · ' + esc(META.university || 'University of South Africa') + '</p>' +
-        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">코드·결과: github.com/abitocodes/phd_works · 결과 digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
+        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">코드·결과: github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation · 결과 digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
