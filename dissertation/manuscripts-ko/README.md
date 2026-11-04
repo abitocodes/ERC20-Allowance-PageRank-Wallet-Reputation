@@ -3,7 +3,7 @@
 투고 원고 A(PLOS ONE)와 B(IEEE Access)의 영문 원고(`../overleaf-github/manuscripts/`)를 저자가 읽으려고 쉬운 한국어로 풀어 쓴 해설판입니다. Overleaf와 원고 저장소에는 올리지 않습니다.
 
 - 결과물: [`A-plos-one/main.pdf`](A-plos-one/main.pdf), [`B-ieee-access/main.pdf`](B-ieee-access/main.pdf)
-- 옮긴 원문: 원고 저장소 커밋 `07391e9`의 `manuscripts/A-plos-one`과 `manuscripts/B-ieee-access`.
+- 옮긴 원문: 원고 저장소 커밋 `07391e9`의 `manuscripts/A-plos-one`, `3f5a17a`의 `manuscripts/B-ieee-access`(`07391e9`에서 초록, 색인어, 저자 줄이 바뀐 판).
 
 ## 어떻게 썼나
 
