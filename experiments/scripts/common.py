@@ -1,6 +1,6 @@
 """Shared helpers: configuration, paths, and parquet files split below GitHub's size limit.
 
-Three analyses share this code. The registered analysis (raw base units, every token) is the
+Four analyses share this code. The registered analysis (raw base units, every token) is the
 default. Setting the environment variable CONTRACT_REP_VARIANT=usd selects the revised
 analysis of docs/revision_price_weighting.md (listed tokens, amounts in USD): the graph tables
 are then read from graph-tables-usd and every result is written under revised-usd, so the
@@ -8,6 +8,11 @@ registered inputs and outputs are never overwritten. CONTRACT_REP_VARIANT=usd12m
 same US-dollar analysis on the twelve-month score windows of docs/revision_one_year_window.md:
 config/overlay_usd12m.yaml is merged over the configuration, the graph tables are read from
 graph-tables-usd-12m and every result is written under revised-usd-12m.
+CONTRACT_REP_VARIANT=contract12m selects the analysis of docs/revision_contract_graph.md on the
+same windows: graphs whose nodes are contracts only, allowances capped at the owner's balance and
+the discovery-order test of docs/discovery_protocol.md. config/overlay_contract12m.yaml is merged
+over the configuration, the graph tables are read from graph-tables-contract-12m and every result
+is written under revised-contract-12m.
 """
 
 from __future__ import annotations
@@ -24,44 +29,74 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "config" / "contract_reputation.yaml"
-OVERLAY_PATH = ROOT / "config" / "overlay_usd12m.yaml"
 DATA = ROOT / "data"
 RAW = DATA / "1-raw-blockchain-extracts"
 # Inputs every analysis reads: account types, decoded GMX closes, the registered cohort.
 PROC_SHARED = DATA / "2-processed-tables-and-evaluations"
 USD_INPUTS = DATA / "0-usd-token-list-and-prices"
 
-VARIANTS = ("registered", "usd", "usd12m")
+VARIANTS = ("registered", "usd", "usd12m", "contract12m")
 VARIANT = os.environ.get("CONTRACT_REP_VARIANT", "registered")
 if VARIANT not in VARIANTS:
     raise SystemExit(f"CONTRACT_REP_VARIANT must be one of {VARIANTS}, not {VARIANT!r}")
-# Both US-dollar variants take the revised code path; the twelve-month one also its own windows.
-REVISED = VARIANT in ("usd", "usd12m")
-ONE_YEAR = VARIANT == "usd12m"
+# Every variant but the registered one takes the revised code path; the twelve-month ones also
+# their own windows; the contract-graph one also its own graphs (contracts only), types and test.
+REVISED = VARIANT != "registered"
+ONE_YEAR = VARIANT in ("usd12m", "contract12m")
+CONTRACT_GRAPH = VARIANT == "contract12m"
+# The GMX V2 trader cohorts and criteria belong to every variant but the contract-graph one
+# (docs/revision_contract_graph.md section 2).
+TRADERS = not CONTRACT_GRAPH
 
-_FOLDER = {"registered": None, "usd": "revised-usd", "usd12m": "revised-usd-12m"}[VARIANT]
-GRAPH = RAW / {"registered": "graph-tables", "usd": "graph-tables-usd", "usd12m": "graph-tables-usd-12m"}[VARIANT]
+_FOLDER = {"registered": None, "usd": "revised-usd", "usd12m": "revised-usd-12m",
+           "contract12m": "revised-contract-12m"}[VARIANT]
+GRAPH = RAW / {"registered": "graph-tables", "usd": "graph-tables-usd", "usd12m": "graph-tables-usd-12m",
+               "contract12m": "graph-tables-contract-12m"}[VARIANT]
 PROC = PROC_SHARED / _FOLDER if REVISED else PROC_SHARED
 PUB = DATA / "3-published-results-for-thesis" / _FOLDER if REVISED else DATA / "3-published-results-for-thesis"
-# Rounded amount constants of the US-dollar variants (run_usd_pipeline.py, run_usd12m_pipeline.py).
-USD_CONSTANTS = USD_INPUTS / "usd-12m" / "constants.json" if ONE_YEAR else USD_INPUTS / "constants.json"
-# Prefix of the BigQuery tables a US-dollar variant writes.
-BQ_PREFIX = "u12_" if ONE_YEAR else "u_"
+# Rounded amount constants of the US-dollar variants (run_usd_pipeline.py, run_usd12m_pipeline.py,
+# run_contract12m_pipeline.py).
+USD_CONSTANTS = {"registered": USD_INPUTS / "constants.json", "usd": USD_INPUTS / "constants.json",
+                 "usd12m": USD_INPUTS / "usd-12m" / "constants.json",
+                 "contract12m": USD_INPUTS / "contract-12m" / "constants.json"}[VARIANT]
+# Prefix of the BigQuery tables a revised variant writes.
+BQ_PREFIX = {"registered": "u_", "usd": "u_", "usd12m": "u12_", "contract12m": "c12_"}[VARIANT]
 # Folder of the W1 evaluation; the revised one is not registered and is not named so.
 W1_DIR = "window-w1" if REVISED else "registered-w1"
-# The only keys config/overlay_usd12m.yaml may set.
-OVERLAY_KEYS = {("period", "start_ts"), ("holdout", "start_ts")}
+# Account types of the contract-graph variant (scripts/check_account_code.py, revision section 4) and
+# the twelve-month graph tables whose cohorts, spender sets and labels it keeps.
+TYPES_DIR = RAW / "contract-types"
+TYPES = TYPES_DIR / "c12_account_types"
+GRAPH_U12 = RAW / "graph-tables-usd-12m"
+
+# The overlay of a variant and the only keys it may set (it must set exactly these).
+_OVERLAY_KEYS_USD12M = {("period", "start_ts"), ("holdout", "start_ts")}
+_OVERLAY_KEYS_CONTRACT12M = _OVERLAY_KEYS_USD12M | {("bigquery", "budget_usd")} | {
+    ("contract_graph", k) for k in (
+        "typing_start", "typing_end", "pinned_block", "rpc_urls", "campaign_cap_usd", "system_address_max",
+        "safe_threshold_max", "entry_points", "selectors", "erc1967_slot", "audit", "balance")
+} | {
+    ("discovery", k) for k in (
+        "seed_salt", "random_salt", "n_seeds", "rho_grid", "runtime_budget_hours", "ns_per_edge_iteration",
+        "warm_iterations", "projection_workers", "walk_solves", "q_primary", "q_small", "small_universe",
+        "q_secondary", "x_primary", "x_secondary", "tie_tolerance", "lambda_primary", "lambda_grid",
+        "both_mode_ratio", "stop_min_allow_edges", "stop_min_allow_share", "min_hot", "hub_drop",
+        "rho_sensitivity", "curve_points", "min_usd_account")
+}
+OVERLAY_PATH = {"usd12m": ROOT / "config" / "overlay_usd12m.yaml",
+                "contract12m": ROOT / "config" / "overlay_contract12m.yaml"}.get(VARIANT)
+OVERLAY_KEYS = {"usd12m": _OVERLAY_KEYS_USD12M, "contract12m": _OVERLAY_KEYS_CONTRACT12M}.get(VARIANT, set())
 
 
 def load_config() -> dict:
     cfg = yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
-    if ONE_YEAR:
+    if OVERLAY_PATH is not None:
         overlay = yaml.safe_load(OVERLAY_PATH.read_text(encoding="utf-8"))
         keys = {(section, key) for section, values in overlay.items() for key in values}
         if keys != OVERLAY_KEYS:
             raise SystemExit(f"{OVERLAY_PATH.name} must set exactly {sorted(OVERLAY_KEYS)}, not {sorted(keys)}")
         for section, values in overlay.items():
-            cfg[section].update(values)
+            cfg.setdefault(section, {}).update(values)
     return cfg
 
 

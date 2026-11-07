@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Run one SQL file on BigQuery with a dry run first and a running cost ledger.
 
-Every job is dry-run, checked against the remaining budget of
-config/contract_reputation.yaml, run, and written to data/bq_ledger.json with the
-bytes it billed. A job whose estimate would push the ledger past the budget is
-refused unless --force is given.
+Every job is dry-run, checked against the remaining budget of the configuration of the
+variant (config/contract_reputation.yaml with the overlay of CONTRACT_REP_VARIANT, see
+scripts/common.py: USD 50, and USD 60 for the contract-graph variant), run, and written to
+data/bq_ledger.json with the bytes it billed. A job whose estimate would push the ledger
+past the budget is refused unless --force is given.
 
 Usage:
     python scripts/run_bq.py sql/01_materialize_logs.sql --dest contract_rep.logs_obs \
@@ -14,8 +15,12 @@ Options for reusing a file on other tables (the twelve-month variant of
 docs/revision_one_year_window.md); without them nothing changes:
     --rename OLD=NEW      replace the table contract_rep.OLD by contract_rep.NEW after the
                           --sub substitutions (each rename must match at least once)
-    --require-prefix P    refuse unless every table or view the file creates starts with P
+    --require-prefix P    refuse unless every table or view the file creates starts with P; then
+                          also unless every table is named `project.dataset.table` (backquoted,
+                          plain names) and no statement writes in another way than CREATE
     --allow-read NAME     a contract_rep table without prefix P that the file may read
+    --allow-public FQN    a table or view outside the project dataset that the file may read,
+                          named in full (project.dataset.table); every other one is refused
     --expect-bytes N      a realistic estimate; the budget checks use the larger of it and the
                           dry run, which counts only the first statement of a script
     --max-dry-bytes N     refuse (also with --dry-run) if the dry run counts more than N bytes,
@@ -34,13 +39,20 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-import yaml
 from google.cloud import bigquery
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import VARIANT, load_config  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = ROOT / "config" / "contract_reputation.yaml"
 LEDGER = ROOT / "data" / "bq_ledger.json"
 USD_PER_TIB = 6.25
+
+
+def settings(cfg: dict | None = None) -> tuple[str, str, float]:
+    """Project, dataset and budget (USD) of the configuration of the variant (common.load_config)."""
+    bq = (load_config() if cfg is None else cfg)["bigquery"]
+    return bq["project_id"], bq["dataset"], float(bq["budget_usd"])
 
 
 def load_ledger() -> dict:
@@ -68,22 +80,63 @@ def apply_renames(sql: str, renames: list[str], project: str, dataset: str) -> s
     return sql
 
 
-def check_tables(sql: str, project: str, dataset: str, prefix: str, allow_read: list[str]) -> None:
-    """Refuse a file that creates a table without the prefix or reads a table it may not."""
+# Statements other than CREATE that write to or change a table, or run other code.
+WRITES = ("INSERT", "UPDATE", "DELETE", "MERGE", "DROP", "TRUNCATE", "ALTER", "LOAD", "EXPORT", "CALL", "EXECUTE",
+          "GRANT", "REVOKE", "UNDROP")
+# String literals, backquoted names and comments, each matched where it starts.
+_LEXEMES = re.compile(r"""'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*"|`[^`]*`|--[^\n]*|#[^\n]*|/\*.*?\*/""", re.S)
+_FULL_NAME = re.compile(r"`[A-Za-z0-9-]+\.\w+\.\w+`")
+
+
+def name_problems(sql: str, project: str, dataset: str) -> list[str]:
+    """Where a file names a table in another way than `project.dataset.table` (backquoted, with plain names) or
+    creates something other than a table or view of the project dataset or a temporary table or function; the
+    checks of check_tables() see only those full names. Comments and string literals are left out."""
+    body = _LEXEMES.sub(lambda m: m.group(0) if m.group(0).startswith("`") else " ", sql)
+    out = [m.group(0).strip() for m in re.finditer(r"(\.\s*)?(`[^`]*`)(\s*\.)?", body)
+           if m.group(1) or m.group(3) or not _FULL_NAME.fullmatch(m.group(2))]  # wildcards, split quotes, ...
+    allowed = (rf"CREATE\s+(?:OR\s+REPLACE\s+)?(?:(?:TABLE|VIEW)\s+`{re.escape(project)}\.{re.escape(dataset)}\.\w+`"
+               r"|TEMP(?:ORARY)?\s+(?:TABLE|FUNCTION)\b)")
+    for m in re.finditer(r"\bCREATE\b", body, flags=re.I):
+        if not re.match(allowed, body[m.start():], flags=re.I):
+            out.append(" ".join(body[m.start():m.start() + 60].split()))
+    bare = re.sub(r"`[^`]*`", " __table__ ", body)
+    bare = re.sub(r"(EXTRACT\s*\(\s*\w+(?:\s*\(\s*\w+\s*\))?\s+)FROM\b", r"\1OF", bare, flags=re.I)
+    bare = re.sub(r"\bDISTINCT\s+FROM\b", "DISTINCT OF", bare, flags=re.I)
+    for pattern in (rf"(?<![\w-]){re.escape(dataset)}(?![\w-])", rf"(?<![\w-]){re.escape(project)}(?![\w-])",
+                    r"\b[A-Za-z]\w*(?:-\w+)+\s*\.\s*[A-Za-z_]\w*\s*\.\s*[A-Za-z_*][\w*$]*",  # an unquoted project path
+                    r"\b(?:FROM|JOIN|TABLE|CLONE|COPY)\s+[A-Za-z_][\w-]*\s*\.\s*\S+",  # a dotted name read as a table
+                    r"\bSET\s+@@\w+"):                                                 # such as a default dataset
+        out += [" ".join(m.group(0).split()) for m in re.finditer(pattern, bare, flags=re.I)]
+    return list(dict.fromkeys(out))
+
+
+def check_tables(sql: str, project: str, dataset: str, prefix: str, allow_read: list[str],
+                 allow_public: list[str] | tuple[str, ...] = ()) -> None:
+    """Refuse a file that creates a table without the prefix or reads a table it may not.
+
+    A table or view outside the project dataset may be read only if ``allow_public`` names it in
+    full (project.dataset.table). Every table must be named so, in backquotes with plain names
+    (name_problems), and no statement may write in another way than CREATE (WRITES)."""
     ds = rf"`{re.escape(project)}\.{re.escape(dataset)}\.(\w+)`"
     created = set(re.findall(rf"CREATE\s+(?:OR\s+REPLACE\s+)?(?:TABLE|VIEW)\s+{ds}", sql, flags=re.I))
     bad = sorted(t for t in created if not t.startswith(prefix))
     if bad:
         raise SystemExit(f"refused: the file creates tables without the prefix {prefix}: {bad}")
-    if re.search(r"\b(INSERT|UPDATE|DELETE|MERGE|DROP|TRUNCATE)\b", re.sub(r"--[^\n]*", "", sql), flags=re.I):
+    if re.search(rf"\b({'|'.join(WRITES)})\b", re.sub(r"--[^\n]*", "", sql), flags=re.I):
         raise SystemExit("refused: the file writes to tables in another way than CREATE")
+    names = name_problems(sql, project, dataset)
+    if names:
+        raise SystemExit("refused: the file names tables in another way than `project.dataset.table` with plain "
+                         f"names, or creates something else: {names[:5]}")
     read = set(re.findall(ds, sql)) - created
     stray = sorted(t for t in read if not t.startswith(prefix) and t not in set(allow_read))
     if stray:
         raise SystemExit(f"refused: the file reads tables outside {prefix}* that are not allowed: {stray}")
-    other = sorted(set(re.findall(r"`([\w-]+\.[\w-]+)\.\w+`", sql)) - {f"{project}.{dataset}"})
+    outside = {f"{p}.{t}" for p, t in re.findall(r"`([\w-]+\.[\w-]+)\.(\w+)`", sql) if p != f"{project}.{dataset}"}
+    other = sorted(outside - set(allow_public))
     if other:
-        raise SystemExit(f"refused: the file reads other datasets: {other}")
+        raise SystemExit(f"refused: the file reads tables of other datasets that are not allowed: {other}")
 
 
 def main() -> int:
@@ -95,6 +148,8 @@ def main() -> int:
     ap.add_argument("--rename", action="append", default=[], help="OLD=NEW table renamed after --sub")
     ap.add_argument("--require-prefix", default="", help="every created table must start with this")
     ap.add_argument("--allow-read", action="append", default=[], help="table outside the prefix that may be read")
+    ap.add_argument("--allow-public", action="append", default=[],
+                    help="project.dataset.table outside the project dataset that may be read")
     ap.add_argument("--expect-bytes", type=int, default=0, help="realistic bytes for the budget checks")
     ap.add_argument("--max-dry-bytes", type=int, default=0, help="refuse if the dry run counts more bytes")
     ap.add_argument("--campaign", default="", help="label prefix of the jobs of one campaign")
@@ -104,10 +159,7 @@ def main() -> int:
     ap.add_argument("--label", default="")
     args = ap.parse_args()
 
-    cfg = yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
-    project = cfg["bigquery"]["project_id"]
-    dataset = cfg["bigquery"]["dataset"]
-    budget = float(cfg["bigquery"]["budget_usd"])
+    project, dataset, budget = settings()
     sql = Path(args.sql).read_text(encoding="utf-8")
     if args.dest:
         sql = sql.replace("__DEST__", f"{project}.{args.dest}")
@@ -116,7 +168,9 @@ def main() -> int:
         sql = sql.replace(f"__{key}__", value)
     sql = apply_renames(sql, args.rename, project, dataset)
     if args.require_prefix:
-        check_tables(sql, project, dataset, args.require_prefix, args.allow_read)
+        check_tables(sql, project, dataset, args.require_prefix, args.allow_read, args.allow_public)
+    elif args.allow_public:
+        raise SystemExit("--allow-public needs --require-prefix")
     if args.campaign and not args.label.startswith(args.campaign):
         raise SystemExit(f"--label must start with the campaign {args.campaign!r}")
     params = []
@@ -164,6 +218,8 @@ def main() -> int:
         "params": {p.name: p.value for p in params},
         "subs": args.sub,
         "label": args.label,
+        "variant": VARIANT,
+        "budget_usd": budget,
         "bytes_estimated": est,
         "bytes_billed": billed,
         "usd": round(usd(billed), 4),

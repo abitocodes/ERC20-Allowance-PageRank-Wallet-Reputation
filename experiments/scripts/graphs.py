@@ -65,8 +65,10 @@ def score_all(g: Graphs, params: dict | None = None, methods: tuple[str, ...] | 
               isolated: np.ndarray | None = None) -> tuple[dict[str, pd.Series], dict[str, int]]:
     """Full score vectors (indexed by node id) and iteration counts.
 
-    ``isolated``: wallet ids added to every single-layer graph as isolated nodes
-    (the sensitivity rule); by default a wallet outside a graph is simply absent.
+    ``isolated``: wallet ids added as isolated nodes to every graph a wallet is
+    missing from, the single-layer ones and the coupled one (the sensitivity rule;
+    docs/revision_contract_graph.md section 11), but not S-PR's; by default a
+    wallet outside a graph is simply absent.
     """
     p = params or pagerank_params(load_config())
     want = set(methods or METHOD_LABELS)
@@ -98,10 +100,14 @@ def score_all(g: Graphs, params: dict | None = None, methods: tuple[str, ...] | 
     if "cpr_l0" in want:
         out["cpr_l0"], its["cpr_l0"] = weighted_pagerank(
             t["src"], t["dst"], t["w_raw"], extra_nodes=extra(t["src"], t["dst"]), **p)
+    coupled_extra = None  # the isolated wallets outside both layers, computed only when there are any
+    if isolated is not None and want & set(COUPLED):
+        coupled_extra = extra(np.concatenate([a["src"], t["src"]]), np.concatenate([a["dst"], t["dst"]]))
     for mid, lam in COUPLED.items():
         if mid in want:
             out[mid], its[mid] = coupled_pagerank(
-                [(a["src"], a["dst"], a["w_raw"], lam), (t["src"], t["dst"], t["w_raw"], 1.0 - lam)], **p)
+                [(a["src"], a["dst"], a["w_raw"], lam), (t["src"], t["dst"], t["w_raw"], 1.0 - lam)],
+                extra_nodes=coupled_extra, **p)
     if "spr" in want:
         out["spr"], its["spr"] = seeded_pagerank(t["src"], t["dst"], t["w_raw"], out["cpr_l100"], **p)
         its["spr"] += its["cpr_l100"]

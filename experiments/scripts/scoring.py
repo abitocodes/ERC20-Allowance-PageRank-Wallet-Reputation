@@ -3,6 +3,10 @@
 Node ids are int64 global ids into the node table. The semantics are those of
 the wallet-reputation pagerank.py and pagerank_variants.py; the matrix assembly
 is vectorised so that graphs with a few hundred million edges fit the solver.
+
+The walks take an optional warm start ``init`` (docs/discovery_protocol.md section 4): the
+previous scores on the nodes they cover, 1/n on the other nodes, renormalised. Without it the
+iteration starts from the uniform vector, as it always has.
 """
 
 from __future__ import annotations
@@ -207,6 +211,22 @@ def _teleport_vector(nodes: np.ndarray, teleport: Teleport) -> np.ndarray:
     return v / total
 
 
+def _start_vector(nodes: np.ndarray, init: pd.Series | None) -> np.ndarray | None:
+    """Warm start over ``nodes``: ``init`` where it has a value, 1/n elsewhere, renormalised.
+
+    None (and a vector without positive mass) leaves the cold start from the uniform vector.
+    """
+    if init is None:
+        return None
+    n = nodes.size
+    v = init.reindex(nodes).to_numpy(dtype=np.float64, na_value=np.nan)
+    v = np.where(np.isfinite(v) & (v >= 0), v, 1.0 / n)
+    total = v.sum()
+    if not total > 0:
+        return None
+    return v / total
+
+
 def _power_iterate(
     mats: list[sparse.csr_matrix],
     dangling: np.ndarray,
@@ -214,15 +234,22 @@ def _power_iterate(
     damping: float,
     tol: float,
     max_iter: int,
+    init: np.ndarray | None = None,
 ) -> tuple[np.ndarray, int]:
     """r <- (1-d) pi + d P^T r + d (dangling mass) pi, from uniform, until the L1 change is below tol.
 
-    ``mats`` holds P^T, or the per-layer parts of P^T whose sum is the mixed walk.
+    ``mats`` holds P^T, or the per-layer parts of P^T whose sum is the mixed walk. ``init``, a
+    distribution over the same positions, replaces the uniform start (a warm start).
     """
     n = teleport.size
     dangling_idx = np.flatnonzero(dangling)
     base = (1.0 - damping) * teleport
-    rank = np.full(n, 1.0 / n, dtype=np.float64)
+    if init is None:
+        rank = np.full(n, 1.0 / n, dtype=np.float64)
+    else:
+        rank = np.array(init, dtype=np.float64)
+        if rank.shape != (n,):
+            raise ValueError(f"init holds {rank.size} values for {n} nodes")
     tmp = np.empty(n, dtype=np.float64)
     iterations = 0
     for i in range(max_iter):
@@ -265,6 +292,7 @@ def weighted_pagerank(
     tol: float,
     max_iter: int,
     extra_nodes: Any = None,
+    init: pd.Series | None = None,
 ) -> tuple[pd.Series, int]:
     """Weighted PageRank (pagerank.weighted_pagerank on integer ids).
 
@@ -275,6 +303,7 @@ def weighted_pagerank(
     ``teleport`` (id -> non-negative mass) is normalised over the node set and
     uniform when None, empty or of zero mass there. Without a positive edge the
     result is empty, whatever ``extra_nodes`` holds, as in the reference.
+    ``init`` (scores by node id) is the warm start of _start_vector.
     Returns the score of every node (sums to 1) and the iterations run.
     """
     src, dst, w = _positive_edges(src, dst, w)
@@ -285,7 +314,8 @@ def weighted_pagerank(
     out, inv = _out_strength(s, w, n)
     pt = _transposed(s, d, w * inv[s], n)
     restart = _teleport_vector(nodes, teleport)
-    rank, iterations = _power_iterate([pt], ~(out > 0), restart, damping, tol, max_iter)
+    rank, iterations = _power_iterate([pt], ~(out > 0), restart, damping, tol, max_iter,
+                                      _start_vector(nodes, init))
     return _scores(nodes, rank), iterations
 
 
@@ -295,18 +325,23 @@ def coupled_pagerank(
     damping: float,
     tol: float,
     max_iter: int,
+    extra_nodes: Any = None,
+    init: pd.Series | None = None,
 ) -> tuple[pd.Series, int]:
     """PageRank on a per-node mixture of edge layers (pagerank.coupled_pagerank).
 
     ``layers`` holds (src, dst, w, layer_weight). A layer is active when its
     weight is positive and it has a positive edge; the node set is the union of
-    the end points of the active layers. The transition row of u is
+    the end points of the active layers, plus ``extra_nodes`` (isolated nodes, as
+    in weighted_pagerank; without an active layer the result is empty). The
+    transition row of u is
 
         P[u, .] = sum_l a_l(u) P_l[u, .],
         a_l(u) = weight_l 1[u has out-edges in l] / sum_k weight_k 1[u has out-edges in k],
 
     so a node with out-edges in one layer follows that layer alone, and a node
     without out-edges in any active layer is dangling. Restarts are uniform.
+    ``init`` (scores by node id) is the warm start of _start_vector.
     """
     active = []
     for src, dst, w, weight in layers:
@@ -318,7 +353,10 @@ def coupled_pagerank(
     if not active:
         return _empty_scores(), 0
 
-    nodes, local = _local_index([a for s, d, _, _ in active for a in (s, d)])
+    id_arrays = [a for s, d, _, _ in active for a in (s, d)]
+    if extra_nodes is not None:
+        id_arrays.append(_ids(extra_nodes))
+    nodes, local = _local_index(id_arrays)
     n = nodes.size
     strengths = []
     denom = np.zeros(n, dtype=np.float64)
@@ -338,7 +376,7 @@ def coupled_pagerank(
         mats.append(_transposed(s, d, w * inv[s] * alpha[s], n))
 
     restart = np.full(n, 1.0 / n, dtype=np.float64)
-    rank, iterations = _power_iterate(mats, ~pos, restart, damping, tol, max_iter)
+    rank, iterations = _power_iterate(mats, ~pos, restart, damping, tol, max_iter, _start_vector(nodes, init))
     return _scores(nodes, rank), iterations
 
 
@@ -351,14 +389,16 @@ def seeded_pagerank(
     damping: float,
     tol: float,
     max_iter: int,
+    init: pd.Series | None = None,
 ) -> tuple[pd.Series, int]:
     """S-PR: the transfer layer walked with restarts from C-PR(lambda = 1) (compute_hybrid_scores).
 
     ``allowance_scores`` are restricted to the transfer-layer nodes and
     renormalised; the restarts are uniform when they put no mass there.
+    ``init`` is the warm start of weighted_pagerank.
     """
     return weighted_pagerank(
-        src, dst, w, teleport=allowance_scores, damping=damping, tol=tol, max_iter=max_iter
+        src, dst, w, teleport=allowance_scores, damping=damping, tol=tol, max_iter=max_iter, init=init
     )
 
 

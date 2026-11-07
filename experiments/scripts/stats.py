@@ -67,6 +67,35 @@ def resample_matrix(n: int, n_boot: int, seed: int) -> np.ndarray:
     return np.random.default_rng(seed).integers(0, n, size=(n_boot, n))
 
 
+def paired_mean_contrast(a: Any, b: Any, idx: np.ndarray, ci: float = 0.95) -> dict[str, Any]:
+    """mean(a) - mean(b) over n paired items and its percentile interval over the rows of ``idx``.
+
+    ``a`` and ``b`` hold one value per item (e.g. the seed-averaged visit score of each hot
+    contract under two crawl orderings, docs/discovery_protocol.md section 6); row r of ``idx``
+    (resample_matrix(n, B, seed)) draws the items of resample r for both, so the contrast is
+    paired. share_positive is the share of resamples whose contrast is above 0. Without items
+    every value but n is None.
+    """
+    a = np.asarray(a, dtype=np.float64).ravel()
+    b = np.asarray(b, dtype=np.float64).ravel()
+    if a.size != b.size:
+        raise ValueError("a and b differ in length")
+    idx = np.asarray(idx)
+    if a.size == 0:
+        return {"point": None, "lo": None, "hi": None, "share_positive": None, "n": 0}
+    if idx.ndim != 2 or idx.shape[1] != a.size:
+        raise ValueError(f"idx must be B x {a.size}, not {idx.shape}")
+    delta = a[idx].mean(axis=1) - b[idx].mean(axis=1)
+    lo, hi = percentile_ci(delta, ci)
+    return {
+        "point": float(a.mean() - b.mean()),
+        "lo": lo,
+        "hi": hi,
+        "share_positive": float(np.mean(delta > 0)) if delta.size else None,
+        "n": int(a.size),
+    }
+
+
 def _dense_ranks(x: np.ndarray, mask: np.ndarray) -> np.ndarray:
     values, inverse = np.unique(x[mask], return_inverse=True)
     # 16-bit ranks let numpy's stable argsort inside kendalltau use radix sort (about twice as fast).

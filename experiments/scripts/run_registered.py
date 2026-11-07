@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import GRAPH, PROC, ROOT, W1_DIR, load_config, read_parts, save_json, write_parts  # noqa: E402
+from common import GRAPH, PROC, ROOT, TRADERS, W1_DIR, load_config, read_parts, save_json, write_parts  # noqa: E402
 from graphs import load_graphs, load_nodes, raw_degrees, score_all  # noqa: E402
 from labels import TRADER_LABELS, account_types, load_closes, strata_tau, trader_labels  # noqa: E402
 from scoring import pagerank_params, scores_on  # noqa: E402
@@ -144,6 +144,13 @@ def traders(closes, start, end, g, full, addr, kinds, min_closes) -> tuple[pd.Da
 
 
 def main() -> int:
+    if not TRADERS:
+        # docs/revision_contract_graph.md sections 2 and 11: the criteria on GMX V2 traders (F3, F4, F5, P, Q and
+        # R1-R3) are not applied in the contract-graph variant, and its Sensitivity 2 adds isolated nodes to the
+        # coupled graph as well; this evaluation computes both the registered way.
+        raise SystemExit("run_registered.py computes the trader criteria, which the contract-graph variant does not "
+                         "apply (docs/revision_contract_graph.md sections 2 and 11); its evaluation of F1, F2 and F6 "
+                         "is not written yet")
     cfg = load_config()
     if cfg["registered_window"].get("status") != "registered":
         raise SystemExit("W1 is not registered")
