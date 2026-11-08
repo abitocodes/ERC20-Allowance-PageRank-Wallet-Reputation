@@ -12,13 +12,17 @@ CONTRACT_REP_VARIANT=contract12m selects the analysis of docs/revision_contract_
 same windows: graphs whose nodes are contracts only, allowances capped at the owner's balance and
 the discovery-order test of docs/discovery_protocol.md. config/overlay_contract12m.yaml is merged
 over the configuration, the graph tables are read from graph-tables-contract-12m and every result
-is written under revised-contract-12m.
+is written under revised-contract-12m. Under contract12m every evaluation script refuses to run
+unless its code is committed without local changes (require_committed) and reads the gate B tables
+only as the driver's download step verified them (require_downloaded).
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import subprocess
 from pathlib import Path
 from typing import Iterable
 
@@ -284,3 +288,96 @@ def save_json(obj, path: Path) -> None:
 
 def load_json(path: Path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+# The files every evaluation script of the contract-graph variant needs committed without local changes, besides
+# itself and the project modules it imports (docs/revision_contract_graph.md section 12 and its gate B amendment of
+# section 13): the revision, the overlay, the base configuration and this module.
+EVAL_COMMITTED = ("docs/revision_contract_graph.md", "config/overlay_contract12m.yaml",
+                  "config/contract_reputation.yaml", "scripts/common.py")
+# The gate B steps of scripts/run_contract12m_pipeline.py in their order; the evaluation reads the gate B tables only
+# after the last run of download, which comes after the last run of every other one, and the last run of checks after
+# the last runs of the steps before it.
+GATE_B_STEPS = ("constants", "pairs", "rest", "checks", "download")
+
+
+def _git(*args: str) -> str:
+    """The output of a git command run in experiments/."""
+    return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+
+
+def sha256_file(path: Path) -> str:
+    """SHA-256 of the bytes of a file."""
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def rel_path(path: Path) -> str:
+    """``path`` relative to experiments/ when it lies there (messages and records), else as given."""
+    try:
+        return Path(path).resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(path)
+
+
+def part_sha256(stem: Path) -> dict[str, str]:
+    """SHA-256 of each parquet part of ``stem``, by file name (the record of the driver's download step)."""
+    return {p.name: sha256_file(p) for p in part_paths(stem)}
+
+
+def require_committed(*files: str) -> dict | None:
+    """Under contract12m, refuse unless EVAL_COMMITTED and ``files`` (paths relative to experiments/) are committed
+    without local changes, as scripts/run_discovery.py does for the crawls; return HEAD and their SHA-256 for the
+    output's provenance. Under every other variant return None at once: no git command runs."""
+    if not CONTRACT_GRAPH:
+        return None
+    rels = tuple(dict.fromkeys((*EVAL_COMMITTED, *files)))
+    bad = []
+    for rel in rels:
+        try:
+            ok = ((ROOT / rel).is_file() and not _git("status", "--porcelain", "--", rel)
+                  and bool(_git("log", "-1", "--format=%H", "--", rel)))
+        except (OSError, subprocess.CalledProcessError):
+            ok = False
+        if not ok:
+            bad.append(rel)
+    if bad:
+        raise SystemExit("refused: not committed without local changes: " + ", ".join(bad))
+    return {"head": _git("rev-parse", "HEAD"), "sha256": {rel: sha256_file(ROOT / rel) for rel in rels}}
+
+
+def require_downloaded(*stems: str) -> dict | None:
+    """Under contract12m, refuse unless the driver's run manifest (PROC/run_manifest.json) records a last run of
+    checks that passed (every invariant of sql/42 is 0) and comes after the last runs of constants, pairs and rest,
+    and a last run of download that passed and comes after the last run of every other gate B step, and unless the
+    parts of each stem under GRAPH are those the download step recorded (same files, same SHA-256); return {stem:
+    {part: SHA-256}}. Under every other variant return None at once: nothing is read."""
+    if not CONTRACT_GRAPH:
+        return None
+    path = PROC / "run_manifest.json"
+    rel = rel_path(path)
+    if not path.exists():
+        raise SystemExit(f"refused: {rel} is missing; the evaluation reads the gate B tables only after the checks "
+                         "and download steps of scripts/run_contract12m_pipeline.py")
+    m = load_json(path)
+    steps = m.get("steps") or []
+    last = {e.get("step"): i for i, e in enumerate(steps)}
+    for s in ("checks", "download"):
+        if s not in last or steps[last[s]].get("passed") is not True:
+            raise SystemExit(f"refused: {rel} records no last run of the step {s} that passed")
+    later = [s for s in GATE_B_STEPS[:-1] if last.get(s, -1) > last["download"]]
+    if later:
+        raise SystemExit(f"refused: {', '.join(later)} ran after the last download (in {rel}); run download again")
+    unchecked = [s for s in GATE_B_STEPS[:GATE_B_STEPS.index("checks")] if last.get(s, -1) > last["checks"]]
+    if unchecked:
+        raise SystemExit(f"refused: {', '.join(unchecked)} ran after the last checks (in {rel}); run checks and "
+                         "download again")
+    files = ((m.get("results") or {}).get("download") or {}).get("files") or {}
+    out = {}
+    for stem in stems:
+        want = (files.get(stem) or {}).get("sha256")
+        have = part_sha256(GRAPH / stem)
+        if not want or have != want:
+            raise SystemExit(f"refused: the parts of {GRAPH.name}/{stem} are not those the download step verified "
+                             f"({rel}, results.download.files.{stem})")
+        out[stem] = have
+    return out

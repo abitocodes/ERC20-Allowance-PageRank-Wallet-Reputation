@@ -8,6 +8,18 @@ the agreement of EndorseRank and AWP, the tie structure, the isolated-node
 sensitivity analysis, the damping sweep and the closed-form check of
 EndorseRank. Writes data/2-.../same-window/eval_summary.json and the cohort
 score table (parts).
+
+In the contract-graph variant (CONTRACT_REP_VARIANT=contract12m,
+docs/revision_contract_graph.md sections 8, 9 and 11) the script refuses to run
+unless it, the revision, the overlay, the base configuration and the project
+modules it imports are committed without local changes, and unless the gate B
+tables it reads are those the download step verified. It checks that every node
+is typed a contract, that the matched cohort is the contract members of the
+twelve-month cohort, and that the proxies come from the transfers between
+contracts; the summary also holds the members by class, the cohort's coverage
+of the contract graph, the size of the union graph, the comparisons repeated on
+the members inside the union graph (they decide no rule) and the provenance of
+the code and inputs, and the score table the column in_union_graph.
 """
 
 from __future__ import annotations
@@ -20,8 +32,11 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import GRAPH, PROC, load_config, read_parts, save_json, write_parts  # noqa: E402
-from graphs import METHOD_LABELS, load_graphs, load_nodes, raw_degrees, score_all  # noqa: E402
+from common import (CONTRACT_GRAPH, GRAPH, GRAPH_U12, PROC, load_config, part_sha256, read_parts,  # noqa: E402
+                    require_committed, require_downloaded, save_json, write_parts)
+from graphs import (METHOD_LABELS, in_union_graph, load_graphs, load_nodes, member_coverage, raw_degrees,  # noqa: E402
+                    score_all, union_pairs, union_sizes)
+from labels import UNION_NOTE, assert_contract_only, contract_members  # noqa: E402
 from scoring import pagerank_params, scores_on  # noqa: E402
 from stats import PairedBootstrap, kendall_tau_b, spearman  # noqa: E402
 
@@ -51,6 +66,13 @@ CONTRASTS = [
     ("AWP sybil minus EndorseRank sybil", ("awp", "sybil_stability"), ("endorserank", "sybil_stability"), "er_awp"),
     ("EndorseRank in-approve degree minus EndorseRank in-degree", ("endorserank", "in_approve_degree"), ("endorserank", "in_degree"), "er_awp"),
 ]
+# contract12m: the files this script needs committed besides common.EVAL_COMMITTED, and the tables it reads.
+COMMITTED_FILES = ("scripts/run_same_window.py", "scripts/graphs.py", "scripts/scoring.py", "scripts/stats.py",
+                   "scripts/labels.py")
+GRAPH_STEMS = ("nodes", "allow_pairs_tobs", "transfer_pairs_tobs", "proxies_tobs", "members")
+U12_STEMS = ("cohort",)
+PROXY_COLUMNS = ("in_degree", "in_value", "inbound_counterparty_ratio", "transfer_tenure_days", "active_months",
+                 "inbound_tx", "inbound_unique")
 
 
 def tie_profile(x: np.ndarray) -> dict:
@@ -114,14 +136,101 @@ def closed_form(allow: pd.DataFrame, scores: pd.Series, spender_ids: np.ndarray,
     }
 
 
+def _wallets(wallets, k: int = 3) -> str:
+    """Up to ``k`` wallets for a refusal message."""
+    return ", ".join(str(w) for w in list(wallets)[:k])
+
+
+def check_contract_proxies(prox: pd.DataFrame, cohort: pd.DataFrame, transfer: pd.DataFrame) -> None:
+    """contract12m: refuse unless proxies_tobs holds one row per member of the matched cohort and no other, every
+    value finite, and its in-degree, inbound transfers and inbound senders are those of the transfer pairs between
+    contracts at T_obs (both come from the transfers of c12_events_cc in the T_obs score window with a US-dollar
+    value). A refusal names up to three of the members concerned."""
+    wallets = prox["wallet"].astype(str)
+    members = set(cohort["address"].astype(str))
+    have = set(wallets)
+    if wallets.duplicated().any() or have != members:
+        missing = sorted(members - have)[:3]
+        extra = sorted((have - members) | set(wallets[wallets.duplicated()]))[:3]
+        raise SystemExit("refused: proxies_tobs must hold exactly one row per member of the matched cohort "
+                         f"(missing {missing}, extra {extra}) (job 42 proxies_rows)")
+    finite = np.isfinite(prox[list(PROXY_COLUMNS)].to_numpy(dtype=np.float64)).all(axis=1)
+    if not finite.all():
+        raise SystemExit(f"refused: proxies_tobs holds a missing or non-finite value for {int((~finite).sum())} "
+                         f"member(s) ({_wallets(sorted(wallets[~finite]))})")
+    ids = cohort["id"].to_numpy(np.int64)
+    got = prox.assign(id=wallets.map(cohort.set_index(cohort["address"].astype(str))["id"])).set_index("id")
+    t = transfer.loc[transfer["dst"].isin(ids), ["src", "dst", "n_transfers"]]
+    other = t[t["src"] != t["dst"]]
+    expect = pd.DataFrame({"in_degree": t.groupby("dst").size(),
+                           "inbound_tx": other.groupby("dst")["n_transfers"].sum(),
+                           "inbound_unique": other.groupby("dst").size()}).reindex(ids).fillna(0).astype(np.int64)
+    off = (got.loc[ids, list(expect.columns)].astype(np.int64).to_numpy() != expect.to_numpy()).any(axis=1)
+    if off.any():
+        raise SystemExit(f"refused: proxies_tobs disagrees with transfer_pairs_tobs for {int(off.sum())} member(s) "
+                         f"({_wallets(cohort['address'].astype(str).to_numpy()[off])}) on in_degree, inbound_tx or "
+                         "inbound_unique; the proxies must come from the transfers between contracts of the T_obs "
+                         "score window (docs/revision_contract_graph.md section 9)")
+
+
+def secondary_numbers(families: dict) -> dict:
+    """The numbers of rule A's secondary part without its verdicts (on transfer and allowance the better layer, its
+    interval and C-PR's family mean; on Sybil stability the three family means), for a sensitivity that decides no
+    rule; None for a family whose means are missing."""
+    out = {}
+    for fam in ("transfer", "allowance"):
+        tau = {m: (families[m][fam] or {}).get("mean_tau") for m in ("cpr_l100", "cpr_l0", "cpr_l50")}
+        if any(v is None for v in tau.values()):
+            out[fam] = None
+            continue
+        best = max(("cpr_l100", "cpr_l0"), key=lambda m: tau[m])
+        ci = families[best][fam]
+        out[fam] = {"best_layer": best, "best_ci": [ci["ci_low"], ci["ci_high"]], "cpr": tau["cpr_l50"]}
+    out["sybil_stability"] = {m: (families[m]["sybil_stability"] or {}).get("mean_tau")
+                              for m in ("cpr_l50", "cpr_l100", "cpr_l0")}
+    return out
+
+
+def union_sensitivity(S: pd.DataFrame, P: pd.DataFrame, inside: np.ndarray, cfg: dict) -> dict:
+    """The comparisons of the matched cohort repeated on its members inside the union graph (revision section 8):
+    per-proxy τ, family means, the contrasts and the numbers of rule A's secondary part, on the same full-graph
+    scores with a bootstrap of the subset; it decides no rule."""
+    n = int(inside.sum())
+    Si, Pi = S.loc[inside], P.loc[inside]
+    b = PairedBootstrap(n, cfg["alignment"]["bootstrap_resamples"], cfg["alignment"]["bootstrap_seed"])
+    for m in Si:
+        b.add(m, Si[m])
+    for p in Pi:
+        b.add(p, Pi[p])
+    proxies = [p for f in FAMILIES.values() for p in f]
+    b.prefetch([(m, p) for m in Si for p in proxies], workers=8)
+    families = {m: {f: b.family(m, labels) for f, labels in FAMILIES.items()} for m in Si}
+    contrasts = []
+    for label, a, c, group in CONTRASTS:
+        r = b.contrast((a[0], FAMILIES.get(a[1], a[1])), (c[0], FAMILIES.get(c[1], c[1])))
+        contrasts.append({"label": label, "a": a, "b": c, "group": group, **(r or {})})
+    return {"n": n, "share": (n / inside.size) if inside.size else None, "note": UNION_NOTE,
+            "per_proxy": {m: {p: {**b.tau(m, p), "spearman_rho": spearman(Si[m], Pi[p])} for p in proxies}
+                          for m in Si},
+            "families": families, "contrasts": contrasts, "rule_a_secondary_numbers": secondary_numbers(families)}
+
+
 def main() -> int:
+    if CONTRACT_GRAPH:
+        prov = require_committed(*COMMITTED_FILES)
+        inputs = require_downloaded(*GRAPH_STEMS)
     cfg = load_config()
     params = pagerank_params(cfg)
     nodes = load_nodes()
     cohort = nodes.loc[nodes["is_cohort"], ["id", "address"]].sort_values("id")
     ids = cohort["id"].to_numpy(np.int64)
+    if CONTRACT_GRAPH:
+        typed = assert_contract_only(nodes, cfg)
+        _, counts = contract_members("cohort_tobs", nodes)
     g = load_graphs("tobs")
     print(f"cohort {len(ids):,}; allowance edges {len(g.allow):,}; transfer edges {len(g.transfer):,}", flush=True)
+    if CONTRACT_GRAPH:
+        check_contract_proxies(read_parts(GRAPH / "proxies_tobs"), cohort, g.transfer)
 
     full, iters = score_all(g, params)
     S = pd.DataFrame({m: scores_on(ids, s).to_numpy() for m, s in full.items()}, index=ids)
@@ -215,8 +324,25 @@ def main() -> int:
         "closed_form": closed_form(g.allow, full["endorserank"], ids, params["damping"]),
         "methods": METHOD_LABELS,
     }
+    if CONTRACT_GRAPH:
+        union = union_pairs(g)
+        inside = in_union_graph(g, ids, union)
+        summary.update({
+            "members": {"cohort_tobs": counts},
+            "cohort_coverage": {"cohort_tobs": member_coverage(g, ids, union)},
+            "union_graph": union_sizes(union),
+            "in_union_graph": union_sensitivity(S, P, inside, cfg),
+            "contract_only": typed,
+            "provenance": {**prov, "inputs": inputs,
+                           "inputs_twelve_month": {s: part_sha256(GRAPH_U12 / s) for s in U12_STEMS}},
+        })
     save_json(summary, OUT / "eval_summary.json")
-    write_parts(pd.concat([S, P], axis=1).reset_index().rename(columns={"index": "id"}), OUT / "cohort_scores")
+    if CONTRACT_GRAPH:
+        scores = pd.concat([S, P], axis=1)
+        scores["in_union_graph"] = inside
+        write_parts(scores.reset_index().rename(columns={"index": "id"}), OUT / "cohort_scores")
+    else:
+        write_parts(pd.concat([S, P], axis=1).reset_index().rename(columns={"index": "id"}), OUT / "cohort_scores")
     print("written", OUT / "eval_summary.json")
     return 0
 

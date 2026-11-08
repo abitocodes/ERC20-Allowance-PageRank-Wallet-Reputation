@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, REVISED, W1_DIR, load_config, read_parts, save_json  # noqa: E402
+from common import CONTRACT_GRAPH, PROC, REVISED, W1_DIR, load_config, read_parts, save_json  # noqa: E402
 from stats import PairedBootstrap  # noqa: E402
 
 APPR, SEND, LIQ = "future_new_approvers", "future_new_transfer_senders", "liquidation_free_rate"
@@ -103,6 +103,10 @@ def run_same(frame, cfg):
 
 
 def main() -> int:
+    if CONTRACT_GRAPH:
+        raise SystemExit("refused: run_supplementary.py has no branch for the contract-graph variant yet "
+                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
+                         "is written")
     cfg = load_config()
     w0 = read_parts(PROC / "holdout-w0" / "spender_scores")
     w1 = read_parts(PROC / W1_DIR / "spender_scores")

@@ -22,7 +22,8 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import BQ_PREFIX, ONE_YEAR, PROC, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS, load_config, save_json  # noqa: E402
+from common import (BQ_PREFIX, CONTRACT_GRAPH, ONE_YEAR, PROC, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS,  # noqa: E402
+                    load_config, save_json)
 from labels import load_closes  # noqa: E402
 
 
@@ -144,6 +145,10 @@ def revised_amounts(ds: str) -> dict:
 
 
 def main() -> int:
+    if CONTRACT_GRAPH:
+        raise SystemExit("refused: describe_data.py has no branch for the contract-graph variant yet "
+                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
+                         "is written")
     cfg = load_config()
     ds = f"{cfg['bigquery']['project_id']}.{cfg['bigquery']['dataset']}"
     if REVISED:

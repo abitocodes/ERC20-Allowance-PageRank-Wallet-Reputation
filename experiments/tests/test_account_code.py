@@ -1176,7 +1176,8 @@ def test_a_resume_needs_the_same_script_rules_and_addresses(tmp_path, chain, cfg
     script.write_bytes(cac.SCRIPT.read_bytes() + b"\n# changed\n")
     monkeypatch.setattr(cac, "SCRIPT", script)
     refused("with another version of check_account_code.py")
-    script.write_bytes(cac.SCRIPT.read_bytes().replace(b"\n# changed\n", b"").replace(b"\n", b"\r\n"))
+    text = cac.SCRIPT.read_bytes().replace(b"\n# changed\n", b"")    # the checkout's line endings, LF or CRLF
+    script.write_bytes(text.replace(b"\r\n", b"\n") if b"\r\n" in text else text.replace(b"\n", b"\r\n"))
     assert run(inp, stem, *flags) == 0                                # line endings alone change nothing
     # A fresh output under the amended rules types the account as a smart account.
     config[0] = amended

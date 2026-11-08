@@ -155,4 +155,30 @@ The breadth-first order does not depend on ρ, and the random order does not use
 
 ## Protocol fixed
 
-(Added at gate B: the date, the path and SHA-256 of `feasibility_t1.json`, |U|, |E_U|, |WCC|, |E_WCC|, the values of ρ, q and the primary mode set by section 7, and an author's decision with its reasons when the run goes on after a stop of section 7 or a refusal of section 8.)
+Fixed on 9 November 2026 at gate B, from the structure pilot that the step `structure` wrote after the amendment of 9 November 2026 of `docs/revision_contract_graph.md` (section 13, the extension of the smart-account rule). The pilot counted |U| = 332,396, |E_U| = 1,283,946, |WCC| = 1,015,867 and |E_WCC| = 2,121,895. It set the stop flag `few_capped_allowance_in_edges` of section 7 and no other: 0.54% of SCC ∪ OUT has a capped allowance in-edge, against the threshold of 5%. The author decided to go on. The reasons:
+
+- no change that this protocol or the revision allows lifts the stop: the share stays below 5% with the extension of the smart-account rule and also with uncapped allowances (1.70%: 7,467 of the 440,172 contracts of SCC ∪ OUT have an uncapped allowance in-edge, in a recount of the structure table of the pilot of 8 November 2026, which is kept in `data/1-raw-blockchain-extracts/graph-tables-contract-12m/first_pilot_2026-11-08/`);
+- the test is the only direct test of the question of section 1;
+- the decision was taken before any weight, constant, importance, score or crawl of the revision existed;
+- it covers that flag only (`decision_covers`), so every other refusal of section 8 stays, and the part of the allowance layer in the result is read from the contrasts that section 6 reports in its fixed order, outside the decision.
+
+ρ, q and the primary mode are the values that the rules of section 7 set from the pilot's sizes.
+
+```json
+{
+  "date": "2026-11-09",
+  "feasibility": "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json",
+  "sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+  "U": 332396,
+  "E_U": 1283946,
+  "WCC": 1015867,
+  "E_WCC": 2121895,
+  "rho": 0.02,
+  "q": 0.01,
+  "primary_mode": "both",
+  "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+  "decision_covers": [
+    "few_capped_allowance_in_edges"
+  ]
+}
+```

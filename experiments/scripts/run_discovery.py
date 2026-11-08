@@ -33,7 +33,9 @@ any other variant is refused.
       the hot sets, runs every crawl over (seed, ordering) tasks in --workers processes (default
       1; the results do not depend on it), checks the invariants (every crawl visits U; the final
       walk of each walk crawl equals the scoring function on G restricted to U within 1e-9) and
-      writes revised-contract-12m/discovery/discovery_{tag}_{mode}.json with the parquet parts
+      writes revised-contract-12m/discovery/discovery_{tag}_{mode}.json (among its sizes the numbers
+      of nodes of G in sizes.graph.g_nodes, of its contracts with a union pair in sizes.graph.nodes
+      and of its union pairs in sizes.graph.edges, and those of U) with the parquet parts
       discovery_{tag}_{mode}_hot_visits (visit index of every hot contract for every seed and
       ordering) and discovery_{tag}_{mode}_hot_sets (membership). Only the run of T_obs in the
       primary mode decides (protocol section 6; "decides": true): the other files report the same
@@ -65,10 +67,17 @@ and q are JSON numbers (or decimal strings) read as the decimal fractions they a
 when the run goes on after a refusal of protocol section 8 (a pilot output whose hash differs from the
 pinned one, a pilot on other files, settings, inputs or code, or a t1 graph whose sizes differ from the
 pilot's) or after a stop flag of section 7 does the object carry one more key, "author_decision" (a
-non-empty string). rho, q and primary_mode are still the values the rules set, except that the author
-chooses rho (0 < rho <= 1) when no rho is within the budget. Before any crawl, the t1 graph of the
-gate B tables must have the sizes the pilot fixed (job 35 counts the same pairs), or the run stops
-unless the author decided.
+non-empty string). Such a decision passes all of these. A decision that is to pass the stop alone
+also carries "decision_covers": a non-empty list of distinct stop flags of section 7
+(no_rho_within_budget, few_capped_allowance_edges, few_capped_allowance_in_edges). The pilot may then
+have stopped only by flags of that list, as it recorded them and as the rules set them from its own
+counts. Every other condition above holds as without a decision. decision_covers without
+author_decision refuses the run, as does any other key. rho, q and primary_mode are still the values
+the rules set, except that the author chooses rho (0 < rho <= 1) when no rho is within the budget
+(with decision_covers, only when it names no_rho_within_budget). Before any crawl, the t1 graph of
+the gate B tables must have the sizes the pilot fixed (job 35 counts the same pairs), or the run
+stops unless the author decided without decision_covers. The protocol record of each main-run output
+holds author_decision and decision_covers (null when absent).
 """
 
 from __future__ import annotations
@@ -126,6 +135,9 @@ TYPE_COLUMNS = ("address", "account_class", "wallet_kind", "proxy_kind", "code_h
 TYPE_KINDS = ("account_class", "wallet_kind", "proxy_kind")
 TOP_FAMILIES = 50
 FIXED_KEYS = ("date", "feasibility", "sha256", "U", "E_U", "WCC", "E_WCC", "rho", "q", "primary_mode")
+# The stop flags of protocol section 7, named as crawl.rules names them. decision_covers in 'Protocol fixed' lists
+# those an author's decision passes.
+STOP_FLAGS = ("no_rho_within_budget", "few_capped_allowance_edges", "few_capped_allowance_in_edges")
 FINAL_TOLERANCE = 1e-9
 IMPORTANCES = ("i_t", "i_a")
 TARGET = {"i_t": "user-account inflow", "i_a": "user-authorised value"}
@@ -220,7 +232,7 @@ def pilot_counts(pilot: dict[str, Any]) -> dict[str, Any] | None:
 
 def check_fixed(block: dict | None, feasibility: Path = FEASIBILITY, root: Path = ROOT,
                 discovery: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Validate the Protocol fixed object against the pilot output; return rho, q and the primary mode.
+    """Validate the Protocol fixed object against the pilot output; return rho, q, the primary mode and the decision.
 
     rho, q and the primary mode must be the values that the rules of protocol section 7, as this code applies them
     with ``discovery`` (cfg["discovery"] of this run), set from the pilot's sizes, with or without an
@@ -229,13 +241,14 @@ def check_fixed(block: dict | None, feasibility: Path = FEASIBILITY, root: Path 
     not the pinned one, a pilot that set a stop flag (as recorded, or as the rules set it from the pilot's own
     counts), a pilot that ran on files that were not committed or with other discovery settings, a pilot whose
     recorded rule inputs are not its own counts, and a pilot whose recorded rules the rules of this code do not
-    give from those inputs (the pilot of other code)."""
+    give from those inputs (the pilot of other code). With decision_covers, the author_decision passes the stop
+    alone: the pilot may have stopped only by the flags that decision_covers lists, and every other refusal stays."""
     if block is None:
         raise SystemExit("refused: docs/discovery_protocol.md has no filled section 'Protocol fixed' "
                          "(a json block, see the docstring of run_discovery.py)")
     keys = set(block)
     missing = sorted(set(FIXED_KEYS) - keys)
-    extra = sorted(keys - set(FIXED_KEYS) - {"author_decision"})
+    extra = sorted(keys - set(FIXED_KEYS) - {"author_decision", "decision_covers"})
     if missing or extra:
         raise SystemExit(f"refused: 'Protocol fixed' lacks {missing} or has unknown keys {extra}")
     try:
@@ -245,6 +258,19 @@ def check_fixed(block: dict | None, feasibility: Path = FEASIBILITY, root: Path 
     decision = block.get("author_decision")
     if decision is not None and not (isinstance(decision, str) and decision.strip()):
         raise SystemExit("refused: author_decision must be a non-empty string")
+    covers = block.get("decision_covers")
+    if "decision_covers" in block:
+        if decision is None:
+            raise SystemExit("refused: decision_covers goes only with an author_decision")
+        if not (isinstance(covers, list) and covers and all(isinstance(f, str) for f in covers)
+                and len(set(covers)) == len(covers) and set(covers) <= set(STOP_FLAGS)):
+            raise SystemExit("refused: decision_covers must be a non-empty list of distinct stop flags of protocol "
+                             f"section 7 ({', '.join(STOP_FLAGS)}), not {covers!r}")
+    # An author_decision without decision_covers passes every refusal below. With decision_covers it passes only the
+    # stop by the flags it lists, and the pilot is checked as without a decision.
+    passes_all = decision is not None and covers is None
+    then = ("only an author_decision goes on" if covers is None
+            else "the author_decision covers only the stop flags " + ", ".join(covers))
     expected = Path(feasibility).resolve().relative_to(Path(root).resolve()).as_posix()
     if block["feasibility"] != expected:
         raise SystemExit(f"refused: 'Protocol fixed' must name {expected}, not {block['feasibility']}")
@@ -252,8 +278,9 @@ def check_fixed(block: dict | None, feasibility: Path = FEASIBILITY, root: Path 
         raise SystemExit(f"refused: {expected} is missing")
     pinned, actual = str(block["sha256"]).lower(), sha256_file(feasibility)
     if pinned != actual:
-        if decision is None:
-            raise SystemExit(f"refused: the SHA-256 in 'Protocol fixed' does not match {expected}")
+        if not passes_all:
+            raise SystemExit(f"refused: the SHA-256 in 'Protocol fixed' does not match {expected}"
+                             + ("" if decision is None else f"; {then}"))
         print(f"warning: the SHA-256 in 'Protocol fixed' does not match {expected} (author_decision: {decision})")
     pilot = common.load_json(feasibility)
     sizes = pilot.get("sizes")
@@ -293,6 +320,19 @@ def check_fixed(block: dict | None, feasibility: Path = FEASIBILITY, root: Path 
                 or expected["stopped"]):
             raise SystemExit("refused: the structure pilot stopped the run, or records no rules or no counts for "
                              "its stop flags; only an author_decision goes on")
+    elif covers is not None:
+        # The stop that decision_covers must list: the flags the pilot recorded and the flags the rules set from its
+        # own counts. A recorded flag that is not false counts as set.
+        recorded = rules.get("stop") if isinstance(rules, dict) else None
+        if not isinstance(recorded, dict) or counts is None:
+            raise SystemExit("refused: the structure pilot records no stop flags or no counts for them, so its stop "
+                             f"cannot be compared with decision_covers; {then}")
+        flags = {k for k, v in recorded.items() if v is not False} | {k for k, v in expected["stop"].items() if v}
+        uncovered = sorted(flags - set(covers))
+        if uncovered:
+            raise SystemExit("refused: the structure pilot stopped the run by stop flags that decision_covers does "
+                             f"not list ({', '.join(uncovered)}); {then}")
+    if not passes_all:
         # The rules are those of committed code and of the settings the main runs use. A file of COMMITTED that
         # the pilot's record lacks counts as not committed, as in the driver's structure step.
         state = (pilot.get("code") or {}).get("committed") or {}
@@ -300,23 +340,23 @@ def check_fixed(block: dict | None, feasibility: Path = FEASIBILITY, root: Path 
                        | ({rel for rel in COMMITTED if rel not in state} if state else set()))
         if not state or dirty:
             raise SystemExit("refused: the structure pilot did not run on committed files "
-                             f"({', '.join(dirty) or 'no record'}); only an author_decision goes on")
+                             f"({', '.join(dirty) or 'no record'}); {then}")
         if discovery is None or json.loads(json.dumps(_clean(discovery))) != pilot.get("discovery_config"):
-            raise SystemExit("refused: the discovery settings differ from those the structure pilot ran with; only "
-                             "an author_decision goes on")
+            raise SystemExit(f"refused: the discovery settings differ from those the structure pilot ran with; {then}")
         # The pilot's rules must be those of this code: computed again from the counts the pilot recorded.
         inputs = pilot.get("rule_inputs")
         if not isinstance(inputs, dict) or any(inputs.get(k) != v for k, v in counts.items()):
             raise SystemExit("refused: the structure pilot records no rule inputs, or rule inputs other than its "
                              "own counts (its sizes, capped allowance edges and capped allowance in-edge share); "
-                             "only an author_decision goes on")
+                             f"{then}")
         if json.loads(json.dumps(_clean(crawl.rules(inputs, discovery)))) != rules:
             raise SystemExit("refused: the rules of this code give other values than the structure pilot recorded "
-                             "from the same inputs, so the pilot ran other code; only an author_decision goes on")
+                             f"from the same inputs, so the pilot ran other code; {then}")
     if not (0 < rho <= 1 and 0 < q <= 1 and block["primary_mode"] in crawl.MODES):
         raise SystemExit("refused: rho and q must lie in (0, 1] and the mode be out or both")
     return {"date": str(block["date"]), "rho": rho, "q": q, "primary_mode": block["primary_mode"],
-            "author_decision": decision, "feasibility_sha256": actual, "pinned_sha256": pinned,
+            "author_decision": decision, "decision_covers": None if covers is None else list(covers),
+            "feasibility_sha256": actual, "pinned_sha256": pinned,
             "sizes": {k: int(block[k]) for k in ("U", "E_U", "WCC", "E_WCC")}}
 
 
@@ -890,13 +930,17 @@ def graph_sizes(tag: str) -> dict[str, Any]:
 
 def match_pilot(sizes: dict[str, Any], fixed: dict[str, Any]) -> dict[str, bool]:
     """Compare the t1 graph with the sizes the structure pilot fixed: job 35 counts the same pairs as the gate B
-    tables, so they must agree; a difference stops the run unless 'Protocol fixed' carries an author_decision."""
+    tables, so they must agree; a difference stops the run unless 'Protocol fixed' carries an author_decision
+    without decision_covers (a decision that passes only the stop of protocol section 7 does not pass it)."""
     pilot = fixed.get("sizes") or {}
     match = {k: int(sizes[k]) == int(v) for k, v in pilot.items()}
     if not all(match.values()):
         msg = f"the t1 graph differs from the structure pilot: {pilot} against { {k: sizes[k] for k in pilot} }"
         if not fixed.get("author_decision"):
             raise SystemExit(f"refused: {msg}; only an author_decision in 'Protocol fixed' goes on")
+        if fixed.get("decision_covers") is not None:
+            raise SystemExit(f"refused: {msg}; the author_decision in 'Protocol fixed' covers only the stop flags "
+                             + ", ".join(map(str, fixed["decision_covers"])))
         print(f"warning: {msg} (author_decision: {fixed['author_decision']})")
     return match
 
@@ -1125,11 +1169,12 @@ def run_window(tag: str, mode: str, fixed: dict[str, Any], provenance: dict[str,
         "window": tag, "mode": mode, "primary_mode": fixed["primary_mode"], "is_primary": primary, "decides": decides,
         "created_at": now(), "seconds": round(time.perf_counter() - started, 1), "workers": workers,
         "protocol": {**{k: fixed[k] for k in ("date", "rho", "q", "author_decision", "feasibility_sha256")},
+                     "decision_covers": fixed.get("decision_covers"),
                      "rho_float": float(rho), "rho_quarter": str(rho4) if primary else None,
                      "q_secondary": float(q2), "x": x_all, "solver": params,
                      "bootstrap": {"resamples": int(al["bootstrap_resamples"]), "seed": int(al["bootstrap_seed"])}},
         "provenance": provenance,
-        "sizes": {"graph": {"nodes": full.n, "allow_pairs": full.allow.size, "transfer_pairs": full.transfer.size,
+        "sizes": {"graph": {"g_nodes": full.n, "allow_pairs": full.allow.size, "transfer_pairs": full.transfer.size,
                             **sizes},
                   "universe": {"U": n, "E_U": int(gu.union_src.size), "allow_pairs": gu.allow.size,
                                "transfer_pairs": gu.transfer.size},
@@ -1192,7 +1237,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     fixed = check_fixed(protocol_fixed(PROTOCOL), FEASIBILITY, ROOT, cfg.get("discovery"))
     provenance = committed(COMMITTED, ROOT)
     provenance["feasibility_sha256"] = fixed["feasibility_sha256"]
-    provenance["pinned_sha256"] = fixed.get("pinned_sha256")   # differs from it only by an author's decision
+    # The two hashes differ only by an author's decision without decision_covers.
+    provenance["pinned_sha256"] = fixed.get("pinned_sha256")
     # Before any crawl, at either freeze: the rules were set on the t1 pilot, so the t1 graph must be its graph.
     match_pilot(graph_sizes("t1"), fixed)
     windows = [args.window] if args.window else list(crawl.FREEZES)

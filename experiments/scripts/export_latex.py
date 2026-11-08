@@ -28,8 +28,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import (ONE_YEAR, PROC, PROC_SHARED, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS, W1_DIR,  # noqa: E402
-                    load_config, load_json, read_parts)
+from common import (CONTRACT_GRAPH, ONE_YEAR, PROC, PROC_SHARED, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS,  # noqa: E402
+                    W1_DIR, load_config, load_json, read_parts)
 from graphs import METHOD_LABELS  # noqa: E402
 from labels import TRADER_LABELS  # noqa: E402
 from run_same_window import FAMILIES as FAMILY_PROXIES  # noqa: E402
@@ -1959,6 +1959,10 @@ def _load(key: str, override: Path | None = None) -> dict | None:
 
 
 def main() -> int:
+    if CONTRACT_GRAPH:
+        raise SystemExit("refused: export_latex.py has no branch for the contract-graph variant yet "
+                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
+                         "is written")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--tables-dir", type=Path, help="output folder for the .tex tables")
     ap.add_argument("--figures-dir", type=Path, help="output folder for the .pdf figures")

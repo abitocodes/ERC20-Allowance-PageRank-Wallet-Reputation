@@ -22,7 +22,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import ONE_YEAR, PROC, PROC_SHARED, PUB, REVISED, ROOT, USD_CONSTANTS, USD_INPUTS, W1_DIR  # noqa: E402
+from common import (CONTRACT_GRAPH, ONE_YEAR, PROC, PROC_SHARED, PUB, REVISED, ROOT, USD_CONSTANTS,  # noqa: E402
+                    USD_INPUTS, W1_DIR)
 
 W1_SRC = f"{W1_DIR}/eval_summary.json"
 # (published path, source)
@@ -651,6 +652,10 @@ def uncommitted_code() -> list[str]:
 
 
 def main() -> int:
+    if CONTRACT_GRAPH:
+        raise SystemExit("refused: publish_results.py has no branch for the contract-graph variant yet "
+                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
+                         "is written")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", type=Path, help="publish into this folder instead (verification runs)")
     pub = ap.parse_args().out or PUB

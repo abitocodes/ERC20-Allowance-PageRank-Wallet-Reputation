@@ -3,6 +3,7 @@ scoring.py and stats.py, on toy graphs."""
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import importlib.util
 import json
@@ -16,9 +17,13 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 import pytest
 import yaml
 from conftest import CONFIG_PATH, EXPERIMENTS, SCRIPTS
+
+import c12_world
 
 import common
 import crawl
@@ -984,6 +989,111 @@ def test_the_pilot_must_be_that_of_this_code_and_its_values_those_of_the_rules(t
         rd.check_fixed({**decided, "q": 0.05}, feas, tmp_path, dcfg)
 
 
+# The stop-only decision of the gate B amendment (revision section 13, decided on 9 November 2026): an author's
+# decision that passes the stop by few_capped_allowance_in_edges and nothing else.
+STOP_ONLY = {"author_decision": "too few capped allowance in-edges; the test goes on (revision section 13)",
+             "decision_covers": ["few_capped_allowance_in_edges"]}
+FEW_IN = {**BIG, "allow_in_share": 0.0054}  # sets the stop flag few_capped_allowance_in_edges and no other
+COVERS_IN = "; the author_decision covers only the stop flags few_capped_allowance_in_edges"
+
+
+def test_a_stop_only_decision_passes_the_stop_it_lists_and_nothing_else(tmp_path, dcfg, capsys):
+    # With decision_covers an author_decision passes the stop of protocol section 7 by the flags it lists. Every
+    # other refusal of protocol section 8 stays as without a decision.
+    assert list(crawl.rules(BIG, dcfg)["stop"]) == list(rd.STOP_FLAGS)  # the flags of section 7, as crawl names them
+    rules = json.loads(json.dumps(rd._clean(crawl.rules(FEW_IN, dcfg))))
+    assert [k for k, v in rules["stop"].items() if v] == ["few_capped_allowance_in_edges"]
+    block, feas = fixed_setup(tmp_path, dcfg, inputs=FEW_IN)
+    with pytest.raises(SystemExit, match="refused: the structure pilot stopped the run"):
+        rd.check_fixed(block, feas, tmp_path, dcfg)
+    ok = rd.check_fixed({**block, **STOP_ONLY}, feas, tmp_path, dcfg)
+    assert (ok["rho"], ok["q"], ok["primary_mode"]) == (Fraction(1, 100), Fraction(1, 100), "out")
+    assert (ok["author_decision"], ok["decision_covers"]) == (STOP_ONLY["author_decision"],
+                                                              ["few_capped_allowance_in_edges"])
+    assert ok["pinned_sha256"] == ok["feasibility_sha256"] == block["sha256"]
+    # The object as 'Protocol fixed' holds it (a JSON list) reads back the same.
+    assert rd.protocol_fixed(protocol_copy(tmp_path / "f.md", {**block, **STOP_ONLY})) == {**block, **STOP_ONLY}
+    # rho, q and the mode are still those of the rules.
+    for bad in ({"rho": 0.02}, {"q": 0.05}, {"primary_mode": "both"}):
+        with pytest.raises(SystemExit, match="differ from the values that the rules"):
+            rd.check_fixed({**block, **STOP_ONLY, **bad}, feas, tmp_path, dcfg)
+    # Without decision_covers the decision keeps its meaning, and the result lists no flags.
+    assert rd.check_fixed({**block, "author_decision": "go on"}, feas, tmp_path, dcfg)["decision_covers"] is None
+
+    # A stop flag that decision_covers does not list refuses: as the pilot recorded it ...
+    both = {**STOP_ONLY, "decision_covers": ["few_capped_allowance_in_edges", "few_capped_allowance_edges"]}
+    block, feas = fixed_setup(tmp_path, dcfg, inputs={**FEW_IN, "allow_capped_edges": 100})
+    with pytest.raises(SystemExit, match=r"^refused: the structure pilot stopped the run by stop flags that "
+                                         r"decision_covers does not list \(few_capped_allowance_edges\)" + COVERS_IN
+                                         + "$"):
+        rd.check_fixed({**block, **STOP_ONLY}, feas, tmp_path, dcfg)
+    assert rd.check_fixed({**block, **both}, feas, tmp_path, dcfg)["decision_covers"] == both["decision_covers"]
+    stray = {"rules": {**rules, "stop": {**rules["stop"], "few_capped_allowance_edges": True}}}
+    block, feas = fixed_setup(tmp_path, dcfg, stray, inputs=FEW_IN)
+    with pytest.raises(SystemExit, match=r"does not list \(few_capped_allowance_edges\)"):
+        rd.check_fixed({**block, **STOP_ONLY}, feas, tmp_path, dcfg)
+    with pytest.raises(SystemExit, match="refused: the rules of this code give other values"):
+        rd.check_fixed({**block, **both}, feas, tmp_path, dcfg)
+    # ... and as the rules set it from the pilot's own counts, which its rule inputs hide.
+    block, feas = fixed_setup(tmp_path, dcfg, {"layers": {"allow_capped": {"edges": 4000}}}, inputs=FEW_IN)
+    with pytest.raises(SystemExit, match=r"does not list \(few_capped_allowance_edges\)"):
+        rd.check_fixed({**block, **STOP_ONLY}, feas, tmp_path, dcfg)
+    with pytest.raises(SystemExit, match="refused: the structure pilot records no rule inputs, or rule inputs"):
+        rd.check_fixed({**block, **both}, feas, tmp_path, dcfg)
+    assert rd.check_fixed({**block, "author_decision": "go on"}, feas, tmp_path, dcfg)["q"] == Fraction(1, 100)
+    # A pilot that records no stop flags, or no counts for them, cannot be compared with the list.
+    no_flags = {k: v for k, v in rules.items() if k != "stop"}
+    for change in ({"rules": no_flags}, {"capped_allowance_in_edge_share": None}):
+        block, feas = fixed_setup(tmp_path, dcfg, change, inputs=FEW_IN)
+        with pytest.raises(SystemExit, match="refused: the structure pilot records no stop flags or no counts"):
+            rd.check_fixed({**block, **STOP_ONLY}, feas, tmp_path, dcfg)
+        assert rd.check_fixed({**block, "author_decision": "go on"}, feas, tmp_path, dcfg)["q"] == Fraction(1, 100)
+    # No rho within the budget: the author chooses rho only when decision_covers lists no_rho_within_budget.
+    block, feas = fixed_setup(tmp_path, dcfg, inputs={**BIG, "E_U": 10**9, "E_WCC": 10**9}, rho=0.05)
+    rho_only = {**STOP_ONLY, "decision_covers": ["no_rho_within_budget"]}
+    assert rd.check_fixed({**block, **rho_only}, feas, tmp_path, dcfg)["rho"] == Fraction(1, 20)
+    with pytest.raises(SystemExit, match=r"does not list \(no_rho_within_budget\)"):
+        rd.check_fixed({**block, **STOP_ONLY}, feas, tmp_path, dcfg)
+
+    # The pinned hash, the committed files, the discovery settings, the rule inputs and the code of the pilot are
+    # checked as without a decision; a decision without decision_covers passes each of them.
+    block, feas = fixed_setup(tmp_path, dcfg, inputs=FEW_IN)
+    with pytest.raises(SystemExit, match="^refused: the SHA-256 in 'Protocol fixed' does not match "
+                                         f"data/discovery/feasibility_t1.json{COVERS_IN}$"):
+        rd.check_fixed({**block, **STOP_ONLY, "sha256": "0" * 64}, feas, tmp_path, dcfg)
+    assert rd.check_fixed({**block, "author_decision": "go on", "sha256": "0" * 64}, feas, tmp_path,
+                          dcfg)["pinned_sha256"] == "0" * 64
+    assert "does not match" in capsys.readouterr().out
+    dirty = {"code": {"head": "abc123",
+                      "committed": {**{rel: True for rel in rd.COMMITTED}, "scripts/crawl.py": False}}}
+    for change, start in (({"code": None}, "the structure pilot did not run on committed files (no record)"),
+                          (dirty, "the structure pilot did not run on committed files (scripts/crawl.py)"),
+                          ({"discovery_config": {**dcfg, "runtime_budget_hours": 24}}, "the discovery settings differ"),
+                          ({"rule_inputs": {**FEW_IN, "U": 99_999}}, "the structure pilot records no rule inputs"),
+                          ({"rules": {**rules, "projected_hours": {}}}, "the rules of this code give other values")):
+        block, feas = fixed_setup(tmp_path, dcfg, change, inputs=FEW_IN)
+        with pytest.raises(SystemExit) as refused:
+            rd.check_fixed({**block, **STOP_ONLY}, feas, tmp_path, dcfg)
+        text = str(refused.value)
+        assert text.startswith(f"refused: {start}") and text.endswith(COVERS_IN), text
+        assert rd.check_fixed({**block, "author_decision": "go on"}, feas, tmp_path, dcfg)["decision_covers"] is None
+
+    # decision_covers goes only with an author_decision, as a non-empty list of distinct stop flags of section 7;
+    # any other key still refuses.
+    block, feas = fixed_setup(tmp_path, dcfg, inputs=FEW_IN)
+    for alone in ({}, {"author_decision": None}):
+        with pytest.raises(SystemExit, match="refused: decision_covers goes only with an author_decision"):
+            rd.check_fixed({**block, **alone, "decision_covers": ["few_capped_allowance_in_edges"]}, feas, tmp_path,
+                           dcfg)
+    for bad in (["few_capped_allowance_share"], ["few_capped_allowance_in_edges", "stopped"], [], None,
+                "few_capped_allowance_in_edges", ["few_capped_allowance_in_edges"] * 2, [7]):
+        with pytest.raises(SystemExit, match="refused: decision_covers must be a non-empty list of distinct stop "
+                                             "flags of protocol section 7"):
+            rd.check_fixed({**block, **STOP_ONLY, "decision_covers": bad}, feas, tmp_path, dcfg)
+    with pytest.raises(SystemExit, match=r"refused: 'Protocol fixed' lacks \[\] or has unknown keys \['covers'\]"):
+        rd.check_fixed({**block, **STOP_ONLY, "covers": ["few_capped_allowance_edges"]}, feas, tmp_path, dcfg)
+
+
 def test_main_run_refuses_without_a_fixed_protocol(tmp_path, monkeypatch, dcfg):
     with pytest.raises(SystemExit, match="Protocol fixed"):
         rd.check_fixed(rd.protocol_fixed(protocol_copy(tmp_path / "p.md")))
@@ -1066,25 +1176,65 @@ def test_the_script_refuses_a_main_run_and_other_variants(tmp_path, monkeypatch)
 INFLOW_UNTYPED = 1234.5
 
 
-def gate_b_tables(folder: Path, tag: str, n: int = 100, seed: int = 5) -> np.ndarray:
-    """Synthetic gate B tables (interface 4) with node ids 100, 103, ... in address order: importance holds three
-    typed contracts outside G (id -1), and every row has a positive I_T or I_A."""
+def write_interface(frame: pd.DataFrame, stem: Path, columns: dict[str, str]) -> None:
+    """``frame`` written as the gate B stem ``stem`` with exactly ``columns`` (the arrow types of the INTERFACE of
+    tests/c12_world.py, which the download step writes)."""
+    common.write_parts(pa.Table.from_pandas(frame[list(columns)], schema=c12_world.arrow_schema(columns),
+                                            preserve_index=False), stem)
+
+
+def gate_b_tables(folder: Path, tag: str, n: int = 100, seed: int = 5, isolated: int = 0) -> np.ndarray:
+    """Synthetic gate B tables (interface 4) with the columns and arrow types of the INTERFACE (c12_world.INTERFACE)
+    and node ids 100, 103, ... in address order: nodes with the four flags; the capped allowance pairs and the
+    transfer pairs (with the slope-sensitivity weights at T_obs) and the uncapped allowance pairs, a superset of the
+    capped ones; importance with the address of each row, three typed contracts outside G (id -1), every row with a
+    positive I_T or I_A and N_T <= I_T, N_A <= I_A; the one-row inflow table. ``isolated`` nodes without a pair follow
+    the others (their ids and addresses continue the sequence); they are in G but in no union pair. Returns the ids."""
     g = random_graph(n, 5 * n, seed)
     rng = np.random.default_rng(seed)
-    ids = 100 + 3 * np.arange(n)
-    common.write_parts(pd.DataFrame({"id": ids, "address": list(g.address), "is_cohort": rng.random(n) < 0.2}),
-                       folder / "nodes")
-    for name, lay, count in (("allow", g.allow, "n_tokens"), ("transfer", g.transfer, "n_transfers")):
-        common.write_parts(pd.DataFrame({"src": ids[lay.src], "dst": ids[lay.dst], count: 1, **lay.weights}),
-                           folder / f"{name}_pairs_{tag}")
-    rows = np.concatenate([rng.choice(ids, int(0.9 * n), replace=False), [-1, -1, -1]])  # three outside G
+    more = np.random.default_rng(seed + 1000)  # the columns and isolated nodes beyond the first version's draws
+    m = n + isolated
+    ids = 100 + 3 * np.arange(m)
+    nodes = pd.DataFrame({"id": ids, "address": list(addresses(m)),
+                          "is_cohort": np.concatenate([rng.random(n) < 0.2, more.random(isolated) < 0.2])})
+    for flag in ("is_cohort_t1", "is_spender_w0", "is_spender_w1"):
+        nodes[flag] = more.random(m) < 0.2
+    write_interface(nodes, folder / "nodes", c12_world.INTERFACE["nodes"])
+    tobs = tag == "tobs"
+    for name, lay, count, weight in (("allow", g.allow, "n_tokens", "w_er"),
+                                     ("transfer", g.transfer, "n_transfers", "w_awp")):
+        f = pd.DataFrame({"src": ids[lay.src], "dst": ids[lay.dst], count: 1, **lay.weights})
+        if tobs:
+            f[f"{weight}_b10x"] = f[weight] * more.uniform(1.0, 1.5, len(f))
+            f[f"{weight}_b01x"] = f[weight] * more.uniform(0.5, 1.0, len(f))
+        write_interface(f, folder / f"{name}_pairs_{tag}", c12_world.INTERFACE[f"{name}_pairs_{tag}"])
+        if name == "allow":
+            # every capped pair at no lower weights (usd_allow >= usd_eff), and pairs only the uncapped layer holds
+            have = set(zip(lay.src.tolist(), lay.dst.tolist()))
+            extra = sorted({(int(a), int(b)) for a, b in more.integers(0, n, (40, 2)) if (a, b) not in have})[:10]
+            k = len(f)
+            unc = pd.DataFrame({"src": f["src"], "dst": f["dst"], "n_tokens": 1 + more.integers(0, 2, k),
+                                "w_er": f["w_er"] * more.uniform(1.0, 2.0, k),
+                                "w_raw": f["w_raw"] * more.uniform(1.0, 4.0, k), "max_sig": f["max_sig"]})
+            unc = pd.concat([unc, pd.DataFrame({"src": ids[[a for a, _ in extra]], "dst": ids[[b for _, b in extra]],
+                                                "n_tokens": 1, "w_er": more.lognormal(size=len(extra)),
+                                                "w_raw": more.lognormal(size=len(extra)),
+                                                "max_sig": more.uniform(0.01, 1.0, len(extra))})], ignore_index=True)
+            write_interface(unc.sort_values(["src", "dst"], ignore_index=True), folder / f"allow_pairs_uncapped_{tag}",
+                            c12_world.INTERFACE[f"allow_pairs_uncapped_{tag}"])
+    rows = np.concatenate([rng.choice(ids[:n], int(0.9 * n), replace=False), [-1, -1, -1]])  # three outside G
     vals = {k: np.where(rng.random(rows.size) < 0.6, rng.lognormal(size=rows.size), 0.0) for k in ("i_t", "i_a")}
     none = (vals["i_t"] == 0) & (vals["i_a"] == 0)
     vals["i_t"][none] = rng.lognormal(size=int(none.sum()))
     vals["i_t"][-1] = 50.0  # a contract outside G among the largest
-    vals.update(n_t=np.floor(vals["i_t"] * 3), n_a=np.floor(vals["i_a"] * 3))
-    common.write_parts(pd.DataFrame({"id": rows, **vals}), folder / f"importance_{tag}")
-    common.write_parts(pd.DataFrame({"usd": [INFLOW_UNTYPED]}), folder / f"inflow_untyped_{tag}")
+    vals.update(n_t=np.floor(vals["i_t"]).astype(np.int64), n_a=np.floor(vals["i_a"]).astype(np.int64))
+    by_id = dict(zip(ids.tolist(), nodes["address"]))
+    outside = iter(c12_world.outside(j) for j in range(3))
+    address = [by_id[i] if i >= 0 else next(outside) for i in rows.tolist()]
+    write_interface(pd.DataFrame({"id": rows, "address": address, **vals}), folder / f"importance_{tag}",
+                    c12_world.INTERFACE[f"importance_{tag}"])
+    write_interface(pd.DataFrame({"usd": [INFLOW_UNTYPED]}), folder / f"inflow_untyped_{tag}",
+                    c12_world.INTERFACE[f"inflow_untyped_{tag}"])
     return ids
 
 
@@ -1097,24 +1247,49 @@ def strings(obj) -> list[str]:
     return [obj] if isinstance(obj, str) else []
 
 
+MAIN_FIXED = {"date": "2026-11-09", "rho": Fraction(1, 10), "q": Fraction(1, 20), "primary_mode": "out",
+              "author_decision": None, "feasibility_sha256": "0" * 64}
+ISOLATED = 3  # nodes of G without a pair (contract members outside the graph, protocol section 8)
+
+
+def main_cfg(contract_cfg: dict) -> dict:
+    cfg = json.loads(json.dumps(contract_cfg))
+    cfg["discovery"].update(n_seeds=4, rho_sensitivity={"divisor": 4, "seeds": 2}, min_hot=3)
+    return cfg
+
+
 @pytest.mark.parametrize("tag, mode", [("t1", "out"), ("t1", "both"), ("tobs", "out"), ("tobs", "both")])
 def test_a_main_run_on_synthetic_tables(tmp_path, monkeypatch, contract_cfg, tag, mode):
     import graphs
 
-    gate_b_tables(tmp_path / "in", tag)
+    gate_b_tables(tmp_path / "in", tag, isolated=ISOLATED)
     monkeypatch.setattr(graphs, "EXPORT", tmp_path / "in")
     monkeypatch.setattr(common, "GRAPH", tmp_path / "in")
     monkeypatch.setattr(rd, "DISC", tmp_path / "out")
-    cfg = json.loads(json.dumps(contract_cfg))
-    cfg["discovery"].update(n_seeds=4, rho_sensitivity={"divisor": 4, "seeds": 2}, min_hot=3)
-    fixed = {"date": "2026-11-09", "rho": Fraction(1, 10), "q": Fraction(1, 20), "primary_mode": "out",
-             "author_decision": None, "feasibility_sha256": "0" * 64}
-    path = rd.run_window(tag, mode, fixed, {"head": "abc"}, cfg, workers=1)
+    fixed = {**MAIN_FIXED, **STOP_ONLY} if mode == "both" else MAIN_FIXED
+    path = rd.run_window(tag, mode, fixed, {"head": "abc"}, main_cfg(contract_cfg), workers=1)
 
     def no_nan(token):
         raise AssertionError(f"{token} in the output")
 
     out = json.loads(path.read_text(encoding="utf-8"), parse_constant=no_nan)
+    # The protocol record names the author's decision and the stop flags it covers (null without decision_covers).
+    assert (out["protocol"]["author_decision"], out["protocol"]["decision_covers"]) == (
+        fixed["author_decision"], fixed.get("decision_covers"))
+    # D23: |G| (every row of nodes, the isolated nodes included) under its own key; sizes.graph.nodes stays the
+    # bow-tie's count of the contracts with a union pair, and no size of the bow-tie depends on the isolated nodes.
+    graph = out["sizes"]["graph"]
+    g = graphs.load_graphs(tag)
+    full, _ = rd.full_graph(graphs.load_nodes(), g.allow, g.transfer)
+    bt = crawl.bow_tie(full.n, full.union_src, full.union_dst).sizes()
+    assert graph["g_nodes"] == full.n == len(graphs.load_nodes()) == 100 + ISOLATED
+    assert graph["nodes"] == bt["nodes"] < 100 + ISOLATED and {k: graph[k] for k in bt} == bt
+    gate_b_tables(tmp_path / "plain", tag)
+    monkeypatch.setattr(graphs, "EXPORT", tmp_path / "plain")
+    monkeypatch.setattr(common, "GRAPH", tmp_path / "plain")
+    assert rd.graph_sizes(tag) == bt
+    monkeypatch.setattr(graphs, "EXPORT", tmp_path / "in")
+    monkeypatch.setattr(common, "GRAPH", tmp_path / "in")
     assert out["invariants"]["max_final_diff"] < rd.FINAL_TOLERANCE
     assert len(out["seeds"]) == 4 and out["is_primary"] == (mode == "out")
     assert out["protocol"]["bootstrap"] == {"resamples": 400, "seed": 42}  # protocol section 6
@@ -1166,10 +1341,128 @@ def test_a_main_run_on_synthetic_tables(tmp_path, monkeypatch, contract_cfg, tag
         assert c["top_1pct"]["rows"] == math.ceil(len(imp) / 100)
     # The largest I_T is outside G: the top 1% (one row) lies outside U.
     assert cov["i_t"]["top_1pct"]["share_in_U"] == 0.0
-    visits = pd.concat([pd.read_parquet(p) for p in sorted((tmp_path / "out").glob(f"discovery_{tag}_{mode}_hot_visits*"))])
+    parts = sorted((tmp_path / "out").glob(f"discovery_{tag}_{mode}_hot_visits*"))
+    visits = pd.concat([pd.read_parquet(p) for p in parts])
     crawls = visits[visits["seed"] >= 0].groupby(["ordering", "rho"]).size()
     assert set(crawls.index.get_level_values(0)) == set(crawl.ORDERINGS)
     assert (visits["visit_index"] >= 1).all() and (visits["visit_index"] <= n).all()
+
+
+# The commit whose run_discovery.py wrote the structure pilot that 'Protocol fixed' pins: the amendment of
+# 9 November 2026 (revision section 13), after which job 31, job 35 and the pilot ran again. The pilot records it as
+# its HEAD. Its run_window is still that of the gate A commit d39775c.
+PILOT_CODE = "caf97c3"
+# The definitions of run_discovery.py that gate B changes against PILOT_CODE: run_window (D23, sizes.graph.g_nodes)
+# and, for the stop-only decision of the gate B amendment (decision_covers in 'Protocol fixed'), check_fixed,
+# match_pilot and the new constant STOP_FLAGS. The pilot calls none of them.
+GATE_B_CHANGED = ("run_window", "check_fixed", "match_pilot")
+GATE_B_ADDED = ("STOP_FLAGS",)
+
+
+@pytest.fixture(scope="module")
+def rd_base(tmp_path_factory):
+    """run_discovery.py of PILOT_CODE (caf97c3) as a module of its own, and its source (the scoring_base pattern;
+    put in sys.modules as rd_base, since its dataclasses look their module up); its import puts its own folder first
+    on sys.path, which is undone."""
+    out = subprocess.run(["git", "show", f"{PILOT_CODE}:./scripts/run_discovery.py"], cwd=EXPERIMENTS,
+                         capture_output=True)
+    if out.returncode != 0:
+        pytest.skip(f"commit {PILOT_CODE} is not available")
+    path = tmp_path_factory.mktemp("rd_base") / "rd_base.py"
+    path.write_bytes(out.stdout)
+    saved = list(sys.path)
+    spec = importlib.util.spec_from_file_location("rd_base", path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["rd_base"] = module
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path[:] = saved
+    yield module, out.stdout.decode("utf-8")
+    sys.modules.pop("rd_base", None)
+
+
+def definitions(src: str) -> list[tuple[str, str]]:
+    """(name, AST dump) of every top-level statement of a module, docstrings removed (design_tests.md 2.5 without
+    the flags); a statement that defines no name is named by its first line."""
+    tree = ast.parse(src)
+    out = []
+    for node in tree.body:
+        for sub in ast.walk(node):
+            if isinstance(sub, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and sub.body and isinstance(
+                    sub.body[0], ast.Expr) and isinstance(sub.body[0].value, ast.Constant) and isinstance(
+                    sub.body[0].value.value, str):
+                sub.body = sub.body[1:] or [ast.Pass()]
+        if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+            continue  # the module docstring
+        out.append((getattr(node, "name", None) or ast.unparse(node).splitlines()[0][:80], ast.dump(node)))
+    return out
+
+
+def without_times(obj: dict, disc: Path) -> dict:
+    """A main-run output without its clock (created_at, seconds, runs[*].seconds) and with its output folder (named
+    in the paths it reports) written <DISC>."""
+
+    def paths(v):
+        if isinstance(v, dict):
+            return {k: paths(x) for k, x in v.items()}
+        if isinstance(v, list):
+            return [paths(x) for x in v]
+        return v.replace(str(disc), "<DISC>") if isinstance(v, str) else v
+
+    obj = paths(json.loads(json.dumps(obj)))
+    obj.pop("created_at", None)
+    obj.pop("seconds", None)
+    for run in (obj.get("runs") or {}).values():
+        run.pop("seconds", None)
+    return obj
+
+
+def test_run_discovery_changes_only_the_graph_node_count(tmp_path, monkeypatch, contract_cfg, rd_base):
+    # X2 (D23): on the same gate B tables (with isolated nodes) the main run of PILOT_CODE (whose run_window is that
+    # of d39775c) and of this tree write the same parquet parts and the same output but for two more keys,
+    # sizes.graph.g_nodes and protocol.decision_covers (null here). Every top-level definition of run_discovery.py
+    # outside GATE_B_CHANGED and GATE_B_ADDED, and its COMMITTED, are those of PILOT_CODE, the code of the pilot
+    # that 'Protocol fixed' pins, so that pilot stays valid. check_fixed, match_pilot and STOP_FLAGS differ for the
+    # stop-only decision of the gate B amendment: an author_decision with decision_covers passes only the stop flags
+    # it lists, and every other refusal of protocol section 8 stays.
+    import graphs
+
+    base, src = rd_base
+    gate_b_tables(tmp_path / "in", "tobs", isolated=ISOLATED)
+    monkeypatch.setattr(graphs, "EXPORT", tmp_path / "in")
+    monkeypatch.setattr(common, "GRAPH", tmp_path / "in")
+    monkeypatch.setattr(rd, "DISC", tmp_path / "new")
+    monkeypatch.setattr(base, "DISC", tmp_path / "old")
+    cfg = main_cfg(contract_cfg)
+    new = without_times(json.loads(rd.run_window("tobs", "out", MAIN_FIXED, {"head": "abc"}, cfg, workers=1)
+                                   .read_text(encoding="utf-8")), tmp_path / "new")
+    old = without_times(json.loads(base.run_window("tobs", "out", MAIN_FIXED, {"head": "abc"}, cfg, workers=1)
+                                   .read_text(encoding="utf-8")), tmp_path / "old")
+    assert set(new["sizes"]["graph"]) - set(old["sizes"]["graph"]) == {"g_nodes"}
+    assert new["sizes"]["graph"].pop("g_nodes") == 100 + ISOLATED
+    assert set(new["protocol"]) - set(old["protocol"]) == {"decision_covers"}
+    assert new["protocol"].pop("decision_covers") is None
+    assert new == old
+    for part in ("hot_visits", "hot_sets"):
+        stems = [tmp_path / d / f"discovery_tobs_out_{part}" for d in ("new", "old")]
+        tables = [pa.concat_tables([pq.read_table(p) for p in common.part_paths(stem)]) for stem in stems]
+        assert tables[0].equals(tables[1]), part
+    current = (SCRIPTS / "run_discovery.py").read_text(encoding="utf-8")
+
+    def name(d: tuple[str, str]) -> str:
+        """The name of a definition; an assignment is named by its first line, 'NAME = ...'."""
+        return d[0].split(" = ", 1)[0]
+
+    def kept(text: str) -> list[tuple[str, str]]:
+        return [d for d in definitions(text) if name(d) not in GATE_B_CHANGED + GATE_B_ADDED]
+
+    assert kept(current) == kept(src)
+    names = [name(d) for d in definitions(current)]
+    assert [n for n in names if n not in GATE_B_ADDED] == [name(d) for d in definitions(src)]
+    assert [n for n in names if n in GATE_B_ADDED] == list(GATE_B_ADDED)
+    assert not {name(d) for d in definitions(src)} & set(GATE_B_ADDED)
+    assert rd.COMMITTED == base.COMMITTED
 
 
 def test_a_t1_graph_other_than_the_pilot_stops_the_run_before_any_crawl(tmp_path, monkeypatch, contract_cfg):
@@ -1187,6 +1480,12 @@ def test_a_t1_graph_other_than_the_pilot_stops_the_run_before_any_crawl(tmp_path
     with pytest.raises(SystemExit, match="refused: the t1 graph differs from the structure pilot"):
         rd.match_pilot(sizes, wrong)
     assert rd.match_pilot(sizes, {**wrong, "author_decision": "checked by hand"})["E_U"] is False
+    # A stop-only decision (decision_covers) does not pass another t1 graph.
+    assert rd.match_pilot(sizes, {**fixed, **STOP_ONLY}) == {"U": True, "E_U": True, "WCC": True, "E_WCC": True}
+    with pytest.raises(SystemExit, match="refused: the t1 graph differs from the structure pilot: .*; the "
+                                         "author_decision in 'Protocol fixed' covers only the stop flags "
+                                         "few_capped_allowance_in_edges$"):
+        rd.match_pilot(sizes, {**wrong, **STOP_ONLY})
     with pytest.raises(SystemExit, match="t1 graph differs"):  # a main run of t1 stops before its crawls
         rd.run_window("t1", "out", wrong, {"head": "abc"}, contract_cfg, workers=1)
     # main() compares the t1 graph first, also for a run of T_obs alone.
@@ -1197,6 +1496,9 @@ def test_a_t1_graph_other_than_the_pilot_stops_the_run_before_any_crawl(tmp_path
     monkeypatch.setattr(rd, "run_window", lambda tag, mode, *args: ran.append((tag, mode)))
     monkeypatch.setattr(rd, "check_fixed", lambda *args: wrong)
     with pytest.raises(SystemExit, match="t1 graph differs"):
+        rd.main(["--window", "tobs"])
+    monkeypatch.setattr(rd, "check_fixed", lambda *args: {**wrong, **STOP_ONLY})
+    with pytest.raises(SystemExit, match="t1 graph differs.*covers only the stop flags"):
         rd.main(["--window", "tobs"])
     assert ran == []
     monkeypatch.setattr(rd, "check_fixed", lambda *args: fixed)

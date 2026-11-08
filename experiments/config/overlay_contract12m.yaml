@@ -19,7 +19,7 @@ contract_graph:                         # revision sections 4 to 6 and 12
   rpc_urls:                                 # public endpoints in this order; a URL with a key only
     - "https://arb1.arbitrum.io/rpc"        # from the environment variable CONTRACT_REP_RPC_URL
     - "https://arbitrum-one.public.blastapi.io"
-  campaign_cap_usd: 14.0                    # jobs labelled "contract12m:"
+  campaign_cap_usd: 15.0                    # jobs labelled "contract12m:"
   system_address_max: 255                   # 0x...0001 to 0x...00ff are never graph nodes
   safe_threshold_max: 1000
   entry_points:                             # canonical ERC-4337 EntryPoints

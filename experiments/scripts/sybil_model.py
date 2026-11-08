@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import PROC, load_config, save_json  # noqa: E402
+from common import CONTRACT_GRAPH, PROC, load_config, save_json  # noqa: E402
 from graphs import load_graphs, load_nodes  # noqa: E402
 from scoring import logistic_decay, pagerank_params, scores_on, weighted_pagerank  # noqa: E402
 
@@ -38,6 +38,10 @@ def solve(src, dst, w, params):
 
 
 def main() -> int:
+    if CONTRACT_GRAPH:
+        raise SystemExit("refused: sybil_model.py has no branch for the contract-graph variant yet "
+                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
+                         "is written")
     cfg = load_config()
     params = pagerank_params(cfg)
     rep = cfg["reputation"]

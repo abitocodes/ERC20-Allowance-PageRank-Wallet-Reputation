@@ -2,7 +2,9 @@
 
 The SQL of the revised pipeline (sql/12-18) computes these quantities in BigQuery; the
 functions here state the same arithmetic in Python, build the daily price table that
-BigQuery joins, and are what the tests check.
+BigQuery joins, and are what the tests check. balance_usd, effective_usd and
+allowance_pair_weights state the balance cap and the allowance pair weights of the
+contract-graph SQL (sql/36_c12_allow_triples.sql, sql/37_c12_pairs.sql) for the tests.
 """
 
 from __future__ import annotations
@@ -95,3 +97,37 @@ def fill_daily(prices: pd.DataFrame, start: str, end: str) -> pd.DataFrame:
     res = pd.concat(out, ignore_index=True)[cols]
     res["filled"] = res["filled"].astype(bool)
     return res
+
+
+def balance_usd(balance: Any, decimals: Any, price: Any, dust_digits: int = 6) -> np.ndarray:
+    """usd_bal of sql/36_c12_allow_triples.sql: the owner's balance in base units, 0 unless at least
+    10^(decimals - dust_digits) base units (a negative or missing balance, NaN, gives 0; sql/35 line 38), in token
+    units, times the anchor day's price."""
+    bal = np.asarray(balance, dtype=np.float64)
+    dec = np.asarray(decimals, dtype=np.float64)
+    kept = np.where(bal >= np.power(10.0, dec - dust_digits), bal, 0.0)   # NaN >= x is False
+    return kept / np.power(10.0, dec) * np.asarray(price, dtype=np.float64)
+
+
+def effective_usd(value: Any, decimals: Any, price: Any, balance: Any, dust_digits: int = 6) -> np.ndarray:
+    """usd_eff = min(usd_allow, usd_bal) (docs/revision_contract_graph.md section 5): the allowance ``value`` (base
+    units) at the anchor day's price, capped at the owner's balance (base units, NaN when missing)."""
+    return np.minimum(usd_value(value, decimals, price), balance_usd(balance, decimals, price, dust_digits))
+
+
+def allowance_pair_weights(triples: pd.DataFrame, b_allowance: float, cap_allowance: float,
+                           value: str = "usd_eff") -> pd.DataFrame:
+    """The allowance pairs of sql/37_c12_pairs.sql from (owner, spender, age_days, usd_eff, usd_allow) triples:
+    with value 'usd_eff' the triples with usd_eff > 0 (the capped layer), with 'usd_allow' every triple (the uncapped
+    sensitivity); per (owner, spender) n_tokens, w_er = sum sigma(age) V(value), w_raw = sum min(value, U), max_sig and
+    the slope weights w_er_b10x, w_er_b01x; sigma(age) = 1 / (1 + exp(0.01 (age - 180)))."""
+    t = triples[triples[value] > 0] if value == "usd_eff" else triples
+    v = t[value].to_numpy(np.float64)
+    sig = 1.0 / (1.0 + np.exp(0.01 * (t["age_days"].to_numpy(np.float64) - 180.0)))
+    work = pd.DataFrame({"owner": t["owner"].to_numpy(), "spender": t["spender"].to_numpy(), "sig": sig,
+                         "w_er": sig * value_transform_sql(v, b_allowance), "w_raw": capped(v, cap_allowance),
+                         "w_er_b10x": sig * value_transform_sql(v, 10.0 * b_allowance),
+                         "w_er_b01x": sig * value_transform_sql(v, 0.1 * b_allowance)})
+    g = work.groupby(["owner", "spender"], sort=True)
+    return g.agg(n_tokens=("sig", "size"), w_er=("w_er", "sum"), w_raw=("w_raw", "sum"), max_sig=("sig", "max"),
+                 w_er_b10x=("w_er_b10x", "sum"), w_er_b01x=("w_er_b01x", "sum")).reset_index()

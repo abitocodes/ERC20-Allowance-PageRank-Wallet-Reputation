@@ -3,20 +3,28 @@
 
 Every query goes through scripts/run_bq.py with the checks of this variant: a job creates only c12_* tables,
 reads only the project tables and public views named here, is labelled "contract12m: ..." and is refused if the
-jobs of the campaign would pass the cap of the overlay (USD 14) or the ledger the budget of the variant (USD 60).
+jobs of the campaign would pass the cap of the overlay (contract_graph.campaign_cap_usd: USD 14, raised to USD 15 by
+the gate B amendment of revision section 13) or the ledger the budget of the variant (USD 60).
 Each job carries an estimate of the bytes it bills, for its first statement and for the whole job, since the dry
 run of a file with several statements counts only the first: the dry runs of 7 November 2026 for the parts that
-read the public views, logs_obs and logs_w1, plus the rows of every project table it reads (table metadata)
-times the billed widths of the columns read (at least 10 MB per table). A job whose first statement dry-runs
-above 1.25 times its estimate is refused, and after a job that billed more than 1.5 times its estimate the
-driver stops. An estimate that needs a table that does not exist yet is computed when its step runs. Gate A:
+read the public views, logs_obs and logs_w1, the bills of the twelve-month label jobs for the parts of job 39 that
+read the same tables, plus the rows of every project table it reads (table metadata) times the billed widths of the
+columns read (at least 10 MB per table). A job whose first statement dry-runs above 1.25 times its estimate is
+refused, and after a job that billed more than 1.5 times its estimate the driver stops. An estimate that needs a
+table that does not exist yet is computed when its step runs. Gate A:
 
   check      free checks: the windows of the configuration against the revision, no expiration on the
-             dataset, the source tables and the public views with the columns the jobs read, the five token
-             literals of sql/32 against u_tokens, no c12_* table before the first job of the manifest, the
-             ledger and the campaign; prints the estimate of every job whose inputs exist and the jobs that
-             wait for an earlier one, and fails if the known estimates would pass the cap. It is recorded in
-             the run manifest only once the files in COMMITTED are committed; before that it writes nothing
+             dataset, the source tables and the public views with the columns the jobs read, the inputs that
+             the measured terms of job 39 calibrate (CALIBRATED), the five token literals of sql/32 against
+             u_tokens, no c12_* table before the first job of the manifest, the ledger and the campaign; prints
+             the estimate of every job whose inputs exist and the jobs that wait for an earlier one, and fails
+             if the known estimates of the gate A jobs would pass the cap. It also prints the projection of the
+             gate B jobs not yet run (every table made inside gate B at an upper bound), the cap and the budget
+             that the campaign and the ledger with that projection need (rounded up to the cent), and whether
+             'Protocol fixed' holds a block; the gate B jobs are judged by that projection alone, and once
+             'Protocol fixed' holds a block, a projection that would pass the cap or the budget fails the
+             check. It is recorded in the run manifest only once the files in COMMITTED are committed; before
+             that it writes nothing
   subset     job 24: the five-token events of the typing window (c12_logs5)
   ends       job 25: their pairs and the ends E (c12_pairs5, c12_ends)
   activity   jobs 26 to 28: the transaction senders, decoded-log emitters and created contracts among E
@@ -37,10 +45,42 @@ driver stops. An estimate that needs a table that does not exist yet is computed
   structure  job 35, then the structure pilot (scripts/run_discovery.py --window t1 --feasibility); the
              capped allowance edges are counted as the pilot counts them, distinct pairs without self-pairs
 
-The gate B steps (constants, pairs, rest, checks, download) are not yet written and refuse to run. Every step
-but check refuses to run unless the files in COMMITTED are committed without local changes (a --dry-run only
-warns). data/2-.../revised-contract-12m/run_manifest.json records the commit, the hashes of those files, every
-job and the results of every step.
+Gate B (revision sections 7 and 12 and the gate B amendment of section 13):
+
+  constants  the three jobs 36: the latest allowances between contracts at both freezes, valued at the anchor
+             day's price and capped at the owner's balance (c12_allow_triples), the events of user accounts
+             toward contracts and untyped addresses (c12_user_events) and the constants of the W0 score window
+             (c12_constants), rounded to two significant digits into
+             data/0-usd-token-list-and-prices/contract-12m/constants.json. That file is committed on its own,
+             with the run manifest and the ledger, before pairs; once it is committed the step does not run again
+  pairs      job 37: the capped and uncapped allowance pairs and the transfer pairs of both freezes
+  rest       jobs 38 to 41: the cohorts without user accounts and the members of the twelve-month lists with
+             their class, the same-window proxies, the label parts of W0 and W1 by account class, the node ids
+             and the export tables, importance, the untyped inflow and the description of the allowances; the
+             t1 pairs must be those of the structure pilot
+  checks     job 42: the invariants of sql/42, every one 0
+  download   the gate B tables into graph-tables-contract-12m, read back as the discovery runner reads them and
+             compared with the pinned pilot, and the cohort summaries of revised-contract-12m/cohort
+
+Every step but check refuses to run unless the files in COMMITTED are committed without local changes (a dry run
+of a gate A step only warns). A gate B step, its dry run too, also refuses unless the section 'Protocol fixed' of
+docs/discovery_protocol.md passes run_discovery.check_fixed and pins the pilot that the last structure run wrote,
+the file on disk being that pilot, and unless the files in COMMITTED_B are committed without local changes. Every
+gate B step after constants refuses unless constants.json is committed on its own, in a commit that holds exactly
+it, the run manifest and the ledger (its dry run warns and takes placeholder constants); rest and checks refuse if
+a source table does not exist, was modified on SOURCES_BEFORE or later or expires, or if an input that the
+measured terms of job 39 calibrate (CALIBRATED: SOURCES_B, logs_obs, logs_w1 and u_tokens) was modified after the
+first bill that calibrates them (CALIBRATED_AT); and a gate B step refuses when the campaign and the projection of
+the gate B jobs from it on would pass the cap, or the ledger and that projection the budget. Once 'Protocol fixed'
+holds a block, every gate A step from subset to structure refuses. A command line with several steps is refused
+before any of them runs if one of them would be refused for a reason that preflight checks: a gate A step once
+'Protocol fixed' holds a block; a gate B step without 'Protocol fixed' on the pilot of the structure step, or with
+a file of COMMITTED or COMMITTED_B not committed without local changes; constants once constants.json is
+committed; and, unless it is a dry run, a later gate B step without the constants committed on their own. The
+source check of rest and checks and the cap projection of a later step are checked when that step starts (the
+projection depends on the bills and the tables of the steps before it).
+data/2-.../revised-contract-12m/run_manifest.json records the commit, the hashes of those files, every job and the
+results of every step.
 
 The steps run in this order. Each step from subset on refuses to run unless the last check found no problem
 and every step before it has a last run that passed, the last runs in this order: a step run again makes the
@@ -50,7 +90,16 @@ record names every file of PILOT_COMMITTED as committed, without a stop), so tha
 threshold stops the run until the cause is understood, and one that gave no result (no endpoint gave the T_obs or the
 latest block) is run again (revision section 6). A step records only the balance_audit.json or feasibility_t1.json that its own run wrote.
 --author-decision TEXT lets a step go on all the same; its run in the manifest records the text and what was
-missing. A --dry-run only warns.
+missing. It passes only the order of the steps, none of the refusals above; after gate B the run manifest marks
+such a decision (after_gate_b), the published digest of this variant names it (revision section 13) and the change
+record records it. A gate B step needs no new decision for the waits
+that decisions taken before gate B already cover (revision section 13, amendment of 9 November 2026): the waits
+that the last structure run recorded under its author's decision, and, when 'Protocol fixed' carries an
+author_decision, the wait for a structure run that passes. They cover them only while that run is the last of
+gate A: it recorded its result (so the pilot that 'Protocol fixed' pins is its own), no step of gate A ran after
+it, and, for the wait for a check, no check ran after it started. The run in the manifest records those waits as
+a gate A decision (gate_a_decision: the index of that structure entry, its started_at and the waits), not as
+after_gate_b; any other wait still needs --author-decision. A --dry-run of a step that waits only warns.
 
 Usage: python scripts/run_contract12m_pipeline.py STEP [STEP ...] [--dry-run] [--author-decision TEXT]
 """
@@ -59,6 +108,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import math
 import os
 import re
@@ -72,8 +122,9 @@ from pathlib import Path
 os.environ.setdefault("CONTRACT_REP_VARIANT", "contract12m")
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import (GRAPH, PROC, ROOT, SMART_ACCOUNT_CODE_HASHES, SMART_ACCOUNT_TYPED, TYPES,  # noqa: E402
-                    TYPES_DIR, VARIANT, load_config, load_json, part_paths, read_parts, save_json,
-                    smart_account_extension, smart_account_sql_params)
+                    TYPES_DIR, USD_CONSTANTS, VARIANT, load_config, load_json, part_paths, read_parts,
+                    save_json, smart_account_extension, smart_account_sql_params)
+from usd import UNLIMITED_BASE_UNITS, round_sig, slope_for_median  # noqa: E402
 
 # The c12_ tables, folders and constants belong to this variant; any other would mix them up.
 if VARIANT != "contract12m":
@@ -82,10 +133,12 @@ if VARIANT != "contract12m":
 
 STEPS = ("check", "subset", "ends", "activity", "queue", "typing", "load", "contracts", "balances", "anchors",
          "audit", "structure", "constants", "pairs", "rest", "checks", "download")
-GATE_B = {"constants": "job 36", "pairs": "job 37", "rest": "jobs 38 to 41", "checks": "job 42",
+GATE_B = {"constants": "jobs 36", "pairs": "job 37", "rest": "jobs 38 to 41", "checks": "job 42",
           "download": "the downloads of the gate B tables"}
-# The gate A steps after check, each of which runs only after the ones before it have passed, in this order.
-CHAIN = STEPS[1:STEPS.index("structure") + 1]
+# The gate A steps after check: none of them runs again once docs/discovery_protocol.md holds 'Protocol fixed'.
+CHAIN_A = STEPS[1:STEPS.index("structure") + 1]
+# The steps after check, each of which runs only after the ones before it have passed, in this order.
+CHAIN = STEPS[1:]
 # The text of --author-decision: a step goes on although the steps before it did not all pass (main() sets it).
 AUTHOR_DECISION: str | None = None
 PREFIX, CAMPAIGN = "c12_", "contract12m:"
@@ -97,6 +150,7 @@ QUEUE = TYPES_DIR / "c12_rpc_queue"
 BAL_AUDIT, ANCHOR_BLOCKS, STRUCT_T1 = GRAPH / "bal_audit", GRAPH / "anchor_blocks", GRAPH / "struct_t1"
 BALANCE_AUDIT = PROC / "typing" / "balance_audit.json"
 FEASIBILITY = PROC / "discovery" / "feasibility_t1.json"
+PROTOCOL = ROOT / "docs" / "discovery_protocol.md"
 
 SQL_FILES = ("24_c12_logs5.sql", "25_c12_ends.sql", "26_c12_tx_senders.sql", "27_c12_emitters.sql",
              "28_c12_creations.sql", "29_c12_rpc_queue.sql", "31_c12_contracts.sql", "32_c12_bal_pre.sql",
@@ -114,6 +168,33 @@ PILOT_COMMITTED = ("docs/discovery_protocol.md", "docs/revision_contract_graph.m
                    "scripts/crawl.py", "scripts/run_discovery.py", "scripts/scoring.py", "scripts/stats.py",
                    "scripts/graphs.py", "scripts/common.py", "config/contract_reputation.yaml")
 
+SQL_FILES_B = ("36_c12_allow_triples.sql", "36_c12_user_events.sql", "36_c12_constants.sql", "37_c12_pairs.sql",
+               "38_c12_cohorts.sql", "38_c12_proxies.sql", "39_c12_label_parts.sql", "40_c12_export_ids.sql",
+               "41_c12_importance.sql", "42_c12_checks.sql")
+# The evaluation code that the gate B amendment of revision section 13 names file by file; those already in
+# COMMITTED are checked there.
+EVAL_FILES_B = ("scripts/common.py", "scripts/labels.py", "scripts/graphs.py", "scripts/usd.py",
+                "scripts/run_same_window.py", "scripts/run_holdout.py", "scripts/run_registered.py",
+                "scripts/run_robustness.py", "scripts/run_discovery.py")
+FEASIBILITY_REL = FEASIBILITY.relative_to(ROOT).as_posix()
+# Checked by every gate B step in addition to COMMITTED, which stays the gate A list of revision section 12: the SQL
+# files of the gate B steps, the evaluation code and the structure pilot that 'Protocol fixed' pins.
+COMMITTED_B = (*(f"sql/{f}" for f in SQL_FILES_B), *(f for f in EVAL_FILES_B if f not in COMMITTED), FEASIBILITY_REL)
+CONSTANTS_REL = USD_CONSTANTS.relative_to(ROOT).as_posix()
+MANIFEST_REL, LEDGER_REL = MANIFEST.relative_to(ROOT).as_posix(), LEDGER.relative_to(ROOT).as_posix()
+# The only files the commit of constants.json may hold (precedent 77a1e49): the constants, the run manifest that
+# records their run and the ledger that bills it.
+CONSTANTS_COMMIT = (CONSTANTS_REL, MANIFEST_REL, LEDGER_REL)
+# The constants a dry run of a gate B step passes to its jobs before constants.json is committed.
+PLACEHOLDER_CONSTANTS = {"b_transfer": 0.01, "b_allowance": 0.01, "cap_allowance_usd": 1e6, "cap_user_usd": 1e6}
+CONSTANT_KEYS = ("m_transfer_usd", "m_allowance_usd", "cap_allowance_usd", "cap_user_usd", "b_transfer",
+                 "b_allowance")
+# The columns of c12_constants (sql/36_c12_constants.sql), in order.
+CONSTANT_COLUMNS = ("m_transfer", "p99_transfer", "p10_transfer", "p90_transfer", "n_transfers", "m_allowance",
+                    "p99_allowance", "p10_allowance", "p90_allowance", "n_latest_allowances", "n_positive_allowances",
+                    "n_capped_to_zero", "n_capped_below_allowance", "n_unlimited_positive", "m_user_transfer",
+                    "p99_user_transfer", "p10_user_transfer", "p90_user_transfer", "n_user_transfers")
+
 # The public views the jobs may read (always named in full), and the columns each job reads from them.
 PUBLIC = "bigquery-public-data.goog_blockchain_arbitrum_one_us"
 VIEWS = {name: f"{PUBLIC}.{name}" for name in ("transactions", "receipts", "decoded_events", "blocks", "logs")}
@@ -127,6 +208,52 @@ VIEW_COLUMNS = {"transactions": ("from_address", "block_timestamp"),
 SOURCES = ("logs_obs", "logs_w1", "u_tokens", "u_prices", "u12_cohort_tobs", "u12_cohort_t1", "u12_labels_w0",
            "u12_labels_w1")
 SOURCES_BEFORE = "2026-11-07"
+# The twelve-month tables that job 39 reads, with the base tables under its views: its estimate is the bill of the
+# twelve-month label jobs on them, which holds only while they are as they were.
+SOURCES_B = ("u12_allow_triples_t1", "u12_allow_triples_tobs", "u12_approvals_t1", "u12_approvals_w1",
+             "u12_transfers_t1", "u12_transfers_tobs", "u12_transfers_w1", "u_approvals", "u_transfers",
+             "u_approvals_w1", "u_transfers_w1")
+# The inputs whose reads the measured terms of job 39 calibrate (CAL_39_W0, CAL_39_W1): SOURCES_B, and logs_obs,
+# logs_w1 and u_tokens, which the twelve-month label jobs read as well; and the time at which the ledger records the
+# first bill that calibrates them (92c0b37c-0659-4f63-8aa7-0f335265d9fe, "usd12m: W0 labels"). The check reports an
+# input modified after it, and the steps rest and checks refuse it (the gate B amendment of revision section 13).
+CALIBRATED = (*SOURCES_B, "logs_obs", "logs_w1", "u_tokens")
+CALIBRATED_AT = "2026-10-28T09:09:32+00:00"
+U12_LISTS = ("u12_cohort_tobs", "u12_cohort_t1", "u12_labels_w0", "u12_labels_w1")
+X_PAIRS = ("c12_x_allow_pairs_tobs", "c12_x_allow_pairs_t1", "c12_x_allow_pairs_unc_tobs",
+           "c12_x_allow_pairs_unc_t1", "c12_x_transfer_pairs_tobs", "c12_x_transfer_pairs_t1")
+# The gate B tables the download step writes into GRAPH, with their stems.
+DOWNLOADS = (("c12_x_nodes", "nodes"),
+             ("c12_x_allow_pairs_tobs", "allow_pairs_tobs"), ("c12_x_transfer_pairs_tobs", "transfer_pairs_tobs"),
+             ("c12_x_allow_pairs_t1", "allow_pairs_t1"), ("c12_x_transfer_pairs_t1", "transfer_pairs_t1"),
+             ("c12_x_allow_pairs_unc_tobs", "allow_pairs_uncapped_tobs"),
+             ("c12_x_allow_pairs_unc_t1", "allow_pairs_uncapped_t1"),
+             ("c12_importance_tobs", "importance_tobs"), ("c12_importance_t1", "importance_t1"),
+             ("c12_inflow_untyped_tobs", "inflow_untyped_tobs"), ("c12_inflow_untyped_t1", "inflow_untyped_t1"),
+             ("c12_proxies_tobs", "proxies_tobs"),
+             ("c12_x_label_split_w0", "label_split_w0"), ("c12_x_label_split_w1", "label_split_w1"),
+             ("c12_x_members", "members"), ("c12_describe_allowances", "describe_allowances"))
+# The tables the rest step makes, and the twelve-month lists their rows are compared with.
+REST_TABLES = ("c12_cohort_tobs", "c12_cohort_t1", "c12_members", "c12_proxies_tobs", "c12_label_parts_w0",
+               "c12_label_parts_w1", "c12_x_label_split_w0", "c12_x_label_split_w1", "c12_nodes", "c12_x_nodes",
+               "c12_x_members", *X_PAIRS, "c12_importance_raw", "c12_importance_tobs", "c12_importance_t1",
+               "c12_inflow_untyped_tobs", "c12_inflow_untyped_t1", "c12_describe_allowances", *U12_LISTS)
+# The check names of sql/42, in its order.
+EXPECTED_CHECKS = (
+    "contracts_user_accounts_overlap", "user_accounts_zero_address", "contracts_system_or_zero",
+    "pair_ends_not_contract_tobs", "pair_ends_not_contract_t1", "pair_ends_user_account_tobs",
+    "pair_ends_user_account_t1", "pairs_duplicate", "tags_known", "nodes_not_contract", "nodes_ids", "nodes_set",
+    "node_flags", "x_nodes_rows", "x_rows_tobs", "x_rows_t1", "x_weights", "capped_pairs_nonpositive",
+    "cap_above_uncapped_triples", "cap_above_uncapped_pairs", "triples_without_balance", "dust_rule",
+    "anchor_prices", "triples_unique", "triples_window_tobs", "triples_window_t1", "struct_allow_capped_t1",
+    "struct_allow_uncapped_t1", "struct_transfer_t1", "transfer_pairs_window_tobs", "transfer_pairs_window_t1",
+    "pairs5_tobs", "pairs5_t1", "constants_rows_t1", "constants_values", "members_rows", "members_class",
+    "cohort_user_accounts_tobs", "cohort_user_accounts_t1", "cohort_not_contract_tobs", "cohort_not_contract_t1",
+    "cohort_rows_tobs", "cohort_rows_t1", "spender_untyped_w0", "spender_untyped_w1", "proxies_rows",
+    "labels_recount_w0", "labels_recount_w1", "label_parts_sum_w0", "label_parts_sum_w1", "label_split_rows_w0",
+    "label_split_rows_w1", "label_spender_class_w0", "label_spender_class_w1", "importance_not_contract_tobs",
+    "importance_not_contract_t1", "importance_ids_tobs", "importance_ids_t1", "importance_rows_tobs",
+    "importance_rows_t1", "importance_raw_rows", "inflow_rows_tobs", "inflow_rows_t1", "describe_rows")
 
 # The windows of docs/revision_contract_graph.md section 3 (ends exclusive) and its anchors (inclusive); the
 # configuration with the overlay must give exactly these. obs_start and mid are where logs_obs begins and where
@@ -145,13 +272,17 @@ ANCHORS = {"t1": "2026-03-31 23:59:59 UTC", "tobs": "2026-06-30 23:59:59 UTC", "
 A, KIND, HEX, NUM, CLASS = 22, 3, 44, 8, 15
 CODE_HASH = 2 + 66  # a 0x hex code hash STRING (sql/31 reads it with the implementation, a HEX, since 9 November 2026)
 LOGS5_ALL = 3 * A + KIND + 6 * NUM  # every column of c12_logs5
+# The gate B columns: a tag ('tobs'), a boolean, a list name ('cohort_tobs'), a member class ('user_account'), a
+# user-account source ('rpc_smart_account'), a part ('contract') and a layer ('allow_uncapped').
+TAG, BOOL, LIST, MCLASS, SOURCE, PART, LAYER = 6, 1, 13, 14, 19, 10, 16
 MIN_TABLE = 10 * 2**20  # at least 10 MB is billed for every table a query reads
 USD_PER_TIB = 6.25
 
 
 @dataclass(frozen=True)
 class Measured:
-    """Bytes of a free dry run of 7 November 2026, and the tables or views whose columns it counted."""
+    """Bytes measured once (a free dry run of 7 November 2026, or the bill of an earlier job on the same, unchanged
+    tables, named by its ledger job id) and the tables or views whose columns it counted."""
     bytes: int
     covers: tuple[str, ...]
 
@@ -176,6 +307,15 @@ DRY_28 = Measured(23_034_321_352, (VIEWS["receipts"],))
 DRY_32 = Measured(547_023_844_600, (VIEWS["logs"],))
 DRY_33 = Measured(140_090_000_000 * (108 + KIND) // 108, ("logs_obs",))
 DRY_34 = Measured(33_562_960, (VIEWS["blocks"],))
+# Job 39 reads the inputs of the twelve-month label jobs with the definitions of sql/16 (the same tables, columns and
+# parameters): their bills of 28 October 2026 are the measured parts (the gate B amendment of revision section 13),
+# valid while those tables are unchanged (SOURCES, SOURCES_B). Ledger job 92c0b37c-0659-4f63-8aa7-0f335265d9fe
+# ("usd12m: W0 labels") billed 53,868,494,848 B after a dry run of 53,867,600,671 B, and
+# f66a1ca1-d501-4011-ac63-3f46e0815825 ("usd12m: W1 labels") 49,754,931,200 B after 49,754,705,176 B.
+CAL_39_W0 = Measured(53_868_494_848, ("u12_allow_triples_t1", "u12_approvals_t1", "u12_transfers_t1", "logs_obs",
+                                      "u_tokens"))
+CAL_39_W1 = Measured(49_754_931_200, ("u12_allow_triples_tobs", "u12_approvals_w1", "u12_transfers_w1",
+                                      "u12_transfers_tobs", "logs_w1", "u_tokens"))
 
 # The statements of every query job in order, each with what it reads. BigQuery bills a table read several times
 # in one statement once, for the union of its columns.
@@ -207,9 +347,80 @@ READS: dict[str, list[list[Measured | Read]]] = {
     "structure": [[Read("c12_events_cc", 3 * A + KIND + 5 * NUM), Read("c12_bal", 2 * A + NUM),
                    Read("u_tokens", A + NUM), Read("u_prices", A + 2 * NUM)]],
 }
+# The gate B jobs, one entry per CREATE statement in file order. A month-partitioned table is counted once per
+# statement over the union of the partitions its references read (free dry runs of 8 November 2026 on c12_logs5 with
+# token, a, b, kind, usd and block_timestamp: the W0 and T_obs score windows 89.10 GB whether one reference or two
+# read them, the whole table 103.99 GB), so the whole-table rows bound a first statement that reads c12_events_cc or
+# c12_user_events under both windows.
+READS.update({
+    # kind, token, a, b, value, block_number, log_index, block_timestamp; token, address, bal_t1, bal_tobs
+    "triples": [[Read("c12_events_cc", KIND + 3 * A + 4 * NUM), Read("c12_bal", 2 * A + 2 * NUM),
+                 Read("u_tokens", A + NUM), Read("u_prices", A + 2 * NUM)]],
+    # every column of c12_logs5 but amount; the address of the node and queue tables
+    "user_events": [[Read("c12_logs5", KIND + 3 * A + 5 * NUM), Read("c12_user_accounts", A), Read("c12_contracts", A),
+                     Read("c12_ends", A), Read("c12_rpc_queue", HEX), Read("c12_tx_senders", A)]],
+    # kind, usd, block_timestamp; tag, value, usd_allow, usd_eff; kind, usd, block_timestamp, to_contract
+    "constants": [[Read("c12_events_cc", KIND + 2 * NUM), Read("c12_allow_triples", TAG + 3 * NUM),
+                   Read("c12_user_events", KIND + 2 * NUM + BOOL)]],
+    # kind, a, b, usd, block_timestamp; tag, owner, spender, usd_eff (usd_allow), age_days, block_timestamp
+    "pairs": [[Read("c12_events_cc", KIND + 2 * A + 2 * NUM)], [Read("c12_allow_triples", TAG + 2 * A + 3 * NUM)],
+              [Read("c12_allow_triples", TAG + 2 * A + 3 * NUM)]],
+    "cohorts": [[Read("u12_cohort_tobs", A + 2 * NUM), Read("c12_user_accounts", A)],
+                [Read("u12_cohort_t1", A + 2 * NUM), Read("c12_user_accounts", A)],
+                [Read("u12_cohort_tobs", A), Read("u12_cohort_t1", A), Read("u12_labels_w0", HEX),
+                 Read("u12_labels_w1", HEX), Read("c12_contracts", A), Read("c12_user_accounts", A + SOURCE)]],
+    "proxies": [[Read("c12_events_cc", KIND + 2 * A + 2 * NUM), Read("c12_cohort_tobs", A)]],
+    "labels_w0": [[CAL_39_W0, Read("c12_contracts", A), Read("c12_user_accounts", A),
+                   Read("c12_members", LIST + A + MCLASS)],
+                  [Read("c12_label_parts_w0", HEX + MCLASS + 25 * NUM)]],
+    "labels_w1": [[CAL_39_W1, Read("c12_contracts", A), Read("c12_user_accounts", A),
+                   Read("c12_members", LIST + A + MCLASS)],
+                  [Read("c12_label_parts_w1", HEX + MCLASS + 25 * NUM)]],
+    "node_ids": [[Read("c12_allow_pairs", 2 * A), Read("c12_allow_pairs_unc", 2 * A), Read("c12_transfer_pairs", 2 * A),
+                  Read("c12_members", LIST + A + MCLASS), Read("c12_contracts", A)],
+                 [Read("c12_nodes", NUM + HEX + 4 * BOOL)],
+                 [Read("c12_members", LIST + HEX + MCLASS + SOURCE)],
+                 [Read("c12_allow_pairs", TAG + 2 * A + 6 * NUM), Read("c12_nodes", A + NUM)],
+                 [Read("c12_allow_pairs", TAG + 2 * A + 4 * NUM), Read("c12_nodes", A + NUM)],
+                 [Read("c12_allow_pairs_unc", TAG + 2 * A + 4 * NUM), Read("c12_nodes", A + NUM)],
+                 [Read("c12_allow_pairs_unc", TAG + 2 * A + 4 * NUM), Read("c12_nodes", A + NUM)],
+                 [Read("c12_transfer_pairs", TAG + 2 * A + 6 * NUM), Read("c12_nodes", A + NUM)],
+                 [Read("c12_transfer_pairs", TAG + 2 * A + 4 * NUM), Read("c12_nodes", A + NUM)]],
+    "importance": [[Read("c12_user_events", KIND + 3 * A + 5 * NUM + BOOL), Read("c12_bal", 2 * A + 2 * NUM),
+                    Read("u_tokens", A + NUM), Read("u_prices", A + 2 * NUM)],
+                   [Read("c12_importance_raw", TAG + PART + A + 4 * NUM), Read("c12_nodes", A + NUM)],
+                   [Read("c12_importance_raw", TAG + PART + A + 4 * NUM), Read("c12_nodes", A + NUM)],
+                   [Read("c12_importance_raw", TAG + PART + NUM)],
+                   [Read("c12_importance_raw", TAG + PART + NUM)],
+                   [Read("c12_allow_triples", TAG + A + 3 * NUM)]],
+    "checks": [[Read("c12_contracts", A), Read("c12_user_accounts", A), Read("c12_nodes", NUM + HEX + A + 4 * BOOL),
+                Read("c12_x_nodes", NUM + HEX + 4 * BOOL), Read("c12_members", LIST + HEX + A + MCLASS),
+                Read("c12_allow_triples", TAG + 3 * A + 10 * NUM), Read("c12_allow_pairs", TAG + 2 * A + 5 * NUM),
+                Read("c12_allow_pairs_unc", TAG + 2 * A + 5 * NUM), Read("c12_transfer_pairs", TAG + 2 * A + 3 * NUM),
+                Read("c12_x_allow_pairs_tobs", 8 * NUM), Read("c12_x_allow_pairs_t1", 6 * NUM),
+                Read("c12_x_allow_pairs_unc_tobs", 6 * NUM), Read("c12_x_allow_pairs_unc_t1", 6 * NUM),
+                Read("c12_x_transfer_pairs_tobs", 8 * NUM), Read("c12_x_transfer_pairs_t1", 6 * NUM),
+                Read("c12_struct_t1", 2 * HEX + LAYER), Read("c12_pairs5", 2 * A + 3 * NUM),
+                Read("u_tokens", A), Read("u_prices", A + 2 * NUM), Read("c12_constants", 7 * NUM),
+                Read("c12_cohort_tobs", A), Read("c12_cohort_t1", A), Read("u12_cohort_tobs", A),
+                Read("u12_cohort_t1", A), Read("u12_labels_w0", HEX + 7 * NUM), Read("u12_labels_w1", HEX + 7 * NUM),
+                Read("c12_label_parts_w0", HEX + MCLASS + 32 * NUM), Read("c12_label_parts_w1", HEX + MCLASS + 32 * NUM),
+                Read("c12_x_label_split_w0", HEX + MCLASS + 25 * NUM),
+                Read("c12_x_label_split_w1", HEX + MCLASS + 25 * NUM), Read("c12_proxies_tobs", HEX + 7 * NUM),
+                Read("c12_importance_tobs", NUM + HEX + 4 * NUM), Read("c12_importance_t1", NUM + HEX + 4 * NUM),
+                Read("c12_importance_raw", TAG + PART + A + 2 * NUM), Read("c12_inflow_untyped_tobs", NUM),
+                Read("c12_inflow_untyped_t1", NUM), Read("c12_describe_allowances", NUM)]],
+})
 # A table that one statement creates and a later statement of the same job reads is bounded by the table it is
-# made from: c12_pairs5 has at most one row per row of c12_logs5, c12_contracts one per typed address.
+# made from: c12_pairs5 has at most one row per row of c12_logs5, c12_contracts one per typed address. A bound is
+# a table, or (table, factor, extra) for factor times its rows plus extra.
 BOUND = {"ends": {"c12_pairs5": "c12_logs5"}, "contracts": {"c12_contracts": "c12_account_types"}}
+BOUND.update({
+    "labels_w0": {"c12_label_parts_w0": "u12_labels_w0"},   # one row per spender of the u12 labels
+    "labels_w1": {"c12_label_parts_w1": "u12_labels_w1"},
+    "node_ids": {"c12_nodes": "c12_contracts"},              # nodes are contracts
+    "importance": {"c12_importance_raw": ("c12_contracts", 2, 2)},  # a row per contract and tag, two untyped rows
+})
 ESTIMATE_TABLES = tuple(sorted({t.table for sts in READS.values() for st in sts for t in st if isinstance(t, Read)}))
 
 
@@ -267,12 +478,19 @@ class Job:
     public: tuple = ()  # public views, named in full, that the job may read
 
 
-def jobs(cfg: dict) -> dict[str, list[Job]]:
-    """The query jobs of every gate A step."""
+def jobs(cfg: dict, c: dict | None = None) -> dict[str, list[Job]]:
+    """The query jobs of every step. ``c`` holds the constants of constants.json; without it the gate B jobs take
+    PLACEHOLDER_CONSTANTS (a dry run before the constants are committed; the estimates do not depend on them)."""
     w, g = windows(cfg), cfg["contract_graph"]
+    disc, h, r = cfg["discovery"], cfg["holdout"], cfg["registered_window"]
+    c = c or PLACEHOLDER_CONSTANTS
     first, last = system_range(g["system_address_max"])
     dust = str(dust_digits(g["balance"]["dust_token"]))
     population = {"start_ts": w["typing_start"], "tobs_end": w["tobs_end"]}
+    freezes = {"start_ts": w["t1_start"], "t1": w["t1"], "tobs_start": w["tobs_start"], "tobs": w["tobs"]}
+    weights = {"b_transfer": repr(float(c["b_transfer"])), "b_allowance": repr(float(c["b_allowance"])),
+               "cap_allowance": repr(float(c["cap_allowance_usd"]))}
+    unlimited = repr(UNLIMITED_BASE_UNITS)
     return {
         "subset": [Job("logs5", 24, "24_c12_logs5.sql", "five-token events of the typing window",
                        params={"start_ts": w["typing_start"], "mid_ts": w["mid"], "end_ts": w["typing_end"]},
@@ -312,6 +530,46 @@ def jobs(cfg: dict) -> dict[str, list[Job]]:
         "structure": [Job("structure", 35, "35_c12_structure.sql", "structure of the contract graph at t1",
                           params={"start_ts": w["t1_start"], "t1": w["t1"], "dust_digits": dust},
                           allow=("u_tokens", "u_prices"))],
+        "constants": [
+            Job("triples", 36, "36_c12_allow_triples.sql", "latest allowances between contracts at both freezes",
+                params={**freezes, "dust_digits": dust}, allow=("u_tokens", "u_prices")),
+            Job("user_events", 36, "36_c12_user_events.sql",
+                "events of user accounts toward contracts and untyped addresses",
+                params={"start_ts": w["t1_start"], "tobs": w["tobs"]}),
+            Job("constants", 36, "36_c12_constants.sql", "constants of the contract graph on the W0 score window",
+                params={"start_ts": w["t1_start"], "t1": w["t1"], "unlimited": unlimited}),
+        ],
+        "pairs": [Job("pairs", 37, "37_c12_pairs.sql", "pair tables of both freezes", params={**freezes, **weights})],
+        "rest": [
+            Job("cohorts", 38, "38_c12_cohorts.sql", "cohorts without user accounts and members of the u12 lists",
+                params={"system_first": first, "system_last": last},
+                allow=("u12_cohort_tobs", "u12_cohort_t1", "u12_labels_w0", "u12_labels_w1")),
+            Job("proxies", 38, "38_c12_proxies.sql", "same-window proxies from the transfers between contracts",
+                params={"start_ts": w["tobs_start"], "anchor_ts": w["tobs"]}),
+            Job("labels_w0", 39, "39_c12_label_parts.sql", "W0 label parts by account class",
+                params={"start_ts": w["t1_start"], "t1": h["score_end"], "out_start": h["outcome_start"],
+                        "out_end": h["outcome_end"]},
+                subs={"TAG": "w0", "FREEZE": "t1", "APPROVALS": "u12_approvals_t1", "TRANSFERS": "u12_transfers_t1",
+                      "SEEN": "u12_transfers_t1", "LOGS": "logs_obs"},
+                allow=("u12_allow_triples_t1", "u12_approvals_t1", "u12_transfers_t1", "logs_obs", "u_tokens")),
+            Job("labels_w1", 39, "39_c12_label_parts.sql", "W1 label parts by account class",
+                params={"start_ts": w["tobs_start"], "t1": r["score_end"], "out_start": r["outcome_start"],
+                        "out_end": r["outcome_end"]},
+                subs={"TAG": "w1", "FREEZE": "tobs", "APPROVALS": "u12_approvals_w1",
+                      "TRANSFERS": "u12_transfers_w1", "SEEN": "u12_transfers_tobs", "LOGS": "logs_w1"},
+                allow=("u12_allow_triples_tobs", "u12_approvals_w1", "u12_transfers_w1", "u12_transfers_tobs",
+                       "logs_w1", "u_tokens")),
+            Job("node_ids", 40, "40_c12_export_ids.sql", "node ids and export tables"),
+            Job("importance", 41, "41_c12_importance.sql", "importance, untyped inflow and allowance description",
+                params={**freezes, "dust_digits": dust, "cap_user": repr(float(c["cap_user_usd"])),
+                        "min_usd": repr(float(disc["min_usd_account"])), "unlimited": unlimited,
+                        "cap_allowance": repr(float(c["cap_allowance_usd"]))},
+                allow=("u_tokens", "u_prices")),
+        ],
+        "checks": [Job("checks", 42, "42_c12_checks.sql", "invariants of the gate B tables",
+                       params={**freezes, "dust_digits": dust, "system_first": first, "system_last": last},
+                       allow=("u_tokens", "u_prices", "u12_cohort_tobs", "u12_cohort_t1", "u12_labels_w0",
+                              "u12_labels_w1"))],
     }
 
 
@@ -367,13 +625,14 @@ def estimates(rows: dict[str, int | None]) -> dict[str, Estimate]:
                 if isinstance(term, Measured):
                     total += term.bytes
                     continue
-                table = term.table
+                table, factor, extra = term.table, 1, 0
                 if rows.get(table) is None and table in bound:
-                    table = bound[table]
+                    b = bound[table]
+                    table, factor, extra = (b, 1, 0) if isinstance(b, str) else b
                 if rows.get(table) is None:
                     missing.add(table)
                 else:
-                    total += max(MIN_TABLE, int(rows[table]) * term.width)
+                    total += max(MIN_TABLE, (factor * int(rows[table]) + extra) * term.width)
             totals.append(total)
         out[key] = Estimate(totals[0], sum(totals), tuple(sorted(missing)))
     return out
@@ -396,6 +655,112 @@ def cap_problems(est: dict[str, Estimate], campaign: float, spent: float, budget
         out.append(f"the ledger (USD {spent:.2f}) and the known estimates (USD {total:.2f}) pass the budget of USD "
                    f"{budget:.2f}")
     return out
+
+
+def priced_rows(rows: int | None, nbytes: int | None) -> int | None:
+    """The rows of c12_logs5 or c12_events_cc with a usd value, from the table's logical bytes: every column but usd
+    has a fixed size (LOGS5_ALL - NUM = 109 bytes a row: BYTES(20) 22, a one-letter STRING 3, the rest 8) and usd adds
+    NUM bytes where it is not NULL (BigQuery counts a NULL as 0 bytes); None unless that gives an exact count."""
+    if rows is None or nbytes is None:
+        return None
+    extra = int(nbytes) - int(rows) * (LOGS5_ALL - NUM)
+    if extra < 0 or extra % NUM or extra // NUM > rows:
+        return None
+    return extra // NUM
+
+
+def projected_rows(meta: dict[str, dict | None], m: dict) -> dict[str, int] | None:
+    """Upper bounds of the rows of the gate B tables that do not exist yet, from tables that do (revision section 12
+    and its gate B amendment): with N rows of c12_events_cc, T* of them with a usd value and A* = N - T* (A rows with
+    the T rows without a price), and the pilot's t1 pairs (S_c capped, S_u uncapped, S_t transfer, self-pairs
+    included): triples <= min(A*, 5 S_u) + A*, capped pairs <= S_c + A*, uncapped <= S_u + A*, transfer pairs <= S_t
+    + min(T*, rows(c12_pairs5)), user events <= rows(c12_logs5) - N, nodes <= rows(c12_contracts), importance rows
+    <= 2 rows(c12_contracts) + 2. Without an exact count of the priced rows of both c12_events_cc and c12_logs5, A*
+    and T* are both N. The keys _n_events_cc, _priced_rows (None without an exact count) and _a_rows_bound report
+    the inputs. None while c12_events_cc or another input does not exist."""
+    rows = {k: (v["rows"] if v else None) for k, v in meta.items()}
+    need = ("c12_events_cc", "c12_logs5", "c12_pairs5", "c12_contracts", *U12_LISTS)
+    if any(rows.get(k) is None for k in need):
+        return None
+    n = rows["c12_events_cc"]
+    t = priced_rows(n, (meta["c12_events_cc"] or {}).get("bytes"))
+    if t is None or priced_rows(rows["c12_logs5"], (meta["c12_logs5"] or {}).get("bytes")) is None:
+        t = None                     # the logical sizes are not those assumed: count every row on both sides
+    a, t = (n, n) if t is None else (n - t, t)
+    st = (m.get("results") or {}).get("structure") or {}
+    lay, loop = st.get("layers") or {}, st.get("self_pairs") or {}
+    s = {k: int(lay.get(k, 0)) + int(loop.get(k, 0)) for k in ("allow_capped", "allow_uncapped", "transfer")}
+    p5, c = rows["c12_pairs5"], rows["c12_contracts"]
+    tri_t1 = min(a, 5 * s["allow_uncapped"]) if lay else a
+    cap = (s["allow_capped"] if lay else tri_t1) + a
+    unc = (s["allow_uncapped"] if lay else tri_t1) + a
+    tp = (s["transfer"] if lay else min(t, p5)) + min(t, p5)
+    members = sum(rows[k] for k in U12_LISTS)
+    bounds = {"c12_allow_triples": tri_t1 + a, "c12_user_events": rows["c12_logs5"] - n, "c12_constants": 1,
+              "c12_transfer_pairs": tp, "c12_allow_pairs": cap, "c12_allow_pairs_unc": unc,
+              "c12_cohort_tobs": rows["u12_cohort_tobs"], "c12_cohort_t1": rows["u12_cohort_t1"],
+              "c12_members": members, "c12_proxies_tobs": rows["u12_cohort_tobs"],
+              "c12_label_parts_w0": rows["u12_labels_w0"], "c12_label_parts_w1": rows["u12_labels_w1"],
+              "c12_x_label_split_w0": rows["u12_labels_w0"], "c12_x_label_split_w1": rows["u12_labels_w1"],
+              "c12_nodes": c, "c12_x_nodes": c, "c12_x_members": members,
+              "c12_x_allow_pairs_tobs": cap, "c12_x_allow_pairs_t1": cap, "c12_x_allow_pairs_unc_tobs": unc,
+              "c12_x_allow_pairs_unc_t1": unc, "c12_x_transfer_pairs_tobs": tp, "c12_x_transfer_pairs_t1": tp,
+              "c12_importance_raw": 2 * c + 2, "c12_importance_tobs": c, "c12_importance_t1": c,
+              "c12_inflow_untyped_tobs": 1, "c12_inflow_untyped_t1": 1, "c12_describe_allowances": 10}
+    out = {k: int(v) for k, v in bounds.items() if rows.get(k) is None}
+    out["_n_events_cc"], out["_priced_rows"], out["_a_rows_bound"] = n, (None if t == n and a == n else t), a
+    return out
+
+
+def gate_b_keys(cfg: dict, start: str | None = None) -> list[str]:
+    """The job keys of the gate B steps, from the step ``start`` on (all of them without it)."""
+    js = jobs(cfg)
+    steps = [s for s in GATE_B if s in js]
+    steps = steps[steps.index(start):] if start in steps else ([] if start else steps)
+    return [j.key for s in steps for j in js[s]]
+
+
+# In closed form, with every proportional read above its 10 MB floor and the gate A tables at their rows
+# (c12_logs5 1,240,275,042, c12_ends 25,537,280, c12_rpc_queue 6,230,270, c12_tx_senders 17,477,779, c12_pairs5
+# 73,058,133), the projection of all the gate B jobs is within 0.1 GB of
+#     245,368,823,448 + 246 N + 130 UE + 382 TR + 426 AP + 394 APU + 410 TP + 120 BAL + 1,214 C + 173 UA + 104 ST
+# bytes: N, UE, TR, AP, APU and TP the rows of c12_events_cc and the bounds of c12_user_events, c12_allow_triples,
+# c12_allow_pairs, c12_allow_pairs_unc and c12_transfer_pairs; BAL, C, UA and ST the rows of c12_bal, c12_contracts,
+# c12_user_accounts and c12_struct_t1. The constant is the fixed reads of user_events (136,410,442,756), the two
+# measured terms of job 39 (103,623,426,048), the read of c12_pairs5 by job 42 (73,058,133 x 68 = 4,967,953,044) and
+# 35 reads at the floor (367,001,600).
+def gate_b_projection(meta: dict[str, dict | None], m: dict, keys: list[str]) -> dict:
+    """The estimates of the gate B jobs ``keys`` with every table they read that does not exist yet at its bound
+    (projected_rows), their sum in bytes and US dollars; complete is False while a table they read has neither rows
+    nor a bound."""
+    bounds = projected_rows(meta, m)
+    if bounds is None:
+        return {"complete": False, "missing": ["c12_events_cc and the other tables of job 31"], "usd": None}
+    rows = {k: (v["rows"] if v else None) for k, v in meta.items()}
+    est = estimates({**rows, **{k: v for k, v in bounds.items() if not k.startswith("_")}})
+    sub = {k: est[k] for k in keys}
+    missing = sorted({t for e in sub.values() for t in e.missing})
+    whole = sum(e.whole for e in sub.values())
+    return {"complete": not missing, "missing": missing, "bounds": bounds,
+            "jobs": {k: {"first": e.first, "whole": e.whole} for k, e in sub.items()},
+            "bytes": whole, "usd": round(usd(whole), 4)}
+
+
+def over_cap(projected: float, campaign: float, spent: float, budget: float) -> list[str]:
+    """What a projected cost would pass: the campaign cap with the campaign so far, the budget with the ledger."""
+    return ([f"with the campaign so far (USD {campaign:.2f}) it passes the cap of USD {CAP_USD:.2f}"]
+            if campaign + projected > CAP_USD else []) + \
+           ([f"with the ledger (USD {spent:.2f}) it passes the budget of USD {budget:.2f}"]
+            if spent + projected > budget else [])
+
+
+def cents_needed(total: float) -> float:
+    """``total`` rounded up to the cent, math.ceil(total * 100 - 1e-9) / 100: the least amount in whole cents that
+    ``total`` does not pass in the comparison of over_cap (a float sum just above a whole cent takes the next one)."""
+    need = math.ceil(total * 100 - 1e-9) / 100
+    while total > need:
+        need = round(need + 0.01, 2)
+    return need
 
 
 def command(job: Job, est: Estimate, dry: bool) -> list[str]:
@@ -470,25 +835,28 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def uncommitted() -> list[str]:
-    """The files in COMMITTED that are missing, have local changes or were never committed."""
-    return [rel for rel in COMMITTED
+def uncommitted(files=None) -> list[str]:
+    """The files (COMMITTED by default) that are missing, have local changes or were never committed."""
+    files = COMMITTED if files is None else files
+    return [rel for rel in files
             if not (ROOT / rel).exists() or git("status", "--porcelain", "--", rel)
             or not git("log", "-1", "--format=%H", "--", rel)]
 
 
-def inputs(dry: bool) -> dict:
-    """Refuse (or, for a dry run, warn) unless every file in COMMITTED is committed without local changes."""
-    bad = uncommitted()
+def inputs(dry: bool, gate_b: bool = False) -> dict:
+    """Refuse unless every file in COMMITTED (and, for a gate B step, in COMMITTED_B) is committed without local
+    changes; a dry run of a gate A step only warns, a gate B step refuses whether it is a dry run or not."""
+    files = COMMITTED + COMMITTED_B if gate_b else COMMITTED
+    bad = uncommitted(files)
     if bad:
         msg = "not committed without local changes: " + ", ".join(bad)
-        if not dry:
+        if not dry or gate_b:
             raise SystemExit("refused: " + msg)
         print("warning:", msg)
     return {
         "head": git("rev-parse", "HEAD"),
         "revision_commit": git("log", "--diff-filter=A", "-1", "--format=%H %cI", "--", COMMITTED[0]),
-        "sha256": {rel: sha256(ROOT / rel) if (ROOT / rel).exists() else None for rel in COMMITTED},
+        "sha256": {rel: sha256(ROOT / rel) if (ROOT / rel).exists() else None for rel in files},
     }
 
 
@@ -501,7 +869,8 @@ def prerequisites(step: str, m: dict) -> list[str]:
     check without problems (check is the first step of gate A, revision section 12) and a last run that passed of
     each step of CHAIN before it, those last runs in the order of CHAIN (a step run again after a later step makes
     the later one stale). Of the checks only the outcome of the last one counts, not when it ran: a check run again
-    does not make subset or the steps after it stale."""
+    does not make subset or the steps after it stale. Of the waits of a gate B step, gate_a_decision takes out those
+    that decisions taken before gate B cover."""
     if step not in CHAIN:
         return []
     out = []
@@ -522,6 +891,58 @@ def prerequisites(step: str, m: dict) -> list[str]:
         if i > at:
             before, at = s, i
     return out
+
+
+# What a step waits for after a structure run that did not pass (prerequisites).
+STRUCTURE_NOT_PASSED = "a run of structure that passes (the last one did not)"
+
+
+def gate_a_decision(waits: list[str], m: dict, fixed: dict) -> tuple[list[str], dict | None]:
+    """Split the waits of a gate B step (prerequisites) into those that decisions taken before gate B already cover
+    and the rest (revision section 13, amendment of 9 November 2026: jobs 32 to 34 and 43 are not run again after
+    job 31, and the run goes on after the stop of the structure pilot). The last structure run covers the waits it
+    recorded in waited_for under an author_decision. 'Protocol fixed' with an author_decision (``fixed``, from
+    check_fixed) covers the wait for a structure run that passes, since gate_b_ready checked that it pins the pilot
+    of that run. They cover them only while that run is the last of gate A: it recorded its result (so the pilot is
+    its own), no step of gate A ran after it, and, for the wait for a check, no check ran after it started (a check
+    that cannot be placed in time counts as later). Returns the waits left, which still need --author-decision, and
+    the record for the manifest (None when no wait is covered): the index of that structure entry in the steps, its
+    started_at and the waits covered, in the order of prerequisites."""
+    runs = [i for i, e in enumerate(m["steps"]) if e["step"] == "structure"]
+    if not waits or not runs:
+        return waits, None
+    j = runs[-1]
+    entry = m["steps"][j]
+    if "passed" not in entry or any(e["step"] in CHAIN_A for e in m["steps"][j + 1:]):
+        return waits, None
+    recorded = set(entry.get("waited_for") or []) if entry.get("author_decision") else set()
+    started, checks = entry.get("started_at"), m.get("checks_run") or []
+    check_since = bool(checks) and not (started and checks[-1].get("at")
+                                        and utc_time(checks[-1]["at"]) <= utc_time(started))
+
+    def covered(wait: str) -> bool:
+        if wait == STRUCTURE_NOT_PASSED:
+            return bool(fixed.get("author_decision"))
+        return wait in recorded and not (check_since and wait.startswith("a check without problems"))
+
+    took = [w for w in waits if covered(w)]
+    if not took:
+        return waits, None
+    return [w for w in waits if not covered(w)], {"structure_index": j, "structure_started_at": started,
+                                                   "waited_for": took}
+
+
+def gate_a_note(step: str, decided: dict) -> str:
+    """The line that a gate B step prints for the waits that decisions taken before gate B cover."""
+    by = []
+    if set(decided["waited_for"]) - {STRUCTURE_NOT_PASSED}:
+        by.append(f"the author's decision of the last structure run (steps[{decided['structure_index']}] of the run "
+                  f"manifest, started at {decided['structure_started_at']})")
+    if STRUCTURE_NOT_PASSED in decided["waited_for"]:
+        by.append("the author_decision of 'Protocol fixed' on its pilot")
+    return (f"note: {step} waits for " + "; ".join(decided["waited_for"]) + ", which decisions taken before gate B "
+            f"cover ({' and '.join(by)}); the run manifest records them as a gate A decision (gate_a_decision), not "
+            "as taken after gate B")
 
 
 def stamp(path: Path) -> tuple[int, str] | None:
@@ -551,27 +972,207 @@ def download(table: str, stem: Path) -> list[str]:
     return [sys.executable, "scripts/download_table.py", f"contract_rep.{table}", str(stem)]
 
 
+# --------------------------------------------------------------------------- gate B refusals
+
+
+def protocol_fixed_block() -> dict | None:
+    """The object of the section 'Protocol fixed' of docs/discovery_protocol.md, or None while it holds none."""
+    import run_discovery as rd
+    return rd.protocol_fixed(PROTOCOL)
+
+
+def refuse_gate_a_again(step: str) -> None:
+    """A gate A step from subset to structure does not run again once 'Protocol fixed' holds a block: gate B, which
+    pins the structure pilot, comes after them (revision section 12)."""
+    if step in CHAIN_A and protocol_fixed_block() is not None:
+        raise SystemExit(f"refused: {step} is a gate A step, and docs/discovery_protocol.md holds 'Protocol fixed': "
+                         "no step from subset to structure runs again after gate B "
+                         "(docs/revision_contract_graph.md section 12)")
+
+
+def gate_b_ready(cfg: dict) -> tuple[dict, dict]:
+    """Refuse a gate B step unless 'Protocol fixed' passes run_discovery.check_fixed in full and pins the pilot that
+    the last structure run wrote, the file on disk being that pilot (also when 'Protocol fixed' carries an
+    author_decision); return check_fixed's result and the record for the manifest."""
+    import run_discovery as rd
+    block = rd.protocol_fixed(PROTOCOL)
+    fixed = rd.check_fixed(block, FEASIBILITY, ROOT, cfg.get("discovery"))
+    rec = (((manifest().get("results") or {}).get("structure") or {}).get("feasibility") or {})
+    if not rec.get("sha256"):
+        raise SystemExit("refused: the run manifest records no pilot written by the structure step "
+                         "(results.structure.feasibility); gate B pins that pilot (docs/revision_contract_graph.md "
+                         "section 12)")
+    if rec.get("path") != FEASIBILITY_REL or not (fixed["pinned_sha256"] == fixed["feasibility_sha256"]
+                                                  == str(rec["sha256"]).lower()):
+        raise SystemExit(f"refused: 'Protocol fixed' pins {fixed['pinned_sha256'][:12]}, {FEASIBILITY_REL} on disk "
+                         f"is {fixed['feasibility_sha256'][:12]} and the structure step wrote "
+                         f"{str(rec['sha256'])[:12]} at {rec.get('path')}; gate B runs only on the pilot of the "
+                         "structure step")
+    record = {"date": fixed["date"], "pinned_sha256": fixed["pinned_sha256"], "rho": block["rho"], "q": block["q"],
+              "primary_mode": fixed["primary_mode"], "author_decision": fixed["author_decision"],
+              "decision_covers": fixed.get("decision_covers"),
+              "sizes": fixed["sizes"]}
+    return fixed, record
+
+
+def committed_hash(rel: str) -> str:
+    """The last commit that touched ``rel`` ('' if none did)."""
+    return git("log", "-1", "--format=%H", "--", rel)
+
+
+def refuse_constants_again() -> None:
+    """The constants are computed once: the constants step refuses, a dry run too, once constants.json is
+    committed."""
+    h = committed_hash(CONSTANTS_REL)
+    if h:
+        raise SystemExit(f"refused: {CONSTANTS_REL} is committed ({h[:12]}); the constants are computed once, and the "
+                         "constants step does not run again (docs/revision_contract_graph.md section 7)")
+
+
+def constants_problems(m: dict) -> list[str]:
+    """What keeps the constants of the constants step from being committed on their own: the file is missing, is
+    not the one the last passing run of constants wrote, has local changes or is not committed, or its commit does
+    not hold exactly the files of CONSTANTS_COMMIT (the constants, the run manifest and the ledger)."""
+    path = ROOT / CONSTANTS_REL
+    if not path.exists():
+        return [f"{CONSTANTS_REL} is missing; run the 'constants' step first"]
+    out = []
+    last = next((e for e in reversed(m["steps"]) if e["step"] == "constants"), None)
+    rec = (m.get("results") or {}).get("constants") or {}
+    if last is None or last.get("passed") is not True or not rec.get("constants_sha256"):
+        out.append("the last run of constants did not pass")
+    elif rec["constants_sha256"] != sha256(path):
+        out.append(f"{CONSTANTS_REL} is not the file the last run of constants wrote")
+    h = committed_hash(CONSTANTS_REL)
+    if git("status", "--porcelain", "--", CONSTANTS_REL) or not h:
+        out.append(f"{CONSTANTS_REL} has local changes or is not committed")
+    else:
+        prefix = git("rev-parse", "--show-prefix")
+        files = set(git("diff-tree", "--no-commit-id", "--name-only", "-r", h).splitlines())
+        allowed = {prefix + rel for rel in CONSTANTS_COMMIT}
+        if files != allowed:
+            out.append(f"the commit {h[:12]} that holds {CONSTANTS_REL} must hold exactly it, {MANIFEST_REL} and "
+                       f"{LEDGER_REL}: missing {sorted(allowed - files)}, extra {sorted(files - allowed)}; commit "
+                       "the constants on their own with the run manifest and the ledger (precedent 77a1e49)")
+    return out
+
+
+def committed_constants(m: dict, dry: bool) -> tuple[dict | None, dict | None]:
+    """The constants of constants.json and their record (path, SHA-256, commit) once they are committed on their
+    own; before that a gate B step refuses, and its dry run warns and returns (None, None) for the placeholders."""
+    problems = constants_problems(m)
+    if problems:
+        msg = "the constants must be committed on their own before this step: " + "; ".join(problems)
+        if not dry:
+            raise SystemExit("refused: " + msg)
+        print("warning:", msg, "(the dry run takes placeholder constants)")
+        return None, None
+    return load_json(ROOT / CONSTANTS_REL), {"path": CONSTANTS_REL, "sha256": sha256(ROOT / CONSTANTS_REL),
+                                             "commit": committed_hash(CONSTANTS_REL)}
+
+
+def utc_time(iso: str) -> datetime:
+    """A full ISO time as an aware datetime (UTC when it names no offset), so that times compare as times."""
+    t = datetime.fromisoformat(str(iso))
+    return t if t.tzinfo else t.replace(tzinfo=timezone.utc)
+
+
+def source_problems(meta: dict[str, dict | None], calibrated: tuple[str, ...] = ()) -> list[str]:
+    """The source tables of the metadata ``meta`` that do not exist, were modified on SOURCES_BEFORE or later, or
+    expire; and, of the tables named in ``calibrated`` (CALIBRATED for the check and for rest and checks), those
+    modified after CALIBRATED_AT, the first bill that calibrates the measured terms of job 39 (full ISO times
+    compared). Each table is named once."""
+    out, at = [], utc_time(CALIBRATED_AT)
+    for name, v in meta.items():
+        if v is None:
+            out.append(f"the source table {name} does not exist")
+        elif v["modified"][:10] >= SOURCES_BEFORE or v["expires"]:
+            out.append(f"{name} was modified on {v['modified'][:10]} or expires")
+        elif name in calibrated and utc_time(v["modified"]) > at:
+            out.append(f"{name} was modified at {v['modified']}, after the first bill that calibrates job 39, at "
+                       f"{CALIBRATED_AT}")
+    return out
+
+
+def refuse_projected_cap(client, ds: str, m: dict, step: str, cfg: dict) -> dict | None:
+    """Refuse a gate B step when the campaign and the projection of the gate B jobs from this step on would pass
+    the cap, or the ledger and that projection the budget; no decision passes it. Returns the projection for the
+    manifest (None for a step without jobs)."""
+    keys = gate_b_keys(cfg, step)
+    if not keys:
+        return None
+    proj = gate_b_projection(table_meta(client, ds, ESTIMATE_TABLES), m, keys)
+    if not proj["complete"]:
+        raise SystemExit(f"refused: no projection of the gate B jobs from {step} on: {proj['missing']} have no rows")
+    camp, spent = campaign_usd(), sum(j.get("usd", 0.0) for j in ledger_jobs())
+    budget = float(cfg["bigquery"]["budget_usd"])
+    over = over_cap(proj["usd"], camp, spent, budget)
+    if over:
+        raise SystemExit(f"refused: the gate B jobs from {step} on are projected at up to USD {proj['usd']:.2f} (their "
+                         "estimates with every table made inside gate B at its upper bound); " + "; ".join(over) +
+                         ". The cap is set in the gate B commit (docs/revision_contract_graph.md sections 12 and 13), "
+                         "and no decision passes it")
+    return {"usd": proj["usd"], "campaign_usd": round(camp, 4), "ledger_usd": round(spent, 4),
+            "jobs": proj["jobs"], "bounds": proj["bounds"]}
+
+
 class Run:
     """One step: its jobs go through run_bq.py, and the manifest records them. It does not start while the steps
-    before it have not all passed (prerequisites), unless the author decided otherwise."""
+    before it have not all passed (prerequisites), unless the author decided otherwise: for a gate B step, the
+    decisions taken before gate B may already cover some of the waits (gate_a_decision), and only the others need
+    --author-decision, which the manifest marks after_gate_b. A gate A step from subset to structure does not start
+    once the protocol is fixed. A gate B step starts only when the protocol is fixed on the structure pilot, its
+    files are committed, the constants are committed on their own (from pairs on) and the projection of the gate B
+    jobs stays within the cap and the budget; no decision passes these."""
 
     def __init__(self, step: str, cfg: dict, dry: bool):
         self.step, self.cfg, self.dry = step, cfg, dry
+        refuse_gate_a_again(step)
+        self.fixed = self.fixed_record = self.constants = self.constants_record = self.projection = None
+        gate_b = step in GATE_B
+        if gate_b:
+            self.fixed, self.fixed_record = gate_b_ready(cfg)
+            if step == "constants":
+                refuse_constants_again()
+            else:
+                self.constants, self.constants_record = committed_constants(manifest(), dry)
         self.client, self.ds = client_and_dataset(cfg)
-        self.inputs = inputs(dry)
+        self.inputs = inputs(dry, gate_b=True) if gate_b else inputs(dry)
+        if step in ("rest", "checks"):
+            problems = source_problems(table_meta(self.client, self.ds, SOURCES + SOURCES_B), CALIBRATED)
+            if problems:
+                raise SystemExit("refused: " + "; ".join(problems) + " (the gate B jobs read these tables as they "
+                                 "were; job 39 is estimated from the bills of the twelve-month label jobs on them)")
         self.m = manifest()
-        waits = prerequisites(step, self.m)
+        if gate_b and not dry:
+            self.projection = refuse_projected_cap(self.client, self.ds, self.m, step, cfg)
+        waits, decided = prerequisites(step, self.m), None
+        if gate_b:
+            waits, decided = gate_a_decision(waits, self.m, self.fixed)
+            if decided:
+                print(gate_a_note(step, decided))
         if waits:
             msg = f"{step} waits for " + "; ".join(waits)
             if dry or AUTHOR_DECISION:
                 print(f"warning: {msg}" + ("" if dry else f"; going on by the author's decision: {AUTHOR_DECISION}"))
+                if gate_b and not dry:
+                    print("note: this decision is taken after gate B; the run manifest marks it (after_gate_b), the "
+                          "change record (_change-record-contract-graph.md) must name it; the later publish step "
+                          "lists it; the revision does not change")
             else:
                 raise SystemExit(f"refused: {msg} (the steps run in the order of STEPS; --author-decision TEXT goes "
                                  "on all the same and is recorded)")
         if not dry:
             entry = {"step": step, "started_at": now(), **self.inputs}
+            if gate_b:
+                entry["gate_b"] = {"protocol_fixed": self.fixed_record, "constants": self.constants_record,
+                                   "projection": self.projection}
+            if decided:
+                entry["gate_a_decision"] = decided
             if waits:
                 entry.update(waited_for=waits, author_decision=AUTHOR_DECISION)
+                if gate_b:
+                    entry["after_gate_b"] = True
             self.m["steps"].append(entry)
             save_json(self.m, MANIFEST)
 
@@ -618,7 +1219,7 @@ class Run:
                              f"times its estimate of {est.whole/1e9:,.1f} GB; find the cause before the next job")
 
     def run_jobs(self, step: str) -> None:
-        for job in jobs(self.cfg)[step]:
+        for job in jobs(self.cfg, self.constants)[step]:
             self.job(job)
 
     def result(self, value, passed: bool = True) -> None:
@@ -640,6 +1241,42 @@ class Run:
 # --------------------------------------------------------------------------- steps
 
 
+def print_projection(proj: dict, numbers: dict[str, int], campaign: float, spent: float, budget: float) -> None:
+    """The projection of the gate B jobs not yet run, as the check step prints it; whenever the logical bytes give no
+    exact count of the priced rows, a line says that the projection falls back to the loose bound. A complete
+    projection ends with the lines 'cap needed' and 'budget needed': the campaign and the ledger with the projection,
+    rounded up to the cent (cents_needed), within or above the cap and the budget as over_cap judges them."""
+    b = proj.get("bounds") or {}
+    fallback = ("projection: fallback (no exact priced-row count): each of the "
+                f"{b.get('_n_events_cc', 0):,} rows of c12_events_cc counts as an A row and as a transfer with a usd "
+                "value, a loose bound")
+    if not proj["complete"]:
+        if b and b["_priced_rows"] is None:
+            print(fallback)
+        print("projection: waits for " + ", ".join(proj["missing"]))
+        return
+    print("projection of the gate B jobs not yet run (the tables they make at their upper bounds):")
+    if b["_priced_rows"] is None:
+        print("  " + fallback)
+    else:
+        print(f"  c12_events_cc {b['_n_events_cc']:,} rows, {b['_priced_rows']:,} with a usd value (logical bytes); A "
+              f"rows at most {b['_a_rows_bound']:,}")
+    print("  bounds: " + ", ".join(f"{k} <= {v:,}" for k, v in b.items() if not k.startswith("_")))
+    print(f"{'job':<15}{'no':>4}{'first GB':>11}{'whole GB':>11}{'USD':>8}")
+    for key, e in proj["jobs"].items():
+        print(f"{key:<15}{numbers[key]:>4}{e['first']/1e9:>11.1f}{e['whole']/1e9:>11.1f}{usd(e['whole']):>8.3f}")
+    print(f"gate B projected: {proj['bytes']/1e9:,.1f} GB, USD {proj['usd']:.3f}; campaign USD {campaign:.2f} + "
+          f"{proj['usd']:.2f} = {campaign + proj['usd']:.2f} of {CAP_USD:.2f}; ledger USD {spent:.2f} + "
+          f"{proj['usd']:.2f} = {spent + proj['usd']:.2f} of {budget:.0f}")
+    # The cap and the budget that the unrounded sums need, in whole cents, each judged within or above exactly as
+    # over_cap judges it: the gate B amendment of revision section 13 sets the cap from these two lines.
+    cap_sum, budget_sum = campaign + proj["usd"], spent + proj["usd"]
+    print(f"cap needed: USD {cents_needed(cap_sum):.2f} ({'above' if cap_sum > CAP_USD else 'within'} the cap of USD "
+          f"{CAP_USD:.2f})")
+    print(f"budget needed: USD {cents_needed(budget_sum):.2f}, {'above' if budget_sum > budget else 'within'} the "
+          f"budget of USD {budget:g}")
+
+
 def step_check(cfg: dict, dry: bool) -> None:
     w = windows(cfg)
     client, ds = client_and_dataset(cfg)
@@ -655,12 +1292,8 @@ def step_check(cfg: dict, dry: bool) -> None:
     m = manifest()
     if existing and not m["jobs"]:
         problems.append(f"c12_ tables exist before any job of this driver: {existing}")
-    meta = table_meta(client, ds, SOURCES)
-    for name, v in meta.items():
-        if v is None:
-            problems.append(f"the source table {name} does not exist")
-        elif v["modified"][:10] >= SOURCES_BEFORE or v["expires"]:
-            problems.append(f"{name} was modified on {v['modified'][:10]} or expires")
+    meta = table_meta(client, ds, SOURCES + SOURCES_B)
+    problems += source_problems(meta, CALIBRATED)
     if meta["u_tokens"] and meta["u_tokens"]["rows"] != 5:
         problems.append(f"u_tokens has {meta['u_tokens']['rows']} rows, not 5")
     for name in ("logs_obs", "logs_w1"):
@@ -684,7 +1317,8 @@ def step_check(cfg: dict, dry: bool) -> None:
             problems.append(f"the public view {name} lacks {lacking}")
     spent, camp = sum(j.get("usd", 0.0) for j in ledger_jobs()), campaign_usd()
     budget = float(cfg["bigquery"]["budget_usd"])
-    rows = table_rows(client, ds, ESTIMATE_TABLES)
+    emeta = table_meta(client, ds, ESTIMATE_TABLES)
+    rows = {k: (v["rows"] if v else None) for k, v in emeta.items()}
     est = estimates(rows)
     done = {j["key"] for j in m["jobs"] if not j.get("error")}
     made, waits = creators(cfg), {}
@@ -704,14 +1338,43 @@ def step_check(cfg: dict, dry: bool) -> None:
     print(f"{'account_types':<15}{30:>4}{0:>11.1f}{0:>11.1f}{0:>8.3f}  a load job, not billed")
     pending = sum(e.whole for k, e in est.items() if k not in done)
     print(f"{'not yet run':<19}{'':>11}{pending/1e9:>11.1f}{usd(pending):>8.3f}  (a lower bound while jobs wait)")
-    problems += cap_problems(est, camp, spent, budget, done)
+    # The gate A jobs not yet run against the cap and the budget by their known estimates; the gate B jobs are judged
+    # by the projection below alone, which only warns until 'Protocol fixed' holds a block.
+    gate_b = set(gate_b_keys(cfg))
+    problems += cap_problems({k: e for k, e in est.items() if k not in gate_b}, camp, spent, budget, done)
+    # Gate B: the projection of the gate B jobs not yet run, which the check makes for free before the gate B commit,
+    # and whether the protocol is fixed; once it is, a projection above the cap or the budget is a problem.
+    try:
+        block, unreadable = protocol_fixed_block(), None
+    except SystemExit as exc:
+        block, unreadable = None, str(exc).removeprefix("refused: ")
+        problems.append(f"docs/discovery_protocol.md: {unreadable}")
+    proj = gate_b_projection(emeta, m, [k for k in gate_b_keys(cfg) if k not in done])
+    print_projection(proj, numbers, camp, spent, budget)
+    if proj["complete"]:
+        over = over_cap(proj["usd"], camp, spent, budget)
+        if over:
+            msg = f"the gate B jobs not yet run are projected at up to USD {proj['usd']:.2f}; " + "; ".join(over)
+            if block is not None:
+                problems.append(msg)
+            else:
+                print(f"warning: {msg}; the gate B commit sets the cap (docs/revision_contract_graph.md sections 12 "
+                      "and 13)")
+    fixed = None if block is None else {"date": block.get("date"), "pinned_sha256": block.get("sha256")}
+    if unreadable:
+        print(f"gate B: {unreadable}")
+    elif fixed is None:
+        print("gate B: docs/discovery_protocol.md holds no 'Protocol fixed' block yet")
+    else:
+        print(f"gate B: 'Protocol fixed' of {fixed['date']} pins {str(fixed['pinned_sha256'])[:12]}")
     if preview:
         print(f"not recorded in {MANIFEST.name}: the files above are not committed (a preview before gate A)")
     else:
         m.setdefault("checks_run", []).append({
             "at": now(), "head": git("rev-parse", "HEAD"), "problems": problems, "ledger_usd": round(spent, 4),
             "campaign_usd": round(camp, 4), "existing_c12": existing, "waits": waits,
-            "estimates": {k: {"first": e.first, "whole": e.whole, "missing": list(e.missing)} for k, e in est.items()}})
+            "estimates": {k: {"first": e.first, "whole": e.whole, "missing": list(e.missing)} for k, e in est.items()},
+            "projection": proj, "gate_b": {"protocol_fixed": fixed}})
         save_json(m, MANIFEST)
     if problems:
         raise SystemExit("check failed:\n  " + "\n  ".join(problems))
@@ -910,6 +1573,8 @@ def expected_sizes(previous: dict, ext: dict, sizes: dict) -> tuple[dict, bool]:
 
 
 def step_contracts(cfg: dict, dry: bool) -> None:
+    # Once 'Protocol fixed' holds a block this gate A step refuses before anything else (revision section 12).
+    refuse_gate_a_again("contracts")
     # The lists must move exactly the typed contracts the amendment of 9 November 2026 counts (common.
     # SMART_ACCOUNT_TYPED) in the typing output that job 30 loaded; checked before the step is recorded.
     m = manifest()
@@ -1027,6 +1692,8 @@ def structure_counts(struct) -> tuple[dict[str, int], dict[str, int]]:
 
 
 def step_structure(cfg: dict, dry: bool) -> None:
+    # Once 'Protocol fixed' holds a block this gate A step refuses before anything else (revision section 12).
+    refuse_gate_a_again("structure")
     # Job 35 reads c12_events_cc, which job 31 builds: the structure must be that of the node set with the
     # smart-account lists (revision section 13, amendment of 9 November 2026). No author's decision passes this.
     why = lists_applied(manifest())
@@ -1078,14 +1745,255 @@ def step_structure(cfg: dict, dry: bool) -> None:
                          f"fewer than {stop_edges:,}; the author decides (docs/discovery_protocol.md section 7)")
 
 
-def gate_b(step: str):
-    def refuse(cfg: dict, dry: bool) -> None:
-        raise SystemExit(f"refused: {step} is a gate B step ({GATE_B[step]}); gate B: not yet written. It is "
-                         "committed after the structure pilot (docs/revision_contract_graph.md section 12)")
-    return refuse
+def step_constants(cfg: dict, dry: bool) -> None:
+    run = Run("constants", cfg, dry)
+    run.run_jobs("constants")                      # triples, user_events, constants
+    if dry:
+        return
+    rows = list_rows(run.client, run.ds, "c12_constants")
+    sizes = run.sizes("c12_allow_triples", "c12_user_events", "c12_constants")
+    if len(rows) != 1:
+        run.result({"rows": sizes}, passed=False)
+        raise SystemExit(f"stopped: c12_constants holds {len(rows)} rows, not one")
+    if list(rows[0]) != list(CONSTANT_COLUMNS):
+        run.result({"rows": sizes, "columns": list(rows[0])}, passed=False)
+        raise SystemExit(f"stopped: c12_constants has the columns {list(rows[0])}, not CONSTANT_COLUMNS")
+    raw = {k: (v if isinstance(v, int) or v is None else float(v)) for k, v in rows[0].items()}
+    out, problems = constants_file(raw, cfg)
+    if problems:
+        run.result({"raw": raw, "problems": problems, "rows": sizes}, passed=False)
+        raise SystemExit("stopped: the constants are not usable (" + "; ".join(problems) + "); nothing was written")
+    path = ROOT / CONSTANTS_REL
+    save_json(out, path)
+    digest = sha256(path)
+    run.result({"constants": {k: out[k] for k in CONSTANT_KEYS}, "path": CONSTANTS_REL, "constants_sha256": digest,
+                "rows": sizes})
+    print(json.dumps(out, indent=1))
+    print(f"commit {CONSTANTS_REL}, {MANIFEST_REL} and {LEDGER_REL} on their own (precedent 77a1e49) before the "
+          "pairs step; the constants step does not run again once the file is committed")
 
 
-step_constants, step_pairs, step_rest, step_checks, step_download = (gate_b(s) for s in GATE_B)
+RULE = ("b = ln 3 / m with m the median rounded to two significant digits (usd.round_sig); U is the 99th percentile "
+        "of the US-dollar values of the transfers between contracts and U_user that of the transfers from user "
+        "accounts to contracts, both of the W0 score window and rounded to two significant digits; m_A is the median "
+        "of the positive usd_eff of the latest allowances between contracts at t1, unlimited ones included "
+        "(docs/revision_contract_graph.md section 7)")
+
+
+def constants_file(raw: dict, cfg: dict) -> tuple[dict, list[str]]:
+    """constants.json from the row of c12_constants (revision section 7): m_T, m_A, U and U_user rounded to two
+    significant digits and b = ln 3 / m; with the problems that keep it from being written (a value that is not
+    positive and finite, U_user below discovery.min_usd_account)."""
+    w, g = windows(cfg), cfg["contract_graph"]
+    names = {"m_transfer_usd": "m_transfer", "m_allowance_usd": "m_allowance", "cap_allowance_usd": "p99_transfer",
+             "cap_user_usd": "p99_user_transfer"}
+    vals, problems = {}, []
+    for key, col in names.items():
+        x = raw.get(col)
+        v = round_sig(float(x)) if isinstance(x, (int, float)) and math.isfinite(float(x)) else None
+        if v is None or not v > 0:
+            problems.append(f"{col} = {x!r}")
+        vals[key] = v
+    floor = float(cfg["discovery"]["min_usd_account"])
+    if not problems and vals["cap_user_usd"] < floor:
+        problems.append(f"U_user = {vals['cap_user_usd']} is below discovery.min_usd_account = {floor}")
+    if problems:
+        return {}, problems
+    return {
+        "computed_at": now(),
+        "source": "sql/36_c12_constants.sql (contract_rep.c12_constants): the transfers between contracts "
+                  "(c12_events_cc), the latest allowances between contracts at t1 (c12_allow_triples, "
+                  "sql/36_c12_allow_triples.sql) and the transfers from user accounts to contracts (c12_user_events, "
+                  "sql/36_c12_user_events.sql) of the W0 score window",
+        "window": [w["t1_start"], w["t1"]],
+        "raw": raw,
+        **vals,
+        "b_transfer": slope_for_median(vals["m_transfer_usd"]),
+        "b_allowance": slope_for_median(vals["m_allowance_usd"]),
+        "unlimited_base_units": UNLIMITED_BASE_UNITS,
+        "dust_token": float(g["balance"]["dust_token"]),
+        "rule": RULE,
+    }, []
+
+
+def step_pairs(cfg: dict, dry: bool) -> None:
+    run = Run("pairs", cfg, dry)
+    run.run_jobs("pairs")
+    if not dry:
+        run.result({"rows": run.sizes("c12_transfer_pairs", "c12_allow_pairs", "c12_allow_pairs_unc")})
+
+
+def rest_identities(sizes: dict[str, int], m: dict) -> dict[str, dict[str, int]]:
+    """The rows each table of the rest step must have: the t1 export pairs those of the structure pilot (its pairs
+    and self-pairs per layer), one proxies row per member of the T_obs cohort, one member row per row of the
+    twelve-month lists, one label row per spender and one inflow row per freeze."""
+    st = (m.get("results") or {}).get("structure") or {}
+    lay, loop = st.get("layers") or {}, st.get("self_pairs") or {}
+
+    def t1(layer: str) -> int:
+        return int(lay.get(layer, 0)) + int(loop.get(layer, 0))
+
+    pairs = {"c12_x_allow_pairs_t1": t1("allow_capped"), "c12_x_allow_pairs_unc_t1": t1("allow_uncapped"),
+             "c12_x_transfer_pairs_t1": t1("transfer"), "c12_proxies_tobs": sizes["c12_cohort_tobs"],
+             "c12_members": sum(sizes[k] for k in U12_LISTS), "c12_x_members": sizes["c12_members"],
+             "c12_x_nodes": sizes["c12_nodes"], "c12_label_parts_w0": sizes["u12_labels_w0"],
+             "c12_label_parts_w1": sizes["u12_labels_w1"], "c12_x_label_split_w0": sizes["c12_label_parts_w0"],
+             "c12_x_label_split_w1": sizes["c12_label_parts_w1"], "c12_inflow_untyped_tobs": 1,
+             "c12_inflow_untyped_t1": 1}
+    return {k: {"expected": int(v), "actual": int(sizes[k])} for k, v in pairs.items()}
+
+
+def step_rest(cfg: dict, dry: bool) -> None:
+    run = Run("rest", cfg, dry)
+    run.run_jobs("rest")                           # cohorts, proxies, labels_w0, labels_w1, node_ids, importance
+    if dry:
+        return
+    sizes = run.sizes(*REST_TABLES)
+    ident = rest_identities(sizes, run.m)
+    off = {k: v for k, v in ident.items() if v["expected"] != v["actual"]}
+    run.result({"rows": sizes, "identities": ident}, passed=not off)
+    print("rest:", {k: v for k, v in sizes.items() if k.startswith(PREFIX)})
+    if off:
+        raise SystemExit(f"stopped: {sorted(off)} do not have their expected rows ({off}); the t1 rows must be the "
+                         "structure pilot's pairs (docs/discovery_protocol.md section 8); sql/42 names the cause")
+
+
+def step_checks(cfg: dict, dry: bool) -> None:
+    run = Run("checks", cfg, dry)
+    run.run_jobs("checks")
+    if dry:
+        return
+    got = {r["check_name"]: (None if r["violations"] is None else int(r["violations"]))
+           for r in list_rows(run.client, run.ds, "c12_checks")}
+    names = sorted(set(got) ^ set(EXPECTED_CHECKS))
+    failed = {k: v for k, v in got.items() if v != 0}
+    run.result({"checks": got, "names_missing_or_unknown": names}, passed=not names and not failed)
+    print("checks:", got)
+    if names or failed:
+        raise SystemExit(f"stopped: an invariant of sql/42 does not hold: {failed}"
+                         + (f"; names missing or unknown: {names}" if names else ""))
+
+
+def step_download(cfg: dict, dry: bool) -> None:
+    run = Run("download", cfg, dry)
+    cmds = [download(table, GRAPH / stem) for table, stem in DOWNLOADS]
+    for cmd in cmds:
+        print("$", " ".join(cmd[1:]), flush=True)
+    if dry:
+        return
+    sizes = run.sizes(*(t for t, _ in DOWNLOADS))
+    files = {}
+    for (table, stem), cmd in zip(DOWNLOADS, cmds):
+        sh(cmd)
+        side = load_json(GRAPH / f"{stem}.json")
+        if side.get("rows") != sizes[table] or side.get("table_rows") != sizes[table]:
+            run.result({"files": files, "failed": stem}, passed=False)
+            raise SystemExit(f"stopped: {stem}: {side.get('rows')} rows downloaded, {table} has {sizes[table]:,}")
+        files[stem] = {"table": table, "rows": side["rows"],
+                       "sha256": {p.name: sha256(p) for p in part_paths(GRAPH / stem)}}
+    try:
+        verify = verify_downloads(run.fixed)
+    except SystemExit as exc:
+        run.result({"files": files, "verify": str(exc)}, passed=False)
+        raise SystemExit(f"stopped: the downloaded tables fail the reader's checks: {exc}") from None
+    cohorts = cohort_summaries(cfg)
+    run.result({"files": files, "verify": verify, "cohorts": cohorts}, passed=verify["passed"])
+    if not verify["passed"]:
+        raise SystemExit(f"stopped: the downloaded tables differ from the pinned pilot or from each other: {verify}")
+
+
+def verify_downloads(fixed: dict) -> dict:
+    """The downloaded tables as the discovery runner reads them: the t1 graph has the pinned pilot's sizes, union and
+    bow-tie; the t1 rows are its pairs; importance and inflow pass the runner's reader checks; members agree with
+    nodes."""
+    import graphs
+    import run_discovery as rd
+    pilot = load_json(FEASIBILITY)
+    sizes = rd.graph_sizes("t1")
+    match = rd.match_pilot(sizes, fixed)  # refuses unless 'Protocol fixed' carries an author_decision without decision_covers
+    union = {"nodes": pilot["union"]["nodes"], "edges": pilot["union"]["edges"], **pilot["bow_tie"]}
+    union_match = {k: int(sizes[k]) == int(v) for k, v in union.items()}
+    lay = pilot["layers"]
+    expect = {"allow_pairs_t1": lay["allow_capped"], "allow_pairs_uncapped_t1": lay["allow_uncapped"],
+              "transfer_pairs_t1": lay["transfer"]}
+    t1_rows = {stem: {"expected": int(v["edges"]) + int(v["self_loops"]),
+                      "actual": len(read_parts(GRAPH / stem, columns=["src"]))} for stem, v in expect.items()}
+    nodes = graphs.load_nodes().sort_values("id")
+    ids = nodes["id"].to_numpy(dtype="int64")
+    out = {"t1_sizes": sizes, "pilot_match": match, "union_match": union_match, "t1_rows": t1_rows}
+    for tag in ("tobs", "t1"):
+        imp = read_parts(GRAPH / f"importance_{tag}")
+        p = rd.importance_positions(ids, imp)            # stops on a bad table
+        out[f"importance_{tag}"] = {"rows": int(len(imp)), "outside_g": int((p < 0).sum())}
+        out[f"inflow_untyped_{tag}"] = rd.read_inflow_untyped(tag)
+    mem = read_parts(GRAPH / "members")
+    by_addr = set(nodes["address"].astype(str))
+    contract = mem[mem["class"].astype(str) == "contract"]
+    missing = sorted(set(contract["address"].astype(str)) - by_addr)
+    flags = {"cohort_tobs": "is_cohort", "cohort_t1": "is_cohort_t1", "spenders_w0": "is_spender_w0",
+             "spenders_w1": "is_spender_w1"}
+    flag_off = {lst: int((nodes[col].astype(bool).to_numpy()
+                          != nodes["address"].isin(set(contract.loc[contract["list"] == lst, "address"]))
+                          .to_numpy()).sum()) for lst, col in flags.items()}
+    out["members"] = {"contracts_without_node": missing[:20], "n_without_node": len(missing), "flags_off": flag_off}
+    out["passed"] = (all(match.values()) and all(union_match.values()) and not missing
+                     and all(v["expected"] == v["actual"] for v in t1_rows.values()) and not any(flag_off.values()))
+    return out
+
+
+def cohort_summaries(cfg: dict) -> dict:
+    """PROC/cohort/{matched_cohort,cohort_t1,spenders_w0,spenders_w1}.json from the members table (revision section
+    8): the members of each list by class and, for user accounts, by source; the cohort kept (the members that are
+    not user accounts for the two cohorts, the contracts for the two spender lists) and its contracts with a node."""
+    mem = read_parts(GRAPH / "members")
+    nodes = set(read_parts(GRAPH / "nodes", columns=["address"])["address"].astype(str))
+    names = {"cohort_tobs": "matched_cohort", "cohort_t1": "cohort_t1", "spenders_w0": "spenders_w0",
+             "spenders_w1": "spenders_w1"}
+    recs, kept = {}, {}
+    for lst, name in names.items():
+        g = mem[mem["list"].astype(str) == lst]
+        cls = g["class"].astype(str)
+        keep = g[cls != "user_account"] if lst.startswith("cohort") else g[cls == "contract"]
+        kept[lst] = set(keep["address"].astype(str))
+        recs[name] = {
+            "rule": ("the members of u12_" + lst + " that are not user accounts" if lst.startswith("cohort")
+                     else "the spenders of u12_labels_" + lst[-2:] + " that are contracts")
+                    + " (docs/revision_contract_graph.md section 8)",
+            "source": "contract_rep.c12_members (sql/38_c12_cohorts.sql)",
+            "listed": int(len(g)), "by_class": {k: int(v) for k, v in cls.value_counts().sort_index().items()},
+            "user_accounts_by_source": {k: int(v) for k, v in g.loc[cls == "user_account", "source"].astype(str)
+                                        .value_counts().sort_index().items()},
+            "cohort": int(len(keep)),
+            "contracts": int((cls == "contract").sum()),
+            "contracts_in_nodes": int(g.loc[cls == "contract", "address"].astype(str).isin(nodes).sum())}
+    recs["cohort_t1"]["in_tobs_cohort"] = len(kept["cohort_t1"] & kept["cohort_tobs"])
+    for name, rec in recs.items():
+        save_json(rec, PROC / "cohort" / f"{name}.json")
+    return {name: {k: rec[k] for k in ("listed", "by_class", "cohort", "contracts_in_nodes", "in_tobs_cohort")
+                   if k in rec} for name, rec in recs.items()}
+
+
+def preflight(steps: list[str], cfg: dict, dry: bool) -> None:
+    """Refuse before any step runs whatever a step of ``steps`` would refuse at its start however the steps before it
+    end: a gate A step once the protocol is fixed; a gate B step without the protocol fixed on the structure pilot or
+    with a file of COMMITTED or COMMITTED_B not committed; constants once constants.json is committed; and, unless it
+    is a dry run, a later gate B step without the constants committed on their own. So one invocation never runs
+    only part of its steps for such a reason."""
+    for s in steps:
+        refuse_gate_a_again(s)
+        if s in GATE_B:
+            gate_b_ready(cfg)
+            if s == "constants":
+                refuse_constants_again()
+            elif not dry:
+                problems = constants_problems(manifest())
+                if problems:
+                    raise SystemExit(f"refused: {s} needs the constants committed on their own: "
+                                     + "; ".join(problems))
+    if any(s in GATE_B for s in steps):
+        bad = uncommitted(COMMITTED + COMMITTED_B)
+        if bad:
+            raise SystemExit("refused: not committed without local changes: " + ", ".join(bad))
 
 
 def main() -> int:
@@ -1099,10 +2007,8 @@ def main() -> int:
     if args.author_decision is not None and not args.author_decision.strip():
         ap.error("--author-decision needs a text")
     AUTHOR_DECISION = args.author_decision
-    for s in args.steps:  # refuse a gate B step before any other step runs
-        if s in GATE_B:
-            gate_b(s)(None, args.dry_run)
     cfg = load_config()
+    preflight(args.steps, cfg, args.dry_run)
     for s in args.steps:
         globals()[f"step_{s}"](cfg, args.dry_run)
     return 0
