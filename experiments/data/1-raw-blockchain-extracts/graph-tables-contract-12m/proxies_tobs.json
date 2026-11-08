@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.c12_proxies_tobs",
+  "rows": 6443,
+  "table_rows": 6443,
+  "downloaded_at": "2026-11-08T22:31:17+00:00",
+  "parts": [
+    "proxies_tobs.part000.parquet"
+  ],
+  "bytes": 228982
+}

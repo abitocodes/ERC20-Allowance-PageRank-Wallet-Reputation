@@ -1276,6 +1276,201 @@
       "bytes_billed": 8908701696,
       "usd": 0.0506,
       "bytes_expected": 14530627456
+    },
+    {
+      "at": "2026-11-08T20:02:22+00:00",
+      "job_id": "ffad5802-ae67-4df8-8fc1-64682d5d94f8",
+      "sql": "sql/37_c12_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "b_transfer": "0.006866326804175686",
+        "b_allowance": "15.473412516452251",
+        "cap_allowance": "16000.0"
+      },
+      "subs": [],
+      "label": "contract12m: pair tables of both freezes",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 28122176439,
+      "bytes_billed": 28219277312,
+      "usd": 0.1604,
+      "bytes_expected": 38114908584
+    },
+    {
+      "at": "2026-11-08T20:06:23+00:00",
+      "job_id": "631ef597-2a83-4458-bfc6-6b3ed0af2ab6",
+      "sql": "sql/38_c12_cohorts.sql",
+      "dest": null,
+      "params": {
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff"
+      },
+      "subs": [],
+      "label": "contract12m: cohorts without user accounts and members of the u12 lists",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 481546492,
+      "bytes_billed": 0,
+      "usd": 0.0,
+      "bytes_expected": 1962737093,
+      "error": "400 GET https://bigquery.googleapis.com/bigquery/v2/projects/dissertation-bq/queries/631ef597-2a83-4458-bfc6-6b3ed0af2ab6?maxResults=0&location=US&prettyPrint=false: Billing has not been enabled for this project. Enable billing at https://console.cloud.google.com/billing. Datasets must have a default expiration time and default partition expiration time of less than 60 days while in sandbox mode. at [14:1]\n\nLocation: US\nJob ID: 631ef597-2a83-4458-bfc6-6b3ed0af2ab6\n"
+    },
+    {
+      "at": "2026-11-08T22:13:39+00:00",
+      "job_id": "d0d9ec4b-edb3-4cda-863e-4e47eee1499a",
+      "sql": "sql/38_c12_cohorts.sql",
+      "dest": null,
+      "params": {
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff"
+      },
+      "subs": [],
+      "label": "contract12m: cohorts without user accounts and members of the u12 lists",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 481546492,
+      "bytes_billed": 1729101824,
+      "usd": 0.0098,
+      "bytes_expected": 1962737093
+    },
+    {
+      "at": "2026-11-08T22:14:08+00:00",
+      "job_id": "788ef37f-cde2-4ab7-af6c-4c565db3e0ae",
+      "sql": "sql/38_c12_proxies.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: same-window proxies from the transfers between contracts",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 22578445067,
+      "bytes_billed": 22578987008,
+      "usd": 0.1283,
+      "bytes_expected": 38029460152
+    },
+    {
+      "at": "2026-11-08T22:15:32+00:00",
+      "job_id": "1c001df9-f46e-40e1-9ae4-f75e5f1cb32d",
+      "sql": "sql/39_c12_label_parts.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=u12_approvals_t1",
+        "TRANSFERS=u12_transfers_t1",
+        "SEEN=u12_transfers_t1",
+        "LOGS=logs_obs"
+      ],
+      "label": "contract12m: W0 label parts by account class",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 54390438240,
+      "bytes_billed": 54401171456,
+      "usd": 0.3092,
+      "bytes_expected": 54411020324
+    },
+    {
+      "at": "2026-11-08T22:16:50+00:00",
+      "job_id": "44b3872b-b361-4506-89ab-93a4739613a4",
+      "sql": "sql/39_c12_label_parts.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "t1": "2026-06-30 23:59:59 UTC",
+        "out_start": "2026-07-01 00:00:00 UTC",
+        "out_end": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w1",
+        "FREEZE=tobs",
+        "APPROVALS=u12_approvals_w1",
+        "TRANSFERS=u12_transfers_w1",
+        "SEEN=u12_transfers_tobs",
+        "LOGS=logs_w1"
+      ],
+      "label": "contract12m: W1 label parts by account class",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 50277542745,
+      "bytes_billed": 50288656384,
+      "usd": 0.2859,
+      "bytes_expected": 50297456676
+    },
+    {
+      "at": "2026-11-08T22:17:46+00:00",
+      "job_id": "3fb5e681-4d1f-4cef-b277-5b286d746e9b",
+      "sql": "sql/40_c12_export_ids.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "contract12m: node ids and export tables",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 286230407,
+      "bytes_billed": 1182793728,
+      "usd": 0.0067,
+      "bytes_expected": 1734129238
+    },
+    {
+      "at": "2026-11-08T22:18:42+00:00",
+      "job_id": "243c74f1-d7da-480f-a909-a4ee4fead6aa",
+      "sql": "sql/41_c12_importance.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "dust_digits": "6",
+        "cap_user": "31000.0",
+        "min_usd": "1.0",
+        "unlimited": "1.15e+77",
+        "cap_allowance": "16000.0"
+      },
+      "subs": [],
+      "label": "contract12m: importance, untyped inflow and allowance description",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 16664247688,
+      "bytes_billed": 17040408576,
+      "usd": 0.0969,
+      "bytes_expected": 17937164088
+    },
+    {
+      "at": "2026-11-08T22:24:09+00:00",
+      "job_id": "11c2c46c-9564-4c39-a2ab-0ea52fb7ff63",
+      "sql": "sql/42_c12_checks.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "dust_digits": "6",
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff"
+      },
+      "subs": [],
+      "label": "contract12m: invariants of the gate B tables",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 6976365919,
+      "bytes_billed": 6977224704,
+      "usd": 0.0397,
+      "bytes_expected": 7187686366
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.c12_importance_tobs",
+  "rows": 809296,
+  "table_rows": 809296,
+  "downloaded_at": "2026-11-08T22:29:47+00:00",
+  "parts": [
+    "importance_tobs.part000.parquet"
+  ],
+  "bytes": 25835680
+}

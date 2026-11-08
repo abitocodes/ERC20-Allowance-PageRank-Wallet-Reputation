@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.c12_x_members",
+  "rows": 28783,
+  "table_rows": 28783,
+  "downloaded_at": "2026-11-08T22:32:25+00:00",
+  "parts": [
+    "members.part000.parquet"
+  ],
+  "bytes": 252430
+}
