@@ -1,0 +1,11 @@
+{
+  "table": "dissertation-bq.contract_rep.c12_struct_t1",
+  "rows": 2562930,
+  "table_rows": 2562930,
+  "downloaded_at": "2026-11-08T17:17:55+00:00",
+  "parts": [
+    "struct_t1.part000.parquet",
+    "struct_t1.part001.parquet"
+  ],
+  "bytes": 53979844
+}

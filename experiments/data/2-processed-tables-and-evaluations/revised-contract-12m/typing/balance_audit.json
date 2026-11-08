@@ -1,0 +1,109 @@
+{
+  "computed_at": "2026-11-08T13:19:18+00:00",
+  "sample": "data/1-raw-blockchain-extracts/graph-tables-contract-12m/bal_audit",
+  "anchor_blocks": {
+    "t1": 447736930,
+    "tobs": 479089705,
+    "end_0930": 510496863
+  },
+  "archive_probe": {
+    "arb1.arbitrum.io": "served",
+    "arbitrum-one.public.blastapi.io": "served"
+  },
+  "archive_probe_attempts": {
+    "arb1.arbitrum.io": 1,
+    "arbitrum-one.public.blastapi.io": 4
+  },
+  "block": 479089705,
+  "hosts": [
+    "arb1.arbitrum.io",
+    "arbitrum-one.public.blastapi.io"
+  ],
+  "calls_per_host": {
+    "arb1.arbitrum.io": 2649,
+    "arbitrum-one.public.blastapi.io": 110
+  },
+  "errors": 7,
+  "rule": "balance at T_obs against balanceOf at the T_obs block if the RPC serves it (min_match), otherwise the balance carried to 2026-09-30 against balanceOf at the latest block, judged on the owners with no transfer from 1 July to 30 September (min_match_dormant); a match is within 1e-9 relative or 1e-6 token, a negative reconstructed balance clipped to 0 (docs/revision_contract_graph.md section 6)",
+  "mode": "archive",
+  "reference": "bal_tobs",
+  "rows": 1500,
+  "judged": 1500,
+  "matched": 1493,
+  "share": 0.995333,
+  "threshold": 0.98,
+  "passed": true,
+  "overall_share": 0.995333,
+  "per_cell": [
+    {
+      "token": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+      "cell": "positive",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+      "cell": "zero",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "cell": "positive",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+      "cell": "zero",
+      "n": 150,
+      "match": 0.9733,
+      "judged": 150
+    },
+    {
+      "token": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+      "cell": "positive",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+      "cell": "zero",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "cell": "positive",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "cell": "zero",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "cell": "positive",
+      "n": 150,
+      "match": 1.0,
+      "judged": 150
+    },
+    {
+      "token": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "cell": "zero",
+      "n": 150,
+      "match": 0.98,
+      "judged": 150
+    }
+  ]
+}

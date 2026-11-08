@@ -1,0 +1,11 @@
+{
+  "table": "dissertation-bq.contract_rep.c12_rpc_queue",
+  "rows": 6230270,
+  "table_rows": 6230270,
+  "downloaded_at": "2026-11-08T03:15:04+00:00",
+  "parts": [
+    "c12_rpc_queue.part000.parquet",
+    "c12_rpc_queue.part001.parquet"
+  ],
+  "bytes": 130335597
+}

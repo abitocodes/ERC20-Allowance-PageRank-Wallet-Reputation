@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.c12_bal_audit",
+  "rows": 1500,
+  "table_rows": 1500,
+  "downloaded_at": "2026-11-08T13:08:01+00:00",
+  "parts": [
+    "bal_audit.part000.parquet"
+  ],
+  "bytes": 46136
+}

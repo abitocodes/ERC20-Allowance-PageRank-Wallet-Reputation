@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep.c12_anchor_blocks",
+  "rows": 3,
+  "table_rows": 3,
+  "downloaded_at": "2026-11-08T13:08:25+00:00",
+  "parts": [
+    "anchor_blocks.part000.parquet"
+  ],
+  "bytes": 1178
+}
