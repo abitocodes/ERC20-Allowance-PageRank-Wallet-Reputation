@@ -557,6 +557,175 @@
       "author_decision": "Revision section 13, amendment of 9 November 2026: jobs 32 and 33 (balances), 34 (anchors) and 43 with the balance check (audit) read no table that job 31 writes, so their runs of 8 November 2026 stand after job 31 was run again with the smart-account lists; they are not run again.",
       "finished_at": "2026-11-08T17:19:05+00:00",
       "passed": false
+    },
+    {
+      "step": "constants",
+      "started_at": "2026-11-08T19:55:02+00:00",
+      "head": "8645bca404859142f57db84fc7eabdee9fd09de5",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+        "docs/discovery_protocol.md": "61ab8fc6fe951cbd1009aee035c254ee5a737e5b849d7948a97926591c56c9fb",
+        "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "2da8fed743d2cbad4d5dbcbab1151fcf7417966cff08672cf88988f858660754",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "267f7b954516105b18d3dc1868a3155b6eeb6a18e089399b9bf60317a53a1c36",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2",
+        "sql/36_c12_allow_triples.sql": "cc84dbb23e3aacc26d9b5cc76b8932b394ca4ad28a186eb26338cfcb4a27c127",
+        "sql/36_c12_user_events.sql": "ddae0dea8fd107c220363c32c1773b1aa9246a05fdf03da1f1a7e2c7ef370161",
+        "sql/36_c12_constants.sql": "130e93f2487faaa2c07534b05b86bfa7b3b44e5aa072485c539decd3f48b38fb",
+        "sql/37_c12_pairs.sql": "053d3e789e35bcf22ce52bd0f35951476116a8908fcbb4a0f1a0b83b1d722189",
+        "sql/38_c12_cohorts.sql": "5170902e4e2ead55baa7efb57650a8dd995d3f152935452b2ff92b453cd87f8e",
+        "sql/38_c12_proxies.sql": "01e12b65eb23773e33cebb39f0d2d44c3bb0aeafa8ce3a668acbbcc965d3a4af",
+        "sql/39_c12_label_parts.sql": "d30cecfca636b1f280271afe1870d100ebba2352eea21d0d6c9f5e9dfab5f8d0",
+        "sql/40_c12_export_ids.sql": "22e30356ded3775efc4b62ec2dcf53216bfb36d5db319f98cf7b34b1f59e5ebd",
+        "sql/41_c12_importance.sql": "36db51a76a9ce73870f7e17d0e75fd7d524e9c6af2f67874fd34631b5866d7c2",
+        "sql/42_c12_checks.sql": "73eb1ba01e8ee83eefbbbed9e153483d4a22df45c0bfae6bbbfddeb183da39a4",
+        "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b",
+        "scripts/usd.py": "c0ef317f63937313f710b061a15d01877004f86137d07463d85a246ff18049ff",
+        "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+        "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+        "scripts/run_registered.py": "a117567b402c09afdb8c2b358bfdd4dec411f483d9966976f4a583cd68c25dbd",
+        "scripts/run_robustness.py": "e2e0c74b186071a83266c26a58a7e98495d4f30d8c3a92f7e59f982c26333aa3",
+        "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d"
+      },
+      "gate_b": {
+        "protocol_fixed": {
+          "date": "2026-11-09",
+          "pinned_sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+          "rho": 0.02,
+          "q": 0.01,
+          "primary_mode": "both",
+          "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+          "decision_covers": [
+            "few_capped_allowance_in_edges"
+          ],
+          "sizes": {
+            "U": 332396,
+            "E_U": 1283946,
+            "WCC": 1015867,
+            "E_WCC": 2121895
+          }
+        },
+        "constants": null,
+        "projection": {
+          "usd": 3.5772,
+          "campaign_usd": 10.8346,
+          "ledger_usd": 53.0767,
+          "jobs": {
+            "triples": {
+              "first": 61334021484,
+              "whole": 61334021484
+            },
+            "user_events": {
+              "first": 136931996712,
+              "whole": 136931996712
+            },
+            "constants": {
+              "first": 27093277366,
+              "whole": 27093277366
+            },
+            "pairs": {
+              "first": 38018974392,
+              "whole": 52282485788
+            },
+            "cohorts": {
+              "first": 491785898,
+              "whole": 1962737093
+            },
+            "proxies": {
+              "first": 38029460152,
+              "whole": 38029460152
+            },
+            "labels_w0": {
+              "first": 54400534564,
+              "whole": 54411020324
+            },
+            "labels_w1": {
+              "first": 50286970916,
+              "whole": 50297456676
+            },
+            "node_ids": {
+              "first": 11737669646,
+              "whole": 58465795006
+            },
+            "importance": {
+              "first": 70430885680,
+              "whole": 76240147544
+            },
+            "checks": {
+              "first": 72268047656,
+              "whole": 72268047656
+            }
+          },
+          "bounds": {
+            "c12_allow_triples": 96375077,
+            "c12_user_events": 636799258,
+            "c12_constants": 1,
+            "c12_transfer_pairs": 75327206,
+            "c12_allow_pairs": 95013432,
+            "c12_allow_pairs_unc": 95271409,
+            "c12_cohort_tobs": 6483,
+            "c12_cohort_t1": 6343,
+            "c12_members": 28783,
+            "c12_proxies_tobs": 6483,
+            "c12_label_parts_w0": 7962,
+            "c12_label_parts_w1": 7995,
+            "c12_x_label_split_w0": 7962,
+            "c12_x_label_split_w1": 7995,
+            "c12_nodes": 1829719,
+            "c12_x_nodes": 1829719,
+            "c12_x_members": 28783,
+            "c12_x_allow_pairs_tobs": 95013432,
+            "c12_x_allow_pairs_t1": 95013432,
+            "c12_x_allow_pairs_unc_tobs": 95271409,
+            "c12_x_allow_pairs_unc_t1": 95271409,
+            "c12_x_transfer_pairs_tobs": 75327206,
+            "c12_x_transfer_pairs_t1": 75327206,
+            "c12_importance_raw": 3659440,
+            "c12_importance_tobs": 1829719,
+            "c12_importance_t1": 1829719,
+            "c12_inflow_untyped_tobs": 1,
+            "c12_inflow_untyped_t1": 1,
+            "c12_describe_allowances": 10,
+            "_n_events_cc": 603475784,
+            "_priced_rows": 508480292,
+            "_a_rows_bound": 94995492
+          }
+        }
+      },
+      "gate_a_decision": {
+        "structure_index": 14,
+        "structure_started_at": "2026-11-08T17:16:55+00:00",
+        "waited_for": [
+          "a run of balances after the last run of contracts",
+          "a run of anchors after the last run of contracts",
+          "a run of audit after the last run of contracts",
+          "a run of structure that passes (the last one did not)"
+        ]
+      },
+      "finished_at": "2026-11-08T19:58:00+00:00",
+      "passed": true
     }
   ],
   "jobs": [
@@ -736,6 +905,42 @@
       "bytes_first_expected": 66113561652,
       "bytes_billed": 38458621952,
       "usd": 0.2186
+    },
+    {
+      "step": "constants",
+      "key": "triples",
+      "no": 36,
+      "job_id": "0700fe66-257e-495f-8628-eccf433bf848",
+      "at": "2026-11-08T19:55:43+00:00",
+      "bytes_dry_run": 8702078558,
+      "bytes_expected": 61334021484,
+      "bytes_first_expected": 61334021484,
+      "bytes_billed": 8702132224,
+      "usd": 0.0495
+    },
+    {
+      "step": "constants",
+      "key": "user_events",
+      "no": 36,
+      "job_id": "d3c01af3-2961-4611-93ee-ef7ad981c58a",
+      "at": "2026-11-08T19:56:49+00:00",
+      "bytes_dry_run": 116347963473,
+      "bytes_expected": 136931996712,
+      "bytes_first_expected": 136931996712,
+      "bytes_billed": 116348944384,
+      "usd": 0.6614
+    },
+    {
+      "step": "constants",
+      "key": "constants",
+      "no": 36,
+      "job_id": "c00be89a-f2ab-400b-b66e-63dd1372d929",
+      "at": "2026-11-08T19:57:58+00:00",
+      "bytes_dry_run": 9497492170,
+      "bytes_expected": 14530627456,
+      "bytes_first_expected": 14530627456,
+      "bytes_billed": 8908701696,
+      "usd": 0.0506
     }
   ],
   "results": {
@@ -1060,6 +1265,23 @@
       },
       "pilot_not_committed": [],
       "allow_capped_below_stop": false
+    },
+    "constants": {
+      "constants": {
+        "m_transfer_usd": 160.0,
+        "m_allowance_usd": 0.071,
+        "cap_allowance_usd": 16000.0,
+        "cap_user_usd": 31000.0,
+        "b_transfer": 0.006866326804175686,
+        "b_allowance": 15.473412516452251
+      },
+      "path": "data/0-usd-token-list-and-prices/contract-12m/constants.json",
+      "constants_sha256": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786",
+      "rows": {
+        "c12_allow_triples": 648204,
+        "c12_user_events": 152257072,
+        "c12_constants": 1
+      }
     }
   },
   "checks_run": [

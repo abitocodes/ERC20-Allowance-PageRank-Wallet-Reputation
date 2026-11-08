@@ -954,6 +954,328 @@
       "bytes_billed": 6322913280,
       "usd": 0.0359,
       "bytes_expected": 13545744520
+    },
+    {
+      "at": "2026-11-07T09:36:44+00:00",
+      "job_id": "9b565791-e7d2-416e-a23f-ef9ccaa565b7",
+      "sql": "sql/24_c12_logs5.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "mid_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: five-token events of the typing window",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 226193664203,
+      "bytes_billed": 226194620416,
+      "usd": 1.2858,
+      "bytes_expected": 226193664203
+    },
+    {
+      "at": "2026-11-07T09:38:53+00:00",
+      "job_id": "f56212ff-aa39-49a2-be12-2a049811e874",
+      "sql": "sql/25_c12_ends.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "contract12m: pairs and ends of the five-token events",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 68215127310,
+      "bytes_billed": 72600256512,
+      "usd": 0.4127,
+      "bytes_expected": 142631629830
+    },
+    {
+      "at": "2026-11-07T09:41:19+00:00",
+      "job_id": "ad49e4ce-409f-46de-822e-aa424a3e2318",
+      "sql": "sql/26_c12_tx_senders.sql",
+      "dest": null,
+      "params": {
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: transaction senders among the ends",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 149955472516,
+      "bytes_billed": 149914910720,
+      "usd": 0.8522,
+      "bytes_expected": 149935194232
+    },
+    {
+      "at": "2026-11-07T09:42:14+00:00",
+      "job_id": "92177423-099f-4853-b236-13c1e53c5098",
+      "sql": "sql/27_c12_emitters.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: decoded-log emitters among the ends",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 261314222413,
+      "bytes_billed": 261233836032,
+      "usd": 1.4849,
+      "bytes_expected": 261302862060
+    },
+    {
+      "at": "2026-11-07T09:42:34+00:00",
+      "job_id": "2e2fe045-8ef1-43f3-ae4f-049c30f9644a",
+      "sql": "sql/28_c12_creations.sql",
+      "dest": null,
+      "params": {
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: contracts created by a transaction among the ends",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 23608899228,
+      "bytes_billed": 23592960000,
+      "usd": 0.1341,
+      "bytes_expected": 23596141512
+    },
+    {
+      "at": "2026-11-07T09:44:26+00:00",
+      "job_id": "d71a5957-2524-4619-b1a3-ea530c30be2f",
+      "sql": "sql/29_c12_rpc_queue.sql",
+      "dest": null,
+      "params": {
+        "sender_salt": "audit-sender-v1:",
+        "untyped_salt": "audit-untyped-v1:"
+      },
+      "subs": [
+        "AUDIT_SENDERS=1000",
+        "AUDIT_UNTYPED=1000"
+      ],
+      "label": "contract12m: RPC queue",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 4199451916,
+      "bytes_billed": 4199546880,
+      "usd": 0.0239,
+      "bytes_expected": 4249660190
+    },
+    {
+      "at": "2026-11-08T13:01:17+00:00",
+      "job_id": "c35c2467-da42-46b1-9e7c-db9d696a8442",
+      "sql": "sql/31_c12_contracts.sql",
+      "dest": null,
+      "params": {
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff"
+      },
+      "subs": [],
+      "label": "contract12m: contracts, user accounts and events between contracts",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 707064978,
+      "bytes_billed": 145140744192,
+      "usd": 0.825,
+      "bytes_expected": 146753439990
+    },
+    {
+      "at": "2026-11-08T13:03:35+00:00",
+      "job_id": "00ff6988-3fde-4f52-a7d5-e60ee1057ab0",
+      "sql": "sql/32_c12_bal_pre.sql",
+      "dest": null,
+      "params": {
+        "obs_start": "2023-10-01 00:00:00 UTC",
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "tobs_end": "2026-07-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: net flow before 2023-10-01 of the balance population",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 555355504044,
+      "bytes_billed": 555356258304,
+      "usd": 3.1568,
+      "bytes_expected": 615238971910
+    },
+    {
+      "at": "2026-11-08T13:04:18+00:00",
+      "job_id": "723a5696-5c6d-4f81-9392-889d67753ffe",
+      "sql": "sql/33_c12_bal.sql",
+      "dest": null,
+      "params": {
+        "obs_start": "2023-10-01 00:00:00 UTC",
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "tobs_end": "2026-07-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "end_0930": "2026-09-30 23:59:59 UTC",
+        "mid_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: balances at t1, T_obs and 2026-09-30",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 243523362634,
+      "bytes_billed": 243523387392,
+      "usd": 1.3843,
+      "bytes_expected": 249433591738
+    },
+    {
+      "at": "2026-11-08T13:06:00+00:00",
+      "job_id": "ea76793e-ef7b-450a-a1eb-418dfffea39c",
+      "sql": "sql/34_c12_anchor_blocks.sql",
+      "dest": null,
+      "params": {
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "end_0930": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: last block at or before each anchor",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 33984160,
+      "bytes_billed": 22020096,
+      "usd": 0.0001,
+      "bytes_expected": 33562960
+    },
+    {
+      "at": "2026-11-08T13:07:41+00:00",
+      "job_id": "343c2004-c1ac-4d2d-ae96-ded2accfbbba",
+      "sql": "sql/43_c12_bal_audit.sql",
+      "dest": null,
+      "params": {
+        "audit_salt": "bal-audit-v1:",
+        "per_cell": "150",
+        "dust_digits": "6"
+      },
+      "subs": [],
+      "label": "contract12m: sample of the balance check",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 410262034,
+      "bytes_billed": 411041792,
+      "usd": 0.0023,
+      "bytes_expected": 420747644
+    },
+    {
+      "at": "2026-11-08T13:21:56+00:00",
+      "job_id": "6f81cf89-24f7-419b-874c-4e6c198cb493",
+      "sql": "sql/35_c12_structure.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "dust_digits": "6"
+      },
+      "subs": [],
+      "label": "contract12m: structure of the contract graph at t1",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 49698407896,
+      "bytes_billed": 39692795904,
+      "usd": 0.2256,
+      "bytes_expected": 67333395476
+    },
+    {
+      "at": "2026-11-08T17:15:18+00:00",
+      "job_id": "a8a2fcde-3a45-4dc8-a0d6-e15d35726fba",
+      "sql": "sql/31_c12_contracts.sql",
+      "dest": null,
+      "params": {
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff",
+        "ext_code_hashes": "0x0ed708f4e57d108c41999c5eaa34e38ce9e6bf0d0ebbf6dac60b6347bbe3a4a8,0x1a374b9ed6b9c65572908c91f378dc6c4842551ac3566d6178a09f1dac5f708c,0x21a481460cae2e0cbc918d3a77952717329e0cebcfd0cd8b571862bcb4d72e0f,0x224cbf029efc8dbf9c2a75dcd9547f2ba7381b87ef14e29a73b766b45e4a533a,0x253d2969bd835560989486cc876d337029326df5839ca36e672b924c1cb5bb5f,0x2da28852498b720ab99465e8071a86db5d7b140bbfe77a1f283d1e19008ede13,0x44cf1655237a86d10311b58bb7c73b84c085547fc1f2ca0458f03ce1ec556431,0x4e061efb5c32cc07b9897ff9708cb26bb1e8be8cb582b15958c493455b55429e,0x5104ae4e0326617faf888e41bd81276be1b37f077db2069ec8faadc0d85848af,0x5b50b88c3767222ffbb152eddb5aa6ce3af2b2d3d210574a31752a2f64c0b221,0x64951b55b12734bd28b1ef7d44e179920ae140a7aa15a1c7060b63164537d45a,0x7d29aab09ecd524c81f133bc42f1c02c2c33f6ac9ad4eaf7de6bdb186f6d54d5,0x808e958888f4bc9faad84e95e69acdb166b376874fe050277baf44f25e474e75,0x967c8038107958850922eab6979865c96543a7ebda23ac10a7be3046ccffedce,0xa6a4f9a88a5438ed0261f7bb650cc0c5a9dff1572ba8459d18d412d7dd8bd7c7,0xaab97b91d04ecaeb9f9feeec2d5b4b1f8efb56e2644f2c082bb77f35263af9a0,0xd377b91daca76fd9e6f2b2f18e9618ce2eb4dddf7b4c5f9e1da125ab5d40c67a,0xe152e0d0626438840037db419d2e66fa32002f1ee719b1dbe2892314bc67b6de,0xeb943ca16c0a3d8c19be2c02105552f49d4ff1d02fb80b199b613f085c8c7847,0xed06f222e28bb2ee7f9691685c021e3e6b4fd92d1593839b26ab9d3d7f2965bd",
+        "ext_pairs": "0x8559595d851a6b7f1c4291abb8685e947a442e2639d6e305c94e3a3e5a39336a:0xd6cedde84be40893d153be9d467cd6ad37875b28,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0x654f12417cb258e73d4a87aa71b24adac5490f94,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0x94f097e1ebeb4eca3aae54cabb08905b239a7d27,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xa3b9a42afded3431193bd73012d44a26ca04a0a1,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xbac849bb641841b44e965fb01a4bf5f074f84b4d,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xd6cedde84be40893d153be9d467cd6ad37875b28,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xd830d15d3dc0c269f3dbaa0f3e8626d33cfdabe1"
+      },
+      "subs": [],
+      "label": "contract12m: contracts, user accounts and events between contracts",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 996236228,
+      "bytes_billed": 145715363840,
+      "usd": 0.8283,
+      "bytes_expected": 148056446780
+    },
+    {
+      "at": "2026-11-08T17:17:31+00:00",
+      "job_id": "509452f8-f95c-4c9c-9e0f-1e76fca1a925",
+      "sql": "sql/35_c12_structure.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "dust_digits": "6"
+      },
+      "subs": [],
+      "label": "contract12m: structure of the contract graph at t1",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 48672114411,
+      "bytes_billed": 38458621952,
+      "usd": 0.2186,
+      "bytes_expected": 66113561652
+    },
+    {
+      "at": "2026-11-08T19:55:43+00:00",
+      "job_id": "0700fe66-257e-495f-8628-eccf433bf848",
+      "sql": "sql/36_c12_allow_triples.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "dust_digits": "6"
+      },
+      "subs": [],
+      "label": "contract12m: latest allowances between contracts at both freezes",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 8702078558,
+      "bytes_billed": 8702132224,
+      "usd": 0.0495,
+      "bytes_expected": 61334021484
+    },
+    {
+      "at": "2026-11-08T19:56:49+00:00",
+      "job_id": "d3c01af3-2961-4611-93ee-ef7ad981c58a",
+      "sql": "sql/36_c12_user_events.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "contract12m: events of user accounts toward contracts and untyped addresses",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 116347963473,
+      "bytes_billed": 116348944384,
+      "usd": 0.6614,
+      "bytes_expected": 136931996712
+    },
+    {
+      "at": "2026-11-08T19:57:58+00:00",
+      "job_id": "c00be89a-f2ab-400b-b66e-63dd1372d929",
+      "sql": "sql/36_c12_constants.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "unlimited": "1.15e+77"
+      },
+      "subs": [],
+      "label": "contract12m: constants of the contract graph on the W0 score window",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 9497492170,
+      "bytes_billed": 8908701696,
+      "usd": 0.0506,
+      "bytes_expected": 14530627456
     }
   ]
 }

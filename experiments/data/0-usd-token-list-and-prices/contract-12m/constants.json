@@ -1,0 +1,38 @@
+{
+  "computed_at": "2026-11-08T19:58:00+00:00",
+  "source": "sql/36_c12_constants.sql (contract_rep.c12_constants): the transfers between contracts (c12_events_cc), the latest allowances between contracts at t1 (c12_allow_triples, sql/36_c12_allow_triples.sql) and the transfers from user accounts to contracts (c12_user_events, sql/36_c12_user_events.sql) of the W0 score window",
+  "window": [
+    "2025-04-01 00:00:00 UTC",
+    "2026-03-31 23:59:59 UTC"
+  ],
+  "raw": {
+    "m_transfer": 164.05421339879427,
+    "p99_transfer": 16412.259340086293,
+    "p10_transfer": 1.5255254092033905,
+    "p90_transfer": 2110.0392072759996,
+    "n_transfers": 377876886,
+    "m_allowance": 0.07069696417117732,
+    "p99_allowance": 17993.861532977062,
+    "p10_allowance": 2.998980394982141e-06,
+    "p90_allowance": 26.378686671517485,
+    "n_latest_allowances": 308922,
+    "n_positive_allowances": 19623,
+    "n_capped_to_zero": 289299,
+    "n_capped_below_allowance": 17480,
+    "n_unlimited_positive": 8531,
+    "m_user_transfer": 250.81801553039043,
+    "p99_user_transfer": 31306.61933736177,
+    "p10_user_transfer": 4.4575581049999995,
+    "p90_user_transfer": 3981.70380003,
+    "n_user_transfers": 82749550
+  },
+  "m_transfer_usd": 160.0,
+  "m_allowance_usd": 0.071,
+  "cap_allowance_usd": 16000.0,
+  "cap_user_usd": 31000.0,
+  "b_transfer": 0.006866326804175686,
+  "b_allowance": 15.473412516452251,
+  "unlimited_base_units": 1.15e+77,
+  "dust_token": 1e-06,
+  "rule": "b = ln 3 / m with m the median rounded to two significant digits (usd.round_sig); U is the 99th percentile of the US-dollar values of the transfers between contracts and U_user that of the transfers from user accounts to contracts, both of the W0 score window and rounded to two significant digits; m_A is the median of the positive usd_eff of the latest allowances between contracts at t1, unlimited ones included (docs/revision_contract_graph.md section 7)"
+}
