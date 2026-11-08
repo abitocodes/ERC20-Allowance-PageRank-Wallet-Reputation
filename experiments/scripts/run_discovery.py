@@ -516,13 +516,22 @@ def run_feasibility(cfg: dict[str, Any], *, struct: Path = STRUCT, types: Path =
     if protocol_fixed(protocol) is not None:
         raise SystemExit("refused: the protocol is fixed, so feasibility_t1.json is pinned by its hash")
     started = time.perf_counter()
+    # The classes as sql/31 reads them: the typing output with the smart-account lists of the amendment of
+    # 9 November 2026 (revision section 13) applied.
     report = feasibility(
         cfg,
         common.read_parts(struct, ["a", "b", "layer"]),
-        common.read_parts(types, list(TYPE_COLUMNS)),
+        common.with_smart_account_extension(common.read_parts(types, list(TYPE_COLUMNS))),
         _hex(common.read_parts(cohort, ["address"])["address"]),
         _hex(common.read_parts(labels, ["wallet"])["wallet"]),
     )
+    # Every node of the structure table is a member of the node set of job 31, so of class contract under those
+    # classes; another class means a structure table built without the lists, and no pilot output is written.
+    others = {k: v for k, v in report["node_types"].items() if k != "contract"}
+    if others:
+        raise SystemExit(f"refused: the structure table holds nodes that are not contracts under the account types "
+                         f"with the smart-account lists ({others}); run job 31 and job 35 with the lists first "
+                         "(revision section 13, amendment of 9 November 2026)")
     report["created_at"] = now()
     report["seconds"] = round(time.perf_counter() - started, 1)
     report["code"] = code_state(COMMITTED, root)

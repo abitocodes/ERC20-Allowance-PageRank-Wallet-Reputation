@@ -713,6 +713,45 @@ FORBIDDEN = {
 }
 
 
+def test_the_pilot_reads_the_classes_with_the_smart_account_lists(tmp_path, monkeypatch, contract_cfg):
+    # Revision section 13, amendment of 9 November 2026: the pilot reads the account types as sql/31 does, with the
+    # listed contracts as smart accounts of wallet kind erc4337.
+    a = addresses(12)
+    paths = pilot_inputs(tmp_path)
+    # Address 10, a contract of code hash 99 that is no node of the structure, joins the W0 cohort.
+    types = pilot_types(a)
+    extra = {**{c: None for c in types.columns}, "address": a[10], "account_class": "contract", "code_kind": "contract",
+             "code_size": 90, "code_hash": "0x" + "99" * 32, "proxy_kind": "none", "implementation": "",
+             "entry_point": EP_V06, "wallet_kind": "none", "has_master_copy": False}
+    common.write_parts(pd.concat([types, pd.DataFrame([extra])], ignore_index=True), paths["types"])
+    cohort = common.read_parts(paths["cohort_t1"])
+    common.write_parts(pd.concat([cohort, pd.DataFrame({"address": [bytes.fromhex(a[10][2:])], "owners_nonzero": [3],
+                                                        "approval_logs": [3]})], ignore_index=True), paths["cohort_t1"])
+
+    def pilot(out: str) -> dict:
+        return rd.run_feasibility(contract_cfg, struct=paths["struct_t1"], types=paths["types"],
+                                  cohort=paths["cohort_t1"], labels=paths["labels_w0"], out=tmp_path / out,
+                                  protocol=protocol_copy(tmp_path / "protocol.md"))
+
+    plain = pilot("plain.json")["coverage"]["w0_cohort"]
+    assert (plain["members"], plain["contracts"], plain["user_accounts"]) == (6, 4, 1)
+    monkeypatch.setattr(common, "SMART_ACCOUNT_CODE_HASHES", ("0x" + "99" * 32,))
+    rep = pilot("listed.json")
+    cohort_cov = rep["coverage"]["w0_cohort"]
+    assert (cohort_cov["members"], cohort_cov["contracts"], cohort_cov["user_accounts"]) == (6, 3, 2)
+    assert rep["account_types"]["queue"]["account_class"] == {"contract": 9, "eoa": 1, "smart_account": 1}
+    assert rep["account_types"]["queue"]["wallet_kind"]["erc4337"] == 1
+    assert rep["sizes"] == {"U": 5, "E_U": 5, "WCC": 6, "E_WCC": 6}  # address 10 is no node
+    # A listed contract among the nodes means a structure table built without the lists: no pilot output.
+    monkeypatch.setattr(common, "SMART_ACCOUNT_IMPLEMENTATIONS", ((HASH["bb"], IMPL["f2"]),))  # address 4, a node
+    with pytest.raises(SystemExit, match="not contracts"):
+        pilot("refused.json")
+    assert not (tmp_path / "refused.json").exists()
+    # the typing output on disk is not changed
+    assert common.read_parts(paths["types"], ["account_class"])["account_class"].tolist() == \
+        ["contract"] * 9 + ["eoa", "contract"]
+
+
 def test_feasibility_touches_no_weight_importance_or_crawl_code(tmp_path, monkeypatch, contract_cfg, dcfg):
     paths = pilot_inputs(tmp_path)
 

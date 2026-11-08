@@ -69,6 +69,78 @@ TYPES_DIR = RAW / "contract-types"
 TYPES = TYPES_DIR / "c12_account_types"
 GRAPH_U12 = RAW / "graph-tables-usd-12m"
 
+# Revision section 13, amendment of 9 November 2026: the extension of rule 3(b) of section 4.2. A row of the account
+# types of class 'contract' is an ERC-4337 smart account (a user account) when its code hash is one of
+# SMART_ACCOUNT_CODE_HASHES (proxies whose implementation the reads did not find, whose entryPoint() answers a
+# canonical EntryPoint, whose own code is under 1,000 bytes and holds no paymaster selector), or when its code hash
+# and implementation are one of SMART_ACCOUNT_IMPLEMENTATIONS (ERC-1967 proxies whose implementation holds
+# validateUserOp and no paymaster selector and whose getter entrypoint() answers a canonical EntryPoint where
+# entryPoint() fails). The amendment lists the same hashes and pairs; sql/31 (through the driver) and the structure
+# pilot apply them; the typing output itself is not changed.
+SMART_ACCOUNT_CODE_HASHES = (
+    "0x0ed708f4e57d108c41999c5eaa34e38ce9e6bf0d0ebbf6dac60b6347bbe3a4a8",
+    "0x1a374b9ed6b9c65572908c91f378dc6c4842551ac3566d6178a09f1dac5f708c",
+    "0x21a481460cae2e0cbc918d3a77952717329e0cebcfd0cd8b571862bcb4d72e0f",
+    "0x224cbf029efc8dbf9c2a75dcd9547f2ba7381b87ef14e29a73b766b45e4a533a",
+    "0x253d2969bd835560989486cc876d337029326df5839ca36e672b924c1cb5bb5f",
+    "0x2da28852498b720ab99465e8071a86db5d7b140bbfe77a1f283d1e19008ede13",
+    "0x44cf1655237a86d10311b58bb7c73b84c085547fc1f2ca0458f03ce1ec556431",
+    "0x4e061efb5c32cc07b9897ff9708cb26bb1e8be8cb582b15958c493455b55429e",
+    "0x5104ae4e0326617faf888e41bd81276be1b37f077db2069ec8faadc0d85848af",
+    "0x5b50b88c3767222ffbb152eddb5aa6ce3af2b2d3d210574a31752a2f64c0b221",
+    "0x64951b55b12734bd28b1ef7d44e179920ae140a7aa15a1c7060b63164537d45a",
+    "0x7d29aab09ecd524c81f133bc42f1c02c2c33f6ac9ad4eaf7de6bdb186f6d54d5",
+    "0x808e958888f4bc9faad84e95e69acdb166b376874fe050277baf44f25e474e75",
+    "0x967c8038107958850922eab6979865c96543a7ebda23ac10a7be3046ccffedce",
+    "0xa6a4f9a88a5438ed0261f7bb650cc0c5a9dff1572ba8459d18d412d7dd8bd7c7",
+    "0xaab97b91d04ecaeb9f9feeec2d5b4b1f8efb56e2644f2c082bb77f35263af9a0",
+    "0xd377b91daca76fd9e6f2b2f18e9618ce2eb4dddf7b4c5f9e1da125ab5d40c67a",
+    "0xe152e0d0626438840037db419d2e66fa32002f1ee719b1dbe2892314bc67b6de",
+    "0xeb943ca16c0a3d8c19be2c02105552f49d4ff1d02fb80b199b613f085c8c7847",
+    "0xed06f222e28bb2ee7f9691685c021e3e6b4fd92d1593839b26ab9d3d7f2965bd",
+)
+_PROXY_AAA52C8C = "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d"
+_PROXY_8559595D = "0x8559595d851a6b7f1c4291abb8685e947a442e2639d6e305c94e3a3e5a39336a"
+SMART_ACCOUNT_IMPLEMENTATIONS = ((_PROXY_8559595D, "0xd6cedde84be40893d153be9d467cd6ad37875b28"),) + tuple(
+    (_PROXY_AAA52C8C, impl) for impl in (
+        "0x654f12417cb258e73d4a87aa71b24adac5490f94",
+        "0x94f097e1ebeb4eca3aae54cabb08905b239a7d27",
+        "0xa3b9a42afded3431193bd73012d44a26ca04a0a1",
+        "0xbac849bb641841b44e965fb01a4bf5f074f84b4d",
+        "0xd6cedde84be40893d153be9d467cd6ad37875b28",
+        "0xd830d15d3dc0c269f3dbaa0f3e8626d33cfdabe1",
+    ))
+# The typed contracts that the two lists move at block 513,216,506 (checked against the typing output).
+SMART_ACCOUNT_TYPED = {"code_hashes": 37_337, "implementations": 155_319}
+
+
+def smart_account_extension(types: pd.DataFrame) -> pd.Series:
+    """True for each row of the account types (columns account_class, code_hash, implementation) that the amendment
+    of 9 November 2026 (revision section 13) counts as an ERC-4337 smart account: a row of class 'contract' whose code
+    hash is listed, or whose code hash and implementation are a listed pair."""
+    code_hash = types["code_hash"].fillna("").astype(str).str.lower()
+    implementation = types["implementation"].fillna("").astype(str).str.lower()
+    pairs = pd.MultiIndex.from_arrays([code_hash, implementation]).isin(list(SMART_ACCOUNT_IMPLEMENTATIONS))
+    return ((types["account_class"].astype(str) == "contract")
+            & (code_hash.isin(SMART_ACCOUNT_CODE_HASHES) | pd.Series(pairs, index=types.index)))
+
+
+def with_smart_account_extension(types: pd.DataFrame) -> pd.DataFrame:
+    """The account types with the rows of smart_account_extension as smart accounts of wallet kind 'erc4337'."""
+    out = types.copy()
+    moved = smart_account_extension(out)
+    out.loc[moved, "account_class"] = "smart_account"
+    if "wallet_kind" in out.columns:
+        out.loc[moved, "wallet_kind"] = "erc4337"
+    return out
+
+
+def smart_account_sql_params() -> dict[str, str]:
+    """The two lists as the STRING parameters of sql/31_c12_contracts.sql: the code hashes joined by commas, and the
+    pairs as code_hash:implementation joined by commas."""
+    return {"ext_code_hashes": ",".join(SMART_ACCOUNT_CODE_HASHES),
+            "ext_pairs": ",".join(f"{h}:{i}" for h, i in SMART_ACCOUNT_IMPLEMENTATIONS)}
+
 # The overlay of a variant and the only keys it may set (it must set exactly these).
 _OVERLAY_KEYS_USD12M = {("period", "start_ts"), ("holdout", "start_ts")}
 _OVERLAY_KEYS_CONTRACT12M = _OVERLAY_KEYS_USD12M | {("bigquery", "budget_usd")} | {

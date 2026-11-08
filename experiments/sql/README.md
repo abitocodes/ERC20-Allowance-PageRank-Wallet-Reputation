@@ -56,7 +56,7 @@ BigQuery 쿼리입니다. 직접 돌리지 않고 `../scripts/run_bq.py`(수정 
 | `27_c12_emitters.sql` | E 가운데 판정 기간에 해독된 로그를 낸 주소와 Safe 이벤트 수(`c12_emitters`, 교차 점검만) |
 | `28_c12_creations.sql` | E 가운데 최상위 트랜잭션으로 만들어진 컨트랙트(`c12_creations`, 교차 점검만) |
 | `29_c12_rpc_queue.sql` | RPC로 코드를 읽을 대기열 K와 들어간 이유(`c12_rpc_queue`): 트랜잭션을 보내지 않았고, 트랜잭션 송신자도 영 주소도 아닌 상대가 있는 E(시스템 주소도 빼지 않음; 노드 집합에서는 31이 뺌), 12개월 코호트와 스펜더 전원, 감사 표본 두 개 |
-| `31_c12_contracts.sql` | 노드 집합(`c12_contracts`), 사용자 계정과 그 출처(`c12_user_accounts`), 양 끝이 컨트랙트인 사건(`c12_events_cc`). 시스템 주소(0x…01–0x…ff)는 노드 집합에 넣지 않고, 트랜잭션을 보낸 적이 없으면 사용자 계정에도 넣지 않음 |
+| `31_c12_contracts.sql` | 노드 집합(`c12_contracts`), 사용자 계정과 그 출처(`c12_user_accounts`), 양 끝이 컨트랙트인 사건(`c12_events_cc`). 시스템 주소(0x…01–0x…ff)는 노드 집합에 넣지 않고, 트랜잭션을 보낸 적이 없으면 사용자 계정에도 넣지 않음. 2026-11-09 개정(수정 문서 13절): 판별에서 컨트랙트로 나왔지만 목록(`common.SMART_ACCOUNT_CODE_HASHES`, `SMART_ACCOUNT_IMPLEMENTATIONS`; 드라이버가 `@ext_code_hashes`, `@ext_pairs`로 넘김)에 든 주소는 스마트 계정으로 봄 |
 | `32_c12_bal_pre.sql` | 잔액 모집단(2025-04-01 ~ T_obs의 승인 주인과 토큰)의 2023-10-01 전 순유입, 공개 로그에서(`c12_bal_pre`) |
 | `33_c12_bal.sql` | t1, T_obs, 2026-09-30의 잔액과 기간별 송금 수(`c12_bal`, 기초 단위, 자르지 않음) |
 | `34_c12_anchor_blocks.sql` | 기준 시점마다 그 시각 이전의 마지막 블록(`c12_anchor_blocks`, 하루 파티션만 읽음) |

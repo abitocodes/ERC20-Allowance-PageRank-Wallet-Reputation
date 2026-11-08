@@ -22,6 +22,21 @@ VIEWS = {f"bigquery-public-data.goog_blockchain_arbitrum_one_us.{v}"
          for v in ("transactions", "receipts", "decoded_events", "blocks", "logs")}
 
 
+def amendment_lists() -> dict:
+    """The smart-account lists of the amendment of 9 November 2026 as the revision itself writes them (section 13,
+    the fenced json block with the key smart_account_extension)."""
+    import re
+    text = (EXPERIMENTS / "docs" / "revision_contract_graph.md").read_text(encoding="utf-8")
+    blocks = [json.loads(b) for b in re.findall(r"^[ \t]*```json[ \t]*\n(.*?)\n[ \t]*```", text, flags=re.S | re.M)]
+    found = [b["smart_account_extension"] for b in blocks if "smart_account_extension" in b]
+    assert len(found) == 1, f"{len(found)} smart_account_extension blocks in the revision"
+    return found[0]
+
+
+SMART_HASHES = tuple(amendment_lists()["code_hashes"])
+SMART_PAIRS = tuple(f"{h}:{i}" for h, i in amendment_lists()["code_hash_implementations"])
+
+
 def run_py(code: str, variant: str | None = "contract12m", cwd=SCRIPTS) -> subprocess.CompletedProcess:
     env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1", "PYTHONIOENCODING": "utf-8"}
     env.pop("CONTRACT_REP_VARIANT", None)
@@ -190,7 +205,9 @@ def test_job_parameters_follow_the_configuration():
     assert r["emitters"][0] == {"start_ts": "2025-04-01 00:00:00 UTC", "end_ts": "2026-10-01 00:00:00 UTC"}
     # K holds the system addresses like any other end (revision section 4.3); the node set leaves them out.
     assert r["rpc_queue"][0] == {"sender_salt": "audit-sender-v1:", "untyped_salt": "audit-untyped-v1:"}
-    assert r["contracts"][0] == {"system_first": "0x" + "00" * 19 + "01", "system_last": "0x" + "00" * 19 + "ff"}
+    # Since the amendment of 9 November 2026 the node set also takes the smart-account lists (revision section 13).
+    assert r["contracts"][0] == {"system_first": "0x" + "00" * 19 + "01", "system_last": "0x" + "00" * 19 + "ff",
+                                 "ext_code_hashes": ",".join(SMART_HASHES), "ext_pairs": ",".join(SMART_PAIRS)}
     assert r["rpc_queue"][1] == {"AUDIT_SENDERS": "1000", "AUDIT_UNTYPED": "1000"}
     assert r["bal"][0]["t1"] == "2026-03-31 23:59:59 UTC" and r["bal"][0]["tobs"] == "2026-06-30 23:59:59 UTC"
     assert r["bal"][0]["end_0930"] == "2026-09-30 23:59:59 UTC"
@@ -200,6 +217,176 @@ def test_job_parameters_follow_the_configuration():
     assert r["bal_audit"][0] == {"audit_salt": "bal-audit-v1:", "per_cell": "150", "dust_digits": "6"}
     assert r["structure"][0] == {"start_ts": "2025-04-01 00:00:00 UTC", "t1": "2026-03-31 23:59:59 UTC",
                                  "dust_digits": "6"}
+
+
+def test_the_smart_account_lists_are_those_of_the_amendment():
+    # Revision section 13, amendment of 9 November 2026: the lists and counts of common are the amendment's, sorted,
+    # lowercase 0x hex of the right lengths, without overlap and without the mixed beacon family 0x14044459; the
+    # driver passes them to sql/31 as the amendment writes them.
+    import re
+    r = run_json("""
+        import json, common
+        print(json.dumps({"hashes": list(common.SMART_ACCOUNT_CODE_HASHES),
+                          "pairs": [list(p) for p in common.SMART_ACCOUNT_IMPLEMENTATIONS],
+                          "typed": common.SMART_ACCOUNT_TYPED, "params": common.smart_account_sql_params()}))
+    """)
+    a = amendment_lists()
+    assert r["hashes"] == a["code_hashes"] == sorted(a["code_hashes"]) and len(r["hashes"]) == 20
+    assert r["pairs"] == a["code_hash_implementations"] == sorted(a["code_hash_implementations"])
+    assert r["typed"] == {"code_hashes": a["typed_contracts"]["code_hashes"],
+                          "implementations": a["typed_contracts"]["code_hash_implementations"]}
+    assert all(re.fullmatch(r"0x[0-9a-f]{64}", h) for h in r["hashes"])
+    assert all(re.fullmatch(r"0x[0-9a-f]{64}", h) and re.fullmatch(r"0x[0-9a-f]{40}", i) for h, i in r["pairs"])
+    assert not set(r["hashes"]) & {h for h, _ in r["pairs"]}
+    assert "0x14044459af17bc4f0f5aa2f658cb692add77d1302c29fe2aebab005eea9d1162" not in r["hashes"]
+    # the failing implementations of the getter test are not listed
+    assert not {"0x22839de35030139d5c7a48f45e703d5204586606", "0x847a02f6845f4bd4a4c914f4c17889b67187893e"} & {
+        i for _, i in r["pairs"]}
+    assert r["params"] == {"ext_code_hashes": ",".join(SMART_HASHES), "ext_pairs": ",".join(SMART_PAIRS)}
+
+
+def test_the_extension_moves_the_listed_contracts_and_nothing_else():
+    r = run_json("""
+        import json, pandas as pd, common
+        h = common.SMART_ACCOUNT_CODE_HASHES[0]
+        kh, ki = common.SMART_ACCOUNT_IMPLEMENTATIONS[0]
+        t = pd.DataFrame({
+            "address": [f"0x{i:040x}" for i in range(7)],
+            "account_class": ["contract", "eoa", "contract", "contract", "contract", "smart_account", "contract"],
+            "code_hash": [h, h, kh, kh, "0x" + "ab" * 32, kh, "0x" + h[2:].upper()],
+            "implementation": ["", "", ki, "0x" + "cd" * 20, ki, ki, None],
+            "wallet_kind": ["", "", "", "", "", "safe", ""]})
+        out = common.with_smart_account_extension(t)
+        print(json.dumps({"moved": common.smart_account_extension(t).tolist(),
+                          "classes": out["account_class"].tolist(), "kinds": out["wallet_kind"].tolist(),
+                          "input": t["account_class"].tolist()}))
+    """)
+    # a listed hash (any case) or a listed (hash, implementation) pair, of class contract only
+    assert r["moved"] == [True, False, True, False, False, False, True]
+    assert r["classes"] == ["smart_account", "eoa", "smart_account", "contract", "contract", "smart_account",
+                            "smart_account"]
+    assert r["kinds"] == ["erc4337", "", "erc4337", "", "", "safe", "erc4337"]
+    assert r["input"][0] == "contract"  # the frame read is not changed in place
+
+
+def test_sql31_applies_the_lists_in_both_typed_views_and_not_to_the_events():
+    import re
+    sql = re.sub(r"--[^\n]*", "", (EXPERIMENTS / "sql" / "31_c12_contracts.sql").read_text(encoding="utf-8"))
+    first, rest = sql.split("c12_user_accounts", 1)
+    second, events = rest.split("c12_events_cc", 1)
+    for part in (first, second):
+        assert part.count("IN UNNEST(SPLIT(@ext_code_hashes, ','))") == 1
+        assert part.count("IN UNNEST(SPLIT(@ext_pairs, ','))") == 1
+        assert "IF(account_class = 'contract'" in part  # only contracts move
+        assert "LOWER(code_hash)" in part and "LOWER(IFNULL(implementation, ''))" in part
+    assert "@ext" not in events
+
+
+def test_the_contracts_step_counts_what_the_lists_move():
+    r = run_json("""
+        import json, pandas as pd, common
+        import run_contract12m_pipeline as d
+        h = common.SMART_ACCOUNT_CODE_HASHES[0]; kh, ki = common.SMART_ACCOUNT_IMPLEMENTATIONS[0]
+        t = pd.DataFrame({"address": ["0x1", "0x2", "0x3", "0x4"], "account_class": ["contract"] * 3 + ["eoa"],
+                          "code_hash": [h, kh, "0x" + "ab" * 32, ""], "implementation": ["", ki, "", ""]})
+        print(json.dumps(d.extension_counts(t)))
+    """)
+    assert r == {"typed_contracts": 3, "moved": 2, "moved_by_code_hash": 1, "moved_by_implementation": 1,
+                 "contracts_after": 1}
+
+
+def test_the_lists_move_the_counts_of_the_amendment_on_the_typing_output():
+    # On the typing output of 8 November 2026 (on disk only where the parquet parts were downloaded), the lists move
+    # exactly the counts that the amendment states, and the reads they rest on are recorded at the typing block.
+    stem = EXPERIMENTS / "data" / "1-raw-blockchain-extracts" / "contract-types"
+    if not (stem / "c12_account_types.part000.parquet").exists():
+        pytest.skip("the typing output is not on disk (its parquet parts live on Drive)")
+    r = run_json("""
+        import json, common, run_contract12m_pipeline as d
+        cols = ["address", "account_class", "code_hash", "implementation"]
+        print(json.dumps(d.extension_counts(common.read_parts(common.TYPES, cols))))
+    """)
+    a = amendment_lists()["typed_contracts"]
+    assert (r["moved_by_code_hash"], r["moved_by_implementation"]) == (a["code_hashes"], a["code_hash_implementations"])
+    assert r["moved"] == 192_656 and r["contracts_after"] == r["typed_contracts"] - 192_656
+    # The getter test of item 2 covers every group with its signature, and its passing groups are the listed pairs.
+    reads = json.loads((stem / "c12_smart_account_reads.json").read_text(encoding="utf-8"))
+    assert reads["block"] == 513_216_506 and reads["block_hex"] == "0x1e970ffa"
+    groups = reads["item2_getter_test"]["groups"]
+    assert len(groups) == 15
+    passed = sorted([g["code_hash"], g["implementation"]] for g in groups if g["passes"])
+    assert passed == amendment_lists()["code_hash_implementations"]
+    assert sum(g["contracts"] for g in groups if g["passes"]) == a["code_hash_implementations"]
+    out = run_json("""
+        import json, common
+        t = common.read_parts(common.TYPES, ["address", "account_class", "code_hash", "implementation", "entry_point",
+                                             "has_validate_userop", "has_paymaster_selector", "proxy_kind"])
+        sig = ((t["account_class"] == "contract") & (t["proxy_kind"] == "erc1967") & t["has_validate_userop"]
+               & ~t["has_paymaster_selector"] & (t["entry_point"] == ""))
+        print(json.dumps(sorted(map(list, t[sig].groupby(["code_hash", "implementation"]).size().index))))
+    """)
+    assert out == sorted([g["code_hash"], g["implementation"]] for g in groups)
+
+
+def test_the_size_check_of_job_31_follows_the_last_run():
+    # Moving addresses from the contracts to the user accounts keeps their sum; the last run fixes both sizes.
+    r = run_json("""
+        import json, run_contract12m_pipeline as d
+        ext = {"moved": 10, "contracts_after": 90}
+        first = {"c12_contracts": 100, "c12_user_accounts": 500}
+        again = {**first, "smart_account_extension": {"moved": 10}}
+        print(json.dumps([
+            d.expected_sizes(first, ext, {"c12_contracts": 90, "c12_user_accounts": 510}),
+            d.expected_sizes(first, ext, {"c12_contracts": 90, "c12_user_accounts": 500}),
+            d.expected_sizes(first, ext, {"c12_contracts": 80, "c12_user_accounts": 520}),
+            d.expected_sizes({"c12_contracts": 90, "c12_user_accounts": 510, "smart_account_extension": {"moved": 10}},
+                             ext, {"c12_contracts": 90, "c12_user_accounts": 510}),
+            d.expected_sizes({}, ext, {"c12_contracts": 90, "c12_user_accounts": 0})]))
+    """)
+    assert r[0] == [{"c12_contracts": 90, "c12_user_accounts": 510}, True]
+    assert r[1][1] is False and r[2][1] is False  # one table did not change, or more than the lists moved
+    assert r[3] == [{"c12_contracts": 90, "c12_user_accounts": 510}, True]  # the same lists run again
+    assert r[4] == [{"c12_contracts": "at most 90"}, True]
+
+
+def test_the_structure_step_needs_a_run_of_job_31_with_the_lists():
+    r = run_json("""
+        import json, run_contract12m_pipeline as d
+        ext = {"typed_contracts": 3, "moved": 2, "moved_by_code_hash": 1, "moved_by_implementation": 1,
+               "contracts_after": 1}
+        d.typed_extension = lambda m: (ext, "")
+        steps = lambda passed: [{"step": "contracts", "passed": passed}]
+        out = [d.lists_applied({"steps": [], "results": {}}),
+               d.lists_applied({"steps": steps(False), "results": {"contracts": {"smart_account_extension": ext}}}),
+               d.lists_applied({"steps": steps(True), "results": {"contracts": {"c12_contracts": 9}}}),
+               d.lists_applied({"steps": steps(True), "results": {"contracts": {"smart_account_extension": ext}}})]
+        d.typed_extension = lambda m: (None, "c12_account_types is not on disk")
+        out.append(d.lists_applied({"steps": steps(True), "results": {"contracts": {"smart_account_extension": ext}}}))
+        print(json.dumps(out))
+    """)
+    assert r[0] == r[1] == "the last run of contracts did not pass"
+    assert r[2] == "the last run of contracts was not made with the smart-account lists"  # the run of 8 November
+    assert r[3] == ""
+    assert r[4] == "c12_account_types is not on disk"
+
+
+def test_the_typing_output_must_be_the_one_job_30_loaded(tmp_path):
+    r = run_json(f"""
+        import json, pandas as pd, common, run_contract12m_pipeline as d
+        from pathlib import Path
+        stem = Path(r"{tmp_path}") / "c12_account_types"
+        d.TYPES = stem
+        missing = d.typed_extension({{"results": {{}}}})
+        common.write_parts(pd.DataFrame({{"address": ["0x1"], "account_class": ["eoa"], "code_hash": [""],
+                                          "implementation": [""]}}), stem)
+        name = d.part_paths(stem)[0].name
+        other = d.typed_extension({{"results": {{"load": {{"source_sha256": {{name: "0" * 64}}}}}}}})
+        same = d.typed_extension({{"results": {{"load": {{"source_sha256": {{name: d.sha256(d.part_paths(stem)[0])}}}}}}}})
+        print(json.dumps([missing, other, same[1]]))
+    """)
+    assert r[0] == [None, "c12_account_types is not on disk"]
+    assert r[1] == [None, "the parts of c12_account_types on disk are not those job 30 loaded"]
+    assert r[2].startswith("the smart-account lists move")  # a toy output does not hold the amendment's counts
 
 
 def test_the_queue_keeps_the_system_addresses_and_the_node_set_drops_them():
@@ -410,6 +597,7 @@ STEPS_FAKED = r"""
     d.Run.sizes = lambda self, *names: {n: 6000 for n in names}
     d.sh = lambda cmd: calls.append("download " + cmd[2].split(".")[-1])
     d.read_parts = lambda stem, columns=None: pd.DataFrame(pairs, columns=["a", "b", "layer"])
+    d.lists_applied = lambda m: ""  # the guard of the smart-account lists has its own test
 
     def fake_run(cmd, cwd=None):  # scripts/balance_audit.py and the structure pilot
         name = Path(cmd[1]).name
@@ -452,6 +640,123 @@ STEPS_FAKED = r"""
         out[case] = {"results": results, "calls": calls, "manifest": json.loads(d.MANIFEST.read_text())}
     print(json.dumps(out))
 """
+
+
+CONTRACTS_FAKED = r"""
+    import json, sys, types
+    from pathlib import Path
+    import pandas as pd
+    import run_contract12m_pipeline as d
+    from common import load_config
+
+    cfg = load_config()
+    EXT = {"typed_contracts": 100, "moved": 10, "moved_by_code_hash": 4, "moved_by_implementation": 6,
+           "contracts_after": 90}
+    GOOD, BAD = {"c12_contracts": 90, "c12_user_accounts": 510, "c12_events_cc": 7}, \
+        {"c12_contracts": 90, "c12_user_accounts": 500, "c12_events_cc": 7}
+    pairs = [(f"0x{i:040x}", f"0x{i + 1:040x}", "allow_capped") for i in range(6000)]
+    d.client_and_dataset = lambda cfg: (None, "dissertation-bq.contract_rep")
+    d.inputs = lambda dry: {"head": "abc123"}
+    d.sh = lambda cmd: calls.append("download")
+    d.read_parts = lambda stem, columns=None: pd.DataFrame(pairs, columns=["a", "b", "layer"])
+    d.typed_extension = lambda m: (None, "c12_account_types is not on disk") if state["no_parts"] else (EXT, "")
+
+    def job(self, j):
+        calls.append(f"job {j.no}" + (" dry" if self.dry else ""))
+        if j.no == 31 and not self.dry and state["job_error"]:
+            raise SystemExit("stopped: job 31 failed")
+
+    d.Run.job = job
+    d.Run.sizes = lambda self, *names: {n: {**state["sizes"], "c12_struct_t1": 6000}[n] for n in names}
+
+    def fake_run(cmd, cwd=None):  # the structure pilot
+        calls.append(Path(cmd[1]).name)
+        code = {"committed": {rel: True for rel in d.PILOT_COMMITTED}}
+        d.FEASIBILITY.write_text(json.dumps({"U": 7, "stopped": False, "code": code}))
+        return types.SimpleNamespace(returncode=0)
+
+    d.subprocess.run = fake_run
+    out = {}
+    for case in sys.argv[2:]:
+        tmp = Path(sys.argv[1]) / case
+        tmp.mkdir()
+        d.ROOT = tmp
+        d.MANIFEST, d.FEASIBILITY = tmp / "run_manifest.json", tmp / "feasibility_t1.json"
+        # the runs of 8 November 2026: every step of gate A passed, job 31 without the lists
+        steps = [{"step": s, "passed": True} for s in d.CHAIN]
+        d.MANIFEST.write_text(json.dumps({"variant": "contract12m", "steps": steps, "jobs": [], "checks_run": [
+            {"problems": []}], "results": {"contracts": {"c12_contracts": 100, "c12_user_accounts": 500,
+                                                         "c12_events_cc": 7}}}))
+        plan = {"refused_no_parts": [("contracts", False, dict(no_parts=True))],
+                "dry_no_parts": [("contracts", True, dict(no_parts=True)), ("structure", True, dict(no_parts=True))],
+                "size_fail_then_good": [("contracts", False, dict(sizes=BAD)), ("contracts", False, dict(sizes=GOOD))],
+                "job_fail_then_good": [("contracts", False, dict(sizes=GOOD)), ("contracts", False, dict(job_error=True)),
+                                       ("contracts", False, dict(sizes=GOOD))],
+                "structure_first": [("structure", False, dict(decision="jobs 32 to 34 and 43 stand"))],
+                "structure_after": [("contracts", False, dict(sizes=GOOD)),
+                                    ("structure", False, dict(decision="jobs 32 to 34 and 43 stand"))]}[case]
+        calls, results = [], []
+        for step, dry, opts in plan:
+            state = {"no_parts": False, "job_error": False, "sizes": GOOD, **opts}
+            d.AUTHOR_DECISION = opts.get("decision")
+            try:
+                getattr(d, f"step_{step}")(cfg, dry)
+                results.append("ok")
+            except SystemExit as e:
+                results.append(str(e))
+        out[case] = {"results": results, "calls": calls, "manifest": json.loads(d.MANIFEST.read_text())}
+    print(json.dumps(out))
+"""
+
+
+def test_the_steps_of_job_31_and_job_35_keep_to_the_smart_account_lists(tmp_path):
+    # Revision section 13, amendment of 9 November 2026: contracts checks the lists before it is recorded and the
+    # sizes after the job against the last run that passed; structure refuses, whatever the author decides, until a
+    # run of contracts with the lists passed.
+    env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1", "PYTHONIOENCODING": "utf-8",
+           "CONTRACT_REP_VARIANT": "contract12m"}
+    env.pop("CONTRACT_REP_RPC_URL", None)
+    cases = ["refused_no_parts", "dry_no_parts", "size_fail_then_good", "job_fail_then_good", "structure_first",
+             "structure_after"]
+    out = subprocess.run([sys.executable, "-c", textwrap.dedent(CONTRACTS_FAKED), str(tmp_path), *cases], cwd=SCRIPTS,
+                         env=env, capture_output=True, text=True, encoding="utf-8")
+    assert out.returncode == 0, out.stderr
+    r = json.loads(out.stdout.strip().splitlines()[-1])
+    n = len(STEPS_IN_CHAIN)
+    c = r["refused_no_parts"]
+    assert c["results"] == ["refused: c12_account_types is not on disk (revision section 13, amendment of "
+                            "9 November 2026)"]
+    assert c["calls"] == [] and len(c["manifest"]["steps"]) == n  # nothing was recorded
+    c = r["dry_no_parts"]
+    assert c["results"] == ["ok", "ok"] and c["calls"] == ["job 31 dry", "job 35 dry"]
+    assert len(c["manifest"]["steps"]) == n
+    c = r["size_fail_then_good"]
+    assert c["results"][0].startswith("stopped: job 31 gave") and c["results"][1] == "ok"
+    runs = [e for e in c["manifest"]["steps"] if e["step"] == "contracts"][-2:]
+    assert [e["passed"] for e in runs] == [False, True]
+    res = c["manifest"]["results"]["contracts"]
+    assert res["expected"] == {"c12_contracts": 90, "c12_user_accounts": 510}  # from the run that passed
+    assert res["previous"]["c12_contracts"] == 100 and res["smart_account_extension"]["moved"] == 10
+    c = r["job_fail_then_good"]
+    assert c["results"] == ["ok", "stopped: job 31 failed", "ok"]
+    res = c["manifest"]["results"]["contracts"]
+    # judged against the run with the lists, which moved the same contracts: both sizes stay
+    assert res["expected"] == {"c12_contracts": 90, "c12_user_accounts": 510}
+    assert res["previous"]["c12_contracts"] == 90
+    c = r["structure_first"]
+    assert c["results"] == ["refused: the last run of contracts was not made with the smart-account lists; run "
+                            "contracts first (revision section 13, amendment of 9 November 2026)"]
+    assert c["calls"] == [] and len(c["manifest"]["steps"]) == n
+    c = r["structure_after"]
+    assert c["results"] == ["ok", "ok"] and c["calls"] == ["job 31", "job 35", "download", "run_discovery.py"]
+    last = c["manifest"]["steps"][-1]
+    assert (last["step"], last["passed"], last["author_decision"]) == ("structure", True, "jobs 32 to 34 and 43 stand")
+    assert last["waited_for"] == [f"a run of {s} after the last run of contracts" for s in ("balances", "anchors",
+                                                                                         "audit")]
+
+
+STEPS_IN_CHAIN = ("subset", "ends", "activity", "queue", "typing", "load", "contracts", "balances", "anchors", "audit",
+                  "structure")
 
 
 def test_a_failed_or_missing_balance_check_stops_the_structure_step(tmp_path):

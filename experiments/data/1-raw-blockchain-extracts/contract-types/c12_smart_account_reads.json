@@ -1,0 +1,833 @@
+{
+ "what": "reads behind the smart-account lists of docs/revision_contract_graph.md section 13, amendment of 9 November 2026 (common.SMART_ACCOUNT_CODE_HASHES and common.SMART_ACCOUNT_IMPLEMENTATIONS); keyed by code hash and implementation; product names are not part of the criterion",
+ "block": 513216506,
+ "block_hex": "0x1e970ffa",
+ "host": "arbitrum-one.public.blastapi.io",
+ "written_at": "2026-11-08T17:07:25+00:00",
+ "selectors": {
+  "entryPoint()": "0xb0d691fe",
+  "entrypoint()": "0xa65d69d4",
+  "validateUserOp v0.6": "0x3a871cdd",
+  "validateUserOp v0.7+": "0x19822f7c",
+  "validatePaymasterUserOp": [
+   "0xf465c77e",
+   "0x52b7512c"
+  ],
+  "facetAddress(bytes4)": "0xcdffacc6"
+ },
+ "item1_sampled_families": {
+  "0xeb943ca16c0a3d8c19be2c02105552f49d4ff1d02fb80b199b613f085c8c7847": {
+   "delegation": "the implementation is in the storage slot keyed by the proxy's own address",
+   "members": [
+    {
+     "member": "0x000215228aeaefce0d39b26059b8f5d1d93f1b0a",
+     "implementation": "0xd315125a705df47bdb0f7451f937e62aa7a09e0e",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    },
+    {
+     "member": "0x0005052b6c46980185d099a8796b0d57bc4bfcd9",
+     "implementation": "0xd315125a705df47bdb0f7451f937e62aa7a09e0e",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    },
+    {
+     "member": "0x000914f0155535e53de6421e8ae4be444ac2a397",
+     "implementation": "0xd315125a705df47bdb0f7451f937e62aa7a09e0e",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    }
+   ],
+   "implementation_code": {
+    "address": "0xd315125a705df47bdb0f7451f937e62aa7a09e0e",
+    "bytes": 8373,
+    "validateUserOp_v06": true,
+    "validateUserOp_v07": false,
+    "paymaster_v06": false,
+    "paymaster_v07": false,
+    "entrypoint_lower_sel": false,
+    "entryPoint_upper_sel": true,
+    "canonical_v07_inside": false,
+    "redeployed_ep_inside": false
+   }
+  },
+  "0x5b50b88c3767222ffbb152eddb5aa6ce3af2b2d3d210574a31752a2f64c0b221": {
+   "delegation": "the implementation is in the storage slot keyed by the proxy's own address",
+   "members": [
+    {
+     "member": "0x00088af0a9b4781eb7cff1d520e0a96d61d3b1a3",
+     "implementation": "0xb5bc46df04dee31d219e7664122e29eed9506b8b",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    },
+    {
+     "member": "0x000dbdaff023ebd30864b34c37ba74b4396c944b",
+     "implementation": "0xb5bc46df04dee31d219e7664122e29eed9506b8b",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    },
+    {
+     "member": "0x0011d817466569a2d3d0abd06f4cfb5be5c626b9",
+     "implementation": "0xb5bc46df04dee31d219e7664122e29eed9506b8b",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    }
+   ],
+   "implementation_code": {
+    "address": "0xb5bc46df04dee31d219e7664122e29eed9506b8b",
+    "bytes": 12737,
+    "validateUserOp_v06": true,
+    "validateUserOp_v07": false,
+    "paymaster_v06": false,
+    "paymaster_v07": false,
+    "entrypoint_lower_sel": false,
+    "entryPoint_upper_sel": true,
+    "canonical_v07_inside": false,
+    "redeployed_ep_inside": false
+   }
+  },
+  "0xe152e0d0626438840037db419d2e66fa32002f1ee719b1dbe2892314bc67b6de": {
+   "delegation": "a diamond: the facet of a selector comes from facetAddress(bytes4) of its default fallback handler",
+   "members": [
+    {
+     "member": "0x0008e00132e5cff5dd662d0ecb255bf30c807d09",
+     "fallback_handler": "0x2e7f1dae1f3799d20f5c31befdc7a620f664728d",
+     "facet_of_validateUserOp_v06": "0xfde53272dcd7938d16e031a6989753c321728332",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    },
+    {
+     "member": "0x0013279993d97f93ef517e42919edbe5805366b3",
+     "fallback_handler": "0x2e7f1dae1f3799d20f5c31befdc7a620f664728d",
+     "facet_of_validateUserOp_v06": "0xfde53272dcd7938d16e031a6989753c321728332",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    },
+    {
+     "member": "0x00145a2e20f9da6744833a5f693e3599fc330026",
+     "fallback_handler": "0x2e7f1dae1f3799d20f5c31befdc7a620f664728d",
+     "facet_of_validateUserOp_v06": "0xfde53272dcd7938d16e031a6989753c321728332",
+     "entryPoint()": "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    }
+   ],
+   "implementation_code": {
+    "address": "0xfde53272dcd7938d16e031a6989753c321728332",
+    "bytes": 10678,
+    "validateUserOp_v06": true,
+    "validateUserOp_v07": false,
+    "paymaster_v06": false,
+    "paymaster_v07": false,
+    "entrypoint_lower_sel": false,
+    "entryPoint_upper_sel": true,
+    "canonical_v07_inside": false,
+    "redeployed_ep_inside": false
+   }
+  },
+  "0x64951b55b12734bd28b1ef7d44e179920ae140a7aa15a1c7060b63164537d45a": {
+   "delegation": "a beacon proxy: the beacon is in the ERC-1967 beacon slot and gives implementation()",
+   "members": [
+    {
+     "member": "0x0013246e650f7cb0f434bb19f0db5aed1b62263a",
+     "beacon_slot": "0x000000000000000000000000fe56e9d6f04d427d557dff1615398632bb7dd3e6",
+     "beacon": "0xfe56e9d6f04d427d557dff1615398632bb7dd3e6",
+     "implementation()": "0xc9972ac8555141a03d22816ccfff1b40aa14d81c",
+     "implementation_bytes": 4694,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "entryPoint()": {
+      "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+     }
+    }
+   ]
+  }
+ },
+ "item2_getter_test": {
+  "scope": "every typed contract of class contract with proxy kind erc1967, validateUserOp and no validatePaymasterUserOp selector in its implementation's code and a failed entryPoint(), grouped by (code hash, implementation); entrypoint() and entryPoint() called on the lowest member of each group (two members for three groups)",
+  "groups": [
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0xbac849bb641841b44e965fb01a4bf5f074f84b4d",
+    "contracts": 145220,
+    "members_called": [
+     {
+      "member": "0x000030074f55c483b6cbb28221c2c085033547c7",
+      "erc1967_slot": "0xbac849bb641841b44e965fb01a4bf5f074f84b4d",
+      "entrypoint()": "0x0000000071727de22e5e9d8baf0edac6f37da032",
+      "entryPoint()": {
+       "code": 3,
+       "message": "execution reverted",
+       "data": "0x7352d91c"
+      }
+     },
+     {
+      "member": "0x00004916a5f89e561c49b9b3d863bc85234a05ce",
+      "erc1967_slot": "0xbac849bb641841b44e965fb01a4bf5f074f84b4d",
+      "entrypoint()": "0x0000000071727de22e5e9d8baf0edac6f37da032",
+      "entryPoint()": {
+       "code": 3,
+       "message": "execution reverted",
+       "data": "0x7352d91c"
+      }
+     }
+    ],
+    "implementation_code": {
+     "address": "0xbac849bb641841b44e965fb01a4bf5f074f84b4d",
+     "bytes": 22784,
+     "validateUserOp_v06": false,
+     "validateUserOp_v07": true,
+     "paymaster_v06": false,
+     "paymaster_v07": false,
+     "entrypoint_lower_sel": true,
+     "entryPoint_upper_sel": false,
+     "canonical_v07_inside": true,
+     "redeployed_ep_inside": false
+    },
+    "passes": true
+   },
+   {
+    "code_hash": "0x22bcbefe2dacbb6289d731af9eabb98fdfb6480f4c59c9b2f45f574f008ef68f",
+    "implementation": "0xd206ac7fef53d83ed4563e770b28dba90d0d9ec8",
+    "contracts": 104187,
+    "members_called": [
+     {
+      "member": "0x0000b9719895cdbe5e0cbf24504109498b9c0b48",
+      "erc1967_slot": "0x000000000000000000000000d206ac7fef53d83ed4563e770b28dba90d0d9ec8",
+      "entrypoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x5c427cd9"
+       }
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x5c427cd9"
+       }
+      }
+     },
+     {
+      "member": "0x0000cb32f888684f7f324c37b1cb1337174432be",
+      "erc1967_slot": "0x000000000000000000000000d206ac7fef53d83ed4563e770b28dba90d0d9ec8",
+      "entrypoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x5c427cd9"
+       }
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x5c427cd9"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 19253,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": true,
+     "push4_validateUserOp_v07": false,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": [
+      "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+     ]
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0x22839de35030139d5c7a48f45e703d5204586606",
+    "contracts": 8793,
+    "members_called": [
+     {
+      "member": "0x000345c806ba5c7160f874687510e8ce72fbb973",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000977a7e7c25fdd7b40686f068abe28431393b39d"
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x7352d91c"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 22603,
+     "push4_entrypoint_lower": true,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0xd830d15d3dc0c269f3dbaa0f3e8626d33cfdabe1",
+    "contracts": 6470,
+    "members_called": [
+     {
+      "member": "0x0000824b0a7b28a422dc3038d983892b0c8f891c",
+      "erc1967_slot": "0x000000000000000000000000d830d15d3dc0c269f3dbaa0f3e8626d33cfdabe1",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x7352d91c"
+       }
+      }
+     },
+     {
+      "member": "0x0004a71cc704df8b193758188ffd2ba02ef1d902",
+      "erc1967_slot": "0x000000000000000000000000d830d15d3dc0c269f3dbaa0f3e8626d33cfdabe1",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x7352d91c"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "address": "0xd830d15d3dc0c269f3dbaa0f3e8626d33cfdabe1",
+     "bytes": 23563,
+     "validateUserOp_v06": false,
+     "validateUserOp_v07": true,
+     "paymaster_v06": false,
+     "paymaster_v07": false,
+     "entrypoint_lower_sel": true,
+     "entryPoint_upper_sel": false,
+     "canonical_v07_inside": true,
+     "redeployed_ep_inside": false
+    },
+    "passes": true
+   },
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0x94f097e1ebeb4eca3aae54cabb08905b239a7d27",
+    "contracts": 2759,
+    "members_called": [
+     {
+      "member": "0x0003ab24b04f96c8c0fa2c06276a253e3bd229d1",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+      },
+      "entryPoint()": {
+       "error": {
+        "data": "0x7352d91c"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 20427,
+     "v07_canonical_inside": true,
+     "redeployed_ep_inside": false,
+     "push4_entrypoint_lower": true,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "kernel_strings": [
+      "kernel.advanced.v0.3.0-beta"
+     ]
+    },
+    "passes": true
+   },
+   {
+    "code_hash": "0xd09e34b2e51f09092e73e3ba1d520a42972496bf2a3bfdb22bb50b9729a9fd66",
+    "implementation": "0x9c6e09bc32d1e012dcaa2623e66d2cc9860c1aed",
+    "contracts": 1324,
+    "members_called": [
+     {
+      "member": "0x0077cd15b29319adfdad0ed97457c57637bd3bb6",
+      "entrypoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x5c427cd9"
+       }
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x5c427cd9"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 17844,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": [
+      "0x0000000071727de22e5e9d8baf0edac6f37da032"
+     ]
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0xd6cedde84be40893d153be9d467cd6ad37875b28",
+    "contracts": 859,
+    "members_called": [
+     {
+      "member": "0x005adf46762ad0bdbab24f0f1707d20f3a4280b5",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+      },
+      "entryPoint()": {
+       "error": {
+        "data": "0x7352d91c"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 24469,
+     "v07_canonical_inside": true,
+     "redeployed_ep_inside": false,
+     "push4_entrypoint_lower": true,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "kernel_strings": [
+      "Rukernel.advanced.v0.3.3`P"
+     ]
+    },
+    "passes": true
+   },
+   {
+    "code_hash": "0xdc545aecaebc660c48db5d60ecad89617c6f9146f5b1ccb8e4085e444b09a19f",
+    "implementation": "0xa70f1296869da9d7cb69578123f21888e6db2b62",
+    "contracts": 18,
+    "members_called": [
+     {
+      "member": "0x08223b59f3dc0135500fbc62d5537a5c501cf017",
+      "entrypoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x534a471c0000000000000000000000000000000000000000000000000000000000000000"
+       }
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x534a471c0000000000000000000000000000000000000000000000000000000000000000"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 16412,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": [
+      "0x0000000071727de22e5e9d8baf0edac6f37da032"
+     ]
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0x3e5ad3de6e8de44f4a56d8784bd4b0257e51f4d05fc0dc06e79f8e92e1a775f9",
+    "implementation": "0x29cc3b7b020cf8d0fab31ee488f0eb438f3b0796",
+    "contracts": 13,
+    "members_called": [
+     {
+      "member": "0x1ccf511aa5116ffbe722e5ec90bba853bc23e8cc",
+      "entrypoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x"
+       }
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 16792,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": [
+      "0x0000000071727de22e5e9d8baf0edac6f37da032"
+     ]
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0x654f12417cb258e73d4a87aa71b24adac5490f94",
+    "contracts": 8,
+    "members_called": [
+     {
+      "member": "0x122e2629b4dc99d19a56fd257def8088a64a278f",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+      },
+      "entryPoint()": {
+       "error": {
+        "data": "0x7352d91c"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 24469,
+     "v07_canonical_inside": true,
+     "redeployed_ep_inside": false,
+     "push4_entrypoint_lower": true,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "kernel_strings": [
+      "Rukernel.advanced.v0.3.3`P"
+     ]
+    },
+    "passes": true
+   },
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0x847a02f6845f4bd4a4c914f4c17889b67187893e",
+    "contracts": 3,
+    "members_called": [
+     {
+      "member": "0x4b026fb1b9a26aec839499c2fe9252f0ebbf2a5c",
+      "entrypoint()": {
+       "result": "0x"
+      },
+      "entryPoint()": {
+       "result": "0x"
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 12600,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": [
+      "0x0000000071727de22e5e9d8baf0edac6f37da032"
+     ]
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d",
+    "implementation": "0xa3b9a42afded3431193bd73012d44a26ca04a0a1",
+    "contracts": 2,
+    "members_called": [
+     {
+      "member": "0x0d00960094bf29e64579014b248ad6abaac8f6e2",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+      },
+      "entryPoint()": {
+       "error": {
+        "data": "0x7352d91c"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 22615,
+     "v07_canonical_inside": true,
+     "redeployed_ep_inside": false,
+     "push4_entrypoint_lower": true,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "kernel_strings": [
+      "Rukernel.advanced.v0.3.1`P"
+     ]
+    },
+    "passes": true
+   },
+   {
+    "code_hash": "0x4457dc4bdedf10e71a2c8191176fd35a09aed4938550bec0ce3da77b59f5abda",
+    "implementation": "0xd7c0320f55eb3d933a799a6bfb8b8dbba1a7d35f",
+    "contracts": 1,
+    "members_called": [
+     {
+      "member": "0x6b597e4f07f00bc74cbc614e686bf47832a31211",
+      "entrypoint()": {
+       "result": "0x"
+      },
+      "entryPoint()": {
+       "result": "0x"
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 13408,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": [
+      "0x0000000071727de22e5e9d8baf0edac6f37da032"
+     ]
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0x4cbb15b8370031848c523bd23790cfa78a5a332e9c7cd285aa1a396e3849b7d4",
+    "implementation": "0x6f0b25e2abca0b60109549b7823392e3312f505c",
+    "contracts": 1,
+    "members_called": [
+     {
+      "member": "0xfe6368975b88e45d08a2113cc810a3dc31b58739",
+      "entrypoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x"
+       }
+      },
+      "entryPoint()": {
+       "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 16895,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": true,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "passes": false
+   },
+   {
+    "code_hash": "0x8559595d851a6b7f1c4291abb8685e947a442e2639d6e305c94e3a3e5a39336a",
+    "implementation": "0xd6cedde84be40893d153be9d467cd6ad37875b28",
+    "contracts": 1,
+    "members_called": [
+     {
+      "member": "0xccaaafba2b6b33b901ba7cc034dbc5e350d6eb30",
+      "entrypoint()": {
+       "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+      },
+      "entryPoint()": {
+       "error": {
+        "code": 3,
+        "message": "execution reverted",
+        "data": "0x7352d91c"
+       }
+      }
+     }
+    ],
+    "implementation_code": {
+     "bytes": 24469,
+     "push4_entrypoint_lower": true,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": [
+      "0x0000000071727de22e5e9d8baf0edac6f37da032"
+     ]
+    },
+    "passes": true
+   }
+  ]
+ },
+ "implementation_0x22839de3": {
+  "member": "0x000345c806ba5c7160f874687510e8ce72fbb973",
+  "entrypoint()": {
+   "result": "0x0000000000000000000000000977a7e7c25fdd7b40686f068abe28431393b39d"
+  },
+  "entryPoint()": {
+   "error": {
+    "code": 3,
+    "message": "execution reverted",
+    "data": "0x7352d91c"
+   }
+  },
+  "entry_point_code": {
+   "0x0977a7e7_bytes": 16035,
+   "canonical_v07_bytes": 16035,
+   "bytes_that_differ": 40,
+   "same_length": true
+  }
+ },
+ "family_0x14044459_sample": {
+  "members": [
+   {
+    "member": "0x00423f1e6dd9ef5f4c8f41e503227d85d6665b4f",
+    "beacon": "0x000000005ae5f42270cdf0e41960840e7fb1b2dc",
+    "implementation()": "0x000000003e6b7c98504bea19cd1a5a064522499b",
+    "implementation_code": {
+     "bytes": 21785,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": true,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+    }
+   },
+   {
+    "member": "0x25aa73d0ede582713657e12abcb122b5275e5a22",
+    "beacon": "0x000000005ae5f42270cdf0e41960840e7fb1b2dc",
+    "implementation()": "0x000000003e6b7c98504bea19cd1a5a064522499b",
+    "implementation_code": {
+     "bytes": 21785,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": true,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+    }
+   },
+   {
+    "member": "0x47f82a7c60f89a21430fbfbfa5d87ac338afef96",
+    "beacon": "0x000000005ae5f42270cdf0e41960840e7fb1b2dc",
+    "implementation()": "0x000000003e6b7c98504bea19cd1a5a064522499b",
+    "implementation_code": {
+     "bytes": 21785,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": true,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+    }
+   },
+   {
+    "member": "0x68bf60ae2419d216927a05c9dc1a44f0aa329002",
+    "beacon": "0x000000005ae5f42270cdf0e41960840e7fb1b2dc",
+    "implementation()": "0x000000003e6b7c98504bea19cd1a5a064522499b",
+    "implementation_code": {
+     "bytes": 21785,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": true,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+    }
+   },
+   {
+    "member": "0x8c59c601e1e6b3453e862476f96916750945e289",
+    "beacon": "0x000000005ae5f42270cdf0e41960840e7fb1b2dc",
+    "implementation()": "0x000000003e6b7c98504bea19cd1a5a064522499b",
+    "implementation_code": {
+     "bytes": 21785,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": true,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+    }
+   },
+   {
+    "member": "0xb2e0792248f98bfed98faae0170a9a8a5e06c151",
+    "beacon": "0xc3f2e6e2ea685d7d4c2363f004fca6b1a2536321",
+    "implementation()": "0x66fc39f32b1f5fb40954e344257e73c39e193931",
+    "implementation_code": {
+     "bytes": 9478,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": false,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "error": {
+      "code": 3,
+      "message": "execution reverted",
+      "data": "0x"
+     }
+    }
+   },
+   {
+    "member": "0xd9324cd5e3f68bd3df065d8faa7ee97a9aa99321",
+    "beacon": "0x000000005ae5f42270cdf0e41960840e7fb1b2dc",
+    "implementation()": "0x000000003e6b7c98504bea19cd1a5a064522499b",
+    "implementation_code": {
+     "bytes": 21785,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": true,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": true,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "result": "0x0000000000000000000000000000000071727de22e5e9d8baf0edac6f37da032"
+    }
+   },
+   {
+    "member": "0xffe5f2d80a165e0bca241a3eff4e159ef0e3f076",
+    "beacon": "0x3ce80f68b34ea9780ff9fd14fd9ad142c1be63bb",
+    "implementation()": "0xb76faf3a900726ebd0ab230fa7d1ba70e93c67ec",
+    "implementation_code": {
+     "bytes": 7110,
+     "push4_entrypoint_lower": false,
+     "push4_entryPoint_upper": false,
+     "push4_validateUserOp_v06": false,
+     "push4_validateUserOp_v07": false,
+     "push4_paymaster": false,
+     "canonical_entry_points_inside": []
+    },
+    "entryPoint()": {
+     "error": {
+      "code": 3,
+      "message": "execution reverted",
+      "data": "0x"
+     }
+    }
+   }
+  ],
+  "note": "eight members spread over the family, in address order"
+ }
+}

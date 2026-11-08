@@ -1,0 +1,4 @@
+# The files of these folders are pinned by their SHA-256 and must be committed byte for byte.
+experiments/data/2-processed-tables-and-evaluations/revised-contract-12m/** -text
+experiments/data/0-usd-token-list-and-prices/contract-12m/** -text
+experiments/data/1-raw-blockchain-extracts/graph-tables-contract-12m/first_pilot_2026-11-08/** -text

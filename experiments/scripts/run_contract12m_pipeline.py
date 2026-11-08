@@ -27,7 +27,10 @@ driver stops. An estimate that needs a table that does not exist yet is computed
              script, its rules and the queue are those it was written with (check_account_code.py refuses
              otherwise, and the output must be moved away to be read afresh)
   load       job 30: loads the complete account types into c12_account_types (a load job, not billed)
-  contracts  job 31: the node set, the typed user accounts and the events between contracts
+  contracts  job 31: the node set, the typed user accounts and the events between contracts, with the
+             contracts that the amendment of 9 November 2026 counts as smart accounts (common.
+             SMART_ACCOUNT_CODE_HASHES and SMART_ACCOUNT_IMPLEMENTATIONS) among the user accounts; checks the lists
+             against the typing output before the job and the size of c12_contracts after it
   balances   jobs 32 and 33: the net flow before 2023-10-01 and the balances at t1, T_obs and 2026-09-30
   anchors    job 34: the last block at or before each anchor
   audit      job 43, then the balanceOf check of scripts/balance_audit.py
@@ -68,8 +71,9 @@ from pathlib import Path
 
 os.environ.setdefault("CONTRACT_REP_VARIANT", "contract12m")
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import (GRAPH, PROC, ROOT, TYPES, TYPES_DIR, VARIANT, load_config, load_json, part_paths,  # noqa: E402
-                    read_parts, save_json)
+from common import (GRAPH, PROC, ROOT, SMART_ACCOUNT_CODE_HASHES, SMART_ACCOUNT_TYPED, TYPES,  # noqa: E402
+                    TYPES_DIR, VARIANT, load_config, load_json, part_paths, read_parts, save_json,
+                    smart_account_extension, smart_account_sql_params)
 
 # The c12_ tables, folders and constants belong to this variant; any other would mix them up.
 if VARIANT != "contract12m":
@@ -139,6 +143,7 @@ ANCHORS = {"t1": "2026-03-31 23:59:59 UTC", "tobs": "2026-06-30 23:59:59 UTC", "
 # Byte widths that BigQuery bills: a 20-byte address (2 + 20), a one-character STRING (2 + 1), a 0x hex address
 # STRING (2 + 42), a timestamp, integer, float or date, and an account class (at most 'smart_account', 2 + 13).
 A, KIND, HEX, NUM, CLASS = 22, 3, 44, 8, 15
+CODE_HASH = 2 + 66  # a 0x hex code hash STRING (sql/31 reads it with the implementation, a HEX, since 9 November 2026)
 LOGS5_ALL = 3 * A + KIND + 6 * NUM  # every column of c12_logs5
 MIN_TABLE = 10 * 2**20  # at least 10 MB is billed for every table a query reads
 USD_PER_TIB = 6.25
@@ -184,9 +189,10 @@ READS: dict[str, list[list[Measured | Read]]] = {
     "rpc_queue": [[Read("c12_ends", A), Read("c12_tx_senders", A), Read("c12_pairs5", 2 * A),
                    Read("u12_cohort_tobs", A), Read("u12_cohort_t1", A), Read("u12_labels_w0", HEX),
                    Read("u12_labels_w1", HEX), Read("c12_emitters", A), Read("c12_creations", A)]],
-    # address and account_class of the types and the senders, twice; then every column of c12_logs5
-    "contracts": [[Read("c12_account_types", HEX + CLASS), Read("c12_tx_senders", A)],
-                  [Read("c12_account_types", HEX + CLASS), Read("c12_tx_senders", A)],
+    # address, account_class, code_hash and implementation of the types and the senders, twice; then every column
+    # of c12_logs5
+    "contracts": [[Read("c12_account_types", HEX + CLASS + CODE_HASH + HEX), Read("c12_tx_senders", A)],
+                  [Read("c12_account_types", HEX + CLASS + CODE_HASH + HEX), Read("c12_tx_senders", A)],
                   [Read("c12_logs5", LOGS5_ALL), Read("c12_contracts", A)]],
     # the population: token, a, kind and block_timestamp of c12_logs5
     "bal_pre": [[DRY_32, Read("c12_logs5", 2 * A + KIND + NUM)]],
@@ -287,7 +293,7 @@ def jobs(cfg: dict) -> dict[str, list[Job]]:
                       allow=("u12_cohort_tobs", "u12_cohort_t1", "u12_labels_w0", "u12_labels_w1"))],
         "contracts": [Job("contracts", 31, "31_c12_contracts.sql",
                           "contracts, user accounts and events between contracts",
-                          params={"system_first": first, "system_last": last})],
+                          params={"system_first": first, "system_last": last, **smart_account_sql_params()})],
         "balances": [
             Job("bal_pre", 32, "32_c12_bal_pre.sql", "net flow before 2023-10-01 of the balance population",
                 params={"obs_start": w["obs_start"], **population}, public=(VIEWS["logs"],)),
@@ -861,11 +867,92 @@ def step_load(cfg: dict, dry: bool) -> None:
                 "source_sha256": {p.name: sha256(p) for p in sorted(TYPES.parent.glob(f"{TYPES.name}.part*.parquet"))}})
 
 
+def extension_counts(types) -> dict[str, int]:
+    """The typed contracts that the lists of the amendment of 9 November 2026 move (revision section 13), by list,
+    and the typed contracts they leave (contracts_after)."""
+    moved = smart_account_extension(types)
+    contract = types["account_class"].astype(str) == "contract"
+    by_hash = moved & types["code_hash"].fillna("").astype(str).str.lower().isin(SMART_ACCOUNT_CODE_HASHES)
+    return {"typed_contracts": int(contract.sum()), "moved": int(moved.sum()), "moved_by_code_hash": int(by_hash.sum()),
+            "moved_by_implementation": int((moved & ~by_hash).sum()), "contracts_after": int((contract & ~moved).sum())}
+
+
+def typed_extension(m: dict) -> tuple[dict | None, str]:
+    """The counts of extension_counts on the typing output, with what keeps them from describing the table that job 30
+    loaded (empty when nothing does): the parts must be on disk and must be the files of the last load (its
+    source_sha256). Counts are None when the parts are missing."""
+    paths = part_paths(TYPES)
+    if not paths:
+        return None, f"{TYPES.name} is not on disk"
+    loaded = ((m.get("results") or {}).get("load") or {}).get("source_sha256") or {}
+    on_disk = {p.name: sha256(p) for p in paths}
+    if isinstance(loaded, dict) and loaded and loaded != on_disk:
+        return None, f"the parts of {TYPES.name} on disk are not those job 30 loaded"
+    ext = extension_counts(read_parts(TYPES, columns=["address", "account_class", "code_hash", "implementation"]))
+    expected = {"moved_by_code_hash": SMART_ACCOUNT_TYPED["code_hashes"],
+                "moved_by_implementation": SMART_ACCOUNT_TYPED["implementations"]}
+    if any(ext[k] != v for k, v in expected.items()):
+        return ext, f"the smart-account lists move {ext}, not {expected}"
+    return ext, ""
+
+
+def expected_sizes(previous: dict, ext: dict, sizes: dict) -> tuple[dict, bool]:
+    """What job 31 must give, and whether ``sizes`` gives it. Moving an address from the contracts to the user
+    accounts leaves their sum as it was, and the inputs of job 31 other than the lists do not change between its
+    runs: so the last run (``previous``, with the counts it moved, 0 before the lists) fixes both sizes exactly.
+    Without a last run, c12_contracts can hold no more than the typed contracts the lists leave."""
+    if previous:
+        before = int((previous.get("smart_account_extension") or {}).get("moved", 0))
+        want = {"c12_contracts": previous["c12_contracts"] + before - ext["moved"],
+                "c12_user_accounts": previous["c12_user_accounts"] - before + ext["moved"]}
+        return want, all(sizes[k] == v for k, v in want.items())
+    return {"c12_contracts": f"at most {ext['contracts_after']}"}, sizes["c12_contracts"] <= ext["contracts_after"]
+
+
 def step_contracts(cfg: dict, dry: bool) -> None:
+    # The lists must move exactly the typed contracts the amendment of 9 November 2026 counts (common.
+    # SMART_ACCOUNT_TYPED) in the typing output that job 30 loaded; checked before the step is recorded.
+    m = manifest()
+    ext, problem = typed_extension(m)
+    if problem:
+        if not dry:
+            raise SystemExit(f"refused: {problem} (revision section 13, amendment of 9 November 2026)")
+        print(f"skipped: the smart-account check ({problem})")
+    else:
+        print("smart-account extension (revision section 13, amendment of 9 November 2026):", ext)
+    # The sizes of the last run that passed. A run that stopped before its result was recorded left the result as it
+    # was; a run whose result was recorded without passing kept the result it replaced as 'previous'.
+    previous = dict(m["results"].get("contracts") or {})
+    recorded = [e for e in m["steps"] if e["step"] == "contracts" and "passed" in e]
+    if recorded and recorded[-1]["passed"] is not True and "previous" in previous:
+        previous = dict(previous["previous"] or {})
     run = Run("contracts", cfg, dry)
     run.run_jobs("contracts")
-    if not dry:
-        run.result(run.sizes("c12_contracts", "c12_user_accounts", "c12_events_cc"))
+    if dry:
+        return
+    sizes = run.sizes("c12_contracts", "c12_user_accounts", "c12_events_cc")
+    want, passed = expected_sizes(previous, ext, sizes)
+    kept = {k: previous[k] for k in ("c12_contracts", "c12_user_accounts", "c12_events_cc", "smart_account_extension")
+            if k in previous}
+    run.result({**sizes, "smart_account_extension": ext, "expected": want, "previous": kept or None}, passed=passed)
+    if not passed:
+        raise SystemExit(f"stopped: job 31 gave {sizes}, not {want} (revision section 13, amendment of "
+                         "9 November 2026)")
+
+
+def lists_applied(m: dict) -> str:
+    """Why the last run of contracts does not stand for the smart-account lists (empty when it does): it must have
+    passed and must record the counts that the lists give on the typing output (the counts of 8 November 2026 had
+    none). The structure step refuses without it, whatever the author's decision."""
+    last = [e for e in m["steps"] if e["step"] == "contracts"]
+    if not last or last[-1].get("passed") is not True:
+        return "the last run of contracts did not pass"
+    ext, problem = typed_extension(m)
+    if problem:
+        return problem
+    if ((m.get("results") or {}).get("contracts") or {}).get("smart_account_extension") != ext:
+        return "the last run of contracts was not made with the smart-account lists"
+    return ""
 
 
 def step_balances(cfg: dict, dry: bool) -> None:
@@ -940,6 +1027,14 @@ def structure_counts(struct) -> tuple[dict[str, int], dict[str, int]]:
 
 
 def step_structure(cfg: dict, dry: bool) -> None:
+    # Job 35 reads c12_events_cc, which job 31 builds: the structure must be that of the node set with the
+    # smart-account lists (revision section 13, amendment of 9 November 2026). No author's decision passes this.
+    why = lists_applied(manifest())
+    if why:
+        if not dry:
+            raise SystemExit(f"refused: {why}; run contracts first (revision section 13, amendment of "
+                             "9 November 2026)")
+        print(f"warning: {why}")
     run = Run("structure", cfg, dry)
     run.run_jobs("structure")
     fetch = download("c12_struct_t1", STRUCT_T1)
