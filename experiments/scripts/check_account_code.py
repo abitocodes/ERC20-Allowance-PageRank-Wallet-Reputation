@@ -28,7 +28,9 @@ and 4.3):
     EntryPoint, has a validateUserOp selector and no paymaster selector. Both are smart accounts,
     which the revision counts as user accounts. A reverted or malformed call fails its test: an
     error is the call's own failure when its code is 3 or its message begins with an error of the
-    EVM, and so is every other error of a call to a system address, which runs a precompile, not code.
+    EVM or with an error that an Arbitrum Stylus program gives when it cannot run at the block read
+    (STYLUS_FAILURES), and so is every other error of a call to a system address, which runs a
+    precompile, not code.
     Any other error is the RPC's and the batch is sent again. A call the node aborts at its time
     limit, a system address's included, is sent again too: ROTATE_AFTER attempts in all at the URL
     that gave the first abort, then ROTATE_AFTER at the next URL in turn (a URL that fails ROTATE_AFTER
@@ -147,6 +149,12 @@ CALL_FAILURES = ("execution reverted", "out of gas", "invalid opcode", "invalid 
                  "return data out of bounds", "invalid code", "max call depth exceeded", "gas uint64 overflow",
                  "nonce uint64 overflow", "insufficient balance for transfer", "contract address collision",
                  "max code size exceeded", "max initcode size exceeded", "contract creation code storage out of gas")
+# The beginnings of the messages of the errors an Arbitrum Stylus (WASM) program gives when it cannot run at the
+# block read (Nitro's programs errors, e.g. "error ProgramNeedsUpgrade(2, 3)" for a program activated under an older
+# Stylus version): the program's state at that block is the account's answer, so the call fails its test, as with
+# an error of the EVM (revision section 4.3, amendment of 8 November 2026).
+STYLUS_FAILURES = ("error programnotactivated", "error programneedsupgrade", "error programexpired",
+                   "error programnotwasm")
 # The node's abort of a call that runs past its time limit (go-ethereum's "execution aborted (timeout = 5s)").
 # The limit is wall-clock time and differs between nodes and with their load, so an abort is not an answer of
 # the account: the batch is sent again, each call keeps its first answer that is not an abort, and an abort counts
@@ -374,13 +382,14 @@ def evaluate(answers: Sequence[dict], vu: bool, pm: bool, rules: Rules) -> tuple
 
 def is_call_failure(error: Any) -> bool:
     """Whether an eth_call error is the EVM's (a revert or another failed execution), not the RPC's: code 3, or a
-    message that begins with one of CALL_FAILURES. A node's abort at its time limit is not one (is_aborted)."""
+    message that begins with one of CALL_FAILURES or STYLUS_FAILURES. A node's abort at its time limit is not one
+    (is_aborted)."""
     if not isinstance(error, dict):
         return False
     if error.get("code") == 3:
         return True
     message = str(error.get("message", "")).strip().lower()
-    return message.startswith(CALL_FAILURES)
+    return message.startswith(CALL_FAILURES) or message.startswith(STYLUS_FAILURES)
 
 
 def is_aborted_error(error: Any) -> bool:

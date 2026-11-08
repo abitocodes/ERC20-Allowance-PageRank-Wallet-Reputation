@@ -325,6 +325,32 @@ def test_call_failures_are_told_from_rpc_errors():
     # An EVM word inside an RPC message does not make it the call's failure; the message must begin with it.
     assert not cac.is_call_failure({"code": -32000, "message": "upstream request reverted by the gateway"})
     assert not cac.is_call_failure({"code": -32000, "message": "request failed: out of gas allowance quota"})
+    # A Stylus program that cannot run at the block read answers with Nitro's program errors: the call's failure
+    # (revision section 4.3, amendment of 8 November 2026).
+    for message in ("error ProgramNeedsUpgrade(2, 3)", "error ProgramNotActivated()", "error ProgramExpired(3600)",
+                    "error ProgramNotWasm()"):
+        assert cac.is_call_failure({"code": -32000, "message": message}), message
+    assert not cac.is_call_failure({"code": -32000, "message": "upstream error: ProgramNeedsUpgrade"})
+
+
+STYLUS = {"error": {"code": -32000, "message": "error ProgramNeedsUpgrade(2, 3)"}}
+
+
+def test_a_stylus_program_that_cannot_run_fails_its_tests_at_once(tmp_path, chain, variant12):
+    # Every call to a Stylus program activated under an older Stylus version answers ProgramNeedsUpgrade at the
+    # block read: the calls fail their tests at once (no resend), and the program is a contract.
+    chain.code.update({C1: PLAIN, S1: SAFE_PROXY})
+    chain.answers.update({(C1, sel): STYLUS for sel in (GET_THRESHOLD, GET_OWNERS, ENTRY_POINT)})
+    chain.answers.update({(S1, GET_THRESHOLD): uint(2), (S1, GET_OWNERS): address_array([O1, O2])})
+    stem = tmp_path / "types"
+    assert run(csv_input(tmp_path, [C1, S1]), stem, "--probe-wallets", "--rpc", PUBLIC) == 0
+    rows = read_parts(stem).set_index("address")
+    assert tuple(rows.loc[C1, ["wallet_kind", "account_class", "threshold", "n_owners", "entry_point"]]) == (
+        "", "contract", -1, -1, "")
+    assert rows.loc[S1, "wallet_kind"] == "safe"
+    assert len(chain.calls("eth_call")) == 6
+    meta = meta_of(stem)
+    assert meta["complete"] and meta["aborted_addresses"] == []
 
 
 def test_batch_answers_are_matched_by_id():
