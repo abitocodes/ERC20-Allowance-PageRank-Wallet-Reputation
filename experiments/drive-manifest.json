@@ -2282,6 +2282,18 @@
    "md5": "c849532deab83b3ac6215549a9f73b34"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/same-window/cohort_scores.part000.parquet",
+   "id": "1T4bUZmOEYDeIrZ5znNhzwigp17OadNlh",
+   "size": 347961,
+   "md5": "b88ef9edf190309862053757bb8e16b8"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/same-window/eval_summary.json",
+   "id": "1mEXK6EchvHX7RNXSOmxt8v25MurwVxDI",
+   "size": 71319,
+   "md5": "69d68c221ba32bd5e8d0dbfb47e3f55a"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/typing/balance_audit.csv",
    "id": "1VrdiKvSA86Jdo-Vwmb0-t0-3P9w9-d2M",
    "size": 325327,
@@ -3375,6 +3387,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-11-09T01:59:53+00:00",
- "total_bytes": 14391908581
+ "updated_at": "2026-11-09T02:07:30+00:00",
+ "total_bytes": 14392327861
 }
