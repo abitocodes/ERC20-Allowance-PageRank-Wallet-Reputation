@@ -2258,6 +2258,156 @@
    "md5": "d694cdd7961502e59a9f6212a37a641d"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both.json",
+   "id": "1dABDiEkeKZ7JmOSa1GXMnUD2HAAnbjLi",
+   "size": 9223200,
+   "md5": "efbced077b8e0f9ba18b3c0316a42e6c"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_sets.part000.parquet",
+   "id": "1_E1fsX4CFXRORAIP0-na6IeAy4w0kOHS",
+   "size": 527510,
+   "md5": "85ab844fc35309f58a903307630cd927"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part000.parquet",
+   "id": "1Rx-AITwfl_B9yWinspcrtGsH3w68LDwF",
+   "size": 10335595,
+   "md5": "d2eeb0e822b51295d47435f8c0ca1ec8"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part001.parquet",
+   "id": "1W6ySPVBXdfME_XuF8d9vriCGV2-TwHe1",
+   "size": 10370146,
+   "md5": "d8e1e9f984e9f5d08878352ca7ff0a07"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part002.parquet",
+   "id": "1A7kQAMMP-rhsXo4Lf3eyvIJKk9iVdepE",
+   "size": 10162083,
+   "md5": "d99e581ca4994e804cb3d0a49c646eee"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part003.parquet",
+   "id": "1YWyOZLLuKHQaRyXpl_RU51BtjF2sHs2_",
+   "size": 10065477,
+   "md5": "61a175107e7378770261b3adc4670d96"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part004.parquet",
+   "id": "10KryovC_XWfRytPHF4NjqcLsy7Nr8kqK",
+   "size": 10150019,
+   "md5": "57aaae9cb02dd0b08c5a0f0a939addc3"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part005.parquet",
+   "id": "1aV9_DhlPrJpYXGCtOCjx2cMkkNd9CViv",
+   "size": 10077982,
+   "md5": "2d065939f454faba5f926313d4a8f3dd"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part006.parquet",
+   "id": "1awkfxJFSsuH0s99YxyC-bXM3br--mMnK",
+   "size": 10111796,
+   "md5": "c4552715de708ccc768d646bd4679670"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part007.parquet",
+   "id": "1cFE18JjfIhyZNkT_RRNfOexy9rTVBlsS",
+   "size": 10126088,
+   "md5": "70024727fdc4e55ee793d9c597ae2317"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part008.parquet",
+   "id": "1OMnIvXHK8eKcahRSpm48W5VEvyuvFJpA",
+   "size": 8567496,
+   "md5": "ec744e1e1c50d7463825fc7bf629fdbc"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part009.parquet",
+   "id": "1yeQ6dZqrfE0goMf8B-8nO1-jtPL4NMno",
+   "size": 9438368,
+   "md5": "2671c3a338905ad1feaa2fe57e6f3adc"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part010.parquet",
+   "id": "1Ssmrll17ScVT110EPSSnzTVf_dLCywn_",
+   "size": 9428574,
+   "md5": "ea9810c058f67067663c94d6c82ba6fd"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part011.parquet",
+   "id": "1dgSq6vcaRSglaCp0lF0EpRXqvMMe9x4k",
+   "size": 9140207,
+   "md5": "53cfab3bcea5b1f018892f220bfa9695"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part012.parquet",
+   "id": "1R8WVvIOVpLz2JUSsy20YEzRAzyVX02Nz",
+   "size": 9521294,
+   "md5": "bc385fd7a65f53cb5edd14561a438271"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part013.parquet",
+   "id": "1Qx_5waeFL0LvUZl1OGSvU6TEKwEn-q0b",
+   "size": 10063841,
+   "md5": "dd546f3c655d83284e1f3c7e9da46ed1"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part014.parquet",
+   "id": "1Br5xkV9ggZzK6w8dXHqYICXumTrUm0x2",
+   "size": 9148599,
+   "md5": "27d24b2e904859b6aaf3c1fca63f172a"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part015.parquet",
+   "id": "18sKcC59XBQCOsxjO_B6iMwnaLoJYduPz",
+   "size": 8934578,
+   "md5": "149e172d460ff0c142dfc9bdac8cba72"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part016.parquet",
+   "id": "15Rs_u3oSSBoMQQNgJ0SF8QFtoB0sSFm9",
+   "size": 9649076,
+   "md5": "6bb4a8996118e9372b3d8f10a658af6b"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part017.parquet",
+   "id": "1PsnzoS1LbDiZ6dQ2mdvbh8q8X1MMDNjS",
+   "size": 10166868,
+   "md5": "e9393cd7891ce9bf5a6d7ac970c94de1"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part018.parquet",
+   "id": "1bnG0MOqfr0KgCd0lW3GmbUUcsyOSNgCd",
+   "size": 10157059,
+   "md5": "18c6cdd2783a5c1f06f4523757d340ee"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part019.parquet",
+   "id": "1zjSGpFkMSHeGU-NZhgIhCCG0zhSrG1by",
+   "size": 10058592,
+   "md5": "b2b2682ed87142a3dce41919c7ec23c9"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part020.parquet",
+   "id": "1Kux9uhWNHuEgj6nbb4YaEzPAFtwusWOR",
+   "size": 10140586,
+   "md5": "b0d72637cadd49f849bf0097dab2316a"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part021.parquet",
+   "id": "1ZAUTtX6NIFWArCTFxiIupzSwiZO-iRNI",
+   "size": 9908513,
+   "md5": "39e225093c38233d35f05aac66592b0b"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_tobs_both_hot_visits.part022.parquet",
+   "id": "1TBBdeqRs02310zGc3R-DvGfjwiiN5ROt",
+   "size": 2170799,
+   "md5": "79aaef21f02ebef01d6b05da056655a9"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json",
    "id": "1xIKJCKYYGKstjfcc8yxOimoc-sJI-lYa",
    "size": 32798,
@@ -3387,6 +3537,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-11-09T02:07:30+00:00",
- "total_bytes": 14392327861
+ "updated_at": "2026-11-10T16:19:48+00:00",
+ "total_bytes": 14619972207
 }
