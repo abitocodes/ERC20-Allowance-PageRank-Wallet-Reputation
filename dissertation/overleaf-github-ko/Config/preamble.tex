@@ -46,6 +46,8 @@
 \usepackage{array}
 \usepackage[normalem]{ulem}
 \usepackage{caption}
+% Captions are set in the size of the table bodies.
+\captionsetup{font=small}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -70,7 +72,7 @@
   pdftitle={ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기 (한국어 쉬운 번역)},
   pdfauthor={권태홍 (Taehong Kwon)},
   pdfsubject={남아프리카대학교(UNISA) 컴퓨터과학 박사 학위 논문의 한국어 번역},
-  pdfkeywords={DeFi, 스마트 계약, 엔도스랭크, EndorseRank, 페이지랭크, 온체인 평판, ERC-20 허락, Arbitrum}
+  pdfkeywords={결합 페이지랭크, 스마트 계약, 크롤 순서, 온체인 평판, ERC-20 허락, 엔도스랭크, 적응형 가중 페이지랭크, 탈중앙 금융, 시간 홀드아웃, 사전 등록, 아비트럼 원, 켄달의 타우}
 }
 % 한국어 이름표: 그림, 표, 목록, 알고리즘
 \AtBeginDocument{%
@@ -98,6 +100,15 @@
 \setlength{\parskip}{0.03\baselineskip}
 \setlist[itemize]{leftmargin=2.2em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
 \setlist[enumerate]{leftmargin=2.4em,labelsep=0.55em,itemsep=0.08\baselineskip,topsep=0.1\baselineskip,parsep=0pt}
+% Float placement: a table or figure may share a page with text, and a page holds floats alone only when they
+% fill at least four fifths of it.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
 \usepackage{titlesec}
 \usepackage{etoolbox}
 \pretocmd{\chapter}{\phantomsection}{}{}
