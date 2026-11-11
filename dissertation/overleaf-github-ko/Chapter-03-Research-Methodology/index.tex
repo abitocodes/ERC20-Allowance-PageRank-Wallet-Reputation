@@ -97,7 +97,7 @@ w(u,v)/o(u) & \text{만약 }o(u)>0\text{이면},\\
 \begin{center}
 \texttt{bigquery-public-data.goog\_blockchain\_arbitrum\_one\_us.logs}.
 \end{center}
-스캔~A와~B는 이 연구에 필요한 이벤트를 이 연구의 구글 클라우드(Google Cloud) 프로젝트로 복사해요. 그 뒤의 질의는 이 사본을 읽어요(\ref{sec:collection-strategy}절). 같은 공개 데이터 세트에서, 트랜잭션(블록체인에 보내는 거래 요청)을 보낸 주소들과, 잔액에 들어가는 스캔~A 전의 송금도 얻어요. 부록~\ref{ch:appendix-sql}은 질의의 꼴을 보여 줘요. 구글 클라우드 계정이 있는 사람은 누구나 이 질의를 다시 돌릴 수 있어요.
+스캔~A와~B는 이 연구에 필요한 이벤트를 이 연구의 구글 클라우드(Google Cloud) 프로젝트로 복사해요. 그 뒤의 질의는 이 사본을 읽어요(\ref{sec:collection-strategy}절). 같은 공개 데이터 세트에서, 트랜잭션(블록체인에 보내는 거래 요청)을 보낸 주소들과, 잔액에 들어가는 스캔~A 전의 송금도 얻어요. 부록~\ref{ch:appendix-sql}는 질의의 꼴을 보여 줘요. 구글 클라우드 계정이 있는 사람은 누구나 이 질의를 다시 돌릴 수 있어요.
 
 \item 평판 이벤트: 엔도스랭크는 ERC-20 \texttt{Approval} 로그를 써요\parencite{vogelsteller2015erc20}. 이 로그에는 EIP-2612 \texttt{permit}(서명 허락)으로 한 허락도 들어 있어요\parencite{lundfall2020permit}. AWP는 \texttt{Transfer} 로그를 써요. 두 로그 모두, 토픽이 정확히 세 개인 로그와 \ref{sec:amount-revision}절의 다섯 토큰만 남겨요. 주 분석은 2025년 4월 1일부터 2026년 9월 30일까지(종류 판별 기간), 체인 전체의 이런 \texttt{Approval}과 0이 아닌 \texttt{Transfer}를 모두 읽어요. 코호트 둘레의 것만 읽는 것이 아니에요.
 
@@ -126,7 +126,7 @@ w(u,v)/o(u) & \text{만약 }o(u)>0\text{이면},\\
 
 \dissertationSubheading[sec:pipeline-architecture]{처리 과정의 짜임}
 
-그림~\ref{fig:pipeline-architecture}은 공개 로그에서 연구 표까지, 처리 과정 전체를 따라가요. 원격 단계는 이 연구의 빅쿼리 프로젝트에 표를 써요. RPC로 읽은 계정 종류도 이 프로젝트에 올려요. 내려받은 파일은 절대 바꾸지 않아요.
+그림~\ref{fig:pipeline-architecture}는 공개 로그에서 연구 표까지, 처리 과정 전체를 따라가요. 원격 단계는 이 연구의 빅쿼리 프로젝트에 표를 써요. RPC로 읽은 계정 종류도 이 프로젝트에 올려요. 내려받은 파일은 절대 바꾸지 않아요.
 
 \begin{figure}[htbp]
 \centering
@@ -363,7 +363,7 @@ P^{(\lambda)}_{u,\cdot}
 \alpha_T(u)=\frac{(1-\lambda)\,\mathbf{1}[o_T(u)>0]}{D_{\lambda}(u)},
 \nonumber
 \end{align}
-여기서 $D_{\lambda}(u)=\lambda\,\mathbf{1}[o_A(u)>0]+(1-\lambda)\,\mathbf{1}[o_T(u)>0]$이고, $o_A(u)$와 $o_T(u)$는 두 층에서 $u$의 나가는 무게의 합이에요. 무게가 $0$인 층은 그 화살표와 점과 함께 빠져요. $D_{\lambda}(u)=0$인 점은 매달린 점이고, 그 몫은 식~\eqref{eq:pagerank}의 세 번째 항이 다뤄요. 순간 이동은 $V$의 계약들 위에서 고르게 일어나고, $d=0.85$예요. $\mathbf{s}_{\mathrm{CPR}}$는 $P=P^{(\lambda)}$로 둔 식~\eqref{eq:pagerank}의 페이지랭크 벡터이고, 풀이 설정은 한 층 방법들과 같아요. 그림~\ref{fig:cpr-schematic}은 걷기의 한 걸음을 보여 주고, 알고리즘~\ref{alg:cpr}에는 만들기와 점수 매기기 단계를 적었어요.
+여기서 $D_{\lambda}(u)=\lambda\,\mathbf{1}[o_A(u)>0]+(1-\lambda)\,\mathbf{1}[o_T(u)>0]$이고, $o_A(u)$와 $o_T(u)$는 두 층에서 $u$의 나가는 무게의 합이에요. 무게가 $0$인 층은 그 화살표와 점과 함께 빠져요. $D_{\lambda}(u)=0$인 점은 매달린 점이고, 그 몫은 식~\eqref{eq:pagerank}의 세 번째 항이 다뤄요. 순간 이동은 $V$의 계약들 위에서 고르게 일어나고, $d=0.85$예요. $\mathbf{s}_{\mathrm{CPR}}$는 $P=P^{(\lambda)}$로 둔 식~\eqref{eq:pagerank}의 페이지랭크 벡터이고, 풀이 설정은 한 층 방법들과 같아요. 그림~\ref{fig:cpr-schematic}는 걷기의 한 걸음을 보여 주고, 알고리즘~\ref{alg:cpr}에는 만들기와 점수 매기기 단계를 적었어요.
 
 \begin{figure}[htbp]
 \centering
@@ -425,7 +425,7 @@ C-PR은 $E_A\cup E_T$ 위를 걸어요. 그래서 C-PR의 반복 한 번은 두 
 
 출발 계약은 거대 SCC의 계약 가운데, 정해 둔 문자열과 주소를 이은 것의 SHA256 해시가 가장 작은 $20$개예요. 무작위가 아닌 순서 규칙은 프런티어의 계약마다 점수를 매겨요. $K$번 방문한 뒤에 점수를 다시 계산하고, 다음 다시 계산 전까지 점수가 가장 높은 프런티어 계약 $\max(1,\lceil\rho K\rceil)$개를 방문해요. 동점이면 먼저 찾은 계약을, 그다음에는 주소가 작은 계약을 먼저 방문해요. 프라임 표시는 지금까지 읽은 계약들로 계산한 값이라는 뜻이에요. 순서 규칙은 다음과 같아요. 너비 우선(BFS, 찾은 차례대로 방문하기)은 찾은 차례를 따라요. 무작위 순서도 있어요. 세 가지 수는 프런티어 계약으로 화살표를 보낸, 방문한 계약의 수예요. 이 수들은 걷기가 매끄럽게 다듬는 원시 차수예요. 허락 화살표로 센 $\mathrm{IB}'_A$, 송금 화살표로 센 $\mathrm{IB}'_T$, 어느 쪽이든 센 $\mathrm{IB}'_U$, 곧 계약 역링크예요. 그리고 지금까지 본 그래프 위에서 계산한 \ref{sec:graph-construction}절의 걷기들이 있어요(엔도스랭크$'$, 활동 재시작 엔도스랭크$'$, AWP$'$, $\lambda=0.5$, $0.25$, $0.75$의 C-PR$'$, 그 두 층, S-PR$'$). 걷기는 다시 계산할 때마다 앞 벡터에서 시작해요. 이 이어 시작하기는 방법의 일부예요. 이상적인 순서와, 전체 그래프의 C-PR과 합집합 입차수로 정한 순서는 크롤이 아닌 참고 값이에요. 정규화한 들어오는 무게 $\delta'$는 걷기를 한 단계까지만 따라간 닫힌 꼴이고, 모든 비교 밖에 두는 진단 값이에요.
 
-중요도는 사용자 계정의 수요이고, 어떤 순서 규칙도 이것을 읽지 않아요. $\mathcal{U}$의 계약 $c$와 그 동결일의 점수 기간에 대해 $I_T(c)=\sum_j\min(x_{j\to c},U_{\mathrm{user}})$이고 $I_A(c)=\sum_j\min\bigl(\hat a(j,c),U_{\mathrm{user}}\bigr)$이며, $\hat a(j,c)=\sum_{\mathrm{token}}\hat a(j,c,\mathrm{token})$이에요. 앞의 것은 사용자 계정 유입이고, 뒤의 것은 사용자 허락 금액이에요. 여기서 $j$는 사용자 계정들을 돌고, $x_{j\to c}$는 $j$가 $c$에 송금한 달러예요. $\hat a(j,c,\mathrm{token})$은 한 토큰에서 $j$가 $c$에게 준 마지막 허락에 $j$의 잔액으로 상한을 씌운 값이에요. 식~\eqref{eq:approve-weight}와 같은 방식이에요. 1달러 이상인 계정의 수 $N_T$와 $N_A$는 부차적인 값이에요. Cho 등의 방식으로 정한 중요도, 여기서는 전체 그래프의 합집합 입차수 $\mathrm{IB}_U$와 C-PR($\mathrm{IR}$)은 순서 규칙들이 읽는 화살표 위에서 재요. 그래서 이 중요도와의 일치는 의도한 구성개념 점검이고, 두 번째로 보고해요.
+중요도는 사용자 계정의 수요이고, 어떤 순서 규칙도 이것을 읽지 않아요. $\mathcal{U}$의 계약 $c$와 그 동결일의 점수 기간에 대해 $I_T(c)=\sum_j\min(x_{j\to c},U_{\mathrm{user}})$이고 $I_A(c)=\sum_j\min\bigl(\hat a(j,c),U_{\mathrm{user}}\bigr)$이며, $\hat a(j,c)=\sum_{\mathrm{token}}\hat a(j,c,\mathrm{token})$이에요. 앞의 것은 사용자 계정 유입이고, 뒤의 것은 사용자 허락 금액이에요. 여기서 $j$는 사용자 계정들을 돌고, $x_{j\to c}$는 $j$가 $c$에 송금한 달러예요. $\hat a(j,c,\mathrm{token})$은 한 토큰에서 $j$가 $c$에게 준 마지막 허락에 $j$의 잔액으로 상한을 씌운 값이에요. 식~\eqref{eq:approve-weight}과 같은 방식이에요. 1달러 이상인 계정의 수 $N_T$와 $N_A$는 부차적인 값이에요. Cho 등의 방식으로 정한 중요도, 여기서는 전체 그래프의 합집합 입차수 $\mathrm{IB}_U$와 C-PR($\mathrm{IR}$)은 순서 규칙들이 읽는 화살표 위에서 재요. 그래서 이 중요도와의 일치는 의도한 구성개념 점검이고, 두 번째로 보고해요.
 
 뜨거운 집합 $H_q(I)$(중요도가 가장 큰 계약들)에는 $\mathcal{U}$의 계약 가운데 중요도가 양수이고 가장 큰 $\lceil q|\mathcal{U}|\rceil$개 안에 드는 계약이 들어가요. 동점도 넣어요. 크롤이 뜨거운 계약 $h$에 닿는 방문을 $t_h$라고 해요. $\mathrm{AUC}_x$는 뜨거운 계약들과 출발 계약들에 걸쳐 $\max(0,1-t_h/\lceil x|\mathcal{U}|\rceil)$를 평균한 값이에요. 이것은 처음 $x|\mathcal{U}|$번 방문하는 동안 방문한 뜨거운 집합의 몫을 그린 곡선 아래 넓이를, 정규화한 것이에요. 무작위 기준 곡선은 $K$번 방문한 뒤 $K/|\mathcal{U}|$이고, $x/2$를 줘요. 주된 값은 $x=10\%$와 $q=1\%$예요. 구간은 뜨거운 계약들에 걸친 짝지은 부트스트랩으로 구해요($B=400$, 시드 42, 모든 순서 규칙에 같은 색인 행렬 하나).
 
@@ -600,7 +600,7 @@ N_{\mathrm{mon}}(w).
 
 \dissertationSubsubheading[sub:uncapped-protocol]{상한 없는 허락 층}
 
-민감도 분석 하나가 잔액 상한이 무엇을 바꾸는지 보여 줘요. 이 분석은 W0과 W1 스펜더 라벨에서 모든 점수와 기준선의 비교를 상한 없는 허락 층으로 다시 해요. 상한 없는 허락 층에서는 계약 사이의 모든 양수인 마지막 허락을, 식~\eqref{eq:approve-weight}와~\eqref{eq:raw-layers}에서 $\hat a$ 자리에 $a^{\star}$로 세요. 이 분석은 주요 비교 옆에 보고하고(\ref{sub:uncapped-results}절), 어떤 규칙도 판정하지 않아요. 발견 순서 검증은 이 분석을 쓰지 않아요.
+민감도 분석 하나가 잔액 상한이 무엇을 바꾸는지 보여 줘요. 이 분석은 W0과 W1 스펜더 라벨에서 모든 점수와 기준선의 비교를 상한 없는 허락 층으로 다시 해요. 상한 없는 허락 층에서는 계약 사이의 모든 양수인 마지막 허락을, 식~\eqref{eq:approve-weight}과~\eqref{eq:raw-layers}에서 $\hat a$ 자리에 $a^{\star}$로 세요. 이 분석은 주요 비교 옆에 보고하고(\ref{sub:uncapped-results}절), 어떤 규칙도 판정하지 않아요. 발견 순서 검증은 이 분석을 쓰지 않아요.
 
 \dissertationSubheading[sec:reproducibility]{재현성}
 
