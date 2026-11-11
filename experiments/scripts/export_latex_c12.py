@@ -88,6 +88,10 @@ CAPTIONS: list[tuple[str, str]] = []
 # Entries of the List of Tables for the tables this module writes under a name of export_latex.py; the other tables
 # of this module use the first sentence of their caption.
 SHORT_CAPTIONS = {
+    "benchmark-runtime": "Computational benchmark on the contract graph.",
+    "benchmark-scaling": "Runtime on subsamples of the matched cohort and on the whole contract graph.",
+    "benchmark-runs": "Every timed solver call of the benchmark.",
+    "robustness-sample-size": "Sensitivity of the family means to the evaluation set.",
     "holdout-spenders": "Temporal holdout W0 on the spender cohort.",
     "holdout-diff": "Paired bootstrap differences on the spender holdout W0.",
     "holdout-receiving": "Spender holdout W0 restricted to spenders that had received a transfer before the freeze.",
@@ -1482,6 +1486,230 @@ def t_registered_vs_contract(reg: dict, rev: dict, seed: int, cfg: dict) -> None
 # --------------------------------------------------------------------------- main
 
 
+# --------------------------------------------------------------------------- benchmark on the whole contract graph
+#
+# The benchmark of this variant times the whole contract graph at T_obs (every pair between contracts), and its
+# scaling stages keep the pairs incident to a subsample of the matched cohort. The stage of the full cohort is not
+# timed: scripts/run_benchmark.py reuses the main measurement for it (``reused_main``), which here is another graph
+# than the pairs incident to the cohort. The tables below say so; export_latex.py's own tables describe graphs made
+# of the cohort's events, where the two coincide.
+
+
+def _cohort_stage_edges(rob: dict | None, n: int) -> tuple[int, int] | None:
+    """Allowance and transfer pairs incident to the full cohort (the last sample-definition stage of the robustness run)."""
+    for st in (rob or {}).get("sample_definition") or []:
+        if int(st.get("n", -1)) == int(n) and st.get("allowance_edges") is not None:
+            return int(st["allowance_edges"]), int(st["transfer_edges"])
+    return None
+
+
+def t_benchmark_runtime(bench: dict, n: int) -> None:
+    E.begin("benchmark-runtime")
+    main_ = bench.get("main") or {}
+
+    def cell(m: str) -> str:
+        x = main_.get(m)
+        if not x:
+            E.problem(f"no benchmark row for {m}")
+            x = {}
+        return (f"{E.f3(x.get('mean_s'), 'runtime')} & {E.f3(x.get('sd_s'), 'SD')} & {E.f1(x.get('peak_mb'), 'peak memory')} & "
+                f"{E.fint(x.get('iterations'), 'iterations')} & {E.fint(x.get('nodes'), '|V|')} & {E.fint(x.get('edges'), '|E|')}")
+
+    order = (("endorserank", "EndorseRank"), ("awp", "AWP"), None, ("cpr_l50", E.METHOD_LABELS["cpr_l50"]), ("spr", "S-PR"))
+    lines = E.method_rows(order, cell)
+    er, awp = main_.get("endorserank") or {}, main_.get("awp") or {}
+    proto = bench.get("protocol") or {}
+    runs, warm = int(proto.get("timed_runs", 5)), int(proto.get("warmup_runs", 1))
+    caption = (
+        "Computational benchmark on the contract graph at $T_{\\mathrm{obs}}$, which holds every pair between contracts "
+        f"and not only the pairs of the matched cohort (AWP/EndorseRank runtime ratio {E.ratio(awp.get('mean_s'), er.get('mean_s'))} "
+        f"at an edge ratio of {E.ratio(awp.get('edges'), er.get('edges'))}). Runtime = mean wall-clock seconds over {runs} "
+        f"timed solver calls after {E.NUMBER_WORDS.get(warm, warm)} untimed warm-up, on which alone peak memory is traced; "
+        f"SD over the same {runs} runs. A timed call turns an edge list into scores: node indexing, sparse-matrix assembly, "
+        "row normalisation, restart vector and power iteration. $|V|$ and $|E|$ are the nodes and distinct edges of each "
+        "method's solver graph. C-PR walks on the union of the allowance layer and the transfer layer, so its $|E|$ "
+        "counts the distinct pairs of both; S-PR runs on the transfer layer, and its runtime and iterations include the "
+        "solve of the allowance layer that supplies its restart vector. Table~\\ref{tab:benchmark-runs} lists every run."
+    )
+    head = "Method & Runtime (s) & SD (s) & Peak mem.\\ (MB) & Iters & $|V|$ & $|E|$"
+    emit("benchmark-runtime", caption, E.tabular("lrrrrrr", head, lines), [E.SOURCES["bench"]])
+
+
+def t_benchmark_scaling(bench: dict, rob: dict | None, n: int, cfg: dict) -> None:
+    E.begin("benchmark-scaling")
+    lines, whole = [], False
+    for st in bench.get("scaling") or []:
+        er, awp = st.get("endorserank") or {}, st.get("awp") or {}
+        if st.get("reused_main"):
+            whole = True
+            lines.append("\\midrule")
+            first = "Whole graph$^{a}$"
+        else:
+            first = E.fint(st.get("n"), "stage n")
+        lines.append(
+            f"{first} & {E.f3(er.get('mean_s'), 'ER runtime')} & {E.f3(awp.get('mean_s'), 'AWP runtime')} & "
+            f"{E.ratio(awp.get('mean_s'), er.get('mean_s'))} & {E.ratio(awp.get('edges'), er.get('edges'))} & "
+            f"{E.fint(er.get('nodes'), 'ER |V|')} & {E.fint(er.get('edges'), 'ER |E|')} & "
+            f"{E.fint(awp.get('nodes'), 'AWP |V|')} & {E.fint(awp.get('edges'), 'AWP |E|')} \\\\")
+    if not lines:
+        E.SKIPPED.append("benchmark-scaling (no stages)")
+        return
+    runs = int((bench.get("protocol") or {}).get("timed_runs", 5))
+    seed = bench.get("scaling_seed") or cfg["benchmark"]["scaling_seed"]
+    note = ""
+    if whole:
+        inc = _cohort_stage_edges(rob, n)
+        note = (" $^{a}$The measurement of Table~\\ref{tab:benchmark-runtime} on the whole contract graph, which holds "
+                "every pair between contracts"
+                + (f"; ${E.fint(inc[0])}$ allowance pairs and ${E.fint(inc[1])}$ transfer pairs are incident to the full "
+                   f"cohort of $n={E.fint(n)}$ contracts, and the graph of those pairs has no timing of its own" if inc else "")
+                + ".")
+    caption = (
+        "Runtime of EndorseRank (ER) and AWP on subsamples of the matched cohort and on the whole contract graph. The "
+        f"numbered rows are deterministic SHA256 subsamples of the cohort (seed \\texttt{{{seed}}}); each keeps the pairs "
+        "incident to its $n$ sampled contracts, so $|V|$ and $|E|$ of both solver graphs are reported per row. AWP/ER time "
+        "and AWP/ER $|E|$ are the ratios of the two runtimes and of the two edge counts in the same row. Runtime = mean "
+        f"wall-clock seconds over {runs} timed solver calls after one untimed warm-up.{note}"
+    )
+    head = "$n$ & ER (s) & AWP (s) & AWP/ER time & AWP/ER $|E|$ & ER $|V|$ & ER $|E|$ & AWP $|V|$ & AWP $|E|$"
+    emit("benchmark-scaling", caption, E.tabular("rrrrrrrrr", head, lines), [E.SOURCES["bench"]])
+
+
+def t_benchmark_runs(bench: dict, cfg: dict) -> None:
+    E.begin("benchmark-runs")
+    main_ = bench.get("main") or {}
+    d0 = float((bench.get("protocol") or {}).get("damping", cfg["reputation"]["damping"]))
+    blocks: list[tuple[str, list[tuple[str, dict]]]] = [(
+        f"Whole contract graph, $d={d0:g}$",
+        [(name, main_.get(m) or {}) for m, name in (("endorserank", "EndorseRank"), ("awp", "AWP"),
+                                                      ("cpr_l50", E.METHOD_LABELS["cpr_l50"]), ("spr", "S-PR"))],
+    )]
+    for d, rows in sorted((bench.get("damping") or {}).items(), key=lambda kv: float(kv[0])):
+        if abs(float(d) - d0) < 1e-12:
+            continue  # the main measurement, reused
+        blocks.append((f"Whole contract graph, $d={float(d):g}$",
+                       [("EndorseRank", rows.get("endorserank") or {}), ("AWP", rows.get("awp") or {})]))
+    for st in bench.get("scaling") or []:
+        if st.get("reused_main"):
+            continue
+        blocks.append((f"Subsample of the cohort, $n={E.fint(st.get('n'))}$",
+                       [("EndorseRank", st.get("endorserank") or {}), ("AWP", st.get("awp") or {})]))
+    k = max((len(x.get("runs_s") or []) for _, rows in blocks for _, x in rows), default=0)
+    if k == 0:
+        E.SKIPPED.append("benchmark-runs (no timed runs)")
+        return
+    lines = []
+    for title, rows in blocks:
+        if lines:
+            lines.append("\\midrule")
+        lines.append(f"\\multicolumn{{{k + 3}}}{{l}}{{\\emph{{{title}}}}} \\\\")
+        for name, x in rows:
+            E._check_runs(x, f"{title} {name}")
+            runs = list(x.get("runs_s") or [])
+            cells = [E.f3(r, "run") for r in runs] + ["---"] * (k - len(runs))
+            if len(runs) < k:
+                E.problem(f"{title} {name} has {len(runs)} runs, not {k}")
+            lines.append(f"{name} & {' & '.join(cells)} & {E.f3(x.get('mean_s'), 'mean')} & {E.f3(x.get('sd_s'), 'SD')} \\\\")
+    head = "Method & " + " & ".join(f"Run {i + 1}" for i in range(k)) + " & Mean & SD"
+    caption = (
+        "Wall-clock seconds of every timed solver call of the benchmark, in the order the runs were made, with their "
+        "mean and standard deviation. Each configuration had one untimed warm-up before its timed runs, and each graph "
+        f"and setting was timed once: the $d={d0:g}$ rows of Table~\\ref{{tab:robustness-damping}} and the whole-graph row "
+        "of Table~\\ref{tab:benchmark-scaling} are the first block, reused. The subsamples are those of "
+        "Table~\\ref{tab:benchmark-scaling}."
+    )
+    emit("benchmark-runs", caption, E.tabular("l" + "r" * (k + 2), head, lines), [E.SOURCES["bench"]])
+
+
+def t_robustness_sample_size(rob: dict, bench: dict | None, n: int, cfg: dict) -> None:
+    E.begin("robustness-sample-size")
+    stages = rob.get("sample_definition") or []
+    if not stages:
+        E.SKIPPED.append("robustness-sample-size (no stages)")
+        return
+    timed = {int(s["n"]): s for s in ((bench or {}).get("scaling") or []) if not s.get("reused_main")}
+    lines, untimed = [], False
+    for st in stages:
+        er, awp = st.get("endorserank") or {}, st.get("awp") or {}
+        cells = []
+        for f in ("allowance", "transfer", "sybil_stability"):
+            cells += [E.f3(er.get(f), f"ER {f} n={st.get('n')}"), E.f3(awp.get(f), f"AWP {f} n={st.get('n')}")]
+        cells += [E.fint(st.get("allowance_edges"), "allowance pairs"), E.fint(st.get("transfer_edges"), "transfer pairs")]
+        if bench is not None:
+            b = timed.get(int(st["n"]))
+            if b:
+                be, ba = b.get("endorserank") or {}, b.get("awp") or {}
+                cells += [E.f3(be.get("mean_s"), "ER runtime"), E.f3(ba.get("mean_s"), "AWP runtime")]
+            else:
+                untimed = True
+                cells += ["--", "--"]
+        lines.append(f"{E.fint(st.get('n'))} & {' & '.join(cells)} \\\\")
+    seed = cfg["benchmark"]["scaling_seed"]
+    runtime = ""
+    if bench is not None:
+        runtime = " Runtimes are the measurements of Table~\\ref{tab:benchmark-scaling}"
+        runtime += ("; the graph of the pairs incident to the full cohort has no timing of its own (--)." if untimed else ".")
+    caption = (
+        "Sensitivity of the family means to the evaluation set: family-mean Kendall $\\tau$ of EndorseRank (ER) and AWP "
+        f"on deterministic SHA256 subsamples of the matched cohort (seed \\texttt{{{seed}}}, full cohort $n={E.fint(n)}$ "
+        "contracts), each row scored on the pairs incident to its contracts, whose numbers the columns $|E_A|$ (allowance) "
+        "and $|E_T|$ (transfer) give; all.\\ = allowance, tr.\\ = transfer, Syb.\\ = Sybil stability. Rows are evaluated "
+        "on different contract sets and on other graphs than the whole contract graph, so their $\\tau$ values are not "
+        "comparable with Table~\\ref{tab:alignment-hybrid}; they show how much the statistic moves with the evaluation "
+        f"population. No intervals were computed for the rows.{runtime}"
+    )
+    head = "$n$ & ER all. & AWP all. & ER tr. & AWP tr. & ER Syb. & AWP Syb. & $|E_A|$ & $|E_T|$"
+    spec = "r" + "c" * 6 + "rr"
+    if bench is not None:
+        head += " & ER (s) & AWP (s)"
+        spec += "rr"
+    srcs = [E.SOURCES["rob"]] + ([E.SOURCES["bench"]] if bench is not None else [])
+    emit("robustness-sample-size", caption, E.tabular(spec, head, lines), srcs)
+
+
+def fig_runtime_scaling(bench: dict) -> None:
+    """Runtime on the subsamples of the cohort, with the whole contract graph as a separate last position."""
+    import numpy as np
+    plt = E._style()
+    stages = bench.get("scaling") or []
+    if not stages:
+        E.SKIPPED.append("runtime-scaling.pdf (no stages)")
+        return
+    sub = [s for s in stages if not s.get("reused_main")]
+    whole = [s for s in stages if s.get("reused_main")]
+    x_sub = np.arange(len(sub), dtype=float)
+    x_whole = float(len(sub)) + 0.35
+    fig, ax = plt.subplots(figsize=(5.8, 3.8))
+    for m, name, color, marker, dy in (("endorserank", "EndorseRank", E.BLUE, "o", -11), ("awp", "AWP", E.RED, "s", 7)):
+        if sub:
+            t = np.array([s[m]["mean_s"] for s in sub])
+            sd = np.array([s[m]["sd_s"] for s in sub])
+            ax.errorbar(x_sub, t, yerr=sd, marker=marker, color=color, capsize=2.5, linewidth=1.2, markersize=4.5,
+                        label=f"{name} (labels: edges $|E|$ of its graph)")
+            for xi, ti, s in zip(x_sub, t, sub):
+                ax.annotate(E._short_count(float(s[m]["edges"])), (xi, ti), textcoords="offset points", xytext=(0, dy),
+                            ha="center", fontsize=7.5, color=color)
+        for s in whole:
+            ax.errorbar([x_whole], [s[m]["mean_s"]], yerr=[s[m]["sd_s"]], marker=marker, color=color, capsize=2.5,
+                        linewidth=0, elinewidth=1.2, markersize=5.5, markerfacecolor="white",
+                        label=None if sub else f"{name} (labels: edges $|E|$ of its graph)")
+            ax.annotate(E._short_count(float(s[m]["edges"])), (x_whole, s[m]["mean_s"]), textcoords="offset points",
+                        xytext=(0, dy), ha="center", fontsize=7.5, color=color)
+    ax.set_yscale("log")
+    ax.margins(x=0.08, y=0.15)
+    ticks = list(x_sub) + ([x_whole] if whole else [])
+    labels = [f"{int(s['n']):,}" for s in sub] + (["whole\ngraph"] if whole else [])
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(labels)
+    if whole and sub:
+        ax.axvline((x_sub[-1] + x_whole) / 2, color="#bdbdbd", linewidth=0.8, linestyle=":")
+    ax.minorticks_off()
+    ax.set_xlabel("Contracts in the subsample $n$; open markers: the whole contract graph")
+    ax.set_ylabel("Runtime per solver call (s, log scale)")
+    ax.legend(frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1.01), ncol=1)
+    E._save(fig, "runtime-scaling.pdf")
+
+
 def main() -> int:
     if not CONTRACT_GRAPH:
         raise SystemExit("refused: export_latex_c12.py writes the tables of the contract-graph variant only "
@@ -1513,9 +1741,9 @@ def main() -> int:
     n = int(same["cohort"]) if same else None
 
     if bench and n:
-        E.t_benchmark_runtime(bench, n)
-        E.t_benchmark_scaling(bench, n, cfg)
-        E.t_benchmark_runs(bench, n, cfg)
+        t_benchmark_runtime(bench, n)
+        t_benchmark_scaling(bench, rob, n, cfg)
+        t_benchmark_runs(bench, cfg)
     else:
         E.SKIPPED.append("benchmark tables (no benchmark.json)")
     if same:
@@ -1531,7 +1759,7 @@ def main() -> int:
         E.SKIPPED.append("same-window tables (no same-window summary)")
     if rob and n:
         E.t_robustness_slope(rob, n, load_json(USD_CONSTANTS))
-        E.t_robustness_sample_size(rob, bench, n, cfg)
+        t_robustness_sample_size(rob, bench, n, cfg)
     else:
         E.SKIPPED.append("robustness tables (no robustness.json)")
     if same and w0 and w1:
@@ -1593,7 +1821,7 @@ def main() -> int:
                 E.fig_rank_scatter(scores, same)
             E.fig_damping(same)
         if bench:
-            E.fig_runtime_scaling(bench)
+            fig_runtime_scaling(bench)
         if len(runs) == len(RUNS):
             fig_discovery_curves(runs[("tobs", "both")], "discovery-curves.pdf")
             fig_discovery_curves(runs[("tobs", "out")], "discovery-curves-out.pdf")
