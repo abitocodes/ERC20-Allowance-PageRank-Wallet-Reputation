@@ -50,11 +50,17 @@ COHORT_SCORES = PROC / "same-window" / "cohort_scores"
 
 APPR, SEND, LIQ = "future_new_approvers", "future_new_transfer_senders", "liquidation_free_rate"
 LABEL_WORDS = {APPR: "new approval pairs", SEND: "new transfer senders", LIQ: "liquidation-free close rate"}
-FAMILIES = (("transfer", "Transfer"), ("allowance", "Allowance"), ("sybil_stability", "Sybil"))
+FAMILIES = (("transfer", "Transfer"), ("allowance", "Allowance"),
+            ("sybil_stability", "Stability" if CONTRACT_GRAPH else "Sybil"))
+# The contract-graph texts call the plan's Sybil-adjusted stability family "the stability family".
+STAB_FAMILY = "stability family" if CONTRACT_GRAPH else "Sybil-stability family"
+STAB_PROXIES = "stability proxies" if CONTRACT_GRAPH else "Sybil-adjusted stability proxies"
+STAB_NAME = "stability" if CONTRACT_GRAPH else "Sybil stability"
+STAB_ABBR = "Stab." if CONTRACT_GRAPH else "Syb."
 FAMILY_WORDS = {
     "transfer": "transfer",
     "allowance": "allowance",
-    "sybil_stability": "sybil-stability",
+    "sybil_stability": "stability" if CONTRACT_GRAPH else "sybil-stability",
     "in_approve_degree": "in-approve degree",
     "in_degree": "in-degree",
 }
@@ -283,7 +289,7 @@ SHORT_CAPTIONS = {
     "tie-sensitivity": "Same-window family means with missing contracts scored zero or kept as isolated nodes.",
     "alignment-transfer": "Domain alignment of EndorseRank and AWP with the transfer proxies.",
     "alignment-allowance": "Domain alignment of EndorseRank and AWP with the allowance proxies.",
-    "alignment-sybil-stability": "Domain alignment of EndorseRank and AWP with the Sybil-adjusted stability proxies.",
+    "alignment-sybil-stability": f"Domain alignment of EndorseRank and AWP with the {STAB_PROXIES}.",
     "alignment-family-ci": "Family-mean Kendall $\\tau$ of EndorseRank and AWP with bootstrap intervals.",
     "robustness-damping": "Robustness: family-mean Kendall $\\tau$ under PageRank damping $d$.",
     "robustness-tokens": "Robustness: family-mean Kendall $\\tau$ on top-token subgraphs.",
@@ -573,7 +579,7 @@ def _rule_a_secondary_text(rule: dict) -> str:
     verdict = "met" if rule.get("pass") else "not met"
     return (
         f"The secondary part of rule A, fixed in the analysis plan{APPLIED}, is {verdict}: C-PR's point estimate lies "
-        f"{inside(t, 'transfer')} and {inside(a, 'allowance')}, and C-PR {syb} both layers on the Sybil-stability family."
+        f"{inside(t, 'transfer')} and {inside(a, 'allowance')}, and C-PR {syb} both layers on the {STAB_FAMILY}."
     )
 
 
@@ -638,7 +644,7 @@ def t_tie_sensitivity(same: dict, seed: int) -> None:
     if not iso:
         SKIPPED.append("tie-sensitivity (no isolated_rule)")
         return
-    names = {"transfer": "Transfer", "allowance": "Allowance", "sybil_stability": "Sybil stability"}
+    names = {"transfer": "Transfer", "allowance": "Allowance", "sybil_stability": STAB_NAME.capitalize()}
     lines = []
     for f, name in names.items():
         cells = [tc((fams.get("endorserank") or {}).get(f), f"ER {f}"), tc((fams.get("awp") or {}).get(f), f"AWP {f}"),
@@ -680,7 +686,7 @@ FAMILY_TABLES = {
                   "Domain alignment of EndorseRank and AWP with the allowance proxies (in-approve degree and value of "
                   "each spender contract)"),
     "sybil_stability": ("alignment-sybil-stability",
-                        "Domain alignment of EndorseRank and AWP with the Sybil-adjusted stability proxies from transfer "
+                        f"Domain alignment of EndorseRank and AWP with the {STAB_PROXIES} from transfer "
                         "activity"),
 }
 
@@ -758,9 +764,9 @@ def t_robustness_damping(same: dict, bench: dict | None, seed: int, cfg: dict) -
     caption = (
         f"Robustness: family-mean Kendall $\\tau$ of EndorseRank (ER) and AWP under PageRank damping $d \\in \\{{{vals}\\}}$ "
         f"on the matched cohort ($n={fint(same.get('cohort'))}$ contracts); all.\\ = allowance, tr.\\ = transfer, "
-        f"Syb.\\ = Sybil stability.{runtime} {boot_note(seed)}"
+        f"{STAB_ABBR}\\ = {STAB_NAME}.{runtime} {boot_note(seed)}"
     )
-    head = "$d$ & ER all. & AWP all. & ER tr. & AWP tr. & ER Syb. & AWP Syb."
+    head = f"$d$ & ER all. & AWP all. & ER tr. & AWP tr. & ER {STAB_ABBR} & AWP {STAB_ABBR}"
     spec = "r" + "c" * 6
     if bench is not None:
         head += " & ER (s) & AWP (s)"
@@ -1058,11 +1064,11 @@ def t_robustness_sample_size(rob: dict, bench: dict | None, n: int, cfg: dict) -
         "Sensitivity of the family means to the evaluation set: family-mean Kendall $\\tau$ of EndorseRank (ER) and AWP "
         f"on deterministic SHA256 subsamples of the matched cohort (seed \\texttt{{{seed}}}, full cohort $n={fint(n)}$ "
         "contracts), each stage scored on the edges incident to its contracts; all.\\ = allowance, tr.\\ = transfer, "
-        "Syb.\\ = Sybil stability. Rows are evaluated on different contract sets, so their $\\tau$ values are not "
+        f"{STAB_ABBR}\\ = {STAB_NAME}. Rows are evaluated on different contract sets, so their $\\tau$ values are not "
         "comparable with Table~\\ref{tab:alignment-hybrid}; they show how much the statistic moves with the evaluation "
         f"population. No intervals were computed for the stages.{runtime}"
     )
-    head = "$n$ & ER all. & AWP all. & ER tr. & AWP tr. & ER Syb. & AWP Syb."
+    head = f"$n$ & ER all. & AWP all. & ER tr. & AWP tr. & ER {STAB_ABBR} & AWP {STAB_ABBR}"
     spec = "r" + "c" * 6
     if bench is not None:
         head += " & ER (s) & AWP (s) & AWP/ER time"
@@ -1095,7 +1101,7 @@ def t_endorserank_restarts(same: dict, w0: dict, w1: dict, seed: int, cfg: dict)
     )
     head = (" & & \\multicolumn{3}{c}{Same window, matched cohort} & \\multicolumn{2}{c}{W0, spenders} & "
             "\\multicolumn{2}{c}{W1, spenders} \\\\\n\\cmidrule(lr){3-5} \\cmidrule(lr){6-7} \\cmidrule(lr){8-9}\n"
-            "Method & Restarts & Transfer & Allowance & Sybil & New approval pairs & New senders & New approval pairs & "
+            f"Method & Restarts & Transfer & Allowance & {FAMILIES[2][1]} & New approval pairs & New senders & New approval pairs & "
             "New senders")
     emit("endorserank-restarts", caption, tabular("llccccccc", head, lines),
          [SOURCES["same"], SOURCES["w0"], SOURCES["w1"]])
@@ -1902,7 +1908,7 @@ def fig_damping(same: dict) -> None:
         return
     fig, ax = plt.subplots(figsize=(5.6, 3.6))
     styles = {"transfer": ("o", "-"), "allowance": ("s", "--"), "sybil_stability": ("^", ":")}
-    words = {"transfer": "transfer", "allowance": "allowance", "sybil_stability": "Sybil stability"}
+    words = {"transfer": "transfer", "allowance": "allowance", "sybil_stability": STAB_NAME}
     for m, name, color, off in (("endorserank", "EndorseRank", BLUE, -0.003), ("awp", "AWP", RED, 0.003)):
         for f, (marker, ls) in styles.items():
             rows = [dmp[f"{m}_d{int(round(d * 100))}"][f] for d in ds]

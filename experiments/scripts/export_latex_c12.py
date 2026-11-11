@@ -5,7 +5,7 @@ scripts/export_latex.py hands its run to this module under that variant (docs/re
 section 13). The tables of the earlier variants that fit this one are written by the functions of
 export_latex.py; the tables that held trader columns, or whose captions spoke of the earlier analyses, are written
 here without them; the discovery-order test (docs/discovery_protocol.md), the account types, the balance cap, the
-coverage of the cohorts, the label split, the uncapped sensitivity and the balance threshold of the Sybil model
+coverage of the cohorts, the label split and the uncapped sensitivity
 have their own tables and figures here. Nothing is computed: every cell is read from a summary of the evaluation.
 
 Tables go to data/_work/latex-contract12m/ unless --into-manuscript is given. Besides the checks of
@@ -117,7 +117,6 @@ SHORT_CAPTIONS = {
     "label-split": "The labels by the class of the account they count.",
     "union-members": "The main out-of-window contrasts inside the union graph.",
     "uncapped-sensitivity": "Sensitivity to the balance cap.",
-    "sybil-threshold": "The Sybil cost model on the contract graph and its sensitivity to a balance threshold.",
 }
 
 
@@ -1310,48 +1309,6 @@ def t_uncapped(rob: dict, w0: dict, w1: dict, seed: int) -> None:
          [E.SOURCES["rob"], E.SOURCES["w0"], E.SOURCES["w1"]])
 
 
-def t_sybil_threshold(sybil: dict) -> None:
-    E.begin("sybil-threshold")
-    th = sybil.get("balance_threshold") or {}
-    if not th:
-        E.SKIPPED.append("sybil-threshold (no balance_threshold)")
-        return
-
-    def row(label: str, x: dict, pairs, share) -> str:
-        star = x.get("star") or {}
-        reach = ((x.get("farm_size_to_reach_cohort_quantile") or {}).get("p100") or {}).get("farm_addresses")
-        return (f"{label} & {E.fint(pairs)} & {share} & {E.fint(x.get('owners_kept', x.get('owners')))} & "
-                f"{E.fint((x.get('graph') or {}).get('nodes'))} & {E.f3(x.get('cohort_tau_with_main'), 'tau') if 'cohort_tau_with_main' in x else '1.000'} & "
-                f"{E.f3(star.get('ratio_to_highest'), 'star ratio')} & {E.fint(np.ceil(reach) if reach is not None else None)} \\\\")
-
-    g = sybil.get("graph") or {}
-    lines = [row("None (main analysis)", sybil, g.get("edges"), "100\\%"), "\\midrule"]
-    for key, x in th.items():
-        lines.append(row(f"$\\theta=\\${key}$", x, x.get("pairs_kept"), pct(x.get("share_of_pairs_kept"))))
-    farm = sybil.get("contract_farm") or {}
-    gas = farm.get("evm_gas") or {}
-    v = (farm.get("value_weight") or {}).get("V_at_usd") or {}
-    star = sybil.get("star") or {}
-    caption = (
-        "The Sybil cost model on the EndorseRank graph of contracts at $T_{\\mathrm{obs}}$, and its sensitivity to a "
-        "balance threshold $\\theta$: the graph keeps only the allowance pairs whose capped value is at least "
-        "$\\theta$, so that every farm contract must hold $\\theta$ of the token at the freeze. Columns: the pairs "
-        "kept and their share, the owners and the nodes of the graph, the rank agreement $\\tau$ of the matched "
-        "cohort's scores with those of the main analysis, the score of the target of a star farm of "
-        f"{E.fint(star.get('m'))} contracts as a share of the highest EndorseRank in the cohort, and the farm "
-        "contracts that the closed form needs to reach that highest score. Every farm address is a contract: a "
-        f"creation costs at least {E.fint(gas.get('creation_by_create_at_least'))} gas from a factory and "
-        f"{E.fint(gas.get('creation_by_transaction_at_least'))} gas by its own transaction, plus "
-        f"{E.fint(gas.get('G_codedeposit_per_byte'))} gas per byte of code (execution gas of the EVM fee schedule, "
-        "without the fee for posting data to L1). The value weight of an allowance backed by one dollar is "
-        f"$V={E.f3(v.get('1'), 'V at 1')}$, so a larger balance buys no further weight. The quantities decide no "
-        "rule."
-    )
-    head = ("Threshold & Pairs kept & Share & Owners & Nodes & $\\tau$ with main & Star target / highest & "
-            "Farm contracts to the top")
-    emit("sybil-threshold", caption, E.tabular("lrrrrccr", head, lines), [E.SOURCES["sybil"]])
-
-
 def t_tokens(desc: dict, cfg: dict) -> None:
     """The five tokens: feed, price days and the Chainlink check inside the windows."""
     E.begin("usd-tokens")
@@ -1653,12 +1610,12 @@ def t_robustness_sample_size(rob: dict, bench: dict | None, n: int, cfg: dict) -
         "Sensitivity of the family means to the evaluation set: family-mean Kendall $\\tau$ of EndorseRank (ER) and AWP "
         f"on deterministic SHA256 subsamples of the matched cohort (seed \\texttt{{{seed}}}, full cohort $n={E.fint(n)}$ "
         "contracts), each row scored on the pairs incident to its contracts, whose numbers the columns $|E_A|$ (allowance) "
-        "and $|E_T|$ (transfer) give; all.\\ = allowance, tr.\\ = transfer, Syb.\\ = Sybil stability. Rows are evaluated "
+        "and $|E_T|$ (transfer) give; all.\\ = allowance, tr.\\ = transfer, Stab.\\ = stability. Rows are evaluated "
         "on different contract sets and on other graphs than the whole contract graph, so their $\\tau$ values are not "
         "comparable with Table~\\ref{tab:alignment-hybrid}; they show how much the statistic moves with the evaluation "
         f"population. No intervals were computed for the rows.{runtime}"
     )
-    head = "$n$ & ER all. & AWP all. & ER tr. & AWP tr. & ER Syb. & AWP Syb. & $|E_A|$ & $|E_T|$"
+    head = "$n$ & ER all. & AWP all. & ER tr. & AWP tr. & ER Stab. & AWP Stab. & $|E_A|$ & $|E_T|$"
     spec = "r" + "c" * 6 + "rr"
     if bench is not None:
         head += " & ER (s) & AWP (s)"
@@ -1735,7 +1692,7 @@ def main() -> int:
     cfg = load_config()
     seed = int(cfg["alignment"]["bootstrap_seed"])
     same, w0, w1 = E._load("same"), E._load("w0"), E._load("w1")
-    rob, bench, supp, sybil = E._load("rob"), E._load("bench"), E._load("supp"), E._load("sybil")
+    rob, bench, supp = E._load("rob"), E._load("bench"), E._load("supp")
     desc = load_json(SRC["describe"]) if SRC["describe"].exists() else None
     runs = {(t, m): load_json(SRC[f"disc_{t}_{m}"]) for t, m in RUNS if SRC[f"disc_{t}_{m}"].exists()}
     n = int(same["cohort"]) if same else None
@@ -1791,8 +1748,6 @@ def main() -> int:
         t_tokens(desc, cfg)
     else:
         E.SKIPPED.append("data tables (no describe.json)")
-    if sybil:
-        t_sybil_threshold(sybil)
     if len(runs) == len(RUNS):
         check_discovery(runs)
         t_discovery_sizes(runs)

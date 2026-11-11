@@ -1,0 +1,587 @@
+{
+  "note": "post hoc check after every result was known; decides no rule and changes no score (exploratory/2026-11-11-closed-groups/README.md)",
+  "definition": "closed group = strongly connected component of a walk's graph (pairs of positive weight, self-pairs included) with an edge inside it and no edge to a contract outside it; isolated = also no edge into it from outside",
+  "freezes": {
+    "tobs": {
+      "members": {
+        "cohort_tobs": 6443,
+        "spenders_w1": 7915
+      },
+      "endorserank": {
+        "graph": {
+          "nodes": 109381,
+          "edges": 114997
+        },
+        "score_nodes": 109381,
+        "score_sum": 1.0,
+        "closed_groups_two_or_more": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_tobs_inside": 0,
+          "cohort_tobs_with_positive_score": 1243,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 0,
+          "spenders_w1_with_positive_score": 1972,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_tobs_inside": 0,
+          "cohort_tobs_with_positive_score": 1243,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 0,
+          "spenders_w1_with_positive_score": 1972,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 5,
+          "contracts": 5,
+          "share_of_nodes": 4.571177809674441e-05,
+          "share_of_mass": 0.0002816839503033866,
+          "mass_over_node_share": 6.162174433626946,
+          "largest_group": 1,
+          "cohort_tobs_inside": 3,
+          "cohort_tobs_with_positive_score": 1243,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 3,
+          "spenders_w1_with_positive_score": 1972,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        }
+      },
+      "cpr_l100": {
+        "graph": {
+          "nodes": 109389,
+          "edges": 115006
+        },
+        "score_nodes": 109389,
+        "score_sum": 1.0,
+        "closed_groups_two_or_more": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_tobs_inside": 0,
+          "cohort_tobs_with_positive_score": 1250,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 0,
+          "spenders_w1_with_positive_score": 1975,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_tobs_inside": 0,
+          "cohort_tobs_with_positive_score": 1250,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 0,
+          "spenders_w1_with_positive_score": 1975,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 5,
+          "contracts": 5,
+          "share_of_nodes": 4.570843503460128e-05,
+          "share_of_mass": 0.000281673254881006,
+          "mass_over_node_share": 6.162391135635673,
+          "largest_group": 1,
+          "cohort_tobs_inside": 3,
+          "cohort_tobs_with_positive_score": 1250,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 3,
+          "spenders_w1_with_positive_score": 1975,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        }
+      },
+      "awp": {
+        "graph": {
+          "nodes": 1298649,
+          "edges": 2580381
+        },
+        "score_nodes": 1298649,
+        "score_sum": 1.0,
+        "closed_groups_two_or_more": {
+          "groups": 6860,
+          "contracts": 31563,
+          "share_of_nodes": 0.02430448874176163,
+          "share_of_mass": 0.04896494097109908,
+          "mass_over_node_share": 2.014645997756134,
+          "largest_group": 835,
+          "cohort_tobs_inside": 72,
+          "cohort_tobs_with_positive_score": 4059,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 85,
+          "spenders_w1_with_positive_score": 5504,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 1
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 1120,
+          "contracts": 3777,
+          "share_of_nodes": 0.002908407121554785,
+          "share_of_mass": 0.004225685600002827,
+          "mass_over_node_share": 1.4529209369229736,
+          "largest_group": 24,
+          "cohort_tobs_inside": 51,
+          "cohort_tobs_with_positive_score": 4059,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 61,
+          "spenders_w1_with_positive_score": 5504,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 65,
+          "contracts": 65,
+          "share_of_nodes": 5.0052015594668e-05,
+          "share_of_mass": 4.783252162998567e-05,
+          "mass_over_node_share": 0.9556562520347578,
+          "largest_group": 1,
+          "cohort_tobs_inside": 2,
+          "cohort_tobs_with_positive_score": 4059,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 2,
+          "spenders_w1_with_positive_score": 5504,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        }
+      },
+      "cpr_l0": {
+        "graph": {
+          "nodes": 1298724,
+          "edges": 2580709
+        },
+        "score_nodes": 1298724,
+        "score_sum": 0.9999999999999999,
+        "closed_groups_two_or_more": {
+          "groups": 6860,
+          "contracts": 31563,
+          "share_of_nodes": 0.024303085182071017,
+          "share_of_mass": 0.05803003294000719,
+          "mass_over_node_share": 2.3877640433411877,
+          "largest_group": 835,
+          "cohort_tobs_inside": 72,
+          "cohort_tobs_with_positive_score": 4059,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 1,
+          "spenders_w1_inside": 85,
+          "spenders_w1_with_positive_score": 5504,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 1
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 1120,
+          "contracts": 3777,
+          "share_of_nodes": 0.0029082391639794138,
+          "share_of_mass": 0.005695123391349751,
+          "mass_over_node_share": 1.9582720231155186,
+          "largest_group": 24,
+          "cohort_tobs_inside": 51,
+          "cohort_tobs_with_positive_score": 4059,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 61,
+          "spenders_w1_with_positive_score": 5504,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 65,
+          "contracts": 65,
+          "share_of_nodes": 5.004912514129253e-05,
+          "share_of_mass": 0.00012185519751212903,
+          "mass_over_node_share": 2.43471183898065,
+          "largest_group": 1,
+          "cohort_tobs_inside": 2,
+          "cohort_tobs_with_positive_score": 4059,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 2,
+          "spenders_w1_with_positive_score": 5504,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        }
+      },
+      "cpr_l50": {
+        "graph": {
+          "nodes": 1299479,
+          "edges": 2695715
+        },
+        "score_nodes": 1299479,
+        "score_sum": 1.0,
+        "closed_groups_two_or_more": {
+          "groups": 6849,
+          "contracts": 31540,
+          "share_of_nodes": 0.024271265637998,
+          "share_of_mass": 0.060016207434137304,
+          "mass_over_node_share": 2.472726734949439,
+          "largest_group": 835,
+          "cohort_tobs_inside": 72,
+          "cohort_tobs_with_positive_score": 4270,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 1,
+          "spenders_w1_inside": 85,
+          "spenders_w1_with_positive_score": 5759,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 1
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 1109,
+          "contracts": 3754,
+          "share_of_nodes": 0.0028888500699126344,
+          "share_of_mass": 0.00584851836110502,
+          "mass_over_node_share": 2.024514329081084,
+          "largest_group": 24,
+          "cohort_tobs_inside": 50,
+          "cohort_tobs_with_positive_score": 4270,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 60,
+          "spenders_w1_with_positive_score": 5759,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 60,
+          "contracts": 60,
+          "share_of_nodes": 4.6172350611283446e-05,
+          "share_of_mass": 0.00011783754947198301,
+          "mass_over_node_share": 2.55212368250505,
+          "largest_group": 1,
+          "cohort_tobs_inside": 2,
+          "cohort_tobs_with_positive_score": 4270,
+          "cohort_tobs_top1pct": 65,
+          "cohort_tobs_top1pct_inside": 0,
+          "spenders_w1_inside": 2,
+          "spenders_w1_with_positive_score": 5759,
+          "spenders_w1_top1pct": 80,
+          "spenders_w1_top1pct_inside": 0
+        }
+      }
+    },
+    "t1": {
+      "members": {
+        "cohort_t1": 6292,
+        "spenders_w0": 7864
+      },
+      "endorserank": {
+        "graph": {
+          "nodes": 12011,
+          "edges": 17933
+        },
+        "score_nodes": 12011,
+        "score_sum": 0.9999999999999998,
+        "closed_groups_two_or_more": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_t1_inside": 0,
+          "cohort_t1_with_positive_score": 1243,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 0,
+          "spenders_w0_with_positive_score": 1898,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_t1_inside": 0,
+          "cohort_t1_with_positive_score": 1243,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 0,
+          "spenders_w0_with_positive_score": 1898,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 10,
+          "contracts": 10,
+          "share_of_nodes": 0.000832570144034635,
+          "share_of_mass": 0.0030593914697948977,
+          "mass_over_node_share": 3.6746350943706516,
+          "largest_group": 1,
+          "cohort_t1_inside": 4,
+          "cohort_t1_with_positive_score": 1243,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 4,
+          "spenders_w0_with_positive_score": 1898,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        }
+      },
+      "cpr_l100": {
+        "graph": {
+          "nodes": 12017,
+          "edges": 17940
+        },
+        "score_nodes": 12017,
+        "score_sum": 0.9999999999999998,
+        "closed_groups_two_or_more": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_t1_inside": 0,
+          "cohort_t1_with_positive_score": 1248,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 0,
+          "spenders_w0_with_positive_score": 1901,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 0,
+          "contracts": 0,
+          "share_of_nodes": 0.0,
+          "share_of_mass": 0.0,
+          "mass_over_node_share": null,
+          "largest_group": 0,
+          "cohort_t1_inside": 0,
+          "cohort_t1_with_positive_score": 1248,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 0,
+          "spenders_w0_with_positive_score": 1901,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 10,
+          "contracts": 10,
+          "share_of_nodes": 0.0008321544478655238,
+          "share_of_mass": 0.003058281577034157,
+          "mass_over_node_share": 3.6751369711219466,
+          "largest_group": 1,
+          "cohort_t1_inside": 4,
+          "cohort_t1_with_positive_score": 1248,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 4,
+          "spenders_w0_with_positive_score": 1901,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        }
+      },
+      "awp": {
+        "graph": {
+          "nodes": 1110763,
+          "edges": 2268818
+        },
+        "score_nodes": 1110763,
+        "score_sum": 0.9999999999999999,
+        "closed_groups_two_or_more": {
+          "groups": 492,
+          "contracts": 2846,
+          "share_of_nodes": 0.0025622027381178524,
+          "share_of_mass": 0.002584765951397622,
+          "mass_over_node_share": 1.0088061779593382,
+          "largest_group": 1244,
+          "cohort_t1_inside": 82,
+          "cohort_t1_with_positive_score": 3893,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 92,
+          "spenders_w0_with_positive_score": 5443,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 270,
+          "contracts": 1855,
+          "share_of_nodes": 0.0016700232182742852,
+          "share_of_mass": 0.0011232599570206042,
+          "mass_over_node_share": 0.6726014014232223,
+          "largest_group": 1244,
+          "cohort_t1_inside": 57,
+          "cohort_t1_with_positive_score": 3893,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 67,
+          "spenders_w0_with_positive_score": 5443,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 55,
+          "contracts": 55,
+          "share_of_nodes": 4.951551321028878e-05,
+          "share_of_mass": 1.0579302271843506e-05,
+          "mass_over_node_share": 0.2136563187159947,
+          "largest_group": 1,
+          "cohort_t1_inside": 2,
+          "cohort_t1_with_positive_score": 3893,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 2,
+          "spenders_w0_with_positive_score": 5443,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        }
+      },
+      "cpr_l0": {
+        "graph": {
+          "nodes": 1110806,
+          "edges": 2269073
+        },
+        "score_nodes": 1110806,
+        "score_sum": 0.9999999999999998,
+        "closed_groups_two_or_more": {
+          "groups": 492,
+          "contracts": 2846,
+          "share_of_nodes": 0.002562103553635828,
+          "share_of_mass": 0.006414670537234456,
+          "mass_over_node_share": 2.5036734085675536,
+          "largest_group": 1244,
+          "cohort_t1_inside": 82,
+          "cohort_t1_with_positive_score": 3893,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 92,
+          "spenders_w0_with_positive_score": 5443,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 270,
+          "contracts": 1855,
+          "share_of_nodes": 0.0016699585706234932,
+          "share_of_mass": 0.00340288140133884,
+          "mass_over_node_share": 2.0377040851189174,
+          "largest_group": 1244,
+          "cohort_t1_inside": 57,
+          "cohort_t1_with_positive_score": 3893,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 67,
+          "spenders_w0_with_positive_score": 5443,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 55,
+          "contracts": 55,
+          "share_of_nodes": 4.9513596433580664e-05,
+          "share_of_mass": 0.0001353811986998442,
+          "mass_over_node_share": 2.7342226873268936,
+          "largest_group": 1,
+          "cohort_t1_inside": 2,
+          "cohort_t1_with_positive_score": 3893,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 2,
+          "spenders_w0_with_positive_score": 5443,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        }
+      },
+      "cpr_l50": {
+        "graph": {
+          "nodes": 1111591,
+          "edges": 2287013
+        },
+        "score_nodes": 1111591,
+        "score_sum": 1.0,
+        "closed_groups_two_or_more": {
+          "groups": 477,
+          "contracts": 2804,
+          "share_of_nodes": 0.002522510527703085,
+          "share_of_mass": 0.006710539420435157,
+          "mass_over_node_share": 2.6602622057421312,
+          "largest_group": 1244,
+          "cohort_t1_inside": 83,
+          "cohort_t1_with_positive_score": 4108,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 92,
+          "spenders_w0_with_positive_score": 5700,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_groups_two_or_more_isolated": {
+          "groups": 259,
+          "contracts": 1832,
+          "share_of_nodes": 0.001648088190710432,
+          "share_of_mass": 0.0034656760910011563,
+          "mass_over_node_share": 2.102846261829731,
+          "largest_group": 1244,
+          "cohort_t1_inside": 57,
+          "cohort_t1_with_positive_score": 4108,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 66,
+          "spenders_w0_with_positive_score": 5700,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        },
+        "closed_self_pair_only": {
+          "groups": 53,
+          "contracts": 53,
+          "share_of_nodes": 4.7679407264002675e-05,
+          "share_of_mass": 0.000135739617040497,
+          "mass_over_node_share": 2.8469233329370396,
+          "largest_group": 1,
+          "cohort_t1_inside": 2,
+          "cohort_t1_with_positive_score": 4108,
+          "cohort_t1_top1pct": 63,
+          "cohort_t1_top1pct_inside": 0,
+          "spenders_w0_inside": 2,
+          "spenders_w0_with_positive_score": 5700,
+          "spenders_w0_top1pct": 79,
+          "spenders_w0_top1pct_inside": 0
+        }
+      }
+    }
+  },
+  "provenance": {
+    "head": "b3a063256bc52c7658b8a802b7bdb04da12ed9df",
+    "variant": "contract12m",
+    "params": {
+      "damping": 0.85,
+      "tol": 1e-08,
+      "max_iter": 300
+    }
+  }
+}
