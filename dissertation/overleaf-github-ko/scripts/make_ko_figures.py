@@ -52,7 +52,8 @@ FONT_FILE_PREFIXES = ("nanummyeongjo", "batang", "nanumgothic", "malgun")
 TIGHT_LAYOUT = {"score-distributions.pdf", *DISCOVERY_FIGURES}
 
 N = r"([\d,]+)"  # a count printed with thousands separators
-FAMILY_KO = {"transfer": "송금", "allowance": "허락", "Sybil stability": "시빌 안정성"}
+FAMILY_KO = {"transfer": "송금", "allowance": "허락", "stability": "안정성",  # contract-graph analysis
+             "Sybil stability": "시빌 안정성"}  # earlier analyses
 
 # (English text as export_latex.py writes it, Korean replacement). Terms follow
 # TRANSLATION-GUIDE.md section 5; method names stay in English inside figures. Ranges
@@ -81,7 +82,7 @@ KO_TEXT: list[tuple[str, object]] = [
     (r"(EndorseRank|AWP) rank \(1 = highest; ties share the mid-rank\)",
      r"\1 순위(1 = 가장 높음, 동점은 평균 순위)"),
     # damping-sensitivity.pdf
-    (r"(EndorseRank|AWP), (transfer|allowance|Sybil stability)",
+    (r"(EndorseRank|AWP), (transfer|allowance|Sybil stability|stability)",
      lambda m: f"{m[1]}, {FAMILY_KO[m[2]]}"),
     (r"PageRank damping factor \$d\$", "페이지랭크 감쇠 계수 $d$"),
     (r"Family-mean Kendall \$\\tau\$", r"지표 가족 평균 켄달의 $\\tau$"),

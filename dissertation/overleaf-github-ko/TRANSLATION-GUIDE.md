@@ -142,8 +142,9 @@
 | credit score / credit risk / credit decision | 신용 점수 / 신용 위험 / 신용 결정 |
 | reputation | 평판 |
 | pseudonymity / pseudonymous | 가명성(진짜 이름 대신 주소로만 활동함) / 가명의 |
-| Sybil attack | 시빌 공격(가짜 주소를 많이 만들어 속이는 공격) |
-| farm (Sybil farm) | 농장(공격자가 만든 가짜 주소 무리) |
+| Sybil attack | (2026-11-11 밤 저자 결정으로 원고에 쓰지 않음. 옛 번역: 시빌 공격) |
+| link farm | 링크 농장 (닫힌 무리 점검의 근거 문장에만 나옴) |
+| closed group (of contracts) | 닫힌 무리(밖으로 나가는 화살표가 없는 계약 묶음) |
 | wash trading | 자전 거래(자기끼리 사고팔아 거래가 많은 척하기) |
 | airdrop farming | 에어드롭 파밍(공짜 토큰을 노린 가짜 활동) |
 | extractable value (MEV) | 추출 가능한 가치(거래 순서를 이용해 빼내는 이익) |
@@ -202,7 +203,7 @@
 | alignment (점수와 대리 지표) / aligns with | 일치도 / ~와 잘 맞다 |
 | domain alignment | 분야 일치도 |
 | agreement (두 점수 사이) | 일치 |
-| Sybil-adjusted stability / Sybil stability | 시빌 보정 안정성 / 시빌 안정성 (원문이 쓴 쪽을 따름) |
+| stability family (분석 계획의 이름은 Sybil-adjusted stability) | 안정성 가족, 처음 나올 때 (송금 상대가 얼마나 다양하고 활동이 얼마나 오래 이어졌는지 보는 지표 묶음); 표와 그림에서는 안정성. 2026-11-11 밤부터 원고에 Sybil을 쓰지 않음 |
 | inverse risk | 위험 반대 (지표 / 가족), 처음 나올 때 (값이 클수록 손실이 적은 지표) |
 | solver | 풀이 프로그램(solver) |
 | ablation, seeded ablation | 빼 보기 실험, 씨앗을 쓰는 빼 보기 실험 |

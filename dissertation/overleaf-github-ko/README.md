@@ -22,7 +22,7 @@
 | `main.tex`, `Config/preamble.tex`, `Config/references.bib` | 원문과 같은 구성. 머리말에 한글 글꼴(kotex)과 한국어 이름표(그림, 표, 알고리즘)를 더했어요 |
 | `01-Intro/` | 표지, 장 표지, 선언문, 초록, 차례, 줄임말과 기호 |
 | `Chapter-01-…` ~ `Chapter-08-Appendix/` | 1~6장, 참고문헌, 부록 |
-| `results/tables/` | 결과 표 40개(원문 표를 번역한 것, 숫자는 그대로) |
+| `results/tables/` | 결과 표 39개(원문 표를 번역한 것, 숫자는 그대로) |
 | `Figures/` | TikZ 그림 두 개(번역)와 `generated/`의 그래프 일곱 개(발견 순서 검증의 곡선 두 개 포함, 같은 자료와 같은 계산으로 한국어 글자를 넣어 다시 그림) |
 | `scripts/check_ko.py` | 원문과 번역을 파일마다 대조(레이블, 참조, 인용 키, 수식, 숫자, 표 구조, 문단 수, 남은 영어 문장) |
 | `scripts/check_particles.py` | 빌드 뒤 `\ref` 뒤의 조사를 실제 번호에 맞춰 검사(표 4.3과, 표 4.2와) |
