@@ -343,9 +343,11 @@ def t_discovery_auc(runs: dict) -> None:
     caption = (
         "Discovery-order test: $\\mathrm{AUC}_{10\\%}$ of every ordering on the hot sets of the two importances, "
         "user-account inflow $I_T$ and user-authorised value $I_A$, in the four runs. $\\mathrm{AUC}_{10\\%}$ is the "
-        "mean over the hot contracts of $\\max(0, 1-t_h/\\lceil 0.1|U|\\rceil)$, where $t_h$ is the visit at which the "
+        "mean over the hot contracts of $\\max(0, 1-t_h/\\lceil 0.1|\\mathcal{U}|\\rceil)$, where $\\mathcal{U}$ is the "
+        "universe of the run and $t_h$ the visit at which the "
         f"crawl reaches hot contract $h$, averaged over {E.fint(len(d.get('seeds') or []))} seeds from the giant "
-        f"strongly connected component; a crawl recomputes its ordering after every {p.get('rho')} more visits. The "
+        "strongly connected component; a crawl recomputes its ordering each time its visits have grown by the share "
+        f"$\\rho={p.get('rho')}$. The "
         f"first two columns ({FREEZE['tobs']}, \\texttt{{both}} mode) are the run that the decision reads "
         "(Table~\\ref{tab:discovery-decision}). A primed name is the count or walk computed on the contracts read so "
         "far. $\\delta'$ is a diagnostic outside every comparison. The references are not crawls: the orders by "
@@ -490,7 +492,7 @@ def t_discovery_sensitivity(d: dict) -> None:
     ]
     if rq:
         c = rq.get("contrasts") or {}
-        lines.append(line(f"$\\rho/4$ (recompute after {rq.get('rho')} more visits; {E.fint(rq.get('seeds'))} seeds)",
+        lines.append(line(f"$\\rho/4$ (recomputed at each growth of {rq.get('rho')}; {E.fint(rq.get('seeds'))} seeds)",
                           c.get("i_t@q"), c.get("i_a@q"), "rho/4"))
     hot = d.get("hot_sets") or {}
     same_q = hot.get("i_a@q") == hot.get("i_a@q2")
