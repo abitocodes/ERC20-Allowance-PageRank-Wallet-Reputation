@@ -43,23 +43,22 @@ EN_SCRIPT = (HERE.parents[1] / "overleaf-github" / "manuscripts" / "B-ieee-acces
 # ../../overleaf-github-ko/TRANSLATION-GUIDE.md; method names stay in English.
 KO_TEXT: dict[str, str] = {
     # Fig. 3 (sweep)
-    "W0 spenders (labels Apr–Jun)": "W0 스펜더(라벨 4~6월)",
-    "W1 spenders (labels Jul–Sep)": "W1 스펜더(라벨 7~9월)",
-    "W1 traders (labels Jul–Sep)": "W1 트레이더(라벨 7~9월)",
-    "Revised analysis (main analysis, a re-analysis; US dollars, five tokens, twelve-month score windows)":
-        "수정 분석(주 분석, 재분석; 달러 금액, 다섯 토큰, 동결 직전 12개월 점수 기간)",
-    "Registered analysis (the pre-specified test; raw base units, every ERC-20)":
-        "등록 분석(미리 정한 시험; 원래 단위, 모든 ERC-20 토큰)",
+    "W0 spenders (scores 31 March 2026, labels April–June)": "W0 스펜더(점수 2026년 3월 31일, 라벨 4~6월)",
+    "W1 spenders (scores 30 June 2026, labels July–September)": "W1 스펜더(점수 2026년 6월 30일, 라벨 7~9월)",
+    "Contract-graph analysis (main analysis, a re-analysis; contracts only, US dollars, five tokens, twelve-month windows)":
+        "계약 그래프 분석(주 분석, 재분석; 계약만, 달러 금액, 다섯 토큰, 12개월 점수 기간)",
+    "Registered analysis (the test the rules were fixed for; raw base units, every ERC-20 token, all accounts)":
+        "등록 분석(규칙을 정할 때 시험하려던 분석; 원래 단위, 모든 ERC-20 토큰, 모든 계정)",
     r"Kendall $\tau_b$": r"켄달의 $\tau_b$",
     r"weight $\lambda$ on the authorization layer": r"허락 층의 무게 $\lambda$",
     "New approval pairs": "새 허락 쌍",
     "New transfer senders": "새 송금자",
-    "Liquidation-free close rate": "청산 없이 닫은 비율",
     r"$\lambda=0$ or $1$: one layer walked alone": r"$\lambda=0$ 또는 $1$: 한 층만 걷기",
+    "dotted: union in-degree (top row)": "점선: 합집합 입차수(위 줄)",
     # Fig. 2 (forest): group headers
     "Rule A, primary part (plan, 13:41:27 UTC); W0": "규칙 A의 주 부분(계획, 13:41:27 UTC); W0",
-    "Rule B (registration, 16:49:32 UTC); W1; all three required": "규칙 B(등록, 16:49:32 UTC); W1; 셋 모두 충족해야 함",
-    "Reported beside rule B (nominal)": "규칙 B 옆에 보고(명목상)",
+    "Rule B (registration, 16:49:32 UTC); W1; its criteria F1 and F2": "규칙 B(등록, 16:49:32 UTC); W1; 기준 F1과 F2",
+    "F6, rule A on W1, reported beside rule B (nominal)": "F6: W1에서 다시 한 규칙 A, 규칙 B 옆에 보고(명목상)",
     "Sensitivity 1: AWP as comparator (nominal)": "민감도 분석 S1: AWP와 견줌(명목상)",
     "Sensitivity 2: contracts outside a graph as isolated nodes (nominal)":
         "민감도 분석 S2: 그래프 밖 계약을 외톨이 점으로 둠(명목상)",
@@ -68,22 +67,18 @@ KO_TEXT: dict[str, str] = {
     "A2  C-PR − C-PR(0) · new transfer senders": "A2  C-PR − C-PR(0) · 새 송금자",
     "F1  C-PR − C-PR(0) · new approval pairs": "F1  C-PR − C-PR(0) · 새 허락 쌍",
     "F2  C-PR − C-PR(0) · new transfer senders": "F2  C-PR − C-PR(0) · 새 송금자",
-    "F3  C-PR − C-PR(0) · liquidation-free rate": "F3  C-PR − C-PR(0) · 청산 없이 닫은 비율",
-    "F4  as F3, superiority": "F4  F3과 같은 대비, 우월성",
-    "F5  C-PR − C-PR(1) · liquidation-free rate": "F5  C-PR − C-PR(1) · 청산 없이 닫은 비율",
     "F6a C-PR − C-PR(1) · new approval pairs": "F6a C-PR − C-PR(1) · 새 허락 쌍",
     "F6b C-PR − C-PR(0) · new transfer senders": "F6b C-PR − C-PR(0) · 새 송금자",
     "F1  C-PR − AWP · new approval pairs": "F1  C-PR − AWP · 새 허락 쌍",
     "F2  C-PR − AWP · new transfer senders": "F2  C-PR − AWP · 새 송금자",
-    "F3  C-PR − AWP · liquidation-free rate": "F3  C-PR − AWP · 청산 없이 닫은 비율",
     # Fig. 2: tests, axis and legend
     "no worse": "더 나쁘지 않음",
     "superiority": "우월성",
     "non-inferiority": "비열등성",
     r"$\Delta\tau_b$ with 95% paired-bootstrap interval; dashed line: margin $-\delta=-0.01$":
         r"$\Delta\tau_b$와 95% 짝지은 부트스트랩 구간; 점선: 허용 폭 $-\delta=-0.01$",
-    "revised analysis (main; re-analysis)": "수정 분석(주 분석, 재분석)",
-    "registered analysis (pre-specified test)": "등록 분석(미리 정한 시험)",
+    "contract-graph analysis (main; re-analysis)": "계약 그래프 분석(주 분석, 재분석)",
+    "registered analysis (the registered test)": "등록 분석(등록한 시험)",
     "filled: criterion met": "채운 표시: 기준 충족",
     "open: not met": "빈 표시: 충족 못 함",
 }
