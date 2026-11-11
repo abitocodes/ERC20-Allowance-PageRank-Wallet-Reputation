@@ -2264,6 +2264,12 @@
    "md5": "d694cdd7961502e59a9f6212a37a641d"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/describe/describe.json",
+   "id": "1Q7Kg8NbO_eaN2t4Tzu_UEmlQYF0-saOK",
+   "size": 18878,
+   "md5": "487e677c85b610a8035c1bf7ac865068"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/discovery/discovery_t1_both.json",
    "id": "144Gy8L4KUT4gpOLJpRhoeLdoXnEcDbcn",
    "size": 9066026,
@@ -2690,6 +2696,18 @@
    "md5": "69d68c221ba32bd5e8d0dbfb47e3f55a"
   },
   {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/supplementary/supplementary.json",
+   "id": "1BFnKVjaKswxD-QJhMg3uC-A2TR-WVdwy",
+   "size": 13799,
+   "md5": "36e09c48e4a663f0b73b7306a75a3ebc"
+  },
+  {
+   "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/sybil-model/sybil_model.json",
+   "id": "1AV0n5rW3NuGlJg16YHkIpbg3RGQDLj9f",
+   "size": 6617,
+   "md5": "09a865615a1082dff101947195a28d4e"
+  },
+  {
    "path": "contract-reputation/2-processed-tables-and-evaluations/revised-contract-12m/typing/balance_audit.csv",
    "id": "1VrdiKvSA86Jdo-Vwmb0-t0-3P9w9-d2M",
    "size": 325327,
@@ -3018,6 +3036,216 @@
    "id": "14H2OQpWUo6D5TemoeuFxtGsLyh0XSRuW",
    "size": 141505,
    "md5": "a4add7c619b002436e396b9ff2f208d1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/SHA256SUMS.txt",
+   "id": "1EgtOILDeXAKsJ0cO9QQCfuwXX_r8o6bf",
+   "size": 3212,
+   "md5": "1c09fddd9aece45a5f8deca05cd5f3ff"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/benchmark/benchmark.json",
+   "id": "1hpb3w2iCw_x05dPwUxX1W2CNbYeDu-nm",
+   "size": 8043,
+   "md5": "d1e05430e658ff11b1f3d7de841c9a86"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/cohort/cohort_t1.json",
+   "id": "12-Riz2o6CtXomm7YGpvWLXJwltM4OmXf",
+   "size": 438,
+   "md5": "7e6ba3c01ec439b89a810ca4e9fce743"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/cohort/matched_cohort.json",
+   "id": "18ip4FLRUSmDTloNqMEjOrhQj99K7Tq5c",
+   "size": 413,
+   "md5": "c174e38544a67da628c502c74e37e4e6"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/cohort/spenders_w0.json",
+   "id": "1EkmPEhgV9AS9Ke2j_4bgGAGN1o-Wv2zs",
+   "size": 487,
+   "md5": "f8f0737c51a936f1dc68b7bd0885b446"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/cohort/spenders_w1.json",
+   "id": "12yH_KFpaymetAkuvU-KmjcW9pyxBbOlG",
+   "size": 487,
+   "md5": "d694cdd7961502e59a9f6212a37a641d"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/config/contract_reputation.yaml",
+   "id": "1x8iuQmfPwK5QIeqEZQcSsXPkhkwEgESV",
+   "size": 3892,
+   "md5": "3a4ecb2fdf265835cade1fa88e098b2a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/config/overlay_contract12m.yaml",
+   "id": "1whRqy7S982FzKdTybYJiNAvwcJNWaW4v",
+   "size": 3894,
+   "md5": "885c8622ac7ecf5d3f995157411b9fbe"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/describe/describe.json",
+   "id": "14tMxMt2x-J_qooGQr-vtucpkzzBSafb7",
+   "size": 18878,
+   "md5": "487e677c85b610a8035c1bf7ac865068"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/discovery/discovery_t1_both.json",
+   "id": "1jl2zu87EwhvACg1R3FDgSiTLngGPIPRw",
+   "size": 9066026,
+   "md5": "0159ad83a7ae1f0255195d9e3f48780e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/discovery/discovery_t1_out.json",
+   "id": "1P23SlvscFIyyf8hLqAhmNcGW-1OyLpVV",
+   "size": 8342867,
+   "md5": "466cee6e9588dcbb9fb93fed37471eb1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/discovery/discovery_tobs_both.json",
+   "id": "1BId4IXwqKNxq5WQGn5375tBwu_nesLOI",
+   "size": 9223200,
+   "md5": "efbced077b8e0f9ba18b3c0316a42e6c"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/discovery/discovery_tobs_out.json",
+   "id": "1Ckkden92b43Z5Ja_3l7qoukiKOOMcw5B",
+   "size": 8515738,
+   "md5": "4034a366d32c7d4c1560eb8cd04c4f3c"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/discovery/feasibility_t1.json",
+   "id": "14M0PnDvbmCcl5BgSsMik8qr_eYq_I-eE",
+   "size": 32798,
+   "md5": "0b707b18ffdef52f49220a1bd3f8ca05"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/docs/analysis_plan.md",
+   "id": "1VwwIlMnhstLOYnIqq4AeEYePq7yZqy6w",
+   "size": 6792,
+   "md5": "32fd4b882cb8bb3711e2e143bb792837"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/docs/discovery_protocol.md",
+   "id": "1aHvEhZNkPvP_tdxEPNx8cdn9EZ3bDXZK",
+   "size": 26266,
+   "md5": "2e06811a5c375aa7c59f291087dd66bb"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/docs/registration_w1.md",
+   "id": "1ddugYpywnYOn6oWfe3v7NhgWbMN7vfun",
+   "size": 5289,
+   "md5": "ee1a5657a19001c3c0598040f8f3bdd1"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/docs/revision_contract_graph.md",
+   "id": "1MwaIzYF67pZl00xsnR8Aj_S5Oflpo6OM",
+   "size": 57277,
+   "md5": "5569514a98ae6e5d839a546ec6b4b694"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/docs/revision_one_year_window.md",
+   "id": "166ESZDbw4WT-sTjXYjC85bBIdYeXtkHc",
+   "size": 10618,
+   "md5": "5a4c9c9672f556637849189315d9d50b"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/docs/revision_price_weighting.md",
+   "id": "10LjFY6dMCCsVJmqW4r3xzHtMwHLd_H8z",
+   "size": 16901,
+   "md5": "5bffdf373e6afc7c2f2d615d525442b5"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/holdout-w0/eval_summary.json",
+   "id": "1vMOKYwuu3mQBsQ-yoAYDF4xYvyc3Phcl",
+   "size": 46835,
+   "md5": "ec0e5c3dc8182bb4c88fbed145952fca"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/results_digest.md",
+   "id": "1LAimCtyDkQw5k6mp727cTuhLdK0bWwzy",
+   "size": 405619,
+   "md5": "5731de3f0f7c5b9371e12da81b73e3f7"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/robustness/robustness.json",
+   "id": "1FSIJb7rB4SMGnkGoDaOFLR-3yP28tdBF",
+   "size": 35018,
+   "md5": "3790661176f0664e60fe6e0a7289bf84"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/run_manifest.json",
+   "id": "1ET59WR3b-YAjVBk_wko_YfJSCiTsEm5-",
+   "size": 136271,
+   "md5": "c849532deab83b3ac6215549a9f73b34"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/same-window/eval_summary.json",
+   "id": "1J21jwcmp2_eWS0V7gWgi8CiEIfq0euPA",
+   "size": 71319,
+   "md5": "69d68c221ba32bd5e8d0dbfb47e3f55a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/supplementary/supplementary.json",
+   "id": "1iEtVK8opGm27PcNRIKAj0525PoPRqBfF",
+   "size": 13799,
+   "md5": "36e09c48e4a663f0b73b7306a75a3ebc"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/sybil-model/sybil_model.json",
+   "id": "1Ysm66CHKKGHZyzHYOcdlZIm7INotolz9",
+   "size": 6617,
+   "md5": "09a865615a1082dff101947195a28d4e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/typing/balance_audit.json",
+   "id": "1nUk7dQBbXiIBWrH10gOeNQZ6cdNu0XRE",
+   "size": 2924,
+   "md5": "707a669dda32145765dfce7f60917dbc"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/typing/c12_account_types.json",
+   "id": "1XZcWUvWU8qorJCCZrTorGh4UHfrb8rPY",
+   "size": 3123,
+   "md5": "5970ab20d5f278b2c21206ed3dfc8eaf"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/typing/c12_smart_account_reads.json",
+   "id": "1PBtpgIMSZvem0sE0GyXh5VPU6UeM9kEt",
+   "size": 26815,
+   "md5": "a1599529edcd0511d92342c3d213cc2e"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/usd/chainlink_check.json",
+   "id": "1cfFfW5F88LUcy2ZPtwDZLEPenSmU-MWO",
+   "size": 948,
+   "md5": "8dc4712ff709da8b33890adfba1d974b"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/usd/constants.json",
+   "id": "1f1eUIjKhIExqMoFERg5MlDjO6LVYk_pU",
+   "size": 1970,
+   "md5": "62cf9f6e30e8680916aa327c46c8e58a"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/usd/listed_tokens.csv",
+   "id": "1B84srYto7n_5CfS_iW8TBVKutlGcaucR",
+   "size": 28381,
+   "md5": "0bec86ff60383c4359f209c8885608ae"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/usd/usd_inputs.json",
+   "id": "1_4uroEYQZGV4ZaToLPVoV9LO4txSf5u7",
+   "size": 4328,
+   "md5": "03535ef19f8c3628076d474667e19fef"
+  },
+  {
+   "path": "contract-reputation/3-published-results-for-thesis/revised-contract-12m/window-w1/eval_summary.json",
+   "id": "1Nbjx9YznALSM0Yenq5QRQjA0exsF9iTw",
+   "size": 32450,
+   "md5": "848fdfb9314a3a2a09b74e568d0f8214"
   },
   {
    "path": "contract-reputation/3-published-results-for-thesis/revised-usd-12m/SHA256SUMS.txt",
@@ -3795,6 +4023,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-11-11T02:22:41+00:00",
- "total_bytes": 14919828905
+ "updated_at": "2026-11-11T03:35:51+00:00",
+ "total_bytes": 14956028132
 }
