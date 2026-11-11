@@ -49,7 +49,7 @@ ORDER_ROWS = (
     ("cpr_l75", "C-PR$'$ ($\\lambda=0.75$)"), ("spr", "S-PR$'$"),
 )
 ORDER_NAMES = {k: v for k, v in (r for r in ORDER_ROWS if r)}
-ORDER_NAMES.update({"delta": "$\\delta'$ (normalised in-strength)"})
+ORDER_NAMES.update({"delta": "$\\delta'$ (normalized in-strength)"})
 ORDER_SHORT = {**ORDER_NAMES, "ib_a": "$\\mathrm{IB}'_A$", "ib_t": "$\\mathrm{IB}'_T$", "ib_u": "$\\mathrm{IB}'_U$",
                "bfs": "BFS", "cpr_l50": "C-PR$'$"}
 REF_ROWS = (("delta", "$\\delta'$ (diagnostic, outside the comparisons)"), None,
@@ -346,7 +346,7 @@ def t_discovery_auc(runs: dict) -> None:
             "\\cmidrule(lr){8-9}\nOrdering & " + " & ".join(["$I_T$", "$I_A$"] * 4))
     caption = (
         "Discovery-order test: $\\mathrm{AUC}_{10\\%}$ of every ordering on the hot sets of the two importances, "
-        "user-account inflow $I_T$ and user-authorised value $I_A$, in the four runs. $\\mathrm{AUC}_{10\\%}$ is the "
+        "user-account inflow $I_T$ and user-authorized value $I_A$, in the four runs. $\\mathrm{AUC}_{10\\%}$ is the "
         "mean over the hot contracts of $\\max(0, 1-t_h/\\lceil 0.1|\\mathcal{U}|\\rceil)$, where $\\mathcal{U}$ is the "
         "universe of the run and $t_h$ the visit at which the "
         f"crawl reaches hot contract $h$, averaged over {E.fint(len(d.get('seeds') or []))} seeds from the giant "
@@ -581,7 +581,7 @@ def t_discovery_coverage(runs: dict) -> None:
     caption = (
         "Coverage of the two importances by the contract graph and by the universes of the discovery-order test. "
         "$I_T$ is the US-dollar value that user accounts transferred to a contract in the score window and $I_A$ the "
-        "value they had authorised it to spend at the freeze, each counted up to $U_{\\mathrm{user}}$ per account "
+        "value they had authorized it to spend at the freeze, each counted up to $U_{\\mathrm{user}}$ per account "
         f"and, for $I_A$, up to the account's balance. At {FREEZE['tobs']} {E.fint(c.get('contracts'))} typed contracts "
         f"have a positive importance, {E.fint(c.get('outside_g'))} of them outside $G$ (at {FREEZE['t1']}: "
         f"{E.fint(c1.get('contracts'))} and {E.fint(c1.get('outside_g'))}). The parts of the bow-tie are those of the "
@@ -615,7 +615,7 @@ def fig_discovery_curves(d: dict, name: str) -> None:
     keep = x <= 0.2
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.1), sharey=False)
     for ax, (imp, title) in zip(axes, (("i_t", "$H_q(I_T)$: user-account inflow"),
-                                       ("i_a", "$H_q(I_A)$: user-authorised value"))):
+                                       ("i_a", "$H_q(I_A)$: user-authorized value"))):
         by = pst.get(imp) or {}
         for key, label, color, style in CURVE_LINES:
             c = by.get(key)
@@ -1171,9 +1171,9 @@ def t_cpr_contrasts(w0: dict, w1: dict, supp: dict | None, seed: int) -> None:
         "contrasts of rule A, fixed in the analysis plan; $^{\\mathrm{B}}$ marks F1, F2 and F6a of the registration "
         "of W1 and $^{\\mathrm{S}}$ the contrasts of its first sensitivity analysis, with AWP as the comparator. These "
         "rules were fixed for the raw-unit analysis and are applied here to the scores of the contract graph. Cells "
-        "marked $^{\\mathrm{U}}$, against the union in-degree, were named when the contract-graph analysis was "
-        "defined and belong to no rule. Every other cell was computed after the labels were known and belongs to no "
-        "rule. The lower block repeats the contrasts with AWP and the in-approve degree on the spenders that had "
+        "marked $^{\\mathrm{U}}$, against the union in-degree, are part of the definition of the contract-graph "
+        "analysis, defined after the registered results were known and so with the labels known. Like every cell "
+        "without a mark, also computed after the labels were known, they belong to no rule. The lower block repeats the contrasts with AWP and the in-approve degree on the spenders that had "
         "received a transfer from another contract before the freeze, the spenders AWP can order; that restriction "
         f"was also chosen after the results were known. {E.boot_note(seed)}"
     )
@@ -1526,7 +1526,7 @@ def t_benchmark_runtime(bench: dict, n: int) -> None:
         f"at an edge ratio of {E.ratio(awp.get('edges'), er.get('edges'))}). Runtime = mean wall-clock seconds over {runs} "
         f"timed solver calls after {E.NUMBER_WORDS.get(warm, warm)} untimed warm-up, on which alone peak memory is traced; "
         f"SD over the same {runs} runs. A timed call turns an edge list into scores: node indexing, sparse-matrix assembly, "
-        "row normalisation, restart vector and power iteration. $|V|$ and $|E|$ are the nodes and distinct edges of each "
+        "row normalization, restart vector and power iteration. $|V|$ and $|E|$ are the nodes and distinct edges of each "
         "method's solver graph. C-PR walks on the union of the allowance layer and the transfer layer, so its $|E|$ "
         "counts the distinct pairs of both; S-PR runs on the transfer layer, and its runtime and iterations include the "
         "solve of the allowance layer that supplies its restart vector. Table~\\ref{tab:benchmark-runs} lists every run."
