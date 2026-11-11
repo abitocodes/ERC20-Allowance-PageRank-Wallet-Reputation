@@ -51,6 +51,16 @@ def revision_commit(doc: str = "docs/revision_price_weighting.md") -> str | None
     return f"{sha[:7]} {datetime.fromisoformat(when).astimezone(timezone.utc).isoformat(timespec='seconds')}"
 
 
+def first_commit_with(doc: str, text: str) -> str | None:
+    """Time (UTC) of the first commit in which ``doc`` holds ``text`` (git log -S)."""
+    out = subprocess.run(["git", "log", "-S", text, "--format=%H %cI", "--", doc],
+                         cwd=ROOT, capture_output=True, text=True).stdout.strip().splitlines()
+    if not out:
+        return None
+    sha, when = out[-1].split()
+    return f"{sha[:7]} {datetime.fromisoformat(when).astimezone(timezone.utc).isoformat(timespec='seconds')}"
+
+
 def table_json(ds: str, table: str) -> list[dict]:
     """Every row of a small table: tabledata.list (not billed) in the twelve-month variant, a query otherwise."""
     if not ONE_YEAR:
@@ -144,12 +154,130 @@ def revised_amounts(ds: str) -> dict:
     }
 
 
+def _pair_counts(frame: pd.DataFrame, weights: tuple[str, ...]) -> dict:
+    """Rows, self-pairs, distinct sources and destinations of a pair table, and its rows of positive weight."""
+    out = {"pairs": int(len(frame)), "self_pairs": int((frame["src"] == frame["dst"]).sum()),
+           "sources": int(frame["src"].nunique()), "destinations": int(frame["dst"].nunique())}
+    for w in weights:
+        out[f"positive_{w}"] = int((frame[w] > 0).sum())
+    # The largest numbers of pairs that one source and one destination hold, and the pairs of the ten largest sources.
+    by_src, by_dst = frame["src"].value_counts(), frame["dst"].value_counts()
+    out["largest_source_pairs"] = int(by_src.iloc[0]) if len(by_src) else 0
+    out["largest_destination_pairs"] = int(by_dst.iloc[0]) if len(by_dst) else 0
+    out["pairs_of_ten_largest_sources"] = int(by_src.iloc[:10].sum())
+    return out
+
+
+def contract_graph_description(cfg: dict) -> dict:
+    """The contract-graph variant, from the files on disk only (no BigQuery call): the driver's run manifest, the
+    record of the account-type reads, the gate B tables as the download step verified them, the constants, the
+    balance check and the ledger."""
+    from common import GRAPH, TYPES_DIR, read_parts, require_downloaded, sha256_file
+    from graphs import load_graphs, load_nodes
+
+    inputs = require_downloaded("nodes", "allow_pairs_tobs", "allow_pairs_t1", "allow_pairs_uncapped_tobs",
+                                "allow_pairs_uncapped_t1", "transfer_pairs_tobs", "transfer_pairs_t1",
+                                "importance_tobs", "importance_t1", "inflow_untyped_tobs", "inflow_untyped_t1",
+                                "describe_allowances")
+    manifest = json.loads((PROC / "run_manifest.json").read_text(encoding="utf-8"))
+    res = manifest["results"]
+    types = json.loads((TYPES_DIR / "c12_account_types.json").read_text(encoding="utf-8"))
+    ext = res["contracts"]["smart_account_extension"]
+    by_class = dict(types["counts_account_class"])
+    wallets = {k: v for k, v in types["counts_wallet_kind"].items() if k}
+    after = {**by_class, "contract": by_class["contract"] - ext["moved"],
+             "smart_account": by_class["smart_account"] + ext["moved"]}
+    if after["contract"] != res["contracts"]["c12_contracts"]:
+        raise SystemExit("refused: the typed contracts less the moved smart accounts are not the rows of c12_contracts")
+    out: dict = {"variant": "contract12m"}
+    out["events"] = {
+        "five_token_rows": res["subset"]["c12_logs5"],
+        "distinct_pairs": res["ends"]["c12_pairs5"],
+        "addresses": res["ends"]["c12_ends"],
+        "transaction_senders": res["activity"]["c12_tx_senders"],
+        "rpc_queue": res["queue"]["c12_rpc_queue"],
+        "contracts": res["contracts"]["c12_contracts"],
+        "user_accounts": res["contracts"]["c12_user_accounts"],
+        "rows_between_contracts": res["contracts"]["c12_events_cc"],
+        "latest_allowances_between_contracts_both_freezes": res["constants"]["rows"]["c12_allow_triples"],
+        "user_account_rows_toward_contracts": res["constants"]["rows"]["c12_user_events"],
+    }
+    out["account_types"] = {
+        "block": types["block_number"], "block_pinned": bool(types["pinned_served"]),
+        "read_from": types["read_at"], "read_until": types["updated_at"], "hosts": list(types["served_by"]),
+        "rpc_calls": types["rpc_calls"], "addresses": types["n"], "aborted_addresses": len(types["aborted_addresses"]),
+        "code_kind": types["counts"], "typed": by_class, "wallet_kind_typed": wallets,
+        "proxy_kind": types["counts_proxy_kind"], "probes": types["probes"],
+        "extension": {"moved": ext["moved"], "by_code_hash": ext["moved_by_code_hash"],
+                      "by_implementation": ext["moved_by_implementation"]},
+        "after_extension": after,
+        "wallet_kind_after_extension": {**wallets, "erc4337": wallets.get("erc4337", 0) + ext["moved"]},
+        "by_reason": res["typing"]["by_reason"],
+        "audit_senders_with_code": res["typing"]["audit_senders_with_code"],
+    }
+    nodes = load_nodes()
+    out["nodes"] = {"contracts": int(len(nodes)), **{k: int(nodes[k].sum()) for k in
+                    ("is_cohort", "is_cohort_t1", "is_spender_w0", "is_spender_w1")}}
+    listed = pd.read_csv(USD_INPUTS / "listed_tokens.csv")
+    sym = dict(zip(listed["address"].str.lower(), listed["symbol"]))
+    desc = read_parts(GRAPH / "describe_allowances")
+    cols = [c for c in desc.columns if c not in ("tag", "token")]
+    out["pairs"], out["allowances"], out["importance"] = {}, {}, {}
+    for tag in ("tobs", "t1"):
+        g = load_graphs(tag)
+        unc = read_parts(GRAPH / f"allow_pairs_uncapped_{tag}")
+        out["pairs"][tag] = {"allowance_capped": _pair_counts(g.allow, ("w_er", "w_raw")),
+                             "allowance_uncapped": _pair_counts(unc, ("w_er", "w_raw")),
+                             "transfer": _pair_counts(g.transfer, ("w_awp", "w_raw"))}
+        d = desc[desc["tag"] == tag]
+        total = {c: (float(d[c].sum()) if c.startswith("sum_") else int(d[c].sum())) for c in cols}
+        total["share_capped_to_zero"] = total["n_capped_to_zero"] / total["n_latest_positive"]
+        total["share_unlimited"] = total["n_unlimited"] / total["n_latest_positive"]
+        per = [{"symbol": sym.get(r["token"], r["token"]), "token": r["token"],
+                **{c: (float(r[c]) if c.startswith("sum_") else int(r[c])) for c in cols}}
+               for r in d.sort_values("n_latest_positive", ascending=False).to_dict(orient="records")]
+        out["allowances"][tag] = {"total": total, "per_token": per}
+        imp = read_parts(GRAPH / f"importance_{tag}")
+        out["importance"][tag] = {
+            "contracts": int(len(imp)), "outside_nodes": int((imp["id"] < 0).sum()),
+            "with_i_t": int((imp["i_t"] > 0).sum()), "with_i_a": int((imp["i_a"] > 0).sum()),
+            "with_both": int(((imp["i_t"] > 0) & (imp["i_a"] > 0)).sum()),
+            "i_t_usd": float(imp["i_t"].sum()), "i_a_usd": float(imp["i_a"].sum()),
+            "inflow_untyped_usd": float(read_parts(GRAPH / f"inflow_untyped_{tag}")["usd"].sum()),
+        }
+    out["anchor_blocks"] = {r["anchor"]: int(r["block_number"]) for r in res["anchors"]["blocks"]}
+    audit = json.loads((PROC / "typing" / "balance_audit.json").read_text(encoding="utf-8"))
+    out["balance_check"] = {k: audit[k] for k in ("mode", "block", "rows", "judged", "matched", "share",
+                                                    "threshold", "passed")}
+    out["balance_check"]["balances"] = res["balances"]["c12_bal"]
+    out["constants"] = json.loads(USD_CONSTANTS.read_text(encoding="utf-8"))
+    out.update(window_prices(cfg))
+    ledger = json.loads((ROOT / "data" / "bq_ledger.json").read_text(encoding="utf-8"))
+    jobs = [j for j in ledger["jobs"] if j.get("label", "").startswith("contract12m:")]
+    out["timing"] = {
+        "revision_commit_utc": revision_commit("docs/revision_contract_graph.md"),
+        "protocol_commit_utc": revision_commit("docs/discovery_protocol.md"),
+        "protocol_fixed_commit_utc": first_commit_with("docs/discovery_protocol.md", '"primary_mode"'),
+        "contract12m_jobs": len(jobs),
+        "contract12m_jobs_usd": round(sum(j["usd"] for j in jobs), 2),
+        "bigquery_usd_total": round(sum(j["usd"] for j in ledger["jobs"]), 2),
+        "bigquery_tib_billed": round(sum(j["bytes_billed"] for j in ledger["jobs"]) / 2**40, 3),
+        "budget_usd": float(cfg["bigquery"]["budget_usd"]),
+    }
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    out["provenance"] = {"head": head or None, "inputs": inputs,
+                         "run_manifest_sha256": sha256_file(PROC / "run_manifest.json"),
+                         "account_types_json_sha256": sha256_file(TYPES_DIR / "c12_account_types.json")}
+    return out
+
+
 def main() -> int:
-    if CONTRACT_GRAPH:
-        raise SystemExit("refused: describe_data.py has no branch for the contract-graph variant yet "
-                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
-                         "is written")
     cfg = load_config()
+    if CONTRACT_GRAPH:
+        out = contract_graph_description(cfg)
+        save_json(out, PROC / "describe" / "describe.json")
+        print(out["events"], out["account_types"]["after_extension"], out["timing"])
+        return 0
     ds = f"{cfg['bigquery']['project_id']}.{cfg['bigquery']['dataset']}"
     if REVISED:
         if ONE_YEAR:

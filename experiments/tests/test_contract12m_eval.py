@@ -1241,17 +1241,142 @@ def test_contract12m_writes_only_its_own_folders(c12_runs):
     assert not [t[:120] for t in texts if REGISTERED_RESULTS.search(t)]
 
 
-def test_unfinished_scripts_refuse_the_contract_graph_variant(tmp_path):
-    """E16 (D22; T14): run_supplementary, sybil_model, describe_data, export_latex and publish_results refuse this
-    variant before BigQuery (a fake client that raises), git (trapped) or any file is touched."""
-    exp = w.sandbox(tmp_path / "sandbox")
-    w.contract_world(exp)
-    before = w.snapshot(exp.parent)
-    for s in w.UNFINISHED_SCRIPTS:
-        out = w.run_script(exp, s, "contract12m", traps=False, git_trap=True, fake_bigquery=True,
-                           argv=["--no-figures"] if s == "export_latex" else ())
-        err = out.stderr
-        assert out.returncode != 0 and re.search(r"refused: .*(contract-graph|contract12m)", err), (s, err[-2000:])
-        assert "AssertionError" not in err, (s, err[-2000:])
-        assert w.snapshot(exp.parent) == before, s
-    assert not (exp.parent / "dissertation").exists()
+def test_supplementary_and_sybil_model_run_on_the_contract_graph(c12_runs):
+    """E16 (revision section 13, last paragraph of the gate B entry; plan section 1.8): on the sandbox of the clean
+    runs, run_supplementary and sybil_model run under this variant with the trader code and BigQuery trapped. The
+    supplementary contrasts carry the note that they lie outside every rule, hold no trader key, add C-PR against the
+    in-approve value on both labels and repeat no contrast that a summary already reports. The Sybil model counts one
+    deployment per farm address, reports the gas constants of a contract creation, and its three balance thresholds
+    keep no more pairs than the graph has."""
+    exp = c12_runs["exp"]
+    consts = exp / "data" / "0-usd-token-list-and-prices" / "contract-12m" / "constants.json"
+    if not consts.exists():   # the synthetic world carries no constants; the Sybil model reads two of them
+        consts.parent.mkdir(parents=True, exist_ok=True)
+        consts.write_text(json.dumps({"m_allowance_usd": 0.071, "b_allowance": 15.473412516452251}), encoding="utf-8")
+    for s in ("run_supplementary", "sybil_model"):
+        out = w.run_script(exp, s, "contract12m", traps=True, fake_bigquery=True)
+        assert out.returncode == 0, f"{s} exited {out.returncode}:\n{out.stdout[-2000:]}\n{out.stderr[-4000:]}"
+        assert not REGISTERED_RESULTS.search(out.stdout + out.stderr)
+    sup = json.loads((exp / w.PROC_REL / "supplementary" / "supplementary.json").read_text(encoding="utf-8"))
+    assert set(sup) == {"note", "w0", "w1", "same", "provenance"}
+    assert "outside every rule" in sup["note"]
+    for window in ("w0", "w1"):
+        keys = set(sup[window])
+        assert not [k for k in keys if "liq" in k or "trader" in k], window
+        assert {"cpr_minus_approve_value_appr", "cpr_minus_approve_value_send"} <= keys, window
+        # reported by the holdout and W1 summaries (rule A, F1, F2, F6a, the AWP sensitivity analysis), not repeated
+        assert not {"cpr_minus_l0_appr", "cpr_minus_l0_send", "cpr_minus_l100_appr", "cpr_minus_awp_appr",
+                    "cpr_minus_awp_send", "cpr_minus_er_appr"} & keys, window
+        assert sup[window]["n"] == summary(c12_runs, "run_holdout" if window == "w0" else "run_registered")["spenders"]
+    assert set(sup["same"]) == {"cpr_minus_er_transfer", "cpr_minus_awp_allowance", "n"}
+    syb = json.loads((exp / w.PROC_REL / "sybil-model" / "sybil_model.json").read_text(encoding="utf-8"))
+    assert "no rule" in syb["note"]
+    m = syb["star"]["m"]
+    farm = syb["contract_farm"]
+    assert farm["deployments"]["star"] == m + 1 and farm["deployments"]["ring20"] == 20
+    assert farm["evm_gas"]["creation_by_transaction_at_least"] == 53_000
+    assert farm["evm_gas"]["creation_by_create_at_least"] == 32_000 and farm["evm_gas"]["G_codedeposit_per_byte"] == 200
+    assert set(syb["balance_threshold"]) == {"1", "10", "100"}
+    kept = [syb["balance_threshold"][k]["pairs_kept"] for k in ("1", "10", "100")]
+    assert syb["graph"]["edges"] >= kept[0] >= kept[1] >= kept[2] >= 0
+    for k, x in syb["balance_threshold"].items():
+        assert x["star_balance_usd"] == (m + 1) * float(k)
+    for obj in (sup, syb):
+        assert not [s for s in strings(obj) if re.search(r"GMX|trader|liquidat", s, re.I)]
+
+
+def contract_branch(script: str, name: str) -> ast.FunctionDef:
+    tree = ast.parse((SCRIPTS / f"{script}.py").read_text(encoding="utf-8"))
+    return next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == name)
+
+
+def test_the_contract_graph_description_reads_no_bigquery():
+    """E17 (plan section 1.8): describe_data's function for this variant reads the files on disk only: it calls none
+    of the module's BigQuery helpers and imports no BigQuery client, and main() returns from the branch of this
+    variant before the dataset name is built."""
+    fn = contract_branch("describe_data", "contract_graph_description")
+    called = {n.func.id for n in ast.walk(fn) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}
+    assert not called & {"bq_json", "table_json", "job_times"}, called
+    imported = {a.name for n in ast.walk(fn) if isinstance(n, (ast.Import, ast.ImportFrom)) for a in n.names}
+    imported |= {n.module for n in ast.walk(fn) if isinstance(n, ast.ImportFrom) and n.module}
+    assert not [m for m in imported if "bigquery" in m or "google" in m], imported
+    main = contract_branch("describe_data", "main")
+    first_if = next(n for n in main.body if isinstance(n, ast.If))
+    assert isinstance(first_if.test, ast.Name) and first_if.test.id == "CONTRACT_GRAPH"
+    assert isinstance(first_if.body[-1], ast.Return)
+
+
+C12_PROC = SCRIPTS.parent / w.PROC_REL
+C12_NEEDS = [C12_PROC / rel for rel in (
+    "same-window/eval_summary.json", "holdout-w0/eval_summary.json", "window-w1/eval_summary.json",
+    "robustness/robustness.json", "benchmark/benchmark.json", "supplementary/supplementary.json",
+    "sybil-model/sybil_model.json", "describe/describe.json", "discovery/discovery_tobs_both.json",
+    "discovery/discovery_tobs_out.json", "discovery/discovery_t1_both.json", "discovery/discovery_t1_out.json")]
+C12_WORDS = re.compile(r"GMX|\btraders?\b|liquidat|rule~?\s?B (?:is )?met\b", re.I)
+TRADER_TABLES = {"holdout-traders", "fresh-traders", "neutral-label-contrasts", "neutral-label-recipients",
+                 "neutral-label-grid"}
+DISCOVERY_TABLES = {"discovery-sizes", "discovery-auc", "discovery-decision", "discovery-contrasts",
+                    "discovery-sensitivity", "discovery-diagnostics", "discovery-coverage"}
+
+
+def run_real(script: str, *argv: str) -> subprocess.CompletedProcess:
+    return subprocess.run([sys.executable, f"scripts/{script}.py", *argv], cwd=SCRIPTS.parent,
+                          env=w.variant_env("contract12m"), capture_output=True, text=True, encoding="utf-8",
+                          timeout=1800)
+
+
+def test_the_tables_of_this_variant_have_no_trader_table_and_no_problem(tmp_path):
+    """E18 (plan sections 2 and 8): from the tracked summaries of this variant export_latex writes its tables with no
+    problem (exit 0: every verdict follows from its intervals, every AUC lies between the references, every curve is
+    monotone), none of the five trader tables, the seven discovery tables, and no table with a word this variant's
+    texts do not use. Skipped when the summaries are not on disk."""
+    if not all(p.exists() for p in C12_NEEDS):
+        pytest.skip("the summaries of the contract-graph variant are not on disk")
+    out = run_real("export_latex", "--tables-dir", str(tmp_path / "tables"), "--figures-dir", str(tmp_path / "figures"),
+                   "--no-figures")
+    assert out.returncode == 0, out.stdout[-3000:] + out.stderr[-3000:]
+    assert "problem(s)" not in out.stdout
+    written = {p.stem: p.read_text(encoding="utf-8") for p in (tmp_path / "tables").glob("*.tex")}
+    assert not TRADER_TABLES & set(written)
+    assert DISCOVERY_TABLES <= set(written)
+    for name, text in written.items():
+        assert not C12_WORDS.search(text), name
+    decision = written["discovery-decision"]
+    assert "the decision" in decision and decision.count("no verdict") >= 3
+    contrasts = written["fresh-contrasts"]
+    assert not re.search(r"\bF[345]\b", contrasts)
+    assert "not met" in contrasts or "both applied criteria hold" in contrasts
+
+
+def test_the_digest_of_this_variant_is_what_the_script_writes(tmp_path):
+    """E19 (plan section 2, step 9): publish_results under this variant, into a folder of its own, exits 0 and writes
+    a digest without a word this variant's texts do not use; when the published folder is on disk, its digest equals
+    this one but for the lines of the time and of the code revision, and it holds the same files with the same
+    content (line ends aside). Skipped when the summaries are not on disk."""
+    if not all(p.exists() for p in C12_NEEDS):
+        pytest.skip("the summaries of the contract-graph variant are not on disk")
+    out = run_real("publish_results", "--out", str(tmp_path / "pub"))
+    assert out.returncode == 0, out.stdout[-3000:] + out.stderr[-3000:]
+    digest = (tmp_path / "pub" / "results_digest.md").read_text(encoding="utf-8")
+    assert not C12_WORDS.search(digest)
+    assert "discovery/discovery_tobs_both.json" in digest and "decision.i_t.D1" in digest
+    assert not (tmp_path / "pub" / "gmx").exists()
+    published = SCRIPTS.parent / "data" / "3-published-results-for-thesis" / "revised-contract-12m"
+    if not (published / "results_digest.md").exists():
+        return
+
+    def body(text: str) -> list[str]:
+        return [x for x in text.replace("\r\n", "\n").split("\n")
+                if not x.startswith("Written by ") and not x.startswith("- Code revision:")]
+
+    assert body((published / "results_digest.md").read_text(encoding="utf-8")) == body(digest)
+
+    def names(folder: Path) -> list[str]:
+        rows = (line.split("  ", 1) for line in (folder / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines())
+        return sorted(name for _, name in rows if name != "results_digest.md")
+
+    def lf_sums(folder: Path, files) -> dict[str, str]:
+        return {n: hashlib.sha256((folder / n).read_bytes().replace(b"\r\n", b"\n")).hexdigest() for n in files}
+
+    assert names(published) == names(tmp_path / "pub")
+    assert lf_sums(published, names(published)) == lf_sums(tmp_path / "pub", names(published))

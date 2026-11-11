@@ -10,7 +10,8 @@ only when its inputs exist.
 Tables:  dissertation/overleaf-github/results/tables/<name>.tex, \\label{tab:<name>}
 Figures: dissertation/overleaf-github/Figures/generated/<name>.pdf
 The twelve-month variant (CONTRACT_REP_VARIANT=usd12m) writes to data/_work/latex-usd12m/
-instead unless --into-manuscript is given.
+instead unless --into-manuscript is given. The contract-graph variant (contract12m) is written by
+scripts/export_latex_c12.py, to data/_work/latex-contract12m/ unless --into-manuscript is given.
 
 Every cell is checked while it is written: a missing number is printed as ---
 and listed at the end, as is an interval whose ends are reversed, a verdict that
@@ -120,12 +121,15 @@ NUMBER_WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 10: "ten"}
 # Wording that differs between the registered analysis and the revised one
 # (docs/revision_price_weighting.md): the revised results are never called registered.
 W1_NAME = "Window W1" if REVISED else "Registered window W1"
-LAYER_A = "latest allowances in USD, each capped" if REVISED else "latest allowances in raw amounts"
+LAYER_A = ("latest allowances between contracts in USD, each counted up to its owner's balance and capped"
+           if CONTRACT_GRAPH else
+           "latest allowances in USD, each capped" if REVISED else "latest allowances in raw amounts")
 LAYER_T = ("USD amounts discounted by the decay of AWP" if REVISED
            else "raw amounts discounted by the decay of AWP")
 W1_NAME_LC = "window W1" if REVISED else "registered window W1"
 REG = "" if REVISED else "registered "
-APPLIED = " and applied here to the revised scores" if REVISED else ""
+APPLIED = (" and applied here to the scores of the contract graph" if CONTRACT_GRAPH else
+           " and applied here to the revised scores" if REVISED else "")
 
 PROBLEMS: list[str] = []
 WRITTEN: list[Path] = []
@@ -648,8 +652,10 @@ def t_tie_sensitivity(same: dict, seed: int) -> None:
     g = same.get("graph") or {}
     awp_same = all((fams.get("awp") or {}).get(f) == (iso.get("awp_iso") or {}).get(f) for f in names)
     awp_text = (
-        "AWP restarts only at addresses that sent a transfer, so an isolated contract keeps the score zero and AWP's "
-        "coefficients are the same under both rules. " if awp_same else
+        ("AWP restarts only at contracts that sent a transfer, so an isolated contract keeps the score zero and AWP's "
+         "coefficients are the same under both rules. " if CONTRACT_GRAPH else
+         "AWP restarts only at addresses that sent a transfer, so an isolated contract keeps the score zero and AWP's "
+         "coefficients are the same under both rules. ") if awp_same else
         "AWP's coefficients differ between the two rules. "
     )
     caption = (
@@ -815,7 +821,7 @@ def t_robustness_slope(rob: dict, n: int, consts: dict) -> None:
         f"Robustness: family-mean Kendall $\\tau$ on the matched cohort ($n={fint(n)}$ contracts) when the slope $b$ "
         "of the value weight $V$ is divided or multiplied by ten, next to the main analysis. The main slopes put "
         f"$V=1/2$ at the median amount, \\${fint(consts.get('m_transfer_usd'))} for transfers and "
-        f"\\${fint(consts.get('m_allowance_usd'))} for allowances; $b/10$ moves that point to ten times the median and "
+        f"\\${(format(float(consts.get('m_allowance_usd') or 0), '.2g') if CONTRACT_GRAPH else fint(consts.get('m_allowance_usd')))} for allowances; $b/10$ moves that point to ten times the median and "
         "$10b$ to a tenth of it. The rank agreement $\\tau$ of each variant with the main score of the same method "
         f"(EndorseRank and AWP) is {agree[0]}, and {agree[1]}. No intervals were computed for the variants."
     )
@@ -1960,9 +1966,10 @@ def _load(key: str, override: Path | None = None) -> dict | None:
 
 def main() -> int:
     if CONTRACT_GRAPH:
-        raise SystemExit("refused: export_latex.py has no branch for the contract-graph variant yet "
-                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
-                         "is written")
+        # The contract-graph variant has its own set of tables and figures (scripts/export_latex_c12.py), which
+        # reuses the functions of this module for the tables that fit it.
+        import export_latex_c12
+        return export_latex_c12.main()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--tables-dir", type=Path, help="output folder for the .tex tables")
     ap.add_argument("--figures-dir", type=Path, help="output folder for the .pdf figures")

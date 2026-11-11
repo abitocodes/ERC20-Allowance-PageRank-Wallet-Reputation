@@ -146,7 +146,6 @@ EARLIER_PROC_REL = {"registered": PROC_SHARED_REL, "usd": f"{PROC_SHARED_REL}/re
 GATE_B_STEPS = ("constants", "pairs", "rest", "checks", "download")
 C12_SCRIPTS = ("run_same_window", "run_holdout", "run_registered", "run_robustness")   # run_usd_local.ps1's order
 EARLIER_SCRIPTS = (*C12_SCRIPTS[:3], "run_robustness", "run_supplementary", "sybil_model")
-UNFINISHED_SCRIPTS = ("run_supplementary", "sybil_model", "describe_data", "export_latex", "publish_results")
 
 
 def arrow_type(alias: str):

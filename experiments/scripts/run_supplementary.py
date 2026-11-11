@@ -12,15 +12,24 @@
 Same paired bootstrap as the drivers (400 resamples, seed 42; the resamples of a cohort depend
 only on its size, so every contrast here is paired with the published ones). Writes
 data/2-.../supplementary/supplementary.json.
+
+The contract-graph variant (CONTRACT_REP_VARIANT=contract12m, docs/revision_contract_graph.md
+section 13) has no traders. Its contrasts are those of the revised analysis on the spender
+scores of the contract graph, and C-PR also against the in-approve value, one of the baselines
+that variant adds (C-PR against the other, the union in-degree, is in the W0 and W1 summaries).
+Every contrast is a post hoc description outside every rule; the output says so and records
+HEAD and the SHA-256 of the score parts it read.
 """
 
 from __future__ import annotations
 
+import subprocess
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import CONTRACT_GRAPH, PROC, REVISED, W1_DIR, load_config, read_parts, save_json  # noqa: E402
+from common import (CONTRACT_GRAPH, PROC, REVISED, ROOT, W1_DIR, load_config, part_sha256, read_parts,  # noqa: E402
+                    rel_path, save_json)
 from stats import PairedBootstrap  # noqa: E402
 
 APPR, SEND, LIQ = "future_new_approvers", "future_new_transfer_senders", "liquidation_free_rate"
@@ -102,11 +111,64 @@ def run_same(frame, cfg):
     }
 
 
+def run_cpr_baselines(frame, cols, cfg):
+    """The contract-graph variant: C-PR minus each further baseline of ``cols`` (key -> column) on both spender
+    labels, with the resamples of run_cpr (they depend only on the size of the cohort)."""
+    b = boot(cfg, len(frame))
+    for c in ("cpr_l50", *cols.values(), APPR, SEND):
+        b.add(c, frame[c])
+    return cpr_contrasts(b, [(k, c, lab) for k, c in cols.items() for lab in (APPR, SEND)])
+
+
+CONTRACT_NOTE = ("post hoc descriptions outside every rule, computed after the labels and the evaluation of the "
+                 "contract-graph variant were known (docs/revision_contract_graph.md section 13)")
+
+
+def _head() -> str | None:
+    try:
+        return subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True,
+                              check=True).stdout.strip()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+
+def main_contract() -> int:
+    """The contract-graph variant: no traders; the scores, labels and baselines are those the evaluation saved."""
+    cfg = load_config()
+    stems = {"w0": PROC / "holdout-w0" / "spender_scores", "w1": PROC / W1_DIR / "spender_scores",
+             "same": PROC / "same-window" / "cohort_scores"}
+    w0, w1 = read_parts(stems["w0"]), read_parts(stems["w1"])
+    out = {"note": CONTRACT_NOTE,
+           "w0": run(w0, "t1_in_approve_degree", cfg), "w1": run(w1, "in_approve_degree", cfg)}
+    # Reported already (and so left out here). W0: contrasts_prefixed, contrasts_after and baseline_contrasts of the
+    # holdout summary. W1: F1, F2, F6a, the AWP sensitivity analysis, endorserank_results and baseline_contrasts.
+    done_w0 = {("l100", "appr"), ("l0", "send"), ("l0", "appr"), ("er", "appr"), ("awp", "appr"), ("awp", "send")}
+    done_w1 = {("l0", "appr"), ("l0", "send"), ("l100", "appr"), ("awp", "appr"), ("awp", "send"), ("er", "appr")}
+    out["w0"].update(run_cpr(w0, "t1_in_approve_degree", "t1_in_degree", done_w0, cfg))
+    out["w0"].update(run_cpr_baselines(w0, {"approve_value": "t1_in_approve_value"}, cfg))
+    out["w1"].update(run_cpr(w1, "in_approve_degree", "in_degree", done_w1, cfg))
+    out["w1"].update(run_cpr_baselines(w1, {"approve_value": "in_approve_value"}, cfg))
+    out["same"] = run_same(read_parts(stems["same"]), cfg)
+    out["provenance"] = {"head": _head(), "inputs": {rel_path(s): part_sha256(s) for s in stems.values()}}
+    save_json(out, PROC / "supplementary" / "supplementary.json")
+    _show(out)
+    return 0
+
+
+def _show(out: dict) -> None:
+    for w, d in out.items():
+        if w in ("note", "provenance"):
+            continue
+        for k, v in d.items():
+            if isinstance(v, dict) and "delta_tau" in v:
+                print(w, k, round(v["delta_tau"], 3), [round(v["ci_low"], 3), round(v["ci_high"], 3)])
+            elif isinstance(v, dict):
+                print(w, k, round(v["kendall_tau"], 3), [round(v["ci_low"], 3), round(v["ci_high"], 3)])
+
+
 def main() -> int:
     if CONTRACT_GRAPH:
-        raise SystemExit("refused: run_supplementary.py has no branch for the contract-graph variant yet "
-                         "(docs/revision_contract_graph.md section 13); it runs after the evaluation, once that branch "
-                         "is written")
+        return main_contract()
     cfg = load_config()
     w0 = read_parts(PROC / "holdout-w0" / "spender_scores")
     w1 = read_parts(PROC / W1_DIR / "spender_scores")
