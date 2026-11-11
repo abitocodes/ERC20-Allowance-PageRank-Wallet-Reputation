@@ -9,6 +9,7 @@
 | [`manuscripts-ko/`](manuscripts-ko/) | 투고 원고 A·B를 저자가 읽으려고 쉬운 한국어로 풀어 쓴 해설판(LaTeX, `A-plos-one/main.pdf`, `B-ieee-access/main.pdf`). 문장 대 문장 번역이 아니고, 수는 `check_numbers.py`로 영문 원고와 대조합니다. Overleaf에는 올리지 않습니다. |
 | [`presentation/`](presentation/) | 학위논문 발표 자료: HTML 슬라이드 59장(한국어판, 영문판), 한 파일 판과 한국어 인쇄판 PDF, 해설 영상 도구 |
 | [`tools/numbers/`](tools/numbers/) | 결과 요약이 바뀌었을 때 원고 수치를 옛 요약과 새 요약에 대조하는 도구 |
+| [`tools/toc/`](tools/toc/) | 원고의 제목에서 목차(`01-Intro/03-TOC.tex`)를, 표의 캡션과 자리에서 `results/README.md`의 표 목록을 다시 만드는 스크립트(`make_toc.py`, `make_results_readme.py`; `--check`는 바뀔 것이 있는지만 봄) |
 
 서브모듈은 이 저장소 최상위의 `.gitmodules`에 `dissertation/overleaf-github`라는 이름으로 있습니다.
 
@@ -16,15 +17,16 @@
 
 1. 원고 작성 규칙(저자들의 비공개 메모, `_writing-brief.md`부터)을 읽습니다.
 2. `overleaf-github/`의 장 파일(`Chapter-*/index.tex`)을 고칩니다. 원고 본문은 영어로 씁니다.
-3. `overleaf-github/`에서 `.\build.ps1`로 통합본과 장별 PDF를 빌드합니다(xelatex → biber → xelatex 두 번). 오류 0, 정의되지 않은 참조 0을 확인합니다. MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
-4. 서브모듈에서 커밋·푸시한 뒤, 이 저장소에서 서브모듈 포인터를 커밋합니다.
+3. 제목을 고치거나 표를 옮겼으면 `python tools/toc/make_toc.py`와 `python tools/toc/make_results_readme.py`로 목차와 표 목록을 다시 만듭니다(목차는 손으로 맞추는 파일이라 빌드가 대신 고쳐 주지 않습니다).
+4. `overleaf-github/`에서 `.\build.ps1`로 통합본과 장별 PDF를 빌드합니다(xelatex → biber → xelatex 두 번). 오류 0, 정의되지 않은 참조 0을 확인합니다. MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
+5. 서브모듈에서 커밋·푸시한 뒤, 이 저장소에서 서브모듈 포인터를 커밋합니다.
 
-결과 표(`results/tables/*.tex`)와 그림(`Figures/generated/*.pdf`)은 손으로 고치지 않습니다. `../experiments/`에서 `CONTRACT_REP_VARIANT=usd12m python scripts/export_latex.py --into-manuscript`로 다시 만듭니다. 원고의 수치는 `../experiments/data/3-published-results-for-thesis/revised-usd-12m/results_digest.md`에서 가져옵니다.
+결과 표(`results/tables/*.tex`)와 그림(`Figures/generated/*.pdf`)은 손으로 고치지 않습니다. `../experiments/`에서 `CONTRACT_REP_VARIANT=contract12m python scripts/export_latex.py --into-manuscript`로 다시 만듭니다. 원고의 수치는 주 분석인 계약 그래프 분석의 `../experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`에서 가져옵니다.
 
 ## 투고 원고 2편
 
-UNISA 학위를 받으려면 인정 학술지에 투고한 원고 2편이 필요합니다([`2-Graduation/`](../../../2-Graduation/)). 서브모듈의 `manuscripts/`에 A(PLOS ONE), B(IEEE Access) 원고가 있습니다. 2026-10-22 검토에서 학위논문 원고를 고친 내용은 아직 따르지 않았습니다.
+UNISA 학위를 받으려면 인정 학술지에 투고한 원고 2편이 필요합니다([`2-Graduation/`](../../../2-Graduation/)). 서브모듈의 `manuscripts/`에 A(PLOS ONE), B(IEEE Access) 원고가 있습니다. 2026-11-11에 영문 학위논문과 두 원고를 계약 그래프 분석으로 고쳤습니다. 고친 원고는 서브모듈의 브랜치 `contract-graph`에 있고, Overleaf가 읽는 `main`과 이 저장소의 서브모듈 포인터는 저자가 확인한 뒤에 옮깁니다. 한국어 번역본(`overleaf-github-ko/`), 해설판(`manuscripts-ko/`), 발표 자료(`presentation/`)는 아직 사용자 계정이 그래프에 들어 있던 분석을 따릅니다.
 
 ## 남은 일
 
-저자들의 비공개 메모(`_todo.md`)에 있습니다. 지도교수 검토 전이고, 수정 분석을 주 분석으로 할지 지도교수가 아직 확인하지 않았습니다. 그 밖에 UNISA의 다른 공식 언어 두 가지로 된 제목·초록·핵심어(대학 언어 서비스가 번역), 연구 윤리 승인 번호와 날짜, 초록 길이 확인 등이 남아 있습니다.
+저자들의 비공개 메모(`_todo.md`)에 있습니다. 지도교수 검토 전이고, 계약 그래프 분석을 주 분석으로 할지 지도교수가 아직 확인하지 않았습니다. 그 밖에 UNISA의 다른 공식 언어 두 가지로 된 제목·초록·핵심어(대학 언어 서비스가 번역), 연구 윤리 승인 번호와 날짜, 초록 길이 확인 등이 남아 있습니다.
