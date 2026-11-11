@@ -6,7 +6,7 @@
 
 - **번역이다. 새로 쓰거나 줄이거나 요약하지 않는다.** 원문의 문장 하나하나에 대응하는 한국어 문장이 있어야 한다. 문단, 목록 항목, 표, 그림, 수식, 각주를 하나도 빼지 않는다. 내용을 덧붙이지도 않는다(예시·비유·의견 추가 금지).
 - 허용되는 것: 긴 영어 문장 하나를 짧은 한국어 문장 두세 개로 나누기, 어려운 낱말 뒤에 괄호로 짧은 풀이 붙이기(그 장에서 처음 나올 때 한 번), 한국어 어순에 맞게 문장 순서를 문단 안에서 조금 바꾸기.
-- 책 『허락의 화살표』처럼 이름을 바꾸지 않는다. 논문의 이름을 그대로 쓴다(엔도스랭크, AWP, C-PR, S-PR, F1–F6, RQ1–RQ5, H1–H3, C1–C5, O1–O5).
+- 책 『허락의 화살표』처럼 이름을 바꾸지 않는다. 논문의 이름을 그대로 쓴다(엔도스랭크, AWP, C-PR, S-PR, F1, F2, F6, RQ1–RQ5, H1–H3, C1–C6, O1–O5, D1, D2, V1–V3).
 
 ## 1. 문체
 
@@ -14,7 +14,7 @@
 - 문장은 짧게. 한 문장에 한 가지 생각. 영어 한 문장이 길면 두세 문장으로 나눈다.
 - 쉬운 말을 고른다. 한자어보다 쉬운 우리말: "활용하다"→"쓰다", "산출하다"→"계산하다/구하다", "기인하다"→"~때문이다", "상회하다"→"넘다", "도출하다"→"끌어내다", "수행하다"→"하다", "해당하다"→"~이다/~에 들다".
 - 전문 용어는 §5 용어집의 말을 쓰고, **그 장에서 처음 나올 때** 괄호로 아주 짧게 풀이한다. 예: "켄달의 타우($\tau$, 두 줄 세우기가 얼마나 같은 순서인지 나타내는 수)". 두 번째부터는 풀이 없이 쓴다.
-- 영어 고유명사와 약어는 그대로 둔다(GMX V2, ERC-20, BigQuery, Arbitrum One 등). 처음 나올 때만 읽는 법이나 뜻을 괄호로 붙여도 된다: "아비트럼 원(Arbitrum One)".
+- 영어 고유명사와 약어는 그대로 둔다(ERC-20, ERC-4337, Safe, BigQuery, Arbitrum One 등). 처음 나올 때만 읽는 법이나 뜻을 괄호로 붙여도 된다: "아비트럼 원(Arbitrum One)".
 - 저자 이름은 원문의 인용 명령이 찍어 주는 그대로 둔다(아래 §2의 `\textcite`, `\parencite`). `\textcite{key}`는 "Do, Do, and Nguyen (2023)"처럼 영어로 찍히므로, 바로 뒤에는 **받침과 상관없는 조사**(의, 에서, 에 따르면, 도, 처럼)를 쓴다: "\textcite{do2023awp}의 AWP는", "\textcite{page1999pagerank}에 따르면". 은/는, 이/가, 을/를을 붙여야 하면 "\textcite{x}의 연구는"처럼 바꾼다.
 - "we"는 "이 연구에서는/우리는"으로 자연스럽게. "this thesis"는 "이 논문".
 - 존댓말 일관성: 모든 본문 문장을 해요체로. "~다."로 끝나는 문장을 섞지 않는다.
@@ -138,10 +138,8 @@
 | log, event | 로그, 이벤트(계약이 남기는 기록) |
 | DeFi | 디파이(DeFi, 탈중앙 금융) |
 | collateral / over-collateralized | 담보 / 과담보(빌리는 돈보다 담보를 더 맡기는) |
-| liquidation | 청산(손실이 너무 커져 거래가 강제로 끝나는 일) |
-| liquidation-free close rate | 청산 없이 닫은 비율 |
 | lending, borrower | 빌려주기(대출), 빌리는 사람 |
-| credit score / credit risk | 신용 점수 / 신용 위험 |
+| credit score / credit risk / credit decision | 신용 점수 / 신용 위험 / 신용 결정 |
 | reputation | 평판 |
 | pseudonymity / pseudonymous | 가명성(진짜 이름 대신 주소로만 활동함) / 가명의 |
 | Sybil attack | 시빌 공격(가짜 주소를 많이 만들어 속이는 공격) |
@@ -152,13 +150,9 @@
 | gas | 가스(거래 수수료) |
 | Layer-2 (L2), rollup | 레이어 2(L2), 롤업 |
 | Arbitrum One | 아비트럼 원(Arbitrum One) |
-| GMX V2, perpetual swap | GMX V2, 무기한 선물 거래 |
-| close (a position) | (포지션) 닫기 |
-| trader | 트레이더(거래하는 사람) |
-| matched cohort | 매칭 코호트(모든 점수가 똑같이 점수를 매기는 지갑 묶음) |
+| matched cohort | 매칭 코호트(모든 점수가 똑같이 점수를 매기는 계약 묶음) |
 | cohort | 코호트(묶음) |
 | spender cohort | 스펜더 코호트 |
-| trader cohort | 트레이더 코호트 |
 | expanded wallet pool | 확장 지갑 풀(더 큰 주소 모음) |
 | temporal holdout | 시간 홀드아웃(나중 기간을 떼어 두고 맞혀 보는 시험) |
 | freeze (date), $t_1$ | 동결일(점수를 고정하는 날) |
@@ -224,25 +218,23 @@
 
 ## 5b. 이 논문(컨트랙트 평판)에서 더 쓰는 말
 
-이 논문은 **스마트 계약만** 점수를 매기고 평가해요. EOA(외부 소유 계정)는 그래프에서 화살표의 출발점과 도착점으로만 나와요. 점수를 받는 대상은 "계약"이라고 옮긴다. **논문 제목**은 원문 제목 그대로 「ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기」라고 옮긴다.
+이 논문은 **스마트 계약만** 점수를 매기고 평가해요. 주 분석(계약 그래프 분석)의 그래프는 점이 모두 계약이고, 사용자 계정(EOA, EIP-7702 계정, 스마트 계정)은 어떤 그래프에도 없어요. 사용자 계정은 발견 순서 검증의 중요도와 라벨에만 들어가요. 점수를 받는 대상은 "계약"이라고 옮긴다. **논문 제목**은 원문 제목 그대로 「ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기」라고 옮긴다.
 
 | 영어 | 한국어 (처음 나올 때 풀이 예) |
 |---|---|
 | (smart) contract | 스마트 계약 → 두 번째부터 계약 |
 | spender contract | 스펜더 계약(허락을 받아 대신 쓰는 계약) |
-| contract trader (GMX V2) | 계약 트레이더(GMX V2에서 거래하는 계약) |
 | owner (approving side) | 주인(허락을 해 주는 쪽) |
 | approval count, number of distinct owners that approve | 허락한 주인 수(서로 다른 주인 수) |
 | wallet software | 지갑 프로그램 |
 | registered analysis | 등록 분석(미리 등록한 그대로 한 분석) |
-| revised analysis | 수정 분석(등록 뒤에 금액을 달러로 바꿔 다시 한 분석) |
+| revised analysis | 수정 분석(등록 분석의 결과를 안 뒤에 정한 분석) — 이 논문의 주 분석 |
 | deviation (from the registration) | 등록에서 벗어난 변경 |
 | re-analysis | 재분석 |
 | analysis plan, the plan | 분석 계획, 계획 |
 | registration, the registration | 등록, 등록 문서 |
-| rule A / rule B / R1–R3 | 규칙 A / 규칙 B / R1–R3 |
+| rule A / rule B | 규칙 A / 규칙 B |
 | margin (0.01) | 허용 폭 |
-| Bonferroni (97.5\%) interval | 본페로니 구간(여러 번 비교할 때 넓힌 신뢰구간) |
 | USD, dollar amount | 달러(USD), 달러 금액 |
 | daily close (price) | 하루 종가(그날 마지막 가격) |
 | price feed (Chainlink) | 가격 피드(블록체인에 올라오는 가격 정보) |
@@ -271,8 +263,7 @@
 | registered verdict(s) | 등록 분석의 판정 |
 | registered test(s) / registered rule(s) | 등록한 시험 / 등록한 규칙 |
 | after the (registered) results were known | (등록 분석의) 결과를 안 뒤 |
-| decision contrasts (P, Q) | 판정 대비 |
-| stratified (by closes) | 층화한, 처음 나올 때 (닫은 횟수로 묶음을 나눈(층화한)) |
+| decision contrasts ($D_1$, $D_2$) | 판정 대비 |
 | count-level (lead) | 그냥 센 수의 수준(에서 앞섬) |
 | time decay, decay ($\sigma(\Delta t)$) | 로지스틱 감쇠 (감쇠만 따로 쓰지 않음: 감쇠 계수와 헷갈림) |
 | time weight | 시간 무게 |
@@ -282,17 +273,84 @@
 | family mean | 지표 가족 평균 (이름 붙은 가족은 허락 가족, 송금 가족처럼 줄여 씀) |
 | single-layer (score, method, PageRank) | 한 층 (점수, 방법, 페이지랭크) |
 | approval count / transfer count | 허락한 주인 수 / 송금 수 |
-| profitable share / non-loss share | 이익을 낸 비율 / 손실이 아닌 비율 |
-| profitable closes | 이익을 낸 닫기 (수) |
-| liquidation avoidance | 청산을 피하는 것(데, 일) |
-| no-liquidation indicator / flag | 청산이 없었는지 나타내는 표시 (표 머리글은 청산 없음) |
-| ego tables / ego extraction | 에고 표 / 에고 추출 |
+| ego tables / ego extraction | 에고 표 / 에고 추출 (등록 분석의 추출에만 씀) |
 | daily token prices / daily US-dollar prices | 하루 토큰 가격 / 하루 달러 가격 |
 | US dollars | 달러 ("미국 달러"는 쓰지 않음; 첫 풀이는 달러(USD)) |
 | (RPC) endpoint | 접속 주소(블록체인 노드에 질문을 보내는 주소) |
 | Chainlink, DefiLlama | Chainlink, DefiLlama (영어 그대로; 처음에 체인링크(Chainlink)로 써도 됨) |
 | threshold (cohort) | 기준값 |
 | Kendall coefficient(s) | 켄달의 타우 계수 / 켄달의 $\tau$ 계수 |
+
+## 5c. 계약 그래프 분석과 발견 순서 검증의 말
+
+주 분석은 계약 그래프 분석(변형 `contract12m`)이에요. 해설판(`../manuscripts-ko/`)과 발표 자료(`../presentation/`)도 이 말을 써요.
+
+| 영어 | 한국어 (처음 나올 때 풀이 예) |
+|---|---|
+| main analysis / contract-graph analysis | 주 분석 / 계약 그래프 분석 |
+| contract graph | 계약 그래프(점이 모두 계약인 그래프) |
+| whole chain (edges read from) | 체인 전체(에서 읽은 화살표) |
+| user account(s) | 사용자 계정(EOA, EIP-7702 계정, 스마트 계정을 함께 이르는 말) |
+| smart account (Safe, ERC-4337 account) | 스마트 계정(계약 코드로 된 사용자 계정: Safe, ERC-4337 계정) |
+| transaction, transaction sender | 트랜잭션(블록체인에 보내는 거래 요청), 트랜잭션을 보낸 주소 |
+| code family / selector / EntryPoint / paymaster | 코드 계열 / 셀렉터(함수 식별 값) / EntryPoint / paymaster |
+| system address (precompile) | 시스템 주소(프리컴파일) |
+| typing window, account typing | 종류 판별 기간, 계정 종류 판별 |
+| owner contract / spender contract | 주인 계약 / 스펜더 계약 |
+| balance, balance reconstruction | 잔액, 잔액 재구성(송금 로그로 잔액을 다시 계산하기) |
+| balance cap | 잔액 상한(허락을 동결 시점 주인의 잔액까지만 세기) |
+| capped allowance / capped to zero | 상한을 씌운 허락 / 0으로 잘림 |
+| uncapped (allowance layer) | 상한 없는 (허락 층) |
+| thin (allowance layer) | 얇은 (허락 층)(허락 화살표가 아주 적음) |
+| union graph / union in-degree | 합집합 그래프(두 층 가운데 어느 쪽에든 화살표가 있는 계약 쌍) / 합집합 입차수 |
+| in-approve value | 받은 허락 금액 |
+| out-of-window prediction | 기간 밖 예측 |
+| discovery-order test | 발견 순서 검증 |
+| crawl-ordering experiment (Cho et al.) | 크롤 순서 실험 |
+| crawl / crawler | 크롤(계약을 하나씩 찾아 읽어 가기) / 크롤러 |
+| ordering / ordered by X | 순서 규칙 / X로 순서를 정한 |
+| visit / visit index $t_h$ | 방문 / 방문 번호 $t_h$ |
+| frontier | 프런티어(찾았지만 아직 방문하지 않은 계약들) |
+| seed (of a crawl) | 출발 계약 (S-PR의 씨앗, 무작위 시드와 섞지 않음) |
+| reveal mode, \texttt{both}, \texttt{out} | 공개 방식(방문할 때 어떤 화살표가 드러나는지), \texttt{both}(들어오고 나가는 화살표), \texttt{out}(나가는 화살표만) |
+| universe $\mathcal{U}$ | 우주 $\mathcal{U}$(크롤이 다닐 수 있는 계약 전체) |
+| giant strongly connected component (giant SCC) | 거대 강연결 성분(서로 오갈 수 있는 가장 큰 계약 묶음, SCC) |
+| weakly connected component (WCC) | 약연결 성분(방향을 무시하면 이어지는 묶음, WCC) |
+| bow-tie decomposition (IN, OUT) | 나비넥타이 분해(IN, OUT은 그대로) |
+| breadth-first (BFS) | 너비 우선(BFS, 찾은 차례대로 방문하기) |
+| backlink / contract backlinks / number of contract backlinks | 역링크(그 계약으로 들어오는 화살표) / 계약 역링크 / 계약 역링크 수 |
+| importance | 중요도 |
+| user-account demand | 사용자 계정의 수요 |
+| user-account inflow $I_T$ | 사용자 계정 유입 $I_T$(사용자 계정이 그 계약에 보낸 달러) |
+| user-authorised value $I_A$ | 사용자 허락 금액 $I_A$(사용자 계정이 그 계약에 허락한 달러, 잔액 상한 적용) |
+| hot set $H_q(I)$ / hot contract | 뜨거운 집합 $H_q(I)$(중요도가 가장 큰 계약들) / 뜨거운 계약 |
+| ideal order | 이상적인 순서 |
+| wasted visits | 헛 방문(중요도가 0인 계약에 간 방문) |
+| hub | 허브(화살표가 아주 많이 들어오는 계약) |
+| recompute share $\rho$ / recompute | 다시 계산 몫 $\rho$ / 다시 계산 |
+| warm start | 이어 시작하기(앞 벡터에서 다시 계산을 시작함) |
+| verdict V1, V2, V3 | 판정 V1, V2, V3 |
+| structure pilot / stop flag | 구조 파일럿(무게 없이 그래프 모양만 본 예비 점검) / 멈춤 표시 |
+| normalized in-strength $\delta'$ | 정규화한 들어오는 무게 $\delta'$ |
+| deployment / factory | 배포(계약을 체인에 올리기) / 팩토리(계약을 찍어 내는 계약) |
+| balance threshold $\theta$ | 잔액 문턱 $\theta$ |
+| applied criteria (F1, F2) | 적용한 두 기준(F1, F2) |
+
+정해 둔 문장(뜻을 바꾸지 않고 문장 꼴만 해요체에 맞춰요):
+
+- 수정 분석의 정의(원문의 integrity sentence): "등록 분석의 결과를 안 뒤에 수정 분석을 정했어요. 금액은 다섯 토큰의 달러 금액이고, 점수는 각 동결 직전 12개월의 사건으로 만들어요. 그래프의 점은 스마트 계정이 아닌 계약이고, 화살표는 체인 전체에서 읽어요. 허락은 동결 시점 주인의 잔액까지만 세고, 잔액은 \texttt{Transfer} 로그로 다시 계산해요. 상수는 계약 그래프 위에서 정했어요. 발견 순서 검증도 이렇게 정한 것에 들어요."
+- 발견 순서 검증의 지위: "발견 순서 검증은 등록 분석의 결과를 안 뒤에 정했고, 계획과 등록 문서의 어떤 규칙도 정하지 않아요."
+- 규칙 B: "이 논문은 규칙 B의 등록된 기준 가운데 두 가지, F1과 F2를 적용해요. 등록 문서에 따르면 규칙 B는 자기 기준이 하나하나 모두 설 때만 충족돼요." 결과는 "규칙 B는 충족하지 못했어요."
+- 판정 V2 문장(다이제스트 `decision.statements[0]`): "지금까지 읽은 계약들로 계산한 C-PR로 순서를 정하면, 거대 강연결 성분의 무작위 계약에서 출발한 크롤은 우주에서 사용자 계정 유입이 가장 큰 계약들과 사용자 허락 금액이 가장 큰 계약들에 너비 우선 크롤보다 빨리 닿았지만, 계약 역링크 수로 순서를 정한 크롤보다 빨리 닿지는 못했어요. 계약 역링크 수로 순서를 정한 크롤이 더 빨리 닿았어요."
+
+## 5d. 모든 한국어 글이 지키는 규칙 (2026-11-07 저자 결정)
+
+- 주 분석의 그래프에는 사용자 계정이 없어요. 등록 분석을 설명하는 곳 밖에서는 사용자 계정을 점(노드)으로 쓰지 않아요.
+- GMX, 거래자(트레이더), 청산 결과, F3–F5를 쓰지 않아요. 무엇을 지웠다, 뺐다, 보고하지 않았다는 문장도 쓰지 않아요.
+- 주 분석의 결과를 "등록된 결과"라고 부르지 않아요. 규칙 A와 B는 계약 그래프의 점수에 적용한 재분석이에요.
+- 바꾼 이력을 쓰지 않아요("원래는", "처음에는", "줄였다", "바꿨다", "더 이상", "대신"). 등록 분석과 계획을 설명하는 문단만 예외예요.
+- 신용은 시험하지 않은, 바라는 나중의 쓰임으로만 적어요.
+- 발견 순서 검증은 미리 정했다, 등록했다고 쓰지 않고, 그 프로토콜을 언제 정했는지도 쓰지 않아요.
 
 ## 6. 예시
 
