@@ -1,33 +1,31 @@
 % !TEX root = ../main.tex
 \begin{tikzpicture}[
   font=\small,
-  box/.style={draw, rounded corners, align=center, minimum width=10.5cm, minimum height=1.0cm},
-  smallbox/.style={draw, rounded corners, align=center, minimum width=3.4cm, minimum height=1.05cm},
-  refbox/.style={draw, dashed, rounded corners, align=center, minimum width=3.4cm, minimum height=0.95cm},
+  node distance=5mm,
+  wide/.style={draw, rounded corners, align=center, text width=10.2cm, minimum height=1.05cm},
+  side/.style={draw, dashed, rounded corners, align=center, text width=3.0cm, minimum height=4.8cm},
   arrow/.style={-{Stealth[length=2.5mm]}, thick}
 ]
-\node[box] (center) at (0,3.2) {계약 코호트 하나에 매긴 허락 점수와 송금 점수};
+% Input and scores
+\node[wide] (graph) {동결 시점의 계약 그래프: 점은 모두 계약\\ 잔액 상한을 씌운 허락 층; 송금 층};
+\node[wide, below=of graph] (scores) {점수: C-PR(결합 걷기)과 S-PR(그 빼 보기 실험);\\ EndorseRank, AWP(한 층 걷기); 그냥 센 수};
 
-\node[smallbox] (rep) at (-5,1.2) {평판\\구조};
-\node[smallbox] (risk) at (0,1.2) {구성개념\\점검};
-\node[smallbox] (eff) at (5,1.2) {계산\\비용};
+% Evaluations, from top to bottom in the order of the research questions
+\node[wide, below=7mm of scores] (e1) {RQ1(H1--H3), 같은 기간: EndorseRank와 AWP의\\ 갈라짐, 각 걷기 자기 화살표의 점검, 비용};
+\node[wide, below=4mm of e1] (e2) {RQ2, 발견 순서: C-PR로 순서를 정한 크롤을\\ 너비 우선 순서, 역링크 수와 견줌};
+\node[wide, below=4mm of e2] (e3) {RQ3, W0와 W1의 기간 밖 예측:\\ 각 걷기를 그것이 다듬는 그냥 센 수와 견줌};
+\node[wide, below=4mm of e3] (e4) {RQ4와 RQ5, 결합 걷기에 대한 규칙:\\ 규칙 A; 규칙 B의 두 기준(F1, F2)};
 
-\node[smallbox] (h1) at (-5,-1.0) {H1 / RQ1\\엔도스랭크--AWP\\갈라짐};
-\node[smallbox] (h2) at (0,-1.0) {H2 / RQ1\\각 구성개념과의\\일치};
-\node[smallbox] (h3) at (5,-1.0) {H3 / RQ2\\각 점수의\\비용};
+% User accounts stand outside every graph
+\node[side, right=9mm of e3] (users) {사용자 계정: 어떤 그래프의 점도 아님. 발견 순서 검증의 중요도로, 그리고 라벨을 거쳐서만 들어옴};
 
-\node[refbox] (hold) at (0,-3.0) {RQ3: 시간 홀드아웃\\점수 대 원시 차수};
-\node[refbox] (rq5) at (5,-3.0) {RQ4, RQ5: 결합 걷기 C-PR\\규칙 A와 B};
+\draw[arrow] (graph.south) -- (scores.north);
+\draw[arrow] (scores.west) -- ++(-0.7,0) |- (e1.west);
+\draw[arrow] (scores.west) -- ++(-0.7,0) |- (e2.west);
+\draw[arrow] (scores.west) -- ++(-0.7,0) |- (e3.west);
+\draw[arrow] (scores.west) -- ++(-0.7,0) |- (e4.west);
 
-\draw[arrow] (center.south -| rep.north) -- (rep.north);
-\draw[arrow] (center.south) -- (risk.north);
-\draw[arrow] (center.south -| eff.north) -- (eff.north);
-
-\draw[arrow] (rep.south) -- (h1.north);
-\draw[arrow] (risk.south) -- (h2.north);
-\draw[arrow] (eff.south) -- (h3.north);
-
-\draw[arrow, dashed] (h2.south) -- (hold.north);
-\draw[arrow, dashed] (h2.south east) -- (rq5.north west);
-\draw[arrow, dashed] (hold.east) -- (rq5.west);
+\draw[arrow, dashed] (users.west |- e2.east) -- (e2.east);
+\draw[arrow, dashed] (users.west) -- (e3.east);
+\draw[arrow, dashed] (users.west |- e4.east) -- (e4.east);
 \end{tikzpicture}
