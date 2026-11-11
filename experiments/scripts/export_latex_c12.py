@@ -680,7 +680,7 @@ def t_contract_types(desc: dict) -> None:
         f"paymaster selector; {E.fint(ext.get('moved'))} further accounts whose proxy hides that selector were moved "
         f"by listed code families ({E.fint(ext.get('by_code_hash'))} by code hash and "
         f"{E.fint(ext.get('by_implementation'))} by code hash and implementation). Of the addresses read, "
-        f"{E.fint(pk.get('erc1967'))} are ERC-1967 proxies, {E.fint(pk.get('eip1167'))} EIP-1167 clones and "
+        f"{E.fint(pk.get('erc1967'))} are ERC-1967 proxies, {E.fint(pk.get('eip1167'))} ERC-1167 clones and "
         f"{E.fint(pk.get('safe'))} Safe proxies. With the transaction senders, {E.fint(ev.get('user_accounts'))} "
         f"addresses are typed user accounts and {E.fint(ev.get('contracts'))} contracts."
     )
