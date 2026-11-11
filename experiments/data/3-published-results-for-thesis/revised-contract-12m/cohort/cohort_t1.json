@@ -1,0 +1,16 @@
+{
+  "rule": "the members of u12_cohort_t1 that are not user accounts (docs/revision_contract_graph.md section 8)",
+  "source": "contract_rep.c12_members (sql/38_c12_cohorts.sql)",
+  "listed": 6343,
+  "by_class": {
+    "contract": 6292,
+    "user_account": 51
+  },
+  "user_accounts_by_source": {
+    "rpc_smart_account": 51
+  },
+  "cohort": 6292,
+  "contracts": 6292,
+  "contracts_in_nodes": 6292,
+  "in_tobs_cohort": 5351
+}

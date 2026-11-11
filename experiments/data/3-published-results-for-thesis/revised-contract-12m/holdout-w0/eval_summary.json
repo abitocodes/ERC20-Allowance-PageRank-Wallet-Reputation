@@ -1,0 +1,1501 @@
+{
+  "freeze": "2026-03-31 23:59:59 UTC",
+  "labels": [
+    "2026-04-01 00:00:00 UTC",
+    "2026-06-30 23:59:59 UTC"
+  ],
+  "spender_account_types": {
+    "contract": 7864,
+    "user_account": 97,
+    "system": 1,
+    "untyped": 0
+  },
+  "spenders": 7864,
+  "gained_new_approvals": 1725,
+  "gained_new_senders": 1416,
+  "graph": {
+    "allowance_edges": 17940,
+    "transfer_edges": 2269073
+  },
+  "iterations": {
+    "endorserank": 70,
+    "endorserank_activity": 68,
+    "awp": 94,
+    "cpr_l100": 70,
+    "cpr_l0": 84,
+    "cpr_l25": 85,
+    "cpr_l50": 86,
+    "cpr_l75": 85,
+    "spr": 163
+  },
+  "taus": {
+    "endorserank": {
+      "future_new_approvers": {
+        "kendall_tau": 0.1678448117651495,
+        "ci_low": 0.14492322927622758,
+        "ci_high": 0.1933203243614533,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.08387925192047495,
+        "ci_low": 0.06162533969862576,
+        "ci_high": 0.10527616832880059,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.17380989217610146,
+        "ci_low": 0.14745178655307506,
+        "ci_high": 0.2019770280237076,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.20222195067483625,
+        "ci_low": 0.17978535991831399,
+        "ci_high": 0.22586048665753794,
+        "n_boot": 400
+      }
+    },
+    "endorserank_activity": {
+      "future_new_approvers": {
+        "kendall_tau": 0.16349216386121027,
+        "ci_low": 0.14197026930294723,
+        "ci_high": 0.18787134038598874,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.08925281015947113,
+        "ci_low": 0.06863609025513903,
+        "ci_high": 0.11072443936191947,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.17309301585476827,
+        "ci_low": 0.1473656468323188,
+        "ci_high": 0.19926135203394077,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.20884847487430003,
+        "ci_low": 0.18622244141165184,
+        "ci_high": 0.2330994419699924,
+        "n_boot": 400
+      }
+    },
+    "awp": {
+      "future_new_approvers": {
+        "kendall_tau": 0.0981486601577064,
+        "ci_low": 0.07918619456145533,
+        "ci_high": 0.11934293355787842,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.33026595991394836,
+        "ci_low": 0.3127706211306145,
+        "ci_high": 0.3469504969990749,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.09856881942892132,
+        "ci_low": 0.07948886168769961,
+        "ci_high": 0.12054708996276438,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.1313273106290816,
+        "ci_low": 0.1118095160897748,
+        "ci_high": 0.15176341324422926,
+        "n_boot": 400
+      }
+    },
+    "cpr_l100": {
+      "future_new_approvers": {
+        "kendall_tau": 0.16714787385326538,
+        "ci_low": 0.14469911186061335,
+        "ci_high": 0.19241032267355423,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.08366241475406334,
+        "ci_low": 0.06180849240699665,
+        "ci_high": 0.10477891678227819,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.17277656168230182,
+        "ci_low": 0.14693457973088886,
+        "ci_high": 0.20080239188415877,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.2012843297794583,
+        "ci_low": 0.178686835774205,
+        "ci_high": 0.22517494069077168,
+        "n_boot": 400
+      }
+    },
+    "cpr_l0": {
+      "future_new_approvers": {
+        "kendall_tau": 0.07049221328874761,
+        "ci_low": 0.05153584175076961,
+        "ci_high": 0.0913047398527986,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.2675270473717834,
+        "ci_low": 0.24971500210362121,
+        "ci_high": 0.28508869085417166,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.0708424465621359,
+        "ci_low": 0.05248526564617876,
+        "ci_high": 0.09353042904313527,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.09429825255093441,
+        "ci_low": 0.07600252216349661,
+        "ci_high": 0.11423069158279184,
+        "n_boot": 400
+      }
+    },
+    "cpr_l25": {
+      "future_new_approvers": {
+        "kendall_tau": 0.14059485907210253,
+        "ci_low": 0.12305056756363639,
+        "ci_high": 0.16124322809020036,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.25641591762991345,
+        "ci_low": 0.23818755831084412,
+        "ci_high": 0.27289582813113533,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.1304615955876314,
+        "ci_low": 0.11110323157619147,
+        "ci_high": 0.15315902807190118,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.1672926136174608,
+        "ci_low": 0.15007218674524667,
+        "ci_high": 0.18815768245045958,
+        "n_boot": 400
+      }
+    },
+    "cpr_l50": {
+      "future_new_approvers": {
+        "kendall_tau": 0.14174022406353504,
+        "ci_low": 0.12420966942417005,
+        "ci_high": 0.1623537389841605,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.253738206205881,
+        "ci_low": 0.23520118588821295,
+        "ci_high": 0.26975301655861667,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.13174169435053812,
+        "ci_low": 0.11218405228502194,
+        "ci_high": 0.1547152116225396,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.16853636357123644,
+        "ci_low": 0.15115880669925894,
+        "ci_high": 0.18959337921724448,
+        "n_boot": 400
+      }
+    },
+    "cpr_l75": {
+      "future_new_approvers": {
+        "kendall_tau": 0.14160184830234335,
+        "ci_low": 0.12432375874360954,
+        "ci_high": 0.16231444820866858,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.2511289671292298,
+        "ci_low": 0.23231219984464294,
+        "ci_high": 0.2670442740311841,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.131834652878062,
+        "ci_low": 0.11243248254698301,
+        "ci_high": 0.15484795085784167,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.168279388034049,
+        "ci_low": 0.15094427428202323,
+        "ci_high": 0.1897923598953062,
+        "n_boot": 400
+      }
+    },
+    "spr": {
+      "future_new_approvers": {
+        "kendall_tau": 0.09053177492402947,
+        "ci_low": 0.07355585537151713,
+        "ci_high": 0.11283881568121104,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.26434865926741835,
+        "ci_low": 0.24553003722128214,
+        "ci_high": 0.28288517407568436,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.09713717036174968,
+        "ci_low": 0.07737367041558982,
+        "ci_high": 0.121894782580679,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.13085347314015044,
+        "ci_low": 0.11257547778373611,
+        "ci_high": 0.15095830895923554,
+        "n_boot": 400
+      }
+    },
+    "t1_in_approve_degree": {
+      "future_new_approvers": {
+        "kendall_tau": 0.2041339564900986,
+        "ci_low": 0.18052287583691015,
+        "ci_high": 0.22771017885875,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.09079262564667966,
+        "ci_low": 0.06552069938663709,
+        "ci_high": 0.1127087891298327,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.18963326063120464,
+        "ci_low": 0.16121357715847173,
+        "ci_high": 0.2200242523475777,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.21287643198135897,
+        "ci_low": 0.18832248057808354,
+        "ci_high": 0.2382339675445426,
+        "n_boot": 400
+      }
+    },
+    "t1_in_degree": {
+      "future_new_approvers": {
+        "kendall_tau": 0.06994794179242904,
+        "ci_low": 0.04983398271020384,
+        "ci_high": 0.09119188527922144,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.31778850512699586,
+        "ci_low": 0.298448634229056,
+        "ci_high": 0.33617276139310426,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.06054825749843449,
+        "ci_low": 0.039780358875304046,
+        "ci_high": 0.08315690465919903,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.0918911563566449,
+        "ci_low": 0.07152733423999035,
+        "ci_high": 0.11307573241221867,
+        "n_boot": 400
+      }
+    },
+    "t1_in_approve_value": {
+      "future_new_approvers": {
+        "kendall_tau": 0.1894936878483809,
+        "ci_low": 0.16578127521604083,
+        "ci_high": 0.21308100728416635,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.08109584943827931,
+        "ci_low": 0.05650385740183683,
+        "ci_high": 0.10304413168949217,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.17774063895832445,
+        "ci_low": 0.1501920578694316,
+        "ci_high": 0.20684133171915273,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.1984565515200637,
+        "ci_low": 0.17480675741377474,
+        "ci_high": 0.22322556735918334,
+        "n_boot": 400
+      }
+    },
+    "t1_in_degree_union": {
+      "future_new_approvers": {
+        "kendall_tau": 0.1262247919366544,
+        "ci_low": 0.10760572047637534,
+        "ci_high": 0.145630033222504,
+        "n_boot": 400
+      },
+      "future_new_transfer_senders": {
+        "kendall_tau": 0.30635562468404115,
+        "ci_low": 0.286608272055627,
+        "ci_high": 0.3244930853018956,
+        "n_boot": 400
+      },
+      "future_revoke_count": {
+        "kendall_tau": 0.11359260720815613,
+        "ci_low": 0.09366993347341396,
+        "ci_high": 0.13763358655095606,
+        "n_boot": 400
+      },
+      "future_drain_owners": {
+        "kendall_tau": 0.14897927806972544,
+        "ci_low": 0.1306078137881804,
+        "ci_high": 0.17063606344771057,
+        "n_boot": 400
+      }
+    }
+  },
+  "contrasts_prefixed": [
+    {
+      "label": "C-PR minus C-PR (l=1)",
+      "a": "cpr_l50",
+      "b": "cpr_l100",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.14174022406353504,
+      "b_tau": 0.16714787385326538,
+      "delta_tau": -0.02540764978973034,
+      "ci_low": -0.04499419040371077,
+      "ci_high": -0.003568813609277097,
+      "share_positive": 0.015,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus C-PR (l=0)",
+      "a": "cpr_l50",
+      "b": "cpr_l0",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.253738206205881,
+      "b_tau": 0.2675270473717834,
+      "delta_tau": -0.013788841165902399,
+      "ci_low": -0.01939404826979755,
+      "ci_high": -0.008440696614798258,
+      "share_positive": 0.0025,
+      "n_boot": 400
+    }
+  ],
+  "contrasts_after": [
+    {
+      "label": "C-PR (l=1) minus t1 in-approve degree",
+      "a": "cpr_l100",
+      "b": "t1_in_approve_degree",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.16714787385326538,
+      "b_tau": 0.2041339564900986,
+      "delta_tau": -0.03698608263683323,
+      "ci_low": -0.04615048066438542,
+      "ci_high": -0.02760582727298925,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR minus C-PR (l=1)",
+      "a": "spr",
+      "b": "cpr_l100",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.09053177492402947,
+      "b_tau": 0.16714787385326538,
+      "delta_tau": -0.0766160989292359,
+      "ci_low": -0.09808763472534665,
+      "ci_high": -0.05470299694840604,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "S-PR minus C-PR (l=0)",
+      "a": "spr",
+      "b": "cpr_l0",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.26434865926741835,
+      "b_tau": 0.2675270473717834,
+      "delta_tau": -0.0031783881043650486,
+      "ci_low": -0.012981518892126866,
+      "ci_high": 0.00775737885553503,
+      "share_positive": 0.285,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank minus t1 in-approve degree",
+      "a": "endorserank",
+      "b": "t1_in_approve_degree",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.1678448117651495,
+      "b_tau": 0.2041339564900986,
+      "delta_tau": -0.036289144724949096,
+      "ci_low": -0.04554148511998786,
+      "ci_high": -0.027104862175253853,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "AWP minus t1 in-degree",
+      "a": "awp",
+      "b": "t1_in_degree",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.33026595991394836,
+      "b_tau": 0.31778850512699586,
+      "delta_tau": 0.012477454786952502,
+      "ci_low": 0.002635967706749884,
+      "ci_high": 0.022976098932078505,
+      "share_positive": 0.9975,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus C-PR (l=0)",
+      "a": "cpr_l50",
+      "b": "cpr_l0",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.14174022406353504,
+      "b_tau": 0.07049221328874761,
+      "delta_tau": 0.07124801077478743,
+      "ci_low": 0.05875791021526616,
+      "ci_high": 0.08371239879979103,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus EndorseRank",
+      "a": "cpr_l50",
+      "b": "endorserank",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.14174022406353504,
+      "b_tau": 0.1678448117651495,
+      "delta_tau": -0.026104587701614473,
+      "ci_low": -0.046290357360727494,
+      "ci_high": -0.00411822617167075,
+      "share_positive": 0.0125,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus AWP",
+      "a": "cpr_l50",
+      "b": "awp",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.253738206205881,
+      "b_tau": 0.33026595991394836,
+      "delta_tau": -0.07652775370806736,
+      "ci_low": -0.08735794211627014,
+      "ci_high": -0.06788475367025631,
+      "share_positive": 0.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus AWP",
+      "a": "cpr_l50",
+      "b": "awp",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.14174022406353504,
+      "b_tau": 0.0981486601577064,
+      "delta_tau": 0.043591563905828634,
+      "ci_low": 0.02884964880458524,
+      "ci_high": 0.05843946359433733,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank minus AWP",
+      "a": "endorserank",
+      "b": "awp",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.1678448117651495,
+      "b_tau": 0.0981486601577064,
+      "delta_tau": 0.06969615160744311,
+      "ci_low": 0.041513863987088714,
+      "ci_high": 0.09569131854174934,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "EndorseRank minus AWP",
+      "a": "endorserank",
+      "b": "awp",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.08387925192047495,
+      "b_tau": 0.33026595991394836,
+      "delta_tau": -0.2463867079934734,
+      "ci_low": -0.2709348634070101,
+      "ci_high": -0.21970718654046417,
+      "share_positive": 0.0,
+      "n_boot": 400
+    }
+  ],
+  "rule_a_primary": {
+    "no_worse_on_new_approvals": false,
+    "better_on_new_senders": false,
+    "pass": false
+  },
+  "receiving": {
+    "n": 4569,
+    "taus": {
+      "endorserank": {
+        "future_new_approvers": {
+          "kendall_tau": 0.16745914288619898,
+          "ci_low": 0.13913099277154214,
+          "ci_high": 0.1966057005687221,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.06781720415742777,
+          "ci_low": 0.03954208322560401,
+          "ci_high": 0.09354143768516589,
+          "n_boot": 400
+        }
+      },
+      "awp": {
+        "future_new_approvers": {
+          "kendall_tau": 0.2377210700048005,
+          "ci_low": 0.2186114717768703,
+          "ci_high": 0.2597697603479605,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.4109080109145426,
+          "ci_low": 0.3889942306473403,
+          "ci_high": 0.42921134481818873,
+          "n_boot": 400
+        }
+      },
+      "t1_in_approve_degree": {
+        "future_new_approvers": {
+          "kendall_tau": 0.21246694443123637,
+          "ci_low": 0.18327707745330435,
+          "ci_high": 0.24150772765419712,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.10376167751560543,
+          "ci_low": 0.07590239097367417,
+          "ci_high": 0.13281944580065444,
+          "n_boot": 400
+        }
+      },
+      "t1_in_degree": {
+        "future_new_approvers": {
+          "kendall_tau": 0.2198517196466302,
+          "ci_low": 0.19593962135801435,
+          "ci_high": 0.24333320577169734,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.4461145511136828,
+          "ci_low": 0.42296582470953364,
+          "ci_high": 0.4670539192060396,
+          "n_boot": 400
+        }
+      }
+    },
+    "contrasts": [
+      {
+        "label": "EndorseRank minus t1 in-approve degree",
+        "a": "endorserank",
+        "b": "t1_in_approve_degree",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.16745914288619898,
+        "b_tau": 0.21246694443123637,
+        "delta_tau": -0.04500780154503739,
+        "ci_low": -0.057891509175330355,
+        "ci_high": -0.03255070502371488,
+        "share_positive": 0.0,
+        "n_boot": 400
+      },
+      {
+        "label": "AWP minus t1 in-degree",
+        "a": "awp",
+        "b": "t1_in_degree",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.4109080109145426,
+        "b_tau": 0.4461145511136828,
+        "delta_tau": -0.03520654019914021,
+        "ci_low": -0.049196805962553644,
+        "ci_high": -0.02208803022708857,
+        "share_positive": 0.0,
+        "n_boot": 400
+      }
+    ]
+  },
+  "coverage": {
+    "spenders_without_transfer_edge": 2421,
+    "share_gaining_approvals_without": 0.2342007434944238,
+    "share_gaining_approvals_with": 0.21275032151387102,
+    "share_gaining_senders_without": 0.0788930194134655,
+    "share_gaining_senders_with": 0.22505970971890502
+  },
+  "ties": {
+    "endorserank": {
+      "n": 7864,
+      "distinct": 1190,
+      "share_pairs_tied": 0.5802708100534988,
+      "largest_block": 5966,
+      "largest_block_value": 0.0,
+      "zeros": 5966
+    },
+    "awp": {
+      "n": 7864,
+      "distinct": 5366,
+      "share_pairs_tied": 0.09475589666321617,
+      "largest_block": 2421,
+      "largest_block_value": 0.0,
+      "zeros": 2421
+    },
+    "cpr_l100": {
+      "n": 7864,
+      "distinct": 684,
+      "share_pairs_tied": 0.5805135866256954,
+      "largest_block": 5963,
+      "largest_block_value": 0.0,
+      "zeros": 5963
+    }
+  },
+  "closed_form": {
+    "common_value_c": 4.589127123551765e-05,
+    "spread_of_c": 1.0,
+    "spenders": 1362,
+    "depth_one_spenders": 810,
+    "within_1pct_all": 0.684287812041116,
+    "within_1pct_depth_one": 1.0,
+    "within_1pct_deeper": 0.2210144927536232,
+    "tau_score_vs_delta": 0.8610982607920888
+  },
+  "members": {
+    "spenders_w0": {
+      "list": "spenders_w0",
+      "listed": 7962,
+      "by_class": {
+        "contract": 7864,
+        "user_account": 97,
+        "system": 1,
+        "untyped": 0
+      },
+      "user_accounts_by_source": {
+        "tx_sender": 41,
+        "rpc_eoa": 5,
+        "rpc_eoa_7702": 1,
+        "rpc_smart_account": 50
+      },
+      "cohort": 7864
+    },
+    "cohort_t1": {
+      "list": "cohort_t1",
+      "listed": 6343,
+      "by_class": {
+        "contract": 6292,
+        "user_account": 51,
+        "system": 0,
+        "untyped": 0
+      },
+      "user_accounts_by_source": {
+        "tx_sender": 0,
+        "rpc_eoa": 0,
+        "rpc_eoa_7702": 0,
+        "rpc_smart_account": 51
+      },
+      "cohort": 6292
+    }
+  },
+  "baselines": [
+    "t1_in_approve_degree",
+    "t1_in_approve_value",
+    "t1_in_degree",
+    "t1_in_degree_union"
+  ],
+  "baseline_contrasts": [
+    {
+      "label": "C-PR minus t1 union in-degree",
+      "a": "cpr_l50",
+      "b": "t1_in_degree_union",
+      "outcome": "future_new_approvers",
+      "a_tau": 0.14174022406353504,
+      "b_tau": 0.1262247919366544,
+      "delta_tau": 0.01551543212688064,
+      "ci_low": 0.007202398581513771,
+      "ci_high": 0.024003848652004545,
+      "share_positive": 1.0,
+      "n_boot": 400
+    },
+    {
+      "label": "C-PR minus t1 union in-degree",
+      "a": "cpr_l50",
+      "b": "t1_in_degree_union",
+      "outcome": "future_new_transfer_senders",
+      "a_tau": 0.253738206205881,
+      "b_tau": 0.30635562468404115,
+      "delta_tau": -0.05261741847816015,
+      "ci_low": -0.061463191193488524,
+      "ci_high": -0.0434730667115942,
+      "share_positive": 0.0,
+      "n_boot": 400
+    }
+  ],
+  "cohort_coverage": {
+    "spenders_w0": {
+      "n": 7864,
+      "allowance_layer": {
+        "n": 1901,
+        "share": 0.24173448626653102
+      },
+      "transfer_layer": {
+        "n": 5443,
+        "share": 0.6921414038657172
+      },
+      "both_layers": {
+        "n": 1644,
+        "share": 0.20905391658189218
+      },
+      "union_graph": {
+        "n": 5700,
+        "share": 0.724821973550356
+      },
+      "self_pairs_only": {
+        "n": 0,
+        "share": 0.0
+      },
+      "outside_contract_graph": {
+        "n": 2164,
+        "share": 0.27517802644964395
+      }
+    },
+    "cohort_t1": {
+      "n": 6292,
+      "allowance_layer": {
+        "n": 1248,
+        "share": 0.19834710743801653
+      },
+      "transfer_layer": {
+        "n": 3893,
+        "share": 0.618722186904005
+      },
+      "both_layers": {
+        "n": 1033,
+        "share": 0.16417673235855054
+      },
+      "union_graph": {
+        "n": 4108,
+        "share": 0.6528925619834711
+      },
+      "self_pairs_only": {
+        "n": 0,
+        "share": 0.0
+      },
+      "outside_contract_graph": {
+        "n": 2184,
+        "share": 0.34710743801652894
+      }
+    }
+  },
+  "union_graph": {
+    "pairs": 2269421,
+    "nodes": 1111554
+  },
+  "in_union_graph": {
+    "n": 5700,
+    "share": 0.724821973550356,
+    "note": "decides no rule (docs/revision_contract_graph.md section 8)",
+    "taus": {
+      "endorserank": {
+        "future_new_approvers": {
+          "kendall_tau": 0.20210517588870938,
+          "ci_low": 0.1774272566191163,
+          "ci_high": 0.2274059267583931,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.044823527273955235,
+          "ci_low": 0.019031075372979933,
+          "ci_high": 0.07065337188464478,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.19538291351640144,
+          "ci_low": 0.16739308521635304,
+          "ci_high": 0.22069042937602817,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.23039699014069157,
+          "ci_low": 0.2072911880606176,
+          "ci_high": 0.25453314104889985,
+          "n_boot": 400
+        }
+      },
+      "endorserank_activity": {
+        "future_new_approvers": {
+          "kendall_tau": 0.19485462970594136,
+          "ci_low": 0.16954203516189972,
+          "ci_high": 0.21986657939916668,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.053422581131794496,
+          "ci_low": 0.026788168155365725,
+          "ci_high": 0.07906027468016087,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.19420076609964132,
+          "ci_low": 0.16725803869990674,
+          "ci_high": 0.2183768521734886,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.2411069983398151,
+          "ci_low": 0.2175019595696647,
+          "ci_high": 0.26561613261847816,
+          "n_boot": 400
+        }
+      },
+      "awp": {
+        "future_new_approvers": {
+          "kendall_tau": 0.1590360764338849,
+          "ci_low": 0.13669773048072667,
+          "ci_high": 0.18063331775906058,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.3797455557720618,
+          "ci_low": 0.3615266294399801,
+          "ci_high": 0.39643372054269105,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.13089104583687575,
+          "ci_low": 0.10600489738581999,
+          "ci_high": 0.15451774482672542,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.1897481503323103,
+          "ci_low": 0.16672478333584628,
+          "ci_high": 0.2104057108165688,
+          "n_boot": 400
+        }
+      },
+      "cpr_l100": {
+        "future_new_approvers": {
+          "kendall_tau": 0.20096437721336433,
+          "ci_low": 0.17619008518811385,
+          "ci_high": 0.2259993049873034,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.04456184509114109,
+          "ci_low": 0.01893099046981957,
+          "ci_high": 0.07014350056769171,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.19390473351348586,
+          "ci_low": 0.16632796022508722,
+          "ci_high": 0.21886407990428558,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.22887684712075596,
+          "ci_low": 0.20521504769490317,
+          "ci_high": 0.253404026673583,
+          "n_boot": 400
+        }
+      },
+      "cpr_l0": {
+        "future_new_approvers": {
+          "kendall_tau": 0.11004233962645603,
+          "ci_low": 0.08598671764280728,
+          "ci_high": 0.1331006725289578,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.2751142475182524,
+          "ci_low": 0.253740587639549,
+          "ci_high": 0.29543247729532046,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.08244513725061961,
+          "ci_low": 0.05743255220263757,
+          "ci_high": 0.10960750778145799,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.1246407855871793,
+          "ci_low": 0.09947771792313465,
+          "ci_high": 0.14879847523064654,
+          "n_boot": 400
+        }
+      },
+      "cpr_l25": {
+        "future_new_approvers": {
+          "kendall_tau": 0.21920000418840596,
+          "ci_low": 0.198892656063601,
+          "ci_high": 0.2396460642618175,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.2638020213180032,
+          "ci_low": 0.24231656028940915,
+          "ci_high": 0.2857024721655716,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.17045082848018084,
+          "ci_low": 0.14838510841256183,
+          "ci_high": 0.19421619422426267,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.23680515823170425,
+          "ci_low": 0.21458658431029853,
+          "ci_high": 0.25824561238852856,
+          "n_boot": 400
+        }
+      },
+      "cpr_l50": {
+        "future_new_approvers": {
+          "kendall_tau": 0.22127735028362805,
+          "ci_low": 0.20008081815882925,
+          "ci_high": 0.24141314213153806,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.25926270253773365,
+          "ci_low": 0.23821424500735347,
+          "ci_high": 0.2811445064508732,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.17272615922295928,
+          "ci_low": 0.150635498083701,
+          "ci_high": 0.19611643358051353,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.2390354949394815,
+          "ci_low": 0.21697205075283807,
+          "ci_high": 0.26042249441818205,
+          "n_boot": 400
+        }
+      },
+      "cpr_l75": {
+        "future_new_approvers": {
+          "kendall_tau": 0.22102632319684673,
+          "ci_low": 0.1994221044571357,
+          "ci_high": 0.24102465652888996,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.25483939938912425,
+          "ci_low": 0.23418151135890788,
+          "ci_high": 0.27683701732341076,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.17289134141090415,
+          "ci_low": 0.15079590451780783,
+          "ci_high": 0.19611112161898728,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.23857464154455094,
+          "ci_low": 0.21626928684389873,
+          "ci_high": 0.26002888943538827,
+          "n_boot": 400
+        }
+      },
+      "spr": {
+        "future_new_approvers": {
+          "kendall_tau": 0.11970860237116536,
+          "ci_low": 0.09538400478292569,
+          "ci_high": 0.14215161304434273,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.2490655112421989,
+          "ci_low": 0.22894146252960615,
+          "ci_high": 0.26960949111402044,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.10812909386076879,
+          "ci_low": 0.08563972012760326,
+          "ci_high": 0.13324901125957955,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.15486395201589673,
+          "ci_low": 0.132082340119262,
+          "ci_high": 0.17777098221336213,
+          "n_boot": 400
+        }
+      },
+      "t1_in_approve_degree": {
+        "future_new_approvers": {
+          "kendall_tau": 0.24356628051112228,
+          "ci_low": 0.21367279896017252,
+          "ci_high": 0.27096802308724083,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.061590811890707274,
+          "ci_low": 0.03273557665227343,
+          "ci_high": 0.08749518542679528,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.21435568281521572,
+          "ci_low": 0.18520111177174137,
+          "ci_high": 0.24390281869567323,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.2445760191515067,
+          "ci_low": 0.21882642626313584,
+          "ci_high": 0.2720036003975909,
+          "n_boot": 400
+        }
+      },
+      "t1_in_degree": {
+        "future_new_approvers": {
+          "kendall_tau": 0.10570019367443108,
+          "ci_low": 0.07944701476016544,
+          "ci_high": 0.13084285449460542,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.35844961869065955,
+          "ci_low": 0.33575082851758786,
+          "ci_high": 0.3827059870550252,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.06900248146193837,
+          "ci_low": 0.04356894098557733,
+          "ci_high": 0.09565078749290336,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.11437579422781796,
+          "ci_low": 0.08499210830436676,
+          "ci_high": 0.13801742008644088,
+          "n_boot": 400
+        }
+      },
+      "t1_in_approve_value": {
+        "future_new_approvers": {
+          "kendall_tau": 0.2194223951326782,
+          "ci_low": 0.192887395273673,
+          "ci_high": 0.24412799660566553,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.047685257666842715,
+          "ci_low": 0.021441983829602877,
+          "ci_high": 0.07341914249518126,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.19528167815390693,
+          "ci_low": 0.1672201232723414,
+          "ci_high": 0.2243034844383111,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.22120802595286357,
+          "ci_low": 0.19642709681984125,
+          "ci_high": 0.24817844079954518,
+          "n_boot": 400
+        }
+      },
+      "t1_in_degree_union": {
+        "future_new_approvers": {
+          "kendall_tau": 0.1859807590165161,
+          "ci_low": 0.16388390091447885,
+          "ci_high": 0.20850830719577754,
+          "n_boot": 400
+        },
+        "future_new_transfer_senders": {
+          "kendall_tau": 0.34865163631212026,
+          "ci_low": 0.3249473150239927,
+          "ci_high": 0.3737367504518132,
+          "n_boot": 400
+        },
+        "future_revoke_count": {
+          "kendall_tau": 0.1412187491644524,
+          "ci_low": 0.11848214915645831,
+          "ci_high": 0.16697232716598465,
+          "n_boot": 400
+        },
+        "future_drain_owners": {
+          "kendall_tau": 0.19453531566159243,
+          "ci_low": 0.1690758957962408,
+          "ci_high": 0.2155326746886461,
+          "n_boot": 400
+        }
+      }
+    },
+    "contrasts_prefixed": [
+      {
+        "label": "C-PR minus C-PR (l=1)",
+        "a": "cpr_l50",
+        "b": "cpr_l100",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.22127735028362805,
+        "b_tau": 0.20096437721336433,
+        "delta_tau": 0.020312973070263723,
+        "ci_low": -0.0022745644137774665,
+        "ci_high": 0.04308860904763066,
+        "share_positive": 0.96,
+        "n_boot": 400
+      },
+      {
+        "label": "C-PR minus C-PR (l=0)",
+        "a": "cpr_l50",
+        "b": "cpr_l0",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.25926270253773365,
+        "b_tau": 0.2751142475182524,
+        "delta_tau": -0.015851544980518772,
+        "ci_low": -0.02483089387681817,
+        "ci_high": -0.007201119270205562,
+        "share_positive": 0.0,
+        "n_boot": 400
+      }
+    ],
+    "contrasts_after": [
+      {
+        "label": "C-PR (l=1) minus t1 in-approve degree",
+        "a": "cpr_l100",
+        "b": "t1_in_approve_degree",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.20096437721336433,
+        "b_tau": 0.24356628051112228,
+        "delta_tau": -0.042601903297757954,
+        "ci_low": -0.052784790235175495,
+        "ci_high": -0.03148039643488256,
+        "share_positive": 0.0,
+        "n_boot": 400
+      },
+      {
+        "label": "S-PR minus C-PR (l=1)",
+        "a": "spr",
+        "b": "cpr_l100",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.11970860237116536,
+        "b_tau": 0.20096437721336433,
+        "delta_tau": -0.08125577484219897,
+        "ci_low": -0.1055912867059196,
+        "ci_high": -0.05675252505437912,
+        "share_positive": 0.0,
+        "n_boot": 400
+      },
+      {
+        "label": "S-PR minus C-PR (l=0)",
+        "a": "spr",
+        "b": "cpr_l0",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.2490655112421989,
+        "b_tau": 0.2751142475182524,
+        "delta_tau": -0.02604873627605353,
+        "ci_low": -0.03911622434548094,
+        "ci_high": -0.011824734780826615,
+        "share_positive": 0.0,
+        "n_boot": 400
+      },
+      {
+        "label": "EndorseRank minus t1 in-approve degree",
+        "a": "endorserank",
+        "b": "t1_in_approve_degree",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.20210517588870938,
+        "b_tau": 0.24356628051112228,
+        "delta_tau": -0.0414611046224129,
+        "ci_low": -0.05149914136898607,
+        "ci_high": -0.03055284510141847,
+        "share_positive": 0.0,
+        "n_boot": 400
+      },
+      {
+        "label": "AWP minus t1 in-degree",
+        "a": "awp",
+        "b": "t1_in_degree",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.3797455557720618,
+        "b_tau": 0.35844961869065955,
+        "delta_tau": 0.02129593708140226,
+        "ci_low": 0.005446993254041482,
+        "ci_high": 0.037761247884545816,
+        "share_positive": 1.0,
+        "n_boot": 400
+      },
+      {
+        "label": "C-PR minus C-PR (l=0)",
+        "a": "cpr_l50",
+        "b": "cpr_l0",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.22127735028362805,
+        "b_tau": 0.11004233962645603,
+        "delta_tau": 0.11123501065717202,
+        "ci_low": 0.09481630794745832,
+        "ci_high": 0.12957557364900085,
+        "share_positive": 1.0,
+        "n_boot": 400
+      },
+      {
+        "label": "C-PR minus EndorseRank",
+        "a": "cpr_l50",
+        "b": "endorserank",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.22127735028362805,
+        "b_tau": 0.20210517588870938,
+        "delta_tau": 0.019172174394918667,
+        "ci_low": -0.004944071447791349,
+        "ci_high": 0.04188036979799106,
+        "share_positive": 0.955,
+        "n_boot": 400
+      },
+      {
+        "label": "C-PR minus AWP",
+        "a": "cpr_l50",
+        "b": "awp",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.25926270253773365,
+        "b_tau": 0.3797455557720618,
+        "delta_tau": -0.12048285323432817,
+        "ci_low": -0.13559389448440853,
+        "ci_high": -0.10682349367947354,
+        "share_positive": 0.0,
+        "n_boot": 400
+      },
+      {
+        "label": "C-PR minus AWP",
+        "a": "cpr_l50",
+        "b": "awp",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.22127735028362805,
+        "b_tau": 0.1590360764338849,
+        "delta_tau": 0.06224127384974315,
+        "ci_low": 0.04208172773846051,
+        "ci_high": 0.08287956920291883,
+        "share_positive": 1.0,
+        "n_boot": 400
+      },
+      {
+        "label": "EndorseRank minus AWP",
+        "a": "endorserank",
+        "b": "awp",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.20210517588870938,
+        "b_tau": 0.1590360764338849,
+        "delta_tau": 0.04306909945482448,
+        "ci_low": 0.013299410464233658,
+        "ci_high": 0.07539500858894488,
+        "share_positive": 0.9975,
+        "n_boot": 400
+      },
+      {
+        "label": "EndorseRank minus AWP",
+        "a": "endorserank",
+        "b": "awp",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.044823527273955235,
+        "b_tau": 0.3797455557720618,
+        "delta_tau": -0.3349220284981066,
+        "ci_low": -0.3615613491635906,
+        "ci_high": -0.3062914011824276,
+        "share_positive": 0.0,
+        "n_boot": 400
+      }
+    ],
+    "baseline_contrasts": [
+      {
+        "label": "C-PR minus t1 union in-degree",
+        "a": "cpr_l50",
+        "b": "t1_in_degree_union",
+        "outcome": "future_new_approvers",
+        "a_tau": 0.22127735028362805,
+        "b_tau": 0.1859807590165161,
+        "delta_tau": 0.03529659126711196,
+        "ci_low": 0.021520945833586474,
+        "ci_high": 0.049344200818053324,
+        "share_positive": 1.0,
+        "n_boot": 400
+      },
+      {
+        "label": "C-PR minus t1 union in-degree",
+        "a": "cpr_l50",
+        "b": "t1_in_degree_union",
+        "outcome": "future_new_transfer_senders",
+        "a_tau": 0.25926270253773365,
+        "b_tau": 0.34865163631212026,
+        "delta_tau": -0.08938893377438661,
+        "ci_low": -0.10314938604289493,
+        "ci_high": -0.07547877807291202,
+        "share_positive": 0.0,
+        "n_boot": 400
+      }
+    ]
+  },
+  "label_split": {
+    "note": "secondary description outside every rule (docs/revision_contract_graph.md section 8)",
+    "spenders": 7864,
+    "parts": {
+      "user_accounts": "c12_user_accounts",
+      "contracts": "c12_contracts",
+      "other": "the zero address of mints, system addresses and untyped addresses"
+    },
+    "owners_at_freeze": {
+      "total": 4116471,
+      "user_accounts": 3926375,
+      "contracts": 190096,
+      "other": 0
+    },
+    "labels": {
+      "future_new_approvers": {
+        "total": 748258,
+        "user_accounts": 676525,
+        "contracts": 71733,
+        "other": 0,
+        "share_user_accounts": 0.9041333336897166,
+        "share_contracts": 0.09586666631028336,
+        "share_other": 0.0,
+        "spenders_with_label": 1725,
+        "spenders_with_user_accounts": 1322,
+        "spenders_with_contracts": 876,
+        "spenders_with_other": 0
+      },
+      "future_revoke_count": {
+        "total": 61869,
+        "user_accounts": 60111,
+        "contracts": 1758,
+        "other": 0,
+        "share_user_accounts": 0.9715851234059061,
+        "share_contracts": 0.028414876594093974,
+        "share_other": 0.0,
+        "spenders_with_label": 1113,
+        "spenders_with_user_accounts": 947,
+        "spenders_with_contracts": 287,
+        "spenders_with_other": 0
+      },
+      "future_revoke_rate": {
+        "mean": 0.02027495856899064,
+        "mean_user_accounts": 0.008362310916387693,
+        "mean_contracts": 0.011912647652602948,
+        "mean_other": 0.0
+      },
+      "future_keep_rate": {
+        "mean": 0.9797250414310095,
+        "mean_user_accounts": 0.5968876551341702,
+        "mean_contracts": 0.38283738629683917,
+        "mean_other": 0.0
+      },
+      "future_revoke_value": {
+        "total": 1.8823356370562985e+77,
+        "user_accounts": 1.8260728315622723e+77,
+        "contracts": 5.626280549400987e+75,
+        "other": 0.0,
+        "share_user_accounts": 0.9701101098091024,
+        "share_contracts": 0.02988989019088901,
+        "share_other": 0.0,
+        "spenders_with_label": 1113,
+        "spenders_with_user_accounts": 947,
+        "spenders_with_contracts": 287,
+        "spenders_with_other": 0
+      },
+      "future_new_transfer_senders": {
+        "total": 651474,
+        "user_accounts": 562007,
+        "contracts": 89458,
+        "other": 9,
+        "share_user_accounts": 0.8626698839861606,
+        "share_contracts": 0.13731630118776805,
+        "share_other": 1.3814826071339762e-05,
+        "spenders_with_label": 1416,
+        "spenders_with_user_accounts": 1044,
+        "spenders_with_contracts": 883,
+        "spenders_with_other": 9
+      },
+      "future_drain_owners": {
+        "total": 570724,
+        "user_accounts": 547427,
+        "contracts": 23297,
+        "other": 0,
+        "share_user_accounts": 0.9591799188399296,
+        "share_contracts": 0.04082008116007037,
+        "share_other": 0.0,
+        "spenders_with_label": 1807,
+        "spenders_with_user_accounts": 1271,
+        "spenders_with_contracts": 926,
+        "spenders_with_other": 0
+      }
+    }
+  },
+  "contract_only": {
+    "nodes": 1403959,
+    "typed_contracts": 1403959,
+    "types": "data/1-raw-blockchain-extracts/contract-types/c12_account_types",
+    "smart_account_extension": {
+      "amendment": "docs/revision_contract_graph.md section 13, amendment of 9 November 2026",
+      "code_hashes": 20,
+      "code_hash_implementations": 7
+    }
+  },
+  "provenance": {
+    "head": "e3f66757c2b360f00d913981574b60a7ece0ff3e",
+    "sha256": {
+      "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+      "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+      "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+      "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+      "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+      "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+      "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+      "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+      "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+      "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b"
+    },
+    "inputs": {
+      "nodes": {
+        "nodes.part000.parquet": "9ca358c81f306ccc404d14770aaffbda60325078a5e78a1466dfac025d81baec"
+      },
+      "allow_pairs_t1": {
+        "allow_pairs_t1.part000.parquet": "2732ccc521194a4be5532758967b6689063cdfc01a1c5f2f318e2a1308f52afd"
+      },
+      "transfer_pairs_t1": {
+        "transfer_pairs_t1.part000.parquet": "d6047dd88a73ba43536fc990bfdd56ae1eef6f36acaec7f79de54de278770f64"
+      },
+      "members": {
+        "members.part000.parquet": "d78da6a45d3f9812e1bb242fe7dadee485f32f0b151054e7f57512e093bff63a"
+      },
+      "label_split_w0": {
+        "label_split_w0.part000.parquet": "55575d80f1ed50b6e771ecc049a6a0110279b4638480eea2549358f223ce7fa8"
+      }
+    },
+    "inputs_twelve_month": {
+      "labels_w0": {
+        "labels_w0.part000.parquet": "e8386f903a1921655c38c2307ac16898a854a3ff324d6c413529237443bdca5c"
+      },
+      "cohort_t1": {
+        "cohort_t1.part000.parquet": "632d148cc7b150f36e5b1e6d8fb9f88e90087605ed80e2335981ff1a09999c92"
+      }
+    }
+  }
+}

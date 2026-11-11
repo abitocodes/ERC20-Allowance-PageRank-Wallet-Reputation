@@ -1,0 +1,229 @@
+{
+  "graph": {
+    "nodes": 109381,
+    "edges": 114997,
+    "pairs_of_zero_weight_left_out": 9
+  },
+  "sigma0": 0.8581489350995123,
+  "b_common": 8.451306341872924e-06,
+  "r_D": 0.9110733357551513,
+  "damping": {
+    "0.75": {
+      "r_D": 0.9114035377842153,
+      "farm_factor": 3.734210613352646
+    },
+    "0.85": {
+      "r_D": 0.9110733357551513,
+      "farm_factor": 6.162748902612523
+    },
+    "0.95": {
+      "r_D": 0.910340179373937,
+      "farm_factor": 18.296463408104785
+    }
+  },
+  "ring20_collects_times_share": 6.156826056200308,
+  "star": {
+    "m": 10,
+    "target_score": 0.0002891363277863658,
+    "closed_form": 0.0002893240008929469,
+    "highest_cohort_endorserank": 0.009692167056594514,
+    "ratio_to_highest": 0.029831958745452965,
+    "approvals_per_window": 20
+  },
+  "fresh_approval_share_median_owner": 0.686864394182096,
+  "owners": 9452,
+  "farm_size_to_reach_cohort_quantile": {
+    "p50": {
+      "score": 0.0,
+      "farm_addresses": 0.0
+    },
+    "p90": {
+      "score": 9.871434236542863e-06,
+      "farm_addresses": 0.0
+    },
+    "p99": {
+      "score": 9.309546731177425e-05,
+      "farm_addresses": 2.419770128389712
+    },
+    "p100": {
+      "score": 0.009692167056594514,
+      "farm_addresses": 373.2280714130099
+    }
+  },
+  "cohort": {
+    "n": 6443,
+    "with_positive_score": 1243
+  },
+  "contract_farm": {
+    "note": "every address of a farm is a contract: it is deployed, and its allowance counts up to its balance of the token at the freeze",
+    "deployments": {
+      "ring20": 20,
+      "star": 11,
+      "reach": {
+        "p50": 1,
+        "p90": 1,
+        "p99": 4,
+        "p100": 375
+      }
+    },
+    "evm_gas": {
+      "G_transaction": 21000,
+      "G_txcreate": 32000,
+      "G_create": 32000,
+      "G_codedeposit_per_byte": 200,
+      "creation_by_transaction_at_least": 53000,
+      "creation_by_create_at_least": 32000,
+      "source": "Ethereum Yellow Paper, Appendix G (fee schedule); execution gas only, without the fee for posting data to L1"
+    },
+    "value_weight": {
+      "m_allowance_usd": 0.071,
+      "b_allowance": 15.473412516452251,
+      "V_at_usd": {
+        "1": 0.9999996189234361,
+        "10": 1.0,
+        "100": 1.0
+      }
+    }
+  },
+  "balance_threshold": {
+    "1": {
+      "theta_usd": 1.0,
+      "pairs_kept": 4247,
+      "share_of_pairs_kept": 0.0369313982103881,
+      "owners_kept": 2390,
+      "spenders_kept": 1074,
+      "cohort_with_positive_score": 699,
+      "cohort_tau_with_main": 0.7091887951057663,
+      "graph": {
+        "nodes": 3394,
+        "edges": 4247
+      },
+      "b_common": 0.00017373467808658733,
+      "r_D": 0.5172417589642209,
+      "star": {
+        "m": 10,
+        "target_score": 0.0058728436568300625,
+        "closed_form": 0.00594767366422551,
+        "highest_cohort_endorserank": 0.06359991820250786,
+        "ratio_to_highest": 0.0923404278309038,
+        "approvals_per_window": 20
+      },
+      "farm_size_to_reach_cohort_quantile": {
+        "p50": {
+          "score": 0.0,
+          "farm_addresses": 0.0
+        },
+        "p90": {
+          "score": 0.00017373467808658733,
+          "farm_addresses": 0.0
+        },
+        "p99": {
+          "score": 0.0007209424319352855,
+          "farm_addresses": 0.17827621551100403
+        },
+        "p100": {
+          "score": 0.06359991820250786,
+          "farm_addresses": 118.33624233682076
+        }
+      },
+      "star_balance_usd": 11.0
+    },
+    "10": {
+      "theta_usd": 10.0,
+      "pairs_kept": 2167,
+      "share_of_pairs_kept": 0.018843969842691547,
+      "owners_kept": 1000,
+      "spenders_kept": 817,
+      "cohort_with_positive_score": 491,
+      "cohort_tau_with_main": 0.5890257402849324,
+      "graph": {
+        "nodes": 1769,
+        "edges": 2167
+      },
+      "b_common": 0.0003645256999430912,
+      "r_D": 0.5821717187079387,
+      "star": {
+        "m": 10,
+        "target_score": 0.012154345631995923,
+        "closed_form": 0.012479258196249966,
+        "highest_cohort_endorserank": 0.03735703301357133,
+        "ratio_to_highest": 0.3253562890709336,
+        "approvals_per_window": 20
+      },
+      "farm_size_to_reach_cohort_quantile": {
+        "p50": {
+          "score": 0.0,
+          "farm_addresses": 0.0
+        },
+        "p90": {
+          "score": 0.0,
+          "farm_addresses": 0.0
+        },
+        "p99": {
+          "score": 0.0010208195210640873,
+          "farm_addresses": 0.0
+        },
+        "p100": {
+          "score": 0.03735703301357133,
+          "farm_addresses": 32.2806287179863
+        }
+      },
+      "star_balance_usd": 110.0
+    },
+    "100": {
+      "theta_usd": 100.0,
+      "pairs_kept": 992,
+      "share_of_pairs_kept": 0.008626311990747584,
+      "owners_kept": 500,
+      "spenders_kept": 352,
+      "cohort_with_positive_score": 308,
+      "cohort_tau_with_main": 0.4642898381478397,
+      "graph": {
+        "nodes": 837,
+        "edges": 992
+      },
+      "b_common": 0.0007739095411851049,
+      "r_D": 0.5856026868178773,
+      "star": {
+        "m": 10,
+        "target_score": 0.025071313662415218,
+        "closed_form": 0.026494200509039622,
+        "highest_cohort_endorserank": 0.02379771826750443,
+        "ratio_to_highest": 1.0535175423372363,
+        "approvals_per_window": 20
+      },
+      "farm_size_to_reach_cohort_quantile": {
+        "p50": {
+          "score": 0.0,
+          "farm_addresses": 0.0
+        },
+        "p90": {
+          "score": 0.0,
+          "farm_addresses": 0.0
+        },
+        "p99": {
+          "score": 0.0015698112145697528,
+          "farm_addresses": 0.0
+        },
+        "p100": {
+          "score": 0.02379771826750443,
+          "farm_addresses": 8.862499947717454
+        }
+      },
+      "star_balance_usd": 1100.0
+    }
+  },
+  "note": "quantities of the Sybil cost model on the contract graph; they compute no criterion and decide no rule (docs/revision_contract_graph.md section 13)",
+  "provenance": {
+    "head": "e66585309df2fc97e87026f8cfea9643ae6545f3",
+    "inputs": {
+      "allow_pairs_tobs": {
+        "allow_pairs_tobs.part000.parquet": "dfe1553b576880f8053bf2012b602ddb51bcbe56e35253110bd4215019406c79"
+      },
+      "nodes": {
+        "nodes.part000.parquet": "9ca358c81f306ccc404d14770aaffbda60325078a5e78a1466dfac025d81baec"
+      },
+      "constants": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786"
+    }
+  }
+}

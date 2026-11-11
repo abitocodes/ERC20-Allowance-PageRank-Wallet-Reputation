@@ -1,0 +1,75 @@
+# Overlay of the contract-graph variant (CONTRACT_REP_VARIANT=contract12m, docs/revision_contract_graph.md
+# and docs/discovery_protocol.md). scripts/common.py merges these keys over config/contract_reputation.yaml
+# for this variant only and refuses an overlay that sets any other key or leaves one of these out.
+# Every other setting comes from the base file, which is not changed.
+
+period:
+  start_ts: "2025-07-01 00:00:00 UTC"   # score window at T_obs: same window and W1
+
+holdout:
+  start_ts: "2025-04-01 00:00:00 UTC"   # score window at t1: W0
+
+bigquery:
+  budget_usd: 60                        # study budget of this variant (the base file keeps 50)
+
+contract_graph:                         # revision sections 4 to 6 and 12
+  typing_start: "2025-04-01 00:00:00 UTC"
+  typing_end: "2026-10-01 00:00:00 UTC"     # exclusive
+  pinned_block: 513216506                   # the block of the cohort candidates' account-type read of 9 October 2026
+  rpc_urls:                                 # public endpoints in this order; a URL with a key only
+    - "https://arb1.arbitrum.io/rpc"        # from the environment variable CONTRACT_REP_RPC_URL
+    - "https://arbitrum-one.public.blastapi.io"
+  campaign_cap_usd: 15.0                    # jobs labelled "contract12m:"
+  system_address_max: 255                   # 0x...0001 to 0x...00ff are never graph nodes
+  safe_threshold_max: 1000
+  entry_points:                             # canonical ERC-4337 EntryPoints
+    v06: "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    v07: "0x0000000071727de22e5e9d8baf0edac6f37da032"
+    v08: "0x4337084d9e255ff0702461cf8895ce9e3b5ff108"
+    v09: "0x433709009b8330fda32311df1c2afa402ed8d009"
+  selectors:
+    get_threshold: "0xe75235b8"
+    get_owners: "0xa0e67e2b"
+    entry_point: "0xb0d691fe"
+    validate_user_op: ["0x3a871cdd", "0x19822f7c"]            # v0.6; v0.7 and later
+    validate_paymaster_user_op: ["0xf465c77e", "0x52b7512c"]  # v0.6; v0.7 and later
+  erc1967_slot: "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc"
+  audit:                                    # typing audit samples (revision section 4.3)
+    senders: 1000
+    untyped: 1000
+    sender_salt: "audit-sender-v1:"
+    untyped_salt: "audit-untyped-v1:"
+  balance:                                  # revision section 6
+    dust_token: 1.0e-6                      # a balance below this many tokens counts as 0
+    audit_per_cell: 150                     # per token and per zero / positive balance at T_obs
+    audit_salt: "bal-audit-v1:"
+    min_match: 0.98                         # balanceOf at the T_obs block
+    min_match_dormant: 0.99                 # fallback: owners with no transfer from July to September
+
+discovery:                              # docs/discovery_protocol.md
+  seed_salt: "crawl-seed-v1:"
+  random_salt: "random-v1:"
+  n_seeds: 20
+  rho_grid: [0.01, 0.02, 0.05]
+  runtime_budget_hours: 12
+  ns_per_edge_iteration: 12
+  warm_iterations: 30
+  projection_workers: 16
+  walk_solves: 10                           # nine walks per recompute set, S-PR counted twice
+  q_primary: 0.01
+  q_small: 0.05                             # primary share if |U| < small_universe
+  small_universe: 10000
+  q_secondary: 0.05                         # the secondary share when q is q_primary; q_primary when q is q_small
+  x_primary: 0.10
+  x_secondary: [0.05, 0.20]
+  tie_tolerance: 1.0e-12
+  lambda_primary: 0.5
+  lambda_grid: [0.25, 0.75]
+  both_mode_ratio: 0.5                      # both-direction reveals primary if |SCC u OUT| < ratio x |WCC|
+  stop_min_allow_edges: 5000
+  stop_min_allow_share: 0.05
+  min_hot: 30
+  hub_drop: { min: 10, share: 0.001 }
+  rho_sensitivity: { divisor: 4, seeds: 5 }
+  curve_points: 1000
+  min_usd_account: 1.0                      # N_T and N_A count accounts with at least this many USD

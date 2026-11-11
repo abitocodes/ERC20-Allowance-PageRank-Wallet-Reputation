@@ -1,0 +1,2542 @@
+{
+  "variant": "contract12m",
+  "steps": [
+    {
+      "step": "subset",
+      "started_at": "2026-11-07T09:35:59+00:00",
+      "head": "d39775ceb3476fae8e120b0f8ed54568ec8183da",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "e8a7368e11c9bb75d08db0a37643445c8e87362aee027bbdc3925197a804d898",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-07T09:36:44+00:00",
+      "passed": true
+    },
+    {
+      "step": "ends",
+      "started_at": "2026-11-07T09:38:19+00:00",
+      "head": "d39775ceb3476fae8e120b0f8ed54568ec8183da",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "e8a7368e11c9bb75d08db0a37643445c8e87362aee027bbdc3925197a804d898",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-07T09:38:54+00:00",
+      "passed": true
+    },
+    {
+      "step": "activity",
+      "started_at": "2026-11-07T09:40:47+00:00",
+      "head": "d39775ceb3476fae8e120b0f8ed54568ec8183da",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "e8a7368e11c9bb75d08db0a37643445c8e87362aee027bbdc3925197a804d898",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-07T09:42:35+00:00",
+      "passed": true
+    },
+    {
+      "step": "queue",
+      "started_at": "2026-11-07T09:44:02+00:00",
+      "head": "d39775ceb3476fae8e120b0f8ed54568ec8183da",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "e8a7368e11c9bb75d08db0a37643445c8e87362aee027bbdc3925197a804d898",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-07T09:44:27+00:00",
+      "passed": true
+    },
+    {
+      "step": "typing",
+      "started_at": "2026-11-07T09:45:46+00:00",
+      "head": "d39775ceb3476fae8e120b0f8ed54568ec8183da",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "e8a7368e11c9bb75d08db0a37643445c8e87362aee027bbdc3925197a804d898",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      }
+    },
+    {
+      "step": "typing",
+      "started_at": "2026-11-08T02:43:28+00:00",
+      "head": "d39775ceb3476fae8e120b0f8ed54568ec8183da",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "e8a7368e11c9bb75d08db0a37643445c8e87362aee027bbdc3925197a804d898",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      }
+    },
+    {
+      "step": "typing",
+      "started_at": "2026-11-08T03:14:29+00:00",
+      "head": "52d3aa13cf6dad8139c317b659f22e7001831c14",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "7c496ea436f51f146b30c792c9b2758a6a329182a0fd088e1e91e8d60886d761",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T12:50:39+00:00",
+      "passed": true
+    },
+    {
+      "step": "load",
+      "started_at": "2026-11-08T12:56:41+00:00",
+      "head": "52d3aa13cf6dad8139c317b659f22e7001831c14",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "7c496ea436f51f146b30c792c9b2758a6a329182a0fd088e1e91e8d60886d761",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T12:59:03+00:00",
+      "passed": true
+    },
+    {
+      "step": "contracts",
+      "started_at": "2026-11-08T13:00:33+00:00",
+      "head": "52d3aa13cf6dad8139c317b659f22e7001831c14",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "7c496ea436f51f146b30c792c9b2758a6a329182a0fd088e1e91e8d60886d761",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T13:01:18+00:00",
+      "passed": true
+    },
+    {
+      "step": "balances",
+      "started_at": "2026-11-08T13:02:54+00:00",
+      "head": "52d3aa13cf6dad8139c317b659f22e7001831c14",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "7c496ea436f51f146b30c792c9b2758a6a329182a0fd088e1e91e8d60886d761",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T13:04:19+00:00",
+      "passed": true
+    },
+    {
+      "step": "anchors",
+      "started_at": "2026-11-08T13:05:40+00:00",
+      "head": "52d3aa13cf6dad8139c317b659f22e7001831c14",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "7c496ea436f51f146b30c792c9b2758a6a329182a0fd088e1e91e8d60886d761",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T13:06:01+00:00",
+      "passed": true
+    },
+    {
+      "step": "audit",
+      "started_at": "2026-11-08T13:07:08+00:00",
+      "head": "52d3aa13cf6dad8139c317b659f22e7001831c14",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "7c496ea436f51f146b30c792c9b2758a6a329182a0fd088e1e91e8d60886d761",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T13:19:18+00:00",
+      "passed": true
+    },
+    {
+      "step": "structure",
+      "started_at": "2026-11-08T13:21:09+00:00",
+      "head": "52d3aa13cf6dad8139c317b659f22e7001831c14",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "7c496ea436f51f146b30c792c9b2758a6a329182a0fd088e1e91e8d60886d761",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "fc149f6ec8976328d86a9a89c92d9d3a4c43e7a70e8816f087a3bf1db84f4665",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "a0905e7cae34431b8b0a181ebb83acf0baee475e2d8d17873a9b20ba588ff21f",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "7cce7662ec5e2b7cd002dc4d43100a039c708006808110a729949bc910e0e489",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "a95d9c44d6db8574a77d69bf87c980af5b8103580a4b74179cfef45a15423396",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T13:25:02+00:00",
+      "passed": false
+    },
+    {
+      "step": "contracts",
+      "started_at": "2026-11-08T17:14:39+00:00",
+      "head": "caf97c356e67aa063740ecad80967f789590d3f2",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "169e0518fad966b7a2fd112ca80e9f2d86ea51902fc2d0884c327d7644742344",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "655e28cb55690be90cc06d4e0b4cf9a8e768f84f45e8ba24cefab1c21c440acf",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "72fe53eeb9e4494dfc40b3f939fb736cd047610a50d92261adc68deeb4aa76de",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "1338627c69438e9d4618dcaddcf23d0d3d5b247abedc2a3e3034bc01bfb2c39a",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "finished_at": "2026-11-08T17:15:19+00:00",
+      "passed": true
+    },
+    {
+      "step": "structure",
+      "started_at": "2026-11-08T17:16:55+00:00",
+      "head": "caf97c356e67aa063740ecad80967f789590d3f2",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "169e0518fad966b7a2fd112ca80e9f2d86ea51902fc2d0884c327d7644742344",
+        "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+        "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "655e28cb55690be90cc06d4e0b4cf9a8e768f84f45e8ba24cefab1c21c440acf",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "72fe53eeb9e4494dfc40b3f939fb736cd047610a50d92261adc68deeb4aa76de",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "1338627c69438e9d4618dcaddcf23d0d3d5b247abedc2a3e3034bc01bfb2c39a",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2"
+      },
+      "waited_for": [
+        "a run of balances after the last run of contracts",
+        "a run of anchors after the last run of contracts",
+        "a run of audit after the last run of contracts"
+      ],
+      "author_decision": "Revision section 13, amendment of 9 November 2026: jobs 32 and 33 (balances), 34 (anchors) and 43 with the balance check (audit) read no table that job 31 writes, so their runs of 8 November 2026 stand after job 31 was run again with the smart-account lists; they are not run again.",
+      "finished_at": "2026-11-08T17:19:05+00:00",
+      "passed": false
+    },
+    {
+      "step": "constants",
+      "started_at": "2026-11-08T19:55:02+00:00",
+      "head": "8645bca404859142f57db84fc7eabdee9fd09de5",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+        "docs/discovery_protocol.md": "61ab8fc6fe951cbd1009aee035c254ee5a737e5b849d7948a97926591c56c9fb",
+        "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "2da8fed743d2cbad4d5dbcbab1151fcf7417966cff08672cf88988f858660754",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "267f7b954516105b18d3dc1868a3155b6eeb6a18e089399b9bf60317a53a1c36",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2",
+        "sql/36_c12_allow_triples.sql": "cc84dbb23e3aacc26d9b5cc76b8932b394ca4ad28a186eb26338cfcb4a27c127",
+        "sql/36_c12_user_events.sql": "ddae0dea8fd107c220363c32c1773b1aa9246a05fdf03da1f1a7e2c7ef370161",
+        "sql/36_c12_constants.sql": "130e93f2487faaa2c07534b05b86bfa7b3b44e5aa072485c539decd3f48b38fb",
+        "sql/37_c12_pairs.sql": "053d3e789e35bcf22ce52bd0f35951476116a8908fcbb4a0f1a0b83b1d722189",
+        "sql/38_c12_cohorts.sql": "5170902e4e2ead55baa7efb57650a8dd995d3f152935452b2ff92b453cd87f8e",
+        "sql/38_c12_proxies.sql": "01e12b65eb23773e33cebb39f0d2d44c3bb0aeafa8ce3a668acbbcc965d3a4af",
+        "sql/39_c12_label_parts.sql": "d30cecfca636b1f280271afe1870d100ebba2352eea21d0d6c9f5e9dfab5f8d0",
+        "sql/40_c12_export_ids.sql": "22e30356ded3775efc4b62ec2dcf53216bfb36d5db319f98cf7b34b1f59e5ebd",
+        "sql/41_c12_importance.sql": "36db51a76a9ce73870f7e17d0e75fd7d524e9c6af2f67874fd34631b5866d7c2",
+        "sql/42_c12_checks.sql": "73eb1ba01e8ee83eefbbbed9e153483d4a22df45c0bfae6bbbfddeb183da39a4",
+        "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b",
+        "scripts/usd.py": "c0ef317f63937313f710b061a15d01877004f86137d07463d85a246ff18049ff",
+        "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+        "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+        "scripts/run_registered.py": "a117567b402c09afdb8c2b358bfdd4dec411f483d9966976f4a583cd68c25dbd",
+        "scripts/run_robustness.py": "e2e0c74b186071a83266c26a58a7e98495d4f30d8c3a92f7e59f982c26333aa3",
+        "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d"
+      },
+      "gate_b": {
+        "protocol_fixed": {
+          "date": "2026-11-09",
+          "pinned_sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+          "rho": 0.02,
+          "q": 0.01,
+          "primary_mode": "both",
+          "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+          "decision_covers": [
+            "few_capped_allowance_in_edges"
+          ],
+          "sizes": {
+            "U": 332396,
+            "E_U": 1283946,
+            "WCC": 1015867,
+            "E_WCC": 2121895
+          }
+        },
+        "constants": null,
+        "projection": {
+          "usd": 3.5772,
+          "campaign_usd": 10.8346,
+          "ledger_usd": 53.0767,
+          "jobs": {
+            "triples": {
+              "first": 61334021484,
+              "whole": 61334021484
+            },
+            "user_events": {
+              "first": 136931996712,
+              "whole": 136931996712
+            },
+            "constants": {
+              "first": 27093277366,
+              "whole": 27093277366
+            },
+            "pairs": {
+              "first": 38018974392,
+              "whole": 52282485788
+            },
+            "cohorts": {
+              "first": 491785898,
+              "whole": 1962737093
+            },
+            "proxies": {
+              "first": 38029460152,
+              "whole": 38029460152
+            },
+            "labels_w0": {
+              "first": 54400534564,
+              "whole": 54411020324
+            },
+            "labels_w1": {
+              "first": 50286970916,
+              "whole": 50297456676
+            },
+            "node_ids": {
+              "first": 11737669646,
+              "whole": 58465795006
+            },
+            "importance": {
+              "first": 70430885680,
+              "whole": 76240147544
+            },
+            "checks": {
+              "first": 72268047656,
+              "whole": 72268047656
+            }
+          },
+          "bounds": {
+            "c12_allow_triples": 96375077,
+            "c12_user_events": 636799258,
+            "c12_constants": 1,
+            "c12_transfer_pairs": 75327206,
+            "c12_allow_pairs": 95013432,
+            "c12_allow_pairs_unc": 95271409,
+            "c12_cohort_tobs": 6483,
+            "c12_cohort_t1": 6343,
+            "c12_members": 28783,
+            "c12_proxies_tobs": 6483,
+            "c12_label_parts_w0": 7962,
+            "c12_label_parts_w1": 7995,
+            "c12_x_label_split_w0": 7962,
+            "c12_x_label_split_w1": 7995,
+            "c12_nodes": 1829719,
+            "c12_x_nodes": 1829719,
+            "c12_x_members": 28783,
+            "c12_x_allow_pairs_tobs": 95013432,
+            "c12_x_allow_pairs_t1": 95013432,
+            "c12_x_allow_pairs_unc_tobs": 95271409,
+            "c12_x_allow_pairs_unc_t1": 95271409,
+            "c12_x_transfer_pairs_tobs": 75327206,
+            "c12_x_transfer_pairs_t1": 75327206,
+            "c12_importance_raw": 3659440,
+            "c12_importance_tobs": 1829719,
+            "c12_importance_t1": 1829719,
+            "c12_inflow_untyped_tobs": 1,
+            "c12_inflow_untyped_t1": 1,
+            "c12_describe_allowances": 10,
+            "_n_events_cc": 603475784,
+            "_priced_rows": 508480292,
+            "_a_rows_bound": 94995492
+          }
+        }
+      },
+      "gate_a_decision": {
+        "structure_index": 14,
+        "structure_started_at": "2026-11-08T17:16:55+00:00",
+        "waited_for": [
+          "a run of balances after the last run of contracts",
+          "a run of anchors after the last run of contracts",
+          "a run of audit after the last run of contracts",
+          "a run of structure that passes (the last one did not)"
+        ]
+      },
+      "finished_at": "2026-11-08T19:58:00+00:00",
+      "passed": true
+    },
+    {
+      "step": "pairs",
+      "started_at": "2026-11-08T20:01:46+00:00",
+      "head": "54fe292e0ecda6b0354f91edf335402cd13cf932",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+        "docs/discovery_protocol.md": "61ab8fc6fe951cbd1009aee035c254ee5a737e5b849d7948a97926591c56c9fb",
+        "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "2da8fed743d2cbad4d5dbcbab1151fcf7417966cff08672cf88988f858660754",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "267f7b954516105b18d3dc1868a3155b6eeb6a18e089399b9bf60317a53a1c36",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2",
+        "sql/36_c12_allow_triples.sql": "cc84dbb23e3aacc26d9b5cc76b8932b394ca4ad28a186eb26338cfcb4a27c127",
+        "sql/36_c12_user_events.sql": "ddae0dea8fd107c220363c32c1773b1aa9246a05fdf03da1f1a7e2c7ef370161",
+        "sql/36_c12_constants.sql": "130e93f2487faaa2c07534b05b86bfa7b3b44e5aa072485c539decd3f48b38fb",
+        "sql/37_c12_pairs.sql": "053d3e789e35bcf22ce52bd0f35951476116a8908fcbb4a0f1a0b83b1d722189",
+        "sql/38_c12_cohorts.sql": "5170902e4e2ead55baa7efb57650a8dd995d3f152935452b2ff92b453cd87f8e",
+        "sql/38_c12_proxies.sql": "01e12b65eb23773e33cebb39f0d2d44c3bb0aeafa8ce3a668acbbcc965d3a4af",
+        "sql/39_c12_label_parts.sql": "d30cecfca636b1f280271afe1870d100ebba2352eea21d0d6c9f5e9dfab5f8d0",
+        "sql/40_c12_export_ids.sql": "22e30356ded3775efc4b62ec2dcf53216bfb36d5db319f98cf7b34b1f59e5ebd",
+        "sql/41_c12_importance.sql": "36db51a76a9ce73870f7e17d0e75fd7d524e9c6af2f67874fd34631b5866d7c2",
+        "sql/42_c12_checks.sql": "73eb1ba01e8ee83eefbbbed9e153483d4a22df45c0bfae6bbbfddeb183da39a4",
+        "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b",
+        "scripts/usd.py": "c0ef317f63937313f710b061a15d01877004f86137d07463d85a246ff18049ff",
+        "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+        "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+        "scripts/run_registered.py": "a117567b402c09afdb8c2b358bfdd4dec411f483d9966976f4a583cd68c25dbd",
+        "scripts/run_robustness.py": "e2e0c74b186071a83266c26a58a7e98495d4f30d8c3a92f7e59f982c26333aa3",
+        "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d"
+      },
+      "gate_b": {
+        "protocol_fixed": {
+          "date": "2026-11-09",
+          "pinned_sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+          "rho": 0.02,
+          "q": 0.01,
+          "primary_mode": "both",
+          "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+          "decision_covers": [
+            "few_capped_allowance_in_edges"
+          ],
+          "sizes": {
+            "U": 332396,
+            "E_U": 1283946,
+            "WCC": 1015867,
+            "E_WCC": 2121895
+          }
+        },
+        "constants": {
+          "path": "data/0-usd-token-list-and-prices/contract-12m/constants.json",
+          "sha256": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786",
+          "commit": "54fe292e0ecda6b0354f91edf335402cd13cf932"
+        },
+        "projection": {
+          "usd": 1.8017,
+          "campaign_usd": 11.5961,
+          "ledger_usd": 53.8382,
+          "jobs": {
+            "pairs": {
+              "first": 38018974392,
+              "whole": 38114908584
+            },
+            "cohorts": {
+              "first": 491785898,
+              "whole": 1962737093
+            },
+            "proxies": {
+              "first": 38029460152,
+              "whole": 38029460152
+            },
+            "labels_w0": {
+              "first": 54400534564,
+              "whole": 54411020324
+            },
+            "labels_w1": {
+              "first": 50286970916,
+              "whole": 50297456676
+            },
+            "node_ids": {
+              "first": 11737669646,
+              "whole": 58465795006
+            },
+            "importance": {
+              "first": 17131245220,
+              "whole": 17962709688
+            },
+            "checks": {
+              "first": 57717562960,
+              "whole": 57717562960
+            }
+          },
+          "bounds": {
+            "c12_transfer_pairs": 75327206,
+            "c12_allow_pairs": 95013432,
+            "c12_allow_pairs_unc": 95271409,
+            "c12_cohort_tobs": 6483,
+            "c12_cohort_t1": 6343,
+            "c12_members": 28783,
+            "c12_proxies_tobs": 6483,
+            "c12_label_parts_w0": 7962,
+            "c12_label_parts_w1": 7995,
+            "c12_x_label_split_w0": 7962,
+            "c12_x_label_split_w1": 7995,
+            "c12_nodes": 1829719,
+            "c12_x_nodes": 1829719,
+            "c12_x_members": 28783,
+            "c12_x_allow_pairs_tobs": 95013432,
+            "c12_x_allow_pairs_t1": 95013432,
+            "c12_x_allow_pairs_unc_tobs": 95271409,
+            "c12_x_allow_pairs_unc_t1": 95271409,
+            "c12_x_transfer_pairs_tobs": 75327206,
+            "c12_x_transfer_pairs_t1": 75327206,
+            "c12_importance_raw": 3659440,
+            "c12_importance_tobs": 1829719,
+            "c12_importance_t1": 1829719,
+            "c12_inflow_untyped_tobs": 1,
+            "c12_inflow_untyped_t1": 1,
+            "c12_describe_allowances": 10,
+            "_n_events_cc": 603475784,
+            "_priced_rows": 508480292,
+            "_a_rows_bound": 94995492
+          }
+        }
+      },
+      "gate_a_decision": {
+        "structure_index": 14,
+        "structure_started_at": "2026-11-08T17:16:55+00:00",
+        "waited_for": [
+          "a run of balances after the last run of contracts",
+          "a run of anchors after the last run of contracts",
+          "a run of audit after the last run of contracts",
+          "a run of structure that passes (the last one did not)"
+        ]
+      },
+      "finished_at": "2026-11-08T20:02:23+00:00",
+      "passed": true
+    },
+    {
+      "step": "rest",
+      "started_at": "2026-11-08T20:06:00+00:00",
+      "head": "54fe292e0ecda6b0354f91edf335402cd13cf932",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+        "docs/discovery_protocol.md": "61ab8fc6fe951cbd1009aee035c254ee5a737e5b849d7948a97926591c56c9fb",
+        "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "2da8fed743d2cbad4d5dbcbab1151fcf7417966cff08672cf88988f858660754",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "267f7b954516105b18d3dc1868a3155b6eeb6a18e089399b9bf60317a53a1c36",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2",
+        "sql/36_c12_allow_triples.sql": "cc84dbb23e3aacc26d9b5cc76b8932b394ca4ad28a186eb26338cfcb4a27c127",
+        "sql/36_c12_user_events.sql": "ddae0dea8fd107c220363c32c1773b1aa9246a05fdf03da1f1a7e2c7ef370161",
+        "sql/36_c12_constants.sql": "130e93f2487faaa2c07534b05b86bfa7b3b44e5aa072485c539decd3f48b38fb",
+        "sql/37_c12_pairs.sql": "053d3e789e35bcf22ce52bd0f35951476116a8908fcbb4a0f1a0b83b1d722189",
+        "sql/38_c12_cohorts.sql": "5170902e4e2ead55baa7efb57650a8dd995d3f152935452b2ff92b453cd87f8e",
+        "sql/38_c12_proxies.sql": "01e12b65eb23773e33cebb39f0d2d44c3bb0aeafa8ce3a668acbbcc965d3a4af",
+        "sql/39_c12_label_parts.sql": "d30cecfca636b1f280271afe1870d100ebba2352eea21d0d6c9f5e9dfab5f8d0",
+        "sql/40_c12_export_ids.sql": "22e30356ded3775efc4b62ec2dcf53216bfb36d5db319f98cf7b34b1f59e5ebd",
+        "sql/41_c12_importance.sql": "36db51a76a9ce73870f7e17d0e75fd7d524e9c6af2f67874fd34631b5866d7c2",
+        "sql/42_c12_checks.sql": "73eb1ba01e8ee83eefbbbed9e153483d4a22df45c0bfae6bbbfddeb183da39a4",
+        "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b",
+        "scripts/usd.py": "c0ef317f63937313f710b061a15d01877004f86137d07463d85a246ff18049ff",
+        "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+        "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+        "scripts/run_registered.py": "a117567b402c09afdb8c2b358bfdd4dec411f483d9966976f4a583cd68c25dbd",
+        "scripts/run_robustness.py": "e2e0c74b186071a83266c26a58a7e98495d4f30d8c3a92f7e59f982c26333aa3",
+        "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d"
+      },
+      "gate_b": {
+        "protocol_fixed": {
+          "date": "2026-11-09",
+          "pinned_sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+          "rho": 0.02,
+          "q": 0.01,
+          "primary_mode": "both",
+          "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+          "decision_covers": [
+            "few_capped_allowance_in_edges"
+          ],
+          "sizes": {
+            "U": 332396,
+            "E_U": 1283946,
+            "WCC": 1015867,
+            "E_WCC": 2121895
+          }
+        },
+        "constants": {
+          "path": "data/0-usd-token-list-and-prices/contract-12m/constants.json",
+          "sha256": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786",
+          "commit": "54fe292e0ecda6b0354f91edf335402cd13cf932"
+        },
+        "projection": {
+          "usd": 1.1359,
+          "campaign_usd": 11.7565,
+          "ledger_usd": 53.9986,
+          "jobs": {
+            "cohorts": {
+              "first": 491785898,
+              "whole": 1962737093
+            },
+            "proxies": {
+              "first": 38029460152,
+              "whole": 38029460152
+            },
+            "labels_w0": {
+              "first": 54400534564,
+              "whole": 54411020324
+            },
+            "labels_w1": {
+              "first": 50286970916,
+              "whole": 50297456676
+            },
+            "node_ids": {
+              "first": 300068690,
+              "whole": 1734129238
+            },
+            "importance": {
+              "first": 17131245220,
+              "whole": 17962709688
+            },
+            "checks": {
+              "first": 35440625874,
+              "whole": 35440625874
+            }
+          },
+          "bounds": {
+            "c12_cohort_tobs": 6483,
+            "c12_cohort_t1": 6343,
+            "c12_members": 28783,
+            "c12_proxies_tobs": 6483,
+            "c12_label_parts_w0": 7962,
+            "c12_label_parts_w1": 7995,
+            "c12_x_label_split_w0": 7962,
+            "c12_x_label_split_w1": 7995,
+            "c12_nodes": 1829719,
+            "c12_x_nodes": 1829719,
+            "c12_x_members": 28783,
+            "c12_x_allow_pairs_tobs": 95013432,
+            "c12_x_allow_pairs_t1": 95013432,
+            "c12_x_allow_pairs_unc_tobs": 95271409,
+            "c12_x_allow_pairs_unc_t1": 95271409,
+            "c12_x_transfer_pairs_tobs": 75327206,
+            "c12_x_transfer_pairs_t1": 75327206,
+            "c12_importance_raw": 3659440,
+            "c12_importance_tobs": 1829719,
+            "c12_importance_t1": 1829719,
+            "c12_inflow_untyped_tobs": 1,
+            "c12_inflow_untyped_t1": 1,
+            "c12_describe_allowances": 10,
+            "_n_events_cc": 603475784,
+            "_priced_rows": 508480292,
+            "_a_rows_bound": 94995492
+          }
+        }
+      },
+      "gate_a_decision": {
+        "structure_index": 14,
+        "structure_started_at": "2026-11-08T17:16:55+00:00",
+        "waited_for": [
+          "a run of balances after the last run of contracts",
+          "a run of anchors after the last run of contracts",
+          "a run of audit after the last run of contracts",
+          "a run of structure that passes (the last one did not)"
+        ]
+      }
+    },
+    {
+      "step": "rest",
+      "started_at": "2026-11-08T22:13:07+00:00",
+      "head": "54fe292e0ecda6b0354f91edf335402cd13cf932",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+        "docs/discovery_protocol.md": "61ab8fc6fe951cbd1009aee035c254ee5a737e5b849d7948a97926591c56c9fb",
+        "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "2da8fed743d2cbad4d5dbcbab1151fcf7417966cff08672cf88988f858660754",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "267f7b954516105b18d3dc1868a3155b6eeb6a18e089399b9bf60317a53a1c36",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2",
+        "sql/36_c12_allow_triples.sql": "cc84dbb23e3aacc26d9b5cc76b8932b394ca4ad28a186eb26338cfcb4a27c127",
+        "sql/36_c12_user_events.sql": "ddae0dea8fd107c220363c32c1773b1aa9246a05fdf03da1f1a7e2c7ef370161",
+        "sql/36_c12_constants.sql": "130e93f2487faaa2c07534b05b86bfa7b3b44e5aa072485c539decd3f48b38fb",
+        "sql/37_c12_pairs.sql": "053d3e789e35bcf22ce52bd0f35951476116a8908fcbb4a0f1a0b83b1d722189",
+        "sql/38_c12_cohorts.sql": "5170902e4e2ead55baa7efb57650a8dd995d3f152935452b2ff92b453cd87f8e",
+        "sql/38_c12_proxies.sql": "01e12b65eb23773e33cebb39f0d2d44c3bb0aeafa8ce3a668acbbcc965d3a4af",
+        "sql/39_c12_label_parts.sql": "d30cecfca636b1f280271afe1870d100ebba2352eea21d0d6c9f5e9dfab5f8d0",
+        "sql/40_c12_export_ids.sql": "22e30356ded3775efc4b62ec2dcf53216bfb36d5db319f98cf7b34b1f59e5ebd",
+        "sql/41_c12_importance.sql": "36db51a76a9ce73870f7e17d0e75fd7d524e9c6af2f67874fd34631b5866d7c2",
+        "sql/42_c12_checks.sql": "73eb1ba01e8ee83eefbbbed9e153483d4a22df45c0bfae6bbbfddeb183da39a4",
+        "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b",
+        "scripts/usd.py": "c0ef317f63937313f710b061a15d01877004f86137d07463d85a246ff18049ff",
+        "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+        "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+        "scripts/run_registered.py": "a117567b402c09afdb8c2b358bfdd4dec411f483d9966976f4a583cd68c25dbd",
+        "scripts/run_robustness.py": "e2e0c74b186071a83266c26a58a7e98495d4f30d8c3a92f7e59f982c26333aa3",
+        "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d"
+      },
+      "gate_b": {
+        "protocol_fixed": {
+          "date": "2026-11-09",
+          "pinned_sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+          "rho": 0.02,
+          "q": 0.01,
+          "primary_mode": "both",
+          "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+          "decision_covers": [
+            "few_capped_allowance_in_edges"
+          ],
+          "sizes": {
+            "U": 332396,
+            "E_U": 1283946,
+            "WCC": 1015867,
+            "E_WCC": 2121895
+          }
+        },
+        "constants": {
+          "path": "data/0-usd-token-list-and-prices/contract-12m/constants.json",
+          "sha256": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786",
+          "commit": "54fe292e0ecda6b0354f91edf335402cd13cf932"
+        },
+        "projection": {
+          "usd": 1.1359,
+          "campaign_usd": 11.7565,
+          "ledger_usd": 53.9986,
+          "jobs": {
+            "cohorts": {
+              "first": 491785898,
+              "whole": 1962737093
+            },
+            "proxies": {
+              "first": 38029460152,
+              "whole": 38029460152
+            },
+            "labels_w0": {
+              "first": 54400534564,
+              "whole": 54411020324
+            },
+            "labels_w1": {
+              "first": 50286970916,
+              "whole": 50297456676
+            },
+            "node_ids": {
+              "first": 300068690,
+              "whole": 1734129238
+            },
+            "importance": {
+              "first": 17131245220,
+              "whole": 17962709688
+            },
+            "checks": {
+              "first": 35440625874,
+              "whole": 35440625874
+            }
+          },
+          "bounds": {
+            "c12_cohort_tobs": 6483,
+            "c12_cohort_t1": 6343,
+            "c12_members": 28783,
+            "c12_proxies_tobs": 6483,
+            "c12_label_parts_w0": 7962,
+            "c12_label_parts_w1": 7995,
+            "c12_x_label_split_w0": 7962,
+            "c12_x_label_split_w1": 7995,
+            "c12_nodes": 1829719,
+            "c12_x_nodes": 1829719,
+            "c12_x_members": 28783,
+            "c12_x_allow_pairs_tobs": 95013432,
+            "c12_x_allow_pairs_t1": 95013432,
+            "c12_x_allow_pairs_unc_tobs": 95271409,
+            "c12_x_allow_pairs_unc_t1": 95271409,
+            "c12_x_transfer_pairs_tobs": 75327206,
+            "c12_x_transfer_pairs_t1": 75327206,
+            "c12_importance_raw": 3659440,
+            "c12_importance_tobs": 1829719,
+            "c12_importance_t1": 1829719,
+            "c12_inflow_untyped_tobs": 1,
+            "c12_inflow_untyped_t1": 1,
+            "c12_describe_allowances": 10,
+            "_n_events_cc": 603475784,
+            "_priced_rows": 508480292,
+            "_a_rows_bound": 94995492
+          }
+        }
+      },
+      "gate_a_decision": {
+        "structure_index": 14,
+        "structure_started_at": "2026-11-08T17:16:55+00:00",
+        "waited_for": [
+          "a run of balances after the last run of contracts",
+          "a run of anchors after the last run of contracts",
+          "a run of audit after the last run of contracts",
+          "a run of structure that passes (the last one did not)"
+        ]
+      },
+      "finished_at": "2026-11-08T22:18:50+00:00",
+      "passed": true
+    },
+    {
+      "step": "checks",
+      "started_at": "2026-11-08T22:23:34+00:00",
+      "head": "54fe292e0ecda6b0354f91edf335402cd13cf932",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+        "docs/discovery_protocol.md": "61ab8fc6fe951cbd1009aee035c254ee5a737e5b849d7948a97926591c56c9fb",
+        "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "2da8fed743d2cbad4d5dbcbab1151fcf7417966cff08672cf88988f858660754",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "267f7b954516105b18d3dc1868a3155b6eeb6a18e089399b9bf60317a53a1c36",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2",
+        "sql/36_c12_allow_triples.sql": "cc84dbb23e3aacc26d9b5cc76b8932b394ca4ad28a186eb26338cfcb4a27c127",
+        "sql/36_c12_user_events.sql": "ddae0dea8fd107c220363c32c1773b1aa9246a05fdf03da1f1a7e2c7ef370161",
+        "sql/36_c12_constants.sql": "130e93f2487faaa2c07534b05b86bfa7b3b44e5aa072485c539decd3f48b38fb",
+        "sql/37_c12_pairs.sql": "053d3e789e35bcf22ce52bd0f35951476116a8908fcbb4a0f1a0b83b1d722189",
+        "sql/38_c12_cohorts.sql": "5170902e4e2ead55baa7efb57650a8dd995d3f152935452b2ff92b453cd87f8e",
+        "sql/38_c12_proxies.sql": "01e12b65eb23773e33cebb39f0d2d44c3bb0aeafa8ce3a668acbbcc965d3a4af",
+        "sql/39_c12_label_parts.sql": "d30cecfca636b1f280271afe1870d100ebba2352eea21d0d6c9f5e9dfab5f8d0",
+        "sql/40_c12_export_ids.sql": "22e30356ded3775efc4b62ec2dcf53216bfb36d5db319f98cf7b34b1f59e5ebd",
+        "sql/41_c12_importance.sql": "36db51a76a9ce73870f7e17d0e75fd7d524e9c6af2f67874fd34631b5866d7c2",
+        "sql/42_c12_checks.sql": "73eb1ba01e8ee83eefbbbed9e153483d4a22df45c0bfae6bbbfddeb183da39a4",
+        "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b",
+        "scripts/usd.py": "c0ef317f63937313f710b061a15d01877004f86137d07463d85a246ff18049ff",
+        "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+        "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+        "scripts/run_registered.py": "a117567b402c09afdb8c2b358bfdd4dec411f483d9966976f4a583cd68c25dbd",
+        "scripts/run_robustness.py": "e2e0c74b186071a83266c26a58a7e98495d4f30d8c3a92f7e59f982c26333aa3",
+        "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d"
+      },
+      "gate_b": {
+        "protocol_fixed": {
+          "date": "2026-11-09",
+          "pinned_sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+          "rho": 0.02,
+          "q": 0.01,
+          "primary_mode": "both",
+          "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+          "decision_covers": [
+            "few_capped_allowance_in_edges"
+          ],
+          "sizes": {
+            "U": 332396,
+            "E_U": 1283946,
+            "WCC": 1015867,
+            "E_WCC": 2121895
+          }
+        },
+        "constants": {
+          "path": "data/0-usd-token-list-and-prices/contract-12m/constants.json",
+          "sha256": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786",
+          "commit": "54fe292e0ecda6b0354f91edf335402cd13cf932"
+        },
+        "projection": {
+          "usd": 0.0409,
+          "campaign_usd": 12.5933,
+          "ledger_usd": 54.8354,
+          "jobs": {
+            "checks": {
+              "first": 7187686366,
+              "whole": 7187686366
+            }
+          },
+          "bounds": {
+            "c12_x_members": 28783,
+            "_n_events_cc": 603475784,
+            "_priced_rows": 508480292,
+            "_a_rows_bound": 94995492
+          }
+        }
+      },
+      "gate_a_decision": {
+        "structure_index": 14,
+        "structure_started_at": "2026-11-08T17:16:55+00:00",
+        "waited_for": [
+          "a run of balances after the last run of contracts",
+          "a run of anchors after the last run of contracts",
+          "a run of audit after the last run of contracts",
+          "a run of structure that passes (the last one did not)"
+        ]
+      },
+      "finished_at": "2026-11-08T22:24:10+00:00",
+      "passed": true
+    },
+    {
+      "step": "download",
+      "started_at": "2026-11-08T22:26:03+00:00",
+      "head": "54fe292e0ecda6b0354f91edf335402cd13cf932",
+      "revision_commit": "d39775ceb3476fae8e120b0f8ed54568ec8183da 2026-11-07T18:33:38+09:00",
+      "sha256": {
+        "docs/revision_contract_graph.md": "36102ce18b4dc34464d8d50dfec564f7df888d2ac27a90671dd04b51060c3e1b",
+        "docs/discovery_protocol.md": "61ab8fc6fe951cbd1009aee035c254ee5a737e5b849d7948a97926591c56c9fb",
+        "config/overlay_contract12m.yaml": "7c6118a5bd82b67bfa1292edf53cbff2c6c8b5052af28c328dad259a26091bfe",
+        "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833",
+        "scripts/run_contract12m_pipeline.py": "2da8fed743d2cbad4d5dbcbab1151fcf7417966cff08672cf88988f858660754",
+        "scripts/run_bq.py": "9484f1b1473590d3f1c7bf783f461af7aba1728f3c8c58c6b628f3b8f5c5a205",
+        "scripts/common.py": "714ba2ff89fed25ca0ccdc13c8de1963d54432983ae6fe935fd572d7d546c984",
+        "scripts/check_account_code.py": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+        "scripts/balance_audit.py": "8656ca08b85737cb0dc165185542226e30a1e0b3056d949197eab6a9dfbc98c2",
+        "scripts/download_table.py": "b1d17b2eeb87c400fefecef3e0d6fcaf98b3aa2c3e4faccb42c3fab0783ca80e",
+        "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+        "scripts/run_discovery.py": "267f7b954516105b18d3dc1868a3155b6eeb6a18e089399b9bf60317a53a1c36",
+        "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+        "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+        "scripts/graphs.py": "f1a7ea8b29edc4d88e91874ed7f6ad3dc6826c6586afaba06ce7d7c16f90aa37",
+        "sql/24_c12_logs5.sql": "c273f09eb2fc09f9249064a75786abdb3ca5a4fa61083949bbcd8dcee0ccad21",
+        "sql/25_c12_ends.sql": "89a46ff5c3d960d7c6fea102811fab9da76c769b8b118aa675ed6fce3134c6c9",
+        "sql/26_c12_tx_senders.sql": "f0248d0d55d47a664fb03ff12db727a6cec681a338e390fdbcd2fac19752187b",
+        "sql/27_c12_emitters.sql": "8900a32ad0eab231251d878e16825be0bda708f812cbd024395b951c68cce474",
+        "sql/28_c12_creations.sql": "232ee6cab8f5affafae2b2a968f1d963c175c4816cd9fa4109a722cef01904bd",
+        "sql/29_c12_rpc_queue.sql": "116164f5ce66894ca7947f525b97d5823c900e62d6ecf8da472d087dc77f8a29",
+        "sql/31_c12_contracts.sql": "08e932d0f62eae1f73254e099ea8a50d3d9108c3b043deec409653951373be1c",
+        "sql/32_c12_bal_pre.sql": "c4ec9cbd7eeade4fedff7253f605aec21afec2ac5ab1611ec1a92ff358215c6b",
+        "sql/33_c12_bal.sql": "35999be73f81df5c43ec16e47ad3f16c30b93fb2b6ef11af698a05f7d893b82c",
+        "sql/34_c12_anchor_blocks.sql": "bb56b2c8e6574f23fc5e07a1670cd8e237c3e318399e671dcf6802b913ca6491",
+        "sql/35_c12_structure.sql": "b6dac39ff9a3274b45927906b04bad453357d98fa5d5a49104b3a6a86e5604e8",
+        "sql/43_c12_bal_audit.sql": "7679609a3747055095f8440756d44dc79f2b328cc69d1359a3d961fc2bbdf9b2",
+        "sql/36_c12_allow_triples.sql": "cc84dbb23e3aacc26d9b5cc76b8932b394ca4ad28a186eb26338cfcb4a27c127",
+        "sql/36_c12_user_events.sql": "ddae0dea8fd107c220363c32c1773b1aa9246a05fdf03da1f1a7e2c7ef370161",
+        "sql/36_c12_constants.sql": "130e93f2487faaa2c07534b05b86bfa7b3b44e5aa072485c539decd3f48b38fb",
+        "sql/37_c12_pairs.sql": "053d3e789e35bcf22ce52bd0f35951476116a8908fcbb4a0f1a0b83b1d722189",
+        "sql/38_c12_cohorts.sql": "5170902e4e2ead55baa7efb57650a8dd995d3f152935452b2ff92b453cd87f8e",
+        "sql/38_c12_proxies.sql": "01e12b65eb23773e33cebb39f0d2d44c3bb0aeafa8ce3a668acbbcc965d3a4af",
+        "sql/39_c12_label_parts.sql": "d30cecfca636b1f280271afe1870d100ebba2352eea21d0d6c9f5e9dfab5f8d0",
+        "sql/40_c12_export_ids.sql": "22e30356ded3775efc4b62ec2dcf53216bfb36d5db319f98cf7b34b1f59e5ebd",
+        "sql/41_c12_importance.sql": "36db51a76a9ce73870f7e17d0e75fd7d524e9c6af2f67874fd34631b5866d7c2",
+        "sql/42_c12_checks.sql": "73eb1ba01e8ee83eefbbbed9e153483d4a22df45c0bfae6bbbfddeb183da39a4",
+        "scripts/labels.py": "4ba9df382f1ad49a5954728b5c43ae1a9025ebad675ed284fd65dd630eb5cb8b",
+        "scripts/usd.py": "c0ef317f63937313f710b061a15d01877004f86137d07463d85a246ff18049ff",
+        "scripts/run_same_window.py": "ca3e38958dc73ae9137563a026eb907c3ead45dfaa894c3e3fdc5dab5976a892",
+        "scripts/run_holdout.py": "4a4eabdb9f0ffdbcdd6f6d9a4b81be8f9486d7f89a2c3655a8cd4654450556b2",
+        "scripts/run_registered.py": "a117567b402c09afdb8c2b358bfdd4dec411f483d9966976f4a583cd68c25dbd",
+        "scripts/run_robustness.py": "e2e0c74b186071a83266c26a58a7e98495d4f30d8c3a92f7e59f982c26333aa3",
+        "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d"
+      },
+      "gate_b": {
+        "protocol_fixed": {
+          "date": "2026-11-09",
+          "pinned_sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+          "rho": 0.02,
+          "q": 0.01,
+          "primary_mode": "both",
+          "author_decision": "The discovery-order test goes on after the stop flag few_capped_allowance_in_edges of section 7, the only flag the pilot set. No change that this protocol or the revision allows lifts the stop; the test is the only direct test of the question of section 1; the decision was taken before any weight, constant, importance, score or crawl of the revision existed (revision section 13, amendment of 9 November 2026). It covers that flag only (decision_covers), so every other refusal of section 8 stays.",
+          "decision_covers": [
+            "few_capped_allowance_in_edges"
+          ],
+          "sizes": {
+            "U": 332396,
+            "E_U": 1283946,
+            "WCC": 1015867,
+            "E_WCC": 2121895
+          }
+        },
+        "constants": {
+          "path": "data/0-usd-token-list-and-prices/contract-12m/constants.json",
+          "sha256": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786",
+          "commit": "54fe292e0ecda6b0354f91edf335402cd13cf932"
+        },
+        "projection": null
+      },
+      "gate_a_decision": {
+        "structure_index": 14,
+        "structure_started_at": "2026-11-08T17:16:55+00:00",
+        "waited_for": [
+          "a run of balances after the last run of contracts",
+          "a run of anchors after the last run of contracts",
+          "a run of audit after the last run of contracts",
+          "a run of structure that passes (the last one did not)"
+        ]
+      },
+      "finished_at": "2026-11-08T22:34:15+00:00",
+      "passed": true
+    }
+  ],
+  "jobs": [
+    {
+      "step": "subset",
+      "key": "logs5",
+      "no": 24,
+      "job_id": "9b565791-e7d2-416e-a23f-ef9ccaa565b7",
+      "at": "2026-11-07T09:36:44+00:00",
+      "bytes_dry_run": 226193664203,
+      "bytes_expected": 226193664203,
+      "bytes_first_expected": 226193664203,
+      "bytes_billed": 226194620416,
+      "usd": 1.2858
+    },
+    {
+      "step": "ends",
+      "key": "ends",
+      "no": 25,
+      "job_id": "f56212ff-aa39-49a2-be12-2a049811e874",
+      "at": "2026-11-07T09:38:53+00:00",
+      "bytes_dry_run": 68215127310,
+      "bytes_expected": 142631629830,
+      "bytes_first_expected": 68215127310,
+      "bytes_billed": 72600256512,
+      "usd": 0.4127
+    },
+    {
+      "step": "activity",
+      "key": "tx_senders",
+      "no": 26,
+      "job_id": "ad49e4ce-409f-46de-822e-aa424a3e2318",
+      "at": "2026-11-07T09:41:19+00:00",
+      "bytes_dry_run": 149955472516,
+      "bytes_expected": 149935194232,
+      "bytes_first_expected": 149935194232,
+      "bytes_billed": 149914910720,
+      "usd": 0.8522
+    },
+    {
+      "step": "activity",
+      "key": "emitters",
+      "no": 27,
+      "job_id": "92177423-099f-4853-b236-13c1e53c5098",
+      "at": "2026-11-07T09:42:14+00:00",
+      "bytes_dry_run": 261314222413,
+      "bytes_expected": 261302862060,
+      "bytes_first_expected": 261302862060,
+      "bytes_billed": 261233836032,
+      "usd": 1.4849
+    },
+    {
+      "step": "activity",
+      "key": "creations",
+      "no": 28,
+      "job_id": "2e2fe045-8ef1-43f3-ae4f-049c30f9644a",
+      "at": "2026-11-07T09:42:34+00:00",
+      "bytes_dry_run": 23608899228,
+      "bytes_expected": 23596141512,
+      "bytes_first_expected": 23596141512,
+      "bytes_billed": 23592960000,
+      "usd": 0.1341
+    },
+    {
+      "step": "queue",
+      "key": "rpc_queue",
+      "no": 29,
+      "job_id": "d71a5957-2524-4619-b1a3-ea530c30be2f",
+      "at": "2026-11-07T09:44:26+00:00",
+      "bytes_dry_run": 4199451916,
+      "bytes_expected": 4249660190,
+      "bytes_first_expected": 4249660190,
+      "bytes_billed": 4199546880,
+      "usd": 0.0239
+    },
+    {
+      "step": "load",
+      "key": "account_types",
+      "no": 30,
+      "job_id": "4cb40655-dbcf-4028-a172-17ee4a624d4d",
+      "at": "2026-11-08T12:59:03+00:00",
+      "bytes_billed": 0,
+      "usd": 0.0
+    },
+    {
+      "step": "contracts",
+      "key": "contracts",
+      "no": 31,
+      "job_id": "c35c2467-da42-46b1-9e7c-db9d696a8442",
+      "at": "2026-11-08T13:01:17+00:00",
+      "bytes_dry_run": 707064978,
+      "bytes_expected": 146753439990,
+      "bytes_first_expected": 752097068,
+      "bytes_billed": 145140744192,
+      "usd": 0.825
+    },
+    {
+      "step": "balances",
+      "key": "bal_pre",
+      "no": 32,
+      "job_id": "00ff6988-3fde-4f52-a7d5-e60ee1057ab0",
+      "at": "2026-11-08T13:03:35+00:00",
+      "bytes_dry_run": 555355504044,
+      "bytes_expected": 615238971910,
+      "bytes_first_expected": 615238971910,
+      "bytes_billed": 555356258304,
+      "usd": 3.1568
+    },
+    {
+      "step": "balances",
+      "key": "bal",
+      "no": 33,
+      "job_id": "723a5696-5c6d-4f81-9392-889d67753ffe",
+      "at": "2026-11-08T13:04:18+00:00",
+      "bytes_dry_run": 243523362634,
+      "bytes_expected": 249433591738,
+      "bytes_first_expected": 249433591738,
+      "bytes_billed": 243523387392,
+      "usd": 1.3843
+    },
+    {
+      "step": "anchors",
+      "key": "anchor_blocks",
+      "no": 34,
+      "job_id": "ea76793e-ef7b-450a-a1eb-418dfffea39c",
+      "at": "2026-11-08T13:06:00+00:00",
+      "bytes_dry_run": 33984160,
+      "bytes_expected": 33562960,
+      "bytes_first_expected": 33562960,
+      "bytes_billed": 22020096,
+      "usd": 0.0001
+    },
+    {
+      "step": "audit",
+      "key": "bal_audit",
+      "no": 43,
+      "job_id": "343c2004-c1ac-4d2d-ae96-ded2accfbbba",
+      "at": "2026-11-08T13:07:41+00:00",
+      "bytes_dry_run": 410262034,
+      "bytes_expected": 420747644,
+      "bytes_first_expected": 420747644,
+      "bytes_billed": 411041792,
+      "usd": 0.0023
+    },
+    {
+      "step": "structure",
+      "key": "structure",
+      "no": 35,
+      "job_id": "6f81cf89-24f7-419b-874c-4e6c198cb493",
+      "at": "2026-11-08T13:21:56+00:00",
+      "bytes_dry_run": 49698407896,
+      "bytes_expected": 67333395476,
+      "bytes_first_expected": 67333395476,
+      "bytes_billed": 39692795904,
+      "usd": 0.2256
+    },
+    {
+      "step": "contracts",
+      "key": "contracts",
+      "no": 31,
+      "job_id": "a8a2fcde-3a45-4dc8-a0d6-e15d35726fba",
+      "at": "2026-11-08T17:15:18+00:00",
+      "bytes_dry_run": 996236228,
+      "bytes_expected": 148056446780,
+      "bytes_first_expected": 1449887308,
+      "bytes_billed": 145715363840,
+      "usd": 0.8283
+    },
+    {
+      "step": "structure",
+      "key": "structure",
+      "no": 35,
+      "job_id": "509452f8-f95c-4c9c-9e0f-1e76fca1a925",
+      "at": "2026-11-08T17:17:31+00:00",
+      "bytes_dry_run": 48672114411,
+      "bytes_expected": 66113561652,
+      "bytes_first_expected": 66113561652,
+      "bytes_billed": 38458621952,
+      "usd": 0.2186
+    },
+    {
+      "step": "constants",
+      "key": "triples",
+      "no": 36,
+      "job_id": "0700fe66-257e-495f-8628-eccf433bf848",
+      "at": "2026-11-08T19:55:43+00:00",
+      "bytes_dry_run": 8702078558,
+      "bytes_expected": 61334021484,
+      "bytes_first_expected": 61334021484,
+      "bytes_billed": 8702132224,
+      "usd": 0.0495
+    },
+    {
+      "step": "constants",
+      "key": "user_events",
+      "no": 36,
+      "job_id": "d3c01af3-2961-4611-93ee-ef7ad981c58a",
+      "at": "2026-11-08T19:56:49+00:00",
+      "bytes_dry_run": 116347963473,
+      "bytes_expected": 136931996712,
+      "bytes_first_expected": 136931996712,
+      "bytes_billed": 116348944384,
+      "usd": 0.6614
+    },
+    {
+      "step": "constants",
+      "key": "constants",
+      "no": 36,
+      "job_id": "c00be89a-f2ab-400b-b66e-63dd1372d929",
+      "at": "2026-11-08T19:57:58+00:00",
+      "bytes_dry_run": 9497492170,
+      "bytes_expected": 14530627456,
+      "bytes_first_expected": 14530627456,
+      "bytes_billed": 8908701696,
+      "usd": 0.0506
+    },
+    {
+      "step": "pairs",
+      "key": "pairs",
+      "no": 37,
+      "job_id": "ffad5802-ae67-4df8-8fc1-64682d5d94f8",
+      "at": "2026-11-08T20:02:22+00:00",
+      "bytes_dry_run": 28122176439,
+      "bytes_expected": 38114908584,
+      "bytes_first_expected": 38018974392,
+      "bytes_billed": 28219277312,
+      "usd": 0.1604
+    },
+    {
+      "step": "rest",
+      "key": "cohorts",
+      "no": 38,
+      "job_id": "631ef597-2a83-4458-bfc6-6b3ed0af2ab6",
+      "at": "2026-11-08T20:06:23+00:00",
+      "bytes_dry_run": 481546492,
+      "bytes_expected": 1962737093,
+      "bytes_first_expected": 491785898,
+      "bytes_billed": 0,
+      "usd": 0.0,
+      "error": "400 GET https://bigquery.googleapis.com/bigquery/v2/projects/dissertation-bq/queries/631ef597-2a83-4458-bfc6-6b3ed0af2ab6?maxResults=0&location=US&prettyPrint=false: Billing has not been enabled for this project. Enable billing at https://console.cloud.google.com/billing. Datasets must have a default expiration time and default partition expiration time of less than 60 days while in sandbox mode. at [14:1]\n\nLocation: US\nJob ID: 631ef597-2a83-4458-bfc6-6b3ed0af2ab6\n"
+    },
+    {
+      "step": "rest",
+      "key": "cohorts",
+      "no": 38,
+      "job_id": "d0d9ec4b-edb3-4cda-863e-4e47eee1499a",
+      "at": "2026-11-08T22:13:39+00:00",
+      "bytes_dry_run": 481546492,
+      "bytes_expected": 1962737093,
+      "bytes_first_expected": 491785898,
+      "bytes_billed": 1729101824,
+      "usd": 0.0098
+    },
+    {
+      "step": "rest",
+      "key": "proxies",
+      "no": 38,
+      "job_id": "788ef37f-cde2-4ab7-af6c-4c565db3e0ae",
+      "at": "2026-11-08T22:14:08+00:00",
+      "bytes_dry_run": 22578445067,
+      "bytes_expected": 38029460152,
+      "bytes_first_expected": 38029460152,
+      "bytes_billed": 22578987008,
+      "usd": 0.1283
+    },
+    {
+      "step": "rest",
+      "key": "labels_w0",
+      "no": 39,
+      "job_id": "1c001df9-f46e-40e1-9ae4-f75e5f1cb32d",
+      "at": "2026-11-08T22:15:32+00:00",
+      "bytes_dry_run": 54390438240,
+      "bytes_expected": 54411020324,
+      "bytes_first_expected": 54400534564,
+      "bytes_billed": 54401171456,
+      "usd": 0.3092
+    },
+    {
+      "step": "rest",
+      "key": "labels_w1",
+      "no": 39,
+      "job_id": "44b3872b-b361-4506-89ab-93a4739613a4",
+      "at": "2026-11-08T22:16:50+00:00",
+      "bytes_dry_run": 50277542745,
+      "bytes_expected": 50297456676,
+      "bytes_first_expected": 50286970916,
+      "bytes_billed": 50288656384,
+      "usd": 0.2859
+    },
+    {
+      "step": "rest",
+      "key": "node_ids",
+      "no": 40,
+      "job_id": "3fb5e681-4d1f-4cef-b277-5b286d746e9b",
+      "at": "2026-11-08T22:17:46+00:00",
+      "bytes_dry_run": 286230407,
+      "bytes_expected": 1734129238,
+      "bytes_first_expected": 300068690,
+      "bytes_billed": 1182793728,
+      "usd": 0.0067
+    },
+    {
+      "step": "rest",
+      "key": "importance",
+      "no": 41,
+      "job_id": "243c74f1-d7da-480f-a909-a4ee4fead6aa",
+      "at": "2026-11-08T22:18:42+00:00",
+      "bytes_dry_run": 16664247688,
+      "bytes_expected": 17937164088,
+      "bytes_first_expected": 17131245220,
+      "bytes_billed": 17040408576,
+      "usd": 0.0969
+    },
+    {
+      "step": "checks",
+      "key": "checks",
+      "no": 42,
+      "job_id": "11c2c46c-9564-4c39-a2ab-0ea52fb7ff63",
+      "at": "2026-11-08T22:24:09+00:00",
+      "bytes_dry_run": 6976365919,
+      "bytes_expected": 7187686366,
+      "bytes_first_expected": 7187686366,
+      "bytes_billed": 6977224704,
+      "usd": 0.0397
+    }
+  ],
+  "results": {
+    "subset": {
+      "c12_logs5": 1240275042
+    },
+    "ends": {
+      "c12_pairs5": 73058133,
+      "c12_ends": 25537280
+    },
+    "activity": {
+      "c12_tx_senders": 17477779,
+      "c12_emitters": 1651920,
+      "c12_creations": 56193
+    },
+    "queue": {
+      "c12_rpc_queue": 6230270
+    },
+    "typing": {
+      "addresses": 6230270,
+      "by_class": {
+        "contract": 2022375,
+        "eoa": 2909509,
+        "eoa_7702": 1165025,
+        "smart_account": 133361
+      },
+      "by_reason": {
+        "cohort": {
+          "contract": 7398,
+          "smart_account": 45
+        },
+        "spender": {
+          "contract": 2085,
+          "eoa": 43,
+          "eoa_7702": 9,
+          "smart_account": 2
+        },
+        "counterparty": {
+          "contract": 2012838,
+          "eoa": 2907748,
+          "eoa_7702": 1164793,
+          "smart_account": 133309
+        },
+        "audit_sender": {
+          "eoa": 960,
+          "eoa_7702": 40
+        },
+        "audit_untyped": {
+          "contract": 54,
+          "eoa": 758,
+          "eoa_7702": 183,
+          "smart_account": 5
+        }
+      },
+      "emitters_by_class": {
+        "contract": 1163575,
+        "eoa": 10561,
+        "eoa_7702": 212109,
+        "smart_account": 123743
+      },
+      "created_by_class": {
+        "contract": 30007,
+        "eoa": 7070,
+        "smart_account": 89
+      },
+      "audit_senders_with_code": 0,
+      "types_json": {
+        "rpc": "arb1.arbitrum.io",
+        "block_number": 513216506,
+        "block_hex": "0x1e970ffa",
+        "read_at": "2026-11-07T09:47:01+00:00",
+        "pinned_requested": 513216506,
+        "pinned_served": true,
+        "served_by": [
+          "arb1.arbitrum.io",
+          "arbitrum-one.public.blastapi.io"
+        ],
+        "resume_key": {
+          "script_sha256": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+          "rules_sha256": "ce7324fb153da0b7e6aeb69083ccd5db40024dac5c639a46d0e53a571ef317d6",
+          "input_sha256": "dd06c69369dc99e096632ef89c19e2012a9e508e598e6db53a1d213f40c3faea",
+          "input_n": 6230270
+        },
+        "rules": {
+          "validate_user_op": [
+            "633a871cdd",
+            "6319822f7c"
+          ],
+          "validate_paymaster_user_op": [
+            "63f465c77e",
+            "6352b7512c"
+          ],
+          "erc1967_slot": "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc",
+          "safe_slot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "entry_points": [
+            "0x0000000071727de22e5e9d8baf0edac6f37da032",
+            "0x4337084d9e255ff0702461cf8895ce9e3b5ff108",
+            "0x433709009b8330fda32311df1c2afa402ed8d009",
+            "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+          ],
+          "safe_threshold_max": 1000,
+          "calls": [
+            "0xe75235b8",
+            "0xa0e67e2b",
+            "0xb0d691fe"
+          ],
+          "system_address_max": 255,
+          "master_copy": [
+            "63a619486e",
+            "7fa619486e00000000000000000000000000000000000000000000000000000000"
+          ],
+          "eip1167": [
+            "363d3d373d3d3d363d73",
+            "5af43d82803e903d91602b57fd5bf3"
+          ]
+        },
+        "counts": {
+          "none": 2909509,
+          "contract": 2155736,
+          "eip7702": 1165025
+        },
+        "n": 6230270,
+        "counts_account_class": {
+          "eoa": 2909509,
+          "contract": 2022375,
+          "eoa_7702": 1165025,
+          "smart_account": 133361
+        },
+        "counts_proxy_kind": {
+          "none": 5156938,
+          "erc1967": 524454,
+          "eip1167": 503516,
+          "safe": 45362
+        },
+        "counts_wallet_kind": {
+          "": 6096909,
+          "erc4337": 87157,
+          "safe": 46204
+        },
+        "pending": 0,
+        "probes": {
+          "storage_reads": 524523,
+          "safe_slots": 45362,
+          "implementations": 14933,
+          "representatives": 582231,
+          "copied": 1002766,
+          "erc1967": 524454,
+          "safe_proxies": 45362,
+          "threshold_hashes": 923
+        },
+        "aborted_addresses": [],
+        "rpc_calls": {
+          "arb1.arbitrum.io": 310289,
+          "arbitrum-one.public.blastapi.io": 12015679
+        },
+        "complete": true,
+        "updated_at": "2026-11-08T12:49:57+00:00",
+        "resume_key_history": [
+          {
+            "at": "2026-11-08T03:14:04+00:00",
+            "from_script_sha256": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+            "to_script_sha256": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+            "from_commit": "d39775c",
+            "to_commit": "52d3aa1",
+            "reason": "revision section 4.3, amendment of 8 November 2026: an error of an Arbitrum Stylus program that cannot run at the block read is the call's own failure; before the change every such answer stopped the reads, so no row typed before it rests on such an answer"
+          }
+        ]
+      },
+      "types_sha256": {
+        "c12_account_types.part000.parquet": "1ec27df9eb342b5a8f2a30de27c405ee7cb47d8703f56cf9508827c9898a2896",
+        "c12_account_types.part001.parquet": "d0a6872e14cdd0e5ffc76080fa7e5576e3d7409b13422b43b2dfbaba32bbc5a7",
+        "c12_account_types.part002.parquet": "01f7ac89709052d29d331ffde056b0f9aafb9a7eca8f69136fe64d13c7afcb46",
+        "c12_account_types.part003.parquet": "0af53d2554984e4d80542368e3bbb1e77df5e84414645afa32aa3829fbc76c42",
+        "c12_account_types.part004.parquet": "9c76251334e0e4a8486c7f8f8ecb5352110e2195affcd607fd7d44d65d74cd74",
+        "c12_account_types.part005.parquet": "98eef69505e42beee5b1063ba5251c77a006cb4c8198d03475a55af3fdbbea09",
+        "c12_account_types.part006.parquet": "ed0e22d9f2317dabf2d48ed54de84d067c76530db8de5fa55a246d25100f1b6f",
+        "c12_account_types.part007.parquet": "e24b59c48ba4aa4744d3ed478ae04639c1dbcb9f4640964b8ebf805bad1ce916",
+        "c12_account_types.part008.parquet": "a1f0dbafabee01eba5f768d35423fa96fd6f5f796d1c3beb3bb791d4e1ded99f",
+        "c12_account_types.part009.parquet": "8084b180b0d75f93fed3b69986ca73de62fea72dd0183b2a456b94bcfacb4a1d",
+        "c12_account_types.part010.parquet": "3c4558b37c70cc22bbee0572018f48c3b53a621c4709adb450c63a476593976f",
+        "c12_account_types.part011.parquet": "bfc9d8fc03f66fc337a2e18d38888d8bd78bda3f2376d478c4db2e586526d32a",
+        "c12_account_types.part012.parquet": "4b64b893285e1856d6549c48fcd319653d8cb1c8170a8e805bd3c9d3fc9989e2",
+        "c12_account_types.part013.parquet": "2ec3e6dde7a071e2f51db58b7c6e5409b38f84cb6fad546dd0307b35ab55b30e",
+        "c12_account_types.part014.parquet": "29a2d8d67e9278a071a10aac79ea7a2fc22dffab8cc351b26065c7a0f3e2ef6f",
+        "c12_account_types.part015.parquet": "0939b8d7e9f6829a7a72a9901303ceca8d1d3ed6618b72c29ef1ee1753cedf77",
+        "c12_account_types.part016.parquet": "ef9273c573a53830b479e5f32189a5ca0dc09da48183b5bc478f57f7e963fd4d"
+      }
+    },
+    "load": {
+      "job_id": "4cb40655-dbcf-4028-a172-17ee4a624d4d",
+      "rows": 6230270,
+      "schema": {
+        "address": "STRING",
+        "code_kind": "STRING",
+        "account_class": "STRING",
+        "code_size": "INTEGER",
+        "code_hash": "STRING",
+        "proxy_kind": "STRING",
+        "implementation": "STRING",
+        "has_master_copy": "BOOLEAN",
+        "threshold": "INTEGER",
+        "n_owners": "INTEGER",
+        "entry_point": "STRING",
+        "has_validate_userop": "BOOLEAN",
+        "has_paymaster_selector": "BOOLEAN",
+        "wallet_kind": "STRING"
+      },
+      "source_sha256": {
+        "c12_account_types.part000.parquet": "1ec27df9eb342b5a8f2a30de27c405ee7cb47d8703f56cf9508827c9898a2896",
+        "c12_account_types.part001.parquet": "d0a6872e14cdd0e5ffc76080fa7e5576e3d7409b13422b43b2dfbaba32bbc5a7",
+        "c12_account_types.part002.parquet": "01f7ac89709052d29d331ffde056b0f9aafb9a7eca8f69136fe64d13c7afcb46",
+        "c12_account_types.part003.parquet": "0af53d2554984e4d80542368e3bbb1e77df5e84414645afa32aa3829fbc76c42",
+        "c12_account_types.part004.parquet": "9c76251334e0e4a8486c7f8f8ecb5352110e2195affcd607fd7d44d65d74cd74",
+        "c12_account_types.part005.parquet": "98eef69505e42beee5b1063ba5251c77a006cb4c8198d03475a55af3fdbbea09",
+        "c12_account_types.part006.parquet": "ed0e22d9f2317dabf2d48ed54de84d067c76530db8de5fa55a246d25100f1b6f",
+        "c12_account_types.part007.parquet": "e24b59c48ba4aa4744d3ed478ae04639c1dbcb9f4640964b8ebf805bad1ce916",
+        "c12_account_types.part008.parquet": "a1f0dbafabee01eba5f768d35423fa96fd6f5f796d1c3beb3bb791d4e1ded99f",
+        "c12_account_types.part009.parquet": "8084b180b0d75f93fed3b69986ca73de62fea72dd0183b2a456b94bcfacb4a1d",
+        "c12_account_types.part010.parquet": "3c4558b37c70cc22bbee0572018f48c3b53a621c4709adb450c63a476593976f",
+        "c12_account_types.part011.parquet": "bfc9d8fc03f66fc337a2e18d38888d8bd78bda3f2376d478c4db2e586526d32a",
+        "c12_account_types.part012.parquet": "4b64b893285e1856d6549c48fcd319653d8cb1c8170a8e805bd3c9d3fc9989e2",
+        "c12_account_types.part013.parquet": "2ec3e6dde7a071e2f51db58b7c6e5409b38f84cb6fad546dd0307b35ab55b30e",
+        "c12_account_types.part014.parquet": "29a2d8d67e9278a071a10aac79ea7a2fc22dffab8cc351b26065c7a0f3e2ef6f",
+        "c12_account_types.part015.parquet": "0939b8d7e9f6829a7a72a9901303ceca8d1d3ed6618b72c29ef1ee1753cedf77",
+        "c12_account_types.part016.parquet": "ef9273c573a53830b479e5f32189a5ca0dc09da48183b5bc478f57f7e963fd4d"
+      }
+    },
+    "contracts": {
+      "c12_contracts": 1829719,
+      "c12_user_accounts": 21877279,
+      "c12_events_cc": 603475784,
+      "smart_account_extension": {
+        "typed_contracts": 2022375,
+        "moved": 192656,
+        "moved_by_code_hash": 37337,
+        "moved_by_implementation": 155319,
+        "contracts_after": 1829719
+      },
+      "expected": {
+        "c12_contracts": 1829719,
+        "c12_user_accounts": 21877279
+      },
+      "previous": {
+        "c12_contracts": 2022375,
+        "c12_user_accounts": 21684623,
+        "c12_events_cc": 614666920
+      }
+    },
+    "balances": {
+      "c12_bal_pre": 305642,
+      "c12_bal": 6033263
+    },
+    "anchors": {
+      "blocks": [
+        {
+          "anchor": "t1",
+          "ts": "2026-03-31T23:59:59+00:00",
+          "block_number": 447736930
+        },
+        {
+          "anchor": "tobs",
+          "ts": "2026-06-30T23:59:59+00:00",
+          "block_number": 479089705
+        },
+        {
+          "anchor": "end_0930",
+          "ts": "2026-09-30T23:59:59+00:00",
+          "block_number": 510496863
+        }
+      ],
+      "typing_block": 513216506,
+      "typing_block_after_end_0930": true
+    },
+    "audit": {
+      "c12_bal_audit": 1500,
+      "exit_code": 0,
+      "balance_audit": {
+        "mode": "archive",
+        "block": 479089705,
+        "hosts": [
+          "arb1.arbitrum.io",
+          "arbitrum-one.public.blastapi.io"
+        ],
+        "rows": 1500,
+        "judged": 1500,
+        "matched": 1493,
+        "share": 0.995333,
+        "threshold": 0.98,
+        "passed": true
+      }
+    },
+    "structure": {
+      "c12_struct_t1": 2562930,
+      "layers": {
+        "allow_capped": 17905,
+        "allow_uncapped": 275762,
+        "transfer": 2257643
+      },
+      "self_pairs": {
+        "allow_capped": 35,
+        "allow_uncapped": 155,
+        "transfer": 11430
+      },
+      "pilot_exit_code": 2,
+      "feasibility": {
+        "path": "data/2-processed-tables-and-evaluations/revised-contract-12m/discovery/feasibility_t1.json",
+        "sha256": "1734f49ea2378a74319572d703ce1397ae74c724adf3a1060e96cb9ea4a52c4d",
+        "window": "t1",
+        "U": 332396,
+        "E_U": 1283946,
+        "WCC": 1015867,
+        "E_WCC": 2121895,
+        "rho": 0.02,
+        "q": 0.01,
+        "primary_mode": "both",
+        "stopped": true,
+        "struct_rows": 2562930,
+        "duplicate_rows": 0,
+        "system_addresses": 0,
+        "created_at": "2026-11-08T17:19:03+00:00",
+        "seconds": 63.5
+      },
+      "pilot_not_committed": [],
+      "allow_capped_below_stop": false
+    },
+    "constants": {
+      "constants": {
+        "m_transfer_usd": 160.0,
+        "m_allowance_usd": 0.071,
+        "cap_allowance_usd": 16000.0,
+        "cap_user_usd": 31000.0,
+        "b_transfer": 0.006866326804175686,
+        "b_allowance": 15.473412516452251
+      },
+      "path": "data/0-usd-token-list-and-prices/contract-12m/constants.json",
+      "constants_sha256": "b7fc32045c46e12fe513078179893fc0098661e4ef190857a6bd2909cb7e8786",
+      "rows": {
+        "c12_allow_triples": 648204,
+        "c12_user_events": 152257072,
+        "c12_constants": 1
+      }
+    },
+    "pairs": {
+      "rows": {
+        "c12_transfer_pairs": 4849782,
+        "c12_allow_pairs": 132946,
+        "c12_allow_pairs_unc": 578476
+      }
+    },
+    "rest": {
+      "rows": {
+        "c12_cohort_tobs": 6443,
+        "c12_cohort_t1": 6292,
+        "c12_members": 28783,
+        "c12_proxies_tobs": 6443,
+        "c12_label_parts_w0": 7962,
+        "c12_label_parts_w1": 7995,
+        "c12_x_label_split_w0": 7962,
+        "c12_x_label_split_w1": 7995,
+        "c12_nodes": 1403959,
+        "c12_x_nodes": 1403959,
+        "c12_x_members": 28783,
+        "c12_x_allow_pairs_tobs": 115006,
+        "c12_x_allow_pairs_t1": 17940,
+        "c12_x_allow_pairs_unc_tobs": 302559,
+        "c12_x_allow_pairs_unc_t1": 275917,
+        "c12_x_transfer_pairs_tobs": 2580709,
+        "c12_x_transfer_pairs_t1": 2269073,
+        "c12_importance_raw": 1526318,
+        "c12_importance_tobs": 809296,
+        "c12_importance_t1": 715480,
+        "c12_inflow_untyped_tobs": 1,
+        "c12_inflow_untyped_t1": 1,
+        "c12_describe_allowances": 10,
+        "u12_cohort_tobs": 6483,
+        "u12_cohort_t1": 6343,
+        "u12_labels_w0": 7962,
+        "u12_labels_w1": 7995
+      },
+      "identities": {
+        "c12_x_allow_pairs_t1": {
+          "expected": 17940,
+          "actual": 17940
+        },
+        "c12_x_allow_pairs_unc_t1": {
+          "expected": 275917,
+          "actual": 275917
+        },
+        "c12_x_transfer_pairs_t1": {
+          "expected": 2269073,
+          "actual": 2269073
+        },
+        "c12_proxies_tobs": {
+          "expected": 6443,
+          "actual": 6443
+        },
+        "c12_members": {
+          "expected": 28783,
+          "actual": 28783
+        },
+        "c12_x_members": {
+          "expected": 28783,
+          "actual": 28783
+        },
+        "c12_x_nodes": {
+          "expected": 1403959,
+          "actual": 1403959
+        },
+        "c12_label_parts_w0": {
+          "expected": 7962,
+          "actual": 7962
+        },
+        "c12_label_parts_w1": {
+          "expected": 7995,
+          "actual": 7995
+        },
+        "c12_x_label_split_w0": {
+          "expected": 7962,
+          "actual": 7962
+        },
+        "c12_x_label_split_w1": {
+          "expected": 7995,
+          "actual": 7995
+        },
+        "c12_inflow_untyped_tobs": {
+          "expected": 1,
+          "actual": 1
+        },
+        "c12_inflow_untyped_t1": {
+          "expected": 1,
+          "actual": 1
+        }
+      }
+    },
+    "checks": {
+      "checks": {
+        "pair_ends_user_account_t1": 0,
+        "pairs_duplicate": 0,
+        "proxies_rows": 0,
+        "x_rows_t1": 0,
+        "x_nodes_rows": 0,
+        "labels_recount_w1": 0,
+        "inflow_rows_t1": 0,
+        "struct_allow_capped_t1": 0,
+        "struct_allow_uncapped_t1": 0,
+        "cap_above_uncapped_triples": 0,
+        "label_split_rows_w1": 0,
+        "importance_ids_tobs": 0,
+        "pair_ends_user_account_tobs": 0,
+        "triples_window_t1": 0,
+        "describe_rows": 0,
+        "labels_recount_w0": 0,
+        "triples_without_balance": 0,
+        "cohort_user_accounts_t1": 0,
+        "nodes_set": 0,
+        "user_accounts_zero_address": 0,
+        "importance_not_contract_tobs": 0,
+        "label_parts_sum_w1": 0,
+        "importance_raw_rows": 0,
+        "nodes_ids": 0,
+        "inflow_rows_tobs": 0,
+        "cap_above_uncapped_pairs": 0,
+        "label_split_rows_w0": 0,
+        "dust_rule": 0,
+        "spender_untyped_w1": 0,
+        "cohort_user_accounts_tobs": 0,
+        "importance_rows_t1": 0,
+        "tags_known": 0,
+        "importance_rows_tobs": 0,
+        "x_rows_tobs": 0,
+        "importance_ids_t1": 0,
+        "cohort_not_contract_t1": 0,
+        "triples_unique": 0,
+        "members_rows": 0,
+        "pairs5_t1": 0,
+        "transfer_pairs_window_tobs": 0,
+        "anchor_prices": 0,
+        "nodes_not_contract": 0,
+        "constants_values": 0,
+        "struct_transfer_t1": 0,
+        "members_class": 0,
+        "label_parts_sum_w0": 0,
+        "pair_ends_not_contract_t1": 0,
+        "contracts_user_accounts_overlap": 0,
+        "cohort_rows_t1": 0,
+        "triples_window_tobs": 0,
+        "capped_pairs_nonpositive": 0,
+        "importance_not_contract_t1": 0,
+        "cohort_not_contract_tobs": 0,
+        "constants_rows_t1": 0,
+        "pairs5_tobs": 0,
+        "label_spender_class_w0": 0,
+        "x_weights": 0,
+        "transfer_pairs_window_t1": 0,
+        "label_spender_class_w1": 0,
+        "spender_untyped_w0": 0,
+        "node_flags": 0,
+        "contracts_system_or_zero": 0,
+        "pair_ends_not_contract_tobs": 0,
+        "cohort_rows_tobs": 0
+      },
+      "names_missing_or_unknown": []
+    },
+    "download": {
+      "files": {
+        "nodes": {
+          "table": "c12_x_nodes",
+          "rows": 1403959,
+          "sha256": {
+            "nodes.part000.parquet": "9ca358c81f306ccc404d14770aaffbda60325078a5e78a1466dfac025d81baec"
+          }
+        },
+        "allow_pairs_tobs": {
+          "table": "c12_x_allow_pairs_tobs",
+          "rows": 115006,
+          "sha256": {
+            "allow_pairs_tobs.part000.parquet": "dfe1553b576880f8053bf2012b602ddb51bcbe56e35253110bd4215019406c79"
+          }
+        },
+        "transfer_pairs_tobs": {
+          "table": "c12_x_transfer_pairs_tobs",
+          "rows": 2580709,
+          "sha256": {
+            "transfer_pairs_tobs.part000.parquet": "d474eb883b85ad548789c402f289717b6f7b1c891a491874f4e0263c2b4db236",
+            "transfer_pairs_tobs.part001.parquet": "d0263bc6842b14714a73bec9aac8600098bd5a5b4c07e2b582a7be32edb15bf8"
+          }
+        },
+        "allow_pairs_t1": {
+          "table": "c12_x_allow_pairs_t1",
+          "rows": 17940,
+          "sha256": {
+            "allow_pairs_t1.part000.parquet": "2732ccc521194a4be5532758967b6689063cdfc01a1c5f2f318e2a1308f52afd"
+          }
+        },
+        "transfer_pairs_t1": {
+          "table": "c12_x_transfer_pairs_t1",
+          "rows": 2269073,
+          "sha256": {
+            "transfer_pairs_t1.part000.parquet": "d6047dd88a73ba43536fc990bfdd56ae1eef6f36acaec7f79de54de278770f64"
+          }
+        },
+        "allow_pairs_uncapped_tobs": {
+          "table": "c12_x_allow_pairs_unc_tobs",
+          "rows": 302559,
+          "sha256": {
+            "allow_pairs_uncapped_tobs.part000.parquet": "05997f6092570f4c833f905719eb5dbf76aafe86296e3d1fb4f9f29bd82f34f1"
+          }
+        },
+        "allow_pairs_uncapped_t1": {
+          "table": "c12_x_allow_pairs_unc_t1",
+          "rows": 275917,
+          "sha256": {
+            "allow_pairs_uncapped_t1.part000.parquet": "abc8798c1a45f3e64c759d68bb71432192bc4c51a9799a8ccd5175df9d98bacb"
+          }
+        },
+        "importance_tobs": {
+          "table": "c12_importance_tobs",
+          "rows": 809296,
+          "sha256": {
+            "importance_tobs.part000.parquet": "de949250e27a05b2a1f923776cc8a7ca85aa5156dc6273845b147d9bbc67a1d9"
+          }
+        },
+        "importance_t1": {
+          "table": "c12_importance_t1",
+          "rows": 715480,
+          "sha256": {
+            "importance_t1.part000.parquet": "469f5da167aa5dbc93a89b4039a802570d7ea7f04dfb3138bb0b832df6deb47d"
+          }
+        },
+        "inflow_untyped_tobs": {
+          "table": "c12_inflow_untyped_tobs",
+          "rows": 1,
+          "sha256": {
+            "inflow_untyped_tobs.part000.parquet": "6a87f27723d50211c940796a91956613d58c4549d60be6c654f4b926e29f8a5e"
+          }
+        },
+        "inflow_untyped_t1": {
+          "table": "c12_inflow_untyped_t1",
+          "rows": 1,
+          "sha256": {
+            "inflow_untyped_t1.part000.parquet": "671134b8852c477d014e44dca93f60c32b975edf4193ea38f9b9b234ebdbe413"
+          }
+        },
+        "proxies_tobs": {
+          "table": "c12_proxies_tobs",
+          "rows": 6443,
+          "sha256": {
+            "proxies_tobs.part000.parquet": "7d772297c9ffe05b5d49ff80d9adfc90b08fb2fdfb09b2d866ae3f339378d251"
+          }
+        },
+        "label_split_w0": {
+          "table": "c12_x_label_split_w0",
+          "rows": 7962,
+          "sha256": {
+            "label_split_w0.part000.parquet": "55575d80f1ed50b6e771ecc049a6a0110279b4638480eea2549358f223ce7fa8"
+          }
+        },
+        "label_split_w1": {
+          "table": "c12_x_label_split_w1",
+          "rows": 7995,
+          "sha256": {
+            "label_split_w1.part000.parquet": "3de8b814a7a73f8011515b6dcba910347012e17df5700ca4d0a16be554982a85"
+          }
+        },
+        "members": {
+          "table": "c12_x_members",
+          "rows": 28783,
+          "sha256": {
+            "members.part000.parquet": "d78da6a45d3f9812e1bb242fe7dadee485f32f0b151054e7f57512e093bff63a"
+          }
+        },
+        "describe_allowances": {
+          "table": "c12_describe_allowances",
+          "rows": 10,
+          "sha256": {
+            "describe_allowances.part000.parquet": "d1491ede85878f78d02c583fcb54b3064cc3d87334714358acaf23c3fb19505c"
+          }
+        }
+      },
+      "verify": {
+        "t1_sizes": {
+          "nodes": 1111554,
+          "edges": 2269421,
+          "scc": 222592,
+          "in": 169237,
+          "out": 109804,
+          "other": 609921,
+          "U": 332396,
+          "E_U": 1283946,
+          "WCC": 1015867,
+          "E_WCC": 2121895
+        },
+        "pilot_match": {
+          "U": true,
+          "E_U": true,
+          "WCC": true,
+          "E_WCC": true
+        },
+        "union_match": {
+          "nodes": true,
+          "edges": true,
+          "scc": true,
+          "in": true,
+          "out": true,
+          "other": true
+        },
+        "t1_rows": {
+          "allow_pairs_t1": {
+            "expected": 17940,
+            "actual": 17940
+          },
+          "allow_pairs_uncapped_t1": {
+            "expected": 275917,
+            "actual": 275917
+          },
+          "transfer_pairs_t1": {
+            "expected": 2269073,
+            "actual": 2269073
+          }
+        },
+        "importance_tobs": {
+          "rows": 809296,
+          "outside_g": 112210
+        },
+        "inflow_untyped_tobs": 1681953612.1923354,
+        "importance_t1": {
+          "rows": 715480,
+          "outside_g": 109094
+        },
+        "inflow_untyped_t1": 1373560052.3623755,
+        "members": {
+          "contracts_without_node": [],
+          "n_without_node": 0,
+          "flags_off": {
+            "cohort_tobs": 0,
+            "cohort_t1": 0,
+            "spenders_w0": 0,
+            "spenders_w1": 0
+          }
+        },
+        "passed": true
+      },
+      "cohorts": {
+        "matched_cohort": {
+          "listed": 6483,
+          "by_class": {
+            "contract": 6443,
+            "user_account": 40
+          },
+          "cohort": 6443,
+          "contracts_in_nodes": 6443
+        },
+        "cohort_t1": {
+          "listed": 6343,
+          "by_class": {
+            "contract": 6292,
+            "user_account": 51
+          },
+          "cohort": 6292,
+          "contracts_in_nodes": 6292,
+          "in_tobs_cohort": 5351
+        },
+        "spenders_w0": {
+          "listed": 7962,
+          "by_class": {
+            "contract": 7864,
+            "system": 1,
+            "user_account": 97
+          },
+          "cohort": 7864,
+          "contracts_in_nodes": 7864
+        },
+        "spenders_w1": {
+          "listed": 7995,
+          "by_class": {
+            "contract": 7915,
+            "system": 1,
+            "user_account": 79
+          },
+          "cohort": 7915,
+          "contracts_in_nodes": 7915
+        }
+      }
+    }
+  },
+  "checks_run": [
+    {
+      "at": "2026-11-07T09:34:38+00:00",
+      "head": "d39775ceb3476fae8e120b0f8ed54568ec8183da",
+      "problems": [],
+      "ledger_usd": 42.2421,
+      "campaign_usd": 0,
+      "existing_c12": [],
+      "waits": {
+        "ends": "c12_logs5 from logs5 (job 24)",
+        "tx_senders": "c12_ends from ends (job 25)",
+        "emitters": "c12_ends from ends (job 25)",
+        "creations": "c12_ends from ends (job 25)",
+        "rpc_queue": "c12_creations from creations (job 28), c12_emitters from emitters (job 27), c12_ends from ends (job 25), c12_pairs5 from ends (job 25), c12_tx_senders from tx_senders (job 26)",
+        "contracts": "c12_account_types from account_types (job 30), c12_logs5 from logs5 (job 24), c12_tx_senders from tx_senders (job 26)",
+        "bal_pre": "c12_logs5 from logs5 (job 24)",
+        "bal": "c12_bal_pre from bal_pre (job 32), c12_logs5 from logs5 (job 24)",
+        "bal_audit": "c12_bal from bal (job 33)",
+        "structure": "c12_bal from bal (job 33), c12_events_cc from contracts (job 31)"
+      },
+      "estimates": {
+        "logs5": {
+          "first": 226193664203,
+          "whole": 226193664203,
+          "missing": []
+        },
+        "ends": {
+          "first": 0,
+          "whole": 0,
+          "missing": [
+            "c12_logs5"
+          ]
+        },
+        "tx_senders": {
+          "first": 149373374072,
+          "whole": 149373374072,
+          "missing": [
+            "c12_ends"
+          ]
+        },
+        "emitters": {
+          "first": 260741041900,
+          "whole": 260741041900,
+          "missing": [
+            "c12_ends"
+          ]
+        },
+        "creations": {
+          "first": 23034321352,
+          "whole": 23034321352,
+          "missing": [
+            "c12_ends"
+          ]
+        },
+        "rpc_queue": {
+          "first": 41943040,
+          "whole": 41943040,
+          "missing": [
+            "c12_creations",
+            "c12_emitters",
+            "c12_ends",
+            "c12_pairs5",
+            "c12_tx_senders"
+          ]
+        },
+        "contracts": {
+          "first": 0,
+          "whole": 0,
+          "missing": [
+            "c12_account_types",
+            "c12_logs5",
+            "c12_tx_senders"
+          ]
+        },
+        "bal_pre": {
+          "first": 547023844600,
+          "whole": 547023844600,
+          "missing": [
+            "c12_logs5"
+          ]
+        },
+        "bal": {
+          "first": 143991874648,
+          "whole": 143991874648,
+          "missing": [
+            "c12_bal_pre",
+            "c12_logs5"
+          ]
+        },
+        "anchor_blocks": {
+          "first": 33562960,
+          "whole": 33562960,
+          "missing": []
+        },
+        "bal_audit": {
+          "first": 10485760,
+          "whole": 10485760,
+          "missing": [
+            "c12_bal"
+          ]
+        },
+        "structure": {
+          "first": 20971520,
+          "whole": 20971520,
+          "missing": [
+            "c12_bal",
+            "c12_events_cc"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "rpc": "arb1.arbitrum.io",
+  "block_number": 513216506,
+  "block_hex": "0x1e970ffa",
+  "read_at": "2026-11-07T09:47:01+00:00",
+  "pinned_requested": 513216506,
+  "pinned_served": true,
+  "served_by": [
+    "arb1.arbitrum.io",
+    "arbitrum-one.public.blastapi.io"
+  ],
+  "resume_key": {
+    "script_sha256": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+    "rules_sha256": "ce7324fb153da0b7e6aeb69083ccd5db40024dac5c639a46d0e53a571ef317d6",
+    "input_sha256": "dd06c69369dc99e096632ef89c19e2012a9e508e598e6db53a1d213f40c3faea",
+    "input_n": 6230270
+  },
+  "rules": {
+    "validate_user_op": [
+      "633a871cdd",
+      "6319822f7c"
+    ],
+    "validate_paymaster_user_op": [
+      "63f465c77e",
+      "6352b7512c"
+    ],
+    "erc1967_slot": "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc",
+    "safe_slot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "entry_points": [
+      "0x0000000071727de22e5e9d8baf0edac6f37da032",
+      "0x4337084d9e255ff0702461cf8895ce9e3b5ff108",
+      "0x433709009b8330fda32311df1c2afa402ed8d009",
+      "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789"
+    ],
+    "safe_threshold_max": 1000,
+    "calls": [
+      "0xe75235b8",
+      "0xa0e67e2b",
+      "0xb0d691fe"
+    ],
+    "system_address_max": 255,
+    "master_copy": [
+      "63a619486e",
+      "7fa619486e00000000000000000000000000000000000000000000000000000000"
+    ],
+    "eip1167": [
+      "363d3d373d3d3d363d73",
+      "5af43d82803e903d91602b57fd5bf3"
+    ]
+  },
+  "counts": {
+    "none": 2909509,
+    "contract": 2155736,
+    "eip7702": 1165025
+  },
+  "n": 6230270,
+  "counts_account_class": {
+    "eoa": 2909509,
+    "contract": 2022375,
+    "eoa_7702": 1165025,
+    "smart_account": 133361
+  },
+  "counts_proxy_kind": {
+    "none": 5156938,
+    "erc1967": 524454,
+    "eip1167": 503516,
+    "safe": 45362
+  },
+  "counts_wallet_kind": {
+    "": 6096909,
+    "erc4337": 87157,
+    "safe": 46204
+  },
+  "pending": 0,
+  "probes": {
+    "storage_reads": 524523,
+    "safe_slots": 45362,
+    "implementations": 14933,
+    "representatives": 582231,
+    "copied": 1002766,
+    "erc1967": 524454,
+    "safe_proxies": 45362,
+    "threshold_hashes": 923
+  },
+  "aborted_addresses": [],
+  "rpc_calls": {
+    "arb1.arbitrum.io": 310289,
+    "arbitrum-one.public.blastapi.io": 12015679
+  },
+  "complete": true,
+  "updated_at": "2026-11-08T12:49:57+00:00",
+  "resume_key_history": [
+    {
+      "at": "2026-11-08T03:14:04+00:00",
+      "from_script_sha256": "f5b02204994fcfe2dd800c3d8f09f8d3c9e6cf89df36eab1a0c341c1061e19c5",
+      "to_script_sha256": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+      "from_commit": "d39775c",
+      "to_commit": "52d3aa1",
+      "reason": "revision section 4.3, amendment of 8 November 2026: an error of an Arbitrum Stylus program that cannot run at the block read is the call's own failure; before the change every such answer stopped the reads, so no row typed before it rests on such an answer"
+    }
+  ]
+}
