@@ -25,7 +25,7 @@
 
 ## 투고 원고 2편
 
-UNISA 학위를 받으려면 인정 학술지에 투고한 원고 2편이 필요합니다([`2-Graduation/`](../../../2-Graduation/)). 서브모듈의 `manuscripts/`에 A(PLOS ONE), B(IEEE Access) 원고가 있습니다. 2026-11-11에 영문 학위논문과 두 원고를 계약 그래프 분석으로 고쳤습니다. 고친 원고는 서브모듈의 브랜치 `contract-graph`에 있고, 이 저장소의 서브모듈 포인터도 그 브랜치를 가리킵니다. Overleaf가 읽는 `main`에 합치는 일은 저자가 확인한 뒤에 합니다. 한국어 번역본(`overleaf-github-ko/`), 해설판(`manuscripts-ko/`), 발표 자료(`presentation/`)는 아직 사용자 계정이 그래프에 들어 있던 분석을 따릅니다.
+UNISA 학위를 받으려면 인정 학술지에 투고한 원고 2편이 필요합니다([`2-Graduation/`](../../../2-Graduation/)). 서브모듈의 `manuscripts/`에 A(PLOS ONE), B(IEEE Access) 원고가 있습니다. 2026-11-11에 영문 학위논문과 두 원고를 계약 그래프 분석으로 고쳤습니다. 고친 원고는 같은 날 서브모듈의 `main`에 합쳐졌고(작업 브랜치 `contract-graph`는 합친 뒤 지움), 이 저장소의 서브모듈 포인터가 그 커밋을 가리킵니다. Overleaf도 `main`의 새 원고를 읽습니다. 한국어 번역본(`overleaf-github-ko/`), 해설판(`manuscripts-ko/`), 발표 자료(`presentation/`)는 아직 사용자 계정이 그래프에 들어 있던 분석을 따릅니다.
 
 ## 남은 일
 
