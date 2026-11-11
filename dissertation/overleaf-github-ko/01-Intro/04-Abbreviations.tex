@@ -1,66 +1,65 @@
 % !TEX root = ../main.tex
-\clearpage
-\phantomsection
 \chapter*{줄임말과 기호}
 \label{ch:abbreviations}
 % Front-matter tables are numbered I, II, ... so they are not confused with Table 1.1 onwards.
 \let\FrontMatterSavedThetable\thetable
 \renewcommand{\thetable}{\Roman{table}}
 
-이 연구 전체에서 쓰는 줄임말과 수학 기호를 아래에 모아 두었어요. 기호마다 본문의 장에서 처음 나올 때도 뜻을 설명해요.
-
-\phantomsection
-\section*{줄임말}
-\label{sec:abbrev-table}
-
-\begin{table}[htbp]
+% The two lists follow the title without a page of their own for the heading: each table is placed here ([H])
+% and scaled to the page.
+\begin{table}[H]
 \centering
 \caption{이 연구에서 쓰는 줄임말.}
 \label{tab:abbreviations}
-\fitwidth{%
+\begin{adjustbox}{max width=\linewidth, max totalheight=0.70\textheight, center}%
+\small\setlength{\tabcolsep}{3.5pt}%
 \begin{tabular}{lp{0.72\linewidth}}
 \toprule
 줄임말 & 뜻 \\
 \midrule
+AUC & 곡선 아래 넓이(Area under the curve). $\mathrm{AUC}_{10\%}$는 크롤이 처음 10\%를 방문하는 동안의 발견 곡선 아래 넓이를 정규화한 값이에요 \\
 AWP & 적응형 가중 페이지랭크(Adaptive Weighted PageRank) \\
+BFS & 너비 우선 탐색(Breadth-first search). 계약을 찾은 차례대로 방문하는 크롤 순서 규칙이에요 \\
 C-PR & 결합 페이지랭크(Coupled PageRank). 점마다 허락 층과 송금 층을 무게 $\lambda$로 섞어요 \\
 DeFi & 디파이(Decentralized Finance, 탈중앙 금융) \\
-DEX & 탈중앙 거래소(Decentralized Exchange) \\
-EIP & 이더리움 개선 제안(Ethereum Improvement Proposal) \\
-EOA & 외부 소유 계정(Externally owned account). 개인 키로 움직이는 주소, 곧 사용자의 지갑이에요 \\
+EIP & 이더리움 개선 제안(Ethereum Improvement Proposal). EIP-2612는 \texttt{permit}를 정해요. EIP-7702 계정은 계약 코드에 일을 맡기는(위임하는) 외부 소유 계정이에요 \\
+EOA & 외부 소유 계정(Externally owned account). 개인 키로 움직이는 주소예요 \\
 ER & 엔도스랭크(EndorseRank, 표의 머리글에서 쓰는 줄임말) \\
 ERC-20 & 이더리움 의견 요청 20번(Ethereum Request for Comments 20, 서로 바꿀 수 있는 토큰의 공통 규칙) \\
+ERC-4337 & 이더리움 의견 요청 4337번(Ethereum Request for Comments 4337, 계정 추상화). ERC-4337 계정은 표준 EntryPoint 계약을 지정하는 스마트 계정이에요 \\
+EVM & 이더리움 가상 머신(Ethereum Virtual Machine) \\
 FC & 금융 암호학과 데이터 보안 학회(Financial Cryptography and Data Security) \\
+L1, L2 & 레이어 1(이더리움 메인넷)과 레이어 2(아비트럼 원(Arbitrum One)처럼 자기 트랜잭션 자료를 레이어 1에 올리는 네트워크) \\
 PR & 페이지랭크(PageRank) \\
+RPC & 원격 프로시저 호출(Remote procedure call). 계정 코드와 계약 상태를 읽을 때 쓴, 아비트럼 원 노드의 접속 방식이에요 \\
 RQ & 연구 질문(Research Question) \\
+SCC & 강연결 성분(Strongly connected component). 여기서는 한 동결의 합집합 그래프에서 가장 큰 것이에요 \\
 SoK & 지식 정리 논문(Systematization of Knowledge) \\
 S-PR & 보증 씨앗 페이지랭크(Endorsement-Seeded PageRank). 송금 층을 걷되, 허락 걷기에서 뽑은 분포에 따라 다시 출발해요 \\
-USD & 달러(United States dollar). 수정 분석(등록 뒤에 금액을 달러로 바꿔 다시 한 분석)에서 모든 금액의 단위예요 \\
+USD & 달러(United States dollar). 주 분석에서 모든 금액의 단위예요 \\
 USENIX & USENIX 보안 심포지엄(USENIX Security Symposium) \\
+UTC & 협정 세계시(Coordinated Universal Time) \\
 W0 & 홀드아웃 기간: 2026년 3월 31일에 점수를 동결하고(고정하고), 2026년 4월부터 6월까지 라벨(나중에 채점에 쓰는 정답 값)을 세요 \\
 W1 & 등록 기간: 2026년 6월 30일에 점수를 동결하고, 2026년 7월부터 9월까지 라벨을 세요 \\
-WETH, USDC, USDT0, ARB, WBTC & 수정 분석의 다섯 토큰: 랩드 이더(wrapped ether), USD 코인(USD Coin), 아비트럼 원(Arbitrum One)의 테더 USD(Tether USD), 아비트럼 거버넌스 토큰, 랩드 비트코인(wrapped bitcoin) \\
+WCC & 약연결 성분(Weakly connected component). 여기서는 거대 SCC가 들어 있는 것이에요 \\
+WETH, USDC, USDT0, ARB, WBTC & 주 분석의 다섯 토큰: 랩드 이더(wrapped ether), USD 코인(USD Coin), 아비트럼 원(Arbitrum One)의 테더 USD(Tether USD), 아비트럼 거버넌스 토큰, 랩드 비트코인(wrapped bitcoin) \\
 \bottomrule
-\end{tabular}
-}
+\end{tabular}%
+\end{adjustbox}
 \end{table}
 
-\phantomsection
-\section*{수학 기호}
-\label{sec:notation-table}
-
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
-\caption{이 연구에서 쓰는 수학 기호.}
+\caption[이 연구에서 쓰는 수학 기호.]{이 연구에서 쓰는 수학 기호. 기호는 저마다 처음 나오는 곳에서 정의해요. \ref{ch:methodology}장의 식에서만 쓰는 기호는 표~\ref{tab:notation-methods}에 더 있어요.}
 \label{tab:notation}
-\begin{adjustbox}{max width=\linewidth, max totalheight=0.9\textheight, center}%
+\begin{adjustbox}{max width=\linewidth, max totalheight=0.86\textheight, center}%
 \small\setlength{\tabcolsep}{3.5pt}%
 \begin{tabular}{lp{0.72\linewidth}}
 \toprule
 기호 & 뜻 \\
 \midrule
-$G_{\mathrm{approve}}$ & 마지막 ERC-20 허락(가장 최근 허락)으로 만든, 방향이 있는 보증 그래프(주인 $\to$ 스펜더) \\
-$G_{\mathrm{transfer}}$ & 방향이 있는 송금 그래프(보낸 쪽 $\to$ 받는 쪽, AWP가 쓰는 그래프) \\
+$G_{\mathrm{approve}}$ & 계약 사이의 마지막 ERC-20 허락(가장 최근 허락)으로 만든, 방향이 있는 보증 그래프(주인 $\to$ 스펜더). 허락은 하나하나 그 주인의 잔액까지만 세요 \\
+$G_{\mathrm{transfer}}$ & 계약 사이의 방향이 있는 송금 그래프(보낸 쪽 $\to$ 받는 쪽, AWP가 쓰는 그래프) \\
 $|V|$ & 평판 그래프에 있는 점의 수 \\
 $|E|$ & 평판 그래프에 있는, 방향이 있는 화살표의 수 \\
 $w_{ij}$ & 점 $i$에서 점 $j$로 가는 화살표의 무게 \\
@@ -72,24 +71,28 @@ $\boldsymbol{\pi}$ & 순간 이동(다시 출발) 분포. 엔도스랭크와 C-P
 $d$ & 페이지랭크 감쇠 계수(화살표를 따라갈 확률, 기본값 $0.85$). 순간 이동할 확률은 $1-d$예요 \\
 $\varepsilon$ & 거듭제곱 반복의 수렴 허용 오차($10^{-8}$, 앞뒤 반복 값 사이의 $\|\cdot\|_1$ 변화로 재요) \\
 $I_{\max}$ & 거듭제곱 반복의 최대 반복 횟수($300$) \\
-$\lambda$ & 결합 연산자 C-PR에서 허락 층에 주는 무게($\lambda=1$과 $\lambda=0$이면 한 층만 걸어요) \\
+$\lambda$ & 결합 연산자 C-PR에서 허락 층에 주는 무게(주된 값은 $\lambda=0.5$, 민감도 분석에는 $0.25$와 $0.75$를 써요. $\lambda=1$과 $\lambda=0$이면 한 층만 걸어요) \\
 $P^{(\lambda)}$ & 허락 층 무게가 $\lambda$인 C-PR의 결합 이동 행렬(식~\eqref{eq:coupled-transition}) \\
 $\alpha_A(u)$, $\alpha_T(u)$ & 점 $u$의 결합 이동 줄에서 허락 줄과 송금 줄에 주는 무게 \\
-$k$ & 로지스틱 감쇠(오래된 일일수록 가볍게 세는 무게)의 가파른 정도 \\
-$t_0$ & 로지스틱 감쇠의 가운데 지점(날) \\
-$\Delta t$ & 송금이나 허락이 일어난 뒤 지난 날수 \\
+$k$ & 로지스틱 감쇠(오래된 일일수록 가볍게 세는 무게)의 가파른 정도($0.01$) \\
+$t_0$ & 로지스틱 감쇠의 가운데 지점($180$일) \\
+$\Delta t$ & 송금이나 허락이 일어난 때부터 로지스틱 감쇠의 기준 시각($T_{\mathrm{obs}}$, W0에서는 $t_1$)까지 지난 날수 \\
 $\sigma(\Delta t)$ & 송금(AWP)이나 마지막 허락(엔도스랭크)에 주는 로지스틱 시간 무게 \\
-$V(z)$ & 달러 금액 $z$에 대해 AWP와 엔도스랭크가 쓰는 상한 있는 금액 무게예요. $2/(1+e^{-bz})-1$이고, $b=\ln 3/m$이에요. 그래서 중앙값 금액 $m$은 $V=1/2$를 받아요(송금은 $m_T=170$달러, 허락은 $m_A=100$달러) \\
-$U$ & C-PR의 허락 층과 받은 허락 금액에서 허락 하나에 두는 상한($19{,}000$달러) \\
+$V(z)$ & 달러 금액 $z$에 대해 AWP와 엔도스랭크가 쓰는 상한 있는 금액 무게예요. $2/(1+e^{-bz})-1$이고, $b=\ln 3/m$이에요. 그래서 중앙값 금액 $m$은 $V=1/2$를 받아요(송금은 $m_T=160$달러, 상한을 씌운 허락은 $m_A=0.071$달러) \\
+$U$ & C-PR의 허락 층과 받은 허락 금액에서 허락 하나에 두는 상한($16{,}000$달러) \\
 $X_u$ & 주소 $u$의 활발함. AWP의 다시 출발 무게예요 \\
-$n$ & 상관을 계산하는 데 쓴 계약의 수(매칭 코호트 $n=6{,}483$, 스펜더 코호트는 W0에서 $n=7{,}914$, W1에서 $7{,}960$) \\
-$\rho$ & 스피어먼의 순위 상관 계수 \\
+$n$ & 상관을 계산하는 데 쓴 계약의 수(매칭 코호트 $n=6{,}443$, 스펜더 코호트는 W0에서 $n=7{,}864$, W1에서 $7{,}915$) \\
+$\rho$ & 스피어먼의 순위 상관 계수. 발견 순서 검증에서는, 크롤이 순서를 다시 계산하기 전까지 방문 수가 늘어나는 몫($1/50$)이에요 \\
 $\tau$ & 켄달의 순위 상관 계수. 이 논문에 나오는 값은 모두 $\tau_b$예요 \\
 $T_{\mathrm{obs}}$ & 같은 기간 평가에서 점수 기간이 끝나는 때이자 W1의 점수 동결 시각(2026년 6월 30일, 23:59:59 UTC) \\
 $t_1$, $t_2$ & W0의 점수 동결 시각(2026년 3월 31일, 23:59:59 UTC)과 W0의 라벨 기간이 끝나는 날(2026년 6월 30일) \\
 $\mathcal{W}$ & 평가 코호트에 든 계약들의 모임 \\
 $s(w)$ & 어떤 방법으로 매긴 계약 $w$의 평판 점수 \\
 $p(w)$ & 계약 $w$의 대리 지표(대신 재는 값) 값 \\
+$\mathcal{U}$ & 발견 순서 검증의 한 실행의 우주. 그 실행의 모든 크롤이 방문하는 계약들이에요 \\
+$I_T$, $I_A$ & 그 검증에서 계약의 중요도: 사용자 계정이 그 계약에 보낸 달러, 그리고 사용자 계정이 그 계약에 대신 써도 된다고 허락한 달러(잔액 상한 적용, 계정 하나에 많아야 $U_{\mathrm{user}}=31{,}000$달러) \\
+$H_q(I)$, $\mathrm{AUC}_{x}$ & 뜨거운 집합(우주에서 중요도 $I$가 가장 큰 몫 $q$의 계약들), 그리고 크롤이 처음 $x|\mathcal{U}|$번 방문하는 동안의 발견 곡선 아래 넓이를 정규화한 값 \\
+C-PR$'$, $\mathrm{IB}'_U$; $D_1$, $D_2$ & 프라임 표시는 크롤이 지금까지 읽은 계약들로 계산한 걷기나 센 수를 뜻해요. 두 판정 대비는 $\mathrm{AUC}_{10\%}$의 대비로, C-PR$'$에서 너비 우선 크롤을 뺀 값과 C-PR$'$에서 역링크 수 $\mathrm{IB}'_U$를 뺀 값이에요 \\
 \bottomrule
 \end{tabular}%
 \end{adjustbox}
