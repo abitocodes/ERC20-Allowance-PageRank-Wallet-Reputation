@@ -7,9 +7,9 @@ parquet은 GitHub에 없고 공개 Google Drive 폴더에만 있습니다. 받�
 | 경로 | 내용 | 만드는 곳 |
 |---|---|---|
 | `0-gmx-abi-for-decoding-logs/EventEmitter.json` | GMX V2 EventEmitter의 ABI. 종료 로그를 해독할 때 씀 | 받은 파일 |
-| [`0-usd-token-list-and-prices/`](0-usd-token-list-and-prices/) | 수정 분석의 토큰 목록, 일별 USD 가격, 상수, Chainlink 대조 | `usd_inputs.py`, `run_usd_pipeline.py`, `chainlink_check.py` |
-| [`1-raw-blockchain-extracts/`](1-raw-blockchain-extracts/) | BigQuery에서 받은 원시 표: 코호트, GMX, 그래프 표 | `download_table.py` 등 |
-| [`2-processed-tables-and-evaluations/`](2-processed-tables-and-evaluations/) | 점수, 평가 요약, 해독한 GMX 종료 | `run_*.py` 등 |
+| [`0-usd-token-list-and-prices/`](0-usd-token-list-and-prices/) | 수정 분석의 토큰 목록, 일별 USD 가격, 상수, Chainlink 대조. `usd-12m/`은 12개월 변형, `contract-12m/`은 계약 그래프 변형의 상수 | `usd_inputs.py`, `run_usd_pipeline.py`, `chainlink_check.py`, 변형마다의 드라이버 |
+| [`1-raw-blockchain-extracts/`](1-raw-blockchain-extracts/) | BigQuery에서 받은 원시 표: 코호트, GMX, 변형마다의 그래프 표(`graph-tables*/`), 계약 그래프 변형의 계정 종류 판정(`contract-types/`) | `download_table.py` 등 |
+| [`2-processed-tables-and-evaluations/`](2-processed-tables-and-evaluations/) | 점수, 평가 요약, 해독한 GMX 종료. 변형마다 `revised-usd/`, `revised-usd-12m/`, `revised-contract-12m/`(발견 순서 검증의 곡선과 요약 포함) | `run_*.py` 등 |
 | `3-published-results-for-thesis/` | 논문이 인용하는 결과(아래) | `publish_results.py` |
 | `bq_ledger.json` | BigQuery 작업마다 시각, SQL, 대상, 청구 바이트, 비용(USD) | `run_bq.py` |
 
@@ -27,4 +27,6 @@ parquet은 GitHub에 없고 공개 Google Drive 폴더에만 있습니다. 받�
 | `sybil-model/`, `robustness/`, `benchmark/`, `supplementary/`, `describe/` | Sybil 비용 모형, 강건성, 벤치마크, 사후 대비, 기술 통계 |
 | `cohort/`, `gmx/` | 매칭 코호트의 기록, 해독한 GMX 종료의 기록 |
 | `config/`, `docs/` | 그때의 설정과 계획 문서 사본 |
-| `revised-usd/` | 수정 분석(논문의 주 결과)의 같은 구성. 자체 `results_digest.md`와 `SHA256SUMS.txt`가 있고, W1 평가는 `window-w1/`, 토큰 목록·상수·가격 입력·Chainlink 대조는 `usd/`에 있습니다. `registered-w1/`에는 추출 기록만 있습니다. |
+| `revised-usd/` | 33개월 USD 수정 분석의 같은 구성(기록으로만 둠). 자체 `results_digest.md`와 `SHA256SUMS.txt`가 있고, W1 평가는 `window-w1/`, 토큰 목록·상수·가격 입력·Chainlink 대조는 `usd/`에 있습니다. `registered-w1/`에는 추출 기록만 있습니다. |
+| `revised-usd-12m/` | 12개월 USD 수정 분석의 같은 구성(사용자 계정이 그래프에 들어 있음; 기록으로만 둠) |
+| `revised-contract-12m/` | 계약 그래프 분석(논문의 주 결과). 자체 `results_digest.md`(13개 절)와 `SHA256SUMS.txt`가 있습니다. 위 구성에 `discovery/`(발견 순서 검증의 네 실행과 구조 파일럿), `typing/`(계정 종류 판정, 스마트 계정 읽기, 잔액 점검), `cohort/`(코호트와 스펜더 목록의 구성원), `run_manifest.json`이 더해지고, 트레이더와 GMX 파일은 없습니다. `docs/`에는 계획 문서 여섯이 있습니다. |

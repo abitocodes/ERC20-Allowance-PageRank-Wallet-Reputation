@@ -42,16 +42,17 @@
 | `run_same_window.py` | 관측 기간 안의 평가(분석 계획 4–6절)와 규칙 A의 2차 부분. `contract12m`에서는 매칭 코호트(사용자 계정을 뺀 컨트랙트)를 members 표로 확인하고, 대리 지표를 T_obs의 컨트랙트 간 송금 쌍과 대조하며, 코호트의 포함 범위와 합집합 그래프 안에서 다시 한 비교(어느 규칙도 정하지 않음)를 더합니다(`common.py`의 두 확인을 거침). |
 | `run_holdout.py` | 홀드아웃 W0(t1 동결, 4~6월 라벨)과 규칙 A의 1차 부분. `contract12m`에서는 W0 spender를 members 표와 12개월 분석의 라벨(`graph-tables-usd-12m/labels_w0`, 그대로)로 정하고, 수정 문서 9절의 기준선 넷과 두 라벨의 C-PR − 합집합 입차수, W0 spender와 W0 코호트의 포함 범위, 합집합 그래프 안의 비교, W0 라벨 나눔을 더하며, 트레이더 부분은 돌리지 않습니다(`common.py`의 두 확인을 거침). |
 | `run_registered.py` | 등록 창 W1: 규칙 B, 보고할 결과, 어느 간선으로도 만들지 않은 결과와의 비교(등록 순서대로). `contract12m`에서는 규칙 B의 등록 기준 가운데 F1·F2(δ = 0.01)와 F6, 두 등록 민감도 분석의 spender 부분(민감도 1은 C-PR(λ=0) 대신 AWP, 민감도 2는 S-PR을 뺀 모든 보행에 고립 노드)을 계산하고 'not met' 또는 'both applied criteria hold'만 적습니다(수정 문서 11절). 수정 문서 9절의 기준선과 두 라벨의 C-PR − 합집합 입차수, W1 spender의 포함 범위, 합집합 그래프 안의 비교, W1 라벨 나눔도 `window-w1/`에 적고, 트레이더 기준은 계산하지 않습니다(`common.py`의 두 확인을 거치며, `../docs/registration_w1.md`도 커밋되어 있어야 함). |
-| `run_supplementary.py` | 라벨을 본 뒤 계산한 대비. 어느 규칙에도 속하지 않습니다. `contract12m`에서는 그 변형의 갈래가 생길 때까지 아무것도 읽지 않고 거부합니다. |
+| `run_supplementary.py` | 라벨을 본 뒤 계산한 대비. 어느 규칙에도 속하지 않습니다. `contract12m`에서는 그 변형의 갈래(`main_contract`)가 W0와 W1의 spender 라벨에서 C-PR과 다른 점수·개수의 대비(승인 금액과의 대비 포함), 같은 기간의 대비를 계산하고, 트레이더 부분은 없습니다. |
 | `run_robustness.py` | 강건성과 민감도: 상위 토큰 부분 그래프, 표본 정의. `contract12m`에서는 상한 없는 허락 민감도(수정 문서 5절: 허락 층을 잔액으로 자르지 않은 그래프에서 W0·W1 라벨로 같은 비교, 어느 규칙도 정하지 않음)를 더합니다(`common.py`의 두 확인을 거침). 이 변형에서는 읽는 앞선 평가 출력(`same-window`, `holdout-w0`, `window-w1`)의 `eval_summary.json`이 입력(`provenance.inputs`)을 적지 않았거나, 그 입력이 지금 마지막 내려받기로 확인되는 게이트 B 표(같은 stem의 `require_downloaded` 결과)와 다르면 거부합니다. |
-| `sybil_model.py` | Sybil 비용 모형(5장)의 양. `contract12m`에서는 그 변형의 갈래가 생길 때까지 아무것도 읽지 않고 거부합니다. |
+| `sybil_model.py` | Sybil 비용 모형(5장)의 양. `contract12m`에서는 T_obs의 컨트랙트 EndorseRank 그래프에서 같은 양을 계산하고, 농장 주소가 컨트랙트라는 것(배포 가스, 허락이 세어지려면 필요한 잔액)과 잔액 문턱 θ(1, 10, 100달러)의 민감도를 더합니다. 어느 규칙도 정하지 않습니다. |
 | `run_benchmark.py` | 계산 벤치마크(주장 C1)와 규모 확장 |
-| `describe_data.py` | 추출한 데이터의 기술 통계(3·4장, 부록 8.4). `contract12m`에서는 그 변형의 갈래가 생길 때까지 아무것도 읽지 않고 거부합니다. |
-| `run_usd_local.ps1` | 수정 분석의 로컬 평가를 등록 분석과 같은 순서로 돌립니다. `-Variant usd12m`이면 12개월 변형을, `-Variant contract12m`이면 컨트랙트 그래프 수정을 돌리고, 이때는 같은 기간 평가 바로 뒤에 `run_discovery.py`의 본 실행을 `-Workers`개(기본 16, 프로토콜의 실행 시간 추정과 같음) 프로세스로 돌립니다. `-Variant contract12m`의 실행은 `run_registered.py`까지 돌고, `run_supplementary.py`에 이 변형의 갈래가 생길 때까지 그 스크립트의 거부에서 멈춥니다. 그동안 `run_robustness.py`는 `-From run_robustness`로 돌립니다(`run_robustness.py`를 마친 뒤 `sybil_model.py`의 거부에서 다시 멈춥니다). |
+| `describe_data.py` | 추출한 데이터의 기술 통계(3·4장, 부록 8.4). `contract12m`에서는 BigQuery를 읽지 않고 실행 기록, 계정 종류 판정, 게이트 B 내려받기, 상수, 잔액 점검, 원장, 가격에서 컨트랙트 그래프의 서술(층마다의 쌍, 자기 쌍, 가장 큰 주인과 spender 등)을 씁니다. |
+| `run_usd_local.ps1` | 수정 분석의 로컬 평가를 등록 분석과 같은 순서로 돌립니다. `-Variant usd12m`이면 12개월 변형을, `-Variant contract12m`이면 컨트랙트 그래프 수정을 돌리고, 이때는 같은 기간 평가 바로 뒤에 `run_discovery.py`의 본 실행을 `-Workers`개(기본 16, 프로토콜의 실행 시간 추정과 같음) 프로세스로 돌립니다. `-From <단계>`는 그 단계부터 이어서 돌립니다. |
 
 ## 결과 공개와 원고
 
 | 파일 | 하는 일 |
 |---|---|
-| `publish_results.py` | 논문이 인용하는 요약, 설정, 계획 문서를 `data/3-published-results-for-thesis/`에 복사하고 `results_digest.md`(모든 수치와 그 JSON 키)와 `SHA256SUMS.txt`를 씁니다. `--out`은 검증용으로 다른 폴더에 씁니다. `contract12m`에서는 그 변형의 갈래가 생길 때까지 아무것도 읽지 않고 거부합니다. |
-| `export_latex.py` | 평가 요약 JSON으로 원고의 LaTeX 표와 그림을 서브모듈 `../dissertation/overleaf-github/`에 씁니다. 점수나 통계를 새로 계산하지 않습니다. 12개월 변형은 `--into-manuscript`가 없으면 `data/_work/latex-usd12m/`에 씁니다. `contract12m`에서는 그 변형의 갈래가 생길 때까지 아무것도 읽지 않고 거부합니다. |
+| `publish_results.py` | 논문이 인용하는 요약, 설정, 계획 문서를 `data/3-published-results-for-thesis/`에 복사하고 `results_digest.md`(모든 수치와 그 JSON 키)와 `SHA256SUMS.txt`를 씁니다. `--out`은 검증용으로 다른 폴더에 씁니다. `contract12m`에서는 그 변형의 갈래(`main_contract`)가 `revised-contract-12m/`에 요약과 발견 순서 검정의 네 실행, 계정 종류 판정, 명세 문서를 복사하고 13개 절의 다이제스트를 씁니다. 다이제스트에 쓰지 않기로 한 낱말(트레이더, 'registered result' 등)이 있으면 거부합니다. |
+| `export_latex.py` | 평가 요약 JSON으로 원고의 LaTeX 표와 그림을 서브모듈 `../dissertation/overleaf-github/`에 씁니다. 점수나 통계를 새로 계산하지 않습니다. 12개월 변형은 `--into-manuscript`가 없으면 `data/_work/latex-usd12m/`에 씁니다. `contract12m`에서는 `export_latex_c12.py`로 넘어가고, `--into-manuscript`가 없으면 `data/_work/latex-contract12m/`에 씁니다. |
+| `export_latex_c12.py` | 컨트랙트 그래프 수정의 표 40개와 그림 7개(발견 순서 검정의 표 일곱과 곡선 둘, 계정 종류, 잔액 상한, 층, 포함 범위, 라벨 나눔, 합집합 그래프 안의 대비, 상한 없는 허락, Sybil 문턱 포함). `export_latex.py`가 부르며, 캡션에 쓰지 않기로 한 표현이 있으면 문제로 셉니다. 트레이더 표는 만들지 않습니다. |
