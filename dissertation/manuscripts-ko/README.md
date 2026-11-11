@@ -3,7 +3,7 @@
 투고 원고 A(PLOS ONE)와 B(IEEE Access)의 영문 원고(`../overleaf-github/manuscripts/`)를 저자가 읽으려고 쉬운 한국어로 풀어 쓴 해설판입니다. Overleaf와 원고 저장소에는 올리지 않습니다.
 
 - 결과물: [`A-plos-one/main.pdf`](A-plos-one/main.pdf), [`B-ieee-access/main.pdf`](B-ieee-access/main.pdf)
-- 옮긴 원문: 원고 저장소 main 커밋 `51c6510`에 2026-11-11 저녁의 고침(커밋 식별자와 커밋·추출 날짜를 뺀 것, 아직 커밋 전)을 더한 `manuscripts/A-plos-one`과 `manuscripts/B-ieee-access`. 그 고침을 커밋하면 이 줄의 커밋을 고칩니다. 해설판의 제목 블록에는 커밋을 적지 않습니다.(계약 그래프 분석: 그래프의 점은 모두 계약이고, A는 발견 순서 검증이 중심, B는 결합 걷기의 두 규칙과 시빌 노출).
+- 옮긴 원문: 원고 저장소 main 커밋 `4721fe8`의 `manuscripts/A-plos-one`과 `manuscripts/B-ieee-access`(2026-11-11 밤의 고침까지: Sybil 내용을 빼고, B의 두 층 이름을 allowance·transfer로 바꾸고, 닫힌 계약 무리 점검을 넣은 판). 해설판의 제목 블록에는 커밋을 적지 않습니다. (계약 그래프 분석: 그래프의 점은 모두 계약이고, A는 발견 순서 검증이 중심, B는 결합 걷기의 두 규칙과 무게 훑기, 씨앗 빼 보기 실험).
 
 ## 어떻게 썼나
 
@@ -20,7 +20,7 @@
 | `WRITING-GUIDE.md` | 쓰기 기준: 말투, 용어, 문서 구성, 상자, 수치, 서술 규칙, LaTeX, 빌드와 점검 |
 | `common/preamble.tex` | 두 해설판이 같이 쓰는 머리말(XeLaTeX, kotex, 글꼴, 상자, 제목 블록) |
 | `A-plos-one/` | 원고 A: `main.tex`(앞부분과 용어 풀이)와 본문 `01-intro.tex`–`05-submission.tex`, 한국어 그림 `figures/fig1_ko.pdf`와 그 스크립트 `make_ko_figures.py` |
-| `B-ieee-access/` | 원고 B: `main.tex`(앞부분과 용어 풀이)와 본문 `01-intro.tex`–`07-submission.tex`(영문 I–X절과 부록 A, 투고 서류), 한국어 그림 `figures/fig_contrasts.pdf`, `figures/fig_lambda_sweep.pdf`와 그 스크립트 `make_ko_figures.py`. 그림 1(층 구조)은 본문 안의 TikZ예요 |
+| `B-ieee-access/` | 원고 B: `main.tex`(앞부분과 용어 풀이)와 본문 `01-intro.tex`–`07-submission.tex`(영문 I–IX절과 부록 A, 투고 서류), 한국어 그림 `figures/fig_contrasts.pdf`, `figures/fig_lambda_sweep.pdf`와 그 스크립트 `make_ko_figures.py`. 그림 1(층 구조)은 본문 안의 TikZ예요 |
 | `build.ps1` | 빌드(xelatex → bibtex → xelatex 두 번)와 점검: 오류, 정의되지 않은 참조·인용, 1pt를 넘는 넘침, 글상자 밖 글자 |
 | `check_numbers.py` | 해설판의 수를 영문 원고의 수와 대조 |
 | `check_layout.py` | 글상자 밖으로 나간 글자 찾기(`build.ps1`이 부름) |

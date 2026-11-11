@@ -64,9 +64,9 @@ KO_PATTERNS = [
      r"$\mathbf{{A}}$   사용자 계정 유입 $I_T$의 뜨거운 집합 (n = {0})"),
     (re.compile(r"^\$\\mathbf\{B\}\$   Hot set of user-authorized value, \$I_A\$ \(n = ([\d,]+)\)$"),
      r"$\mathbf{{B}}$   사용자 허락 금액 $I_A$의 뜨거운 집합 (n = {0})"),
-    (re.compile(r"^EndorseRank − in-approve degree, among the ([\d,]+) W0\nspenders that another contract had paid$"),
+    (re.compile(r"^EndorseRank − in-approve degree, among the ([\d,]+) W0\nspenders with a transfer from another contract$"),
      "EndorseRank − 받은 허락 수, 다른 계약이\n동결 전에 송금한 W0 스펜더 {0}개에서"),
-    (re.compile(r"^AWP − transfer in-degree, among the ([\d,]+) W0\nspenders that another contract had paid$"),
+    (re.compile(r"^AWP − transfer in-degree, among the ([\d,]+) W0\nspenders with a transfer from another contract$"),
      "AWP − 송금 입차수, 다른 계약이\n동결 전에 송금한 W0 스펜더 {0}개에서"),
 ]
 NUMERIC = re.compile(r"^[\s\d.,−\-+%]*$")

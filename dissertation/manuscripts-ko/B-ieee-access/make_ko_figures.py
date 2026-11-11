@@ -50,7 +50,7 @@ KO_TEXT: dict[str, str] = {
     "Registered analysis (the test the rules were fixed for; raw base units, every ERC-20 token, all accounts)":
         "등록 분석(규칙을 정할 때 시험하려던 분석; 원래 단위, 모든 ERC-20 토큰, 모든 계정)",
     r"Kendall $\tau_b$": r"켄달의 $\tau_b$",
-    r"weight $\lambda$ on the authorization layer": r"허락 층의 무게 $\lambda$",
+    r"weight $\lambda$ on the allowance layer": r"허락 층의 무게 $\lambda$",
     "New approval pairs": "새 허락 쌍",
     "New transfer senders": "새 송금자",
     r"$\lambda=0$ or $1$: one layer walked alone": r"$\lambda=0$ 또는 $1$: 한 층만 걷기",
