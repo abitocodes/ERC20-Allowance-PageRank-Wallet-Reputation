@@ -1,0 +1,570 @@
+{
+  "variant": "contract12m",
+  "events": {
+    "five_token_rows": 1240275042,
+    "distinct_pairs": 73058133,
+    "addresses": 25537280,
+    "transaction_senders": 17477779,
+    "rpc_queue": 6230270,
+    "contracts": 1829719,
+    "user_accounts": 21877279,
+    "rows_between_contracts": 603475784,
+    "latest_allowances_between_contracts_both_freezes": 648204,
+    "user_account_rows_toward_contracts": 152257072
+  },
+  "account_types": {
+    "block": 513216506,
+    "block_pinned": true,
+    "read_from": "2026-11-07T09:47:01+00:00",
+    "read_until": "2026-11-08T12:49:57+00:00",
+    "hosts": [
+      "arb1.arbitrum.io",
+      "arbitrum-one.public.blastapi.io"
+    ],
+    "rpc_calls": {
+      "arb1.arbitrum.io": 310289,
+      "arbitrum-one.public.blastapi.io": 12015679
+    },
+    "addresses": 6230270,
+    "aborted_addresses": 0,
+    "code_kind": {
+      "none": 2909509,
+      "contract": 2155736,
+      "eip7702": 1165025
+    },
+    "typed": {
+      "eoa": 2909509,
+      "contract": 2022375,
+      "eoa_7702": 1165025,
+      "smart_account": 133361
+    },
+    "wallet_kind_typed": {
+      "erc4337": 87157,
+      "safe": 46204
+    },
+    "proxy_kind": {
+      "none": 5156938,
+      "erc1967": 524454,
+      "eip1167": 503516,
+      "safe": 45362
+    },
+    "probes": {
+      "storage_reads": 524523,
+      "safe_slots": 45362,
+      "implementations": 14933,
+      "representatives": 582231,
+      "copied": 1002766,
+      "erc1967": 524454,
+      "safe_proxies": 45362,
+      "threshold_hashes": 923
+    },
+    "extension": {
+      "moved": 192656,
+      "by_code_hash": 37337,
+      "by_implementation": 155319
+    },
+    "after_extension": {
+      "eoa": 2909509,
+      "contract": 1829719,
+      "eoa_7702": 1165025,
+      "smart_account": 326017
+    },
+    "wallet_kind_after_extension": {
+      "erc4337": 279813,
+      "safe": 46204
+    },
+    "by_reason": {
+      "cohort": {
+        "contract": 7398,
+        "smart_account": 45
+      },
+      "spender": {
+        "contract": 2085,
+        "eoa": 43,
+        "eoa_7702": 9,
+        "smart_account": 2
+      },
+      "counterparty": {
+        "contract": 2012838,
+        "eoa": 2907748,
+        "eoa_7702": 1164793,
+        "smart_account": 133309
+      },
+      "audit_sender": {
+        "eoa": 960,
+        "eoa_7702": 40
+      },
+      "audit_untyped": {
+        "contract": 54,
+        "eoa": 758,
+        "eoa_7702": 183,
+        "smart_account": 5
+      }
+    },
+    "audit_senders_with_code": 0
+  },
+  "nodes": {
+    "contracts": 1403959,
+    "is_cohort": 6443,
+    "is_cohort_t1": 6292,
+    "is_spender_w0": 7864,
+    "is_spender_w1": 7915
+  },
+  "pairs": {
+    "tobs": {
+      "allowance_capped": {
+        "pairs": 115006,
+        "self_pairs": 25,
+        "sources": 9459,
+        "destinations": 100112,
+        "positive_w_er": 114997,
+        "positive_w_raw": 115006,
+        "largest_source_pairs": 98073,
+        "largest_destination_pairs": 2097,
+        "pairs_of_ten_largest_sources": 99039
+      },
+      "allowance_uncapped": {
+        "pairs": 302559,
+        "self_pairs": 121,
+        "sources": 141974,
+        "destinations": 108825,
+        "positive_w_er": 302543,
+        "positive_w_raw": 302559,
+        "largest_source_pairs": 98073,
+        "largest_destination_pairs": 28082,
+        "pairs_of_ten_largest_sources": 102409
+      },
+      "transfer": {
+        "pairs": 2580709,
+        "self_pairs": 15596,
+        "sources": 1007310,
+        "destinations": 801813,
+        "positive_w_awp": 2580381,
+        "positive_w_raw": 2580709,
+        "largest_source_pairs": 130667,
+        "largest_destination_pairs": 441612,
+        "pairs_of_ten_largest_sources": 644889
+      }
+    },
+    "t1": {
+      "allowance_capped": {
+        "pairs": 17940,
+        "self_pairs": 35,
+        "sources": 10153,
+        "destinations": 2050,
+        "positive_w_er": 17933,
+        "positive_w_raw": 17940,
+        "largest_source_pairs": 256,
+        "largest_destination_pairs": 2008,
+        "pairs_of_ten_largest_sources": 948
+      },
+      "allowance_uncapped": {
+        "pairs": 275917,
+        "self_pairs": 155,
+        "sources": 140327,
+        "destinations": 89727,
+        "positive_w_er": 275903,
+        "positive_w_raw": 275917,
+        "largest_source_pairs": 78382,
+        "largest_destination_pairs": 25810,
+        "pairs_of_ten_largest_sources": 82707
+      },
+      "transfer": {
+        "pairs": 2269073,
+        "self_pairs": 11430,
+        "sources": 873388,
+        "destinations": 626356,
+        "positive_w_awp": 2268818,
+        "positive_w_raw": 2269073,
+        "largest_source_pairs": 121708,
+        "largest_destination_pairs": 439299,
+        "pairs_of_ten_largest_sources": 536380
+      }
+    }
+  },
+  "allowances": {
+    "tobs": {
+      "total": {
+        "n_latest_positive": 339282,
+        "n_positive_eff": 116723,
+        "n_capped_to_zero": 222559,
+        "n_capped_below_allowance": 114454,
+        "n_unlimited": 223892,
+        "n_finite": 115390,
+        "n_eff_at_or_above_cap": 150,
+        "n_allow_at_or_above_cap": 230313,
+        "sum_usd_eff": 68149271.22263397,
+        "sum_usd_allow_finite": 6.262401759021613e+74,
+        "share_capped_to_zero": 0.6559705495723321,
+        "share_unlimited": 0.6598994346885482
+      },
+      "per_token": [
+        {
+          "symbol": "USDC",
+          "token": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+          "n_latest_positive": 255339,
+          "n_positive_eff": 108916,
+          "n_capped_to_zero": 146423,
+          "n_capped_below_allowance": 106988,
+          "n_unlimited": 167068,
+          "n_finite": 88271,
+          "n_eff_at_or_above_cap": 64,
+          "n_allow_at_or_above_cap": 172395,
+          "sum_usd_eff": 32697898.413640253,
+          "sum_usd_allow_finite": 2.0081722072069073e+72
+        },
+        {
+          "symbol": "USD\u20ae0",
+          "token": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+          "n_latest_positive": 36468,
+          "n_positive_eff": 5648,
+          "n_capped_to_zero": 30820,
+          "n_capped_below_allowance": 5522,
+          "n_unlimited": 29609,
+          "n_finite": 6859,
+          "n_eff_at_or_above_cap": 18,
+          "n_allow_at_or_above_cap": 30039,
+          "sum_usd_eff": 6467762.3139060335,
+          "sum_usd_allow_finite": 1.9622981774231616e+72
+        },
+        {
+          "symbol": "WETH",
+          "token": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+          "n_latest_positive": 30826,
+          "n_positive_eff": 1395,
+          "n_capped_to_zero": 29431,
+          "n_capped_below_allowance": 1270,
+          "n_unlimited": 17608,
+          "n_finite": 13218,
+          "n_eff_at_or_above_cap": 29,
+          "n_allow_at_or_above_cap": 18001,
+          "sum_usd_eff": 20322898.534445528,
+          "sum_usd_allow_finite": 3.2852200188233146e+63
+        },
+        {
+          "symbol": "WBTC",
+          "token": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+          "n_latest_positive": 11841,
+          "n_positive_eff": 386,
+          "n_capped_to_zero": 11455,
+          "n_capped_below_allowance": 341,
+          "n_unlimited": 5592,
+          "n_finite": 6249,
+          "n_eff_at_or_above_cap": 33,
+          "n_allow_at_or_above_cap": 5737,
+          "sum_usd_eff": 7819502.655659332,
+          "sum_usd_allow_finite": 6.222697055142461e+74
+        },
+        {
+          "symbol": "ARB",
+          "token": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+          "n_latest_positive": 4808,
+          "n_positive_eff": 378,
+          "n_capped_to_zero": 4430,
+          "n_capped_below_allowance": 333,
+          "n_unlimited": 4015,
+          "n_finite": 793,
+          "n_eff_at_or_above_cap": 6,
+          "n_allow_at_or_above_cap": 4141,
+          "sum_usd_eff": 841209.3049828184,
+          "sum_usd_allow_finite": 2.852241408810095e+58
+        }
+      ]
+    },
+    "t1": {
+      "total": {
+        "n_latest_positive": 308922,
+        "n_positive_eff": 19623,
+        "n_capped_to_zero": 289299,
+        "n_capped_below_allowance": 17480,
+        "n_unlimited": 208245,
+        "n_finite": 100677,
+        "n_eff_at_or_above_cap": 204,
+        "n_allow_at_or_above_cap": 214808,
+        "sum_usd_eff": 83952622.30044046,
+        "sum_usd_allow_finite": 5.990453304276236e+74,
+        "share_capped_to_zero": 0.9364791112319615,
+        "share_unlimited": 0.67410220055548
+      },
+      "per_token": [
+        {
+          "symbol": "USDC",
+          "token": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+          "n_latest_positive": 223685,
+          "n_positive_eff": 11381,
+          "n_capped_to_zero": 212304,
+          "n_capped_below_allowance": 9640,
+          "n_unlimited": 146928,
+          "n_finite": 76757,
+          "n_eff_at_or_above_cap": 87,
+          "n_allow_at_or_above_cap": 151952,
+          "sum_usd_eff": 33068341.3959225,
+          "sum_usd_allow_finite": 1.604634926949582e+72
+        },
+        {
+          "symbol": "WETH",
+          "token": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+          "n_latest_positive": 36916,
+          "n_positive_eff": 1442,
+          "n_capped_to_zero": 35474,
+          "n_capped_below_allowance": 1294,
+          "n_unlimited": 24198,
+          "n_finite": 12718,
+          "n_eff_at_or_above_cap": 43,
+          "n_allow_at_or_above_cap": 24751,
+          "sum_usd_eff": 31897955.498902194,
+          "sum_usd_allow_finite": 3.0241059601103205e+63
+        },
+        {
+          "symbol": "USD\u20ae0",
+          "token": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+          "n_latest_positive": 33673,
+          "n_positive_eff": 6007,
+          "n_capped_to_zero": 27666,
+          "n_capped_below_allowance": 5851,
+          "n_unlimited": 27950,
+          "n_finite": 5723,
+          "n_eff_at_or_above_cap": 23,
+          "n_allow_at_or_above_cap": 28520,
+          "sum_usd_eff": 7617881.627936137,
+          "sum_usd_allow_finite": 1.971771515759209e+72
+        },
+        {
+          "symbol": "WBTC",
+          "token": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+          "n_latest_positive": 9853,
+          "n_positive_eff": 440,
+          "n_capped_to_zero": 9413,
+          "n_capped_below_allowance": 390,
+          "n_unlimited": 5409,
+          "n_finite": 4444,
+          "n_eff_at_or_above_cap": 43,
+          "n_allow_at_or_above_cap": 5588,
+          "sum_usd_eff": 10755175.204068517,
+          "sum_usd_allow_finite": 5.954689239818907e+74
+        },
+        {
+          "symbol": "ARB",
+          "token": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+          "n_latest_positive": 4795,
+          "n_positive_eff": 353,
+          "n_capped_to_zero": 4442,
+          "n_capped_below_allowance": 305,
+          "n_unlimited": 3760,
+          "n_finite": 1035,
+          "n_eff_at_or_above_cap": 8,
+          "n_allow_at_or_above_cap": 3997,
+          "sum_usd_eff": 613268.5736111102,
+          "sum_usd_allow_finite": 3.8595637742808533e+58
+        }
+      ]
+    }
+  },
+  "importance": {
+    "tobs": {
+      "contracts": 809296,
+      "outside_nodes": 112210,
+      "with_i_t": 807452,
+      "with_i_a": 52446,
+      "with_both": 50602,
+      "i_t_usd": 16611212142.131758,
+      "i_a_usd": 309472584.0752535,
+      "inflow_untyped_usd": 1681953612.1923354
+    },
+    "t1": {
+      "contracts": 715480,
+      "outside_nodes": 109094,
+      "with_i_t": 713738,
+      "with_i_a": 40395,
+      "with_both": 38653,
+      "i_t_usd": 16622706250.352793,
+      "i_a_usd": 343843976.0837065,
+      "inflow_untyped_usd": 1373560052.3623755
+    }
+  },
+  "anchor_blocks": {
+    "t1": 447736930,
+    "tobs": 479089705,
+    "end_0930": 510496863
+  },
+  "balance_check": {
+    "mode": "archive",
+    "block": 479089705,
+    "rows": 1500,
+    "judged": 1500,
+    "matched": 1493,
+    "share": 0.995333,
+    "threshold": 0.98,
+    "passed": true,
+    "balances": 6033263
+  },
+  "constants": {
+    "computed_at": "2026-11-08T19:58:00+00:00",
+    "source": "sql/36_c12_constants.sql (contract_rep.c12_constants): the transfers between contracts (c12_events_cc), the latest allowances between contracts at t1 (c12_allow_triples, sql/36_c12_allow_triples.sql) and the transfers from user accounts to contracts (c12_user_events, sql/36_c12_user_events.sql) of the W0 score window",
+    "window": [
+      "2025-04-01 00:00:00 UTC",
+      "2026-03-31 23:59:59 UTC"
+    ],
+    "raw": {
+      "m_transfer": 164.05421339879427,
+      "p99_transfer": 16412.259340086293,
+      "p10_transfer": 1.5255254092033905,
+      "p90_transfer": 2110.0392072759996,
+      "n_transfers": 377876886,
+      "m_allowance": 0.07069696417117732,
+      "p99_allowance": 17993.861532977062,
+      "p10_allowance": 2.998980394982141e-06,
+      "p90_allowance": 26.378686671517485,
+      "n_latest_allowances": 308922,
+      "n_positive_allowances": 19623,
+      "n_capped_to_zero": 289299,
+      "n_capped_below_allowance": 17480,
+      "n_unlimited_positive": 8531,
+      "m_user_transfer": 250.81801553039043,
+      "p99_user_transfer": 31306.61933736177,
+      "p10_user_transfer": 4.4575581049999995,
+      "p90_user_transfer": 3981.70380003,
+      "n_user_transfers": 82749550
+    },
+    "m_transfer_usd": 160.0,
+    "m_allowance_usd": 0.071,
+    "cap_allowance_usd": 16000.0,
+    "cap_user_usd": 31000.0,
+    "b_transfer": 0.006866326804175686,
+    "b_allowance": 15.473412516452251,
+    "unlimited_base_units": 1.15e+77,
+    "dust_token": 1e-06,
+    "rule": "b = ln 3 / m with m the median rounded to two significant digits (usd.round_sig); U is the 99th percentile of the US-dollar values of the transfers between contracts and U_user that of the transfers from user accounts to contracts, both of the W0 score window and rounded to two significant digits; m_A is the median of the positive usd_eff of the latest allowances between contracts at t1, unlimited ones included (docs/revision_contract_graph.md section 7)"
+  },
+  "price_days": {
+    "first_day": "2025-04-01",
+    "last_day": "2026-09-30",
+    "days": 548,
+    "per_token": [
+      {
+        "symbol": "WBTC",
+        "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+        "days": 548,
+        "second_key_days": 0,
+        "filled_days": 0,
+        "spike_days": 0
+      },
+      {
+        "symbol": "WETH",
+        "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+        "days": 548,
+        "second_key_days": 0,
+        "filled_days": 0,
+        "spike_days": 0
+      },
+      {
+        "symbol": "ARB",
+        "address": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+        "days": 548,
+        "second_key_days": 0,
+        "filled_days": 0,
+        "spike_days": 0
+      },
+      {
+        "symbol": "USDC",
+        "address": "0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+        "days": 548,
+        "second_key_days": 0,
+        "filled_days": 0,
+        "spike_days": 0
+      },
+      {
+        "symbol": "USD\u20ae0",
+        "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+        "days": 548,
+        "second_key_days": 0,
+        "filled_days": 0,
+        "spike_days": 0
+      }
+    ]
+  },
+  "chainlink_check_in_windows": {
+    "dates": 20,
+    "per_token": {
+      "ARB": {
+        "n": 20,
+        "median": 0.0005644600228334,
+        "max": 0.0023680241327299
+      },
+      "USDC": {
+        "n": 20,
+        "median": 9.872812341931109e-05,
+        "max": 0.0002228882724264
+      },
+      "USD\u20ae0": {
+        "n": 20,
+        "median": 0.0001447682813345,
+        "max": 0.0014677309902819
+      },
+      "WBTC": {
+        "n": 20,
+        "median": 0.00048612407228265,
+        "max": 0.0024370731116118
+      },
+      "WETH": {
+        "n": 20,
+        "median": 0.00041382611412209996,
+        "max": 0.001384382686794
+      }
+    }
+  },
+  "timing": {
+    "revision_commit_utc": "d39775c 2026-11-07T09:33:38+00:00",
+    "protocol_commit_utc": "d39775c 2026-11-07T09:33:38+00:00",
+    "protocol_fixed_commit_utc": "8645bca 2026-11-08T19:51:41+00:00",
+    "contract12m_jobs": 26,
+    "contract12m_jobs_usd": 12.63,
+    "bigquery_usd_total": 54.88,
+    "bigquery_tib_billed": 8.78,
+    "budget_usd": 60.0
+  },
+  "provenance": {
+    "head": "e66585309df2fc97e87026f8cfea9643ae6545f3",
+    "inputs": {
+      "nodes": {
+        "nodes.part000.parquet": "9ca358c81f306ccc404d14770aaffbda60325078a5e78a1466dfac025d81baec"
+      },
+      "allow_pairs_tobs": {
+        "allow_pairs_tobs.part000.parquet": "dfe1553b576880f8053bf2012b602ddb51bcbe56e35253110bd4215019406c79"
+      },
+      "allow_pairs_t1": {
+        "allow_pairs_t1.part000.parquet": "2732ccc521194a4be5532758967b6689063cdfc01a1c5f2f318e2a1308f52afd"
+      },
+      "allow_pairs_uncapped_tobs": {
+        "allow_pairs_uncapped_tobs.part000.parquet": "05997f6092570f4c833f905719eb5dbf76aafe86296e3d1fb4f9f29bd82f34f1"
+      },
+      "allow_pairs_uncapped_t1": {
+        "allow_pairs_uncapped_t1.part000.parquet": "abc8798c1a45f3e64c759d68bb71432192bc4c51a9799a8ccd5175df9d98bacb"
+      },
+      "transfer_pairs_tobs": {
+        "transfer_pairs_tobs.part000.parquet": "d474eb883b85ad548789c402f289717b6f7b1c891a491874f4e0263c2b4db236",
+        "transfer_pairs_tobs.part001.parquet": "d0263bc6842b14714a73bec9aac8600098bd5a5b4c07e2b582a7be32edb15bf8"
+      },
+      "transfer_pairs_t1": {
+        "transfer_pairs_t1.part000.parquet": "d6047dd88a73ba43536fc990bfdd56ae1eef6f36acaec7f79de54de278770f64"
+      },
+      "importance_tobs": {
+        "importance_tobs.part000.parquet": "de949250e27a05b2a1f923776cc8a7ca85aa5156dc6273845b147d9bbc67a1d9"
+      },
+      "importance_t1": {
+        "importance_t1.part000.parquet": "469f5da167aa5dbc93a89b4039a802570d7ea7f04dfb3138bb0b832df6deb47d"
+      },
+      "inflow_untyped_tobs": {
+        "inflow_untyped_tobs.part000.parquet": "6a87f27723d50211c940796a91956613d58c4549d60be6c654f4b926e29f8a5e"
+      },
+      "inflow_untyped_t1": {
+        "inflow_untyped_t1.part000.parquet": "671134b8852c477d014e44dca93f60c32b975edf4193ea38f9b9b234ebdbe413"
+      },
+      "describe_allowances": {
+        "describe_allowances.part000.parquet": "d1491ede85878f78d02c583fcb54b3064cc3d87334714358acaf23c3fb19505c"
+      }
+    },
+    "run_manifest_sha256": "77b172779cdec6d1e187575d0656c7a6d8407c18b8457283acf826b2c5b8e510",
+    "account_types_json_sha256": "7b21419d97c0a01c77f399a8f8421aa38d192ef8553b5b4487941fe6dee582f7"
+  }
+}
