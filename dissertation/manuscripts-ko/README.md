@@ -3,7 +3,7 @@
 투고 원고 A(PLOS ONE)와 B(IEEE Access)의 영문 원고(`../overleaf-github/manuscripts/`)를 저자가 읽으려고 쉬운 한국어로 풀어 쓴 해설판입니다. Overleaf와 원고 저장소에는 올리지 않습니다.
 
 - 결과물: [`A-plos-one/main.pdf`](A-plos-one/main.pdf), [`B-ieee-access/main.pdf`](B-ieee-access/main.pdf)
-- 옮긴 원문: 원고 저장소 커밋 `4bcdf02`의 `manuscripts/A-plos-one`과 `manuscripts/B-ieee-access`. `07391e9`에서 B는 초록, 색인어, 저자 줄이 바뀌었고, A와 B 모두 공개 저장소(`ERC20-Allowance-PageRank-Wallet-Reputation`)와 그 커밋 식별자를 가리키게 바뀌었어요.
+- 옮긴 원문: 원고 저장소 main 커밋 `333e182`의 `manuscripts/A-plos-one`과 `manuscripts/B-ieee-access`(계약 그래프 분석: 그래프의 점은 모두 계약이고, A는 발견 순서 검증이 중심, B는 결합 걷기의 두 규칙과 시빌 노출).
 
 ## 어떻게 썼나
 
