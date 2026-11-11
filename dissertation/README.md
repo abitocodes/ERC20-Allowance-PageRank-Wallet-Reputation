@@ -15,7 +15,7 @@
 
 ## 원고 고치기
 
-1. 원고 작성 규칙(저자들의 비공개 메모, `_writing-brief.md`부터)을 읽습니다.
+1. 원고 작성 규칙(저자들의 비공개 메모, `_writing-brief.md`부터)을 읽습니다. 원고는 연구 내용을 씁니다. 커밋 해시는 부록의 데이터 위치 안내에서 한 번만 쓰고, 우리가 커밋·추출·계산한 날짜와 시각은 쓰지 않습니다(필요하면 순서만, `_writing-brief.md` 규칙 17).
 2. `overleaf-github/`의 장 파일(`Chapter-*/index.tex`)을 고칩니다. 원고 본문은 영어로 씁니다.
 3. 제목을 고치거나 표를 옮겼으면 `python tools/toc/make_toc.py`와 `python tools/toc/make_results_readme.py`로 목차와 표 목록을 다시 만듭니다(목차는 손으로 맞추는 파일이라 빌드가 대신 고쳐 주지 않습니다).
 4. `overleaf-github/`에서 `.\build.ps1`로 통합본과 장별 PDF를 빌드합니다(xelatex → biber → xelatex 두 번). 오류 0, 정의되지 않은 참조 0을 확인합니다. MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.

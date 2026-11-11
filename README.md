@@ -105,6 +105,7 @@ AWP는 스펜더 코호트 전체에서는 송금 입차수보다 조금 위였�
 - 분석 계획(`experiments/docs/analysis_plan.md`)과 설정(`experiments/config/contract_reputation.yaml`)은 이 연구의 첫 추출 전에 커밋했습니다. 1~6절을 고치지 않습니다. W1 등록 파일도 고치지 않습니다.
 - 주 분석의 명세와 발견 순서 프로토콜(`experiments/docs/revision_contract_graph.md`, `discovery_protocol.md`), 그리고 테스트(`experiments/tests/test_contract12m.py`)가 해시로 지키는 코드와 SQL은 평가를 돌리기 전에 커밋했습니다. 고치지 않습니다.
 - 주 분석의 결과를 '등록된 결과'라고 부르지 않습니다. 규칙 B는 적용한 두 기준(F1, F2)으로만 말합니다.
+- 원고(학위논문 영어·한국어, 투고 논문 A·B와 그 보충 자료·커버 레터, 해설판)는 연구 내용을 씁니다. 연구 과정의 정당성을 변호하지 않고, 제목에도 연구 과정을 내세우는 말을 넣지 않습니다. 커밋 해시는 원고마다 한 번만, 끝부분의 데이터 위치 안내에서 씁니다. 우리가 커밋하고 데이터를 추출하고 계산을 돌린 날짜와 시각은 쓰지 않고, 필요할 때만 순서를 씁니다. 데이터가 어느 기간의 것인지는 그대로 씁니다. 이 README와 메모는 원고가 아니므로 기록을 찾아가는 식별자와 시각을 둡니다.
 - `proposal/`과 `archive/`는 고치지 않습니다. 테스트 `experiments/tests/`는 보관 스크립트(`archive/wallet-reputation-experiments/scripts/`)를 읽기 전용 기준으로 불러오므로, 그 폴더를 옮기거나 지우지 않습니다.
 - 원고 문장 규칙(`_writing-brief.md`)은 저자들의 비공개 메모에 있습니다.
 - 데이터, Drive, BigQuery 비용의 규칙은 [`experiments/README.md`](experiments/README.md)의 「데이터 정책」에 있습니다.

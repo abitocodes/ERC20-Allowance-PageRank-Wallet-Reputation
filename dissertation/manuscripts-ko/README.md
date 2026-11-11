@@ -3,7 +3,7 @@
 투고 원고 A(PLOS ONE)와 B(IEEE Access)의 영문 원고(`../overleaf-github/manuscripts/`)를 저자가 읽으려고 쉬운 한국어로 풀어 쓴 해설판입니다. Overleaf와 원고 저장소에는 올리지 않습니다.
 
 - 결과물: [`A-plos-one/main.pdf`](A-plos-one/main.pdf), [`B-ieee-access/main.pdf`](B-ieee-access/main.pdf)
-- 옮긴 원문: 원고 저장소 main 커밋 `333e182`의 `manuscripts/A-plos-one`과 `manuscripts/B-ieee-access`(계약 그래프 분석: 그래프의 점은 모두 계약이고, A는 발견 순서 검증이 중심, B는 결합 걷기의 두 규칙과 시빌 노출).
+- 옮긴 원문: 원고 저장소 main 커밋 `51c6510`에 2026-11-11 저녁의 고침(커밋 식별자와 커밋·추출 날짜를 뺀 것, 아직 커밋 전)을 더한 `manuscripts/A-plos-one`과 `manuscripts/B-ieee-access`. 그 고침을 커밋하면 이 줄의 커밋을 고칩니다. 해설판의 제목 블록에는 커밋을 적지 않습니다.(계약 그래프 분석: 그래프의 점은 모두 계약이고, A는 발견 순서 검증이 중심, B는 결합 걷기의 두 규칙과 시빌 노출).
 
 ## 어떻게 썼나
 
@@ -44,4 +44,4 @@ python -I -X utf8 check_numbers.py B-ieee-access
 
 1. 바뀐 절만 같은 기준으로 다시 씁니다. 표의 수가 바뀌었으면 한국어 표도 고칩니다.
 2. 그림이 바뀌었으면 그 폴더에서 `python -I -X utf8 make_ko_figures.py`를 다시 돌립니다. 영문 그림 스크립트가 읽는 `phd_works` 위치는 `PHD_WORKS`로 주거나, 이 저장소 안이면 저절로 찾습니다.
-3. 빌드하고 `check_numbers.py`를 돌립니다. 제목 블록의 원문 커밋도 고칩니다.
+3. 빌드하고 `check_numbers.py`를 돌립니다. 이 README의 「옮긴 원문」 커밋을 고칩니다(해설판 본문과 제목 블록에는 자료 공개 부분의 커밋 하나 말고는 커밋 식별자를 쓰지 않습니다).

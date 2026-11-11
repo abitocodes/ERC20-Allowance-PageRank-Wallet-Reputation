@@ -56,8 +56,8 @@ KO_TEXT: dict[str, str] = {
     r"$\lambda=0$ or $1$: one layer walked alone": r"$\lambda=0$ 또는 $1$: 한 층만 걷기",
     "dotted: union in-degree (top row)": "점선: 합집합 입차수(위 줄)",
     # Fig. 2 (forest): group headers
-    "Rule A, primary part (plan, 13:41:27 UTC); W0": "규칙 A의 주 부분(계획, 13:41:27 UTC); W0",
-    "Rule B (registration, 16:49:32 UTC); W1; its criteria F1 and F2": "규칙 B(등록, 16:49:32 UTC); W1; 기준 F1과 F2",
+    "Rule A, primary part (analysis plan); W0": "규칙 A의 주 부분(분석 계획); W0",
+    "Rule B (registration of W1); W1; its criteria F1 and F2": "규칙 B(W1 등록); W1; 기준 F1과 F2",
     "F6, rule A on W1, reported beside rule B (nominal)": "F6: W1에서 다시 한 규칙 A, 규칙 B 옆에 보고(명목상)",
     "Sensitivity 1: AWP as comparator (nominal)": "민감도 분석 S1: AWP와 견줌(명목상)",
     "Sensitivity 2: contracts outside a graph as isolated nodes (nominal)":

@@ -888,8 +888,8 @@ def t_holdout_diff(w0: dict, seed: int, supp: dict | None) -> None:
     caption = (
         f"Paired bootstrap differences on the spender holdout W0 ($n={E.fint(w0.get('spenders'))}$ contracts; "
         f"{E.fint(max(E.STATE['nboot']) if E.STATE['nboot'] else None)} resamples shared by $a$ and $b$, seed {seed}). "
-        "The first block holds the two contrasts of the primary part of rule A, fixed in the analysis plan committed "
-        "on 9~October~2026 before the study extracted any data and applied here to the scores of the contract graph "
+        "The first block holds the two contrasts of the primary part of rule A, fixed in the analysis plan "
+        "before the study extracted any data and applied here to the scores of the contract graph "
         "(C-PR against C-PR ($\\lambda=1$) on new approval pairs and against C-PR ($\\lambda=0$) on new transfer "
         "senders). The second block was computed after the labels were known: the increment of C-PR ($\\lambda=1$), "
         "the allowance layer walked alone, over its raw degree at $t_1$, the same comparisons for S-PR, and the "

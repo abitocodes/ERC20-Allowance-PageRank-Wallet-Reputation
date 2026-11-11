@@ -115,7 +115,7 @@
 \rowlabel{dsTransfer}{-9.26}{송금}
 \dsInput{dsTransfer}{-9.26}{\xs}{\xt}{점수 입력}
 \dsHeld{dsTransfer}{-9.26}{\xt}{\xe}{송금자}
-\laneuse{-8.32}{계약 그래프의 점수로 규칙~B의 F1과 F2를 봐요. W1 로그는 2026년 10월 9일의 등록 뒤에 뽑아냈어요. RQ3과 RQ5예요(\S\ref{sub:fresh-holdout}).}
+\laneuse{-8.32}{계약 그래프의 점수로 규칙~B의 F1과 F2를 봐요. W1 로그는 등록 뒤에 뽑아냈어요. RQ3과 RQ5예요(\S\ref{sub:fresh-holdout}).}
 \lanerule{-9.61}
 
 % Lane F: account types and balances
@@ -124,7 +124,7 @@
 \dsInput{dsOther}{-10.31}{\xa}{\xe}{2026년 10월 1일 전 어느 블록에서든 트랜잭션을 보냄: 사용자 계정}
 \rowlabel{dsOther}{-10.75}{코드}
 \fill[dsOther!75!black] (12.1,-10.75) +(0,0.13) -- +(0.13,0) -- +(0,-0.13) -- +(-0.13,0) -- cycle;
-\node[anchor=east, fill=white, inner sep=1pt] at (11.9,-10.75) {고정한 블록 하나에서 \texttt{eth\_getCode}와 스마트 계정 호출, 2026년 10월 9일};
+\node[anchor=east, fill=white, inner sep=1pt] at (11.9,-10.75) {고정한 블록 하나에서 \texttt{eth\_getCode}와 스마트 계정 호출};
 \rowlabel{dsTransfer}{-11.19}{송금}
 \dsInput{dsTransfer}{-11.19}{\xa}{\xt}{각 동결까지의 다섯 토큰 송금: 주인의 잔액}
 \laneuse{-9.81}{트랜잭션을 보낸 주소, 코드가 없거나 EIP-7702 위임이 있는 주소, 스마트 계정은 사용자 계정이에요. 다른 코드는 계약이에요(\S\ref{sub:account-types}). 잔액에는 2023년 10월 전의 송금도 들어가요(\S\ref{sub:balances}).}
