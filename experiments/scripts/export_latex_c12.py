@@ -596,9 +596,10 @@ def t_discovery_coverage(runs: dict) -> None:
          [SRC[f"disc_{t}_{m}"] for t, m in RUNS], discovery=True)
 
 
-CURVE_LINES = (("bfs", "BFS", "#7f7f7f", "-"), ("random", "Random", "#bdbdbd", "-"),
-               ("ib_u", "IB$'_U$ (contract backlinks)", E.RED, "-"), ("awp", "AWP$'$", "#3a7d44", "-"),
-               ("cpr_l50", "C-PR$'$", E.BLUE, "-"))
+# Colours by role (E.PAL): reference orderings and the backlink count grey, AWP' blue (transfers), C-PR' violet.
+CURVE_LINES = (("bfs", "BFS", E.PAL["bfs"], "-"), ("random", "Random", E.PAL["random"], "-"),
+               ("ib_u", "IB$'_U$ (contract backlinks)", E.PAL["count"], "-"), ("awp", "AWP$'$", E.PAL["awp"], "-"),
+               ("cpr_l50", "C-PR$'$", E.PAL["cpr"], "-"))
 
 
 def fig_discovery_curves(d: dict, name: str) -> None:
@@ -629,8 +630,8 @@ def fig_discovery_curves(d: dict, name: str) -> None:
         ideal = by.get("ideal") or {}
         if ideal:
             ax.plot(100 * x[keep], np.asarray(ideal["mean"] if isinstance(ideal, dict) else ideal, dtype=float)[keep],
-                    ":", color="black", lw=1.0, label="Ideal")
-        ax.axvline(10, color="black", lw=0.6, alpha=0.5)
+                    ":", color=E.PAL["ideal"], lw=1.1, label="Ideal")
+        ax.axvline(10, color=E.PAL["ref"], lw=0.6, alpha=0.6)
         ax.set_title(title, fontsize=10)
         ax.set_xlabel("Contracts visited (% of the universe)")
         ax.set_xlim(0, 20)
@@ -638,7 +639,8 @@ def fig_discovery_curves(d: dict, name: str) -> None:
                   for k, *_ in CURVE_LINES if by.get(k))
         ax.set_ylim(0, min(1.0, 1.25 * top))
     axes[0].set_ylabel("Share of the hot contracts visited ($P_{ST}$)")
-    axes[1].legend(loc="upper left", frameon=False)
+    # A light backing keeps the legend readable where a seed band runs under it.
+    axes[1].legend(loc="upper left", frameon=True, framealpha=0.88, facecolor="white", edgecolor="none")
     fig.tight_layout()
     E._save(fig, name)
 
@@ -1637,7 +1639,7 @@ def fig_runtime_scaling(bench: dict) -> None:
     x_sub = np.arange(len(sub), dtype=float)
     x_whole = float(len(sub)) + 0.35
     fig, ax = plt.subplots(figsize=(5.8, 3.8))
-    for m, name, color, marker, dy in (("endorserank", "EndorseRank", E.BLUE, "o", -11), ("awp", "AWP", E.RED, "s", 7)):
+    for m, name, color, marker, dy in (("endorserank", "EndorseRank", E.PAL["er"], "o", -11), ("awp", "AWP", E.PAL["awp"], "s", 7)):
         if sub:
             t = np.array([s[m]["mean_s"] for s in sub])
             sd = np.array([s[m]["sd_s"] for s in sub])
@@ -1659,7 +1661,7 @@ def fig_runtime_scaling(bench: dict) -> None:
     ax.set_xticks(ticks)
     ax.set_xticklabels(labels)
     if whole and sub:
-        ax.axvline((x_sub[-1] + x_whole) / 2, color="#bdbdbd", linewidth=0.8, linestyle=":")
+        ax.axvline((x_sub[-1] + x_whole) / 2, color=E.PAL["divider"], linewidth=0.8, linestyle=":")
     ax.minorticks_off()
     ax.set_xlabel("Contracts in the subsample $n$; open markers: the whole contract graph")
     ax.set_ylabel("Runtime per solver call (s, log scale)")

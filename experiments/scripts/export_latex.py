@@ -1781,10 +1781,41 @@ def _style():
         "grid.alpha": 0.3,
         "pdf.fonttype": 42,
     })
+    if CONTRACT_GRAPH:
+        # The type of the thesis diagrams (dissertation/overleaf-github/Figures/html/style.css): a sans font,
+        # a light grid and no top or right spine. The other variants keep the style they were drawn with.
+        plt.rcParams.update({
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Segoe UI", "Arial", "DejaVu Sans"],
+            "mathtext.fontset": "stixsans",
+            "text.color": "#1F2937",
+            "axes.labelcolor": "#1F2937",
+            "axes.edgecolor": "#94A3B8",
+            "axes.linewidth": 0.8,
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "xtick.color": "#475569",
+            "ytick.color": "#475569",
+            "grid.color": "#E2E8F0",
+            "grid.alpha": 1.0,
+            "grid.linewidth": 0.6,
+            "legend.fontsize": 7.6,   # Segoe UI runs wider than the serif face; legends stay inside their axes
+            "legend.handlelength": 1.6,
+        })
     return plt
 
 
 BLUE, RED, GREY = "#2c5f8a", "#a03c3c", "#c8d4e0"
+# Colours by role. The contract-graph variant uses the palette of the thesis diagrams (allowance side orange,
+# transfer side blue, C-PR violet, counts and reference orderings greys, contracts teal); the other variants keep
+# the colours they were drawn with.
+PAL = ({"er": "#D97706", "awp": "#2563EB", "cpr": "#7C3AED", "spr": "#A78BFA", "count": "#334155",
+        "bfs": "#8A94A3", "random": "#C3CAD3", "ideal": "#374151", "point": "#0F766E", "decay": "#0F766E",
+        "band": "#CBD5E1", "ref": "#64748B", "w0": "#DB2777", "equal": "#475569", "divider": "#CBD5E1"}
+       if CONTRACT_GRAPH else
+       {"er": BLUE, "awp": RED, "cpr": BLUE, "spr": BLUE, "count": RED, "bfs": "#7f7f7f", "random": "#bdbdbd",
+        "ideal": "black", "point": BLUE, "decay": BLUE, "band": GREY, "ref": "grey", "w0": RED, "equal": "black",
+        "divider": "#bdbdbd"})
 
 
 def _save(fig, name: str) -> None:
@@ -1813,16 +1844,17 @@ def fig_logistic_decay(cfg: dict) -> None:
     fig, ax = plt.subplots(figsize=(5.4, 3.3))
     band = (f"Ages at both freezes (0\u2013{obs:,} days)" if w0 == obs
             else f"Ages at the observation anchor (0\u2013{obs:,} days)")
-    ax.axvspan(0, obs, color=GREY, alpha=0.45, linewidth=0, label=band)
-    ax.plot(x, y, color=BLUE, linewidth=2, label=rf"Decay weight, $k={k:g}$, $t_0={t0:g}$ days")
-    ax.axvline(t0, color="grey", linestyle="--", linewidth=0.8)
-    ax.text(t0 + 12, 0.30, rf"$t_0={t0:g}$ days", fontsize=9)
+    ax.axvspan(0, obs, color=PAL["band"], alpha=0.45, linewidth=0, label=band)
+    ax.plot(x, y, color=PAL["decay"], linewidth=2, label=rf"Decay weight, $k={k:g}$, $t_0={t0:g}$ days")
+    ax.axvline(t0, color=PAL["ref"], linestyle="--", linewidth=0.8)
+    # On the contract graph the label sits below the curve, so it does not cross it.
+    ax.text(t0 + 12, 0.07 if CONTRACT_GRAPH else 0.30, rf"$t_0={t0:g}$ days", fontsize=9)
     if w0 != obs:
         ax.annotate("", xy=(w0, 0.97), xytext=(0, 0.97),
-                    arrowprops={"arrowstyle": "<->", "color": RED, "linewidth": 1.0, "shrinkA": 0, "shrinkB": 0})
-        ax.axvline(w0, color=RED, linestyle=":", linewidth=1.0)
+                    arrowprops={"arrowstyle": "<->", "color": PAL["w0"], "linewidth": 1.0, "shrinkA": 0, "shrinkB": 0})
+        ax.axvline(w0, color=PAL["w0"], linestyle=":", linewidth=1.0)
         ax.text(w0 / 2, 1.0, f"Ages at the W0 freeze (0\u2013{w0:,} days)", ha="center", va="bottom",
-                fontsize=8.5, color=RED)
+                fontsize=8.5, color=PAL["w0"])
     ax.set_xlim(-10, obs + 90)
     ax.set_ylim(-0.02, 1.12)
     ticks = sorted(t for t in {0, int(t0), 365, 730, w0, obs} if t <= obs)
@@ -1839,7 +1871,7 @@ def fig_score_distributions(scores, same: dict) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(5.8, 3.0), sharey=True)
     c = (same.get("closed_form") or {}).get("common_value_c")
     tallest = 1.0
-    for ax, col, name, color in ((axes[0], "endorserank", "EndorseRank", BLUE), (axes[1], "awp", "AWP", RED)):
+    for ax, col, name, color in ((axes[0], "endorserank", "EndorseRank", PAL["er"]), (axes[1], "awp", "AWP", PAL["awp"])):
         s = scores[col].to_numpy(dtype=float)
         pos = s[s > 0]
         zeros = int((s == 0).sum())
@@ -1872,9 +1904,9 @@ def fig_rank_scatter(scores, same: dict) -> None:
     k = min(3000, n)
     idx = np.random.default_rng(42).choice(n, size=k, replace=False)
     fig, ax = plt.subplots(figsize=(5.0, 4.9))
-    ax.scatter(x[idx], y[idx], s=5, alpha=0.4, color=BLUE, edgecolors="none",
+    ax.scatter(x[idx], y[idx], s=5, alpha=0.4, color=PAL["point"], edgecolors="none",
                label=f"Random sample of {k:,} of {n:,} contracts (seed 42)")
-    ax.plot([1, n], [1, n], "k--", linewidth=0.8, label="Equal ranks")
+    ax.plot([1, n], [1, n], linestyle="--", color=PAL["equal"], linewidth=0.8, label="Equal ranks")
     inter = (same.get("inter_method") or {}).get("endorserank_vs_awp") or {}
     title = (rf"Kendall $\tau_b$ on all contracts = {inter['kendall_tau']:.3f} "
              f"[{inter['ci_low']:.3f}, {inter['ci_high']:.3f}]") if inter else None
@@ -1909,7 +1941,7 @@ def fig_damping(same: dict) -> None:
     fig, ax = plt.subplots(figsize=(5.6, 3.6))
     styles = {"transfer": ("o", "-"), "allowance": ("s", "--"), "sybil_stability": ("^", ":")}
     words = {"transfer": "transfer", "allowance": "allowance", "sybil_stability": STAB_NAME}
-    for m, name, color, off in (("endorserank", "EndorseRank", BLUE, -0.003), ("awp", "AWP", RED, 0.003)):
+    for m, name, color, off in (("endorserank", "EndorseRank", PAL["er"], -0.003), ("awp", "AWP", PAL["awp"], 0.003)):
         for f, (marker, ls) in styles.items():
             rows = [dmp[f"{m}_d{int(round(d * 100))}"][f] for d in ds]
             mu = np.array([r["mean_tau"] for r in rows])
