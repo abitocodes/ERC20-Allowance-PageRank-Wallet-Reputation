@@ -212,8 +212,10 @@ Victor의 자기 허락 어림 방법(휴리스틱)은 ERC-20 허락을 주소 �
 
 \begin{figure}[htbp]
 \centering
-\input{Figures/conceptual-model.tex}
-\caption[{개념 모형이에요. 계약 그래프, 점수, 네 가지 평가를 보여 줘요.}]{개념 모형이에요. 한 동결의 계약 그래프는 점이 모두 계약이고, 점수의 하나뿐인 입력이에요. 그리고 점수는 네 가지 평가에 들어가요. 평가는 위에서 아래로 연구 질문의 차례대로 놓여 있어요. 사용자 계정(점선)은 어떤 그래프의 점도 아니에요. 사용자 계정은 발견 순서 검증의 중요도로서만, 그리고 기간 밖 라벨을 거쳐서만 들어와요. 기간 밖 라벨은 모든 계정을 세요.}
+% HTML로 그린 그림. 원본은 Figures/html/conceptual-model.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/conceptual-model.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/conceptual-model.pdf}
+\caption[{개념 모형이에요. 계약 그래프, 점수, 네 가지 평가를 보여 줘요.}]{개념 모형이에요. 한 동결의 계약 그래프는 같은 계약 점 위에 허락 층과 송금 층을 두고, 점수의 하나뿐인 입력이에요. 점수 옆의 막대는 그 점수가 읽는 층을 표시해요. 모든 점수는 네 가지 평가에 들어가요. 평가는 위에서 아래로 연구 질문의 차례대로 놓여 있어요. 사용자 계정(점선)은 어떤 그래프의 점도 아니에요. 사용자 계정은 발견 순서 검증의 중요도로서만, 그리고 기간 밖 라벨을 거쳐서만 들어와요. 기간 밖 라벨은 모든 계정을 세요.}
 \label{fig:conceptual-model}
 \end{figure}
 
