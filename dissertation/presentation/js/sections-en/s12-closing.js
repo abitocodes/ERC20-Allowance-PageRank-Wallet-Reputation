@@ -1,19 +1,19 @@
 /* =========================================================================
-   s11-closing — Conclusion (English edition; STORYBOARD.md §2, s11-01 … s11-05)
+   s12-closing — Conclusion (English edition; STORYBOARD.md §2, s12-01 … s12-05)
 
-   s11-01  Answers to the RQs    five RQ cards; on entry the representative pictures of the talk fly
+   s12-01  Answers to the RQs    five RQ cards; on entry the representative pictures of the talk fly
                                  back in as dim thumbnails (rank scatter of the real 6,483 contracts,
                                  family bars, race bars, interval bars, verdict stamps); each click
                                  brings one card forward with its answer and status; then the
                                  out-of-both-edges line and the five objective chips
-   s11-02  Five contributions    bento of five tiles, C-PR first in the large tile; each with one small
+   s12-02  Five contributions    bento of five tiles, C-PR first in the large tile; each with one small
                                  motion (G13 dial, G1, G8, closed form, a waffle of the W1 traders)
-   s11-03  Limitations           eight lines with icons, four per click
-   s11-04  Wallet window, next   the brandless wallet window of s01-01 opens again (DeckParts.wallet; 46 px
+   s12-03  Limitations           eight lines with icons, four per click
+   s12-04  Wallet window, next   the brandless wallet window of s01-01 opens again (DeckParts.wallet; 46 px
                                  lower than in s01-01 so it clears the title), now with "owner addresses: N"
                                  (owners are addresses, not people); the cursor rests on Approve without
                                  pressing; two lines; four next steps, the first tagged hypothesis
-   s11-05  Thank you             the small world as a constellation; the allowance arrow underlines
+   s12-05  Thank you             the small world as a constellation; the allowance arrow underlines
                                  the thanks; then everything stops for the questions
 
    Numbers and sources (R = revised digest, revised-usd-12m = the thesis's main analysis)
@@ -79,74 +79,74 @@
 
   /* ------------------------------------------------------------ styles */
   var CSS = [
-    /* s11-01 */
-    '.s11-card{position:absolute;top:186px;width:326px;height:560px;border-radius:20px;background:var(--bg-2);border:1.5px solid var(--line);padding:16px 18px}',
-    '.s11-card.on{border-color:#3A4458}',
-    '.s11-card .th{position:relative;height:128px;border-radius:12px;background:var(--bg-3);overflow:hidden}',
-    '.s11-card .th svg,.s11-card .th canvas{position:absolute;left:0;top:0}',
-    '.s11-card .bd{position:absolute;left:18px;right:18px;top:162px;bottom:16px}',
-    '.s11-card .rq{display:flex;gap:10px;align-items:flex-start}',
-    '.s11-card .rq .k{flex:0 0 auto;height:32px;padding:0 10px;border-radius:9px;background:var(--bg-3);font-family:var(--font-mono);font-size:18px;line-height:32px;color:var(--ink);letter-spacing:0}',
-    '.s11-card .rq .qq{font-size:22px;line-height:32px;color:var(--ink-2)}',
-    '.s11-card .an{margin-top:16px;font-size:30px;line-height:40px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}',
-    '.s11-card .sb{margin-top:10px;font-size:22px;line-height:32px;color:var(--ink-2)}',
-    '.s11-card .sb b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}',
-    '.s11-card .sb .em{color:var(--ink);font-weight:700;background-image:linear-gradient(rgba(233,237,245,.16),rgba(233,237,245,.16));background-repeat:no-repeat;background-size:0% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:4px;padding:0 3px}',
-    '.s11-card .tg{position:absolute;left:0;bottom:0;display:flex;flex-wrap:wrap;gap:8px}',
-    '.s11-card .tg .pill{height:30px;font-size:16px}',
-    '.s11-oc{position:absolute;top:762px;width:326px;padding:8px 14px;border-radius:14px;border:1.5px solid var(--line);background:rgba(16,21,31,.9);font-size:19px;line-height:26px;color:var(--ink-2)}',
-    '.s11-oc b{color:var(--ink);font-weight:800;margin-right:6px}',
-    '.s11-oc.part{border-color:var(--ink-3)}',
-    '.s11-oc.fail{border-color:var(--ink-2);border-style:dashed}',
-    '.s11-brk{position:absolute;top:812px;height:30px;border:1.5px solid var(--ink-3);border-top:none;border-radius:0 0 10px 10px}',
-    '.s11-brk span{position:absolute;left:50%;top:14px;transform:translateX(-50%);white-space:nowrap;padding:0 12px;background:var(--bg);font-size:19px;line-height:26px;color:var(--ink-2)}',
-    '.s11-add{font-size:24px;line-height:36px;color:var(--ink-2);display:flex;align-items:center;gap:14px}',
-    '.s11-add b{color:var(--ink);font-weight:700}',
-    /* s11-02 */
-    '.s11-tile{position:absolute;border-radius:22px;background:var(--bg-2);border:1.5px solid var(--line);overflow:hidden}',
-    '.s11-tile .no{position:absolute;left:24px;top:18px;font-family:var(--font-mono);font-size:20px;line-height:26px;color:var(--ink-3);letter-spacing:0}',
-    '.s11-tile .vis{position:absolute;left:0;right:0}',
-    '.s11-tile .tx{position:absolute;left:28px;right:28px;bottom:24px;font-size:26px;line-height:36px;font-weight:600;color:var(--ink)}',
-    '.s11-tile .tx small{display:block;margin-top:4px;font-size:20px;line-height:28px;font-weight:500;color:var(--ink-2)}',
-    '.s11-tile .big{font-size:52px;line-height:60px;font-weight:800;letter-spacing:-.02em}',
-    '.s11-tile .fx .katex{font-size:46px}',
-    '.s11-note{font-size:26px;line-height:38px;color:var(--ink-2)}',
-    '.s11-note b{color:var(--ink);font-weight:700}',
-    /* s11-03 */
-    '.s11-lim{display:flex;flex-direction:column;gap:14px}',
-    '.s11-lim .r{display:flex;align-items:center;gap:24px;min-height:68px}',
-    '.s11-lim .ic{flex:0 0 auto;width:64px;height:64px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}',
-    '.s11-lim .ic svg{width:38px;height:38px}',
-    '.s11-lim .t{font-size:29px;line-height:40px;color:var(--ink)}',
-    '.s11-lim .t span{color:var(--ink-2)}',
-    /* s11-04 */
-    '.s11-nl{font-family:var(--font-sans);font-size:23px;line-height:26px;color:var(--ink);font-weight:600;letter-spacing:-.01em}',
-    '.s11-nl b{font-family:var(--font-mono);font-size:24px;color:var(--ink);padding:0 4px;border-bottom:2px dashed var(--ink-2)}',
-    '.s11-ns{position:absolute;left:0;right:0;top:352px;text-align:center;font-size:18px;line-height:24px;color:var(--ink-3)}',
-    '.s11-caret{display:inline-block;width:2px;height:22px;margin-left:2px;vertical-align:-3px;background:var(--ink)}',
-    '.s11-two{font-size:40px;line-height:58px;font-weight:700;letter-spacing:-.02em}',
-    '.s11-two .ne{display:inline-block;margin:0 8px;color:var(--ink);font-weight:800}',
-    '.s11-two .ink-2{font-weight:600}',
-    '.s11-nx h2{margin-bottom:18px}',
-    '.s11-nc{position:relative;display:flex;gap:20px;align-items:flex-start;padding:18px 22px;margin-bottom:14px;border-radius:18px;background:var(--bg-2);border:1.5px solid var(--line)}',
-    '.s11-nc .n{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--bg-3);font-family:var(--font-mono);font-size:20px;line-height:40px;text-align:center;color:var(--ink)}',
-    '.s11-nc .t{font-size:26px;line-height:38px;color:var(--ink)}',
-    '.s11-nc .t small{display:block;font-size:21px;line-height:30px;color:var(--ink-2)}',
-    '.s11-hyp{position:absolute;right:18px;top:-16px}',
-    '.s11-nnote{font-size:18px;line-height:26px;color:var(--ink-3)}',
-    /* s11-05 */
-    '.s11-thx{position:absolute;left:0;right:0;text-align:center}',
-    '.s11-small{position:absolute;left:96px;right:96px;text-align:center;font-size:22px;line-height:34px;color:var(--ink-2)}',
-    '.s11-small b{color:var(--ink);font-weight:600}',
-    '.s11-mono{position:absolute;left:96px;right:96px;text-align:center;font-family:var(--font-mono);font-size:18px;line-height:28px;color:var(--ink-3);letter-spacing:0}'
+    /* s12-01 */
+    '.s12-card{position:absolute;top:186px;width:326px;height:560px;border-radius:20px;background:var(--bg-2);border:1.5px solid var(--line);padding:16px 18px}',
+    '.s12-card.on{border-color:#3A4458}',
+    '.s12-card .th{position:relative;height:128px;border-radius:12px;background:var(--bg-3);overflow:hidden}',
+    '.s12-card .th svg,.s12-card .th canvas{position:absolute;left:0;top:0}',
+    '.s12-card .bd{position:absolute;left:18px;right:18px;top:162px;bottom:16px}',
+    '.s12-card .rq{display:flex;gap:10px;align-items:flex-start}',
+    '.s12-card .rq .k{flex:0 0 auto;height:32px;padding:0 10px;border-radius:9px;background:var(--bg-3);font-family:var(--font-mono);font-size:18px;line-height:32px;color:var(--ink);letter-spacing:0}',
+    '.s12-card .rq .qq{font-size:22px;line-height:32px;color:var(--ink-2)}',
+    '.s12-card .an{margin-top:16px;font-size:30px;line-height:40px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}',
+    '.s12-card .sb{margin-top:10px;font-size:22px;line-height:32px;color:var(--ink-2)}',
+    '.s12-card .sb b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}',
+    '.s12-card .sb .em{color:var(--ink);font-weight:700;background-image:linear-gradient(rgba(233,237,245,.16),rgba(233,237,245,.16));background-repeat:no-repeat;background-size:0% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:4px;padding:0 3px}',
+    '.s12-card .tg{position:absolute;left:0;bottom:0;display:flex;flex-wrap:wrap;gap:8px}',
+    '.s12-card .tg .pill{height:30px;font-size:16px}',
+    '.s12-oc{position:absolute;top:762px;width:326px;padding:8px 14px;border-radius:14px;border:1.5px solid var(--line);background:rgba(16,21,31,.9);font-size:19px;line-height:26px;color:var(--ink-2)}',
+    '.s12-oc b{color:var(--ink);font-weight:800;margin-right:6px}',
+    '.s12-oc.part{border-color:var(--ink-3)}',
+    '.s12-oc.fail{border-color:var(--ink-2);border-style:dashed}',
+    '.s12-brk{position:absolute;top:812px;height:30px;border:1.5px solid var(--ink-3);border-top:none;border-radius:0 0 10px 10px}',
+    '.s12-brk span{position:absolute;left:50%;top:14px;transform:translateX(-50%);white-space:nowrap;padding:0 12px;background:var(--bg);font-size:19px;line-height:26px;color:var(--ink-2)}',
+    '.s12-add{font-size:24px;line-height:36px;color:var(--ink-2);display:flex;align-items:center;gap:14px}',
+    '.s12-add b{color:var(--ink);font-weight:700}',
+    /* s12-02 */
+    '.s12-tile{position:absolute;border-radius:22px;background:var(--bg-2);border:1.5px solid var(--line);overflow:hidden}',
+    '.s12-tile .no{position:absolute;left:24px;top:18px;font-family:var(--font-mono);font-size:20px;line-height:26px;color:var(--ink-3);letter-spacing:0}',
+    '.s12-tile .vis{position:absolute;left:0;right:0}',
+    '.s12-tile .tx{position:absolute;left:28px;right:28px;bottom:24px;font-size:26px;line-height:36px;font-weight:600;color:var(--ink)}',
+    '.s12-tile .tx small{display:block;margin-top:4px;font-size:20px;line-height:28px;font-weight:500;color:var(--ink-2)}',
+    '.s12-tile .big{font-size:52px;line-height:60px;font-weight:800;letter-spacing:-.02em}',
+    '.s12-tile .fx .katex{font-size:46px}',
+    '.s12-note{font-size:26px;line-height:38px;color:var(--ink-2)}',
+    '.s12-note b{color:var(--ink);font-weight:700}',
+    /* s12-03 */
+    '.s12-lim{display:flex;flex-direction:column;gap:14px}',
+    '.s12-lim .r{display:flex;align-items:center;gap:24px;min-height:68px}',
+    '.s12-lim .ic{flex:0 0 auto;width:64px;height:64px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}',
+    '.s12-lim .ic svg{width:38px;height:38px}',
+    '.s12-lim .t{font-size:29px;line-height:40px;color:var(--ink)}',
+    '.s12-lim .t span{color:var(--ink-2)}',
+    /* s12-04 */
+    '.s12-nl{font-family:var(--font-sans);font-size:23px;line-height:26px;color:var(--ink);font-weight:600;letter-spacing:-.01em}',
+    '.s12-nl b{font-family:var(--font-mono);font-size:24px;color:var(--ink);padding:0 4px;border-bottom:2px dashed var(--ink-2)}',
+    '.s12-ns{position:absolute;left:0;right:0;top:352px;text-align:center;font-size:18px;line-height:24px;color:var(--ink-3)}',
+    '.s12-caret{display:inline-block;width:2px;height:22px;margin-left:2px;vertical-align:-3px;background:var(--ink)}',
+    '.s12-two{font-size:40px;line-height:58px;font-weight:700;letter-spacing:-.02em}',
+    '.s12-two .ne{display:inline-block;margin:0 8px;color:var(--ink);font-weight:800}',
+    '.s12-two .ink-2{font-weight:600}',
+    '.s12-nx h2{margin-bottom:18px}',
+    '.s12-nc{position:relative;display:flex;gap:20px;align-items:flex-start;padding:18px 22px;margin-bottom:14px;border-radius:18px;background:var(--bg-2);border:1.5px solid var(--line)}',
+    '.s12-nc .n{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--bg-3);font-family:var(--font-mono);font-size:20px;line-height:40px;text-align:center;color:var(--ink)}',
+    '.s12-nc .t{font-size:26px;line-height:38px;color:var(--ink)}',
+    '.s12-nc .t small{display:block;font-size:21px;line-height:30px;color:var(--ink-2)}',
+    '.s12-hyp{position:absolute;right:18px;top:-16px}',
+    '.s12-nnote{font-size:18px;line-height:26px;color:var(--ink-3)}',
+    /* s12-05 */
+    '.s12-thx{position:absolute;left:0;right:0;text-align:center}',
+    '.s12-small{position:absolute;left:96px;right:96px;text-align:center;font-size:22px;line-height:34px;color:var(--ink-2)}',
+    '.s12-small b{color:var(--ink);font-weight:600}',
+    '.s12-mono{position:absolute;left:96px;right:96px;text-align:center;font-family:var(--font-mono);font-size:18px;line-height:28px;color:var(--ink-3);letter-spacing:0}'
   ].join('\n');
   (function inject() {
-    if (document.getElementById('s11-style')) return;
-    var st = document.createElement('style'); st.id = 's11-style'; st.textContent = CSS;
+    if (document.getElementById('s12-style')) return;
+    var st = document.createElement('style'); st.id = 's12-style'; st.textContent = CSS;
     document.head.appendChild(st);
   })();
 
-  /* ================================================================ s11-01 answers */
+  /* ================================================================ s12-01 answers */
   var CX = [96, 446, 796, 1146, 1496];
   var CARDS = [
     { k: 'RQ1', q: 'The two single-edge walks?', a: 'Different orders, own checks', sb: '<span style="font-size:20px;letter-spacing:-.02em">τ = ' + fmt(TAU[0], 3) + ' (neither 0 nor 1)<br>EndorseRank × allowance <b>' + fmt(F_ER_A, 3) + '</b><br>AWP × transfer <b>' + fmt(F_AWP_T, 3) + '</b></span>', tags: [plainPill('Largely by construction')] },
@@ -162,7 +162,7 @@
     { cls: 'fail', html: '<b>O5 not met</b>Rule B, also in the registered analysis' }
   ];
   var slide1 = {
-    id: 's11-01', title: 'Answers to the research questions', time: 40, steps: 7,
+    id: 's12-01', title: 'Answers to the research questions', time: 40, steps: 7,
     notes: [
       'Let me answer the five questions. The key pictures of the talk have come back as small tiles. Each question is paired with the objective of the same number.',
       'First, EndorseRank and AWP, the walks over one edge type each, order the contracts differently. Kendall\'s tau is ' + fmt(TAU[0], 3) + ', neither 0 nor 1. And each agrees most with the proxies built from its own edges: EndorseRank ' + fmt(F_ER_A, 3) + ' with the allowance proxies, AWP ' + fmt(F_AWP_T, 3) + ' with the transfer proxies. Both results follow to some degree by construction.',
@@ -175,22 +175,22 @@
     ],
     html: function () {
       var cards = CARDS.map(function (c, i) {
-        return '<div class="s11-card" data-in="none" data-k="' + i + '" style="left:' + CX[i] + 'px"><div class="th"></div><div class="bd">' +
+        return '<div class="s12-card" data-in="none" data-k="' + i + '" style="left:' + CX[i] + 'px"><div class="th"></div><div class="bd">' +
           '<div class="rq"><span class="k">' + c.k + '</span><span class="qq">' + esc(c.q) + '</span></div>' +
           '<div class="an">' + esc(c.a) + '</div><div class="sb">' + c.sb + '</div>' +
           '<div class="tg">' + c.tags.join('') + '</div></div></div>';
       }).join('');
-      var och = OCH.map(function (o, i) { return '<div class="s11-oc ' + o.cls + '" data-in="none" style="left:' + CX[i] + 'px">' + o.html + '</div>'; }).join('');
+      var och = OCH.map(function (o, i) { return '<div class="s12-oc ' + o.cls + '" data-in="none" style="left:' + CX[i] + 'px">' + o.html + '</div>'; }).join('');
       return '<h1 class="t-h1">Five questions, [[five answers]]</h1>' + cards + och +
-        '<div class="s11-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[1] + 326 - CX[0] - 40) + 'px"><span>Both largely by construction</span></div>' +
-        '<div class="abs s11-add" id="add" data-in="none" style="left:96px;top:880px;width:1728px"><span><b>Outcome in neither edge type</b> (liquidation avoidance): in W1 the in-approve degree leads the transfer in-degree (R1 met) · W0 and the PageRank pair not resolved</span>' + Deck.tagHTML('reanalysis') + '</div>';
+        '<div class="s12-brk" id="brk" data-in="none" style="left:' + (CX[0] + 20) + 'px;width:' + (CX[1] + 326 - CX[0] - 40) + 'px"><span>Both largely by construction</span></div>' +
+        '<div class="abs s12-add" id="add" data-in="none" style="left:96px;top:880px;width:1728px"><span><b>Outcome in neither edge type</b> (liquidation avoidance): in W1 the in-approve degree leads the transfer in-degree (R1 met) · W0 and the PageRank pair not resolved</span>' + Deck.tagHTML('reanalysis') + '</div>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
-      g.cards = qa(el, '.s11-card');
+      g.cards = qa(el, '.s12-card');
       g.ths = g.cards.map(function (c) { return q(c, '.th'); });
       g.bds = g.cards.map(function (c) { return q(c, '.bd'); });
-      g.ocs = qa(el, '.s11-oc'); g.brk = q(el, '#brk'); g.add = q(el, '#add');
+      g.ocs = qa(el, '.s12-oc'); g.brk = q(el, '#brk'); g.add = q(el, '#add');
       gsap.set(g.bds, { autoAlpha: 0 });
       gsap.set([g.brk, g.add].concat(g.ocs), { autoAlpha: 0 });
       drawThumbs(ctx, g);
@@ -230,7 +230,7 @@
   function drawThumbs(ctx, g) {
     var W = 290, H = 128;
     /* RQ1: rank scatter, EndorseRank percentile × AWP percentile, all contracts of the matched cohort;
-       amber where EndorseRank ranks the contract higher, sky where AWP does (as in s08-02) */
+       amber where EndorseRank ranks the contract higher, sky where AWP does (as in s09-02) */
     var K = Comp.canvas(ctx, g.ths[0], { w: W, h: H, onResize: function (k) { scatter(k); } });
     function scatter(k) {
       var c = k.g; k.clear();
@@ -273,7 +273,7 @@
     stampThumb(g.ths[4], 'B not met ✕', 4);
   }
 
-  /* ================================================================ s11-02 contributions */
+  /* ================================================================ s12-02 contributions */
   var TILES = [
     { n: '①', x: 96, y: 196, w: 600, h: 640 },
     { n: '②', x: 728, y: 196, w: 532, h: 304 },
@@ -282,7 +282,7 @@
     { n: '⑤', x: 1292, y: 532, w: 532, h: 304 }
   ];
   var slide2 = {
-    id: 's11-02', title: 'What this study adds', time: 30, steps: 2,
+    id: 's12-02', title: 'What this study adds', time: 30, steps: 2,
     notes: [
       'This study adds five things.',
       'First, C-PR, which walks both edge types in one walk, and its test by rules fixed in advance. The rules were not met, but outside them C-PR was above EndorseRank on both spender labels in both windows. Second, EndorseRank, the reference score that uses the allowance as an edge of contract reputation. Third, an evaluation design that sets every score against the raw count before smoothing, in the same window and in two windows outside it; out of window no PageRank beat its count. Fourth, a closed form that shows what a uniformly restarted walk computes at a depth-one spender. Fifth, a comparison registered in advance on an outcome found in neither edge type. In W1, the registered window, the in-approve degree ranked liquidation avoidance better than the transfer in-degree, in a re-analysis of the revised scores.',
@@ -290,7 +290,7 @@
     ],
     html: function () {
       var t = TILES;
-      function tile(i, inner) { var T = t[i]; return '<div class="s11-tile" data-in="none" data-i="' + i + '" style="left:' + T.x + 'px;top:' + T.y + 'px;width:' + T.w + 'px;height:' + T.h + 'px"><span class="no">' + T.n + '</span>' + inner + '</div>'; }
+      function tile(i, inner) { var T = t[i]; return '<div class="s12-tile" data-in="none" data-i="' + i + '" style="left:' + T.x + 'px;top:' + T.y + 'px;width:' + T.w + 'px;height:' + T.h + 'px"><span class="no">' + T.n + '</span>' + inner + '</div>'; }
       return '<h1 class="t-h1">[[Five]] contributions</h1>' +
         tile(0, '<div class="vis" id="v4" style="top:90px;height:300px"></div>' +
           '<div class="tx"><span class="big c-cpr">C-PR</span><br>One walk over both edge types<small>Tested by rules A and B fixed in advance, both not met · outside the rules, above EndorseRank on both spender labels</small></div>') +
@@ -302,11 +302,11 @@
           '<div class="tx">Closed form at a depth-one spender:<br>what a uniformly restarted walk computes</div>') +
         tile(4, '<svg class="vis" id="v5" width="532" height="150" viewBox="0 0 532 150" style="top:44px"></svg>' +
           '<div class="tx">A registered comparison on<br>an outcome in neither edge type<small>Liquidation avoidance of GMX V2 contract traders</small></div>') +
-        '<p class="abs s11-note" data-step="2" style="left:96px;top:870px;width:1728px">The algorithm (PageRank) and the weights (AWP) are <b>borrowed</b>. What is new is the <b>walk over both edges</b>, the <b>edge</b> and the <b>way they were tested</b>.</p>';
+        '<p class="abs s12-note" data-step="2" style="left:96px;top:870px;width:1728px">The algorithm (PageRank) and the weights (AWP) are <b>borrowed</b>. What is new is the <b>walk over both edges</b>, the <b>edge</b> and the <b>way they were tested</b>.</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
-      g.tiles = qa(el, '.s11-tile');
+      g.tiles = qa(el, '.s12-tile');
       gsap.set(g.tiles, { autoAlpha: 0 });
       /* ① owner → spender, the G1 arrow */
       var v1 = q(el, '#v1');
@@ -367,7 +367,7 @@
     }
   };
 
-  /* ================================================================ s11-03 limits */
+  /* ================================================================ s12-03 limits */
   function ico(body) { return '<svg viewBox="0 0 40 40" fill="none" stroke="#A3ADBF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' + body + '</svg>'; }
   var LIMITS = [
     { i: ico('<circle cx="13" cy="20" r="7"/><path d="M20 20h16M30 20v6M35 20v4"/>'), t: 'No off-chain information besides prices and the token list: <span>it cannot tell whether approving owners are different people</span>' },
@@ -380,7 +380,7 @@
     { i: '<svg viewBox="0 0 40 40" fill="none" stroke="#A3ADBF" stroke-width="2.2" stroke-dasharray="3 3"><circle cx="20" cy="8" r="4.5"/><circle cx="31" cy="16" r="4.5"/><circle cx="28" cy="30" r="4.5"/><circle cx="12" cy="30" r="4.5"/><circle cx="9" cy="16" r="4.5"/></svg>', t: 'With uniform restarts the score is <span>weak against closed farms</span>' }
   ];
   var slide3 = {
-    id: 's11-03', title: 'Limitations', time: 35, steps: 2,
+    id: 's12-03', title: 'Limitations', time: 35, steps: 2,
     notes: [
       'Let me also be clear about the limitations.',
       'These scores use no off-chain information except daily prices and the token list, so we cannot tell whether the owners who approve a contract are really different people. It is only a reputation of contracts; it says nothing about whether the code is safe. Only contracts received scores, so it says nothing at all about EOAs. The revised analysis in the main text, that is, the amounts in US dollars, the five tokens and the twelve-month score windows before each freeze, was set after the registered results were known, so its verdicts are a re-analysis.',
@@ -388,18 +388,18 @@
     ],
     html: function () {
       function rows(a, step) {
-        return '<div class="s11-lim" data-in="none" data-k="' + step + '" data-stagger="0.08">' + a.map(function (l) {
+        return '<div class="s12-lim" data-in="none" data-k="' + step + '" data-stagger="0.08">' + a.map(function (l) {
           return '<div class="r"><span class="ic">' + l.i + '</span><span class="t">' + l.t + '</span></div>';
         }).join('') + '</div>';
       }
       return '<h1 class="t-h1">What this study does [[not say]]</h1>' +
         '<div class="abs" style="left:96px;top:206px;width:1728px">' + rows(LIMITS.slice(0, 4), 1) + '<div style="height:14px"></div>' + rows(LIMITS.slice(4), 2) + '</div>';
     },
-    build: function (el, ctx) { ctx.g = { groups: qa(el, '.s11-lim') }; gsap.set(ctx.g.groups, { autoAlpha: 0 }); },
+    build: function (el, ctx) { ctx.g = { groups: qa(el, '.s12-lim') }; gsap.set(ctx.g.groups, { autoAlpha: 0 }); },
     step: function (el, i, ctx) { var tl = ctx.tl(); tl.add(ctx.reveal(ctx.g.groups[i - 1], 'rise'), 0); }
   };
 
-  /* ================================================================ s11-04 the wallet window again */
+  /* ================================================================ s12-04 the wallet window again */
   var WP = (window.DeckParts || {}).wallet || null;
   var WG = WP ? WP.GEOM : { left: 550, top: 150, w: 820, h: 520, yes: [1065, 579] };
   var WS = 0.78, WX = 96, WY = 196;                    /* window after it steps aside */
@@ -418,7 +418,7 @@
     { t: 'Compare with contract-risk labels (drainers, rug pulls)', s: 'See whether the score says anything about risk beyond activity' }
   ];
   var slide4 = {
-    id: 's11-04', title: 'What wallet software could show, and next steps', time: 40, steps: 3,
+    id: 's12-04', title: 'What wallet software could show, and next steps', time: 40, steps: 3,
     carrier: false,
     notes: [
       'So what could that first window show?',
@@ -431,14 +431,14 @@
       return '<h1 class="t-h1">What that window could show</h1>' + win +
         '<div class="s01-spark" id="sp1" data-in="none" style="position:absolute;left:0;top:0;width:14px;height:14px;border-radius:8px;background:#fff;box-shadow:0 0 14px 3px rgba(255,255,255,.75)"></div>' +
         '<div class="s01-spark" id="sp2" data-in="none" style="position:absolute;left:0;top:0;width:14px;height:14px;border-radius:8px;background:#fff;box-shadow:0 0 14px 3px rgba(255,255,255,.75)"></div>' +
-        '<p class="abs s11-nnote" id="nnote" data-in="none" style="left:' + WX + 'px;top:' + (WY + WG.h * WS + 14) + 'px;width:' + (WG.w * WS) + 'px">N is a placeholder: it does not point to any particular contract</p>' +
-        '<div class="abs s11-two" id="two" data-in="none" style="left:' + WX + 'px;top:' + (WY + WG.h * WS + 74) + 'px;width:700px">' +
+        '<p class="abs s12-nnote" id="nnote" data-in="none" style="left:' + WX + 'px;top:' + (WY + WG.h * WS + 14) + 'px;width:' + (WG.w * WS) + 'px">N is a placeholder: it does not point to any particular contract</p>' +
+        '<div class="abs s12-two" id="two" data-in="none" style="left:' + WX + 'px;top:' + (WY + WG.h * WS + 74) + 'px;width:700px">' +
           '<div>Low count <span class="ne">=</span> <span class="ink-2">reason to look closer</span></div>' +
           '<div>High count <span class="ne" id="ne">≠</span> [[reason to sign]]</div></div>' +
-        '<div class="abs s11-nx" id="nx" data-in="none" style="left:820px;top:196px;width:1004px"><h2 class="t-h2">Next steps</h2>' +
+        '<div class="abs s12-nx" id="nx" data-in="none" style="left:820px;top:196px;width:1004px"><h2 class="t-h2">Next steps</h2>' +
           NEXT.map(function (n, i) {
-            return '<div class="s11-nc"><span class="n">' + (i + 1) + '</span><span class="t"' + (n.hyp ? ' style="padding-right:170px"' : '') + '>' + esc(n.t) + '<small>' + esc(n.s) + '</small></span>' +
-              (n.hyp ? '<span class="s11-hyp" id="hyp">' + Deck.tagHTML({ en: 'Hypothesis', icon: 'hollow', key: 'hypothesis' }) + '</span>' : '') + '</div>';
+            return '<div class="s12-nc"><span class="n">' + (i + 1) + '</span><span class="t"' + (n.hyp ? ' style="padding-right:170px"' : '') + '>' + esc(n.t) + '<small>' + esc(n.s) + '</small></span>' +
+              (n.hyp ? '<span class="s12-hyp" id="hyp">' + Deck.tagHTML({ en: 'Hypothesis', icon: 'hollow', key: 'hypothesis' }) + '</span>' : '') + '</div>';
           }).join('') + '</div>' +
         '<svg class="abs" id="lay" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible;pointer-events:none"></svg>';
     },
@@ -448,13 +448,13 @@
       if (WP) WP.figure(ctx, g.win);
       /* the new line in the window: distinct approving owners, N (placeholder) */
       var cd = q(g.win, '.cd');
-      cd.innerHTML = '<span class="s11-nl" id="nl"></span>';
+      cd.innerHTML = '<span class="s12-nl" id="nl"></span>';
       g.nl = q(cd, '#nl');
       g.nlText = 'Distinct owner addresses that approved this contract: ';
-      var ns = h('div', 's11-ns', g.win, 'Only how widely it is approved, not a sign that it is safe');
+      var ns = h('div', 's12-ns', g.win, 'Only how widely it is approved, not a sign that it is safe');
       g.ns = ns;
       gsap.set([g.win, ns, q(el, '#sp1'), q(el, '#sp2'), q(el, '#nnote'), q(el, '#two'), q(el, '#nx')], { autoAlpha: 0 });
-      g.cards = qa(el, '.s11-nc'); g.hyp = q(el, '#hyp');
+      g.cards = qa(el, '.s12-nc'); g.hyp = q(el, '#hyp');
       g.cursor = Comp.walker(ctx, q(el, '#lay'), { x: 760, y: 760, r: 9, hidden: true });
       g.yes = q(g.win, '.btn.yes');
     },
@@ -474,7 +474,7 @@
         /* typewriter: the new line */
         var st = { n: 0 }, full = g.nlText;
         tl.to(st, { n: full.length, duration: 1.1, ease: 'none', onUpdate: function () {
-          g.nl.innerHTML = esc(full.slice(0, Math.round(st.n))) + '<span class="s11-caret"></span>';
+          g.nl.innerHTML = esc(full.slice(0, Math.round(st.n))) + '<span class="s12-caret"></span>';
         }, onComplete: function () { g.nl.innerHTML = esc(full) + '<b>N</b>'; } }, 1.45);
         tl.fromTo(g.ns, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 2.65);
         /* the cursor comes to rest on Approve, and does not press */
@@ -504,10 +504,10 @@
     }
   };
 
-  /* ================================================================ s11-05 thanks */
+  /* ================================================================ s12-05 thanks */
   var SWT = { x: 704, y: 128, s: 0.68 };   /* constellation: the small world, scaled */
   var slide5 = {
-    id: 's11-05', title: 'Thank you', time: 20, steps: 2,
+    id: 's12-05', title: 'Thank you', time: 20, steps: 2,
     hud: false,
     notes: [
       '(The four nodes of the small world rise like a constellation.)',
@@ -517,11 +517,11 @@
     html: function () {
       var sup = esc(META.supervisor || 'Prof. Ernest Mnkandla'), co = esc((META.co_supervisors || ['Prof. Donatien Koulla Moulla', 'Dr. David Sena Attipoe']).join(', '));
       return '<svg class="abs" id="sky" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible;pointer-events:none"></svg>' +
-        '<div class="s11-thx" id="thx" data-in="none" style="top:500px"><div class="t-display" id="ty">Thank you</div></div>' +
+        '<div class="s12-thx" id="thx" data-in="none" style="top:500px"><div class="t-display" id="ty">Thank you</div></div>' +
         '<svg class="abs" id="ul" data-in="none" width="1920" height="60" viewBox="0 0 1920 60" style="left:0;top:628px;overflow:visible"></svg>' +
-        '<p class="s11-thx t-body-l ink-2" id="qa" data-in="none" style="top:690px">Questions are welcome</p>' +
-        '<p class="s11-small" id="sm1" data-in="none" style="top:846px">Supervisor <b>' + sup + '</b> · Co-supervisors <b>' + co + '</b> · ' + esc(META.university || 'University of South Africa') + ' (UNISA)</p>' +
-        '<p class="s11-mono" id="sm2" data-in="none" style="top:892px">Code and results: github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation · results digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
+        '<p class="s12-thx t-body-l ink-2" id="qa" data-in="none" style="top:690px">Questions are welcome</p>' +
+        '<p class="s12-small" id="sm1" data-in="none" style="top:846px">Supervisor <b>' + sup + '</b> · Co-supervisors <b>' + co + '</b> · ' + esc(META.university || 'University of South Africa') + ' (UNISA)</p>' +
+        '<p class="s12-mono" id="sm2" data-in="none" style="top:892px">Code and results: github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation · results digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/</p>';
     },
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -563,5 +563,5 @@
     }
   };
 
-  Deck.section({ id: 's11-closing', title: 'Conclusion', slides: [slide1, slide2, slide3, slide4, slide5] });
+  Deck.section({ id: 's12-closing', title: 'Conclusion', slides: [slide1, slide2, slide3, slide4, slide5] });
 })();

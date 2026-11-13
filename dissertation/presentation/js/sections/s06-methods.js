@@ -9,7 +9,7 @@
    s06-04  λ를 돌리면 (대표 장면)       (three.js: 6,483 contracts, height = C-PR percentile, shadows on
                                         the two back walls, five λ values, plain τ meters, draggable dial)
    s06-05  S-PR                         (teleport rain follows the allowance halos; two post hoc
-                                        verdicts in words — the numbers wait for s07/s08)
+                                        verdicts in words — the numbers wait for s07/s09)
 
    Numbers and sources (revised digest = R, experiments/data/3-published-results-for-thesis/revised-usd-12m/results_digest.md)
      2,514,846 nodes / 3,808,949 edges     R§1 graph.allowance.nodes / .edges  (DECK_DATA.results.revised.same_window.graph)
@@ -461,7 +461,7 @@
       gsap.set([g.tA.border, g.tT.border, g.cA, g.cT], { autoAlpha: 0 });
       g.defs = q(el, '#defs'); gsap.set(g.defs.children, { autoAlpha: 0 });
       /* high-jump bar: baseline = raw count; can the PageRank chips clear it? The chips rise and stop
-         under the bar: the question stays open here (the answer, in s08, is that out of window
+         under the bar: the question stays open here (the answer, in s09, is that out of window
          no PageRank ranks above the count it smooths). */
       var jump = q(el, '#jump');
       var js = Comp.svg(ctx, jump, { w: 494, h: 110 });

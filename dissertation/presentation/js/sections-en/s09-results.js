@@ -1,70 +1,70 @@
 /* =========================================================================
-   s08-results — Results, English edition (STORYBOARD.md §2, s08-01 … s08-08)
+   s09-results — Results, English edition (STORYBOARD.md §2, s09-01 … s09-08)
 
-   s08-01  Same window (RQ2)        3 × 3 board (score × family); own-family cells light up with a
+   s09-01  Same window (RQ2)        3 × 3 board (score × family); own-family cells light up with a
                                     mirror; swapped cells and their paired differences; C-PR slides into
                                     the empty middle row; an expandable popover for λ = 1, λ = 0, S-PR
-   s08-02  Two different orders     the two rows of s08-01 burst into 6,483 particles (three.js) that
+   s09-02  Two different orders     the two rows of s09-01 burst into 6,483 particles (three.js) that
            (RQ1)                    gather into the λ = 1 cloud of s06-04; the camera rises and the points
                                     slide into a rank–rank scatter (EndorseRank × AWP percentile); diagonal,
                                     τ_b count-up, 30 flashed pairs (illustration) and a gauge stopping at
                                     39.8 %; the two zero blocks
-   s08-03  Out-of-window test       the calendar of s03-01 returns with the monthly streams of the score
+   s09-03  Out-of-window test       the calendar of s03-01 returns with the monthly streams of the score
            (RQ4 design)             window; freeze pin + frost over the 12-month score window; label window
                                     plays (month watermark), sparse new arrows into spender boxes; waffle
                                     (one dot = 10 spenders) with the gained-label shares; W1 with a lock,
                                     frost and streams move to the T_obs score window
-   s08-04  Transfer side            locked board (data-shared "s8-board", same axes on s08-04 … s08-06):
-   s08-05  Allowance side           left τ panel, right paired-difference panel with a dashed zero line;
-   s08-06  Restart rule only        ghost markers = registered analysis; "rich get richer" loop; restart
+   s09-04  Transfer side            locked board (data-shared "s9-board", same axes on s09-04 … s09-06):
+   s09-05  Allowance side           left τ panel, right paired-difference panel with a dashed zero line;
+   s09-06  Restart rule only        ghost markers = registered analysis; "rich get richer" loop; restart
                                     rain; hollow rings where uniform EndorseRank sat; a hollow "Still below"
                                     tag drawn slowly (not a verdict stamp)
-   s08-07  Closed form              small world (thesis Ch. 2) + 6-line derivation of
+   s09-07  Closed form              small world (thesis Ch. 2) + 6-line derivation of
                                     r_v = c(1 + d δ(v)); pie example δ = 1 + ½ + ¼ = 1.75 vs count 3
-   s08-08  How well it fits         waffle of 6,224 spenders (one dot = 10), counters, then the summary
+   s09-08  How well it fits         waffle of 6,224 spenders (one dot = 10), counters, then the summary
                                     board of the four raw-degree contrasts with registered ghosts
 
    Numbers and sources (R = revised digest experiments/data/3-published-results-for-thesis/
    revised-usd-12m/results_digest.md = the thesis's main analysis; G = registered digest results_digest.md).
    Every number below is read from DECK_DATA.results (R → .revised, G → .registered) with the value as
    fallback, and rounded with toFixed, as the thesis tables are.
-     s08-01  families τ_b [95%]           R same_window.families.{endorserank,awp,cpr_l50,cpr_l100,cpr_l0,spr}
+     s09-01  families τ_b [95%]           R same_window.families.{endorserank,awp,cpr_l50,cpr_l100,cpr_l0,spr}
              +0.333 [0.311, 0.354]         R same_window contrast EndorseRank − AWP, allowance family
              +0.539 [0.518, 0.560]         R same_window contrast AWP − EndorseRank, transfer family
              6,483                         R same_window.cohort
-     s08-02  0.199 [0.181, 0.221]          R inter_method.endorserank_vs_awp; isolated 0.199 (…isolated)
+     s09-02  0.199 [0.181, 0.221]          R inter_method.endorserank_vs_awp; isolated 0.199 (…isolated)
              21,011,403 · 96.4 % · 39.8 %  R concordance.pairs / share_ordered_by_both / discordant_share
              197 · 1,192                   R ties.endorserank.zeros / ties.awp.zeros (thesis Ch. 4)
              0.217 [0.209, 0.225]          G inter_method.endorserank_vs_awp (registered analysis)
              points: DECK_DATA.contracts pct.endorserank / pct.awp (mid-rank percentiles, all 6,483);
              zero blocks at the lowest percentile of each score (≈ 1.5 and ≈ 9.2), from the same arrays
-     s08-03  7,914 · 1,732 · 1,422         R w0.spenders / gained_new_approvals / gained_new_senders
+     s09-03  7,914 · 1,732 · 1,422         R w0.spenders / gained_new_approvals / gained_new_senders
              (21.9 %, 18.0 % = DECK_DATA.holdout.w0 base rates, as in thesis Ch. 4); 7,960 · 1,495 · 1,371  R w1
              both labels 1,044 (W0) / 967 (W1): counted from
              revised-usd-12m/{holdout-w0,window-w1}/spender_scores.part000.parquet
              score windows DECK_DATA.timeline.anchors.score_window_t1 / score_window_tobs;
              streams timeline.monthly_counts.revised.{approval,transfer}_ego_t1 (W0) and _ego (W1)
-     s08-04  0.409 · 0.447 · −0.038        R w0.taus.awp / taus.t1_in_degree (new senders) / AWP minus t1 in-degree
+     s09-04  0.409 · 0.447 · −0.038        R w0.taus.awp / taus.t1_in_degree (new senders) / AWP minus t1 in-degree
              0.398 · 0.439 · −0.041        R w1.spender_taus.awp / .in_degree / endorserank_results.awp_minus_degree_send
              6,489 · −0.051                R w0.receiving.n / receiving AWP minus t1 in-degree
              ghosts +0.038, +0.020         G w0 AWP minus t1 in-degree, G w1 endorserank_results.awp_minus_degree_send
-     s08-05  0.392 · 0.303 · −0.090        R w0.taus.t1_in_approve_degree / taus.endorserank / EndorseRank minus t1 in-approve degree
+     s09-05  0.392 · 0.303 · −0.090        R w0.taus.t1_in_approve_degree / taus.endorserank / EndorseRank minus t1 in-approve degree
              0.381 · 0.299 · −0.082        R w1.spender_taus.* / endorserank_results.endorserank_minus_degree_appr
              +0.107, +0.142                R supplementary w0/w1.er_minus_awp_appr
              −0.087 · 0.299 / 0.328        R w0.receiving contrast and taus (EndorseRank / AWP, new approval pairs)
              1,342 · 1,425                 R w0.coverage.spenders_without_transfer_edge; 7,914 − 6,489 (calculated)
              ghosts −0.011, −0.029         G w0 / w1 EndorseRank minus in-approve degree
-     s08-06  0.332 · 0.335                 R w0.taus / w1.spender_taus .endorserank_activity (new approval pairs)
+     s09-06  0.332 · 0.335                 R w0.taus / w1.spender_taus .endorserank_activity (new approval pairs)
              −0.060, −0.046                R supplementary w0/w1.er_activity_minus_degree_appr
-             rings 0.303 / 0.299, −0.090 / −0.082   uniform EndorseRank (s08-05)
+             rings 0.303 / 0.299, −0.090 / −0.082   uniform EndorseRank (s09-05)
              0.560 → 0.601 [0.590, 0.613]  R same_window.families.endorserank / endorserank_activity (.allowance)
              0.366 · 0.409 · 0.447         R w0.taus.cpr_l0 / awp / t1_in_degree (new senders)
-     s08-07  0.1375, 0.2154, 0.1765, 0.4706  thesis Ch. 2 worked example (DECK_DATA.params.worked_example),
+     s09-07  0.1375, 0.2154, 0.1765, 0.4706  thesis Ch. 2 worked example (DECK_DATA.params.worked_example),
              re-derived with the closed form (Ch. 5, Eq. closed-form); c = 1.93 × 10⁻⁷  R same_window.closed_form.common_value_c
              pie 1, ½, ¼ → 1.75 = example
-     s08-08  6,224 · 5,232 · 100 % · 21.9 % · 87.5 % · τ 0.908   R same_window.closed_form.*
+     s09-08  6,224 · 5,232 · 100 % · 21.9 % · 87.5 % · τ 0.908   R same_window.closed_form.*
              992 = 6,224 − 5,232 (calculated); W0 7,905 · 70.8 %  R w0.closed_form.*
-   Status tags: construct (s08-01), post hoc (every raw-degree / variant contrast), registered-analysis
+   Status tags: construct (s09-01), post hoc (every raw-degree / variant contrast), registered-analysis
    (grey hollow ghosts), example / thesis-example where a value is illustrative.
    No address or contract name is ever shown.
    ========================================================================= */
@@ -151,105 +151,105 @@
 
   /* ------------------------------------------------------------ styles */
   var CSS = [
-    /* s08-01 */
-    '.s8-colhd{position:absolute;top:184px;width:460px}',
-    '.s8-colhd .k{font-size:30px;line-height:38px;font-weight:700}',
-    '.s8-colhd .v{font-size:19px;line-height:26px;color:var(--ink-3)}',
-    '.s8-row{position:absolute;left:96px;width:1724px;height:150px}',
-    '.s8-rl{position:absolute;left:0;top:0;width:290px;height:150px;display:flex;flex-direction:column;justify-content:center}',
-    '.s8-rl .k{font-size:32px;line-height:40px;font-weight:800;letter-spacing:-.02em}',
-    '.s8-rl .v{font-size:20px;line-height:28px;color:var(--ink-3);margin-top:4px}',
-    '.s8-cell{position:absolute;top:0;width:460px;height:150px;border-radius:18px;border:1.5px solid var(--line);background:var(--bg-2);overflow:hidden}',
-    '.s8-cell .tint{position:absolute;inset:0;opacity:0}',
-    '.s8-cell .num{position:absolute;left:24px;top:12px;font-size:48px;line-height:56px;font-weight:800;letter-spacing:-.02em;color:var(--ink-2)}',
-    '.s8-cell .ci{position:absolute;left:26px;top:70px;font-size:20px;line-height:26px;color:var(--ink-3)}',
-    '.s8-cell svg.mini{position:absolute;left:0;top:94px;overflow:visible}',
-    '.s8-cell .mir{position:absolute;right:16px;top:14px;width:40px;height:40px}',
-    '.s8-cell .mir svg{width:40px;height:40px}',
-    '.s8-slot{position:absolute;left:400px;top:440px;width:1420px;height:150px;border-radius:18px;border:1.5px dashed #2C3547;display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:24px}',
-    '.s8-diff{position:absolute;top:426px;width:300px;height:178px}',
-    '.s8-diff svg{position:absolute;left:0;top:0;overflow:visible}',
-    '.s8-diff .lab{position:absolute;left:150px;top:62px;transform:translateX(-50%);white-space:nowrap;padding:6px 14px;border-radius:14px;background:var(--bg-3);border:1px solid #39435A;font-size:24px;line-height:30px;font-weight:700;color:var(--ink)}',
-    '.s8-diff .lab small{font-size:18px;font-weight:500;color:var(--ink-3);margin-left:6px}',
-    '.s8-cap{font-size:28px;line-height:42px;font-weight:600;color:var(--ink)}',
-    '.s8-cap .pill{vertical-align:4px;margin-left:12px}',
-    '.s8-small{font-size:21px;line-height:30px;color:var(--ink-2)}',
-    '.s8-small .katex{font-size:24px}',
-    '.s8-note{font-size:24px;line-height:34px;color:var(--ink-2);display:flex;gap:14px;align-items:center}',
-    '.s8-more{position:absolute;left:1520px;top:802px;width:300px;height:44px;border-radius:22px;border:1px solid #39435A;background:var(--bg-2);color:var(--ink-2);font:600 19px/42px var(--font-sans);cursor:pointer;text-align:center;padding:0}',
-    '.s8-more:hover{border-color:var(--ink-2);color:var(--ink)}',
-    '.s8-pop{position:absolute;left:880px;top:612px;width:940px;padding:18px 24px;border-radius:20px;background:rgba(16,21,31,.98);border:1px solid #39435A;box-shadow:0 20px 60px rgba(0,0,0,.55);z-index:5}',
-    '.s8-pop table{border-collapse:collapse;width:100%;font-size:22px;line-height:30px}',
-    '.s8-pop th{font-size:18px;font-weight:600;color:var(--ink-3);text-align:right;padding:4px 10px;border-bottom:1px solid var(--line)}',
-    '.s8-pop th:first-child,.s8-pop td:first-child{text-align:left}',
-    '.s8-pop td{padding:6px 10px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid rgba(35,43,59,.8)}',
-    '.s8-pop .hd{font-size:18px;color:var(--ink-3);margin-bottom:6px}',
-    /* s08-02 */
-    '.s8-ov{pointer-events:none;overflow:visible}',
-    '.s8-ov text{font-family:var(--font-sans)}',
-    '.s8-p2 .lg{font-size:21px;line-height:31px;color:var(--ink-2)}',
-    '.s8-p2 .lg i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:10px;vertical-align:-1px}',
-    '.s8-p2 .k{font-size:22px;line-height:30px;color:var(--ink-2)}',
-    '.s8-p2 .tau{font-size:84px;line-height:88px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}',
-    '.s8-p2 .ci{font-size:26px;line-height:34px;color:var(--ink-2);font-variant-numeric:tabular-nums}',
-    '.s8-p2 .ln{font-size:24px;line-height:36px;color:var(--ink-2)}',
-    '.s8-p2 .ln b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:700}',
-    '.s8-p2 .big{font-size:52px;line-height:60px;font-weight:800;color:var(--c-hi);font-variant-numeric:tabular-nums}',
-    '.s8-gauge{position:relative;height:16px;border-radius:8px;background:var(--line);overflow:hidden;margin-top:8px}',
-    '.s8-gauge b{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:8px;background:var(--c-hi)}',
-    '.s8-p2 .concl{font-size:32px;line-height:44px;font-weight:700;color:var(--ink)}',
-    '.s8-p2 .gh{display:flex;gap:12px;align-items:center;font-size:21px;color:var(--ink-3)}',
-    /* s08-03 */
-    '.s8-info{font-size:26px;line-height:40px;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:center;white-space:nowrap}',
-    '.s8-info .mono{font-size:24px;color:var(--ink-2)}',
-    '.s8-defs .lk{display:inline-block;vertical-align:-4px;margin-right:8px;color:var(--ink-2)}',
-    '.s8-info svg{color:var(--ink-2)}',
-    '.s8-wt{font-size:24px;line-height:34px;font-weight:600;color:var(--ink)}',
-    '.s8-wt small{font-size:19px;font-weight:500;color:var(--ink-3);margin-left:10px}',
-    '.s8-wc{font-size:22px;line-height:32px;color:var(--ink-2);display:flex;gap:26px}',
-    '.s8-wc b{font-variant-numeric:tabular-nums;color:var(--ink)}',
-    '.s8-wc i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:-1px}',
-    '.s8-defs{font-size:22px;line-height:34px;color:var(--ink-2)}',
-    '.s8-defs b{color:var(--ink);font-weight:700}',
-    '.s8-month{position:absolute;font-family:var(--font-mono);font-size:64px;line-height:64px;font-weight:700;color:var(--ink);opacity:.22;letter-spacing:0}',
-    /* board s08-04 … s08-06 */
-    '.s8-board text,.s8-bars text,.s8-ex text{font-family:var(--font-sans)}',
-    '.s8-concl{font-size:32px;line-height:44px;font-weight:700;color:var(--ink)}',
-    '.s8-reason{font-size:26px;line-height:38px;color:var(--ink-2)}',
-    '.s8-reason b{color:var(--ink)}',
-    '.s8-tiny{font-size:20px;line-height:30px;color:var(--ink-3);display:flex;gap:12px;align-items:center;flex-wrap:wrap}',
-    '.s8-tiny .pill{flex:0 0 auto}',
-    '.s8-tiny b{color:var(--ink-2);font-variant-numeric:tabular-nums;font-weight:600}',
-    '.s8-fig{position:absolute;border-radius:20px;background:var(--bg-2);border:1px solid var(--line)}',
-    '.s8-fig .cap{position:absolute;left:20px;top:12px;font-size:20px;line-height:28px;color:var(--ink-2)}',
-    '.s8-fig .ex{position:absolute;right:18px;top:14px}',
-    '.s8-fig svg{position:absolute;left:0;top:0;overflow:visible}',
-    '.s8-fig .katex{font-size:24px}',
-    '.s8-hyp{position:absolute}',
-    '.s8-hyp svg{overflow:visible}',
-    /* s08-07 */
-    '.s8-sub{font-size:28px;line-height:40px;color:var(--ink-2)}',
-    '.s8-d .eq-panel{padding:20px 28px 12px}',
-    '.s8-d .derive-line{padding:5px 0}',
-    '.s8-d .derive-tex .katex{font-size:27px}',
-    '.s8-d .derive-note{font-size:20px;line-height:29px}',
-    '.s8-d .derive-note .katex{font-size:22px}',
-    '.s8-chip{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;padding:3px 12px;border-radius:13px;font-size:19px;line-height:24px;font-weight:700;background:var(--bg-3);border:1px solid #39435A;color:var(--ink)}',
-    '.s8-symrow{position:absolute;display:flex;gap:18px}',
-    '.s8-symrow .sym-card{min-width:0;padding:12px 18px}',
-    '.s8-symrow .sym-card .sym{font-size:36px}',
-    '.s8-symrow .sym-card .sym-desc{font-size:19px;line-height:27px;max-width:400px}',
-    '.s8-pie text{font-family:var(--font-sans)}',
-    '.s8-hero{font-size:28px;line-height:40px;color:var(--ink)}',
-    '.s8-hero .katex{font-size:34px}',
-    /* s08-08 */
-    '.s8-cnt{font-size:24px;line-height:34px;color:var(--ink-2)}',
-    '.s8-cnt b{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700}',
-    '.s8-cnt .pc{font-size:44px;line-height:52px;font-weight:800;color:var(--c-allow);font-variant-numeric:tabular-nums}',
-    '.s8-cnt .row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-bottom:1px solid var(--line)}',
-    '.s8-leg{font-size:20px;line-height:28px;color:var(--ink-2);display:flex;gap:26px}',
-    '.s8-leg i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:-1px}',
-    '.s8-sumhd{font-size:28px;line-height:38px;font-weight:700;color:var(--ink)}'
+    /* s09-01 */
+    '.s9-colhd{position:absolute;top:184px;width:460px}',
+    '.s9-colhd .k{font-size:30px;line-height:38px;font-weight:700}',
+    '.s9-colhd .v{font-size:19px;line-height:26px;color:var(--ink-3)}',
+    '.s9-row{position:absolute;left:96px;width:1724px;height:150px}',
+    '.s9-rl{position:absolute;left:0;top:0;width:290px;height:150px;display:flex;flex-direction:column;justify-content:center}',
+    '.s9-rl .k{font-size:32px;line-height:40px;font-weight:800;letter-spacing:-.02em}',
+    '.s9-rl .v{font-size:20px;line-height:28px;color:var(--ink-3);margin-top:4px}',
+    '.s9-cell{position:absolute;top:0;width:460px;height:150px;border-radius:18px;border:1.5px solid var(--line);background:var(--bg-2);overflow:hidden}',
+    '.s9-cell .tint{position:absolute;inset:0;opacity:0}',
+    '.s9-cell .num{position:absolute;left:24px;top:12px;font-size:48px;line-height:56px;font-weight:800;letter-spacing:-.02em;color:var(--ink-2)}',
+    '.s9-cell .ci{position:absolute;left:26px;top:70px;font-size:20px;line-height:26px;color:var(--ink-3)}',
+    '.s9-cell svg.mini{position:absolute;left:0;top:94px;overflow:visible}',
+    '.s9-cell .mir{position:absolute;right:16px;top:14px;width:40px;height:40px}',
+    '.s9-cell .mir svg{width:40px;height:40px}',
+    '.s9-slot{position:absolute;left:400px;top:440px;width:1420px;height:150px;border-radius:18px;border:1.5px dashed #2C3547;display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:24px}',
+    '.s9-diff{position:absolute;top:426px;width:300px;height:178px}',
+    '.s9-diff svg{position:absolute;left:0;top:0;overflow:visible}',
+    '.s9-diff .lab{position:absolute;left:150px;top:62px;transform:translateX(-50%);white-space:nowrap;padding:6px 14px;border-radius:14px;background:var(--bg-3);border:1px solid #39435A;font-size:24px;line-height:30px;font-weight:700;color:var(--ink)}',
+    '.s9-diff .lab small{font-size:18px;font-weight:500;color:var(--ink-3);margin-left:6px}',
+    '.s9-cap{font-size:28px;line-height:42px;font-weight:600;color:var(--ink)}',
+    '.s9-cap .pill{vertical-align:4px;margin-left:12px}',
+    '.s9-small{font-size:21px;line-height:30px;color:var(--ink-2)}',
+    '.s9-small .katex{font-size:24px}',
+    '.s9-note{font-size:24px;line-height:34px;color:var(--ink-2);display:flex;gap:14px;align-items:center}',
+    '.s9-more{position:absolute;left:1520px;top:802px;width:300px;height:44px;border-radius:22px;border:1px solid #39435A;background:var(--bg-2);color:var(--ink-2);font:600 19px/42px var(--font-sans);cursor:pointer;text-align:center;padding:0}',
+    '.s9-more:hover{border-color:var(--ink-2);color:var(--ink)}',
+    '.s9-pop{position:absolute;left:880px;top:612px;width:940px;padding:18px 24px;border-radius:20px;background:rgba(16,21,31,.98);border:1px solid #39435A;box-shadow:0 20px 60px rgba(0,0,0,.55);z-index:5}',
+    '.s9-pop table{border-collapse:collapse;width:100%;font-size:22px;line-height:30px}',
+    '.s9-pop th{font-size:18px;font-weight:600;color:var(--ink-3);text-align:right;padding:4px 10px;border-bottom:1px solid var(--line)}',
+    '.s9-pop th:first-child,.s9-pop td:first-child{text-align:left}',
+    '.s9-pop td{padding:6px 10px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid rgba(35,43,59,.8)}',
+    '.s9-pop .hd{font-size:18px;color:var(--ink-3);margin-bottom:6px}',
+    /* s09-02 */
+    '.s9-ov{pointer-events:none;overflow:visible}',
+    '.s9-ov text{font-family:var(--font-sans)}',
+    '.s9-p2 .lg{font-size:21px;line-height:31px;color:var(--ink-2)}',
+    '.s9-p2 .lg i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:10px;vertical-align:-1px}',
+    '.s9-p2 .k{font-size:22px;line-height:30px;color:var(--ink-2)}',
+    '.s9-p2 .tau{font-size:84px;line-height:88px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}',
+    '.s9-p2 .ci{font-size:26px;line-height:34px;color:var(--ink-2);font-variant-numeric:tabular-nums}',
+    '.s9-p2 .ln{font-size:24px;line-height:36px;color:var(--ink-2)}',
+    '.s9-p2 .ln b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:700}',
+    '.s9-p2 .big{font-size:52px;line-height:60px;font-weight:800;color:var(--c-hi);font-variant-numeric:tabular-nums}',
+    '.s9-gauge{position:relative;height:16px;border-radius:8px;background:var(--line);overflow:hidden;margin-top:8px}',
+    '.s9-gauge b{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:8px;background:var(--c-hi)}',
+    '.s9-p2 .concl{font-size:32px;line-height:44px;font-weight:700;color:var(--ink)}',
+    '.s9-p2 .gh{display:flex;gap:12px;align-items:center;font-size:21px;color:var(--ink-3)}',
+    /* s09-03 */
+    '.s9-info{font-size:26px;line-height:40px;font-weight:600;color:var(--ink);display:flex;gap:12px;align-items:center;white-space:nowrap}',
+    '.s9-info .mono{font-size:24px;color:var(--ink-2)}',
+    '.s9-defs .lk{display:inline-block;vertical-align:-4px;margin-right:8px;color:var(--ink-2)}',
+    '.s9-info svg{color:var(--ink-2)}',
+    '.s9-wt{font-size:24px;line-height:34px;font-weight:600;color:var(--ink)}',
+    '.s9-wt small{font-size:19px;font-weight:500;color:var(--ink-3);margin-left:10px}',
+    '.s9-wc{font-size:22px;line-height:32px;color:var(--ink-2);display:flex;gap:26px}',
+    '.s9-wc b{font-variant-numeric:tabular-nums;color:var(--ink)}',
+    '.s9-wc i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:-1px}',
+    '.s9-defs{font-size:22px;line-height:34px;color:var(--ink-2)}',
+    '.s9-defs b{color:var(--ink);font-weight:700}',
+    '.s9-month{position:absolute;font-family:var(--font-mono);font-size:64px;line-height:64px;font-weight:700;color:var(--ink);opacity:.22;letter-spacing:0}',
+    /* board s09-04 … s09-06 */
+    '.s9-board text,.s9-bars text,.s9-ex text{font-family:var(--font-sans)}',
+    '.s9-concl{font-size:32px;line-height:44px;font-weight:700;color:var(--ink)}',
+    '.s9-reason{font-size:26px;line-height:38px;color:var(--ink-2)}',
+    '.s9-reason b{color:var(--ink)}',
+    '.s9-tiny{font-size:20px;line-height:30px;color:var(--ink-3);display:flex;gap:12px;align-items:center;flex-wrap:wrap}',
+    '.s9-tiny .pill{flex:0 0 auto}',
+    '.s9-tiny b{color:var(--ink-2);font-variant-numeric:tabular-nums;font-weight:600}',
+    '.s9-fig{position:absolute;border-radius:20px;background:var(--bg-2);border:1px solid var(--line)}',
+    '.s9-fig .cap{position:absolute;left:20px;top:12px;font-size:20px;line-height:28px;color:var(--ink-2)}',
+    '.s9-fig .ex{position:absolute;right:18px;top:14px}',
+    '.s9-fig svg{position:absolute;left:0;top:0;overflow:visible}',
+    '.s9-fig .katex{font-size:24px}',
+    '.s9-hyp{position:absolute}',
+    '.s9-hyp svg{overflow:visible}',
+    /* s09-07 */
+    '.s9-sub{font-size:28px;line-height:40px;color:var(--ink-2)}',
+    '.s9-d .eq-panel{padding:20px 28px 12px}',
+    '.s9-d .derive-line{padding:5px 0}',
+    '.s9-d .derive-tex .katex{font-size:27px}',
+    '.s9-d .derive-note{font-size:20px;line-height:29px}',
+    '.s9-d .derive-note .katex{font-size:22px}',
+    '.s9-chip{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;padding:3px 12px;border-radius:13px;font-size:19px;line-height:24px;font-weight:700;background:var(--bg-3);border:1px solid #39435A;color:var(--ink)}',
+    '.s9-symrow{position:absolute;display:flex;gap:18px}',
+    '.s9-symrow .sym-card{min-width:0;padding:12px 18px}',
+    '.s9-symrow .sym-card .sym{font-size:36px}',
+    '.s9-symrow .sym-card .sym-desc{font-size:19px;line-height:27px;max-width:400px}',
+    '.s9-pie text{font-family:var(--font-sans)}',
+    '.s9-hero{font-size:28px;line-height:40px;color:var(--ink)}',
+    '.s9-hero .katex{font-size:34px}',
+    /* s09-08 */
+    '.s9-cnt{font-size:24px;line-height:34px;color:var(--ink-2)}',
+    '.s9-cnt b{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700}',
+    '.s9-cnt .pc{font-size:44px;line-height:52px;font-weight:800;color:var(--c-allow);font-variant-numeric:tabular-nums}',
+    '.s9-cnt .row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:6px 0;border-bottom:1px solid var(--line)}',
+    '.s9-leg{font-size:20px;line-height:28px;color:var(--ink-2);display:flex;gap:26px}',
+    '.s9-leg i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:-1px}',
+    '.s9-sumhd{font-size:28px;line-height:38px;font-weight:700;color:var(--ink)}'
   ].join('\n');
   (function inject() {
     if (document.getElementById('s08-style')) return;
@@ -317,9 +317,9 @@
     return Wf;
   }
 
-  /* ================================================================ s08-01
+  /* ================================================================ s09-01
      3 × 3 board: rows = scores, columns = check families. EndorseRank row (top) and AWP row
-     (bottom) carry data-shared keys: s08-02 bursts them into particles. */
+     (bottom) carry data-shared keys: s09-02 bursts them into particles. */
   var G1 = { colX: [400, 880, 1360], yER: 270, yMid: 440, yAWP: 610 };
   var FAMK = ['t', 'a', 's'];
   var FAMHD = [
@@ -351,19 +351,19 @@
   function mx(v) { return MINI.x0 + (v - MINI.d0) / (MINI.d1 - MINI.d0) * (MINI.x1 - MINI.x0); }
   function row1Html(key) {
     var R = ROWS1[key];
-    var s = '<div class="s8-row" id="row-' + key + '" data-in="none"' + (key !== 'cpr' ? ' data-shared="s8-row-' + key + '"' : '') + ' style="top:' + R.y + 'px">' +
-      '<div class="s8-rl"><div class="k" style="color:' + R.col + '">' + R.name + '</div><div class="v">' + R.sub + '</div></div>';
+    var s = '<div class="s9-row" id="row-' + key + '" data-in="none"' + (key !== 'cpr' ? ' data-shared="s9-row-' + key + '"' : '') + ' style="top:' + R.y + 'px">' +
+      '<div class="s9-rl"><div class="k" style="color:' + R.col + '">' + R.name + '</div><div class="v">' + R.sub + '</div></div>';
     FAMK.forEach(function (f, j) {
-      s += '<div class="s8-cell" data-f="' + f + '" style="left:' + (G1.colX[j] - 96) + 'px"><div class="tint"></div><div class="num tnum">&nbsp;</div><div class="ci tnum"></div></div>';
+      s += '<div class="s9-cell" data-f="' + f + '" style="left:' + (G1.colX[j] - 96) + 'px"><div class="tint"></div><div class="num tnum">&nbsp;</div><div class="ci tnum"></div></div>';
     });
     return s + '</div>';
   }
   function diff1Html(f, j) {
-    return '<div class="s8-diff" id="diff-' + f + '" data-in="none" style="left:' + (G1.colX[j] + 80) + 'px"><svg width="300" height="178"></svg>' +
+    return '<div class="s9-diff" id="diff-' + f + '" data-in="none" style="left:' + (G1.colX[j] + 80) + 'px"><svg width="300" height="178"></svg>' +
       '<div class="lab tnum">Difference ' + estOf(DIFF1[f]) + '<small>' + ciOf(DIFF1[f]) + '</small></div></div>';
   }
   var slide1 = {
-    id: 's08-01', title: 'Same window: each score fits its own edges', time: 45, steps: 4,
+    id: 's09-01', title: 'Same window: each score fits its own edges', time: 45, steps: 4,
     tags: ['construct'],
     notes: [
       'Now the results. First, the same-window check. The scores and the proxies all come from the twelve months up to 30 June 2026. The rows are scores and the columns are proxy families. The darker a cell, the larger Kendall’s tau. I will leave the middle row empty for a moment.',
@@ -375,16 +375,16 @@
     html: function () {
       var s = '<h1 class="t-h1">Each score agrees most with proxies from [[its own edges]]</h1>';
       FAMHD.forEach(function (F, j) {
-        s += '<div class="s8-colhd" style="left:' + G1.colX[j] + 'px"><div class="k" style="color:' + F.col + '">' + F.k + '</div><div class="v">' + F.v + '</div></div>';
+        s += '<div class="s9-colhd" style="left:' + G1.colX[j] + 'px"><div class="k" style="color:' + F.col + '">' + F.k + '</div><div class="v">' + F.v + '</div></div>';
       });
-      s += '<div class="s8-slot" id="slot" data-in="none">Where does a mix of both edge types stand?</div>';
+      s += '<div class="s9-slot" id="slot" data-in="none">Where does a mix of both edge types stand?</div>';
       s += row1Html('er') + row1Html('awp') + row1Html('cpr');
       s += diff1Html('t', 0) + diff1Html('a', 1);
-      s += '<p class="abs s8-cap" id="cap" data-in="none" style="left:96px;top:796px;width:1400px">&nbsp;</p>';
-      s += '<p class="abs s8-small" id="fam" data-in="none" style="left:96px;top:850px;width:1728px">Kendall’s τ<sub>b</sub> · family mean = mean τ of the family’s proxies, e.g. transfer family $=\\tfrac12\\bigl(\\tau_{\\text{in-degree}}+\\tau_{\\text{in-value}}\\bigr)$ · 95% interval · matched cohort of ' + n0(NUM.cohort) + ' contracts</p>';
-      s += '<div class="abs s8-note" id="note" data-in="none" style="left:96px;top:900px;width:1400px">' + pill('construct') + '<span>Partly by construction: the proxies come from the same records as the scores</span></div>';
-      s += '<button class="s8-more" id="more" data-in="none" type="button">Show λ = 1 · λ = 0 · S-PR</button>';
-      s += '<div class="s8-pop" id="pop" data-in="none"><div class="hd">Same-window family mean τ<sub>b</sub> [95% interval] · intended-construct check</div><table><tr><th></th><th style="color:#3CC4FF">Transfer</th><th style="color:#F5B43C">Allowance</th><th>Sybil stability</th></tr>' +
+      s += '<p class="abs s9-cap" id="cap" data-in="none" style="left:96px;top:796px;width:1400px">&nbsp;</p>';
+      s += '<p class="abs s9-small" id="fam" data-in="none" style="left:96px;top:850px;width:1728px">Kendall’s τ<sub>b</sub> · family mean = mean τ of the family’s proxies, e.g. transfer family $=\\tfrac12\\bigl(\\tau_{\\text{in-degree}}+\\tau_{\\text{in-value}}\\bigr)$ · 95% interval · matched cohort of ' + n0(NUM.cohort) + ' contracts</p>';
+      s += '<div class="abs s9-note" id="note" data-in="none" style="left:96px;top:900px;width:1400px">' + pill('construct') + '<span>Partly by construction: the proxies come from the same records as the scores</span></div>';
+      s += '<button class="s9-more" id="more" data-in="none" type="button">Show λ = 1 · λ = 0 · S-PR</button>';
+      s += '<div class="s9-pop" id="pop" data-in="none"><div class="hd">Same-window family mean τ<sub>b</sub> [95% interval] · intended-construct check</div><table><tr><th></th><th style="color:#3CC4FF">Transfer</th><th style="color:#F5B43C">Allowance</th><th>Sybil stability</th></tr>' +
         EXTRA1.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3].replace(/^-/, '−') + '</td></tr>'; }).join('') + '</table></div>';
       return s;
     },
@@ -392,7 +392,7 @@
       var g = ctx.g = { cells: {} };
       ['er', 'cpr', 'awp'].forEach(function (key) {
         var R = ROWS1[key], rowEl = q(el, '#row-' + key);
-        g.cells[key] = qa(rowEl, '.s8-cell').map(function (cell, j) {
+        g.cells[key] = qa(rowEl, '.s9-cell').map(function (cell, j) {
           var f = FAMK[j], d = iv(R.v[f]), own = R.own === f;
           var tint = q(cell, '.tint'); tint.style.background = rgba(R.col, Math.max(0.04, 0.05 + 0.34 * d.est));
           var svg = svgEl('svg', { width: 460, height: 44, 'class': 'mini', viewBox: '0 0 460 44' }, cell);
@@ -505,8 +505,8 @@
     }
   };
 
-  /* ================================================================ s08-02
-     three.js: rows of s08-01 → particles → the λ = 1 cloud (geometry of s06-04) → camera rises →
+  /* ================================================================ s09-02
+     three.js: rows of s09-01 → particles → the λ = 1 cloud (geometry of s06-04) → camera rises →
      rank–rank scatter on the floor plate (x = EndorseRank percentile, depth = AWP percentile). */
   var P2 = { top: 150, w: 1260, h: 830, L: 8, FLOOR: -0.42 };
   var CAM_CLOUD = { theta: 0.16, phi: 1.16, radius: 21, target: [0.2, 1.45, 0] };
@@ -561,7 +561,7 @@
   }
   function p2pt(g, e, a) { var L = P2.L; return g.T.project([(e - 0.5) * L, P2.FLOOR + 0.02, -(a - 0.5) * L]); }
   var slide2 = {
-    id: 's08-02', title: 'The two scores give different orders', time: 45, steps: 3,
+    id: 's09-02', title: 'The two scores give different orders', time: 45, steps: 3,
     tags: [H1TAG],
     notes: [
       'Do the two scores put the same contracts in the same order? The two rows of the previous slide break into points and become a cloud of ' + n0(T2.n) + ' contracts. Seen from above, the cloud becomes a flat picture. Across is the rank by EndorseRank and up is the rank by AWP, both turned into percentiles. Amber points are contracts that EndorseRank ranks higher, sky-blue points contracts that AWP ranks higher.',
@@ -571,11 +571,11 @@
     ],
     html:
       '<h1 class="t-h1">EndorseRank and AWP put contracts in [[different orders]]</h1>' +
-      '<div class="abs" data-shared="s8-row-er" data-shared-mode="manual" style="left:96px;top:' + G1.yER + 'px;width:1724px;height:150px;visibility:hidden"></div>' +
-      '<div class="abs" data-shared="s8-row-awp" data-shared-mode="manual" style="left:96px;top:' + G1.yAWP + 'px;width:1724px;height:150px;visibility:hidden"></div>' +
+      '<div class="abs" data-shared="s9-row-er" data-shared-mode="manual" style="left:96px;top:' + G1.yER + 'px;width:1724px;height:150px;visibility:hidden"></div>' +
+      '<div class="abs" data-shared="s9-row-awp" data-shared-mode="manual" style="left:96px;top:' + G1.yAWP + 'px;width:1724px;height:150px;visibility:hidden"></div>' +
       '<div class="abs" id="p3" data-in="none" style="left:0;top:' + P2.top + 'px;width:' + P2.w + 'px;height:' + P2.h + 'px"></div>' +
-      '<svg class="abs s8-ov" id="ov" data-in="none" width="' + P2.w + '" height="' + P2.h + '" viewBox="0 0 ' + P2.w + ' ' + P2.h + '" style="left:0;top:' + P2.top + 'px"></svg>' +
-      '<div class="abs s8-p2" id="panel" data-in="none" style="left:1300px;top:186px;width:524px;height:780px">' +
+      '<svg class="abs s9-ov" id="ov" data-in="none" width="' + P2.w + '" height="' + P2.h + '" viewBox="0 0 ' + P2.w + ' ' + P2.h + '" style="left:0;top:' + P2.top + 'px"></svg>' +
+      '<div class="abs s9-p2" id="panel" data-in="none" style="left:1300px;top:186px;width:524px;height:780px">' +
         '<div class="abs lg" id="lg" style="left:0;top:0;width:524px"><div>One point = one contract · <b class="tnum ink">' + n0(T2.n) + '</b> contracts</div>' +
           '<div><i style="background:#F5B43C"></i>Ranked higher by EndorseRank</div><div><i style="background:#3CC4FF"></i>Ranked higher by AWP</div></div>' +
         '<div class="abs" id="b1" style="left:0;top:126px;width:524px">' +
@@ -590,7 +590,7 @@
           '<div class="ln">Pairs ordered by both scores <b id="both">' + T2.both + '%</b></div>' +
           '<div class="ln" style="margin-top:6px">Of these, in opposite order</div>' +
           '<div style="display:flex;align-items:baseline;gap:14px"><span class="big" id="disc">0.0%</span><span class="ln" id="discnote" style="font-size:19px;color:var(--ink-3)">Flashing pairs 0 / 30</span></div>' +
-          '<div class="s8-gauge"><b id="gfill"></b></div>' +
+          '<div class="s9-gauge"><b id="gfill"></b></div>' +
         '</div>' +
         '<div class="abs concl" id="b3" style="left:0;top:660px;width:524px">Related, but not interchangeable</div>' +
       '</div>',
@@ -650,10 +650,10 @@
       g.T = T;
       if (T.failed) return;
       Comp.floor(ctx, T, { size: L, y: FLOOR, divisions: 8, opacity: 0.2 });
-      /* start positions: inside the boxes of the two rows of s08-01 (particles), else a small burst */
+      /* start positions: inside the boxes of the two rows of s09-01 (particles), else a small burst */
       var cam = T.camera, THREE = T.THREE;
       cam.updateMatrixWorld(); cam.updateProjectionMatrix();
-      var rE = ctx.prev && ctx.prev.rect ? ctx.prev.rect('s8-row-er') : null, rA = ctx.prev && ctx.prev.rect ? ctx.prev.rect('s8-row-awp') : null;
+      var rE = ctx.prev && ctx.prev.rect ? ctx.prev.rect('s9-row-er') : null, rA = ctx.prev && ctx.prev.rect ? ctx.prev.rect('s9-row-awp') : null;
       var emit = new Float32Array(n * 3), dist = CAM_CLOUD.radius, v3 = new THREE.Vector3();
       for (i = 0; i < n; i++) {
         var R = (i % 2 ? rA : rE) || rE || rA;
@@ -673,7 +673,7 @@
     enter: function (el, ctx) {
       var g = ctx.g, tl = ctx.tl();
       if (ctx.prev && ctx.prev.el) {
-        ['s8-row-er', 's8-row-awp'].forEach(function (k) { var o = ctx.prev.el.querySelector('[data-shared="' + k + '"]'); if (o && o.style.visibility !== 'hidden') tl.to(o, { autoAlpha: 0, duration: 0.35 }, 0.05); });
+        ['s9-row-er', 's9-row-awp'].forEach(function (k) { var o = ctx.prev.el.querySelector('[data-shared="' + k + '"]'); if (o && o.style.visibility !== 'hidden') tl.to(o, { autoAlpha: 0, duration: 0.35 }, 0.05); });
       }
       if (!g.cloud || !g.cloud.points) { tl.call(function () { ctx.add(function () { drawAxes2(ctx); }); }, null, 0.4); return; }
       tl.call(function () { g.cloud.points.visible = true; }, null, 0);
@@ -795,7 +795,7 @@
     return tl;
   }
 
-  /* ================================================================ s08-03
+  /* ================================================================ s09-03
      The calendar of s03-01 (same axis span), the freeze pin and the label window. */
   var AX3 = { left: 96, top: 176, w: 1728, h: 250, axisY: 196 };
   var STRIP = [{ x: 180, h: 52 }, { x: 340, h: 30, a: 1 }, { x: 500, h: 68 }, { x: 660, h: 44, a: 2, s: 1 }, { x: 820, h: 22, s: 1 }];
@@ -812,7 +812,7 @@
   var MON_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   function ymEn(s) { return MON_EN[+String(s).slice(5, 7) - 1] + ' ' + String(s).slice(0, 4); }
   var slide3 = {
-    id: 's08-03', title: 'Out-of-window test (temporal holdout): freeze and wait', time: 40, steps: 3,
+    id: 's09-03', title: 'Out-of-window test (temporal holdout): freeze and wait', time: 40, steps: 3,
     tags: [],
     notes: [
       'Now the real test, the out-of-window test. The thesis calls it a temporal holdout. The three-year calendar is back. The amber stream is the allowance records of each month, and the sky-blue stream the transfer records; only the twelve months that the first test scores from are drawn.',
@@ -822,20 +822,20 @@
     ],
     html:
       '<h1 class="t-h1">[[Freeze]] the scores, then grade them on what comes next</h1>' +
-      '<p class="abs s8-small" style="left:96px;top:154px;color:var(--ink-3)">Out-of-window test = temporal holdout · set a later period aside and predict it</p>' +
+      '<p class="abs s9-small" style="left:96px;top:154px;color:var(--ink-3)">Out-of-window test = temporal holdout · set a later period aside and predict it</p>' +
       '<div class="abs" id="cal" data-in="none" style="left:' + AX3.left + 'px;top:' + AX3.top + 'px;width:' + AX3.w + 'px;height:' + AX3.h + 'px"></div>' +
-      '<div class="abs s8-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>Holdout · freeze 31 Mar → Apr–Jun · <b class="tnum">' + n0(NUM.sp0) + '</b> spenders</span></div>' +
-      '<div class="abs s8-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>Registered window · freeze 30 Jun → Jul–Sep · <b class="tnum">' + n0(NUM.sp1) + '</b> spenders</span>' + LOCK_SVG + '</div>' +
-      '<p class="abs s8-small" id="stripcap" data-in="none" style="left:96px;top:566px;color:var(--ink-3)">Spender contracts · scores stay frozen · example</p>' +
+      '<div class="abs s9-info" id="i0" data-in="none" style="left:96px;top:470px"><span class="mono">W0</span><span>Holdout · freeze 31 Mar → Apr–Jun · <b class="tnum">' + n0(NUM.sp0) + '</b> spenders</span></div>' +
+      '<div class="abs s9-info" id="i1" data-in="none" style="left:96px;top:516px"><span class="mono">W1</span><span>Registered window · freeze 30 Jun → Jul–Sep · <b class="tnum">' + n0(NUM.sp1) + '</b> spenders</span>' + LOCK_SVG + '</div>' +
+      '<p class="abs s9-small" id="stripcap" data-in="none" style="left:96px;top:566px;color:var(--ink-3)">Spender contracts · scores stay frozen · example</p>' +
       '<svg class="abs" id="strip" data-in="none" width="960" height="280" viewBox="0 0 960 280" style="left:0;top:600px;overflow:visible"></svg>' +
-      '<div class="s8-month" id="mon" data-in="none" style="left:868px;top:566px">Apr</div>' +
-      '<div class="abs s8-defs" id="defs" data-in="none" style="left:96px;top:872px;width:880px">' +
+      '<div class="s9-month" id="mon" data-in="none" style="left:868px;top:566px">Apr</div>' +
+      '<div class="abs s9-defs" id="defs" data-in="none" style="left:96px;top:872px;width:880px">' +
         '<div><b class="c-allow">New approval pairs</b>: owner–spender allowances that did not exist at the freeze</div>' +
         '<div><b class="c-xfer">New transfer senders</b>: addresses that sent a transfer for the first time</div>' +
         '<div data-step="3"><span class="lk">' + LOCK_SVG + '</span><b>W1</b>: logs extracted after the registration</div></div>' +
       '<div class="abs" id="wbox" data-in="none" style="left:1040px;top:466px;width:784px;height:480px">' +
-        '<div class="s8-wt" id="wt">W0 spender contracts <span class="tnum">' + n0(NUM.sp0) + '</span><small>one dot ' + (NUM.sp0 % 10 ? '≈' : '=') + ' 10 contracts</small></div>' +
-        '<div class="s8-wc" id="wc"><span><i style="background:#F5B43C"></i>New approval pairs <b id="wa">0</b> <span id="wap">(' + H3.pa0 + '%)</span></span><span><i style="background:transparent;box-shadow:inset 0 0 0 2.5px #3CC4FF"></i>New senders <b id="ws">0</b> <span id="wsp">(' + H3.ps0 + '%)</span></span><span><i style="background:#F5B43C;box-shadow:0 0 0 2.5px #3CC4FF"></i>Both</span></div>' +
+        '<div class="s9-wt" id="wt">W0 spender contracts <span class="tnum">' + n0(NUM.sp0) + '</span><small>one dot ' + (NUM.sp0 % 10 ? '≈' : '=') + ' 10 contracts</small></div>' +
+        '<div class="s9-wc" id="wc"><span><i style="background:#F5B43C"></i>New approval pairs <b id="wa">0</b> <span id="wap">(' + H3.pa0 + '%)</span></span><span><i style="background:transparent;box-shadow:inset 0 0 0 2.5px #3CC4FF"></i>New senders <b id="ws">0</b> <span id="wsp">(' + H3.ps0 + '%)</span></span><span><i style="background:#F5B43C;box-shadow:0 0 0 2.5px #3CC4FF"></i>Both</span></div>' +
         '<div id="wf" style="position:absolute;left:0;top:92px"></div>' +
       '</div>',
     build: function (el, ctx) {
@@ -854,11 +854,11 @@
       gsap.set(g.S0.concat(g.S1), { autoAlpha: 0 });
       /* frost over the 12-month score window of each freeze (only these records make the score) */
       var svg = TL.svg;
-      var defs = svgEl('defs', {}, svg), gr = svgEl('linearGradient', { id: 's8-frost', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+      var defs = svgEl('defs', {}, svg), gr = svgEl('linearGradient', { id: 's9-frost', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
       svgEl('stop', { offset: '0', 'stop-color': '#E9EDF5', 'stop-opacity': 0.16 }, gr); svgEl('stop', { offset: '1', 'stop-color': '#E9EDF5', 'stop-opacity': 0.06 }, gr);
       function frost(win, label) {
         var xs = TL.x(win[0]), x1 = TL.x(win[1]) + 1.5, G = svgEl('g', {}, svg);
-        svgEl('rect', { x: xs, y: 14, width: x1 - xs, height: AX3.axisY - 16, fill: 'url(#s8-frost)', rx: 6 }, G);
+        svgEl('rect', { x: xs, y: 14, width: x1 - xs, height: AX3.axisY - 16, fill: 'url(#s9-frost)', rx: 6 }, G);
         svgEl('line', { x1: x1, x2: x1, y1: 14, y2: AX3.axisY - 2, stroke: '#E9EDF5', 'stroke-width': 2, opacity: 0.7 }, G);
         txt(G, xs - 10, 40, label + ' →', { 'text-anchor': 'end', fill: C.ink, 'font-size': 17, 'font-weight': 600 });
         gsap.set(G, { autoAlpha: 0 });
@@ -891,7 +891,7 @@
         var N = Comp.contract(ctx, sv, { x: s.x, y: 140, size: 56, hidden: true });
         g.boxes.push(N);
       });
-      svgEl('rect', { x: 140, y: 10, width: 720, height: 86, rx: 10, fill: 'url(#s8-frost)' }, frostS);
+      svgEl('rect', { x: 140, y: 10, width: 720, height: 86, rx: 10, fill: 'url(#s9-frost)' }, frostS);
       var sf = svgEl('g', { transform: 'translate(846,24)' }, frostS);
       for (var a = 0; a < 3; a++) { var an = a * Math.PI / 3; svgEl('line', { x1: -Math.cos(an) * 9, y1: -Math.sin(an) * 9, x2: Math.cos(an) * 9, y2: Math.sin(an) * 9, stroke: C.ink, 'stroke-width': 2, 'stroke-linecap': 'round' }, sf); }
       g.frostS = frostS; gsap.set(frostS, { autoAlpha: 0 });
@@ -1009,15 +1009,15 @@
     }
   };
 
-  /* ================================================================ locked board (s08-04 … s08-06) */
+  /* ================================================================ locked board (s09-04 … s09-06) */
   var BD = { tx0: 540, tx1: 1040, td: [0.25, 0.50], tticks: [0.25, 0.3, 0.35, 0.4, 0.45, 0.5], vX: 1062,
     dx0: 1344, dx1: 1800, dd: [-0.11, 0.17], dticks: [-0.1, -0.05, 0, 0.05, 0.1, 0.15],
     groups: [{ top: 252, name: 'W0', s1: 'freeze 31 Mar', s2: 'Apr–Jun labels' }, { top: 400, name: 'W1', s1: 'freeze 30 Jun', s2: 'Jul–Sep labels' }],
     gh: 128, rowOff: [34, 94], gridTop: 246, gridBot: 538, tickY: 566 };
   function bx(v) { return BD.tx0 + (v - BD.td[0]) / (BD.td[1] - BD.td[0]) * (BD.tx1 - BD.tx0); }
   function dxs(v) { return BD.dx0 + (v - BD.dd[0]) / (BD.dd[1] - BD.dd[0]) * (BD.dx1 - BD.dx0); }
-  var BOARD_HTML = '<svg class="abs s8-board" id="board" data-shared="s8-board" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0"></svg>' +
-    '<svg class="abs s8-bars" id="bars" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>';
+  var BOARD_HTML = '<svg class="abs s9-board" id="board" data-shared="s9-board" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0"></svg>' +
+    '<svg class="abs s9-bars" id="bars" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>';
   function drawBoard(svg) {
     var hd = { fill: C.ink2, 'font-size': 22, 'font-weight': 700 };
     txt(svg, BD.tx0, 214, 'τ: how well it predicted what came later', hd);
@@ -1120,9 +1120,9 @@
     drawBoard(g.board);
     return g;
   }
-  function boardEnter(el, ctx) { settleShared(ctx, ctx.g.board, 's8-board', 0.2); }
+  function boardEnter(el, ctx) { settleShared(ctx, ctx.g.board, 's9-board', 0.2); }
 
-  /* values of s08-04 … s08-08 (R = DECK_DATA.results.revised, G = .registered) */
+  /* values of s09-04 … s09-08 (R = DECK_DATA.results.revised, G = .registered) */
   var NA = 'future_new_approvers', NS8 = 'future_new_transfer_senders';
   var T4 = {
     awp0: IV(W0, 'taus.awp.' + NS8, '0.409 [0.396, 0.421]'), deg0: IV(W0, 'taus.t1_in_degree.' + NS8, '0.447 [0.435, 0.459]'),
@@ -1154,7 +1154,7 @@
   function E8(s) { return estOf(s); }
   function A8(s) { return estOf(s).replace(/^[+−]/, ''); }   /* size of a difference, without its sign */
   var slide4 = {
-    id: 's08-04', title: 'Transfer side: the raw count beats AWP', time: 40, steps: 4,
+    id: 's09-04', title: 'Transfer side: the raw count beats AWP', time: 40, steps: 4,
     tags: function (s) { return s >= 4 ? ['posthoc', 'registered-analysis'] : ['posthoc']; },
     notes: [
       'First, the transfer side. The left panel shows how well each score predicted what happened later. The right panel shows the difference between the two scores, paired on the same contracts. If the difference lies right of 0, the walk score is better; if it lies left of 0, the plain count is better.',
@@ -1165,9 +1165,9 @@
     ],
     html:
       '<h1 class="t-h1">Predicting new senders: [[the count]] beats AWP</h1>' + BOARD_HTML +
-      '<p class="abs s8-concl" id="concl" data-in="none" style="left:96px;top:720px;width:1728px">On the transfer side, too, the walk (time and value weights, activity restarts) did not beat the count</p>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:96px;top:800px;width:1728px">' + pill('posthoc') + '<span>In neither the plan nor the registration: computed after the labels were known · new-sender label · spenders W0 ' + n0(NUM.sp0) + ', W1 ' + n0(NUM.sp1) + '</span></div>' +
-      '<div class="abs s8-tiny" id="gleg" data-in="none" style="left:96px;top:850px;width:1728px">' + pill('registered-analysis') + '<span>Gray hollow = registered analysis (raw units, all tokens, since Oct 2023): <b>' + T4.g0 + '</b> · <b>' + T4.g1 + '</b>: AWP above the count</span></div>',
+      '<p class="abs s9-concl" id="concl" data-in="none" style="left:96px;top:720px;width:1728px">On the transfer side, too, the walk (time and value weights, activity restarts) did not beat the count</p>' +
+      '<div class="abs s9-tiny" id="tiny" data-in="none" style="left:96px;top:800px;width:1728px">' + pill('posthoc') + '<span>In neither the plan nor the registration: computed after the labels were known · new-sender label · spenders W0 ' + n0(NUM.sp0) + ', W1 ' + n0(NUM.sp1) + '</span></div>' +
+      '<div class="abs s9-tiny" id="gleg" data-in="none" style="left:96px;top:850px;width:1728px">' + pill('registered-analysis') + '<span>Gray hollow = registered analysis (raw units, all tokens, since Oct 2023): <b>' + T4.g0 + '</b> · <b>' + T4.g1 + '</b>: AWP above the count</span></div>',
     build: function (el, ctx) {
       var g = boardBuild(el, ctx), svg = g.bars;
       var rowsW0 = [{ label: 'AWP', color: C.xfer, val: T4.awp0 }, { label: 'Transfer in-degree', color: C.deg, dashed: true, val: T4.deg0 }];
@@ -1192,9 +1192,9 @@
     }
   };
 
-  /* ================================================================ s08-05 allowance side */
+  /* ================================================================ s09-05 allowance side */
   var slide5 = {
-    id: 's08-05', title: 'Allowance side: the raw count wins', time: 50, steps: 5,
+    id: 's09-05', title: 'Allowance side: the raw count wins', time: 50, steps: 5,
     tags: function (s) { return s >= 5 ? ['posthoc', 'registered-analysis'] : s >= 4 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
       'Now the allowance side. Here I will report the result just as it is. The panels are the same as on the previous slide.',
@@ -1205,11 +1205,11 @@
       'Over all spenders, the allowance-side score predicted new approval pairs better than AWP, the transfer-side score: ' + A8(T5.ea0) + ' higher in W0 and ' + A8(T5.ea1) + ' higher in W1. But this lead rests on the ' + n0(NUM.notRecv0) + ' spenders that had never received a transfer, the ' + n0(NUM.noXfer0) + ' that AWP scores zero among them. Those spenders without a transfer edge, about one in six, gained new approval pairs more often than the rest, ' + T5.cvW + '% against ' + T5.cvO + '%. Among the ' + n0(NUM.recv0) + ' that had received one, AWP is in fact higher, at ' + T5.rAwp + ' against ' + T5.rEr + ' for EndorseRank; no paired difference was computed for these two. On those ' + n0(NUM.recv0) + ' contracts, too, EndorseRank stays ' + A8(T5.recv) + ' below the in-approve degree. These comparisons, too, were all computed after the labels were known. The gray hollow dots are the registered analysis, where EndorseRank was also below the count.'
     ],
     html:
-      '<h1 class="t-h1">Predicting new approval pairs: <span class="s8-hl" id="hl">the count</span> won</h1>' + BOARD_HTML +
-      '<div class="s8-fig" id="rich" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">Rich get richer: owners attract owners</div><span class="ex example-mark">Example</span><svg id="richsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
-      '<p class="abs s8-concl" id="concl" data-in="none" style="left:700px;top:716px;width:1124px">EndorseRank with uniform restarts did not beat the owner count</p>' +
-      '<p class="abs s8-reason" id="reason" data-in="none" style="left:700px;top:796px;width:1124px">Contracts with many owners gain more new owners: <b>the count captures this directly</b></p>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:858px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
+      '<h1 class="t-h1">Predicting new approval pairs: <span class="s9-hl" id="hl">the count</span> won</h1>' + BOARD_HTML +
+      '<div class="s9-fig" id="rich" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">Rich get richer: owners attract owners</div><span class="ex example-mark">Example</span><svg id="richsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
+      '<p class="abs s9-concl" id="concl" data-in="none" style="left:700px;top:716px;width:1124px">EndorseRank with uniform restarts did not beat the owner count</p>' +
+      '<p class="abs s9-reason" id="reason" data-in="none" style="left:700px;top:796px;width:1124px">Contracts with many owners gain more new owners: <b>the count captures this directly</b></p>' +
+      '<div class="abs s9-tiny" id="tiny" data-in="none" style="left:700px;top:858px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
         '<div>' + pill('posthoc') + ' <span>The lead rests on <b>' + n0(NUM.notRecv0) + '</b> spenders with no inbound transfer (<b>' + n0(NUM.noXfer0) + '</b> AWP zeros)</span></div>' +
         '<div>The <b>' + n0(NUM.recv0) + '</b> prior transfer recipients alone: AWP <b>' + T5.rAwp + '</b> · EndorseRank <b>' + T5.rEr + '</b> (not paired)</div>' +
         '<div>On them, EndorseRank − in-approve degree <b>' + T5.recv + '</b> · registered analysis <b>' + E8(T5.g0) + '</b>, <b>' + E8(T5.g1) + '</b> (gray)</div></div>',
@@ -1269,9 +1269,9 @@
     }
   };
 
-  /* ================================================================ s08-06 restart rule only (post hoc) */
+  /* ================================================================ s09-06 restart rule only (post hoc) */
   var slide6 = {
-    id: 's08-06', title: 'Change only the restart rule? (post hoc)', time: 45, steps: 5,
+    id: 's09-06', title: 'Change only the restart rule? (post hoc)', time: 45, steps: 5,
     tags: function (s) { return s >= 1 ? ['posthoc', 'example'] : ['posthoc']; },
     notes: [
       'So would a different restart rule beat the count?',
@@ -1283,11 +1283,11 @@
     ],
     html:
       '<h1 class="t-h1">With AWP’s restarts it still did not beat [[the count]]</h1>' + BOARD_HTML +
-      '<div class="s8-fig" id="rain" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">Teleport rain: heavier on active owners</div><span class="ex example-mark">Example</span><svg id="rainsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
-      '<div class="abs s8-reason" id="def" data-in="none" style="left:700px;top:612px;width:1124px"><b class="c-allow">EndorseRank (activity restarts)</b>: restarts more often at active owners · $\\pi_u=X_u\\big/\\sum_v X_v$<br><span style="font-size:21px;line-height:30px;color:var(--ink-3)">$X_u$ = sum of the time weights of u’s latest approvals, one per spender (AWP’s activity, applied to allowances)</span></div>' +
-      '<div class="s8-hyp" id="hyp" data-in="none" style="left:700px;top:706px"><svg width="280" height="84" viewBox="0 0 280 84"></svg></div>' +
-      '<div class="abs s8-reason" id="hyptx" data-in="none" style="left:1004px;top:710px;width:820px">The restart rule changed only how far it falls short<br><span style="font-size:22px;color:var(--ink-3)">→ not whether it does · why: the closed form on the next slide</span></div>' +
-      '<div class="abs s8-tiny" id="tiny" data-in="none" style="left:700px;top:818px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
+      '<div class="s9-fig" id="rain" data-in="none" style="left:96px;top:612px;width:560px;height:330px"><div class="cap">Teleport rain: heavier on active owners</div><span class="ex example-mark">Example</span><svg id="rainsv" width="560" height="330" viewBox="0 0 560 330"></svg></div>' +
+      '<div class="abs s9-reason" id="def" data-in="none" style="left:700px;top:612px;width:1124px"><b class="c-allow">EndorseRank (activity restarts)</b>: restarts more often at active owners · $\\pi_u=X_u\\big/\\sum_v X_v$<br><span style="font-size:21px;line-height:30px;color:var(--ink-3)">$X_u$ = sum of the time weights of u’s latest approvals, one per spender (AWP’s activity, applied to allowances)</span></div>' +
+      '<div class="s9-hyp" id="hyp" data-in="none" style="left:700px;top:706px"><svg width="280" height="84" viewBox="0 0 280 84"></svg></div>' +
+      '<div class="abs s9-reason" id="hyptx" data-in="none" style="left:1004px;top:710px;width:820px">The restart rule changed only how far it falls short<br><span style="font-size:22px;color:var(--ink-3)">→ not whether it does · why: the closed form on the next slide</span></div>' +
+      '<div class="abs s9-tiny" id="tiny" data-in="none" style="left:700px;top:818px;width:1124px;flex-direction:column;align-items:flex-start;gap:2px">' +
         '<div>Same-window agreement with the allowance family rises: <b>' + T6.famEr + ' → ' + T6.famAct + '</b></div>' +
         '<div>The analysis plan only said to ‘report’ this variant alongside; it fixed no comparison with the count</div>' +
         '<div>The transfer side agrees: C-PR’s transfer layer, with uniform restarts (W0 <b>' + T6.cpr0 + '</b>), lies further below the in-degree (<b>' + E8(T4.deg0) + '</b>) than AWP (<b>' + E8(T4.awp0) + '</b>) · not paired</div></div>',
@@ -1298,7 +1298,7 @@
       var rowsW1 = [{ label: 'In-approve degree', color: C.deg, dashed: true, val: T5.deg1 }, { label: 'EndorseRank variant', color: C.allow, dashed: true, val: T6.act1, from: er1 }];
       g.G0 = boardGroup(svg, 0, rowsW0, { val: T6.d0, color: C.ink });
       g.G1 = boardGroup(svg, 1, rowsW1, { val: T6.d1, color: C.ink });
-      /* where the uniform-restart EndorseRank sat (τ and its difference to the count, s08-05): small hollow amber rings */
+      /* where the uniform-restart EndorseRank sat (τ and its difference to the count, s09-05): small hollow amber rings */
       function ring(gi, x, y, label) {
         var gg = svgEl('g', {}, svg);
         svgEl('circle', { cx: x, cy: y, r: 7, fill: 'none', stroke: C.allow, 'stroke-width': 2, opacity: 0.8 }, gg);
@@ -1375,7 +1375,7 @@
     }
   };
 
-  /* ================================================================ s08-07 closed form */
+  /* ================================================================ s09-07 closed form */
   var SWX = 96, SWY = 236;
   var SWV = (PRM.worked_example || {}).stationary || [0.1375, 0.2154, 0.1765, 0.4706];
   /* c of the real same-window graph (R same_window.closed_form.common_value_c; thesis: 1.93 × 10⁻⁷) */
@@ -1385,7 +1385,7 @@
     return { m: m, e: e, html: m + ' × 10<sup>' + (e < 0 ? '−' + (-e) : e) + '</sup>' };
   })();
   var slide7 = {
-    id: 's08-07', title: 'Closed form: what EndorseRank really computes', time: 60, steps: 6,
+    id: 's09-07', title: 'Closed form: what EndorseRank really computes', time: 60, steps: 6,
     tags: function (s) { return s === 5 ? ['example'] : s >= 6 ? ['thesis-example', 'example'] : ['thesis-example']; },
     notes: [
       'Let us look with a formula at why EndorseRank did not beat the plain count. Back to the small world. The water in each cup is the share of a long walk that stays at each node.',
@@ -1398,16 +1398,16 @@
     ],
     html:
       '<h1 class="t-h1">EndorseRank ≈ a [[divided]] count of approvals</h1>' +
-      '<p class="abs s8-sub" style="left:96px;top:156px">For a spender whose owners receive no approvals (a depth-one spender)</p>' +
+      '<p class="abs s9-sub" style="left:96px;top:156px">For a spender whose owners receive no approvals (a depth-one spender)</p>' +
       '<div class="abs" id="swhost" data-in="none" style="left:0;top:0;width:1px;height:1px"></div>' +
       '<svg class="abs" id="swov" data-in="none" width="900" height="760" viewBox="0 0 900 760" style="left:0;top:200px;overflow:visible"></svg>' +
-      '<div class="abs s8-d" id="eq" data-in="none" style="left:980px;top:204px;width:844px"></div>' +
-      '<div class="s8-symrow" id="syms" data-in="none" style="left:96px;top:832px"></div>' +
-      '<svg class="abs s8-pie" id="pie" data-in="none" width="880" height="620" viewBox="0 0 880 620" style="left:96px;top:226px;overflow:visible"></svg>' +
-      '<div class="abs s8-hero" id="concl" data-in="none" style="left:96px;top:856px;width:860px">The more spenders an owner approves, the smaller each share<br><span style="font-size:22px;color:var(--ink-3)">→ the order differs from the count · real same-window graph: c = ' + CC.html + '</span></div>',
+      '<div class="abs s9-d" id="eq" data-in="none" style="left:980px;top:204px;width:844px"></div>' +
+      '<div class="s9-symrow" id="syms" data-in="none" style="left:96px;top:832px"></div>' +
+      '<svg class="abs s9-pie" id="pie" data-in="none" width="880" height="620" viewBox="0 0 880 620" style="left:96px;top:226px;overflow:visible"></svg>' +
+      '<div class="abs s9-hero" id="concl" data-in="none" style="left:96px;top:856px;width:860px">The more spenders an owner approves, the smaller each share<br><span style="font-size:22px;color:var(--ink-3)">→ the order differs from the count · real same-window graph: c = ' + CC.html + '</span></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
-      g.W = Comp.smallWorld(ctx, q(el, '#swhost'), { x: SWX, y: SWY, cups: { dy: 92, w: 50, h: 60, max: 0.8, decimals: 4, color: C.ink }, shared: 's8-sw' });
+      g.W = Comp.smallWorld(ctx, q(el, '#swhost'), { x: SWX, y: SWY, cups: { dy: 92, w: 50, h: 60, max: 0.8, decimals: 4, color: C.ink }, shared: 's9-sw' });
       g.W.wrap.setAttribute('data-in', 'none');
       ['A', 'B', 'C', 'D'].forEach(function (id, k) { g.W.cups[id].set(SWV[k], { duration: 0 }); });
       /* overlay chips (stage coords → overlay at top 200) */
@@ -1565,7 +1565,7 @@
     }
   };
 
-  /* ================================================================ s08-08 how well the closed form fits + one-page summary */
+  /* ================================================================ s09-08 how well the closed form fits + one-page summary */
   var CFR = get(SW, 'closed_form', {}), CF0 = get(W0, 'closed_form', {});
   var CF = { spenders: CFR.spenders || 6224, d1: CFR.depth_one_spenders || 5232,
     inDeep: CFR.within_1pct_deeper != null ? CFR.within_1pct_deeper : 0.2188,
@@ -1581,7 +1581,7 @@
     return { label: label, sub: sub, est: d.est, lo: d.lo, hi: d.hi, color: color, text: s, ghost: gd ? { est: gd.est, lo: gd.lo, hi: gd.hi } : null };
   }
   var slide8 = {
-    id: 's08-08', title: 'How well the closed form fits · results on one page', time: 45, steps: 4,
+    id: 's09-08', title: 'How well the closed form fits · results on one page', time: 45, steps: 4,
     tags: function (s) { return s >= 4 ? ['posthoc', 'registered-analysis'] : []; },
     notes: [
       'We checked how well this formula fits on the real graph. One dot is 10 same-window spenders.',
@@ -1593,21 +1593,21 @@
     html:
       '<h1 class="t-h1">[[Every]] depth-one spender follows the formula</h1>' +
       '<div class="abs" id="top" data-in="none" style="left:0;top:0;width:1920px;height:820px">' +
-        '<div class="abs s8-leg" id="leg" style="left:96px;top:186px"><span><i style="background:#F5B43C"></i>Depth one · within 1%</span><span><i style="background:rgba(245,180,60,.42)"></i>Deeper · within 1%</span><span><i style="background:transparent;border:2px solid #FF6B8A;width:12px;height:12px"></i>Deeper · outside 1%</span><span class="ink-3">One dot = 10 spenders · same window</span></div>' +
+        '<div class="abs s9-leg" id="leg" style="left:96px;top:186px"><span><i style="background:#F5B43C"></i>Depth one · within 1%</span><span><i style="background:rgba(245,180,60,.42)"></i>Deeper · within 1%</span><span><i style="background:transparent;border:2px solid #FF6B8A;width:12px;height:12px"></i>Deeper · outside 1%</span><span class="ink-3">One dot = 10 spenders · same window</span></div>' +
         '<div id="wf8" style="position:absolute;left:96px;top:232px"></div>' +
-        '<div class="abs s8-cnt" id="cnt" style="left:1330px;top:226px;width:494px">' +
+        '<div class="abs s9-cnt" id="cnt" style="left:1330px;top:226px;width:494px">' +
           '<div class="row"><span>Same-window spenders</span><b>' + n0(CF.spenders) + '</b></div>' +
           '<div class="row"><span>Depth one <b>' + n0(CF.d1) + '</b> → within 1%</span><span class="pc" id="c1">0%</span></div>' +
           '<div class="row"><span>Deeper <b>' + n0(CF.deeper) + '</b> → within 1%</span><span class="pc" id="c2" style="color:rgba(245,180,60,.75)">0%</span></div>' +
           '<div class="row" style="border-bottom:0"><span>All</span><span class="pc" id="c3" style="color:var(--ink)">0%</span></div>' +
           '<div id="w0l" style="font-size:21px;color:var(--ink-3);margin-top:6px">W0: <b>' + n0(CF.w0n) + '</b> spenders · all <b>' + CF.w0All + '%</b><br>Kendall’s τ of score and δ <b>' + CF.tau + '</b> (same window)</div>' +
         '</div>' +
-        '<p class="abs s8-concl" id="concl" style="left:96px;top:700px;width:1700px">The spreading was there, but it did not lift EndorseRank above the count</p>' +
+        '<p class="abs s9-concl" id="concl" style="left:96px;top:700px;width:1700px">The spreading was there, but it did not lift EndorseRank above the count</p>' +
       '</div>' +
-      '<div class="abs s8-reason" id="mini" data-in="none" style="left:720px;top:214px;width:1100px">Spenders within 1% of the formula (same window)<br><b class="c-allow tnum">depth one ' + CF.pD1 + '%</b> · <b class="tnum" style="color:rgba(245,180,60,.8)">deeper ' + CF.pDeep + '%</b> · <b class="tnum">all ' + CF.pAll + '%</b><br><span style="font-size:22px;color:var(--ink-3)">The spreading was there, but it did not lift the score above the count</span></div>' +
+      '<div class="abs s9-reason" id="mini" data-in="none" style="left:720px;top:214px;width:1100px">Spenders within 1% of the formula (same window)<br><b class="c-allow tnum">depth one ' + CF.pD1 + '%</b> · <b class="tnum" style="color:rgba(245,180,60,.8)">deeper ' + CF.pDeep + '%</b> · <b class="tnum">all ' + CF.pAll + '%</b><br><span style="font-size:22px;color:var(--ink-3)">The spreading was there, but it did not lift the score above the count</span></div>' +
       '<div class="abs" id="sum" data-in="none" style="left:96px;top:478px;width:1728px">' +
-        '<div class="s8-sumhd">Four comparisons with the raw degree: the plain count wins all four</div>' +
-        '<div class="s8-tiny" style="margin:4px 0 0">' + pill('posthoc') + '<span>All computed after the labels were known · colored dots = revised analysis (main result) · gray hollow dots = registered analysis (AWP slightly above on the transfer side)</span></div>' +
+        '<div class="s9-sumhd">Four comparisons with the raw degree: the plain count wins all four</div>' +
+        '<div class="s9-tiny" style="margin:4px 0 0">' + pill('posthoc') + '<span>All computed after the labels were known · colored dots = revised analysis (main result) · gray hollow dots = registered analysis (AWP slightly above on the transfer side)</span></div>' +
         '<div id="fp" style="margin-top:6px"></div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
@@ -1660,8 +1660,8 @@
   };
 
   Deck.section({
-    id: 's08-results',
-    title: 'Results',
+    id: 's09-results',
+    title: 'Out-of-window prediction',
     slides: [slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8]
   });
 })();

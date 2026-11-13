@@ -18,7 +18,7 @@
    Comp.svg(ctx, parent, {w, h, className, style})            -> <svg> (viewBox 0 0 w h)
    Comp.color(kind) / Comp.lambdaColor(λ) / Comp.rgb(hex) -> [r,g,b] 0..1 (sRGB)
    Comp.tag(key) -> <span class="pill">   (status tag G11; keys: plan, registered, reanalysis,
-                    posthoc, exploratory, construct, registered-analysis, example, calc, thesis-example)
+                    posthoc, discovery, construct, registered-analysis, example, calc, thesis-example)
    Comp.example(text=Deck.t('example')) -> small grey label element ('예시' / 'Example')
    Comp.canvas(ctx, parent, {w, h, x, y, onResize}) -> {canvas, g (2D context in design px), w, h, clear(), resize()}
                     backing store follows the stage scale (sharp at any window size); redraw in onResize

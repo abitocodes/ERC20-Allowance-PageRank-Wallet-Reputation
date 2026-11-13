@@ -11,7 +11,7 @@
 
    Shared with later sections (exposed on window.DeckParts):
      DeckParts.wallet.html(opts) / DeckParts.wallet.GEOM  — the brandless wallet
-     window of s01-01, so s11-04 can bring it back at the same place and size.
+     window of s01-01, so s12-04 can bring it back at the same place and size.
    ========================================================================= */
 (function () {
   'use strict';
@@ -91,7 +91,7 @@
   }
   function lerp(a, b, t) { return a + (b - a) * t; }
 
-  /* ------------------------------------------------------------ the wallet window (shared with s11-04) */
+  /* ------------------------------------------------------------ the wallet window (shared with s12-04) */
   var WALLET = { left: 550, top: 150, w: 820, h: 520, owner: [150, 92], spender: [670, 92], yes: [1065, 579], no: [855, 579] };
   /* owner / spender: centres inside the window's figure strip (which starts 60 px below the window top);
      yes / no: button centres in stage coordinates */
@@ -258,11 +258,11 @@
 
   /* ------------------------------------------------------------ s01-02 */
   var RQS = [
-    { k: 'RQ1', t: '한 화살표만 걷는 두 점수는 순서가 다르고, 각자 자기 지표와 맞을까요?', sec: 8 },
-    { k: 'RQ2', t: '계산에 얼마나 걸리고, 두 화살표를 함께 걸으면 얼마나 더 들까요?', sec: 10 },
-    { k: 'RQ3', t: '나중에 생길 일을 맞힐까요? 그냥 센 수보다 나을까요?', sec: 8, test: true },
-    { k: 'RQ4', t: 'C-PR은 한 층만 걷기보다 나을까요? (규칙 A)', sec: 9, test: true },
-    { k: 'RQ5', t: '송금 걷기에 허락 층을 더하면 나아질까요? (규칙 B)', sec: 9, test: true }
+    { k: 'RQ1', t: '한 화살표만 걷는 두 점수는 순서가 다르고, 각자 자기 지표와 맞을까요?', sec: 9 },
+    { k: 'RQ2', t: '계산에 얼마나 걸리고, 두 화살표를 함께 걸으면 얼마나 더 들까요?', sec: 11 },
+    { k: 'RQ3', t: '나중에 생길 일을 맞힐까요? 그냥 센 수보다 나을까요?', sec: 9, test: true },
+    { k: 'RQ4', t: 'C-PR은 한 층만 걷기보다 나을까요? (규칙 A)', sec: 10, test: true },
+    { k: 'RQ5', t: '송금 걷기에 허락 층을 더하면 나아질까요? (규칙 B)', sec: 10, test: true }
   ];
   var slide2 = {
     id: 's01-02', title: '연구 질문', time: 45, steps: 3,
@@ -270,7 +270,7 @@
       '이 논문의 큰 질문은 이거예요. ERC-20 허락 화살표와 송금 화살표를 한 페이지랭크 걸음으로 함께 걸으면, 아비트럼 원의 스마트 계약 평판 점수로서 무엇이 더해질까요?',
       '이 논문의 점수는 두 화살표를 한 번에 걷는 C-PR이에요. 견줄 기준은 셋이에요. 허락만 걷는 엔도스랭크, 송금 기록만 걷는 기존 점수 AWP, 그리고 걷기들이 다듬는 재료, 곧 화살표를 그냥 센 수예요.',
       '이 큰 질문을 다섯 개의 연구 질문으로 나눴어요. 칩 끝의 숫자는 답이 나오는 섹션이에요. 아래 막대의 그 칸에서 답을 보여 드릴게요.',
-      '앞의 두 질문에는 가설 H1–H3이 붙어 있어요. 가설은 미리 세워 둔 예상 답이에요. 이 셋은 점수를 만든 방식 때문에 대체로 저절로 맞는 점검이에요. 진짜 시험은 RQ3부터 RQ5까지이고, RQ4와 RQ5가 미리 정한 규칙으로 C-PR을 시험해요. 그리고 질문마다 목표가 하나씩 있어서, 목표 O1–O5라고 불러요. O1은 RQ1의 목표, O5는 RQ5의 목표예요. 목표를 이뤘는지는 마지막 11에서 판정할게요.'
+      '앞의 두 질문에는 가설 H1–H3이 붙어 있어요. 가설은 미리 세워 둔 예상 답이에요. 이 셋은 점수를 만든 방식 때문에 대체로 저절로 맞는 점검이에요. 진짜 시험은 RQ3부터 RQ5까지이고, RQ4와 RQ5가 미리 정한 규칙으로 C-PR을 시험해요. 그리고 질문마다 목표가 하나씩 있어서, 목표 O1–O5라고 불러요. O1은 RQ1의 목표, O5는 RQ5의 목표예요. 목표를 이뤘는지는 마지막 12에서 판정할게요.'
     ],
     html:
       '<h1 class="t-h1">두 화살표를 한 번에 걸으면<br>무엇이 [[더해질까요?]]</h1>' +
@@ -285,7 +285,7 @@
         return '<div class="s01-rq' + '" data-k="' + r.k + '"><span class="k">' + r.k + '</span><span class="t">' + esc(r.t) + '</span><span class="s">→ ' + Deck.util.pad2(r.sec) + '</span></div>';
       }).join('') + '</div>' +
       '<p class="s01-rq-note" id="rqnote" data-in="none">가설 H1–H3 (= RQ1–RQ2의 예상 답)은 만든 방식 때문에 대체로 저절로 맞아요. 진짜 시험은 <b>RQ3–RQ5</b>이고, <b>RQ4·RQ5</b>가 미리 정한 규칙으로 C-PR을 시험해요.' +
-        '<span class="obj">질문마다 목표가 하나씩: <b>목표 O1–O5</b> (O1 = RQ1의 목표 …) · 이뤘는지는 → 11에서 판정해요</span></p>',
+        '<span class="obj">질문마다 목표가 하나씩: <b>목표 O1–O5</b> (O1 = RQ1의 목표 …) · 이뤘는지는 → 12에서 판정해요</span></p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var cards = el.querySelectorAll('.s01-player');
@@ -356,7 +356,7 @@
   /* ------------------------------------------------------------ s01-03 */
   var STOPS = [
     ['01', '여는 질문'], ['02', '허락과 송금'], ['03', '데이터의 세계'], ['04', '페이지랭크 유도'], ['05', '화살표의 무게'],
-    ['06', '네 가지 점수'], ['07', '맞았는지 재는 법'], ['08', '결과'], ['09', '미리 정한 규칙'], ['10', '공격 비용과 속도'], ['11', '정리']
+    ['06', '네 가지 점수'], ['07', '맞았는지 재는 법'], ['08', '먼저 찾을까'], ['09', '기간 밖 예측'], ['10', '미리 정한 규칙'], ['11', '공격 비용과 속도'], ['12', '정리']
   ];
   /* tiny icons beside some stops (G7 small world, G9 interval bar, G10 stamp, G14 farm) */
   function stopIcon(svg, kind, x, y) {
@@ -425,7 +425,7 @@
         acc += tmp.getTotalLength(); tmp.parentNode.removeChild(tmp);
         g.frac.push(acc / g.L);
       }
-      var icons = { 3: 'world', 7: 'forest', 8: 'stamp', 9: 'farm' };
+      var icons = { 3: 'world', 8: 'forest', 9: 'stamp', 10: 'farm' };
       STOPS.forEach(function (s, k) {
         var p = g.pts[k];
         var dot = svgEl('circle', { cx: p[0], cy: p[1], r: 10, fill: C.bg, stroke: C.ink3, 'stroke-width': 2.5 }, svg);

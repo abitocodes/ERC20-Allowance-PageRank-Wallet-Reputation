@@ -1,23 +1,23 @@
 /* =========================================================================
-   s09-rules — Rules fixed in advance (English edition; STORYBOARD.md §2, s09-01 … s09-06)
+   s10-rules — Rules fixed in advance (English edition; STORYBOARD.md §2, s10-01 … s10-06)
 
-   s09-01  What was fixed, and when  vertical commit stem (git-graph look, folded time axis); locks
+   s10-01  What was fixed, and when  vertical commit stem (git-graph look, folded time axis); locks
                                      click shut; "seconds zoom" panel counts 13:41:27 → 37 (10 s) and
                                      16:49:32 → 33 → 40 (8 s); the "results known from here" line;
                                      below it, with no time, the revised analysis as defined after the
                                      registered results were known (US-dollar amounts, five tokens,
                                      twelve-month score windows): re-analysis loop, no lock
-   s09-02  Rule A                     checklist cards + paired-difference bars (W0) + same-window part
+   s10-02  Rule A                     checklist cards + paired-difference bars (W0) + same-window part
                                      (C-PR outside the better layer's band) → stamp "not met" + re-analysis
-   s09-03  Rule B                     one number line −0.11 … +0.21, rose hatched margin [−δ, 0];
+   s10-03  Rule B                     one number line −0.11 … +0.21, rose hatched margin [−δ, 0];
                                      F1 ✓, F2 ✕, F3 ✕ with a ×200 zoom on the lower end (−0.01005 vs −0.01000)
-   s09-04  Outside the rules          two forest panels (new approval pairs | new senders): C-PR minus
+   s10-04  Outside the rules          two forest panels (new approval pairs | new senders): C-PR minus
                                      EndorseRank, AWP, AWP among receiving spenders, EndorseRank with
                                      activity restarts and the count of the same edge type; W0 filled,
                                      W1 hollow; post hoc tag, no verdict (sources at var B4)
-   s09-05  Registered vs revised      three reasons (flat V curve, 12-digit ladder, spam token) +
+   s10-05  Registered vs revised      three reasons (flat V curve, 12-digit ladder, spam token) +
                                      two-column table, "=" between equal verdicts and "≠" on R1
-   s09-06  R1–R3                     70 W1 traders as a dot grid (37 recipients, 9 liquidated); outcome
+   s10-06  R1–R3                     70 W1 traders as a dot grid (37 recipients, 9 liquidated); outcome
                                      definition; P and Q (W1) with 95 % bars and 97.5 % brackets; the
                                      registered sentences typed out (R1 met, R2 not met); R3 profit-share
                                      bars (W1). W0 values (P, Q, 87 traders, 39/39, 75.0 %) and the
@@ -125,97 +125,97 @@
 
   /* ------------------------------------------------------------ styles */
   var CSS = [
-    /* s09-01 */
-    '.s9-node{position:absolute;left:360px;display:flex;align-items:center;gap:14px;white-space:nowrap;transform:translateY(-50%)}',
-    '.s9-node .k{font-size:26px;line-height:34px;font-weight:600;color:var(--ink)}',
-    '.s9-node .code{font-family:var(--font-mono);font-size:21px;color:var(--ink);background:var(--bg-3);border:1px solid var(--line);border-radius:8px;padding:1px 9px;letter-spacing:0}',
-    '.s9-node .sub{font-size:20px;line-height:28px;color:var(--ink-3)}',
-    '.s9-node .chip{font-size:20px;line-height:26px;font-weight:800;color:var(--bg);background:var(--ink);border-radius:13px;padding:1px 12px}',
-    '.s9-node.small .k{font-size:22px;color:var(--ink-2);font-weight:500}',
-    '.s9-node .note{font-size:20px;line-height:28px;color:var(--ink-2)}',
-    '.s9-node .note b{color:var(--ink);font-variant-numeric:tabular-nums}',
-    '.s9-node .tg{font-size:20px;line-height:26px;font-weight:700;color:var(--ink);border:1.5px solid var(--ink-3);border-radius:13px;padding:0 12px}',
-    '.s9-time{position:absolute;width:210px;left:96px;text-align:right;font-family:var(--font-mono);font-size:21px;line-height:28px;color:var(--ink-2);letter-spacing:0;transform:translateY(-50%)}',
-    '.s9-date{position:absolute;left:96px;font-size:19px;line-height:26px;color:var(--ink-3);font-weight:600}',
-    '.s9-lockw{position:absolute;left:308px;width:44px;height:44px;margin-top:-22px;border-radius:22px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--ink)}',
-    '.s9-lockw.hollow{color:var(--ink-2)}',
-    '.s9-lockw.hollow .lk rect,.s9-lockw.hollow .lk path{stroke-dasharray:3 3}',
-    '.s9-node .re{display:inline-flex;color:var(--ink-2);margin-left:-6px}',
-    '.s9-zoom{position:absolute;left:1240px;top:204px;width:584px;height:380px;border-radius:24px;background:var(--bg-2);border:1px solid var(--line);transform-origin:0% 50%}',
-    '.s9-zoom .hd{position:absolute;left:28px;top:20px;font-family:var(--font-mono);font-size:17px;color:var(--ink-3);letter-spacing:0}',
-    '.s9-zoom .clk{position:absolute;left:28px;top:54px;font-family:var(--font-mono);font-size:64px;line-height:72px;font-weight:700;color:var(--ink);letter-spacing:0;font-variant-numeric:tabular-nums}',
-    '.s9-zoom .gap{position:absolute;right:28px;top:62px;font-size:44px;line-height:56px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}',
-    '.s9-zoom svg{position:absolute;left:0;top:150px;overflow:visible}',
-    '.s9-zoom .cap{position:absolute;left:28px;right:28px;bottom:18px;font-size:20px;line-height:28px;color:var(--ink-2)}',
-    '.s9-sep{position:absolute;left:200px;width:1000px;height:0;border-top:2px dashed var(--ink-2);transform-origin:0 50%}',
-    '.s9-septx{position:absolute;font-size:22px;line-height:30px;font-weight:700;color:var(--ink);background:var(--bg);padding:0 10px}',
-    '.s9-bot{font-size:27px;line-height:38px;color:var(--ink)}',
-    '.s9-bot b{font-weight:800}',
-    '.s9-small{font-size:19px;line-height:27px;color:var(--ink-3)}',
-    /* s09-02 / s09-03 */
-    '.s9-card{position:absolute;left:96px;width:660px;border-radius:20px;background:var(--bg-2);border:1.5px solid var(--line);padding:16px 22px 14px 24px}',
-    '.s9-card .hd{font-size:26px;line-height:34px;font-weight:800;color:var(--ink)}',
-    '.s9-card .ds{font-size:23px;line-height:33px;color:var(--ink-2)}',
-    '.s9-card .fx{font-size:19px;line-height:28px;color:var(--ink-3)}',
-    '.s9-card .fx .katex{font-size:22px}',
-    '.s9-mark{position:absolute;right:20px;top:18px;width:46px;height:46px;border-radius:23px;border:2.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;line-height:1}',
-    '.s9-mark.ok{border-color:var(--ink);color:var(--ink)}',
-    '.s9-mark.no{border-color:var(--c-hi);color:var(--c-hi)}',
-    '.s9-ax text{font-family:var(--font-sans)}',
-    '.s9-cell{position:absolute;width:330px;height:132px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line)}',
-    '.s9-cell .hd{position:absolute;left:16px;top:8px;font-size:20px;line-height:28px;font-weight:700}',
-    '.s9-cell .v{position:absolute;left:16px;top:34px;font-size:17px;line-height:24px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}',
-    '.s9-cell svg{position:absolute;left:0;top:52px;overflow:visible}',
-    '.s9-verd{display:flex;align-items:center;gap:16px}',
-    '.s9-line{font-size:24px;line-height:34px;color:var(--ink-2)}',
-    '.s9-line b{color:var(--ink);font-variant-numeric:tabular-nums}',
-    '.s9-tiny{font-size:20px;line-height:30px;color:var(--ink-3)}',
-    '.s9-tiny b{color:var(--ink-2);font-variant-numeric:tabular-nums;font-weight:600}',
-    '.s9-tiny .pill{vertical-align:-2px;margin-right:8px}',
-    '.s9-fl{position:absolute;left:96px;width:470px}',
-    '.s9-fl .hd{font-size:28px;line-height:36px;font-weight:800;color:var(--ink)}',
-    '.s9-fl .ds{font-size:20px;line-height:28px;color:var(--ink-3)}',
-    '.s9-fx{font-size:22px;line-height:32px;color:var(--ink-2)}',
-    '.s9-fx .katex{font-size:24px}',
-    '.s9-cap{font-size:20px;line-height:28px;color:var(--ink-3);white-space:nowrap}',
-    '.s9-cap i{display:inline-block;width:28px;height:7px;border-radius:4px;background:var(--c-cpr, #A78BFA);margin-right:10px;vertical-align:4px}',
-    '.s9-inset{position:absolute;left:1180px;top:660px;width:644px;height:200px;border-radius:20px;background:rgba(16,21,31,.97);border:1px solid #39435A;box-shadow:0 18px 50px rgba(0,0,0,.5)}',
-    '.s9-inset .hd{position:absolute;left:20px;top:12px;font-size:18px;line-height:24px;color:var(--ink-3);font-family:var(--font-mono);letter-spacing:0}',
-    '.s9-inset svg{position:absolute;left:0;top:0;overflow:visible}',
-    /* s09-05 */
-    '.s9-rs{position:absolute;left:96px;width:660px;display:flex;gap:18px;align-items:flex-start;padding:14px 18px;border-radius:18px;background:var(--bg-2);border:1px solid var(--line)}',
-    '.s9-rs svg{flex:0 0 auto}',
-    '.s9-rs .t{font-size:22px;line-height:32px;color:var(--ink)}',
-    '.s9-rs .t small{display:block;font-size:18px;line-height:26px;color:var(--ink-3)}',
-    '.s9-th{position:absolute;top:196px;width:300px}',
-    '.s9-th .nm{font-size:30px;line-height:40px;font-weight:800}',
-    '.s9-th .ds{font-size:18px;line-height:26px;color:var(--ink-3);margin-top:4px}',
-    '.s9-tr{position:absolute;left:800px;width:1024px;height:46px;display:flex;align-items:center;border-bottom:1px solid var(--line);font-size:23px}',
-    '.s9-tr .l{width:400px;color:var(--ink-2)}',
-    '.s9-tr .a{width:250px;text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums}',
-    '.s9-tr .eq{width:90px;text-align:center;color:var(--ink-3);font-weight:700}',
-    '.s9-tr .b{width:280px;text-align:left;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}',
-    '.s9-tr.vd .a,.s9-tr.vd .b{font-weight:800}',
-    '.s9-tr.vd .eq{color:var(--ink);font-size:30px}',
-    '.s9-tr.vd.df .eq{color:var(--c-hi)}',
-    '.s9-bold{font-size:28px;line-height:40px;font-weight:800;color:var(--ink)}',
-    /* s09-06 */
-    '.s9-wl{font-size:20px;line-height:30px;color:var(--ink-2)}',
-    '.s9-wl i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:-1px}',
-    '.s9-def{position:absolute;left:760px;top:192px;width:1064px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:24px}',
-    '.s9-def .k{font-size:24px;line-height:32px;font-weight:700;color:var(--ink);white-space:nowrap}',
-    '.s9-def .katex{font-size:30px}',
-    '.s9-rule{font-size:22px;line-height:30px;color:var(--ink);white-space:nowrap;background:var(--bg);padding:2px 10px 2px 0;border-radius:8px}',
-    '.s9-rule .typed{color:var(--ink-2)}',
-    '.s9-score{position:absolute;left:96px;display:flex;flex-direction:column;gap:12px}',
-    '.s9-score .r{display:flex;align-items:center;gap:14px;font-size:24px;line-height:32px;color:var(--ink-2)}',
-    '.s9-score .r b{font-family:var(--font-mono);font-size:26px;color:var(--ink);width:44px;letter-spacing:0}',
-    '.s9-v{display:inline-flex;align-items:center;padding:3px 14px;border-radius:12px;font-size:22px;font-weight:800;border:2.5px solid var(--ink);color:var(--ink)}',
-    '.s9-v.no{border-color:var(--c-hi);color:var(--c-hi)}',
-    /* s09-04 (C-PR beside every other score) */
-    '.s9-ph{font-size:26px;line-height:34px;font-weight:800;color:var(--ink);text-align:center}',
-    '.s9-lg{font-size:20px;line-height:28px;color:var(--ink-3);white-space:nowrap}',
-    '.s9-lg b{color:var(--c-cpr, #A78BFA);font-weight:900}'
+    /* s10-01 */
+    '.s10-node{position:absolute;left:360px;display:flex;align-items:center;gap:14px;white-space:nowrap;transform:translateY(-50%)}',
+    '.s10-node .k{font-size:26px;line-height:34px;font-weight:600;color:var(--ink)}',
+    '.s10-node .code{font-family:var(--font-mono);font-size:21px;color:var(--ink);background:var(--bg-3);border:1px solid var(--line);border-radius:8px;padding:1px 9px;letter-spacing:0}',
+    '.s10-node .sub{font-size:20px;line-height:28px;color:var(--ink-3)}',
+    '.s10-node .chip{font-size:20px;line-height:26px;font-weight:800;color:var(--bg);background:var(--ink);border-radius:13px;padding:1px 12px}',
+    '.s10-node.small .k{font-size:22px;color:var(--ink-2);font-weight:500}',
+    '.s10-node .note{font-size:20px;line-height:28px;color:var(--ink-2)}',
+    '.s10-node .note b{color:var(--ink);font-variant-numeric:tabular-nums}',
+    '.s10-node .tg{font-size:20px;line-height:26px;font-weight:700;color:var(--ink);border:1.5px solid var(--ink-3);border-radius:13px;padding:0 12px}',
+    '.s10-time{position:absolute;width:210px;left:96px;text-align:right;font-family:var(--font-mono);font-size:21px;line-height:28px;color:var(--ink-2);letter-spacing:0;transform:translateY(-50%)}',
+    '.s10-date{position:absolute;left:96px;font-size:19px;line-height:26px;color:var(--ink-3);font-weight:600}',
+    '.s10-lockw{position:absolute;left:308px;width:44px;height:44px;margin-top:-22px;border-radius:22px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--ink)}',
+    '.s10-lockw.hollow{color:var(--ink-2)}',
+    '.s10-lockw.hollow .lk rect,.s10-lockw.hollow .lk path{stroke-dasharray:3 3}',
+    '.s10-node .re{display:inline-flex;color:var(--ink-2);margin-left:-6px}',
+    '.s10-zoom{position:absolute;left:1240px;top:204px;width:584px;height:380px;border-radius:24px;background:var(--bg-2);border:1px solid var(--line);transform-origin:0% 50%}',
+    '.s10-zoom .hd{position:absolute;left:28px;top:20px;font-family:var(--font-mono);font-size:17px;color:var(--ink-3);letter-spacing:0}',
+    '.s10-zoom .clk{position:absolute;left:28px;top:54px;font-family:var(--font-mono);font-size:64px;line-height:72px;font-weight:700;color:var(--ink);letter-spacing:0;font-variant-numeric:tabular-nums}',
+    '.s10-zoom .gap{position:absolute;right:28px;top:62px;font-size:44px;line-height:56px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}',
+    '.s10-zoom svg{position:absolute;left:0;top:150px;overflow:visible}',
+    '.s10-zoom .cap{position:absolute;left:28px;right:28px;bottom:18px;font-size:20px;line-height:28px;color:var(--ink-2)}',
+    '.s10-sep{position:absolute;left:200px;width:1000px;height:0;border-top:2px dashed var(--ink-2);transform-origin:0 50%}',
+    '.s10-septx{position:absolute;font-size:22px;line-height:30px;font-weight:700;color:var(--ink);background:var(--bg);padding:0 10px}',
+    '.s10-bot{font-size:27px;line-height:38px;color:var(--ink)}',
+    '.s10-bot b{font-weight:800}',
+    '.s10-small{font-size:19px;line-height:27px;color:var(--ink-3)}',
+    /* s10-02 / s10-03 */
+    '.s10-card{position:absolute;left:96px;width:660px;border-radius:20px;background:var(--bg-2);border:1.5px solid var(--line);padding:16px 22px 14px 24px}',
+    '.s10-card .hd{font-size:26px;line-height:34px;font-weight:800;color:var(--ink)}',
+    '.s10-card .ds{font-size:23px;line-height:33px;color:var(--ink-2)}',
+    '.s10-card .fx{font-size:19px;line-height:28px;color:var(--ink-3)}',
+    '.s10-card .fx .katex{font-size:22px}',
+    '.s10-mark{position:absolute;right:20px;top:18px;width:46px;height:46px;border-radius:23px;border:2.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;line-height:1}',
+    '.s10-mark.ok{border-color:var(--ink);color:var(--ink)}',
+    '.s10-mark.no{border-color:var(--c-hi);color:var(--c-hi)}',
+    '.s10-ax text{font-family:var(--font-sans)}',
+    '.s10-cell{position:absolute;width:330px;height:132px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line)}',
+    '.s10-cell .hd{position:absolute;left:16px;top:8px;font-size:20px;line-height:28px;font-weight:700}',
+    '.s10-cell .v{position:absolute;left:16px;top:34px;font-size:17px;line-height:24px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}',
+    '.s10-cell svg{position:absolute;left:0;top:52px;overflow:visible}',
+    '.s10-verd{display:flex;align-items:center;gap:16px}',
+    '.s10-line{font-size:24px;line-height:34px;color:var(--ink-2)}',
+    '.s10-line b{color:var(--ink);font-variant-numeric:tabular-nums}',
+    '.s10-tiny{font-size:20px;line-height:30px;color:var(--ink-3)}',
+    '.s10-tiny b{color:var(--ink-2);font-variant-numeric:tabular-nums;font-weight:600}',
+    '.s10-tiny .pill{vertical-align:-2px;margin-right:8px}',
+    '.s10-fl{position:absolute;left:96px;width:470px}',
+    '.s10-fl .hd{font-size:28px;line-height:36px;font-weight:800;color:var(--ink)}',
+    '.s10-fl .ds{font-size:20px;line-height:28px;color:var(--ink-3)}',
+    '.s10-fx{font-size:22px;line-height:32px;color:var(--ink-2)}',
+    '.s10-fx .katex{font-size:24px}',
+    '.s10-cap{font-size:20px;line-height:28px;color:var(--ink-3);white-space:nowrap}',
+    '.s10-cap i{display:inline-block;width:28px;height:7px;border-radius:4px;background:var(--c-cpr, #A78BFA);margin-right:10px;vertical-align:4px}',
+    '.s10-inset{position:absolute;left:1180px;top:660px;width:644px;height:200px;border-radius:20px;background:rgba(16,21,31,.97);border:1px solid #39435A;box-shadow:0 18px 50px rgba(0,0,0,.5)}',
+    '.s10-inset .hd{position:absolute;left:20px;top:12px;font-size:18px;line-height:24px;color:var(--ink-3);font-family:var(--font-mono);letter-spacing:0}',
+    '.s10-inset svg{position:absolute;left:0;top:0;overflow:visible}',
+    /* s10-05 */
+    '.s10-rs{position:absolute;left:96px;width:660px;display:flex;gap:18px;align-items:flex-start;padding:14px 18px;border-radius:18px;background:var(--bg-2);border:1px solid var(--line)}',
+    '.s10-rs svg{flex:0 0 auto}',
+    '.s10-rs .t{font-size:22px;line-height:32px;color:var(--ink)}',
+    '.s10-rs .t small{display:block;font-size:18px;line-height:26px;color:var(--ink-3)}',
+    '.s10-th{position:absolute;top:196px;width:300px}',
+    '.s10-th .nm{font-size:30px;line-height:40px;font-weight:800}',
+    '.s10-th .ds{font-size:18px;line-height:26px;color:var(--ink-3);margin-top:4px}',
+    '.s10-tr{position:absolute;left:800px;width:1024px;height:46px;display:flex;align-items:center;border-bottom:1px solid var(--line);font-size:23px}',
+    '.s10-tr .l{width:400px;color:var(--ink-2)}',
+    '.s10-tr .a{width:250px;text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums}',
+    '.s10-tr .eq{width:90px;text-align:center;color:var(--ink-3);font-weight:700}',
+    '.s10-tr .b{width:280px;text-align:left;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}',
+    '.s10-tr.vd .a,.s10-tr.vd .b{font-weight:800}',
+    '.s10-tr.vd .eq{color:var(--ink);font-size:30px}',
+    '.s10-tr.vd.df .eq{color:var(--c-hi)}',
+    '.s10-bold{font-size:28px;line-height:40px;font-weight:800;color:var(--ink)}',
+    /* s10-06 */
+    '.s10-wl{font-size:20px;line-height:30px;color:var(--ink-2)}',
+    '.s10-wl i{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:-1px}',
+    '.s10-def{position:absolute;left:760px;top:192px;width:1064px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:24px}',
+    '.s10-def .k{font-size:24px;line-height:32px;font-weight:700;color:var(--ink);white-space:nowrap}',
+    '.s10-def .katex{font-size:30px}',
+    '.s10-rule{font-size:22px;line-height:30px;color:var(--ink);white-space:nowrap;background:var(--bg);padding:2px 10px 2px 0;border-radius:8px}',
+    '.s10-rule .typed{color:var(--ink-2)}',
+    '.s10-score{position:absolute;left:96px;display:flex;flex-direction:column;gap:12px}',
+    '.s10-score .r{display:flex;align-items:center;gap:14px;font-size:24px;line-height:32px;color:var(--ink-2)}',
+    '.s10-score .r b{font-family:var(--font-mono);font-size:26px;color:var(--ink);width:44px;letter-spacing:0}',
+    '.s10-v{display:inline-flex;align-items:center;padding:3px 14px;border-radius:12px;font-size:22px;font-weight:800;border:2.5px solid var(--ink);color:var(--ink)}',
+    '.s10-v.no{border-color:var(--c-hi);color:var(--c-hi)}',
+    /* s10-04 (C-PR beside every other score) */
+    '.s10-ph{font-size:26px;line-height:34px;font-weight:800;color:var(--ink);text-align:center}',
+    '.s10-lg{font-size:20px;line-height:28px;color:var(--ink-3);white-space:nowrap}',
+    '.s10-lg b{color:var(--c-cpr, #A78BFA);font-weight:900}'
   ].join('\n');
   (function inject() {
     if (document.getElementById('s09-style')) return;
@@ -251,7 +251,7 @@
   }
   /* linear axis on an svg (stage coords): ticks, gridlines, dashed zero */
   function axis(svg, o) {
-    var g = svgEl('g', { 'class': 's9-ax' }, svg);
+    var g = svgEl('g', { 'class': 's10-ax' }, svg);
     o.ticks.forEach(function (t) {
       if (t !== 0 && o.grid !== false) svgEl('line', { x1: o.scale(t), x2: o.scale(t), y1: o.y0, y2: o.y1, stroke: 'rgba(233,237,245,.07)', 'stroke-width': 1 }, g);
       txt(g, o.scale(t), o.y1 + 26, t === 0 ? '0' : (o.signed ? sfmt(t, o.dec || 2) : mfmt(t, o.dec || 2)), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 17, 'class': 'tnum' });
@@ -262,7 +262,7 @@
   }
   function lin(d0, d1, x0, x1) { return function (v) { return x0 + (v - d0) / (d1 - d0) * (x1 - x0); }; }
 
-  /* ================================================================ s09-01 timeline of commits */
+  /* ================================================================ s10-01 timeline of commits */
   var STEM = { x: 330, y0: 206, y1: 716 };
   var N1 = [
     { y: 236, t: T9.plan, html: '<span class="k">Analysis plan commit</span><span class="code">d060f3a</span><span class="sub">before this study extracted any log</span>', lock: 'closed' },
@@ -275,7 +275,7 @@
     { y: 690, t: 'afterwards', html: '<span class="k">Revised analysis defined</span><span class="re">' + LOOP_SVG + '</span><span class="tg">US-dollar amounts</span><span class="tg">five tokens</span><span class="tg">twelve-month score windows</span>', rev: true }
   ];
   var slide1 = {
-    id: 's09-01', title: 'What was fixed, and when', time: 60, steps: 6,
+    id: 's10-01', title: 'What was fixed, and when', time: 60, steps: 6,
     tags: function (s) { return s >= 5 ? ['plan', 'registered', 'reanalysis'] : s >= 3 ? ['plan', 'registered'] : s >= 1 ? ['plan'] : []; },
     notes: [
       'What I cared about most in this study is the order of events. This stem puts the commits to the Git repository and the data extractions in time order. The commit numbers are those of the public repository, which holds this record with its times and contents. The wavy mark is where time is folded.',
@@ -289,18 +289,18 @@
     html: function () {
       var s = '<h1 class="t-h1">The rules were [[locked]] first, then the data were extracted</h1>';
       s += '<svg class="abs" id="stem" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>';
-      s += '<div class="s9-date" id="d1" data-in="none" style="top:180px">' + T9.day + ' · UTC</div>';
+      s += '<div class="s10-date" id="d1" data-in="none" style="top:180px">' + T9.day + ' · UTC</div>';
       N1.forEach(function (n, i) {
-        s += '<div class="s9-time" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.t + '</div>';
-        if (n.lock) s += '<div class="s9-lockw ' + n.lock + '" data-lk="' + i + '" data-in="none" style="top:' + n.y + 'px">' + LOCK() + '</div>';
-        s += '<div class="s9-node' + (n.small ? ' small' : '') + '" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.html + '</div>';
+        s += '<div class="s10-time" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.t + '</div>';
+        if (n.lock) s += '<div class="s10-lockw ' + n.lock + '" data-lk="' + i + '" data-in="none" style="top:' + n.y + 'px">' + LOCK() + '</div>';
+        s += '<div class="s10-node' + (n.small ? ' small' : '') + '" data-n="' + i + '" data-in="none" style="top:' + n.y + 'px">' + n.html + '</div>';
       });
-      s += '<div class="s9-sep" id="sep" data-in="none" style="top:616px"></div>';
-      s += '<div class="s9-septx" id="septx" data-in="none" style="left:680px;top:600px">Registered results known from here on</div>';
-      s += '<div class="s9-zoom" id="zoom" data-in="none"><div class="hd" id="zhd">Zoomed to seconds</div><div class="clk" id="clk">' + T9.plan + '</div><div class="gap" id="zgap">0 s</div>' +
+      s += '<div class="s10-sep" id="sep" data-in="none" style="top:616px"></div>';
+      s += '<div class="s10-septx" id="septx" data-in="none" style="left:680px;top:600px">Registered results known from here on</div>';
+      s += '<div class="s10-zoom" id="zoom" data-in="none"><div class="hd" id="zhd">Zoomed to seconds</div><div class="clk" id="clk">' + T9.plan + '</div><div class="gap" id="zgap">0 s</div>' +
         '<svg id="zr" width="584" height="150" viewBox="0 0 584 150"></svg><div class="cap" id="zcap"></div></div>';
-      s += '<div class="abs s9-bot" id="bot1" data-in="none" style="left:96px;top:846px;width:1728px"><b>Plan and registration came before the extraction of the logs they judge</b> → registered analysis<br><b>US dollars, five tokens, twelve-month windows: set after the registered results</b> → revised analysis (re-analysis)</div>';
-      s += '<div class="abs s9-small" id="bot2" data-in="none" style="left:96px;top:934px;width:1728px">The extraction script does not run without the registration commit · the manifest records the SHA-256 of both files and “override not used” · times from the commit record and the extraction run records</div>';
+      s += '<div class="abs s10-bot" id="bot1" data-in="none" style="left:96px;top:846px;width:1728px"><b>Plan and registration came before the extraction of the logs they judge</b> → registered analysis<br><b>US dollars, five tokens, twelve-month windows: set after the registered results</b> → revised analysis (re-analysis)</div>';
+      s += '<div class="abs s10-small" id="bot2" data-in="none" style="left:96px;top:934px;width:1728px">The extraction script does not run without the registration commit · the manifest records the SHA-256 of both files and “override not used” · times from the commit record and the extraction run records</div>';
       return s;
     },
     build: function (el, ctx) {
@@ -316,8 +316,8 @@
       g.head = svgEl('circle', { cx: STEM.x, cy: STEM.y0, r: 8, fill: '#fff', 'class': 'glow-white' }, sv);
       g.dots = N1.map(function (n) { return svgEl('circle', { cx: STEM.x, cy: n.y, r: n.lock ? 0 : 7, fill: C.bg, stroke: C.ink3, 'stroke-width': 2.5, 'stroke-dasharray': n.rev ? '3 3' : null }, sv); });
       gsap.set(g.folds.concat([g.head]), { autoAlpha: 0 });
-      g.times = qa(el, '.s9-time'); g.nodes = qa(el, '.s9-node'); g.locks = {};
-      qa(el, '.s9-lockw').forEach(function (L) { g.locks[+L.getAttribute('data-lk')] = L; });
+      g.times = qa(el, '.s10-time'); g.nodes = qa(el, '.s10-node'); g.locks = {};
+      qa(el, '.s10-lockw').forEach(function (L) { g.locks[+L.getAttribute('data-lk')] = L; });
       gsap.set(g.times.concat(g.nodes), { autoAlpha: 0 });
       Object.keys(g.locks).forEach(function (k) { gsap.set(g.locks[k], { autoAlpha: 0.35 }); gsap.set(q(g.locks[k], '.sh'), { y: -5 }); });
       g.d1 = q(el, '#d1'); g.sep = q(el, '#sep'); g.septx = q(el, '#septx');
@@ -428,7 +428,7 @@
     }
   };
 
-  /* ================================================================ s09-02 rule A */
+  /* ================================================================ s10-02 rule A */
   /* rule A on the revised scores (re-analysis) and in the registered analysis: W0 contrasts and the same-window part */
   var RAP = (VR.rule_a_primary || {}).contrasts || pk(RV, ['w0', 'contrasts_prefixed']) || [];
   var RAG = pk(RG, ['w0', 'contrasts_prefixed']) || [];
@@ -447,7 +447,7 @@
   SW2[1].v = 'C-PR ' + n3(SW2[1].cpr) + ' · λ = 1: [' + n3(SW2[1].band[0]) + ', ' + n3(SW2[1].band[1]) + ']';
   SW2[2].v = 'C-PR ' + n3(SW2[2].cpr) + ' · λ = 1: ' + n3(SW2[2].ticks[0][0]) + ' · λ = 0: ' + n3(SW2[2].ticks[1][0]);
   var slide2 = {
-    id: 's09-02', title: 'Rule A (analysis plan, fixed before this study\'s extraction)', time: 45, steps: 5,
+    id: 's10-02', title: 'Rule A (analysis plan, fixed before this study\'s extraction)', time: 45, steps: 5,
     tags: function (s) { return s >= 5 ? ['plan', 'reanalysis', 'registered-analysis'] : s >= 1 ? ['plan', 'reanalysis'] : ['plan']; },
     notes: [
       'Rule A is the rule I wrote into the analysis plan before this study extracted any data. In W0, C-PR, which mixes the two edge types, must do no worse than the allowance layer walked alone, and at the same time better than the transfer layer walked alone. There is also a same-window part. The numbers on screen are a re-analysis: this rule applied unchanged to the revised scores.',
@@ -459,13 +459,13 @@
     ],
     html:
       '<h1 class="t-h1">Rule A: does C-PR (λ = 0.5) beat [[both]] layers?</h1>' +
-      '<div class="s9-card" id="ca1" data-in="none" style="top:196px;height:132px"><div class="hd">① W0 · new approval pairs</div><div class="ds">No worse than the allowance layer alone (λ = 1)</div><div class="fx">95% interval of $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=1}$ contains 0 or lies above 0</div><div class="s9-mark" id="m1"></div></div>' +
-      '<div class="s9-card" id="ca2" data-in="none" style="top:342px;height:132px"><div class="hd">② W0 · new transfer senders</div><div class="ds">Better than the transfer layer alone (λ = 0)</div><div class="fx">95% interval of $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ lies above 0</div><div class="s9-mark" id="m2"></div></div>' +
-      '<div class="s9-card" id="ca3" data-in="none" style="top:530px;height:132px"><div class="hd">③ Same-window part</div><div class="ds">Transfer, allowance: in the better layer\'s 95% interval</div><div class="ds">Sybil stability: above both layers</div><div class="s9-mark" id="m3"></div></div>' +
+      '<div class="s10-card" id="ca1" data-in="none" style="top:196px;height:132px"><div class="hd">① W0 · new approval pairs</div><div class="ds">No worse than the allowance layer alone (λ = 1)</div><div class="fx">95% interval of $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=1}$ contains 0 or lies above 0</div><div class="s10-mark" id="m1"></div></div>' +
+      '<div class="s10-card" id="ca2" data-in="none" style="top:342px;height:132px"><div class="hd">② W0 · new transfer senders</div><div class="ds">Better than the transfer layer alone (λ = 0)</div><div class="fx">95% interval of $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ lies above 0</div><div class="s10-mark" id="m2"></div></div>' +
+      '<div class="s10-card" id="ca3" data-in="none" style="top:530px;height:132px"><div class="hd">③ Same-window part</div><div class="ds">Transfer, allowance: in the better layer\'s 95% interval</div><div class="ds">Sybil stability: above both layers</div><div class="s10-mark" id="m3"></div></div>' +
       '<svg class="abs" id="ax2" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
       '<div class="abs" id="sw2" data-in="none" style="left:800px;top:530px;width:1024px;height:132px"></div>' +
-      '<div class="abs s9-verd" id="verd" data-in="none" style="left:96px;top:712px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span><span class="s9-line" id="reTx">The rule fixed in advance, applied to the revised scores. Not a registered test.</span></div>' +
-      '<div class="abs s9-tiny" id="gl" data-in="none" style="left:96px;top:806px;width:1728px">' + pill('registered-analysis') + 'Also not met in the registered analysis: ① <b>' + A2.rows[0].g + '</b> · ② <b>' + A2.rows[1].g + '</b> · same-window part also not met (gray hollow dots)</div>',
+      '<div class="abs s10-verd" id="verd" data-in="none" style="left:96px;top:712px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span><span class="s10-line" id="reTx">The rule fixed in advance, applied to the revised scores. Not a registered test.</span></div>' +
+      '<div class="abs s10-tiny" id="gl" data-in="none" style="left:96px;top:806px;width:1728px">' + pill('registered-analysis') + 'Also not met in the registered analysis: ① <b>' + A2.rows[0].g + '</b> · ② <b>' + A2.rows[1].g + '</b> · same-window part also not met (gray hollow dots)</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax2'), X = lin(A2.d[0], A2.d[1], A2.x0, A2.x1);
@@ -486,7 +486,7 @@
       /* same-window part: three small τ axes */
       var host = q(el, '#sw2');
       g.cells = SW2.map(function (c, j) {
-        var cell = document.createElement('div'); cell.className = 's9-cell'; cell.style.left = (j * 347) + 'px'; cell.style.top = '0px';
+        var cell = document.createElement('div'); cell.className = 's10-cell'; cell.style.left = (j * 347) + 'px'; cell.style.top = '0px';
         cell.innerHTML = '<div class="hd" style="color:' + c.col + '">' + c.hd + '</div><div class="v tnum">' + c.v + '</div>';
         host.appendChild(cell);
         var sv2 = svgEl('svg', { width: 330, height: 80, viewBox: '0 0 330 80' }, cell);
@@ -517,7 +517,7 @@
     step: function (el, i, ctx) {
       var g = ctx.g, tl = ctx.tl();
       function verdict(k, ok, at) {
-        tl.call(function () { g.m[k].className = 's9-mark ' + (ok ? 'ok' : 'no'); g.m[k].textContent = ok ? '✓' : '✕'; }, null, at);
+        tl.call(function () { g.m[k].className = 's10-mark ' + (ok ? 'ok' : 'no'); g.m[k].textContent = ok ? '✓' : '✕'; }, null, at);
         popIn(tl, g.m[k], at, 0.35);
         tl.to(g.ca[k], { borderColor: ok ? '#A3ADBF' : 'rgba(255,107,138,.7)', duration: 0.3 }, at);
       }
@@ -552,7 +552,7 @@
     }
   };
 
-  /* ================================================================ s09-03 rule B */
+  /* ================================================================ s10-03 rule B */
   /* rule B on the revised scores (re-analysis) and in the registered analysis */
   var RBF = pk(VR, ['rule_b', 'F']) || pk(RV, ['w1', 'rule_b']) || {};
   var RBG = pk(RG, ['w1', 'rule_b']) || {};
@@ -568,7 +568,7 @@
   var ZH = 0.0005, ZF = Math.round(564 / (2 * ZH) / ((B3.x1 - B3.x0) / (B3.d[1] - B3.d[0])) / 100) * 100;
   var F3GAP = mfmt(-DELTA - F3LO, 5), F3LOS = mfmt(F3LO, 5);
   var slide3 = {
-    id: 's09-03', title: 'Rule B (W1, registered before this study\'s W1 extraction)', time: 50, steps: 5,
+    id: 's10-03', title: 'Rule B (W1, registered before this study\'s W1 extraction)', time: 50, steps: 5,
     tags: function (s) { return s >= 5 ? ['registered', 'reanalysis', 'registered-analysis'] : s >= 1 ? ['registered', 'reanalysis'] : ['registered']; },
     notes: [
       'Rule B is the rule I registered after seeing the W0 results and before this study extracted the W1 logs. To say that C-PR improves on the transfer layer walked alone, all three conditions must hold. Every row is the paired difference of C-PR minus the transfer layer walked alone. The rose hatching is the margin of 0.01. The numbers are from the revised analysis, a re-analysis that applies the registered rule unchanged.',
@@ -580,22 +580,22 @@
     ],
     html:
       '<h1 class="t-h1">Rule B: does C-PR [[improve]] on the transfer layer alone?</h1>' +
-      '<p class="abs s9-fx" style="left:96px;top:160px;width:1728px">Every row: $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ · superiority = clearly above 0 · non-inferiority = any shortfall stays within $\\delta=0.01$ · all three must hold</p>' +
-      '<p class="abs s9-cap" id="cap3" data-in="none" style="left:96px;top:198px"><i></i>Colored bars = revised analysis (re-analysis) · registered rule</p>' +
-      B3.rows.map(function (r, k) { return '<div class="s9-fl" data-r="' + k + '" data-in="none" style="top:' + (r.y - 34) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
+      '<p class="abs s10-fx" style="left:96px;top:160px;width:1728px">Every row: $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{\\lambda=0}$ · superiority = clearly above 0 · non-inferiority = any shortfall stays within $\\delta=0.01$ · all three must hold</p>' +
+      '<p class="abs s10-cap" id="cap3" data-in="none" style="left:96px;top:198px"><i></i>Colored bars = revised analysis (re-analysis) · registered rule</p>' +
+      B3.rows.map(function (r, k) { return '<div class="s10-fl" data-r="' + k + '" data-in="none" style="top:' + (r.y - 34) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
       '<svg class="abs" id="ax3" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
-      '<div class="s9-inset" id="ins" data-in="none"><div class="hd">F3 lower end · zoomed about ×' + ZF + '</div><svg id="inssv" width="644" height="200" viewBox="0 0 644 200"></svg></div>' +
-      '<div class="abs s9-verd" id="verd" data-in="none" style="left:96px;top:676px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span></div>' +
-      '<div class="abs s9-tiny" id="sm" data-in="none" style="left:96px;top:776px;width:1076px">' +
+      '<div class="s10-inset" id="ins" data-in="none"><div class="hd">F3 lower end · zoomed about ×' + ZF + '</div><svg id="inssv" width="644" height="200" viewBox="0 0 644 200"></svg></div>' +
+      '<div class="abs s10-verd" id="verd" data-in="none" style="left:96px;top:676px"><span id="stampHost"></span><span id="reTag">' + pill('reanalysis') + '</span></div>' +
+      '<div class="abs s10-tiny" id="sm" data-in="none" style="left:96px;top:776px;width:1076px">' +
         '<div>' + pill('registered-analysis') + 'Also not met in the registered analysis: F1 <b>' + estOf(B3.rows[0].g) + '</b> · F2 <b>' + estOf(B3.rows[1].g) + '</b> · F3 <b>' + estOf(B3.rows[2].g) + '</b> (gray hollow dots)</div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax3'), X = lin(B3.d[0], B3.d[1], B3.x0, B3.x1);
       g.X = X;
       /* margin band [−δ, 0] (hatched rose) */
-      var defs = svgEl('defs', {}, sv), pat = svgEl('pattern', { id: 's9-hatch', width: 10, height: 10, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+      var defs = svgEl('defs', {}, sv), pat = svgEl('pattern', { id: 's10-hatch', width: 10, height: 10, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
       svgEl('line', { x1: 0, y1: 0, x2: 0, y2: 10, stroke: C.hi, 'stroke-width': 3, 'stroke-opacity': 0.45 }, pat);
-      g.band = svgEl('rect', { x: X(-0.01), y: 232, width: X(0) - X(-0.01), height: 352, fill: 'url(#s9-hatch)' }, sv);
+      g.band = svgEl('rect', { x: X(-0.01), y: 232, width: X(0) - X(-0.01), height: 352, fill: 'url(#s10-hatch)' }, sv);
       g.bandL = svgEl('line', { x1: X(-0.01), x2: X(-0.01), y1: 228, y2: 584, stroke: C.hi, 'stroke-width': 2 }, sv);
       g.bandT = txt(sv, X(-0.01) - 8, 226, '−δ = −0.01', { 'text-anchor': 'end', fill: C.hi, 'font-size': 18, 'font-weight': 700 });
       axis(sv, { scale: X, domain: B3.d, ticks: [-0.1, -0.05, 0, 0.05, 0.1, 0.15, 0.2], y0: 232, y1: 584, signed: true });
@@ -612,12 +612,12 @@
         gsap.set([vt, mki], { autoAlpha: 0 });
         return { B: B, G: G, vt: vt, est: e1, d: d, mk: mki };
       });
-      g.fl = qa(el, '.s9-fl');
+      g.fl = qa(el, '.s10-fl');
       /* about ×200 inset around the F3 lower end: domain −δ ± 0.0005 (0 lies far to the right) */
       var Z0 = -DELTA - ZH, Z1 = -DELTA + ZH, ins = q(el, '#inssv'), Z = lin(Z0, Z1, 40, 604);
       var zlo = Math.max(Z0, Math.min(Z1, F3LO));
       g.Z = Z; g.zlo = zlo; g.Z1 = Z1;
-      svgEl('rect', { x: Z(-DELTA), y: 46, width: Z(Z1) - Z(-DELTA), height: 100, fill: 'url(#s9-hatch)' }, ins);
+      svgEl('rect', { x: Z(-DELTA), y: 46, width: Z(Z1) - Z(-DELTA), height: 100, fill: 'url(#s10-hatch)' }, ins);
       svgEl('line', { x1: Z(-DELTA), x2: Z(-DELTA), y1: 42, y2: 150, stroke: C.hi, 'stroke-width': 2.5 }, ins);
       svgEl('line', { x1: Z(Z0), x2: Z(Z1), y1: 150, y2: 150, stroke: C.line, 'stroke-width': 1.5 }, ins);
       [Z0, -DELTA, Z1].forEach(function (t) { txt(ins, Z(t), 174, mfmt(t, 4), { 'text-anchor': 'middle', fill: C.ink3, 'font-size': 16, 'class': 'tnum' }); });
@@ -678,7 +678,7 @@
     }
   };
 
-  /* ================================================================ s09-04 C-PR beside every other score (post hoc) */
+  /* ================================================================ s10-04 C-PR beside every other score (post hoc) */
   /* W0 first, W1 second; C-PR (λ = 0.5) minus the row's score. Sources (R = revised analysis):
      EndorseRank: R w0.contrasts_after (cpr_l50 − endorserank) / R w1.endorserank_results.cpr_minus_endorserank_appr; supplementary w0/w1.cpr_minus_er_send
      AWP: R w0.contrasts_after (cpr_l50 − awp) / R w1.sensitivity_awp.F1, F2
@@ -707,7 +707,7 @@
   ] };
   function e4(k, side, w) { return estOf(B4.rows[k][side][w]).replace(/^[+−]/, ''); }
   var slideCpr = {
-    id: 's09-04', title: 'Outside the rules: C-PR against every other score', time: 50, steps: 4,
+    id: 's10-04', title: 'Outside the rules: C-PR against every other score', time: 50, steps: 4,
     tags: ['posthoc'],
     notes: [
       'Rules A and B compare C-PR only with its own layers, because that is the only comparison that changes the coupling and nothing else. This slide steps outside the rules: C-PR minus every other score, computed after the labels were known. It decides nothing. Filled dots are W0, hollow dots W1.',
@@ -718,14 +718,14 @@
     ],
     html:
       '<h1 class="t-h1">Outside the rules: C-PR against [[every other score]]</h1>' +
-      '<p class="abs s9-fx" style="left:96px;top:160px;width:1728px">Every bar is $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{b}$ · computed after the labels were known · decides no rule</p>' +
-      '<p class="abs s9-lg" style="left:96px;top:204px"><b>●</b> W0 (April–June) · <b>○</b> W1 (July–September) · right of 0 means C-PR is higher</p>' +
-      '<div class="abs s9-ph" style="left:640px;top:236px;width:510px">New approval pairs</div>' +
-      '<div class="abs s9-ph" style="left:1290px;top:236px;width:510px">New transfer senders</div>' +
-      B4.rows.map(function (r, k) { return '<div class="s9-fl s9-fl4" data-r="' + k + '" data-in="none" style="top:' + (B4.ys[k] - 32) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
+      '<p class="abs s10-fx" style="left:96px;top:160px;width:1728px">Every bar is $\\Delta\\tau=\\tau_{\\mathrm{CPR}}-\\tau_{b}$ · computed after the labels were known · decides no rule</p>' +
+      '<p class="abs s10-lg" style="left:96px;top:204px"><b>●</b> W0 (April–June) · <b>○</b> W1 (July–September) · right of 0 means C-PR is higher</p>' +
+      '<div class="abs s10-ph" style="left:640px;top:236px;width:510px">New approval pairs</div>' +
+      '<div class="abs s10-ph" style="left:1290px;top:236px;width:510px">New transfer senders</div>' +
+      B4.rows.map(function (r, k) { return '<div class="s10-fl s10-fl4" data-r="' + k + '" data-in="none" style="top:' + (B4.ys[k] - 32) + 'px"><div class="hd">' + r.k + '</div><div class="ds">' + r.ds + '</div></div>'; }).join('') +
       '<svg class="abs" id="ax4" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
-      '<div class="abs s9-bot" id="sum4" data-in="none" style="left:96px;top:756px;width:1728px">C-PR ranks both labels <b>above EndorseRank</b>. Its lead over AWP on new approval pairs comes mainly from <b>the contracts AWP scores zero</b>, and AWP ranks later senders better. It beats <b>neither plain count</b>.</div>' +
-      '<div class="abs s9-tiny" id="tag4" data-in="none" style="left:96px;top:864px;width:1728px">' + pill('posthoc') + 'Revised analysis · 400 paired resamples · spenders that had received a transfer: <b>' + n0(S0.recv_n, '6,489') + '</b> in W0, <b>' + n0(S1.recv_n, '6,567') + '</b> in W1</div>',
+      '<div class="abs s10-bot" id="sum4" data-in="none" style="left:96px;top:756px;width:1728px">C-PR ranks both labels <b>above EndorseRank</b>. Its lead over AWP on new approval pairs comes mainly from <b>the contracts AWP scores zero</b>, and AWP ranks later senders better. It beats <b>neither plain count</b>.</div>' +
+      '<div class="abs s10-tiny" id="tag4" data-in="none" style="left:96px;top:864px;width:1728px">' + pill('posthoc') + 'Revised analysis · 400 paired resamples · spenders that had received a transfer: <b>' + n0(S0.recv_n, '6,489') + '</b> in W0, <b>' + n0(S1.recv_n, '6,567') + '</b> in W1</div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var sv = q(el, '#ax4');
@@ -742,7 +742,7 @@
         }
         return { bars: pair(XA, r.a).concat(pair(XB, r.b)), step: r.step };
       });
-      g.fl = qa(el, '.s9-fl4');
+      g.fl = qa(el, '.s10-fl4');
       g.sum = q(el, '#sum4'); g.tag = q(el, '#tag4');
       gsap.set([g.sum, g.tag], { autoAlpha: 0 });
       gsap.set(g.fl, { autoAlpha: 0.35 });
@@ -766,7 +766,7 @@
     }
   };
 
-  /* ================================================================ s09-05 registered vs revised */
+  /* ================================================================ s10-05 registered vs revised */
   /* registered | revised; verdict rows carry 1 (= the same) or 2 (≠); the verdict words are the thesis's
      (table registered-vs-revised) and are checked against DECK_DATA below */
   var TR4 = [
@@ -787,7 +787,7 @@
     same(gR.R1, false, 'G R1'); same(gR.R2, false, 'G R2'); same(gR.R3, true, 'G R3');
     same(pk(VR, ['rule_a_primary', 'pass']), false, 'R rule A'); same(pk(VR, ['rule_b', 'decision']), false, 'R rule B');
     same(VR.R1, true, 'R R1'); same(VR.R2, false, 'R R2'); same(VR.R3, true, 'R R3');
-    if (bad.length) { try { console.warn('[s09] DECK_DATA verdicts differ from the slide text: ' + bad.join(', ')); } catch (e) { /* ignore */ } }
+    if (bad.length) { try { console.warn('[s10] DECK_DATA verdicts differ from the slide text: ' + bad.join(', ')); } catch (e) { /* ignore */ } }
   })();
   var ICO4 = {
     flat: '<svg width="88" height="70" viewBox="0 0 88 70" fill="none"><path d="M8 62H84M8 62V6" stroke="#677083" stroke-width="2"/><path d="M8 62 C10 20 12 14 18 12 L84 12" stroke="#F5B43C" stroke-width="3"/><text x="70" y="30" fill="#A3ADBF" font-size="13" font-family="sans-serif">1</text><path d="M8 12h76" stroke="#677083" stroke-width="1" stroke-dasharray="3 3"/></svg>',
@@ -795,7 +795,7 @@
     spam: '<svg width="88" height="70" viewBox="0 0 88 70" fill="none"><rect x="6" y="10" width="54" height="40" rx="6" stroke="#A3ADBF" stroke-width="2"/><path d="M14 22h36M14 30h28M14 38h32" stroke="#677083" stroke-width="2"/><circle cx="66" cy="50" r="14" fill="#10151F" stroke="#FF6B8A" stroke-width="2.5"/><path d="M60 44l12 12M72 44L60 56" stroke="#FF6B8A" stroke-width="2.5" stroke-linecap="round"/></svg>'
   };
   var slide4 = {
-    id: 's09-05', title: 'Registered and revised analysis', time: 50, steps: 4,
+    id: 's10-05', title: 'Registered and revised analysis', time: 50, steps: 4,
     tags: ['registered-analysis', 'reanalysis'],
     notes: [
       'So this thesis has two analyses.',
@@ -806,21 +806,21 @@
     ],
     html:
       '<h1 class="t-h1">Two analyses, [[the same verdicts]] except R1</h1>' +
-      '<p class="abs s9-line" id="rhd" data-in="none" style="left:96px;top:196px;color:var(--ink);font-weight:700">Three defects of the registered setting <span class="s9-tiny">(why the amounts and tokens were changed)</span></p>' +
-      '<div class="s9-rs" id="r1" data-in="none" style="top:244px">' + ICO4.flat + '<div class="t">① In raw base units almost every amount weighs 1 → the amount played no part<small>Registered analysis: 99.78% of allowances · 99.52% of transfers are 10 units or more → weight ≈ 1</small></div></div>' +
-      '<div class="s9-rs" id="r2" data-in="none" style="top:404px">' + ICO4.ladder + '<div class="t">② C-PR added tokens whose units differ by 12 digits, and an unlimited approval took a whole row<small>1 USDC = 10⁶ units · 1 WETH = 10¹⁸ units · unlimited = 2²⁵⁶ − 1</small></div></div>' +
-      '<div class="s9-rs" id="r3" data-in="none" style="top:552px">' + ICO4.spam + '<div class="t">③ Any token could write logs in any address\'s name<small>A spam token\'s log is no evidence that the named owner approved anything</small></div></div>' +
-      '<div class="s9-th" id="th1" data-in="none" style="left:1180px;width:280px;text-align:right"><div class="nm" style="color:var(--ink-3)">Registered analysis</div><div class="ds">As fixed in advance · raw base units · every token · all logs since October 2023</div></div>' +
-      '<div class="s9-th" id="th2" data-in="none" style="left:1550px;width:274px"><div class="nm">Revised analysis</div><div class="ds">Set after the registered results · USD · five tokens · twelve months before each freeze</div></div>' +
+      '<p class="abs s10-line" id="rhd" data-in="none" style="left:96px;top:196px;color:var(--ink);font-weight:700">Three defects of the registered setting <span class="s10-tiny">(why the amounts and tokens were changed)</span></p>' +
+      '<div class="s10-rs" id="r1" data-in="none" style="top:244px">' + ICO4.flat + '<div class="t">① In raw base units almost every amount weighs 1 → the amount played no part<small>Registered analysis: 99.78% of allowances · 99.52% of transfers are 10 units or more → weight ≈ 1</small></div></div>' +
+      '<div class="s10-rs" id="r2" data-in="none" style="top:404px">' + ICO4.ladder + '<div class="t">② C-PR added tokens whose units differ by 12 digits, and an unlimited approval took a whole row<small>1 USDC = 10⁶ units · 1 WETH = 10¹⁸ units · unlimited = 2²⁵⁶ − 1</small></div></div>' +
+      '<div class="s10-rs" id="r3" data-in="none" style="top:552px">' + ICO4.spam + '<div class="t">③ Any token could write logs in any address\'s name<small>A spam token\'s log is no evidence that the named owner approved anything</small></div></div>' +
+      '<div class="s10-th" id="th1" data-in="none" style="left:1180px;width:280px;text-align:right"><div class="nm" style="color:var(--ink-3)">Registered analysis</div><div class="ds">As fixed in advance · raw base units · every token · all logs since October 2023</div></div>' +
+      '<div class="s10-th" id="th2" data-in="none" style="left:1550px;width:274px"><div class="nm">Revised analysis</div><div class="ds">Set after the registered results · USD · five tokens · twelve months before each freeze</div></div>' +
       TR4.map(function (r, k) {
-        return '<div class="s9-tr' + (r[3] ? ' vd' : '') + (r[3] === 2 ? ' df' : '') + '" data-r="' + k + '" data-in="none" style="top:' + (344 + k * 48) + 'px"><span class="l">' + r[0] + '</span><span class="a">' + r[1] + '</span><span class="eq">' + (r[3] === 2 ? '≠' : r[3] ? '=' : '') + '</span><span class="b">' + r[2] + '</span></div>';
+        return '<div class="s10-tr' + (r[3] ? ' vd' : '') + (r[3] === 2 ? ' df' : '') + '" data-r="' + k + '" data-in="none" style="top:' + (344 + k * 48) + 'px"><span class="l">' + r[0] + '</span><span class="a">' + r[1] + '</span><span class="eq">' + (r[3] === 2 ? '≠' : r[3] ? '=' : '') + '</span><span class="b">' + r[2] + '</span></div>';
       }).join('') +
-      '<p class="abs s9-bold" id="bold" data-in="none" style="left:96px;top:810px;width:1728px">Main text of the thesis = revised analysis · its verdicts are a re-analysis, R1 being met included</p>' +
-      '<p class="abs s9-tiny" id="bsrc" data-in="none" style="left:96px;top:860px;width:1728px">Both analyses used the same rules and the same thresholds · only the registered verdicts are outcomes of tests fixed in advance · the registered results are published unchanged</p>',
+      '<p class="abs s10-bold" id="bold" data-in="none" style="left:96px;top:810px;width:1728px">Main text of the thesis = revised analysis · its verdicts are a re-analysis, R1 being met included</p>' +
+      '<p class="abs s10-tiny" id="bsrc" data-in="none" style="left:96px;top:860px;width:1728px">Both analyses used the same rules and the same thresholds · only the registered verdicts are outcomes of tests fixed in advance · the registered results are published unchanged</p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       g.rs = ['#r1', '#r2', '#r3'].map(function (s) { return q(el, s); });
-      g.rhd = q(el, '#rhd'); g.th = [q(el, '#th1'), q(el, '#th2')]; g.tr = qa(el, '.s9-tr'); g.bold = q(el, '#bold'); g.bsrc = q(el, '#bsrc');
+      g.rhd = q(el, '#rhd'); g.th = [q(el, '#th1'), q(el, '#th2')]; g.tr = qa(el, '.s10-tr'); g.bold = q(el, '#bold'); g.bsrc = q(el, '#bsrc');
       g.eq = g.tr.map(function (r) { return q(r, '.eq'); });
       gsap.set([g.rhd, g.bold, g.bsrc].concat(g.rs, g.th, g.tr), { autoAlpha: 0 });
     },
@@ -848,7 +848,7 @@
     }
   };
 
-  /* ================================================================ s09-06 R1–R3 on trader outcomes */
+  /* ================================================================ s10-06 R1–R3 on trader outcomes */
   var P5 = { x0: 1150, x1: 1560, d: [-0.45, 0.4], vX: 1586 };
   /* W1 on screen; W0 (P, Q, 87 traders, 39/39, 75.0 %) and the registered analysis's R1 are in the narration */
   var NW1 = pk(RV, ['w1', 'neutral_w1']) || {}, NW0 = pk(RV, ['w1', 'neutral_w0']) || {};
@@ -878,7 +878,7 @@
   };
   T5.othOk = T5.oth1 - T5.liq;
   var slide5 = {
-    id: 's09-06', title: 'Outcomes built from neither edge type: R1–R3', time: 55, steps: 6,
+    id: 's10-06', title: 'Outcomes built from neither edge type: R1–R3', time: 55, steps: 6,
     tags: function (s) { return s >= 6 ? ['registered', 'reanalysis', 'registered-analysis'] : s >= 3 ? ['registered', 'reanalysis'] : ['registered']; },
     notes: [
       'The last rules compare the two edge types on outcomes built from neither of them. I looked at how contract traders on GMX V2 closed their positions over the next three months. The comparison and the wording of its conclusions were registered with rule B, before the W1 logs were extracted.',
@@ -891,17 +891,17 @@
     ],
     html:
       '<h1 class="t-h1">On avoiding liquidation, the approval count [[leads]]</h1>' +
-      '<p class="abs s9-line" id="wcap" data-in="none" style="left:96px;top:192px;width:620px">Contract traders on GMX V2 · W1: <b>' + T5.n1 + '</b></p>' +
+      '<p class="abs s10-line" id="wcap" data-in="none" style="left:96px;top:192px;width:620px">Contract traders on GMX V2 · W1: <b>' + T5.n1 + '</b></p>' +
       '<svg class="abs" id="wf5" data-in="none" width="620" height="400" viewBox="0 0 620 400" style="left:96px;top:240px;overflow:visible"></svg>' +
-      '<div class="abs s9-wl" id="wleg" data-in="none" style="left:96px;top:640px;width:640px">' +
+      '<div class="abs s10-wl" id="wleg" data-in="none" style="left:96px;top:640px;width:640px">' +
         '<div><i style="background:#E9EDF5;box-shadow:0 0 0 3px #F5B43C"></i>Traders with approvals <b class="ink">' + T5.rec1 + '</b> · none liquidated</div>' +
         '<div><i style="background:#E9EDF5"></i>Other ' + T5.oth1 + ' · no liquidation <b class="ink">' + T5.othOk + '</b> <i style="background:#FF6B8A;margin-left:14px"></i>liquidated <b class="ink">' + T5.liq + '</b></div></div>' +
-      '<div class="s9-def" id="def" data-in="none"><span class="k">Outcome · liquidation-free close rate</span><span style="white-space:nowrap">$=1-\\dfrac{\\text{liquidated closes}}{\\text{all closes}}$</span><span class="s9-tiny">Trading more does not raise it by itself</span></div>' +
+      '<div class="s10-def" id="def" data-in="none"><span class="k">Outcome · liquidation-free close rate</span><span style="white-space:nowrap">$=1-\\dfrac{\\text{liquidated closes}}{\\text{all closes}}$</span><span class="s10-tiny">Trading more does not raise it by itself</span></div>' +
       '<svg class="abs" id="ax5" data-in="none" width="1920" height="1080" viewBox="0 0 1920 1080" style="left:0;top:0;overflow:visible"></svg>' +
-      '<div class="abs s9-rule" id="r1t" data-in="none" style="left:760px;top:494px"><span class="s9-v">R1 met</span> <span class="typed" id="r1s"></span></div>' +
-      '<div class="abs s9-rule" id="r2t" data-in="none" style="left:760px;top:646px"><span class="s9-v no">R2 not met</span> <span class="typed" id="r2s"></span></div>' +
-      '<div class="abs s9-rule" id="r3t" data-in="none" style="left:760px;top:868px"><span class="s9-v">R3 applies</span> <span class="typed" id="r3s"></span></div>' +
-      '<div class="abs s9-tiny" id="sm5" data-in="none" style="left:96px;top:742px;width:620px">All ' + T5.rec1 + ' traders with approvals avoided liquidation (the others: ' + T5.p1 + '). But the sample is small, and all ' + T5.rec1 + ' were approved by one and the same contract, so they form one cluster.<div style="margin-top:8px">' + pill('registered-analysis') + 'R1 not met (W1 P <b>' + T5.gP + '</b>): the two analyses differ on R1 only</div></div>',
+      '<div class="abs s10-rule" id="r1t" data-in="none" style="left:760px;top:494px"><span class="s10-v">R1 met</span> <span class="typed" id="r1s"></span></div>' +
+      '<div class="abs s10-rule" id="r2t" data-in="none" style="left:760px;top:646px"><span class="s10-v no">R2 not met</span> <span class="typed" id="r2s"></span></div>' +
+      '<div class="abs s10-rule" id="r3t" data-in="none" style="left:760px;top:868px"><span class="s10-v">R3 applies</span> <span class="typed" id="r3s"></span></div>' +
+      '<div class="abs s10-tiny" id="sm5" data-in="none" style="left:96px;top:742px;width:620px">All ' + T5.rec1 + ' traders with approvals avoided liquidation (the others: ' + T5.p1 + '). But the sample is small, and all ' + T5.rec1 + ' were approved by one and the same contract, so they form one cluster.<div style="margin-top:8px">' + pill('registered-analysis') + 'R1 not met (W1 P <b>' + T5.gP + '</b>): the two analyses differ on R1 only</div></div>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       /* 70 W1 traders from DECK_DATA.traders (37 recipients, 9 liquidated); fall back to the digest counts */
@@ -983,7 +983,7 @@
         tl.set([R.vt, R.vt2], { autoAlpha: 1 }, 0.35);
         tl.add(ctx.count(R.est, 0, R.d.est, { decimals: 3, final: ROW5.P.vt, format: function (v) { return sfmt(v, 3); }, duration: 0.8 }), 0.35);
         tl.set(g.r1t, { autoAlpha: 1 }, 1.5);
-        tl.fromTo(q(g.r1t, '.s9-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 1.5);
+        tl.fromTo(q(g.r1t, '.s10-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 1.5);
         tl.add(typeIn(ctx, g.r1s, '“A count-level lead of allowance over transfer on later liquidation avoidance”'), 1.8);
       }
       if (i === 4) {
@@ -993,7 +993,7 @@
         tl.set([Rq.vt, Rq.vt2], { autoAlpha: 1 }, 0.15);
         tl.add(ctx.count(Rq.est, 0, Rq.d.est, { decimals: 3, final: ROW5.Q.vt, format: function (v) { return sfmt(v, 3); }, duration: 0.8 }), 0.15);
         tl.set(g.r2t, { autoAlpha: 1 }, 1.3);
-        tl.fromTo(q(g.r2t, '.s9-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 1.3);
+        tl.fromTo(q(g.r2t, '.s10-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 1.3);
         tl.add(typeIn(ctx, g.r2s, '“The PageRank versions are not resolved”'), 1.6);
       }
       if (i === 5) {
@@ -1004,7 +1004,7 @@
           tl.fromTo(R.vt, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, at + 0.4);
         });
         tl.set(g.r3t, { autoAlpha: 1 }, 0.9);
-        tl.fromTo(q(g.r3t, '.s9-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 0.9);
+        tl.fromTo(q(g.r3t, '.s10-v'), { autoAlpha: 0, scale: 1.3 }, { autoAlpha: 1, scale: 1, duration: dur(ctx, 0.35), ease: E.stamp }, 0.9);
         tl.add(typeIn(ctx, g.r3s, '“The signal concerns forced-liquidation avoidance, not trading success”'), 1.2);
       }
       if (i === 6) fadeUp(tl, g.sm, 0.1, 0.5);
@@ -1012,7 +1012,7 @@
   };
 
   Deck.section({
-    id: 's09-rules',
+    id: 's10-rules',
     title: 'Rules fixed in advance',
     slides: [slide1, slide2, slide3, slideCpr, slide4, slide5]
   });

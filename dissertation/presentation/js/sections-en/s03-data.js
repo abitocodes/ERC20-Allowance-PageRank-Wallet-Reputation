@@ -191,6 +191,9 @@
   var MC = get(TLD, 'monthly_counts.revised', {});
   var monA = (MC.approval_ego || []).map(function (r) { return r[1]; });
   var monT = (MC.transfer_ego || []).map(function (r) { return r[1]; });
+  /* the contract-graph data has no monthly series (s03-02 is to be rewritten): keep the growth paths valid */
+  if (monA.length < 2) monA = [0, 0];
+  if (monT.length < 2) monT = [0, 0];
   var regMonA = (MCR.approval_ego || []).map(function (r) { return r[1]; });
   var regMonT = (MCR.transfer_ego || []).map(function (r) { return r[1]; });
   var AX = { left: 96, top: 196, w: 1728, h: 660, axisY: 520 };
@@ -1058,7 +1061,7 @@
       'From these records I built two graphs. A node is an address, and an edge is an allowance or a transfer. For now the nodes are scattered.',
       'In the allowance graph on the left, a great many owners point to a few spender contracts. The transfer graph on the right is a denser mesh. The shapes are only illustrations; just the ratio between the numbers of nodes and edges matches the real graphs.',
       'Here are the real sizes, for the graphs built from the twelve-month score window of T_obs. The allowance graph has about ' + enApprox(N.gAn) + ' nodes and ' + enApprox(N.gAe) + ' edges. The transfer graph has about ' + enApprox(N.gTn) + ' nodes and ' + enApprox(N.gTe) + ' edges.',
-      'Let me put the edge counts side by side. Laying the allowance bar along the transfer bar twice still leaves a little over. There are ' + N.edgeRatio.toFixed(2) + ' times as many transfer edges as allowance edges. Computing a score also takes longer when there are more edges. But the time depends on how many rounds the computation repeats as well, so the time ratio is not simply the edge ratio. We come back to this in section 10.',
+      'Let me put the edge counts side by side. Laying the allowance bar along the transfer bar twice still leaves a little over. There are ' + N.edgeRatio.toFixed(2) + ' times as many transfer edges as allowance edges. Computing a score also takes longer when there are more edges. But the time depends on how many rounds the computation repeats as well, so the time ratio is not simply the edge ratio. We come back to this in section 11.',
       'Almost every node in the allowance graph is an owner who granted an allowance. It looks like a constellation of ' + n0(N.owners) + ' owners pointing to far fewer spenders.'
     ],
     html:

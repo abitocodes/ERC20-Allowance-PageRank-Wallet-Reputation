@@ -919,7 +919,7 @@
       'If we just apply the balance equation over and over, two problems appear. Let me start again with 0.25 in each of the four cups.',
       'First, water that goes into the dangling node D has nowhere to go, so it disappears. If we actually compute it, the total water shrinks from 1 to 0.75, then 0.25, then 0. After three pours no water is left at all.',
       'Second, if two nodes point only at each other, the water that goes in is trapped forever. To show this, I added one more node, E. D and E approve each other. With five nodes we start with 0.2 each. After two pours all the water is in D and E, and from then on it sloshes back and forth between 0.4 and 0.6. The values never stop changing. We say it does not converge.',
-      'E is a node I added for this explanation. This shape, addresses that approve each other, comes back in section 10, where we talk about the cost of attacks.'
+      'E is a node I added for this explanation. This shape, addresses that approve each other, comes back in section 11, where we talk about the cost of attacks.'
     ],
     html: '<h1 class="t-h1">Problem 1 · water [[leaks]] at the dangling node</h1>' + panelBg(5) +
       '<div class="s4-pn">' +
@@ -947,7 +947,7 @@
       g.T = trapGraph(ctx, el, { hidden: true });
       g.T.edges.forEach(function (A) { if (A.label) gsap.set(A.label, { autoAlpha: 0 }); });
       g.tv = q(el, '#tv');
-      g.tag10 = H('div', '', el, '<span class="s4-pill" style="font-size:18px;padding:2px 10px">→ 10</span>');
+      g.tag10 = H('div', '', el, '<span class="s4-pill" style="font-size:18px;padding:2px 10px">→ 11</span>');
       g.tag10.setAttribute('data-in', 'none');
       g.tag10.style.cssText = 'position:absolute;left:' + (TW.x + 660 + 34) + 'px;top:' + (TW.y + 140 - 70) + 'px';
       gsap.set(g.tag10, { autoAlpha: 0 });
@@ -1198,7 +1198,7 @@
       'In practice we do not solve this equation in one go. We repeat the same calculation. This is called power iteration. At the start every node gets a quarter.',
       'Applying the equation once tilts the shares toward D. A becomes 0.0375 plus 0.2125 times 0.25, which is 0.0906. To measure how much changed, we add up the size of the difference in every cell. We drop the minus signs and add only the sizes. We write this with a double-bar symbol. The first time it is 0.531. The dots in the chart on the right are these changes. On the vertical scale, each grid line down is a hundred times smaller: 1, 0.01, 0.0001, one millionth, one hundred-millionth.',
       'With every repetition the change gets smaller, and at the 23rd iteration it falls below one hundred-millionth, so we stop. This threshold is written as epsilon. We also fixed a cap: however long it takes, we stop at 300 iterations. The final order is D, B, C, A. That is because D is endorsed by two vaults, and those vaults are in turn endorsed by A. A\'s share of 0.1375 is the restart share 0.0375 plus the 0.1000 collected from D.',
-      'On the real allowance graph it stopped after ' + IT_ER + ' iterations, and on the transfer graph after ' + IT_AWP + '. Each iteration does one multiplication per edge, so one iteration takes longer on a graph with more edges, and the total time depends on both the size of the graph and the number of iterations. This comes back in section 10.',
+      'On the real allowance graph it stopped after ' + IT_ER + ' iterations, and on the transfer graph after ' + IT_AWP + '. Each iteration does one multiplication per edge, so one iteration takes longer on a graph with more edges, and the total time depends on both the size of the graph and the number of iterations. This comes back in section 11.',
       'Let me change d directly. When d is 0, the walker never follows an arrow, so every node gets a quarter. As d grows, the arrows matter more: D grows, A shrinks, and it takes more iterations to settle. The browser computes these values on the spot.'
     ],
     html: '<h1 class="t-h1">[[Repeat]] the same calculation and the values settle</h1>' + panelBg(7) +

@@ -11,7 +11,7 @@
 
    Shared with later sections (exposed on window.DeckParts):
      DeckParts.wallet.html(opts) / DeckParts.wallet.GEOM  — the brandless wallet
-     window of s01-01, so s11-04 can bring it back at the same place and size.
+     window of s01-01, so s12-04 can bring it back at the same place and size.
    ========================================================================= */
 (function () {
   'use strict';
@@ -94,7 +94,7 @@
   }
   function lerp(a, b, t) { return a + (b - a) * t; }
 
-  /* ------------------------------------------------------------ the wallet window (shared with s11-04) */
+  /* ------------------------------------------------------------ the wallet window (shared with s12-04) */
   var WALLET = { left: 550, top: 150, w: 820, h: 520, owner: [150, 92], spender: [670, 92], yes: [1065, 579], no: [855, 579] };
   /* owner / spender: centres inside the window's figure strip (which starts 60 px below the window top);
      yes / no: button centres in stage coordinates */
@@ -264,11 +264,11 @@
   /* RQ wording: English thesis, Chapter 1, "Research questions", shortened as the Korean slide shortens it;
      '\n' forces a line break, other chips wrap balanced */
   var RQS = [
-    { k: 'RQ1', t: 'Do the single-edge walks order contracts\ndifferently, each matching its own checks?', sec: 8 },
-    { k: 'RQ2', t: 'What does each score cost, and how much\ndoes walking both edge sets add?', sec: 10 },
-    { k: 'RQ3', t: 'Do the scores predict what comes later?\nBetter than the raw degree?', sec: 8, test: true },
-    { k: 'RQ4', t: 'Does C-PR beat each layer walked alone? (rule A)', sec: 9, test: true },
-    { k: 'RQ5', t: 'Does adding allowances improve the transfer walk? (rule B)', sec: 9, test: true }
+    { k: 'RQ1', t: 'Do the single-edge walks order contracts\ndifferently, each matching its own checks?', sec: 9 },
+    { k: 'RQ2', t: 'What does each score cost, and how much\ndoes walking both edge sets add?', sec: 11 },
+    { k: 'RQ3', t: 'Do the scores predict what comes later?\nBetter than the raw degree?', sec: 9, test: true },
+    { k: 'RQ4', t: 'Does C-PR beat each layer walked alone? (rule A)', sec: 10, test: true },
+    { k: 'RQ5', t: 'Does adding allowances improve the transfer walk? (rule B)', sec: 10, test: true }
   ];
   var slide2 = {
     id: 's01-02', title: 'Research questions', time: 45, steps: 3,
@@ -276,7 +276,7 @@
       'This is the main question of the thesis: what does a single PageRank walk over both ERC-20 allowance and transfer edges add to ranking smart contracts on Arbitrum One?',
       'The score of this thesis is C-PR, which walks both kinds of edge at once. It is measured against three references: EndorseRank, which walks the allowances alone; AWP, the existing score that walks the transfer records alone; and the material the walks smooth, the plain count of edges, the raw degree.',
       'I split the main question into five research questions. The number at the end of each chip is the section where the answer comes. I will show the answer in that cell of the bar below.',
-      'The first two questions carry the hypotheses H1 to H3. A hypothesis is an expected answer set up in advance. These three are checks that hold largely by construction, because of the way the scores are built. The real tests are RQ3 to RQ5, and RQ4 and RQ5 test C-PR under rules fixed in advance. Each question also has one objective, and I call them objectives O1 to O5. O1 is the objective of RQ1, and O5 is the objective of RQ5. I will judge whether each objective was met at the end, in section 11.'
+      'The first two questions carry the hypotheses H1 to H3. A hypothesis is an expected answer set up in advance. These three are checks that hold largely by construction, because of the way the scores are built. The real tests are RQ3 to RQ5, and RQ4 and RQ5 test C-PR under rules fixed in advance. Each question also has one objective, and I call them objectives O1 to O5. O1 is the objective of RQ1, and O5 is the objective of RQ5. I will judge whether each objective was met at the end, in section 12.'
     ],
     html:
       '<h1 class="t-h1">What does one walk over both edge types<br>[[add]]?</h1>' +
@@ -291,7 +291,7 @@
         return '<div class="s01-rq' + '" data-k="' + r.k + '"><span class="k">' + r.k + '</span><span class="t">' + r.t.split('\n').map(esc).join('<br>') + '</span><span class="s">→ ' + Deck.util.pad2(r.sec) + '</span></div>';
       }).join('') + '</div>' +
       '<p class="s01-rq-note" id="rqnote" data-in="none">Hypotheses H1–H3 (= the expected answers to RQ1–RQ2) hold largely by construction. The real tests are <b>RQ3–RQ5</b>; <b>RQ4</b> and <b>RQ5</b> test C-PR under rules fixed in advance.' +
-        '<span class="obj">One objective per question: <b>objectives O1–O5</b> (O1 = the objective of RQ1 …) · whether each was met is judged in → 11</span></p>',
+        '<span class="obj">One objective per question: <b>objectives O1–O5</b> (O1 = the objective of RQ1 …) · whether each was met is judged in → 12</span></p>',
     build: function (el, ctx) {
       var g = ctx.g = {};
       var cards = el.querySelectorAll('.s01-player');
@@ -364,7 +364,7 @@
      a label above the road grows upwards, so its last line keeps its place */
   var STOPS = [
     ['01', 'Opening\nquestion'], ['02', 'Allowances\nand transfers'], ['03', 'The data'], ['04', 'Deriving PageRank'], ['05', 'Edge weights'],
-    ['06', 'Four scores'], ['07', 'How we measure'], ['08', 'Results'], ['09', 'Rules fixed in advance'], ['10', 'Attack cost and speed'], ['11', 'Conclusion']
+    ['06', 'Four scores'], ['07', 'How we measure'], ['08', 'Found first?'], ['09', 'Out-of-window\nprediction'], ['10', 'Rules fixed in advance'], ['11', 'Attack cost and speed'], ['12', 'Conclusion']
   ];
   /* tiny icons beside some stops (G7 small world, G9 interval bar, G10 stamp, G14 farm) */
   function stopIcon(svg, kind, x, y) {
@@ -433,7 +433,7 @@
         acc += tmp.getTotalLength(); tmp.parentNode.removeChild(tmp);
         g.frac.push(acc / g.L);
       }
-      var icons = { 3: 'world', 7: 'forest', 8: 'stamp', 9: 'farm' };
+      var icons = { 3: 'world', 8: 'forest', 9: 'stamp', 10: 'farm' };
       STOPS.forEach(function (s, k) {
         var p = g.pts[k];
         var dot = svgEl('circle', { cx: p[0], cy: p[1], r: 10, fill: C.bg, stroke: C.ink3, 'stroke-width': 2.5 }, svg);

@@ -191,6 +191,9 @@
   var MC = get(TLD, 'monthly_counts.revised', {});
   var monA = (MC.approval_ego || []).map(function (r) { return r[1]; });
   var monT = (MC.transfer_ego || []).map(function (r) { return r[1]; });
+  /* the contract-graph data has no monthly series (s03-02 is to be rewritten): keep the growth paths valid */
+  if (monA.length < 2) monA = [0, 0];
+  if (monT.length < 2) monT = [0, 0];
   var regMonA = (MCR.approval_ego || []).map(function (r) { return r[1]; });
   var regMonT = (MCR.transfer_ego || []).map(function (r) { return r[1]; });
   var AX = { left: 96, top: 196, w: 1728, h: 660, axisY: 520 };

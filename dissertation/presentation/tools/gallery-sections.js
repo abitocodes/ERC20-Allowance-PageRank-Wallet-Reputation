@@ -23,7 +23,7 @@
       steps: 5,
       build: function (el, ctx) {
         var t = el.querySelector('#tags');
-        ['plan', 'registered', 'reanalysis', 'posthoc', 'exploratory', 'construct', 'registered-analysis', 'example'].forEach(function (k) { t.appendChild(Comp.tag(k)); });
+        ['plan', 'registered', 'reanalysis', 'posthoc', 'discovery', 'construct', 'registered-analysis', 'example'].forEach(function (k) { t.appendChild(Comp.tag(k)); });
       },
       step: function (el, i, ctx) {
         if (i === 3) ctx.count(el.querySelector('#cnt'), 0, 224954202, { final: '224,954,202' });
