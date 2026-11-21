@@ -8,6 +8,8 @@
 }{%
   \setmainfont{TeX Gyre Termes}%
 }
+% The PDF carries the typed characters as its text (Times New Roman maps the semicolon glyph to U+037E otherwise).
+\ifdefined\XeTeXgenerateactualtext\XeTeXgenerateactualtext=1\fi
 % 한글 글꼴(xetexko). 본문은 명조, 산세리프는 고딕, 고정폭은 고딕코딩.
 % Linux·Overleaf에는 나눔 글꼴, Windows에는 바탕·맑은 고딕을 씁니다.
 \usepackage{kotex}
@@ -51,6 +53,22 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+% Digits, the decimal point and the comma of formulas are set in the text font, so that a number looks
+% the same in a sentence and in a formula.
+\DeclareSymbolFont{textdigits}{TU}{\rmdefault}{m}{n}
+\SetSymbolFont{textdigits}{bold}{TU}{\rmdefault}{b}{n}
+\DeclareMathSymbol{0}{\mathalpha}{textdigits}{`0}
+\DeclareMathSymbol{1}{\mathalpha}{textdigits}{`1}
+\DeclareMathSymbol{2}{\mathalpha}{textdigits}{`2}
+\DeclareMathSymbol{3}{\mathalpha}{textdigits}{`3}
+\DeclareMathSymbol{4}{\mathalpha}{textdigits}{`4}
+\DeclareMathSymbol{5}{\mathalpha}{textdigits}{`5}
+\DeclareMathSymbol{6}{\mathalpha}{textdigits}{`6}
+\DeclareMathSymbol{7}{\mathalpha}{textdigits}{`7}
+\DeclareMathSymbol{8}{\mathalpha}{textdigits}{`8}
+\DeclareMathSymbol{9}{\mathalpha}{textdigits}{`9}
+\DeclareMathSymbol{.}{\mathord}{textdigits}{`.}
+\DeclareMathSymbol{,}{\mathpunct}{textdigits}{`,}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{algorithm}
@@ -59,6 +77,8 @@
 \usepackage{tabularx}
 \usepackage{adjustbox}
 \usepackage{subcaption}
+\usepackage{pdfpages}
+\usepackage{placeins}
 \usepackage[bottom,hang,flushmargin]{footmisc}
 % Keep tables within the text block (no right-margin overflow).
 \newcommand{\fitwidth}[1]{%
@@ -72,7 +92,7 @@
   pdftitle={ERC-20 허락 화살표를 페이지랭크에 넣어 온체인 지갑 평판 점수를 더 좋게 만들기 (한국어 쉬운 번역)},
   pdfauthor={권태홍 (Taehong Kwon)},
   pdfsubject={남아프리카대학교(UNISA) 컴퓨터과학 박사 학위 논문의 한국어 번역},
-  pdfkeywords={결합 페이지랭크, 스마트 계약, 크롤 순서, 온체인 평판, ERC-20 허락, 엔도스랭크, 적응형 가중 페이지랭크, 탈중앙 금융, 시간 홀드아웃, 사전 등록, 아비트럼 원, 켄달의 타우}
+  pdfkeywords={결합 페이지랭크, 스마트 계약, 크롤 순서, 온체인 평판, ERC-20 허락, 엔도스랭크, 적응형 가중 페이지랭크, 시간 홀드아웃, 아비트럼 원, 켄달의 타우}
 }
 % 한국어 이름표: 그림, 표, 목록, 알고리즘
 \AtBeginDocument{%
@@ -91,8 +111,23 @@
 \algrenewtext{For}[1]{\textbf{반복:} #1}
 \algrenewtext{EndFor}{\textbf{반복 끝}}
 \def\UrlFont{\ttfamily}
+% An address does not break directly after its colon.
+\renewcommand{\UrlNoBreaks}{\do\(\do\[\do\{\do\<\do\:}
 \emergencystretch=2em
-\DeclareRobustCommand{\texttt}[1]{{\ttfamily\seqsplit{#1}}}
+% Monospaced names break only after a slash, a full stop, a hyphen or an underscore, never inside a word.
+\ExplSyntaxOn
+\tl_new:N \l__thesis_tt_tl
+\NewDocumentCommand{\ThesisTT}{m}
+  {
+    \tl_set:Nn \l__thesis_tt_tl {#1}
+    \regex_replace_all:nnN { ([\/\.\-]) } { \1 \c{allowbreak} } \l__thesis_tt_tl
+    \regex_replace_all:nnN { \c{_} } { \c{_} \c{allowbreak} } \l__thesis_tt_tl
+    { \ttfamily \tl_use:N \l__thesis_tt_tl }
+  }
+\ExplSyntaxOff
+\DeclareRobustCommand{\texttt}[1]{\ThesisTT{#1}}
+% Names that must not be hyphenated inside the second word.
+\hyphenation{Endorse-Rank Page-Rank Hodge-Rank}
 \RecustomVerbatimEnvironment{verbatim}{Verbatim}{%
   breaklines=true,breakanywhere=true,fontsize=\small,formatcom=\ttfamily}
 \setstretch{1.58}
@@ -135,9 +170,17 @@
   \subsection{#2}%
   \if\relax\detokenize{#1}\relax\else\label{#1}\fi
 }
+% Entries of the hand-kept table of contents, with the leaders and the page-number box of the lists of
+% figures and tables.
+\makeatletter
+\renewcommand{\@pnumwidth}{2.2em}
+\renewcommand{\@tocrmarg}{3.2em}
 \newcommand{\TOCentry}[3]{%
-  \noindent\hyperref[#3]{\makebox[2.4em][l]{#1}#2}\nobreak\dotfill\ \hyperref[#3]{\pageref*{#3}}\par\vspace{0.15em}%
+  \noindent\hyperref[#3]{\makebox[2.4em][l]{#1}#2}\nobreak
+  \leaders\hbox{$\m@th\mkern\@dotsep mu\hbox{.}\mkern\@dotsep mu$}\hfill\nobreak
+  \hb@xt@\@pnumwidth{\hfil\hyperref[#3]{\pageref*{#3}}}\par\vspace{0.15em}%
 }
+\makeatother
 \newcommand{\dissertationResultHeading}[1]{%
   \par\addvspace{0.45\baselineskip}%
   \noindent\textbf{#1}\par\nobreak\addvspace{0.06\baselineskip}%

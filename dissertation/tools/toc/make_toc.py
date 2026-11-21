@@ -15,8 +15,10 @@ Rules, taken from the manuscript:
   ``\dissertationSubsubheading`` is a subsection and is not listed.
 * In the appendix ``\section{T}`` followed by ``\label{...}`` is a section (8.M, bold) and
   ``\dissertationSubheading[label]{T}`` a subsection (8.M.K); both are listed.
-* The bullets under the ethics section (``\item\phantomsection\label{sub:...}`` followed by a
-  lead phrase that ends at the first colon) are listed without a number.
+* The bullets under the ethics section (``\item\phantomsection\label{sub:...}``) are items of a
+  list, not headings, and are not listed.
+* The lists of figures and of tables are entered after the abstract (labels ``ch:list-of-figures``
+  and ``ch:list-of-tables`` in ``01-Intro/03-TOC.tex``).
 * ``\texorpdfstring{A}{B}`` in a title is written as A.
 * A heading without a label cannot be linked and stops the script.
 
@@ -45,6 +47,8 @@ TOKEN = re.compile(
 )
 INPUT = re.compile(r"^\\input\{(Chapter-[^}]+)\}", re.M)
 FIXED_FRONT = [("", r"\textbf{Declaration}", "ch:declaration"), ("", r"\textbf{Abstract}", "ch:abstract"),
+               ("", r"\textbf{List of Figures}", "ch:list-of-figures"),
+               ("", r"\textbf{List of Tables}", "ch:list-of-tables"),
                ("", r"\textbf{Abbreviations and Notation}", "ch:abbreviations")]
 APPENDIX = 8
 
@@ -99,8 +103,6 @@ def entries(root: Path) -> list[tuple[int, str, str, str]]:
                     out.append((1, f"{n}.{sec}", clean(sub_title), sub_label))
                 elif sec_label:
                     raise SystemExit(f"{folder.name}: bare \\section {sec_title!r}; use \\dissertationSubheading")
-                elif bullet_label:
-                    out.append((2, "", r"\textbullet\ " + clean(bullet_title).rstrip(".:"), bullet_label))
     return out
 
 

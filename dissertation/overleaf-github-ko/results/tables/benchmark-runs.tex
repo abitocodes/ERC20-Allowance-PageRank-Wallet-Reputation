@@ -2,7 +2,7 @@
 % Source: experiments/data/2-processed-tables-and-evaluations/revised-contract-12m/benchmark/benchmark.json
 \begin{table}[htbp]
 \centering
-\caption[벤치마크에서 시간을 잰 풀이 프로그램 호출 전부.]{벤치마크에서 시간을 잰 풀이 프로그램(solver) 호출마다 실제 걸린 시간을 초 단위로 보여 줘요. 실행한 순서대로 적었고, 평균과 표준편차도 함께 적었어요. 설정마다 시간을 재지 않는 준비 실행을 한 번 한 뒤에 시간 잰 실행을 했어요. 그래프와 설정마다 시간은 한 번씩만 쟀어요. 표~\ref{tab:robustness-damping}의 $d=0.85$ 행과 표~\ref{tab:benchmark-scaling}의 그래프 전체 행은 첫 번째 묶음을 다시 쓴 것이에요. 부분 표본은 표~\ref{tab:benchmark-scaling}의 부분 표본이에요.}
+\caption[벤치마크에서 시간을 잰 풀이 프로그램 호출 전부.]{벤치마크에서 시간을 잰 풀이 프로그램(solver) 호출마다 실제 걸린 시간을 초 단위로 보여 줘요. 실행한 순서대로 적었고, 평균과 표준편차도 함께 적었어요. 설정마다 시간을 재지 않는 준비 실행을 한 번 한 뒤에 시간 잰 실행을 했어요. 그래프와 설정마다 시간은 한 번씩만 쟀어요. 첫 번째 묶음은 표~\ref{tab:benchmark-runtime}의 측정값이고, 표~\ref{tab:robustness-damping}의 $d=0.85$ 행과 표~\ref{tab:benchmark-scaling}의 그래프 전체 행은 이 묶음을 다시 써요. 부분 표본은 표~\ref{tab:benchmark-scaling}의 부분 표본이에요.}
 \label{tab:benchmark-runs}
 \fitwidth{%
 \begin{tabular}{lrrrrrrr}
@@ -24,15 +24,15 @@ EndorseRank & 0.179 & 0.233 & 0.241 & 0.204 & 0.185 & 0.208 & 0.028 \\
 AWP & 6.870 & 6.961 & 7.566 & 7.555 & 6.957 & 7.182 & 0.348 \\
 \midrule
 \multicolumn{8}{l}{\emph{코호트의 부분 표본, $n=1{,}000$}} \\
-EndorseRank & 0.001 & 0.001 & 0.001 & 0.001 & 0.001 & 0.001 & 0.000 \\
-AWP & 0.096 & 0.096 & 0.095 & 0.095 & 0.095 & 0.095 & 0.000 \\
+EndorseRank & 0.0013 & 0.0013 & 0.0013 & 0.0013 & 0.0013 & 0.0013 & 0.00003 \\
+AWP & 0.096 & 0.096 & 0.095 & 0.095 & 0.095 & 0.095 & 0.0005 \\
 \midrule
 \multicolumn{8}{l}{\emph{코호트의 부분 표본, $n=2{,}000$}} \\
-EndorseRank & 0.002 & 0.002 & 0.002 & 0.002 & 0.002 & 0.002 & 0.000 \\
+EndorseRank & 0.0022 & 0.0022 & 0.0023 & 0.0022 & 0.0021 & 0.0022 & 0.0001 \\
 AWP & 0.135 & 0.131 & 0.132 & 0.138 & 0.132 & 0.134 & 0.003 \\
 \midrule
 \multicolumn{8}{l}{\emph{코호트의 부분 표본, $n=5{,}000$}} \\
-EndorseRank & 0.007 & 0.006 & 0.006 & 0.006 & 0.006 & 0.006 & 0.000 \\
+EndorseRank & 0.0065 & 0.0063 & 0.0065 & 0.0063 & 0.0063 & 0.0064 & 0.0001 \\
 AWP & 0.693 & 0.735 & 0.698 & 0.657 & 0.663 & 0.689 & 0.031 \\
 \bottomrule
 \end{tabular}

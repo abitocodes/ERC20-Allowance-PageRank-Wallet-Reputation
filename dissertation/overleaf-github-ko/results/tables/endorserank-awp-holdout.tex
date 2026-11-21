@@ -4,7 +4,7 @@
 % Source: experiments/data/2-processed-tables-and-evaluations/revised-contract-12m/window-w1/eval_summary.json
 \begin{table}[htbp]
 \centering
-\caption[기간 밖에서 엔도스랭크와 AWP 사이의 짝지은 부트스트랩 차이.]{기간 밖에서 엔도스랭크와 AWP 사이의 차이를 짝지은 부트스트랩으로 구했어요(W0 스펜더 $n=7{,}864$, W1 스펜더 $n=7{,}915$). 이 가운데 어느 것도 규칙 A나 규칙 B의 적용한 두 기준에 들어가지 않아요. 모든 행은 라벨을 본 뒤에 계산했어요. W1 행은 저장해 둔 W1 점수로, 표~\ref{tab:fresh-holdout}과 같은 다시 뽑은 표본을 써서 계산했어요. 각 묶음 안에서 $a$와 $b$는 같은 계약 다시 뽑은 표본을 함께 써요(400번, 시드 42).}
+\caption[기간 밖에서 엔도스랭크와 AWP 사이의 짝지은 부트스트랩 차이.]{기간 밖에서 엔도스랭크와 AWP 사이의 차이를 짝지은 부트스트랩으로 구했어요(W0 스펜더 $n=7{,}864$, W1 스펜더 $n=7{,}915$). 이 가운데 어느 것도 규칙~A나 규칙~B의 적용한 두 기준에 들어가지 않아요. 모든 행은 라벨을 본 뒤에 계산했어요. W1 행은 저장해 둔 W1 점수로, 표~\ref{tab:fresh-holdout}과 같은 다시 뽑은 표본을 써서 계산했어요. 각 묶음 안에서 $a$와 $b$는 같은 계약 다시 뽑은 표본을 함께 써요(400번, 시드 42). $P(\Delta\tau>0)$는 다시 뽑은 표본 가운데 $\Delta\tau>0$인 표본의 몫이에요. 이 값은 부트스트랩 분포를 설명할 뿐이고, 검사가 아니에요.}
 \label{tab:endorserank-awp-holdout}
 \fitwidth{%
 \begin{tabular}{llccccc}
@@ -13,11 +13,11 @@
 \midrule
 \multicolumn{7}{l}{\emph{W0, 스펜더 ($n=7{,}864$)}} \\
 EndorseRank 빼기 AWP & 새 허락 쌍 & 0.168 & 0.098 & +0.070 & [0.042, 0.096] & 1.000 \\
-EndorseRank 빼기 AWP & 새 송금자 & 0.084 & 0.330 & -0.246 & [-0.271, -0.220] & 0.000 \\
+EndorseRank 빼기 AWP & 새 송금자 & 0.084 & 0.330 & $-$0.246 & [$-$0.271, $-$0.220] & 0.000 \\
 \midrule
 \multicolumn{7}{l}{\emph{W1, 스펜더 ($n=7{,}915$)}} \\
 EndorseRank 빼기 AWP & 새 허락 쌍 & 0.147 & 0.064 & +0.083 & [0.059, 0.110] & 1.000 \\
-EndorseRank 빼기 AWP & 새 송금자 & 0.064 & 0.314 & -0.250 & [-0.273, -0.225] & 0.000 \\
+EndorseRank 빼기 AWP & 새 송금자 & 0.064 & 0.314 & $-$0.250 & [$-$0.273, $-$0.225] & 0.000 \\
 \bottomrule
 \end{tabular}
 }

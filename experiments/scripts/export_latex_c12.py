@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+from fractions import Fraction
 from pathlib import Path
 
 import numpy as np
@@ -73,11 +74,13 @@ W1_BASELINES = (
 )
 W1_ROWS = (*W1_BASELINES, None, ("awp", "AWP"), None, *((m, METHOD_LABELS[m]) for m in E.LAYER_ROWS))
 SHORT = {**E.SHORT, "t1_in_approve_value": "$t_1$ in-approve value", "t1_in_degree_union": "$t_1$ union in-degree",
-         "in_approve_value": "in-approve value", "in_degree_union": "union in-degree"}
+         "in_approve_value": "in-approve value", "in_degree_union": "union in-degree",
+         "t1_in_degree": "$t_1$ transfer in-degree"}
 STATUS = ("defined after the registered results were known; it decides no rule of the analysis plan or the "
           "registration")
 # Words that the texts of this variant do not use; the phrase of STATUS is taken out before a caption is checked.
-FORBIDDEN = re.compile(r"GMX|\btraders?\b|liquidat|rule~?\s?B (?:is )?met\b|\bregistered results?\b", re.I)
+FORBIDDEN = re.compile(r"GMX|\btraders?\b|liquidat|rule~?\s?B (?:is )?met\b|\bregistered results?\b|"
+                       r"\bspender parts?\b", re.I)
 FORBIDDEN_DISCOVERY = re.compile(r"\bplanned\b|pre-?specified|\bregistered\b|in advance|committed before", re.I)
 CAPTIONS: list[tuple[str, str]] = []
 
@@ -131,6 +134,7 @@ def emit(name: str, caption: str, tab: str, sources: list[Path], discovery: bool
     CAPTIONS.append((name, caption))
     short = SHORT_CAPTIONS.get(name) or E._short_caption(caption)
     cap = f"\\caption[{short}]{{{caption}}}" if short != caption else f"\\caption{{{caption}}}"
+    cap = E.unbreakable(cap)  # C-PR and S-PR do not break at their hyphen, nor rule~A and rule~B at their space
     head = "".join(f"% Source: {E.rel(p)}\n" for p in sources)
     path = E.OUT["tables"] / f"{name}.tex"
     path.write_text(
@@ -146,7 +150,7 @@ def f4(v, what: str = "value") -> str:
     if x is None:
         E.problem(f"missing {what}")
         return "---"
-    return f"{x:.4f}"
+    return E.fixed(x, 4)
 
 
 def s4(v, what: str = "difference") -> str:
@@ -154,7 +158,7 @@ def s4(v, what: str = "difference") -> str:
     if x is None:
         E.problem(f"missing {what}")
         return "---"
-    return f"{x:+.4f}"
+    return E.fixed(x, 4, plus=True)
 
 
 def ci4(d: dict | None, what: str) -> str:
@@ -164,7 +168,28 @@ def ci4(d: dict | None, what: str) -> str:
         return "---"
     if lo > hi:
         E.problem(f"reversed interval of {what} [{lo}, {hi}]")
-    return f"[{lo:+.4f}, {hi:+.4f}]"
+    return f"[{E.fixed(lo, 4, plus=True)}, {E.fixed(hi, 4, plus=True)}]"
+
+
+def secs(v, what: str = "runtime", mean=None) -> str:
+    """Seconds: three decimals, and four for a time below 0.01 s. A standard deviation takes the decimals of the
+    mean it stands beside (``mean``); like every number it takes one more where it would print as zero."""
+    x = E._num(v)
+    if x is None:
+        E.problem(f"missing {what}")
+        return "---"
+    ref = x if mean is None else E._num(mean)
+    return E.fixed(x, 4 if ref is not None and 0 < abs(ref) < 0.01 else 3)
+
+
+def share_pct(v, what: str = "share") -> str:
+    """A share that a summary holds as a fraction ('1/100') or a number, in percent ('1\\%')."""
+    try:
+        x = 100 * float(Fraction(str(v)))
+    except (ValueError, ZeroDivisionError):
+        E.problem(f"missing {what}")
+        return "---"
+    return f"{x:g}\\%"
 
 
 def dstat(d: dict | None, what: str) -> str:
@@ -192,26 +217,30 @@ def pct(v, digits: int = 1, what: str = "share") -> str:
     return f"{100 * x:.{digits}f}\\%"
 
 
-def usd(v, what: str = "amount") -> str:
-    """A US-dollar amount in millions or billions."""
+def usd(v, what: str = "amount", prose: bool = False) -> str:
+    """A US-dollar amount in millions or billions: with the dollar sign in a cell, and in words in the sentence of
+    a caption (``prose``)."""
     x = E._num(v)
     if x is None:
         E.problem(f"missing {what}")
         return "---"
     if abs(x) >= 1e9:
-        return f"\\${x / 1e9:.2f} billion"
-    if abs(x) >= 1e6:
-        return f"\\${x / 1e6:.1f} million"
-    return f"\\${E.fint(x)}"
+        amount = f"{x / 1e9:.2f} billion"
+    elif abs(x) >= 1e6:
+        amount = f"{x / 1e6:.1f} million"
+    else:
+        amount = E.fint(x)
+    return f"{amount} dollars" if prose else f"\\${amount}"
 
 
-def small_usd(v, what: str = "amount") -> str:
-    """A US-dollar amount that may be below one dollar (two significant digits there)."""
+def small_usd(v, what: str = "amount", prose: bool = False) -> str:
+    """A US-dollar amount that may be below one dollar (two significant digits there); ``prose`` as in usd()."""
     x = E._num(v)
     if x is None:
         E.problem(f"missing {what}")
         return "---"
-    return f"\\${x:.2g}" if abs(x) < 1 else f"\\${E.fint(x)}"
+    amount = f"{x:.2g}" if abs(x) < 1 else E.fint(x)
+    return f"{amount} dollars" if prose else f"\\${amount}"
 
 
 def auc_of(d: dict, hot: str, ordering: str, x: str = "x=0.1"):
@@ -225,9 +254,12 @@ def header(text: str, cols: int) -> str:
     return f"\\multicolumn{{{cols}}}{{l}}{{\\emph{{{text}}}}} \\\\"
 
 
-def boot_words(d: dict) -> str:
+def boot_words(d: dict, one: bool = False) -> str:
+    """The bootstrap of the discovery contrasts, for the intervals of several contrasts or, after 'its', for the
+    interval of one (``one``)."""
     b = (d.get("protocol") or {}).get("bootstrap") or {}
-    return (f"95\\% percentile intervals of a paired bootstrap over the hot contracts ({E.fint(b.get('resamples'))} "
+    words = "interval from" if one else "intervals of"
+    return (f"95\\% percentile {words} a paired bootstrap over the hot contracts ({E.fint(b.get('resamples'))} "
             f"resamples, seed {b.get('seed')})")
 
 
@@ -322,8 +354,9 @@ def t_discovery_sizes(runs: dict) -> None:
         "that of the union graph. $\\mathrm{SCC}\\cup\\mathrm{OUT}$ holds fewer than half the contracts of the weakly "
         "connected component of the giant SCC (WCC) at $t_1$, so by the rule of the protocol the \\texttt{both} mode, "
         "whose universe is the WCC, is the primary mode at both freezes and the \\texttt{out} mode the sensitivity. A "
-        f"hot set $H_q(I)$ holds the contracts of the universe with the largest positive importance $I$, $q={p.get('q')}$ "
-        "of the universe with ties included, so it is smaller when fewer contracts have a positive importance."
+        "hot set $H_q(I)$ holds the contracts of the universe with the largest positive importance $I$, "
+        f"$q={share_pct(p.get('q'), 'q')}$ of the universe with ties included, so it is smaller when fewer contracts "
+        "have a positive importance."
     )
     emit("discovery-sizes", caption,
          E.tabular("lrr", f"Quantity & {FREEZE['tobs']} (primary) & {FREEZE['t1']}", lines),
@@ -377,7 +410,7 @@ def t_discovery_decision(runs: dict) -> None:
         if lines:
             lines.append("\\midrule")
         title = f"{FREEZE[tag]}, \\texttt{{{mode}}} mode" + (": the decision" if d.get("decides") else ": no verdict")
-        lines.append(header(title, 8))
+        lines.append(header(title, 7))
         for imp, name in (("i_t", "$I_T$"), ("i_a", "$I_A$")):
             v = dec.get(imp) or {}
             if d.get("decides"):
@@ -392,28 +425,32 @@ def t_discovery_decision(runs: dict) -> None:
                 up = ", ".join(math[k] for k in v.get("above_zero") or []) or "none"
                 down = ", ".join(math[k] for k in v.get("below_zero") or []) or "none"
                 reading = f"above 0: {up}; below 0: {down}"
+            # The reading stands on a line of its own under its row: as a last column it would make the table wider
+            # than the text block, and \fitwidth would set the whole table in a much smaller size.
             lines.append(
                 f"{name} & {E.fint(v.get('n_hot'), 'hot set size')} & {s4((v.get('D1') or {}).get('point'), 'D1')} & "
                 f"{ci4(v.get('D1'), 'D1')} & {s4((v.get('D2') or {}).get('point'), 'D2')} & {ci4(v.get('D2'), 'D2')} & "
                 f"{E.f3((v.get('D1') or {}).get('share_positive'), 'share D1')} / "
-                f"{E.f3((v.get('D2') or {}).get('share_positive'), 'share D2')} & {reading} \\\\")
+                f"{E.f3((v.get('D2') or {}).get('share_positive'), 'share D2')} \\\\")
+            lines.append(f"\\multicolumn{{7}}{{l}}{{\\quad{{\\footnotesize {reading}}}}} \\\\")
     d = runs[("tobs", "both")]
     caption = (
         "Discovery-order test: the two decision contrasts on each importance, $D_1 = "
         "\\mathrm{AUC}_{10\\%}(\\text{C-PR}') - \\mathrm{AUC}_{10\\%}(\\text{BFS})$ and $D_2 = "
         "\\mathrm{AUC}_{10\\%}(\\text{C-PR}') - \\mathrm{AUC}_{10\\%}(\\mathrm{IB}'_U)$, with "
-        f"{boot_words(d)} and the shares of resamples above 0 for $D_1$ and $D_2$. The decision is read at "
-        f"{FREEZE['tobs']} in the primary mode only. Its verdict on an importance is V1 when both intervals lie above "
-        "0, V2 when the interval of $D_1$ lies above 0 and that of $D_2$ does not, and V3 when the interval of $D_1$ "
+        f"{boot_words(d)} and the shares of resamples above 0 for $D_1$ and $D_2$. The line under each row gives "
+        f"its reading. The decision is read at {FREEZE['tobs']} in the primary mode only. Its verdict on an "
+        "importance is V1 when both intervals lie above 0, V2 when the interval of $D_1$ lies above 0 and that of "
+        "$D_2$ does not, and V3 when the interval of $D_1$ "
         "does not lie above 0; an interval of $D_2$ below 0 adds that the crawl ordered by contract backlinks was "
         "sooner. The answer to the question of the test is the weaker of the two verdicts, so it is yes only when "
         "both are V1. The other three runs carry no verdict: for each importance the contrasts whose interval lies "
         f"above 0 and those whose interval lies below 0 are listed. The two freezes share nine months of their score "
         f"windows and are not independent. The test was {STATUS}."
     )
-    head = ("Importance & $|H_q|$ & $D_1$ & 95\\% interval & $D_2$ & 95\\% interval & Share above 0 ($D_1$ / $D_2$) & "
-            "Reading")
-    emit("discovery-decision", caption, E.tabular("lrcccccl", head, lines),
+    head = ("Importance & $|H_q|$ & $D_1$ & 95\\% interval & $D_2$ & 95\\% interval & "
+            "\\shortstack{Share above 0\\\\($D_1$ / $D_2$)}")
+    emit("discovery-decision", caption, E.tabular("lrccccc", head, lines),
          [SRC[f"disc_{t}_{m}"] for t, m in RUNS], discovery=True)
 
 
@@ -443,7 +480,7 @@ def t_discovery_contrasts(d: dict) -> None:
             lines.append(f"{label} & {dstat((hs.get('i_t@q') or {}).get(key), f'{m} {key} I_T')} & "
                          f"{dstat((hs.get('i_a@q') or {}).get(key), f'{m} {key} I_A')} \\\\")
     cho = fo.get("4_cho") or {}
-    lines += ["\\midrule", header("4. Hot sets in the manner of Cho et al.\\ (an intended-construct check)", 3)]
+    lines += ["\\midrule", header("4. Hot sets in the manner of Cho et al.\\ (1998), an intended-construct check", 3)]
     for h in ("ib_u@q", "ir@q"):
         v = (cho.get("hot_sets") or {}).get(h) or {}
         for key, label in (("D1", "C-PR$'$ $-$ BFS"), ("D2", "C-PR$'$ $-$ $\\mathrm{IB}'_U$")):
@@ -454,13 +491,13 @@ def t_discovery_contrasts(d: dict) -> None:
     caption = (
         f"Discovery-order test at {FREEZE['tobs']} in the primary mode: the contrasts reported outside the decision, "
         "in the order fixed in the protocol. Each cell is the difference of $\\mathrm{AUC}_{10\\%}$ between two "
-        f"orderings with its {boot_words(d)}; an interval above 0 means the first ordering reached the hot contracts "
-        "sooner. Block 1 sets each walk beside the count it smooths; block 2 compares the walks, first C-PR$'$ with "
-        "its transfer layer walked alone, C-PR$'$ ($\\lambda=0$), and with AWP$'$, which shows what the allowance "
-        "layer adds. In block 4 the hot sets are defined on the edges that the orderings read, the union in-degree "
-        "$\\mathrm{IB}_U$ and C-PR of the full graph ($\\mathrm{IR}$), so agreement there is an intended-construct "
-        "check; C-PR$'$ minus $\\mathrm{IB}'_U$ on $H_q(\\mathrm{IB}_U)$ is the contrast that repeats the comparison "
-        f"of Cho et al. The test was {STATUS}."
+        f"orderings with its {boot_words(d, one=True)}; an interval above 0 means the first ordering reached the hot "
+        "contracts sooner. Block 1 sets each walk beside the count it smooths. Block 2 compares the walks, first "
+        "C-PR$'$ with its transfer layer walked alone, C-PR$'$ ($\\lambda=0$), and with AWP$'$; these two contrasts "
+        "show what the allowance layer adds. In block 4 the hot sets are defined on the edges that the orderings "
+        "read, the union in-degree $\\mathrm{IB}_U$ and C-PR of the full graph ($\\mathrm{IR}$), so agreement there "
+        "is an intended-construct check; C-PR$'$ minus $\\mathrm{IB}'_U$ on $H_q(\\mathrm{IB}_U)$ is the contrast "
+        f"that repeats the comparison of Cho et al.\\ (1998). The test was {STATUS}."
     )
     emit("discovery-contrasts", caption,
          E.tabular("lcc", "Contrast & On $H_q(I_T)$ & On $H_q(I_A)$", lines), [SRC["disc_tobs_both"]], discovery=True)
@@ -499,14 +536,17 @@ def t_discovery_sensitivity(d: dict) -> None:
                           c.get("i_t@q"), c.get("i_a@q"), "rho/4"))
     hot = d.get("hot_sets") or {}
     same_q = hot.get("i_a@q") == hot.get("i_a@q2")
+    # The seeds of the denser schedule, in words (five), as the row label counts them.
+    first_seeds = f"{E.NUMBER_WORDS.get(rq.get('seeds'), rq.get('seeds'))} seeds" if rq.get("seeds") else "seeds"
     caption = (
         f"Discovery-order test at {FREEZE['tobs']} in the primary mode: sensitivity of the two decision contrasts, "
-        f"$D_1$ (C-PR$'$ minus BFS) and $D_2$ (C-PR$'$ minus $\\mathrm{{IB}}'_U$), each over its {boot_words(d)}. "
+        f"$D_1$ (C-PR$'$ minus BFS) and $D_2$ (C-PR$'$ minus $\\mathrm{{IB}}'_U$), each over its "
+        f"{boot_words(d, one=True)}. "
         "The rows change one setting at a time: the share $x$ of the universe over which the area is taken, the share "
         "$q$ of the hot set, the hot set without the hubs (the contracts with the highest union in-degree, removed "
         "from the hot set but kept in the graph), the importance measured by the number of user accounts with at "
         "least one dollar, a bootstrap over the seeds in place of the hot contracts, and a schedule that recomputes "
-        "the ordering four times as often, on the first seeds. "
+        f"the ordering four times as often, on the first {first_seeds}. "
         + (f"Only {E.fint(hot.get('i_a@q'))} contracts of the universe have a positive $I_A$, so the hot set of $I_A$ "
            "is the same at both shares $q$. " if same_q else "")
         + "The other mode and the other freeze are in Table~\\ref{tab:discovery-decision}. None of these rows carries "
@@ -581,12 +621,12 @@ def t_discovery_coverage(runs: dict) -> None:
         "Coverage of the two importances by the contract graph and by the universes of the discovery-order test. "
         "$I_T$ is the US-dollar value that user accounts transferred to a contract in the score window and $I_A$ the "
         "value they had authorized it to spend at the freeze, each counted up to $U_{\\mathrm{user}}$ per account "
-        f"and, for $I_A$, up to the account's balance. At {FREEZE['tobs']} {E.fint(c.get('contracts'))} typed contracts "
+        f"and, for $I_A$, up to the account's balance. At {FREEZE['tobs']}, {E.fint(c.get('contracts'))} typed contracts "
         f"have a positive importance, {E.fint(c.get('outside_g'))} of them outside $G$ (at {FREEZE['t1']}: "
         f"{E.fint(c1.get('contracts'))} and {E.fint(c1.get('outside_g'))}). The parts of the bow-tie are those of the "
         "union graph and sum to 100\\%. User accounts also transferred "
-        f"{usd(c.get('inflow_untyped_usd'), 'untyped inflow')} at {FREEZE['tobs']} and "
-        f"{usd(c1.get('inflow_untyped_usd'), 'untyped inflow t1')} at {FREEZE['t1']} to addresses that were not typed "
+        f"{usd(c.get('inflow_untyped_usd'), 'untyped inflow', prose=True)} at {FREEZE['tobs']} and "
+        f"{usd(c1.get('inflow_untyped_usd'), 'untyped inflow t1', prose=True)} at {FREEZE['t1']} to addresses that were not typed "
         "because every counterparty of theirs is a user account; these addresses are never graph nodes, and the sum "
         "bounds the inflow that the coverage cannot place."
     )
@@ -597,9 +637,14 @@ def t_discovery_coverage(runs: dict) -> None:
 
 
 # Colours by role (E.PAL): reference orderings and the backlink count grey, AWP' blue (transfers), C-PR' violet.
-CURVE_LINES = (("bfs", "BFS", E.PAL["bfs"], "-"), ("random", "Random", E.PAL["random"], "-"),
-               ("ib_u", "IB$'_U$ (contract backlinks)", E.PAL["count"], "-"), ("awp", "AWP$'$", E.PAL["awp"], "-"),
-               ("cpr_l50", "C-PR$'$", E.PAL["cpr"], "-"))
+# Every line also has a dash pattern of its own (the ideal order is dotted), so that the curves can be told apart
+# without colour. The curve of the key "random" is the reference K/|U| of a crawl in random order, a straight line.
+# The three primed names are written the same way, with the prime as a superscript.
+CURVE_LINES = (("bfs", "BFS", E.PAL["bfs"], (0, (2.8, 1.6))),
+               ("random", "Random reference", E.PAL["random"], (0, (5, 1.6, 1, 1.6, 1, 1.6))),
+               ("ib_u", "IB$^{\\prime}_{U}$ (contract backlinks)", E.PAL["count"], (0, (6, 2, 1.2, 2))),
+               ("awp", "AWP$^{\\prime}$", E.PAL["awp"], (0, (7, 2.5))),
+               ("cpr_l50", "C-PR$^{\\prime}$", E.PAL["cpr"], "-"))
 
 
 def fig_discovery_curves(d: dict, name: str) -> None:
@@ -613,17 +658,18 @@ def fig_discovery_curves(d: dict, name: str) -> None:
         return
     x = grid / n
     keep = x <= 0.2
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.1), sharey=False)
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.4), sharey=False)
     for ax, (imp, title) in zip(axes, (("i_t", "$H_q(I_T)$: user-account inflow"),
                                        ("i_a", "$H_q(I_A)$: user-authorized value"))):
         by = pst.get(imp) or {}
-        for key, label, color, style in CURVE_LINES:
+        for key, label, color, dashes in CURVE_LINES:
             c = by.get(key)
             if not c:
                 E.problem(f"{name}: no curve for {key} on {imp}")
                 continue
             m = np.asarray(c["mean"] if isinstance(c, dict) else c, dtype=float)
-            ax.plot(100 * x[keep], m[keep], style, color=color, lw=1.6 if key == "cpr_l50" else 1.2, label=label)
+            ax.plot(100 * x[keep], m[keep], linestyle=dashes, color=color, lw=1.6 if key == "cpr_l50" else 1.2,
+                    label=label)
             if key in ("cpr_l50", "ib_u") and isinstance(c, dict):
                 ax.fill_between(100 * x[keep], np.asarray(c["min"], dtype=float)[keep],
                                 np.asarray(c["max"], dtype=float)[keep], color=color, alpha=0.12, lw=0)
@@ -639,9 +685,14 @@ def fig_discovery_curves(d: dict, name: str) -> None:
                   for k, *_ in CURVE_LINES if by.get(k))
         ax.set_ylim(0, min(1.0, 1.25 * top))
     axes[0].set_ylabel("Share of the hot contracts visited ($P_{ST}$)")
-    # A light backing keeps the legend readable where a seed band runs under it.
-    axes[1].legend(loc="upper left", frameon=True, framealpha=0.88, facecolor="white", edgecolor="none")
-    fig.tight_layout()
+    # One legend for both panels, in a row above them and outside the axes, so that it covers no curve.
+    entries: dict = {}
+    for ax in axes:
+        for handle, label in zip(*ax.get_legend_handles_labels()):
+            entries.setdefault(label, handle)
+    fig.tight_layout(rect=(0, 0, 1, 0.92))
+    fig.legend(list(entries.values()), list(entries), loc="lower center", bbox_to_anchor=(0.5, 0.895),
+               ncol=len(entries), frameon=False, handlelength=3.0, columnspacing=1.4)
     E._save(fig, name)
 
 
@@ -675,11 +726,12 @@ def t_contract_types(desc: dict) -> None:
         f"table types the {E.fint(k)} addresses that were read with \\texttt{{eth\\_getCode}} at block "
         f"{E.fint(at.get('block'))}: every address that sent no transaction and has a counterparty that is neither a "
         "transaction sender nor the zero address, the members of the cohorts and two audit samples. An address "
-        "outside this set that sent no transaction has only user accounts as counterparties and cannot end an edge "
-        "between contracts. Smart accounts are user accounts: a Safe answers its threshold and owners, and an "
+        "outside this set that sent no transaction has only transaction senders and the zero address as "
+        "counterparties and cannot end an edge between contracts. Smart accounts are user accounts: a Safe answers "
+        "its threshold and owners, and an "
         "ERC-4337 account answers a canonical EntryPoint and carries a \\texttt{validateUserOp} selector and no "
-        f"paymaster selector; {E.fint(ext.get('moved'))} further accounts whose proxy hides that selector were moved "
-        f"by listed code families ({E.fint(ext.get('by_code_hash'))} by code hash and "
+        f"paymaster selector; {E.fint(ext.get('moved'))} further accounts whose proxy hides that selector are typed "
+        f"as smart accounts by listed code families ({E.fint(ext.get('by_code_hash'))} by code hash and "
         f"{E.fint(ext.get('by_implementation'))} by code hash and implementation). Of the addresses read, "
         f"{E.fint(pk.get('erc1967'))} are ERC-1967 proxies, {E.fint(pk.get('eip1167'))} ERC-1167 clones and "
         f"{E.fint(pk.get('safe'))} Safe proxies. With the transaction senders, {E.fint(ev.get('user_accounts'))} "
@@ -715,14 +767,14 @@ def t_allowance_cap(desc: dict) -> None:
         "Latest allowances between contracts and the balance cap, per token and freeze. An allowance is the latest "
         "\\texttt{Approval} of a (token, owner, spender) triple in the score window, kept when its value is positive. "
         "It is counted up to the owner's balance of the token at the freeze: unlimited allowances are those of at "
-        f"least {E._sci(cons.get('unlimited_base_units'))} base units, an allowance is capped to zero when the owner holds no "
+        f"least {E._sci(cons.get('unlimited_base_units'), 3)} base units, an allowance is capped to zero when the owner holds no "
         "balance of the token at the freeze, and capped below the allowance when the balance is positive and "
         "smaller than the allowance. Only the allowances that stay positive enter the allowance layer. The last "
         "column is the sum of the capped values in US dollars. At "
-        f"{FREEZE['tobs']} {pct(tot.get('share_capped_to_zero'))} of the allowances are capped to zero and "
+        f"{FREEZE['tobs']}, {pct(tot.get('share_capped_to_zero'))} of the allowances are capped to zero and "
         f"{pct(tot.get('share_unlimited'))} are unlimited (at {FREEZE['t1']}: {pct(tot1.get('share_capped_to_zero'))} "
         f"and {pct(tot1.get('share_unlimited'))}). The median positive capped value at {FREEZE['t1']} is "
-        f"{small_usd(cons.get('m_allowance_usd'))}, the constant $m_A$."
+        f"{small_usd(cons.get('m_allowance_usd'), prose=True)}, the constant $m_A$."
     )
     head = ("Token & Positive allowances & Unlimited & Capped to zero & Capped below & Positive after the cap & "
             "Capped value (USD)")
@@ -817,9 +869,9 @@ def t_label_split(w0: dict, w1: dict) -> None:
         "the spender cohort, the parts counted on user accounts and on contracts, the share of the contracts, and "
         "the spenders that have a positive part of each kind. An approval pair is counted by the class of its owner "
         "and a sender by its own class; a handful of senders are neither (the zero address of mints), so the two "
-        "parts can fall short of the total by them. The split is a description outside every rule: the labels are "
-        "those of the twelve-month analysis, unchanged, and most of what they count are user accounts, which no "
-        "score of the contract graph reads."
+        "parts can fall short of the total by them. The split is a description outside every rule: the labels "
+        "count every account, and most of what they count are user accounts, which no score of the contract graph "
+        "reads."
     )
     head = ("Label & Total & From user accounts & From contracts & Contracts' share & Spenders with user accounts & "
             "Spenders with contracts")
@@ -839,7 +891,7 @@ def t_holdout_spenders(w0: dict, seed: int, cfg: dict) -> None:
     cov = ((w0.get("cohort_coverage") or {}).get("spenders_w0") or {}).get("union_graph") or {}
     caption = (
         f"Temporal holdout W0 on the spender cohort ($n={E.fint(w0.get('spenders'))}$ contracts): Kendall $\\tau$ "
-        f"between scores frozen at {E.tex_date(h['score_end'])} on the contract graph and two labels counted on the "
+        f"between scores frozen on {E.tex_date(h['score_end'])} on the contract graph and two labels counted on the "
         f"contract between {E.tex_date(h['outcome_start'])} and {E.tex_date(h['outcome_end'])}: the number of new "
         "owner--spender approval pairs and the number of accounts that sent a transfer to the contract for the first "
         f"time. The cohort keeps the {E.fint(kinds.get('contract'))} contracts among the "
@@ -893,13 +945,13 @@ def t_holdout_diff(w0: dict, seed: int, supp: dict | None) -> None:
         "before the study extracted any data and applied here to the scores of the contract graph "
         "(C-PR against C-PR ($\\lambda=1$) on new approval pairs and against C-PR ($\\lambda=0$) on new transfer "
         "senders). The second block was computed after the labels were known: the increment of C-PR ($\\lambda=1$), "
-        "the allowance layer walked alone, over its raw degree at $t_1$, the same comparisons for S-PR, and the "
-        "increments of EndorseRank and AWP over their raw degrees; C-PR's other contrasts are in "
+        "the allowance layer walked alone, over its raw degree at $t_1$, the two comparisons of the first block for "
+        "S-PR, and the increments of EndorseRank and AWP over their raw degrees; C-PR's other contrasts are in "
         "Table~\\ref{tab:cpr-contrasts}. The third block sets C-PR beside the union in-degree. Primary part of rule A "
         "(C-PR no worse than C-PR ($\\lambda=1$) on new approval pairs and better than C-PR ($\\lambda=0$) on new "
         f"transfer senders): no worse {yes[bool(rule.get('no_worse_on_new_approvals'))]}, better "
         f"{yes[bool(rule.get('better_on_new_senders'))]}, so the rule is {'met' if rule.get('pass') else 'not met'}. "
-        "The differences between EndorseRank and AWP are in Table~\\ref{tab:endorserank-awp-holdout}."
+        f"The differences between EndorseRank and AWP are in Table~\\ref{{tab:endorserank-awp-holdout}}. {E.P_SHARE_NOTE}"
     )
     emit("holdout-diff", caption, E.tabular("llccccc", E.CONTRAST_HEAD_LABEL, lines), [E.SOURCES["w0"]])
 
@@ -927,7 +979,7 @@ def t_holdout_receiving(w0: dict, seed: int, supp: dict | None) -> None:
         lines.append("\\midrule")
         for r in diffs:
             lines.append(f"{_label(r)} ({E.LABEL_WORDS[r['outcome']]}) & \\multicolumn{{2}}{{c}}{{$\\Delta\\tau="
-                         f"{E.fsigned(r.get('delta_tau'))}$ {E.fci(r.get('ci_low'), r.get('ci_high'))}}} \\\\")
+                         f"{E.in_math(E.fsigned(r.get('delta_tau')))}$ {E.fci(r.get('ci_low'), r.get('ci_high'))}}} \\\\")
             if r.get("n_boot") is not None:
                 E.STATE["nboot"].add(int(r["n_boot"]))
     n_sp, n_rec = w0.get("spenders"), rec.get("n")
@@ -978,7 +1030,8 @@ def t_endorserank_awp_holdout(w0: dict, w1: dict, supp: dict | None, seed: int) 
         f"Paired bootstrap differences between EndorseRank and AWP out of window ({sizes}). None of them enters rule "
         "A or the two applied criteria of rule B: the rows were computed after the labels were known"
         + (", the W1 rows from the saved W1 scores with the resamples of Table~\\ref{tab:fresh-holdout}" if sp1 else "")
-        + f". Within each block $a$ and $b$ share the contract resamples ({E.fint(max(counts))}; seed {seed})."
+        + f". Within each block $a$ and $b$ share the contract resamples ({E.fint(max(counts))}; seed {seed}). "
+        + E.P_SHARE_NOTE
     )
     srcs = [E.SOURCES["w0"]] + ([E.SOURCES["supp"]] if sp1 else []) + [E.SOURCES["w1"]]
     emit("endorserank-awp-holdout", caption, E.tabular("llccccc", E.CONTRAST_HEAD_LABEL, lines), srcs)
@@ -993,7 +1046,7 @@ def t_fresh_holdout(w1: dict, seed: int, cfg: dict) -> None:
     kinds = w1.get("spender_account_types") or {}
     cov = ((w1.get("cohort_coverage") or {}).get("spenders_w1") or {}).get("union_graph") or {}
     caption = (
-        f"Window W1: Kendall $\\tau$ between scores frozen at {E.tex_date(rw['score_end'])} on the contract graph and "
+        f"Window W1: Kendall $\\tau$ between scores frozen on {E.tex_date(rw['score_end'])} on the contract graph and "
         f"the two spender labels, counted from {E.tex_date(rw['outcome_start'])} to {E.tex_date(rw['outcome_end'])}. "
         f"The spenders are the $n={E.fint(w1.get('spenders'))}$ contracts among the {E.fint(sum(kinds.values()))} "
         f"spenders of the labels ({E.fint(kinds.get('user_account', 0))} user accounts and "
@@ -1051,7 +1104,7 @@ def t_fresh_contrasts(w1: dict, seed: int) -> None:
         lines.append(_reading_line(s, key))
     caption = (
         "Window W1: the paired contrasts F1 and F2, two of the registered criteria of rule B, with their verdicts on "
-        "the scores of the contract graph, and the spender parts of the two registered sensitivity analyses. Under "
+        "the scores of the contract graph, and the two registered sensitivity analyses on the spender cohort. Under "
         "the registration the rule holds only if each of its criteria holds; this analysis applies F1 and F2 only, "
         "so its reading is ``not met'' when one of them fails and ``both applied criteria hold'' when both hold. "
         "The criteria and the margin are those of the registration of W1; they are applied here as a re-analysis "
@@ -1072,16 +1125,17 @@ def t_fresh_posthoc(w1: dict, supp: dict | None, seed: int, cfg: dict) -> None:
         E.SKIPPED.append("fresh-posthoc (no EndorseRank in W1)")
         return
     order = (*W1_BASELINES[:1], W1_BASELINES[2], None, ("endorserank", "EndorseRank"),
-             ("endorserank_activity", "EndorseRank, restarts by approving activity"), ("awp", "AWP"),
+             ("endorserank_activity", E.SHORT["endorserank_activity"]), ("awp", "AWP"),
              ("cpr_l50", METHOD_LABELS["cpr_l50"]))
     lines = E.method_rows(order, lambda m: " & ".join(E.tc((sp.get(m) or {}).get(lab), f"{m} {lab}")
                                                       for lab in (APPR, SEND)))
     names = (("endorserank_minus_degree_appr", "EndorseRank minus in-approve degree, new approval pairs"),
              ("awp_minus_degree_send", "AWP minus transfer in-degree, new transfer senders"))
+    # A contrast is centred across the two label columns, as in Table holdout-receiving.
     if res:
         lines.append("\\midrule")
         for key, name in names:
-            lines.append(f"{name} & \\multicolumn{{2}}{{l}}{{{E.delta_math(res.get(key), key)}}} \\\\")
+            lines.append(f"{name} & \\multicolumn{{2}}{{c}}{{{E.delta_math(res.get(key), key)}}} \\\\")
     s1 = (supp or {}).get("w1") or {}
     act = (("er_activity_minus_degree_appr", "EndorseRank (activity restarts) minus in-approve degree, new approval pairs"),
            ("er_activity_minus_er_appr", "EndorseRank (activity restarts) minus EndorseRank, new approval pairs"),
@@ -1092,7 +1146,7 @@ def t_fresh_posthoc(w1: dict, supp: dict | None, seed: int, cfg: dict) -> None:
             E.problem(f"supplementary W1 n={s1.get('n')} differs from the W1 spender cohort {w1.get('spenders')}")
         lines.append("\\midrule")
         for key, name in act:
-            lines.append(f"{name} & \\multicolumn{{2}}{{l}}{{{E.delta_math(s1.get(key), key)}}} \\\\")
+            lines.append(f"{name} & \\multicolumn{{2}}{{c}}{{{E.delta_math(s1.get(key), key)}}} \\\\")
     rw = cfg["registered_window"]
     caption = (
         "EndorseRank and its variant with activity restarts on the spender cohort and labels of window W1 "
@@ -1165,18 +1219,20 @@ def t_cpr_contrasts(w0: dict, w1: dict, supp: dict | None, seed: int) -> None:
                  f"{E._stack_delta(s0.get('recv_cpr_minus_degree_appr'), 'received W0 degree')} & --- & "
                  f"{E._stack_delta(s1.get('recv_cpr_minus_degree_appr'), 'received W1 degree')} & --- \\\\")
     caption = (
-        "Paired contrasts of C-PR ($\\lambda=0.5$) with every other score of this study and with the four raw counts "
-        f"of the contract graph, on the spender labels of W0 ($n={E.fint(w0.get('spenders'))}$ contracts) and W1 "
-        f"($n={E.fint(w1.get('spenders'))}$). Each cell is $\\Delta\\tau=\\tau_{{\\text{{C-PR}}}}-\\tau_b$ over its "
+        "Paired contrasts of C-PR ($\\lambda=0.5$) with its two layers, EndorseRank with either restart rule, AWP and "
+        "S-PR, and with the four raw counts of the contract graph, on the spender labels of W0 "
+        f"($n={E.fint(w0.get('spenders'))}$ contracts) and W1 ($n={E.fint(w1.get('spenders'))}$). Each cell is "
+        "$\\Delta\\tau=\\tau(\\text{C-PR})-\\tau(b)$, with $b$ the score of the row, over its "
         "95\\% interval; within a cohort every cell uses the same resamples. Cells marked $^{\\mathrm{A}}$ are the "
         "contrasts of rule A, fixed in the analysis plan; $^{\\mathrm{B}}$ marks F1, F2 and F6a of the registration "
         "of W1 and $^{\\mathrm{S}}$ the contrasts of its first sensitivity analysis, with AWP as the comparator. These "
-        "rules were fixed for the raw-unit analysis and are applied here to the scores of the contract graph. Cells "
+        "rules were fixed for the registered analysis and are applied here to the scores of the contract graph. Cells "
         "marked $^{\\mathrm{U}}$, against the union in-degree, are part of the definition of the contract-graph "
         "analysis, defined after the registered results were known and so with the labels known. Like every cell "
         "without a mark, also computed after the labels were known, they belong to no rule. The lower block repeats the contrasts with AWP and the in-approve degree on the spenders that had "
-        "received a transfer from another contract before the freeze, the spenders AWP can order; that restriction "
-        f"was also chosen after the results were known. {E.boot_note(seed)}"
+        "received a transfer from another contract before the freeze, the spenders that the transfer in-degree can "
+        f"order; that restriction was also chosen after the results were known. {E.boot_note(seed)} A dash marks a "
+        "contrast that was not computed."
     )
     head = (" & \\multicolumn{2}{c}{W0 spenders} & \\multicolumn{2}{c}{W1 spenders} \\\\\n"
             "\\cmidrule(lr){2-3} \\cmidrule(lr){4-5}\n"
@@ -1280,7 +1336,12 @@ def t_uncapped(rob: dict, w0: dict, w1: dict, seed: int) -> None:
 
     c1 = u1.get("contrasts") or {}
     rb = w1.get("rule_b") or {}
-    lines += ["\\midrule", header("Contrasts ($\\Delta\\tau$ [95\\% CI]), capped / uncapped", 5)]
+    # The lower block has heads of its own: its two cells are the capped and the uncapped layer in every row, and
+    # not the two windows of the column groups above them.
+    lines += ["\\midrule",
+              "\\emph{Contrasts ($\\Delta\\tau$ [95\\% CI])} & \\multicolumn{2}{c}{Capped} & "
+              "\\multicolumn{2}{c}{Uncapped} \\\\",
+              "\\cmidrule(lr){2-3} \\cmidrule(lr){4-5}"]
     pairs = (
         ("W0: C-PR minus C-PR ($\\lambda=1$), new approval pairs",
          find(w0.get("contrasts_prefixed"), "cpr_l50", "cpr_l100", APPR), find(u0.get("contrasts_prefixed"), "cpr_l50", "cpr_l100", APPR)),
@@ -1296,11 +1357,12 @@ def t_uncapped(rob: dict, w0: dict, w1: dict, seed: int) -> None:
     caption = (
         "Sensitivity to the balance cap: Kendall $\\tau$ on the two spender labels with the allowance layer capped "
         "at the owner's balance (the main analysis) and uncapped, where every positive latest allowance between "
-        "contracts counts at its own value. Each cell reads capped / uncapped. Without the cap the allowance layer "
-        f"has {E.fint(p0.get('uncapped'))} pairs at $t_1$ against {E.fint(p0.get('capped'))} with it, and "
+        "contracts counts at its own value. Each cell of the upper block reads capped / uncapped. Without the cap the "
+        f"allowance layer has {E.fint(p0.get('uncapped'))} pairs at $t_1$ against {E.fint(p0.get('capped'))} with it, and "
         f"{E.fint(p1.get('uncapped'))} against {E.fint(p1.get('capped'))} at $T_{{\\mathrm{{obs}}}}$. AWP reads no "
-        "allowance, so its two values are equal. In the lower block the left cell is the contrast of the main "
-        "analysis and the right cell the same contrast on the uncapped layer. The uncapped layer decides no rule. "
+        "allowance, so its two values are equal. The lower block has heads of its own: each row gives one contrast "
+        "of the window it names, with the capped layer (the main analysis) and with the uncapped layer. The "
+        "uncapped layer decides no rule. "
         f"Intervals: 95\\% paired bootstrap ({E.fint(max(E.STATE['nboot']) if E.STATE['nboot'] else None)} resamples, "
         f"seed {seed})."
     )
@@ -1352,8 +1414,9 @@ def t_tokens(desc: dict, cfg: dict) -> None:
         f"five-token events of the typing window number {E.fint(ev.get('five_token_rows'))}; "
         f"{E.fint(ev.get('rows_between_contracts'))} of them have a contract at both ends."
     )
+    # The last head stands on two lines: on one it would be wider than its cells and widen the table.
     head = ("Token & Address & Dec. & Chainlink feed & Allowances & After the cap & 2nd key & Filled & Errors & "
-            "CL diff.\\ (\\%)")
+            "\\shortstack{Chainlink\\\\diff.\\ (\\%)}")
     emit("usd-tokens", caption, E.tabular("llrlrrrrrr", head, lines),
          [USD_INPUTS / "listed_tokens.csv", SRC["describe"], USD_INPUTS / "chainlink_check.json"])
 
@@ -1430,7 +1493,7 @@ def t_registered_vs_contract(reg: dict, rev: dict, seed: int, cfg: dict) -> None
         "the twelve months before each freeze, nodes that are contracts other than smart accounts, each allowance "
         "counted up to its owner's balance). The contract-graph analysis was defined after the registered results "
         "were known; its column applies the registered rules and thresholds to its scores and is not a registered "
-        "test. Under the registration rule B holds only if each of its criteria holds; the table applies two of "
+        "test. Under the registration, rule B holds only if each of its criteria holds; the table applies two of "
         "them, F1 and F2, in both columns. The last block holds degree contrasts that no rule of either analysis "
         "decides; they are reported in both. $\\Delta\\tau$ with 95\\% paired bootstrap interval "
         f"({' and '.join(E.fint(x) for x in nb)} resamples, seed {seed}); the rules and their thresholds are in "
@@ -1471,7 +1534,8 @@ def t_benchmark_runtime(bench: dict, n: int) -> None:
         if not x:
             E.problem(f"no benchmark row for {m}")
             x = {}
-        return (f"{E.f3(x.get('mean_s'), 'runtime')} & {E.f3(x.get('sd_s'), 'SD')} & {E.f1(x.get('peak_mb'), 'peak memory')} & "
+        return (f"{secs(x.get('mean_s'))} & {secs(x.get('sd_s'), 'SD', mean=x.get('mean_s'))} & "
+                f"{E.f1(x.get('peak_mb'), 'peak memory')} & "
                 f"{E.fint(x.get('iterations'), 'iterations')} & {E.fint(x.get('nodes'), '|V|')} & {E.fint(x.get('edges'), '|E|')}")
 
     order = (("endorserank", "EndorseRank"), ("awp", "AWP"), None, ("cpr_l50", E.METHOD_LABELS["cpr_l50"]), ("spr", "S-PR"))
@@ -1484,13 +1548,14 @@ def t_benchmark_runtime(bench: dict, n: int) -> None:
         f"and not only the pairs of the matched cohort (AWP/EndorseRank runtime ratio {E.ratio(awp.get('mean_s'), er.get('mean_s'))} "
         f"at an edge ratio of {E.ratio(awp.get('edges'), er.get('edges'))}). Runtime = mean wall-clock seconds over {runs} "
         f"timed solver calls after {E.NUMBER_WORDS.get(warm, warm)} untimed warm-up, on which alone peak memory is traced; "
-        f"SD over the same {runs} runs. A timed call turns an edge list into scores: node indexing, sparse-matrix assembly, "
-        "row normalization, restart vector and power iteration. $|V|$ and $|E|$ are the nodes and distinct edges of each "
+        f"standard deviation (SD) over the same {E.NUMBER_WORDS.get(runs, runs)} runs. A timed call turns an edge list "
+        "into scores: node indexing, sparse-matrix assembly, row normalization, restart vector and power iteration. "
+        "$|V|$ and $|E|$ are the nodes and distinct edges of each "
         "method's solver graph. C-PR walks on the union of the allowance layer and the transfer layer, so its $|E|$ "
         "counts the distinct pairs of both; S-PR runs on the transfer layer, and its runtime and iterations include the "
         "solve of the allowance layer that supplies its restart vector. Table~\\ref{tab:benchmark-runs} lists every run."
     )
-    head = "Method & Runtime (s) & SD (s) & Peak mem.\\ (MB) & Iters & $|V|$ & $|E|$"
+    head = "Method & Runtime (s) & SD (s) & Peak mem.\\ (MB) & Iterations & $|V|$ & $|E|$"
     emit("benchmark-runtime", caption, E.tabular("lrrrrrr", head, lines), [E.SOURCES["bench"]])
 
 
@@ -1506,7 +1571,7 @@ def t_benchmark_scaling(bench: dict, rob: dict | None, n: int, cfg: dict) -> Non
         else:
             first = E.fint(st.get("n"), "stage n")
         lines.append(
-            f"{first} & {E.f3(er.get('mean_s'), 'ER runtime')} & {E.f3(awp.get('mean_s'), 'AWP runtime')} & "
+            f"{first} & {secs(er.get('mean_s'), 'ER runtime')} & {secs(awp.get('mean_s'), 'AWP runtime')} & "
             f"{E.ratio(awp.get('mean_s'), er.get('mean_s'))} & {E.ratio(awp.get('edges'), er.get('edges'))} & "
             f"{E.fint(er.get('nodes'), 'ER |V|')} & {E.fint(er.get('edges'), 'ER |E|')} & "
             f"{E.fint(awp.get('nodes'), 'AWP |V|')} & {E.fint(awp.get('edges'), 'AWP |E|')} \\\\")
@@ -1565,16 +1630,18 @@ def t_benchmark_runs(bench: dict, cfg: dict) -> None:
         for name, x in rows:
             E._check_runs(x, f"{title} {name}")
             runs = list(x.get("runs_s") or [])
-            cells = [E.f3(r, "run") for r in runs] + ["---"] * (k - len(runs))
+            cells = [secs(r, "run") for r in runs] + ["---"] * (k - len(runs))
             if len(runs) < k:
                 E.problem(f"{title} {name} has {len(runs)} runs, not {k}")
-            lines.append(f"{name} & {' & '.join(cells)} & {E.f3(x.get('mean_s'), 'mean')} & {E.f3(x.get('sd_s'), 'SD')} \\\\")
+            lines.append(f"{name} & {' & '.join(cells)} & {secs(x.get('mean_s'), 'mean')} & "
+                         f"{secs(x.get('sd_s'), 'SD', mean=x.get('mean_s'))} \\\\")
     head = "Method & " + " & ".join(f"Run {i + 1}" for i in range(k)) + " & Mean & SD"
     caption = (
         "Wall-clock seconds of every timed solver call of the benchmark, in the order the runs were made, with their "
         "mean and standard deviation. Each configuration had one untimed warm-up before its timed runs, and each graph "
-        f"and setting was timed once: the $d={d0:g}$ rows of Table~\\ref{{tab:robustness-damping}} and the whole-graph row "
-        "of Table~\\ref{tab:benchmark-scaling} are the first block, reused. The subsamples are those of "
+        "and setting was timed once: the first block is the measurement of Table~\\ref{tab:benchmark-runtime}, and the "
+        f"$d={d0:g}$ row of Table~\\ref{{tab:robustness-damping}} and the whole-graph row of "
+        "Table~\\ref{tab:benchmark-scaling} reuse it. The subsamples are those of "
         "Table~\\ref{tab:benchmark-scaling}."
     )
     emit("benchmark-runs", caption, E.tabular("l" + "r" * (k + 2), head, lines), [E.SOURCES["bench"]])
@@ -1598,26 +1665,27 @@ def t_robustness_sample_size(rob: dict, bench: dict | None, n: int, cfg: dict) -
             b = timed.get(int(st["n"]))
             if b:
                 be, ba = b.get("endorserank") or {}, b.get("awp") or {}
-                cells += [E.f3(be.get("mean_s"), "ER runtime"), E.f3(ba.get("mean_s"), "AWP runtime")]
+                # The same measurements as in Table benchmark-scaling, written as that table writes them.
+                cells += [secs(be.get("mean_s"), "ER runtime"), secs(ba.get("mean_s"), "AWP runtime")]
             else:
                 untimed = True
-                cells += ["--", "--"]
+                cells += ["---", "---"]
         lines.append(f"{E.fint(st.get('n'))} & {' & '.join(cells)} \\\\")
     seed = cfg["benchmark"]["scaling_seed"]
     runtime = ""
     if bench is not None:
         runtime = " Runtimes are the measurements of Table~\\ref{tab:benchmark-scaling}"
-        runtime += ("; the graph of the pairs incident to the full cohort has no timing of its own (--)." if untimed else ".")
+        runtime += ("; the graph of the pairs incident to the full cohort has no timing of its own (---)." if untimed else ".")
     caption = (
         "Sensitivity of the family means to the evaluation set: family-mean Kendall $\\tau$ of EndorseRank (ER) and AWP "
         f"on deterministic SHA256 subsamples of the matched cohort (seed \\texttt{{{seed}}}, full cohort $n={E.fint(n)}$ "
         "contracts), each row scored on the pairs incident to its contracts, whose numbers the columns $|E_A|$ (allowance) "
-        "and $|E_T|$ (transfer) give; all.\\ = allowance, tr.\\ = transfer, Stab.\\ = stability. Rows are evaluated "
+        "and $|E_T|$ (transfer) give; All.\\ = allowance, Tr.\\ = transfer, Stab.\\ = stability. Rows are evaluated "
         "on different contract sets and on other graphs than the whole contract graph, so their $\\tau$ values are not "
         "comparable with Table~\\ref{tab:alignment-hybrid}; they show how much the statistic moves with the evaluation "
         f"population. No intervals were computed for the rows.{runtime}"
     )
-    head = "$n$ & ER all. & AWP all. & ER tr. & AWP tr. & ER Stab. & AWP Stab. & $|E_A|$ & $|E_T|$"
+    head = "$n$ & ER All. & AWP All. & ER Tr. & AWP Tr. & ER Stab. & AWP Stab. & $|E_A|$ & $|E_T|$"
     spec = "r" + "c" * 6 + "rr"
     if bench is not None:
         head += " & ER (s) & AWP (s)"
@@ -1640,18 +1708,20 @@ def fig_runtime_scaling(bench: dict) -> None:
     x_whole = float(len(sub)) + 0.35
     fig, ax = plt.subplots(figsize=(5.8, 3.8))
     for m, name, color, marker, dy in (("endorserank", "EndorseRank", E.PAL["er"], "o", -11), ("awp", "AWP", E.PAL["awp"], "s", 7)):
+        # Spaces inside the bars keep the slanted E clear of them (more on its right, where it leans).
+        label = f"{name} (labels: edges $|\\,E\\;|$ of its graph)"
         if sub:
             t = np.array([s[m]["mean_s"] for s in sub])
             sd = np.array([s[m]["sd_s"] for s in sub])
             ax.errorbar(x_sub, t, yerr=sd, marker=marker, color=color, capsize=2.5, linewidth=1.2, markersize=4.5,
-                        label=f"{name} (labels: edges $|E|$ of its graph)")
+                        label=label)
             for xi, ti, s in zip(x_sub, t, sub):
                 ax.annotate(E._short_count(float(s[m]["edges"])), (xi, ti), textcoords="offset points", xytext=(0, dy),
                             ha="center", fontsize=7.5, color=color)
         for s in whole:
             ax.errorbar([x_whole], [s[m]["mean_s"]], yerr=[s[m]["sd_s"]], marker=marker, color=color, capsize=2.5,
                         linewidth=0, elinewidth=1.2, markersize=5.5, markerfacecolor="white",
-                        label=None if sub else f"{name} (labels: edges $|E|$ of its graph)")
+                        label=None if sub else label)
             ax.annotate(E._short_count(float(s[m]["edges"])), (x_whole, s[m]["mean_s"]), textcoords="offset points",
                         xytext=(0, dy), ha="center", fontsize=7.5, color=color)
     ax.set_yscale("log")
@@ -1663,7 +1733,8 @@ def fig_runtime_scaling(bench: dict) -> None:
     if whole and sub:
         ax.axvline((x_sub[-1] + x_whole) / 2, color=E.PAL["divider"], linewidth=0.8, linestyle=":")
     ax.minorticks_off()
-    ax.set_xlabel("Contracts in the subsample $n$; open markers: the whole contract graph")
+    # The label is no wider than the axes: the tight box of the saved figure leaves out the overhang of an x label.
+    ax.set_xlabel("Subsample size $n$ (contracts); open markers: the whole contract graph")
     ax.set_ylabel("Runtime per solver call (s, log scale)")
     ax.legend(frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1.01), ncol=1)
     E._save(fig, "runtime-scaling.pdf")
