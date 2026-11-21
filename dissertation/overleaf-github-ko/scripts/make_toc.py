@@ -34,6 +34,10 @@ def repl(m):
         t = "초록"
     elif label == "ch:abbreviations":
         t = "줄임말과 기호"
+    elif label == "ch:list-of-figures":
+        t = "그림 목록"
+    elif label == "ch:list-of-tables":
+        t = "표 목록"
     elif label in titles:
         t = titles[label]
     else:
@@ -49,5 +53,9 @@ out = re.sub(r"\\TOCentry\{([^}]*)\}\{\{(.*?)\}\}\{([^}]*)\}", repl, toc)
 out = out.replace("{\\Large\\bfseries Table of Contents\\par}", "{\\Large\\bfseries 차례\\par}")
 out = out.replace("{\\Large\\bfseries List of Figures\\par}", "{\\Large\\bfseries 그림 목록\\par}")
 out = out.replace("{\\Large\\bfseries List of Tables\\par}", "{\\Large\\bfseries 표 목록\\par}")
+# The English file sets the three headings as unnumbered chapters.
+out = out.replace("\\chapter*{Table of Contents}", "\\chapter*{차례}")
+out = out.replace("\\chapter*{List of Figures}", "\\chapter*{그림 목록}")
+out = out.replace("\\chapter*{List of Tables}", "\\chapter*{표 목록}")
 (KO / "01-Intro/03-TOC.tex").write_text(out, encoding="utf-8")
 print("entries:", len(re.findall(r"\\TOCentry", out)), "missing:", missing)

@@ -1,10 +1,6 @@
 % !TEX root = ../main.tex
 
-\clearpage
-
-{\Large\bfseries 차례\par}
-
-\vspace{0.75em}
+\chapter*{차례}
 
 % The entries are set closer than the body text, like the lists of figures and tables.
 \begingroup\setstretch{1.2}
@@ -12,6 +8,10 @@
 \TOCentry{}{{\textbf{선언}}}{ch:declaration}
 
 \TOCentry{}{{\textbf{초록}}}{ch:abstract}
+
+\TOCentry{}{{\textbf{그림 목록}}}{ch:list-of-figures}
+
+\TOCentry{}{{\textbf{표 목록}}}{ch:list-of-tables}
 
 \TOCentry{}{{\textbf{줄임말과 기호}}}{ch:abbreviations}
 
@@ -77,7 +77,7 @@
 
 \hspace*{1.5em}\TOCentry{2.18}{{보안과 관련된 이벤트인 허락}}{sec:approval-security}
 
-\hspace*{1.5em}\TOCentry{2.19}{{AWP 자세히 보기: 송금 그래프 기준선이 재는 것}}{sec:awp-in-depth}
+\hspace*{1.5em}\TOCentry{2.19}{{AWP 자세히 보기: 송금 그래프의 기준 걷기가 재는 것}}{sec:awp-in-depth}
 
 \hspace*{1.5em}\TOCentry{2.20}{{그래프 평판 방법 견주기}}{sec:method-comparison-table}
 
@@ -122,18 +122,6 @@
 \hspace*{1.5em}\TOCentry{3.16}{{구현에 대한 메모}}{sec:implementation-notes}
 
 \hspace*{1.5em}\TOCentry{3.17}{{윤리}}{sec:ethics}
-
-\hspace*{3.0em}\TOCentry{}{{\textbullet\ 사생활과 익명성}}{sub:privacy-anonymity}
-
-\hspace*{3.0em}\TOCentry{}{{\textbullet\ 자료 최소화}}{sub:data-minimization}
-
-\hspace*{3.0em}\TOCentry{}{{\textbullet\ 자료 이용과 규정 준수}}{sub:data-usage-compliance}
-
-\hspace*{3.0em}\TOCentry{}{{\textbullet\ 공정함과 투명함}}{sub:fairness-transparency}
-
-\hspace*{3.0em}\TOCentry{}{{\textbullet\ 책임 있는 공개와 영향}}{sub:responsible-disclosure}
-
-\hspace*{3.0em}\TOCentry{}{{\textbullet\ 방법에 대한 약속 정리}}{sub:methodological-commitments}
 
 \TOCentry{4}{{\textbf{구현과 실증 결과}}}{ch:results}
 
@@ -235,15 +223,10 @@
 
 \hspace*{1.5em}\TOCentry{8.7}{{\textbf{윤리 승인 증명서}}}{ch:appendix-ethics}
 
-\hspace*{3.0em}\TOCentry{8.7.1}{{증명서}}{sec:ethics-certificate}
-
 \endgroup
 
-\clearpage
-
-{\Large\bfseries 그림 목록\par}
-
-\vspace{0.75em}
+\chapter*{그림 목록}
+\label{ch:list-of-figures}
 
 \begingroup\setstretch{1.2}
 \makeatletter
@@ -251,11 +234,8 @@
 \makeatother
 \par\endgroup
 
-\clearpage
-
-{\Large\bfseries 표 목록\par}
-
-\vspace{0.75em}
+\chapter*{표 목록}
+\label{ch:list-of-tables}
 
 \begingroup\setstretch{1.2}
 \makeatletter
