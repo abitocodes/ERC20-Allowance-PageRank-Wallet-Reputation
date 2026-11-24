@@ -1,0 +1,161 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:reputation-lineage(2장 「평판 시스템이 이어져 온 흐름」 절)의 원본이며, Figures/reputation-lineage.pdf를
+  만든다. LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/reputation-lineage.html
+  영어 원본은 ../overleaf-github/Figures/html/reputation-lineage.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 2장이 살펴보는 순위 매기기 방법들을 네 가족(줄)으로 나누고, 가족마다 연도 순으로 놓았다. 저자와 연도는 논문이
+  인용하는 그대로(Config/references.bib)이고, 이 논문의 걷기가 각 가족에서 가져오는 것을 오른쪽 열로 가는 화살표 위에 적었다.
+  방법의 고유한 이름(PageRank, HITS, EigenTrust, TrustRank, HodgeRank, AWP, RiskProp)은 영어 그대로다.
+  - 웹 링크 분석: 크롤 순서(Cho et al., 1998); PageRank(Page et al., 1999); HITS(Kleinberg, 1999); 입차수로 어림한
+    PageRank(Fortunato et al., 2008). 가져오는 것: PageRank의 인용 논리와, 기준선으로 쓰는 개수.
+  - 다시 출발과 믿음: 주제 민감 PageRank(Haveliwala, 2003); 개인화 PageRank(Jeh & Widom, 2003); EigenTrust(Kamvar et al.,
+    2003); TrustRank(Gyongyi et al., 2004). 가져오는 것: 다시 출발 규칙, 곧 걷기가 정할 수 있는 재시작 분포(EndorseRank와
+    C-PR에서는 고르게, S-PR에서는 허락 점수로). 믿을 수 있는 점들을 골라 둔 씨앗 집합은 가져오지 않는다.
+  - 다층 순위 매기기: 다중 PageRank(Halu et al., 2013); 다층 네트워크의 순위 매기기(De Domenico et al., 2015).
+    가져오는 것: 한 점 집합 위의 두 층.
+  - 장부 순위 매기기: 이더리움의 PageRank와 HodgeRank(H.-D. Do & Do, 2023); AWP(T. Do et al., 2023); RiskProp(D. Lin et al.,
+    2025). 가져오는 것: 송금 쪽 기준인 AWP.
+  - 이 논문: EndorseRank(허락 걷기), C-PR(결합 걷기, 이 논문의 방법), S-PR(C-PR의 빼 보기 실험).
+
+  모양: 제목은 회색 줄 위의 명조다. 가족은 옅은 판 앞의, 그 색을 채운 이름표에 흰 이름을 쓴 것이다(웹: 시안; 다시 출발과
+  믿음: 초록; 다층 순위 매기기: 결합 걷기의 색인 보라; 장부 순위 매기기: 송금의 색인 군청). 방법마다 가는 선을 두른 흰
+  상자이고, 이 논문이 가져오는 것은 그 가족의 색으로 그린 가는 화살표 위에 있다. 이 논문의 걷기는 옅은 판 위의 납작한
+  꼬리표다(이 논문의 방법만 색을 채움). 네 줄은 높이가 같다. 방법들은 너비가 같은 네 칸 위에 서고, 방법 하나가 한 칸이나
+  두 칸을 차지한다(첫 줄은 넷째 이름이 한 칸에 들지 않아, 같은 상자 셋과 더 넓은 상자 하나). 상자는 모두 높이가 같고,
+  이 논문의 꼬리표 셋도 높이가 같다. 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans KR(보통
+  400, 굵게 700)과 제목의 Noto Serif KR이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>평판 방법의 계보</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+/* SVG 글자: CSS가 fig.js의 font-family 속성보다 앞서므로, 한글 글꼴을 여기서 더한다 */
+svg text.sans { font-family:Bahnschrift, "Noto Sans KR", sans-serif; }
+svg text.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+@page { size: 180mm 120mm; margin: 0; }
+/* 같은 것이 같게 나오도록 격자의 길이는 온 픽셀이다(style.css 참고). 열: 가족의 이름표 65 px, 그 방법들의 판 368 px,
+   이 논문이 가져오는 것 81 px, 이 논문의 판 109 px(623 px, 164.8 mm). 네 줄은 높이 44 px, 사이 5 px.
+   방법들은 4 px씩 떨어진 87 px 네 칸 위에 선다. 방법 하나는 한 칸, 이름이 길면 두 칸을 차지하고, 그림의 상자는 모두 높이가
+   같다. 첫 줄만 다르다. 넷째 방법의 이름이 한 칸에 들지 않고, 방법이 넷이라 둘째 칸을 내줄 수 없어서, 80 px 상자 셋과
+   108 px 상자 하나다. */
+.grid { display:grid; grid-template-columns:65px 368px 81px 109px; grid-auto-rows:44px; row-gap:5px; column-gap:0; align-items:stretch; }
+.row { display:contents; }
+/* 가족: 그 색을 채운 이름표 */
+.fam { background:var(--c); color:#fff; font-weight:700; font-size:7.3pt; line-height:12px; display:flex; align-items:center; padding:0 5px; }
+.items { display:grid; grid-template-columns:repeat(4, 87px); gap:4px; padding:3px 4px; background:var(--plate); }
+.fw .items { grid-template-columns:repeat(3, 80px) 108px; }
+.it.w2 { grid-column:span 2; }
+/* 방법: 가는 선(.panel처럼 안쪽 그림자)을 두른 흰 상자, 위에서부터 이름과 출처. 안쪽 여백이 온 픽셀이라 이름은 모두 상자 위에서
+   11 px 아래에 선다; 이름 안의 Palatino 기호는 따로 줄 높이를 갖지 않는다. */
+.it { min-width:0; background:var(--paper); box-shadow:inset 0 0 0 0.25mm var(--hair); border-radius:0.4mm; padding:3px 3px 0; line-height:1.15; }
+.it b .pr { line-height:0; }
+.it b { display:block; font-size:7.3pt; }
+.it .c { display:block; font-size:7.1pt; color:var(--muted); white-space:nowrap; }
+/* 이 논문이 가져오는 것: 화살표는 모든 줄에서 같은 높이(맨 아래)에, 글은 그 위에 */
+.take { display:flex; flex-direction:column; justify-content:flex-end; align-items:center; padding:0 0.9mm 1px; }
+.take .t { font-size:7.1pt; color:var(--text); line-height:1.12; text-align:center; }
+.take svg { margin-top:-0.1mm; }
+.thesis { grid-column:4; grid-row:1 / span 4; background:var(--plate); border-radius:0.6mm; padding:1.6mm 1.8mm;
+  display:flex; flex-direction:column; justify-content:center; gap:1.4mm; }
+/* 이 논문의 세 걷기: 높이가 같은 꼬리표, 44 px(세 줄짜리의 높이), 글은 가운데 */
+.thesis .chip { white-space:normal; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:0;
+  height:44px; padding:0 6px; line-height:12px; }   /* 안쪽 42 px: 두 줄은 9 px 아래, 세 줄은 3 px 아래 */
+.thesis .chip span { font-size:7.1pt; }
+.fw { --c:var(--web); } .fr { --c:var(--good); } .fm { --c:var(--coupled); } .fl { --c:var(--transfer); }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="h">이 장에서 살펴본 순위 매기기 방법<span class="sub">가족별로, 가족 안에서는 연도 순</span></div>
+  <div class="grid">
+    <div class="row fw">
+      <div class="fam">웹 링크 분석</div>
+      <div class="items">
+        <div class="it"><b>크롤 순서</b><span class="c">Cho et al., 1998</span></div>
+        <div class="it"><b>PageRank</b><span class="c">Page et al., 1999</span></div>
+        <div class="it"><b>HITS</b><span class="c">Kleinberg, 1999</span></div>
+        <div class="it"><b>PageRank<span class="pr"> ≈ </span>입차수</b><span class="c">Fortunato et al., 2008</span></div>
+      </div>
+      <div class="take"><span class="t">인용 논리;<br>기준선인 개수</span><span data-arrow="right" data-color="web" data-len="19.5"></span></div>
+    </div>
+    <div class="row fr">
+      <div class="fam">다시 출발과 믿음</div>
+      <div class="items">
+        <div class="it"><b>주제 민감 PageRank</b><span class="c">Haveliwala, 2003</span></div>
+        <div class="it"><b>개인화 PageRank</b><span class="c">Jeh &amp; Widom, 2003</span></div>
+        <div class="it"><b>EigenTrust</b><span class="c">Kamvar et al., 2003</span></div>
+        <div class="it"><b>TrustRank</b><span class="c">Gyöngyi et al., 2004</span></div>
+      </div>
+      <div class="take"><span class="t">다시 출발 규칙;<br>골라 둔 씨앗<br>집합은 없음</span><span data-arrow="right" data-color="good" data-len="19.5"></span></div>
+    </div>
+    <div class="row fm">
+      <div class="fam">다층 순위 매기기</div>
+      <div class="items">
+        <div class="it w2"><b>다중 PageRank</b><span class="c">Halu et al., 2013</span></div>
+        <div class="it w2"><b>다층 네트워크의 순위 매기기</b><span class="c">De Domenico et al., 2015</span></div>
+      </div>
+      <div class="take"><span class="t">한 점 집합<br>위의 두 층</span><span data-arrow="right" data-color="coupled" data-len="19.5"></span></div>
+    </div>
+    <div class="row fl">
+      <div class="fam">장부 순위 매기기</div>
+      <div class="items">
+        <div class="it w2"><b>이더리움의 PageRank와 HodgeRank</b><span class="c"><span class="nb">H.-D.</span> Do &amp; Do, 2023</span></div>
+        <div class="it"><b>AWP</b><span class="c">T. Do et al., 2023</span></div>
+        <div class="it"><b>RiskProp</b><span class="c">D. Lin et al., 2025</span></div>
+      </div>
+      <div class="take"><span class="t">송금 쪽 기준인 AWP</span><span data-arrow="right" data-color="transfer" data-len="19.5"></span></div>
+    </div>
+    <div class="thesis">
+      <div class="h s bare">이 논문</div>
+      <div class="chip er"><b>EndorseRank</b><span>허락 걷기</span></div>
+      <div class="chip cpr"><b class="nb">C-PR</b><span>결합 걷기,<br>이 논문의 방법</span></div>
+      <div class="chip spr"><b class="nb">S-PR</b><span><span class="nb">C-PR</span>의 빼 보기 실험</span></div>
+    </div>
+  </div>
+</div>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">(SVG 안에서는 <tspan>)로 감싸 자간을 0으로 둔다. 그림을 그린 뒤,
+// fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에 돈다. 한글만 있는 SVG 글자는 Fig.text가 자간 때문에 옮긴 x도 되돌린다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const only = new RegExp(`^[${H}\\s]+$`), fig = document.querySelector(".fig"), SVG = "http://www.w3.org/2000/svg";
+  for (const t of fig.querySelectorAll("svg text")) {
+    if (!only.test(t.textContent) || t.querySelector("tspan")) continue;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && a === "middle") t.setAttribute("x", (+t.getAttribute("x") - sp / 2).toFixed(3));
+    if (sp && a === "end") t.setAttribute("x", (+t.getAttribute("x") - sp).toFixed(3));
+    t.style.letterSpacing = "0px";
+  }
+  const w = document.createTreeWalker(fig, NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (any.test(n.textContent) && n.parentElement.style.letterSpacing !== "0px") nodes.push(n);
+  for (const n of nodes) {
+    const inSvg = !!n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = inSvg ? document.createElementNS(SVG, "tspan") : document.createElement("span");
+      k.setAttribute("class", "ko"); if (inSvg) k.style.letterSpacing = "0px";
+      k.textContent = m; frag.appendChild(k); last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    n.replaceWith(frag);
+  }
+})();
+</script>
+</body>
+</html>

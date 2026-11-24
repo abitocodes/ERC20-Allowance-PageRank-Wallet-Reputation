@@ -1,0 +1,162 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:cpr-schematic(3장, 결합 연산자 C-PR)의 원본이며, Figures/cpr-schematic.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/cpr-schematic.html
+  영어 원본은 ../overleaf-github/Figures/html/cpr-schematic.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 계약 다섯 위에서 결합 걷기 C-PR의 한 걸음(식 eq:coupled-transition). 허락 화살표는 금색 실선, 송금
+  화살표는 파란 점선이고, 화살표마다 감쇠 계수를 곱하기 전의 이동 확률을 붙였다. 화살표: x -> v(허락, 1),
+  u -> v(허락, λ), u -> w(송금, 1 − λ), y -> w(송금, 1). 계약 u는 두 층 모두에 나가는 화살표가 있어서 두 층을 λ와
+  1 − λ의 무게로 섞는다. x와 y는 한 층에만 나가는 화살표가 있어서 λ가 얼마이든 그 층을 따른다. 걷기는 1 − d의 확률로
+  고르게 고른 계약에서 다시 출발한다(범례에만 적고, 그래프에는 다시 출발을 그리지 않았다).
+
+  모양: 계약은 가는 테두리 안의 납작한 청록 네모이고, 이름은 흰 Palatino 이탤릭이다. 두 층 모두에 나가는 화살표가 있는
+  유일한 계약 u의 테두리는 보라색이고 더 굵다. 허락 화살표는 모래빛 금색의 꽉 찬 띠, 송금 화살표는 군청색의 가는
+  점선이어서, 둘은 색만이 아니라 굵기와 점선과 밝기로도 갈린다. 확률은 그 화살표의 짙은 색으로 Palatino에 적었다.
+  범례는 그려진 모양을 그대로 되풀이한다: 띠, 점선, 보라 테두리의 점 u, 점 x와 y, 그리고 다시 출발을 뜻하는 회색 점선
+  호. 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans KR(보통 400, 굵게 700)이고, 한글에는
+  자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>C-PR의 한 걸음</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+/* SVG 글자: fig.js가 적는 글꼴 속성보다 CSS가 앞서므로, 여기서 Noto 글꼴을 뒤에 더한다 */
+svg text.sans { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+svg text.serif, svg tspan.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+.row { display:grid; grid-template-columns:76mm 1fr; column-gap:4mm; align-items:center; }
+.side { display:flex; flex-direction:column; gap:1.7mm; font-size:7.1pt; line-height:1.27; color:var(--muted); }
+.side .it { display:grid; grid-template-columns:11mm 1fr; align-items:center; column-gap:1.9mm; }
+.side .it > svg, .side .it > .smp { justify-self:center; }
+.side b.a { color:var(--allow-ink); }
+.side b.t { color:var(--transfer-ink); }
+/* 그림 속 점과 같은 작은 점: 가는 테두리 안의 청록 네모, 이름은 흰 Palatino 이탤릭. u의 테두리는 보라색이고 더 굵다.
+   아래 스크립트가 <span class="nd">마다 SVG 하나로 그려서, 네모가 테두리의 한가운데에 선다(CSS 상자 둘로는 인쇄에서
+   0.13 mm 어긋났다). */
+.smp { display:inline-flex; align-items:center; gap:0.45mm; }
+.nd { font-size:0; color:transparent; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="row">
+    <svg id="g" width="76mm" height="34.4mm" viewBox="0 0 76 34.4"></svg>
+    <div class="side">
+      <div class="it"><svg width="10mm" height="3mm" viewBox="0 0 10 3"><path d="M0.2,1.5 H8.2" style="stroke:var(--allow-band)" stroke-width="1.05"/><path d="M6.9,0.35 L9.95,1.5 L6.9,2.65 L7.65,1.5z" style="fill:var(--allow-band)"/></svg>
+        <span><b class="a">허락 화살표</b>, <i class="v">P</i><sub>A</sub>의 행</span></div>
+      <div class="it"><svg width="10mm" height="3mm" viewBox="0 0 10 3"><path d="M0.2,1.5 H8.3" style="stroke:var(--transfer)" stroke-width="0.55" stroke-dasharray="1.2 0.75"/><path d="M7.7,0.66 L9.95,1.5 L7.7,2.34 L8.25,1.5z" style="fill:var(--transfer)"/></svg>
+        <span><b class="t">송금 화살표</b>, <i class="v">P</i><sub>T</sub>의 행</span></div>
+      <div class="it"><span class="smp"><span class="nd both">u</span></span>
+        <span>두 층 모두에 나가는 화살표: 걷기는 두 층을 <i class="v">λ</i>와 <span class="m">1 − <i>λ</i></span>로 섞음</span></div>
+      <div class="it"><span class="smp"><span class="nd">x</span>, <span class="nd">y</span></span>
+        <span>한 층에만 나가는 화살표: 걷기는 <i class="v">λ</i>가 얼마이든 그 층을 따름</span></div>
+      <div class="it"><svg width="10mm" height="3.6mm" viewBox="0 0 10 3.6">
+          <defs><marker id="mr" viewBox="0 0 10 10" refX="8.4" refY="5" markerWidth="4.1" markerHeight="4.1" orient="auto"><path d="M0.2,1.3 L10,5 L0.2,8.7 L2.6,5 z" style="fill:var(--user)"/></marker></defs>
+          <path d="M0.6,3 C3,-0.5 6.5,-0.5 9,2.6" fill="none" style="stroke:var(--user)" stroke-width="0.45" stroke-dasharray="1.1 0.8" marker-end="url(#mr)"/></svg>
+        <span><span class="m">1 − <i>d</i></span>의 확률로: 고르게 고른 계약에서 다시 출발</span></div>
+    </div>
+  </div>
+</div>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 class="ko"로 감싸 자간을 0으로 둔다. HTML에서는 <span>, SVG 글자 안에서는 <tspan>이다.
+// HTML은 fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에, 문서를 읽는 동안 감싼다. SVG 글자는 Fig.text와 Fig.rich가
+// 만들 때 바로 감싼다. 가운데나 오른쪽에 맞춘 글자가 한글로 끝나면 끝 자간이 없으니, fig.js가 그만큼 옮겨 둔 x를 되돌린다.
+const KO = (function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`), last = new RegExp(`[${H}]\\s*$`);
+  const NS = "http://www.w3.org/2000/svg";
+  function wrap(root) {
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [];
+    for (let n; (n = w.nextNode());) {
+      const p = n.parentElement;
+      if (p && !(p.classList && p.classList.contains("ko")) && p.tagName !== "STYLE" && p.tagName !== "SCRIPT" && any.test(n.textContent)) nodes.push(n);
+    }
+    for (const n of nodes) {
+      const svg = n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+      let at0 = 0;
+      s.replace(run, (m, at) => {
+        if (at > at0) frag.appendChild(document.createTextNode(s.slice(at0, at)));
+        const k = svg ? document.createElementNS(NS, "tspan") : document.createElement("span");
+        k.setAttribute("class", "ko"); k.textContent = m;
+        if (svg) k.style.letterSpacing = "0px";
+        frag.appendChild(k);
+        at0 = at + m.length;
+      });
+      if (at0 < s.length) frag.appendChild(document.createTextNode(s.slice(at0)));
+      n.replaceWith(frag);
+    }
+  }
+  function svgText(t) {
+    if (!t || !any.test(t.textContent)) return t;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && last.test(t.textContent) && (a === "middle" || a === "end"))
+      t.setAttribute("x", (parseFloat(t.getAttribute("x")) - (a === "middle" ? sp / 2 : sp)).toFixed(3));
+    wrap(t);
+    return t;
+  }
+  for (const k of ["text", "rich"]) { const f = Fig[k]; Fig[k] = (...args) => svgText(f(...args)); }
+  return { wrap };
+})();
+KO.wrap(document.querySelector(".fig"));
+
+(function () {
+  const svg = document.getElementById("g"), C = Fig.C;
+  const h = 3.3, ring = 0.72, hr = h + ring;                  // 점과 그 테두리의 반 크기
+  const N = { x: [4.5, 4.5], u: [4.5, 17.3], y: [4.5, 30.1], v: [71.5, 9.3], w: [71.5, 25.3] };
+  const ALLOW = { color: C.allowBand, width: 1.05, headSize: 3.1 };          // 꽉 찬 금색 띠
+  const TRANS = { color: C.transfer, width: 0.55, dash: "1.2 0.75" };        // 파란 점선
+  // a에서 b로 가는 화살표와 그 확률. from: a를 떠나는 자리(a의 가운데에서 잰 거리; u의 두 화살표는 떨어져서 떠난다);
+  // to: b에 닿는 자리(두 화살표가 한 점에 닿지 않게). pos: 이름표가 화살표를 따라 서는 자리; side: 이름표의 기준선이
+  // 화살표 위(음수) 또는 아래로 떨어진 거리(mm).
+  const edge = (a, b, kind, label, pos, side, from, to) => {
+    const p = [N[a][0], N[a][1] + from], q = [N[b][0], N[b][1] + to];
+    Fig.edge(svg, p, q, Object.assign({ half: hr, halfFrom: hr + (a === "u" ? 0.25 : 0), gap: 0.6 }, kind));
+    const lx = p[0] + (q[0] - p[0]) * pos, ly = p[1] + (q[1] - p[1]) * pos + side;
+    Fig.rich(svg, lx, ly, label, { size: 3.2, anchor: "middle", fill: kind === ALLOW ? C.allowInk : C.transferInk });
+  };
+  edge("x", "v", ALLOW, "#1#", 0.5, -1.9, 0, -1.6);
+  edge("u", "v", ALLOW, "$λ$", 0.4, -1.9, -1.1, 1.6);
+  edge("u", "w", TRANS, "#1 − #$λ$", 0.4, 4.0, 1.1, -1.6);
+  edge("y", "w", TRANS, "#1#", 0.5, 3.8, 0, 1.6);
+  // 계약: 가는 테두리 안의 납작한 네모. 두 층 모두에 나가는 화살표가 있는 u의 테두리는 보라색
+  for (const [id, [x, y]] of Object.entries(N)) {
+    const both = id === "u";
+    // (둥근 이음: PyMuPDF는 뾰족한 이음의 상자를 그 한도만큼 넓혀서 잘라 낼 자리가 넓어진다)
+    Fig.el(svg, "rect", { x: x - hr, y: y - hr, width: 2 * hr, height: 2 * hr, rx: h * 0.2 + ring * 0.9, fill: C.paper,
+      stroke: both ? C.coupled : C.contract, "stroke-width": both ? 0.6 : 0.2, "stroke-linejoin": "round" });
+    Fig.node(svg, x, y, { half: h, fill: C.contract, keyline: 0, label: id, labelItalic: true, labelSize: 4.1 });
+  }
+  // 범례의 점: 위의 점과 같은 모양. 2.9 mm 네모, 그 테두리는 0.52 mm 떨어짐(굵기 0.2 mm; u의 보라 테두리는 0.5 mm),
+  // 이름은 7.8 pt
+  for (const s of document.querySelectorAll(".nd")) {
+    const both = s.classList.contains("both"), id = s.textContent.trim();
+    const hh = 1.45, fr = hh + 0.52, sw = both ? 0.5 : 0.2, half = fr + sw / 2;
+    const m = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    m.setAttribute("viewBox", `${-half} ${-half} ${2 * half} ${2 * half}`);
+    m.setAttribute("width", (2 * half).toFixed(2) + "mm");
+    m.setAttribute("height", (2 * half).toFixed(2) + "mm");
+    m.setAttribute("style", "flex:none;display:block");
+    Fig.el(m, "rect", { x: -fr, y: -fr, width: 2 * fr, height: 2 * fr, rx: 0.65, fill: C.paper,
+      stroke: both ? C.coupled : C.contract, "stroke-width": sw, "stroke-linejoin": "round" });
+    Fig.node(m, 0, 0, { half: hh, fill: C.contract, keyline: 0, rx: 0.4, label: id, labelItalic: true, labelSize: 2.75 });
+    s.replaceWith(m);
+  }
+})();
+</script>
+</body>
+</html>

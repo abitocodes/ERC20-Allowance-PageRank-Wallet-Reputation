@@ -1885,6 +1885,103 @@ def t_neutral_grid(w1: dict, seed: int, cfg: dict) -> None:
 
 # --------------------------------------------------------------------------- figures
 
+# The faces of the thesis diagrams (dissertation/overleaf-github/Figures/html/STYLE.md, "Type"): text in Bahnschrift at
+# its semi-condensed width with 0.045 em of spacing, headings, formulas and variables in Palatino Linotype.
+PLOT_FACE = "Bahnschrift SemiCondensed"
+TITLE_FACE = "Palatino Linotype"
+FONT_WORK = ROOT / "data" / "_work" / "fonts"  # ignored by git: the face is made on the machine that draws the plots
+_FACES: dict = {}
+
+
+def _installed(family: str) -> bool:
+    from matplotlib import font_manager as fm
+
+    try:
+        fm.findfont(fm.FontProperties(family=family), fallback_to_default=False)
+        return True
+    except ValueError:
+        return False
+
+
+def _plot_face() -> str | None:
+    """Bahnschrift as the diagrams set it, for matplotlib, or None where Bahnschrift is not installed.
+
+    matplotlib reads only the default instance of a variable font (Regular, full width) and sets no letter spacing.
+    So the semi-condensed instance (wght 400, wdth 87.5) is cut from the installed Bahnschrift with fontTools, the
+    0.045 em of spacing is added to every advance, and the result is kept in data/_work/fonts/ under its own family
+    name: it is made where the plots are drawn and never committed, since the font may not be put into the repository.
+    Bahnschrift has no minus sign (U+2212), which every negative tick label needs: the face gets one, the horizontal
+    bar of its own plus sign on the advance of the plus, so that the minus is as wide and as high as the plus.
+    """
+    if "text" in _FACES:
+        return _FACES["text"]
+    from matplotlib import font_manager as fm
+
+    face = None
+    try:
+        src = Path(fm.findfont(fm.FontProperties(family="Bahnschrift"), fallback_to_default=False))
+    except ValueError:
+        src = None
+    if src is not None:
+        out = FONT_WORK / "bahnschrift-semicondensed-plot-v2.ttf"  # v2: with the minus sign
+        if not out.exists() or out.stat().st_mtime < src.stat().st_mtime:
+            from fontTools.pens.ttGlyphPen import TTGlyphPen
+            from fontTools.ttLib import TTFont
+            from fontTools.varLib import instancer
+
+            font = instancer.instantiateVariableFont(TTFont(src), {"wght": 400, "wdth": 87.5})
+            add = round(0.045 * font["head"].unitsPerEm)
+            hmtx = font["hmtx"].metrics
+            for glyph, (adv, lsb) in hmtx.items():
+                if adv:
+                    hmtx[glyph] = (adv + add, lsb)
+            cmap = font.getBestCmap()
+            if 0x2212 not in cmap and 0x2B in cmap:
+                glyf, plus = font["glyf"], cmap[0x2B]
+                coords, ends, _ = glyf[plus].getCoordinates(glyf)
+                bars, start = [], 0
+                for end in ends:
+                    xs, ys = [p[0] for p in coords[start:end + 1]], [p[1] for p in coords[start:end + 1]]
+                    bars.append((max(xs) - min(xs), min(xs), max(xs), min(ys), max(ys)))
+                    start = end + 1
+                _, x0, x1, y0, y1 = max(bars)  # the widest contour of the plus is its horizontal bar
+                pen = TTGlyphPen(None)  # clockwise, as an outer contour
+                pen.moveTo((x0, y1))
+                pen.lineTo((x1, y1))
+                pen.lineTo((x1, y0))
+                pen.lineTo((x0, y0))
+                pen.closePath()
+                name = "minus" if "minus" not in font.getGlyphOrder() else "minus.plot"
+                font.setGlyphOrder(font.getGlyphOrder() + [name])
+                glyf[name] = pen.glyph()
+                hmtx[name] = (hmtx[plus][0], x0)
+                for table in font["cmap"].tables:
+                    if table.isUnicode():
+                        table.cmap[0x2212] = name
+                for tag in ("hdmx", "LTSH", "VDMX"):  # per-glyph caches that would miss the new glyph
+                    if tag in font:
+                        del font[tag]
+            font["hhea"].advanceWidthMax = max(adv for adv, _ in hmtx.values())
+            names = font["name"]
+            names.names = [r for r in names.names if r.nameID not in (1, 2, 3, 4, 6, 16, 17, 21, 22, 25)]
+            for nid, text in ((1, PLOT_FACE), (2, "Regular"), (3, "BahnschriftSemiCondensed-Plot"), (4, PLOT_FACE),
+                              (6, "BahnschriftSemiCondensed-Plot")):
+                names.setName(text, nid, 3, 1, 0x409)
+            FONT_WORK.mkdir(parents=True, exist_ok=True)
+            font.save(out)
+        fm.fontManager.addfont(str(out))
+        face = PLOT_FACE
+    else:
+        print("note: Bahnschrift is not installed, so the plots fall back to Segoe UI, Arial or DejaVu Sans",
+              file=sys.stderr)
+    _FACES["text"] = face
+    return face
+
+
+def title_kw() -> dict:
+    """The face of a panel title on the contract graph: Palatino, as the headings of the diagrams, where installed."""
+    return {"fontfamily": TITLE_FACE} if CONTRACT_GRAPH and _installed(TITLE_FACE) else {}
+
 
 def _style():
     import matplotlib
@@ -1908,36 +2005,47 @@ def _style():
         "pdf.fonttype": 42,
     })
     if CONTRACT_GRAPH:
-        # The type of the thesis diagrams (dissertation/overleaf-github/Figures/html/style.css): a sans font,
-        # a light grid and no top or right spine. The other variants keep the style they were drawn with.
+        # The faces and greys of the thesis diagrams (dissertation/overleaf-github/Figures/html/STYLE.md, "Type" and
+        # "The data plots"): text in Bahnschrift semi-condensed (_plot_face), a sign that Bahnschrift lacks (the minus,
+        # the prime) from Palatino, which is next in the list; formulas and variables in Palatino, its italic for the
+        # variables; text and labels #333333, axis line #B4B4B4, ticks #575757, grid #E6E6E4; a light grid and no top
+        # or right spine. Where Bahnschrift or Palatino is missing the plots fall back to Segoe UI and STIX sans. The
+        # other variants keep the style they were drawn with.
+        face = _plot_face()
+        palatino = _installed(TITLE_FACE)
         plt.rcParams.update({
             "font.family": "sans-serif",
-            "font.sans-serif": ["Segoe UI", "Arial", "DejaVu Sans"],
-            "mathtext.fontset": "stixsans",
-            "text.color": "#1F2937",
-            "axes.labelcolor": "#1F2937",
-            "axes.edgecolor": "#94A3B8",
+            "font.sans-serif": ([face] + ([TITLE_FACE] if palatino else []) if face else [])
+                              + ["Segoe UI", "Arial", "DejaVu Sans"],
+            **({"mathtext.fontset": "custom", "mathtext.rm": TITLE_FACE, "mathtext.it": f"{TITLE_FACE}:italic",
+                "mathtext.bf": f"{TITLE_FACE}:bold", "mathtext.sf": face or "Segoe UI", "mathtext.fallback": "stix"}
+               if palatino else {"mathtext.fontset": "stixsans"}),
+            "text.color": "#333333",
+            "axes.labelcolor": "#333333",
+            "axes.edgecolor": "#B4B4B4",
             "axes.linewidth": 0.8,
             "axes.spines.top": False,
             "axes.spines.right": False,
-            "xtick.color": "#475569",
-            "ytick.color": "#475569",
-            "grid.color": "#E2E8F0",
+            "xtick.color": "#575757",
+            "ytick.color": "#575757",
+            "grid.color": "#E6E6E4",
             "grid.alpha": 1.0,
             "grid.linewidth": 0.6,
-            "legend.fontsize": 7.6,   # Segoe UI runs wider than the serif face; legends stay inside their axes
+            "legend.fontsize": 7.6,   # a sans face runs wider than the serif one; legends stay inside their axes
             "legend.handlelength": 1.6,
         })
     return plt
 
 
 BLUE, RED, GREY = "#2c5f8a", "#a03c3c", "#c8d4e0"
-# Colours by role. The contract-graph variant uses the palette of the thesis diagrams (allowance side orange,
-# transfer side blue, C-PR violet, counts and reference orderings greys, contracts teal); the other variants keep
-# the colours they were drawn with.
-PAL = ({"er": "#D97706", "awp": "#2563EB", "cpr": "#7C3AED", "spr": "#A78BFA", "count": "#334155",
-        "bfs": "#8A94A3", "random": "#C3CAD3", "ideal": "#374151", "point": "#0F766E", "decay": "#0F766E",
-        "band": "#CBD5E1", "ref": "#64748B", "w0": "#DB2777", "equal": "#475569", "divider": "#CBD5E1"}
+# Colours by role. The contract-graph variant uses the palette of the thesis diagrams (Figures/html/STYLE.md,
+# "Colour" and "The data plots"): the allowance side gold (a line #B98A24, an area #CFA448), the transfer side
+# ultramarine, C-PR violet, counts and reference orderings greys, contracts verdigris, W0 rose; the other variants
+# keep the colours they were drawn with.
+PAL = ({"er": "#B98A24", "er_area": "#CFA448", "awp": "#2340C8", "cpr": "#6A2C91", "spr": "#B79BCB",
+        "count": "#5A5A5A", "bfs": "#8A8A8A", "random": "#C9C9C7", "ideal": "#333333", "point": "#2A7A72",
+        "decay": "#2A7A72", "band": "#C4C4C2", "ref": "#575757", "w0": "#C23B5E", "equal": "#5A5A5A",
+        "divider": "#C4C4C2"}
        if CONTRACT_GRAPH else
        {"er": BLUE, "awp": RED, "cpr": BLUE, "spr": BLUE, "count": RED, "bfs": "#7f7f7f", "random": "#bdbdbd",
         "ideal": "black", "point": BLUE, "decay": BLUE, "band": GREY, "ref": "grey", "w0": RED, "equal": "black",
@@ -1997,7 +2105,9 @@ def fig_score_distributions(scores, same: dict) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(5.8, 3.0), sharey=True)
     c = (same.get("closed_form") or {}).get("common_value_c")
     tallest = 1.0
-    for ax, col, name, color in ((axes[0], "endorserank", "EndorseRank", PAL["er"]), (axes[1], "awp", "AWP", PAL["awp"])):
+    # bars are areas: the allowance side takes its lighter gold where the palette has one
+    for ax, col, name, color in ((axes[0], "endorserank", "EndorseRank", PAL.get("er_area", PAL["er"])),
+                                 (axes[1], "awp", "AWP", PAL["awp"])):
         s = scores[col].to_numpy(dtype=float)
         pos = s[s > 0]
         zeros = int((s == 0).sum())

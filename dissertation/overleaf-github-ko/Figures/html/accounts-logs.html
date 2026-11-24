@@ -1,0 +1,157 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:accounts-logs(2장 「계정, 가스, 그리고 로그로 재는 까닭」 절)의 원본이며, Figures/accounts-logs.pdf를
+  만든다. LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/accounts-logs.html
+  영어 원본은 ../overleaf-github/Figures/html/accounts-logs.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용(왼쪽에서 오른쪽으로, 각 부분에서 다음 부분으로 화살표):
+  1. 사용자 계정(회색, 점선 테 안): 개인 키가 다루는 EOA; 코드에 일을 맡기는 EOA인 EIP-7702 계정; Safe나 ERC-4337 계정처럼
+     사용자를 위해 움직이는 계약 계정인 스마트 계정. 이들은 트랜잭션을 보내고 가스를 내며, 어떤 그래프의 점도 아니다.
+  2. 계약(그 밖의 모든 계약 계정)은 트랜잭션이 부르는 코드를 실행한다. 그 코드가 이벤트를 내보내면 계약의 LOG 명령이 로그를
+     쓴다. 토큰 계약은 Approval 이벤트와 Transfer 이벤트를 내보낸다. 저장 공간에 쓰는 일은 로그를 남기지 않는다.
+  3. 로그 Approval(owner, spender, value)과 Transfer(from, to, value)는 체인 역사에서 영원히 남는 부분이고, 어떤 전체 노드나
+     색인 제공자도 다시 계산할 수 있다.
+  4. 이 연구가 읽는 것: 두 끝이 모두 계약인 이벤트는 계약 그래프의 화살표가 된다(체크 표시). 한 끝이 사용자 계정인 이벤트는
+     화살표가 아니고(가위표) 코호트 규칙에서, 중요도로서, 그리고 라벨에서만 센다.
+
+  모양: 네 부분은 너비와 높이가 같은 카드이고, 그 사이에 가는 회색 화살표가 있다. 사용자 계정은 모든 그림에서 그것을 표시하는
+  회색 점선 테 안에 있고, 그 그림 문자는 고리를 두른 회색 원 위에 흰색으로 있다(코드에 일을 맡기는 EOA인 EIP-7702 계정은
+  EOA 원의 열린 꼴). 계약과 로그는 가는 테 안에, 회색 줄 위의 명조 제목 아래에 있고, 그림 문자는 고리를 두른 원 위에 있다
+  (계약은 청록, 로그는 회색). 두 로그 줄은 그 층의 옅은 빛 위의 Consolas 코드이고, 그 앞에 모래빛 금색(Approval)이나
+  군청색(Transfer)의 막대가 있다. 이 연구가 읽는 것은 그림이 이끄는 부분이라 옅은 판 위에 있다. 라틴 글자와 숫자는
+  Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans KR(보통 400, 굵게 700)과 제목의 Noto Serif KR이고, 한글에는 자간을
+  두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>계정과 로그</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+/* SVG 글자: CSS가 fig.js의 font-family 속성보다 앞서므로, 한글 글꼴을 여기서 더한다 */
+svg text.sans { font-family:Bahnschrift, "Noto Sans KR", sans-serif; }
+svg text.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+@page { size: 180mm 120mm; margin: 0; }
+/* 144 px 카드 넷과 그 사이 16 px: 624 px, 165.1 mm(카드가 같게 나오도록 온 픽셀: style.css 참고) */
+.fig { width:624px; }
+.flow { display:grid; grid-template-columns:repeat(3, 144px 16px) 144px; align-items:stretch; }
+/* 네 제목이 한 줄에 서도록, 카드마다 테 안쪽의 여백이 같다(6 px, 8 px); 점선 테는 테두리라 그 가운데 1 px를 차지한다 */
+.flow > .part.panel { padding:6px 8px; }
+.flow > .part.panel.users { border-width:1px; padding:5px 7px; }
+.flow .h { height:5.55mm; margin-bottom:1.3mm; }   /* 그림 문자가 있는 제목의 높이, 넷 모두 */
+.flow .h .ico { margin-right:1.5mm; }
+.arr { display:flex; align-items:center; justify-content:center; }
+.acct { display:flex; align-items:center; gap:1.5mm; margin-bottom:0.8mm; font-size:7.1pt; line-height:1.15; color:var(--muted); }
+.acct b { display:block; font-size:7.4pt; }
+.txt { font-size:7.1pt; line-height:1.25; text-wrap:pretty; }
+.txt .mono { line-height:0; }                      /* 문장 속 코드가 줄 간격을 넓히지 않게 */
+.note { font-size:7.1pt; color:var(--muted); line-height:1.2; text-wrap:balance; }   /* 마지막 줄에 낱말 하나만 남지 않게 */
+.end { margin-top:auto; }
+/* 로그 줄: 그 층의 옅은 빛 위의 코드, 그 앞에 층의 색을 채운 막대 */
+.log { padding:3px 5px 3px 6px; margin-bottom:5px; font-size:7.1pt; line-height:12px; border-left:4px solid; }
+.log.a { background:var(--allow-bg); border-color:var(--allow-band); color:var(--allow-ink); }
+.log.t { background:var(--transfer-bg); border-color:var(--transfer); color:var(--transfer-ink); }
+b.a { color:var(--allow-ink); } b.t { color:var(--transfer-ink); }
+.keep { display:flex; align-items:flex-start; gap:1.4mm; margin-bottom:1.6mm; font-size:7.1pt; line-height:1.22; }
+.keep > svg { margin-top:0.2mm; }
+.pair { display:inline-flex; align-items:center; gap:0.7mm; vertical-align:middle; margin-right:0.7mm; position:relative; top:-0.15mm; }
+.dot { display:inline-block; width:2.5mm; height:2.5mm; border-radius:0.4mm; background:var(--contract); }
+.dot.u { border-radius:50%; background:var(--user); }
+.tiny { display:inline-block; width:3.2mm; border-top:0.4mm solid var(--count); }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="flow">
+    <!-- 1. 사용자 계정: 점선 테 -->
+    <div class="part panel users">
+      <div class="h s">사용자 계정</div>
+      <div class="acct"><span data-medal="key" data-color="user" data-size="4.8"></span><span><b>EOA</b>개인 키가 다룸</span></div>
+      <div class="acct"><span id="open-key"></span><span><b><span class="nb">EIP-7702</span> 계정</b>코드에 일을 맡기는 EOA</span></div>
+      <div class="acct"><span data-medal="people" data-color="user" data-size="4.8"></span><span><b>스마트 계정</b>Safe나 <span class="nb">ERC-4337</span> 계정</span></div>
+      <div class="note end">트랜잭션을 보내고 가스를 냄; 어떤 그래프의 점도 아님</div>
+    </div>
+    <div class="arr"><span data-arrow="right" data-len="3.175"></span></div>
+
+    <!-- 2. 계약은 실행하고 이벤트를 내보낸다 -->
+    <div class="part panel">
+      <div class="h s"><span class="ico" data-medal="contract" data-color="contract" data-size="4.3"></span>계약</div>
+      <div class="txt">그 밖의 모든 계약 계정; 트랜잭션이 부르는 코드를 실행함</div>
+      <div class="txt" style="margin-top:1.3mm">토큰 계약의 <span class="mono">emit</span>은 <span class="mono">LOG</span> 명령을 실행함:
+        <b class="a">Approval</b> 이벤트와 <b class="t">Transfer</b> 이벤트.</div>
+      <div class="note end">저장 공간에 쓰는 일은 로그를 남기지 않음</div>
+    </div>
+    <div class="arr"><span data-arrow="right" data-len="3.175"></span></div>
+
+    <!-- 3. 로그 -->
+    <div class="part panel">
+      <div class="h s"><span class="ico" data-medal="database" data-color="count" data-size="4.3"></span>로그</div>
+      <div class="log a mono">Approval(owner, spender, value)</div>
+      <div class="log t mono">Transfer(from, to, value)</div>
+      <div class="note end">영원히 남음; 어떤 전체 노드나 색인 제공자도 다시 계산할 수 있음</div>
+    </div>
+    <div class="arr"><span data-arrow="right" data-len="3.175"></span></div>
+
+    <!-- 4. 이 연구가 읽는 것: 판 위에 -->
+    <div class="part panel soft">
+      <div class="h s">이 연구가 읽는 것</div>
+      <div class="keep"><span data-icon="check" data-color="contract" data-size="4"></span>
+        <span><span class="pair"><i class="dot"></i><i class="tiny"></i><i class="dot"></i></span>두 끝이 모두 계약: <b>계약 그래프의 화살표</b></span></div>
+      <div class="keep"><span data-icon="cross" data-color="user" data-size="4"></span>
+        <span><span class="pair"><i class="dot u"></i><i class="tiny"></i><i class="dot"></i></span>한 끝이 사용자 계정: <b>화살표가 아님</b>; 코호트 규칙에서, 중요도로서, 그리고 라벨에서만 셈</span></div>
+    </div>
+  </div>
+</div>
+<script>
+// EIP-7702 계정은 코드에 일을 맡기는 EOA다: EOA의 열쇠를 그 원의 열린 꼴에 그린다(두 가는 고리 안의 흰 원, 열쇠는 회색)
+(function () {
+  const c = Fig.C.user, s = document.getElementById("open-key");
+  s.outerHTML = `<svg width="4.8mm" height="4.8mm" viewBox="0 0 16 16" style="flex:none">` +
+    `<circle cx="8" cy="8" r="7.55" fill="none" stroke="${c}" stroke-width="0.5"/>` +
+    `<circle cx="8" cy="8" r="6.1" fill="#fff" stroke="${c}" stroke-width="0.5"/>` +
+    `<g transform="translate(3.74 3.74) scale(0.71)">${Fig.ICONS.key(c)}</g></svg>`;
+})();
+</script>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">(SVG 안에서는 <tspan>)로 감싸 자간을 0으로 둔다. 그림을 그린 뒤,
+// fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에 돈다. 한글만 있는 SVG 글자는 Fig.text가 자간 때문에 옮긴 x도 되돌린다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const only = new RegExp(`^[${H}\\s]+$`), fig = document.querySelector(".fig"), SVG = "http://www.w3.org/2000/svg";
+  for (const t of fig.querySelectorAll("svg text")) {
+    if (!only.test(t.textContent) || t.querySelector("tspan")) continue;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && a === "middle") t.setAttribute("x", (+t.getAttribute("x") - sp / 2).toFixed(3));
+    if (sp && a === "end") t.setAttribute("x", (+t.getAttribute("x") - sp).toFixed(3));
+    t.style.letterSpacing = "0px";
+  }
+  const w = document.createTreeWalker(fig, NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (any.test(n.textContent) && n.parentElement.style.letterSpacing !== "0px") nodes.push(n);
+  for (const n of nodes) {
+    const inSvg = !!n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = inSvg ? document.createElementNS(SVG, "tspan") : document.createElement("span");
+      k.setAttribute("class", "ko"); if (inSvg) k.style.letterSpacing = "0px";
+      k.textContent = m; frag.appendChild(k); last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    n.replaceWith(frag);
+  }
+})();
+</script>
+</body>
+</html>

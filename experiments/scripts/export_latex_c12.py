@@ -678,7 +678,7 @@ def fig_discovery_curves(d: dict, name: str) -> None:
             ax.plot(100 * x[keep], np.asarray(ideal["mean"] if isinstance(ideal, dict) else ideal, dtype=float)[keep],
                     ":", color=E.PAL["ideal"], lw=1.1, label="Ideal")
         ax.axvline(10, color=E.PAL["ref"], lw=0.6, alpha=0.6)
-        ax.set_title(title, fontsize=10)
+        ax.set_title(title, fontsize=10, **E.title_kw())
         ax.set_xlabel("Contracts visited (% of the universe)")
         ax.set_xlim(0, 20)
         top = max(float(np.asarray(by[k]["mean"] if isinstance(by[k], dict) else by[k], dtype=float)[keep].max())
@@ -1708,8 +1708,10 @@ def fig_runtime_scaling(bench: dict) -> None:
     x_whole = float(len(sub)) + 0.35
     fig, ax = plt.subplots(figsize=(5.8, 3.8))
     for m, name, color, marker, dy in (("endorserank", "EndorseRank", E.PAL["er"], "o", -11), ("awp", "AWP", E.PAL["awp"], "s", 7)):
-        # Spaces inside the bars keep the slanted E clear of them (more on its right, where it leans).
-        label = f"{name} (labels: edges $|\\,E\\;|$ of its graph)"
+        # |E| is a formula, set in Palatino as the formulas of the diagrams are, and its italic E stands clear of the
+        # bars; in the fallback face (STIX sans) spaces inside the bars keep the slanted E clear of them.
+        bars = "$|E|$" if E.title_kw() else "$|\\,E\\;|$"
+        label = f"{name} (labels: edges {bars} of its graph)"
         if sub:
             t = np.array([s[m]["mean_s"] for s in sub])
             sd = np.array([s[m]["sd_s"] for s in sub])

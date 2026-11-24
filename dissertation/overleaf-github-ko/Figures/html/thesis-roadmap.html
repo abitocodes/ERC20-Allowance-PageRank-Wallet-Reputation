@@ -1,0 +1,177 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:thesis-roadmap(1장, 「연구 길잡이」)의 원본이며, Figures/thesis-roadmap.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/thesis-roadmap.html
+  영어 원본은 ../overleaf-github/Figures/html/thesis-roadmap.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 이 논문의 장들이 1장의 제목 아래에서 왼쪽에서 오른쪽으로 흐른다.
+  - 1장 서론: 문제, 목표 O1-O5, 연구 질문 RQ1-RQ5. 여기서 화살표가 아래로 2장에 이어지고, 2장에서 5장까지는 저마다
+    화살표가 다음 장으로 이어진다.
+  - 2장 앞선 연구 살펴보기와 이론의 틀: 그래프에 바탕을 둔 온체인 평판, 크롤 순서, ERC-20 허락의 뜻, 디파이에 배포된
+    평판 도구, 이론의 틀.
+  - 3장 연구 방법: 계정 종류, 토큰, 가격; 계약 그래프와 잔액 상한; 점수; 발견 순서 검증; 시간 홀드아웃, 구성개념 점검,
+    시간 재기 절차; 재현성과 윤리.
+  - 4장 구현과 실증 결과: 계약 그래프의 자료; 벤치마크(주장 C6); 같은 기간 일치도와 한 층만 걷는 두 걷기의 순위 갈라짐(C5);
+    강건성 점검; 발견 순서(C1); 한 층 걷기의 시간 홀드아웃(C2); 규칙 아래에서, 그리고 다른 모든 점수 옆에서 본 결합
+    걷기(C3, C4). 주장마다 그것이 답하는 연구 질문의 색을 띤다(표 tab:hrq-claim-map): C5와 C6은 RQ1, C1은 RQ2, C2와 C4는
+    RQ3, C3은 RQ4와 RQ5.
+  - 5장 논의: 연구 질문과 목표별 발견, 연구가 주는 뜻, 타당성을 위협하는 것, 한계.
+  - 6장 결론과 앞으로 할 일: RQ1-RQ5에 대한 답, 지식에 보탠 기여, 앞으로 할 일.
+  - 부록: 4장 아래에 있고 점선으로 4장에 매달려 있다. 계정 종류와 잔액; 발견 순서 검증의 더 많은 표; EndorseRank와 AWP를
+    나란히 놓기; 등록 분석.
+  - 오른쪽 아래: 주장 꼬리표의 범례, RQ1, RQ2, RQ3, RQ4-5.
+
+  모양: 장 하나는 카드이고, 가는 테두리 안에 제목(회색 줄 위의 명조 제목, 라틴 글자는 Palatino, 한글은 Noto Serif KR;
+  번호는 고리를 두른 짙은 회색 원 안)과 목록이 있다. 2장에서 6장까지의 카드 다섯은 너비와 높이가 같고, 1장의 카드는 그 위에
+  온 너비로 놓인다. 카드 사이의 화살표는 짧은 회색이고 머리에 홈이 있다. 1장에서 오는 화살표는 2장 카드 윗변의 가운데에
+  닿는다. 주장은 그 연구 질문 색(청록빛 하늘색, 초록, 장밋빛, 보라)의 꽉 찬 꼬리표다. 부록은 옅은 판 위에 있고, 끝에
+  점이 있는 점선으로 4장 카드에 매달려 있다. 본문의 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은
+  Noto Sans KR(보통 400, 굵게 700)이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>연구 길잡이</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong, .card .t, .card .rq, .chip b { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+@page { size: 180mm 120mm; margin: 0; }
+/* 117 px 카드 다섯과 그 사이 10 px: 625 px, 165.4 mm(카드가 같게 나오도록 온 픽셀) */
+:root { --card:117px; --gap:10px; --all:calc(5 * var(--card) + 4 * var(--gap)); }
+.fig { width:var(--all); }
+.badge { --c:var(--count); }                              /* 장: 중립, 단계의 짙은 회색 */
+/* 1장: 온 너비의 카드; 그 원은 2장의 원 위에 선다 */
+.intro.panel { padding:3px 5px; }
+.intro .h { margin:0; }
+.intro .badge, .ch > .h .badge { margin:0.5mm 1.3mm 0.5mm 0.3mm; }
+.down1 { margin:0.25mm 0 0.25mm calc(var(--card) / 2 - 1.5mm); }   /* 2장 윗변의 가운데로 */
+.row { display:grid; grid-template-columns:repeat(4, var(--card) var(--gap)) var(--card); align-items:stretch; }
+.ch.panel { padding:4px 5px 5px; }
+.ch > .h { font-size:8pt; padding-bottom:0.6mm; margin-bottom:1mm; }
+/* 다음 장으로 가는 화살표: 10 px 틈 안의 8 px, 번호 원의 높이에 */
+.nx { padding-top:2.15mm; display:flex; justify-content:center; }
+.ch ul { list-style:none; margin:0; padding:0; font-size:7.1pt; line-height:11px; color:var(--text); }
+.ch li { margin-top:2px; padding-left:7px; position:relative; }
+.ch li:first-child { margin-top:0; }
+.ch li::before { content:""; position:absolute; left:1px; top:4px; width:3px; height:3px; border-radius:50%; background:var(--count-fill); }
+/* 주장: 그 연구 질문 색의 꽉 찬 꼬리표, 그 줄만큼(11 px) 높다 */
+.ch .tag, .legend2 .tag { line-height:10px; padding:1px 3px 0; margin:-1px 0 0 3px; }
+.lead { display:block; margin-left:calc(2 * (var(--card) + var(--gap)) + var(--card) / 2 - 1.5mm); }
+.foot { display:flex; justify-content:space-between; align-items:center; gap:3mm; }
+.app { flex:0 1 111mm; font-size:7.1pt; line-height:12px; color:var(--text); padding:3px 8px; }
+.app b { margin-right:1.2mm; }
+.legend2 { display:flex; gap:1px; align-items:baseline; font-size:7.1pt; line-height:11px; color:var(--muted); white-space:nowrap; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="part panel intro">
+    <div class="h bare"><span class="badge">1</span>서론<span class="sub">문제, 목표 O1–O5, 연구 질문 RQ1–RQ5</span></div>
+  </div>
+  <div class="down1"><span data-arrow="down" data-color="count" data-len="2.4"></span></div>
+
+  <div class="row">
+    <div class="ch part panel">
+      <div class="h s"><span class="badge">2</span>앞선 연구</div>
+      <ul>
+        <li>온체인 평판</li>
+        <li>크롤 순서</li>
+        <li><span class="nb">ERC-20</span> 허락</li>
+        <li>디파이의 평판 도구</li>
+        <li>이론의 틀</li>
+      </ul>
+    </div>
+    <div class="nx"><span data-arrow="right" data-len="2.117"></span></div>
+    <div class="ch part panel">
+      <div class="h s"><span class="badge">3</span>연구 방법</div>
+      <ul>
+        <li>계정 종류, 토큰, 가격</li>
+        <li>계약 그래프, 잔액 상한</li>
+        <li>점수</li>
+        <li>발견 순서 검증</li>
+        <li>홀드아웃, 점검, 시간 재기</li>
+        <li>재현성, 윤리</li>
+      </ul>
+    </div>
+    <div class="nx"><span data-arrow="right" data-len="2.117"></span></div>
+    <div class="ch part panel">
+      <div class="h s"><span class="badge">4</span>결과</div>
+      <ul>
+        <li>계약 그래프의 자료</li>
+        <li>벤치마크<span class="tag r1">C6</span></li>
+        <li>같은 기간, <span class="nb">순위 갈라짐<span class="tag r1">C5</span></span></li>
+        <li>강건성 점검</li>
+        <li>발견 순서<span class="tag r2">C1</span></li>
+        <li>시간 홀드아웃<span class="tag r3">C2</span></li>
+        <li>결합 걷기<span class="tag r45">C3</span><span class="tag r3">C4</span></li>
+      </ul>
+    </div>
+    <div class="nx"><span data-arrow="right" data-len="2.117"></span></div>
+    <div class="ch part panel">
+      <div class="h s"><span class="badge">5</span>논의</div>
+      <ul>
+        <li>질문과 목표별 발견</li>
+        <li>연구가 주는 뜻</li>
+        <li>타당성을 위협하는 것</li>
+        <li>한계</li>
+      </ul>
+    </div>
+    <div class="nx"><span data-arrow="right" data-len="2.117"></span></div>
+    <div class="ch part panel">
+      <div class="h s"><span class="badge">6</span>결론</div>
+      <ul>
+        <li>RQ1–RQ5에 대한 답</li>
+        <li>지식에 보탠 기여</li>
+        <li>앞으로 할 일</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 부록은 4장에 매달린다: 끝에 점이 있는 점선 -->
+  <svg class="lead" viewBox="0 0 3 3.3" width="3mm" height="3.3mm">
+    <path d="M1.5,0.6 V2.4" fill="none" style="stroke:var(--user)" stroke-width="0.34" stroke-linecap="round" stroke-dasharray="0 0.9"/>
+    <circle cx="1.5" cy="2.75" r="0.55" style="fill:var(--user)"/>
+  </svg>
+  <div class="foot">
+    <div class="app panel soft"><b>부록</b>계정 종류와 잔액 · 발견 순서 검증의 더 많은 표 · EndorseRank와 AWP 나란히 놓기 · 등록 분석</div>
+    <div class="legend2">질문별 주장:<span class="tag r1">RQ1</span><span class="tag r2">RQ2</span><span class="tag r3">RQ3</span><span class="tag r45">RQ4–5</span></div>
+  </div>
+</div>
+
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">로 감싸 자간을 0으로 둔다. fig.js가 DOMContentLoaded에서 줄 높이를
+// 재기 전에, 문서를 읽는 동안 돈다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const w = document.createTreeWalker(document.querySelector(".fig"), NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (!n.parentElement.closest("svg") && any.test(n.textContent)) nodes.push(n);
+  for (const n of nodes) {
+    const s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = document.createElement("span"); k.className = "ko"; k.textContent = m; frag.appendChild(k);
+      last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    // 플렉스 상자 안에서는 조각마다 따로 항목이 되어 끝의 빈칸을 잃고 상자의 틈이 끼므로, 조각을 한 span에 모은다
+    if (/flex/.test(getComputedStyle(n.parentElement).display)) { const one = document.createElement("span"); one.appendChild(frag); n.replaceWith(one); }
+    else n.replaceWith(frag);
+  }
+})();
+</script>
+</body>
+</html>

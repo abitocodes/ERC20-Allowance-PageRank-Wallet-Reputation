@@ -1,0 +1,174 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:study-timeline(1장, 「시간 홀드아웃」)의 원본이며, Figures/study-timeline.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/study-timeline.html
+  영어 원본은 ../overleaf-github/Figures/html/study-timeline.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 2025년 4월부터 2026년 9월까지의 달 축 위에 두 동결, t1 = 2026년 3월 31일과 T_obs = 2026년 6월 30일
+  (세로 점선)이 있다. 시간선의 줄:
+  - 등록 분석(회색): 2023년 10월 1일부터의 모든 사건으로 만든 점수. 축보다 앞에서 시작한다(왼쪽 끝의 끊음 표시).
+  - t1의 점수(청록): 12개월 점수 기간, 2025년 4월 1일부터 2026년 3월 31일까지.
+  - T_obs의 점수(청록): 12개월 점수 기간, 2025년 7월 1일부터 2026년 6월 30일까지.
+  - 라벨(장밋빛): W0, 2026년 4월부터 6월까지, t1 뒤; W1, 2026년 7월부터 9월까지, T_obs 뒤.
+  시간선 아래에는 각 동결을 어디에 쓰는지와 그 연구 질문이 있다.
+  - t1에서: 발견 순서 검증(RQ2); W0 홀드아웃(RQ3)과 규칙 A의 주된 부분(RQ4).
+  - T_obs에서: 같은 기간 점검(RQ1)과 규칙 A의 두 번째 부분(RQ4); 발견 순서 검증의 판정을 내리는 실행(RQ2);
+    W1 홀드아웃(RQ3)과 규칙 B의 두 기준 F1, F2(RQ5).
+
+  모양(STYLE.md, 「Calendars and periods」): 달 숫자는 가는 줄 위의 회색이고 해는 굵다. 기간은 끝이 네모난 납작한 막대이고
+  그 이름이 안에 있다(계약 그래프의 점수 기간은 계약의 옅은 청록, 라벨 기간은 RQ3의 옅은 빛에 그 장밋빛 테두리, 등록 분석은
+  중립 회색이고 왼쪽 끝이 끊음 표시 뒤로 열려 있다). 동결은 검은빛 세로 점선이고 그 발치에 굵은 이름이 있으며(t1은 선 왼쪽, T_obs는 선 아래 가운데), 변수 t와 T는
+  Palatino 기울임꼴이다. 동결의 쓰임 하나는 가는 테두리를 두른 흰 상자이고, 연구 질문은 그 색의 꽉 찬 꼬리표다. 다섯 상자는
+  크기가 같고, 달력 아래 두 열에 달력의 첫 달 줄에서 마지막 달 줄까지 선다. 본문의 라틴 글자와 숫자는 Bahnschrift(반축소,
+  영어 그림의 자간), 한글은 Noto Sans KR(보통 400, 굵게 700)이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>동결, 점수 기간, 라벨 기간</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong, .card .t, .card .rq, .chip b { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+@page { size: 180mm 110mm; margin: 0; }
+/* 동결의 쓰임: 크기가 같은 상자 다섯이 두 열에 서고, 합쳐서 달력만큼 넓다(첫 달 줄 32 mm에서 마지막 달 줄 163.4 mm까지).
+   길이는 온 픽셀이다: 상자는 246 px 너비에 20 px 높이, 상자 사이는 가로세로 5 px; 꼬리표는 24 x 14 px; 줄 높이 14 px가
+   꼬리표와 글의 기준선을 상자 위에서 13 px 아래에 둔다. */
+.uses { display:grid; grid-template-columns:30mm 497px; row-gap:5px; column-gap:2mm; margin-top:0.9mm; align-items:center; }
+.uses .at { font-weight:700; font-size:7.6pt; color:var(--ink); display:flex; align-items:center; gap:1.4mm; white-space:nowrap; }
+.uses .at svg { flex:none; display:block; }
+.uses .list { display:grid; grid-template-columns:246px 246px; gap:5px; }
+.use { display:flex; align-items:center; gap:4px; height:20px; line-height:14px; background:var(--paper); border-radius:0.4mm;
+  box-shadow:inset 0 0 0 0.25mm var(--hair); padding:0 0 0 3px; font-size:7.1pt; white-space:nowrap; }
+.use .tag { width:24px; height:14px; line-height:14px; padding:0; text-align:center; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <svg id="tl" viewBox="0 0 165 37.3" width="165mm" height="37.3mm" style="display:block"></svg>
+  <div class="uses">
+    <div class="at"><svg width="0.6mm" height="4.2mm" viewBox="0 0 0.6 4.2"><path d="M0.3,0 V4.2" style="stroke:var(--ink)" stroke-width="0.4" stroke-dasharray="0.9 0.6"/></svg><span><i class="v">t</i><sub>1</sub>에서</span></div>
+    <div class="list">
+      <span class="use"><span class="tag r2">RQ2</span>발견 순서 검증</span>
+      <span class="use"><span class="tag r3">RQ3</span><span class="tag r45">RQ4</span>W0 홀드아웃; 규칙 A, 주된 부분</span>
+    </div>
+    <div class="at"><svg width="0.6mm" height="4.2mm" viewBox="0 0 0.6 4.2"><path d="M0.3,0 V4.2" style="stroke:var(--ink)" stroke-width="0.4" stroke-dasharray="0.9 0.6"/></svg><span><i class="v">T</i><sub>obs</sub>에서</span></div>
+    <div class="list">
+      <span class="use"><span class="tag r1">RQ1</span><span class="tag r45">RQ4</span>같은 기간 점검; 규칙 A, 두 번째 부분</span>
+      <span class="use"><span class="tag r2">RQ2</span>발견 순서 검증, 판정을 내리는 실행</span>
+      <span class="use"><span class="tag r3">RQ3</span><span class="tag r45">RQ5</span>W1 홀드아웃; 규칙 B, 기준 F1과 F2</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">로 감싸 자간을 0으로 둔다. fig.js가 DOMContentLoaded에서 줄 높이를
+// 재기 전에, 문서를 읽는 동안 돈다. SVG 안의 글자는 아래 koSvg가 따로 다룬다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const w = document.createTreeWalker(document.querySelector(".fig"), NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (!n.parentElement.closest("svg") && any.test(n.textContent)) nodes.push(n);
+  for (const n of nodes) {
+    const s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = document.createElement("span"); k.className = "ko"; k.textContent = m; frag.appendChild(k);
+      last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    // 플렉스 상자 안에서는 조각마다 따로 항목이 되어 끝의 빈칸을 잃고 상자의 틈이 끼므로, 조각을 한 span에 모은다
+    if (/flex/.test(getComputedStyle(n.parentElement).display)) { const one = document.createElement("span"); one.appendChild(frag); n.replaceWith(one); }
+    else n.replaceWith(frag);
+  }
+})();
+
+// SVG 안의 한글: 글꼴 목록의 끝에 Noto Sans KR을 더하고, 한글 글자(와 그 사이의 빈칸)를 자간 0의 <tspan>으로 감싼다.
+// 라틴 글자와 숫자는 Fig.text의 자간 그대로다.
+function koSvg(svg) {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  for (const t of svg.querySelectorAll("text")) {
+    if (!any.test(t.textContent)) continue;
+    const f = t.getAttribute("font-family") || "";
+    if (!/Noto/.test(f)) t.setAttribute("font-family", f.replace(/,\s*sans-serif$/, ", Noto Sans KR, sans-serif"));
+    const w = document.createTreeWalker(t, NodeFilter.SHOW_TEXT), nodes = [];
+    for (let n; (n = w.nextNode());) if (any.test(n.textContent)) nodes.push(n);
+    for (const n of nodes) {
+      const s = n.textContent, frag = document.createDocumentFragment();
+      let last = 0;
+      s.replace(run, (m, at) => {
+        if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+        const k = document.createElementNS("http://www.w3.org/2000/svg", "tspan"); k.style.letterSpacing = "0"; k.textContent = m; frag.appendChild(k);
+        last = at + m.length;
+      });
+      if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+      n.replaceWith(frag);
+    }
+  }
+}
+
+(function () {
+  const svg = document.getElementById("tl"), C = Fig.C;
+  const X0 = 32, M = 7.3, mx = (k) => X0 + k * M;           // 2025년 4월 1일부터 k번째 달 (k = 0..18)
+  const el = (t, a) => Fig.el(svg, t, a), txt = (x, y, s, o) => Fig.text(svg, x, y, s, o);
+  const MONTHS = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  // 해와 달: 이 그림들의 달력(가는 줄 위의 회색 달 숫자, 굵은 해, 회색 줄인 축)
+  el("path", { d: `M${mx(9)},0.4 V7.8`, stroke: C.rule, "stroke-width": 0.3 });
+  txt((mx(0) + mx(9)) / 2, 2.6, "2025년", { size: 2.6, weight: 700, anchor: "middle", fill: C.ink });
+  txt((mx(9) + mx(18)) / 2, 2.6, "2026년", { size: 2.6, weight: 700, anchor: "middle", fill: C.ink });
+  for (let k = 0; k < 18; k++) {
+    txt(mx(k) + M / 2, 6.6, String(MONTHS[k]), { size: 2.5, anchor: "middle", fill: C.muted });
+    el("path", { d: `M${mx(k)},8 V32.2`, stroke: C.plate2, "stroke-width": 0.2 });
+  }
+  el("path", { d: `M${mx(18)},8 V32.2`, stroke: C.plate2, "stroke-width": 0.2 });
+  el("path", { d: `M${mx(0)},8 H${mx(18)}`, stroke: C.rule, "stroke-width": 0.3 });
+
+  // 동결(막대보다 먼저 그려 막대가 덮는다): 검은빛 점선, 그 발치에 굵은 이름
+  for (const [k, name, date, anchor] of [[12, "$t$_{1}", " = 2026년 3월 31일", "end"], [15, "$T$_{obs}", " = 2026년 6월 30일", "middle"]]) {
+    el("path", { d: `M${mx(k)},8.6 V33.6`, stroke: C.ink, "stroke-width": 0.4, "stroke-dasharray": "0.9 0.6" });
+    // T_obs의 이름은 그 선 아래 가운데에 선다: 선 오른쪽에 두면 한글 날짜가 그림 오른쪽 끝을 넘는다
+    const t = Fig.rich(svg, mx(k) + (anchor === "end" ? -0.8 : anchor === "start" ? 0.8 : 0), 36.4, name + date, { size: 2.6, weight: 700, anchor, fill: C.ink });
+    t.lastChild.setAttribute("font-weight", 400);            // 날짜는 보통 굵기
+  }
+  // 줄: 이름, 막대
+  const row = (y, label) => Fig.rich(svg, 0.4, y + 0.9, label, { size: 2.6, weight: 700, fill: C.ink });
+  // 기간: 끝이 네모난 납작한 막대, 그 안의 이름
+  const bar = (k0, k1, y, h, fill, label, ink, line) => {
+    el("rect", { x: mx(k0), y: y - h / 2, width: (k1 - k0) * M, height: h, style: `fill:${fill}` + (line ? `;stroke:${line}` : ""), "stroke-width": line ? 0.3 : null });
+    if (label) txt((mx(k0) + mx(k1)) / 2, y + 0.9, label, { size: 2.5, anchor: "middle", fill: ink, weight: 600 });
+  };
+
+  // 네 막대는 2 mm씩 떨어지고, 첫 막대는 축에서 2 mm 아래에 있다: 10에서 13.2(등록 분석, 3.2 mm 높이), 그다음
+  // 15.2, 21.2, 27.2(각 4 mm 높이).
+  // 등록 분석: 중립 회색, 축보다 앞에서 시작해서 왼쪽 끝이 열려 있다(끊음 표시)
+  row(11.6, "등록 분석");
+  el("rect", { x: mx(0), y: 10, width: 15 * M, height: 3.2, fill: C.countBg });
+  el("path", { d: `M${mx(0)},10 H${mx(15)} V13.2 H${mx(0)}`, fill: "none", stroke: C.count, "stroke-width": 0.25 });
+  txt((mx(0) + mx(15)) / 2, 12.5, "2023년 10월 1일부터의 모든 사건", { size: 2.5, anchor: "middle", fill: C.countInk, weight: 600 });
+  el("path", { d: `M${mx(0) - 1.75},13.6 l1.05,-4 M${mx(0) - 0.85},13.6 l1.05,-4`, fill: "none", stroke: C.count, "stroke-width": 0.25 });
+
+  row(17.2, "$t$_{1}의 점수");
+  bar(0, 12, 17.2, 4, C.contractFill, "12개월: 2025년 4월 1일부터 2026년 3월 31일까지", C.contractInk);
+  row(23.2, "$T$_{obs}의 점수");
+  bar(3, 15, 23.2, 4, C.contractFill, "12개월: 2025년 7월 1일부터 2026년 6월 30일까지", C.contractInk);
+  row(29.2, "라벨");
+  bar(12, 15, 29.2, 4, "var(--rq3-bg)", "W0", C.rq3, C.rq3);
+  bar(15, 18, 29.2, 4, "var(--rq3-bg)", "W1", C.rq3, C.rq3);
+  koSvg(svg);
+})();
+</script>
+</body>
+</html>

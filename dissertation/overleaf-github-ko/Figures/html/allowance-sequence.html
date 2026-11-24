@@ -1,0 +1,143 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:allowance-sequence(2장 「ERC-20 토큰과 허락의 한살이」 절)의 원본이며, Figures/allowance-sequence.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/allowance-sequence.html
+  영어 원본은 ../overleaf-github/Figures/html/allowance-sequence.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 세 길(레인)의 순서도. 주인(사용자 계정이나 계약), ERC-20 토큰 계약, 스펜더가 길이고, 오른쪽에는 단계마다
+  그 뒤에 효력이 있는 허락이 있다.
+  1. 주인이 토큰에 approve(spender, a)를 부른다. 토큰은 Approval을 내보내고 허락 a를 저장한다.
+  2. 1단계 대신(점선; "또는"이라고 적은 꺾쇠가 두 단계를 묶는다): 스펜더나 중계자가, 주인이 오프체인에서 만든 서명과 함께
+     permit(owner, spender, a, sig)를 보낸다(EIP-2612). 토큰은 Approval을 내보내고 허락 a를 저장한다.
+  3. 스펜더가 v <= a로 transferFrom(owner, to, v)를 부른다. 토큰은 토큰 v개를 옮기고(Transfer 이벤트) 허락은 a - v가
+     된다(어떤 토큰은 남은 양으로 Approval도 내보낸다. 본문의 절이 그렇게 적는다).
+  4. 주인이 approve(spender, 0)을 불러 허락을 거둔다(긴 점선). 토큰은 Approval을 내보내고 허락은 0이 된다.
+  금색 화살표는 허락을 정하고, 파란 화살표는 토큰을 옮긴다. 오른쪽 막대는 단계마다 그 뒤에 효력이 있는 허락이다.
+  1단계와 2단계 뒤에는 가득(a), 3단계 뒤에는 일부(a - v), 4단계 뒤에는 없음(0).
+
+  모양: 길의 머리는 색을 채운 납작한 네모다(회색: 사용자 계정일 수도 계약일 수도 있는 주인; 짙은 청동색: 토큰 계약;
+  청록: 스펜더). 이름은 흰색이고, 생명선은 가는 선이다. 메시지는 보내는 쪽 생명선 위의 점에서 나가는 가는 화살표로,
+  허락을 정하면 금색, 토큰을 옮기면 군청색이다. approve와 transferFrom은 실선, permit은 둥근 점, 허락 거두기는 긴 점선이다.
+  호출은 화살표 위에 Consolas로 그 화살표 색의 짙은 잉크로 있고, 설명은 그 아래에 회색으로 있으며, 체인의 식별자는 거기서도
+  Consolas다. 허락 막대는 정해 둔 허락의 테두리 안에 금색 띠를 납작하게 채운 것이다. 라틴 글자와 숫자는 Bahnschrift(반축소,
+  영어 그림의 자간), 한글은 Noto Sans KR(보통 400, 굵게 700)이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>ERC-20 허락의 한살이</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+/* SVG 글자: CSS가 fig.js의 font-family 속성보다 앞서므로, 한글 글꼴을 여기서 더한다 */
+svg text.sans { font-family:Bahnschrift, "Noto Sans KR", sans-serif; }
+svg text.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+</style>
+</head>
+<body>
+<div class="fig">
+  <svg id="s" viewBox="0 0 165 61.2" width="165mm" height="61.2mm"></svg>
+</div>
+<script>
+(function () {
+  const s = document.getElementById("s"), C = Fig.C;
+  // 길의 가운데(mm): 세 길은 50 mm씩 떨어져 있다. 줄: 메시지마다 호출, 화살표, 설명 한두 줄이고, 다음 줄은 앞 줄의 마지막
+  // 설명 줄에서 늘 같은 거리(3 mm)를 두고 온다. 설명이 한 줄이면 10.4 mm, 두 줄이면 13.2 mm 아래다.
+  const X = { owner: 19, token: 69, spender: 119 };
+  const top = 0.6, head = 9.4, rows = [18.2, 28.6, 41.8, 55], END = 60.7;
+  const KIND = { allow: { color: C.allow, ink: C.allowInk }, transfer: { color: C.transfer, ink: C.transferInk } };
+
+  // 길의 머리: 색을 채운 납작한 네모, 이름은 흰색 굵게, 둘째 줄도 흰색; 생명선은 가는 선
+  const lane = (x, w, fill, title, sub) => {
+    Fig.el(s, "path", { d: `M${x},${top + head} V${END}`, stroke: C.hair, "stroke-width": 0.25 });
+    Fig.el(s, "rect", { x: x - w / 2, y: top, width: w, height: head, rx: 0.5, fill });
+    Fig.text(s, x, top + 4.2, title, { size: 2.9, weight: 700, fill: "#fff", anchor: "middle" });
+    Fig.text(s, x, top + 7.7, sub, { size: 2.5, fill: "#fff", anchor: "middle" });
+  };
+  lane(X.owner, 34, C.count, "주인", "사용자 계정 또는 계약");
+  lane(X.token, 34, C.allowInk, "ERC-20 토큰", "토큰 계약");
+  lane(X.spender, 34, C.contract, "스펜더", "예: 라우터나 금고");
+
+  // 메시지 하나: 보내는 쪽 생명선 위의 점에서 나가는 화살표, 그 위의 호출, 그 아래의 설명 줄들.
+  // line: "solid", "dotted"(둥근 점: 다른 길인 permit), "dashed"(긴 점선: 허락 거두기).
+  // 설명에서 `...`는 체인의 식별자나 호출의 인자이고 Consolas로 쓴다.
+  const msg = (from, to, y, kind, line, call, ...notes) => {
+    const x1 = X[from], x2 = X[to], dir = Math.sign(x2 - x1), k = KIND[kind];
+    const a = { d: `M${x1 + dir * 1.5},${y} H${x2 - dir * 1.6}`, fill: "none", stroke: k.color, "stroke-width": 0.55,
+      "marker-end": Fig.marker(s, k.color) };
+    if (line === "dotted") { a["stroke-dasharray"] = "0 1.1"; a["stroke-linecap"] = "round"; }
+    if (line === "dashed") a["stroke-dasharray"] = "2 1";
+    Fig.el(s, "path", a);
+    Fig.el(s, "circle", { cx: x1, cy: y, r: 0.62, fill: k.color });
+    const mid = (x1 + x2) / 2;
+    Fig.text(s, mid, y - 1.5, call, { size: 2.6, weight: 700, fill: k.ink, anchor: "middle", mono: true });
+    notes.forEach((n, i) => Fig.rich(s, mid, y + 3.4 + i * 2.85, n, { size: 2.5, fill: C.muted, anchor: "middle" }));
+  };
+  msg("owner", "token", rows[0], "allow", "solid", "approve(spender, a)", "`Approval`을 내보내고 허락 `a`를 저장");
+  msg("spender", "token", rows[1], "allow", "dotted", "permit(owner, spender, a, sig)",
+      "주인이 오프체인에서 서명하고, 스펜더나", "중계자가 보냄; `Approval`을 내보냄");
+  msg("spender", "token", rows[2], "transfer", "solid", "transferFrom(owner, to, v ≤ a)",
+      "토큰 `v`개를 옮기고 `Transfer`를 내보냄;", "허락은 `a − v`로 줄어듦");
+  msg("owner", "token", rows[3], "allow", "dashed", "approve(spender, 0)", "거두기: `Approval`을 내보내고 허락은 0");
+
+  // approve와 permit을 묶는 "또는" 꺾쇠
+  Fig.el(s, "path", { d: `M3.6,${rows[0] - 1} H2.4 V${rows[1] + 1} H3.6`, stroke: C.count, "stroke-width": 0.35, fill: "none", "stroke-linejoin": "round" });
+  const cy = (rows[0] + rows[1]) / 2;
+  const e = Fig.text(s, 1.1, cy + 0.9, "또는", { size: 2.5, fill: C.muted, anchor: "middle" });
+  e.setAttribute("transform", `rotate(-90 1.1 ${cy})`);
+
+  // 단계마다 그 뒤에 효력이 있는 허락: 정해 둔 허락의 테두리 안에 금색 띠를 납작하게 채운다
+  const mx = 139.5, mw = 15.5, bh = 3.8;
+  Fig.text(s, mx, top + 4.2, "효력 있는 허락", { size: 2.9, weight: 700, fill: C.allowInk });
+  Fig.text(s, mx, top + 7.7, "각 단계 뒤", { size: 2.5, fill: C.muted });
+  const bar = (y, frac, label) => {
+    Fig.el(s, "rect", { x: mx, y: y - bh / 2, width: mw, height: bh, fill: C.allowBg });
+    if (frac > 0) Fig.el(s, "rect", { x: mx, y: y - bh / 2, width: mw * frac, height: bh, fill: C.allowBand });
+    Fig.el(s, "rect", { x: mx, y: y - bh / 2, width: mw, height: bh, fill: "none", stroke: C.allow, "stroke-width": 0.25, "stroke-linejoin": "round" });
+    Fig.text(s, mx + mw + 1.6, y + 0.95, label, { size: 2.7, weight: 700, fill: C.allowInk, mono: true });
+  };
+  bar(rows[0], 1, "a"); bar(rows[1], 1, "a"); bar(rows[2], 0.58, "a − v"); bar(rows[3], 0, "0");
+})();
+</script>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">(SVG 안에서는 <tspan>)로 감싸 자간을 0으로 둔다. 그림을 그린 뒤,
+// fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에 돈다. 한글만 있는 SVG 글자는 Fig.text가 자간 때문에 옮긴 x도 되돌린다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const only = new RegExp(`^[${H}\\s]+$`), fig = document.querySelector(".fig"), SVG = "http://www.w3.org/2000/svg";
+  for (const t of fig.querySelectorAll("svg text")) {
+    if (!only.test(t.textContent) || t.querySelector("tspan")) continue;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && a === "middle") t.setAttribute("x", (+t.getAttribute("x") - sp / 2).toFixed(3));
+    if (sp && a === "end") t.setAttribute("x", (+t.getAttribute("x") - sp).toFixed(3));
+    t.style.letterSpacing = "0px";
+  }
+  const w = document.createTreeWalker(fig, NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (any.test(n.textContent) && n.parentElement.style.letterSpacing !== "0px") nodes.push(n);
+  for (const n of nodes) {
+    const inSvg = !!n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = inSvg ? document.createElementNS(SVG, "tspan") : document.createElement("span");
+      k.setAttribute("class", "ko"); if (inSvg) k.style.letterSpacing = "0px";
+      k.textContent = m; frag.appendChild(k); last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    n.replaceWith(frag);
+  }
+})();
+</script>
+</body>
+</html>

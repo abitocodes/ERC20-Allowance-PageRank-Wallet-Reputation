@@ -1,0 +1,179 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:depth-one(5장, 「깊이가 1인 스펜더: 걷기가 그냥 센 수에 보태는 것」)의 원본이며,
+  Figures/depth-one.pdf를 만든다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/depth-one.html
+  영어 원본은 ../overleaf-github/Figures/html/depth-one.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 작은 허락 그래프(금색 화살표; 무게는 자료가 아닌 예시) 위의 식 eq:closed-form의 닫힌 꼴.
+  왼쪽, 깊이가 1인 스펜더 v: 그 주인 u1과 u2는 허락을 받지 않으므로, 저마다 들어오는 화살표가 없는 점의 점수 c를 가진다
+  (각각 옆에 c가 든 원). u1은 v만 허락하므로 그 걷기가 모두 v로 간다(P = 1). u2는 v와 다른 두 스펜더 w1, w2를 같은
+  무게로 허락하므로, 셋에게 3분의 1씩 간다(P = w(u,v)/o(u) = 1/3). 그러면 delta(v) = u에 대한 P_uv의 합 = 1 + 1/3이고,
+  이것은 주인 정규화 입강도다. r_v = c (1 + d delta(v)): 걷기는 v를 허락한 계약의 수에 무게를 다시 달 뿐이다.
+  오른쪽, 더 깊은 스펜더 x: 그 주인 u3이 u4에게서 허락을 받으므로, u3의 점수는 c가 아니고 x의 점수는 닫힌 꼴에서 벗어난다.
+  한 걸음보다 긴 퍼뜨림이 있다. 허락을 받지 않는 u4에는 c가 든 원이 있다.
+  아래: 허락 화살표(이동 확률 P_uv를 붙임)와 c가 든 원의 범례.
+
+  모양: 두 경우는 회색 줄 위의 명조 제목(라틴 글자는 Palatino, 한글은 Noto Serif KR) 아래의 부분이고, 번호는 고리를 두른
+  원 안에 있다(금색: 허락 그래프의 경우, 회색: 다른 경우). 둘레에 상자는 없다. 계약은 얇은 틀 안의 납작한 청록 네모이고,
+  그 이름은 안에 흰 Palatino 기울임꼴로, 번호는 아래 첨자로 있다. 허락 화살표는 모래빛 금색의 꽉 찬 띠이고, 그 확률이 옆에
+  청동빛 Palatino로 있다. u2의 세 화살표는 서로 떨어져 나간다. 점수 c는 고리 안의 작은 청록 원에 흰 기울임꼴 c다. 닫힌
+  꼴은 옅은 판 위에 Palatino로 있다. 본문의 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans
+  KR(보통 400, 굵게 700)이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>깊이가 1인 스펜더</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong, .card .t, .card .rq, .chip b { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+.row { display:grid; grid-template-columns:100mm minmax(0, 1fr); column-gap:5mm; align-items:start; }
+.part svg { display:block; }
+.formula { margin-top:1.8mm; padding:1.5mm 2.2mm 1.6mm; display:flex; flex-wrap:wrap; align-items:baseline; gap:0.9mm 5mm; }
+.formula .m.eq { font-size:9.2pt; color:var(--ink); }
+.formula .expl { flex-basis:100%; font-size:7.1pt; color:var(--muted); }
+.note { font-size:7.2pt; line-height:1.27; color:var(--muted); margin-top:0.6mm; }   /* 7.2 pt: 아래 첨자가 5.6 pt 위에 남는다 */
+.legend { margin-top:1.5mm; align-items:center; }
+.legend .tx, .legend .m { display:inline; }           /* 항목의 글은 한 줄의 글이고, 그 식은 그 일부다 */
+.legend svg.cb { display:block; flex:none; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="row">
+    <div class="part">
+      <div class="h"><span class="badge allow">1</span>깊이가 1인 스펜더<span class="sub">주인들이 허락을 받지 않음</span></div>
+      <svg id="g1" viewBox="0 0 100 33" width="100mm" height="33mm"></svg>
+      <div class="formula panel soft">
+        <span class="m eq"><i>δ</i>(<i>v</i>) = Σ<sub><i>u</i></sub> <i>P</i><sub><i>uv</i></sub> = 1 + ⅓</span>
+        <span class="m eq"><i>r</i><sub><i>v</i></sub> = <i>c</i> (1 + <i>d</i> <i>δ</i>(<i>v</i>))</span>
+        <span class="expl">EndorseRank: <span class="m"><i>P</i><sub><i>uv</i></sub> = <i>w</i>(<i>u</i>,<i>v</i>) / <i>o</i>(<i>u</i>)</span>, 주인의 보증을 그 스펜더들에게 나눔</span>
+      </div>
+    </div>
+    <div class="part">
+      <div class="h"><span class="badge" style="--c:var(--count)">2</span>더 깊은 스펜더</div>
+      <svg id="g2" viewBox="0 0 60 28" width="60mm" height="28mm"></svg>
+      <div class="note">주인 <i class="v">u</i><sub>3</sub>이 허락을 받으므로 <i class="v">u</i><sub>3</sub>의 점수는 <i class="v">c</i>가 아니고,
+        <i class="v">x</i>의 점수는 닫힌 꼴에서 벗어남: 한 걸음보다 긴 퍼뜨림.</div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><svg width="7mm" height="3mm" viewBox="0 0 7 3"><path d="M0.2,1.5 H5.2" style="stroke:var(--allow-band)" stroke-width="1.05"/><path d="M3.9,0.35 L6.95,1.5 L3.9,2.65 L4.65,1.5z" style="fill:var(--allow-band)"/></svg><span class="tx">허락 화살표, 그 이동 확률 <span class="m"><i>P</i><sub><i>uv</i></sub></span>를 붙임(예시 무게)</span></span>
+    <span><svg id="key-c" class="cb" width="4.8mm" height="4.8mm" viewBox="0 0 4.8 4.8"></svg><span class="tx">들어오는 화살표가 없는 점의 점수</span></span>
+  </div>
+</div>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">로 감싸 자간을 0으로 둔다. fig.js가 DOMContentLoaded에서 줄 높이를
+// 재기 전에, 문서를 읽는 동안 돈다. SVG 안의 글자는 아래 koSvg가 따로 다룬다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const w = document.createTreeWalker(document.querySelector(".fig"), NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (!n.parentElement.closest("svg") && any.test(n.textContent)) nodes.push(n);
+  for (const n of nodes) {
+    const s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = document.createElement("span"); k.className = "ko"; k.textContent = m; frag.appendChild(k);
+      last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    // 플렉스 상자 안에서는 조각마다 따로 항목이 되어 끝의 빈칸을 잃고 상자의 틈이 끼므로, 조각을 한 span에 모은다
+    if (/flex/.test(getComputedStyle(n.parentElement).display)) { const one = document.createElement("span"); one.appendChild(frag); n.replaceWith(one); }
+    else n.replaceWith(frag);
+  }
+})();
+
+// SVG 안의 한글: 글꼴 목록의 끝에 Noto Sans KR을 더하고, 한글 글자(와 그 사이의 빈칸)를 자간 0의 <tspan>으로 감싼다.
+// 라틴 글자와 숫자는 Fig.text의 자간 그대로다.
+function koSvg(svg) {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  for (const t of svg.querySelectorAll("text")) {
+    if (!any.test(t.textContent)) continue;
+    const f = t.getAttribute("font-family") || "";
+    if (!/Noto/.test(f)) t.setAttribute("font-family", f.replace(/,\s*sans-serif$/, ", Noto Sans KR, sans-serif"));
+    const w = document.createTreeWalker(t, NodeFilter.SHOW_TEXT), nodes = [];
+    for (let n; (n = w.nextNode());) if (any.test(n.textContent)) nodes.push(n);
+    for (const n of nodes) {
+      const s = n.textContent, frag = document.createDocumentFragment();
+      let last = 0;
+      s.replace(run, (m, at) => {
+        if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+        const k = document.createElementNS("http://www.w3.org/2000/svg", "tspan"); k.style.letterSpacing = "0"; k.textContent = m; frag.appendChild(k);
+        last = at + m.length;
+      });
+      if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+      n.replaceWith(frag);
+    }
+  }
+}
+
+(function () {
+  const C = Fig.C, h = 3.2, ring = 0.7, hr = h + ring;        // 계약과 그 틀의 반 크기
+  const BAND = { color: C.allowBand, width: 1.05, headSize: 3.1, gap: 0.6 };   // 허락 화살표: 금색의 꽉 찬 띠
+
+  // 이름이 안에 있는 계약: 기울임 글자 하나와, u1에서 u4, w1, w2는 아래 첨자인 번호
+  const named = (svg, [x, y], name, half = h) => {
+    Fig.node(svg, x, y, { half, ring: true, ringGap: ring });
+    Fig.rich(svg, x, y + 1.0, name, { size: 3.4, anchor: "middle", fill: "#fff" });
+  };
+  // 들어오는 화살표가 없는 점의 점수 c: 고리 안의 작은 원에 흰 기울임꼴 c
+  const tag = (svg, x, y) => {
+    Fig.el(svg, "circle", { cx: x, cy: y, r: 2.3, fill: C.paper, stroke: C.contract, "stroke-width": 0.2 });
+    Fig.el(svg, "circle", { cx: x, cy: y, r: 1.72, fill: C.contract });
+    Fig.text(svg, x, y + 0.8, "c", { size: 3.0, italic: true, fill: "#fff", anchor: "middle" });
+  };
+  // p에서 q로 가는 허락 화살표, 둘 다 [x, y, 틀의 반 크기]; from / to: p를 떠나고 q에 닿는 곳의 가운데에서 비킨 값
+  // (한 점의 화살표들이 떨어져 선다). 이름표는 띠를 따라 t 되는 곳에서 진행 방향 왼쪽으로 off mm(음수: 오른쪽)에 선다.
+  const edge = (svg, p, q, o = {}) => {
+    const a = [p[0], p[1] + (o.from || 0)], b = [q[0], q[1] + (o.to || 0)];
+    const path = Fig.edge(svg, a, b, Object.assign({ halfFrom: p[2], halfTo: q[2], bend: o.bend || 0 }, BAND));
+    if (o.label) {
+      const L = path.getTotalLength(), t = o.t ?? 0.5, at = path.getPointAtLength(L * t), on = path.getPointAtLength(Math.min(L, L * t + 0.5));
+      const dx = on.x - at.x, dy = on.y - at.y, n = Math.hypot(dx, dy) || 1, off = o.off ?? 2.4;
+      // 3분의 1 글리프는 숫자가 보통 숫자의 반 높이라 이름표 "1"보다 크게 쓴다
+      const size = o.label === "⅓" ? 4.0 : 3.3;
+      Fig.text(svg, at.x + dy / n * off, at.y - dx / n * off + size / 3, o.label, { size, serif: true, anchor: "middle", fill: C.allowInk });
+    }
+    return path;
+  };
+
+  // 1. 깊이가 1인 스펜더 v와 그 주인 u1, u2
+  const g1 = document.getElementById("g1"), hv = 3.6, hrv = hv + ring;
+  const N = { u1: [11, 8.5, hr], u2: [11, 24.5, hr], v: [53, 13.5, hrv], w1: [95.5, 19.5, hr], w2: [95.5, 29, hr] };
+  edge(g1, N.u1, N.v, { to: -1.5, bend: -1.5, label: "1" });
+  edge(g1, N.u2, N.v, { from: -1.7, to: 1.5, bend: 1.5, label: "⅓", t: 0.42 });
+  edge(g1, N.u2, N.w1, { bend: -1, label: "⅓", t: 0.72 });
+  edge(g1, N.u2, N.w2, { from: 1.7, bend: 1, label: "⅓", t: 0.72, off: -2.5 });
+  named(g1, N.u1, "$u$_{1}"); named(g1, N.u2, "$u$_{2}"); named(g1, N.v, "$v$", hv);
+  named(g1, N.w1, "$w$_{1}"); named(g1, N.w2, "$w$_{2}");
+  tag(g1, 3.6, 3.2); tag(g1, 3.6, 19.2);
+  Fig.text(g1, N.v[0], N.v[1] - hrv - 1.5, "깊이가 1인 스펜더", { size: 2.5, fill: C.muted, anchor: "middle" });
+
+  // 2. 더 깊은 스펜더 x: 그 주인 u3이 u4에게서 허락을 받는다
+  const g2 = document.getElementById("g2");
+  const M = { u4: [11, 8.5, hr], u3: [33, 8.5, hr], x: [53, 23.3, hr] };
+  edge(g2, M.u4, M.u3);
+  edge(g2, M.u3, M.x, { bend: 1.5 });
+  named(g2, M.u4, "$u$_{4}"); named(g2, M.u3, "$u$_{3}"); named(g2, M.x, "$x$");
+  tag(g2, 3.6, 3.2);
+  tag(document.getElementById("key-c"), 2.4, 2.4);          // 범례에도 같은 표시
+  Fig.rich(g2, M.u3[0], M.u3[1] - hr - 1.5, "점수 #≠ #$c$", { size: 2.5, fill: C.bad, anchor: "middle", weight: 600 });
+  koSvg(g1); koSvg(g2);
+})();
+</script>
+</body>
+</html>

@@ -32,38 +32,10 @@ ERC-20 표준은 대체 가능한 토큰(하나하나가 똑같은 값어치여�
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-  font=\small,
-  actor/.style={draw, rounded corners, minimum width=2.4cm, minimum height=0.75cm, align=center},
-  msg/.style={-{Stealth[length=2.5mm]}, thick},
-  note/.style={font=\scriptsize\itshape, text=black!70, align=left}
-]
-% Actors
-\node[actor] (owner) at (0,0) {주인};
-\node[actor] (token) at (5.5,0) {ERC-20 토큰};
-\node[actor] (spender) at (11,0) {스펜더};
-
-% Lifelines (vertical dashed lines)
-\draw[dashed, gray] (owner.south) -- ++(0,-6.6);
-\draw[dashed, gray] (token.south) -- ++(0,-6.6);
-\draw[dashed, gray] (spender.south) -- ++(0,-6.6);
-
-% Message 1: approve (owner -> token), horizontal span 5.5cm
-\draw[msg] (0,-1.2) -- node[above,font=\scriptsize] {\texttt{approve(spender,$a$)}} (5.5,-1.2);
-\node[note] at (2.75,-1.7) {\texttt{Approval} 남기기; 허락 저장};
-
-% Alternative to message 1: EIP-2612 permit, submitted by the spender (or a relayer) with the owner's signature
-\draw[msg, densely dotted] (11,-2.6) -- node[above,font=\scriptsize] {\texttt{permit(owner,spender,$a$,sig)}} (5.5,-2.6);
-\node[note] at (8.25,-3.1) {\texttt{approve} 대신: 주인이 오프체인에서 서명;\\ \texttt{Approval} 남기기; 허락 저장};
-
-% Message 2: transferFrom (spender -> token), horizontal span 5.5cm
-\draw[msg] (11,-4.2) -- node[above,font=\scriptsize] {\texttt{transferFrom(owner,to,$v\leq a$)}} (5.5,-4.2);
-\node[note] at (8.25,-4.7) {토큰 옮기기; 허락 줄이기};
-
-% Message 3: revoke (owner -> token), dashed
-\draw[msg, dashed] (0,-5.8) -- node[above,font=\scriptsize] {\texttt{approve(spender,$0$)} (허락 거두기)} (5.5,-5.8);
-\end{tikzpicture}
-\caption[{ERC-20 허락의 한살이예요. 허락하기(\texttt{approve}) 또는 서명 허락(\texttt{permit}), 해도 되고 안 해도 되는 \texttt{transferFrom}, 허락 거두기로 이어져요.}]{ERC-20 허락의 한살이예요. \texttt{approve}나 서명으로 하는 다른 길인 \texttt{permit}(점선), 해도 되고 안 해도 되는 \texttt{transferFrom}, 그리고 허락 거두기로 이어져요. 엔도스랭크는 점수를 매기는 기간 안에서 주인, 스펜더, 토큰마다 가장 최근 \texttt{Approval} 이벤트를 남겨요. 그리고 그 허락에 나이(지난 시간)와, 주인의 잔액까지만 센 달러(USD) 금액으로 무게를 매겨요.}
+% HTML로 그린 그림. 원본은 Figures/html/allowance-sequence.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/allowance-sequence.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/allowance-sequence.pdf}
+\caption[{ERC-20 허락의 한살이예요. 허락하기(\texttt{approve}) 또는 서명 허락(\texttt{permit}), 해도 되고 안 해도 되는 \texttt{transferFrom}, 허락 거두기로 이어져요.}]{ERC-20 허락의 한살이예요. \texttt{approve}나 서명으로 하는 다른 길인 \texttt{permit}(점선), 해도 되고 안 해도 되는 \texttt{transferFrom}, 그리고 허락 거두기로 이어져요. 금색 화살표는 허락을 정하고, 파란 화살표는 토큰을 옮겨요. 오른쪽 막대는 단계마다 그 뒤에 효력이 있는 허락을 보여 줘요. 엔도스랭크는 점수를 매기는 기간 안에서 주인, 스펜더, 토큰마다 가장 최근 \texttt{Approval} 이벤트를 남겨요. 그리고 그 허락에 나이(지난 시간)와, 주인의 잔액까지만 센 달러(USD) 금액으로 무게를 매겨요.}
 \label{fig:allowance-sequence}
 \end{figure}
 
@@ -109,29 +81,10 @@ r_j = d\sum_{i:(i\to j)\in E} r_i \frac{w_{ij}}{o_i} + \frac{d}{|V|}\sum_{i:\,o_
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-  font=\small,
-  vertex/.style={draw, circle, minimum size=0.95cm},
-  arrow/.style={-{Stealth[length=2.5mm]}, thick},
-  teleport/.style={arrow, dashed}
-]
-\node[vertex] (a) at (0,0) {$A$};
-\node[vertex] (b) at (3.2,1.5) {$B$};
-\node[vertex] (c) at (3.2,-1.5) {$C$};
-\node[vertex] (d) at (6.4,0) {$D$};
-% Graph transitions: A->B, A->C, B->D, C->D (same topology as the worked example; D is dangling)
-\draw[arrow] (a) -- node[above left, font=\footnotesize] {$2$} (b);
-\draw[arrow] (a) -- node[below left, font=\footnotesize] {$1$} (c);
-\draw[arrow] (b) -- node[below left=-1pt, font=\footnotesize] {$3$} (d);
-\draw[arrow] (c) -- node[above left=-1pt, font=\footnotesize] {$1$} (d);
-% Uniform teleportation, drawn from D only: one dashed arrow to every node, including D itself.
-% D->A runs through the gap between B and C, and D->B / D->C bend outward, so no dashed arrow crosses a solid edge.
-\draw[teleport] (d) -- (a);
-\draw[teleport] (d) to[bend right=32] (b);
-\draw[teleport] (d) to[bend left=32] (c);
-\draw[teleport] (d) to[loop right, min distance=12mm] (d);
-\end{tikzpicture}
-\caption[{\ref{sec:pagerank-worked-example}절의 점 네 개짜리 그래프에서, 무작위로 돌아다니는 사람의 눈으로 페이지랭크를 풀어 본 그림이에요.}]{\ref{sec:pagerank-worked-example}절의 점 네 개짜리 그래프에서, 무작위로 돌아다니는 사람의 눈으로 페이지랭크를 풀어 본 그림이에요. 화살표에 붙은 수는 허락의 무게예요. 실선 화살표는 그래프를 따라 옮겨 가는 길이에요. 모두 합쳐 확률 $d$로 이 길들을 따라가고, 어느 길을 고를지는 무게에 비례해요. 점선 화살표는 고른 순간 이동을 나타내요. 순간 이동은 확률 $(1-d)/|V|$로 모든 점에 닿아요. 점선 부채꼴은 $D$에서만 그렸지만, 사실은 모든 점에 하나씩 있어요. $D$에는 나가는 화살표가 없어요. 그래서 식~\eqref{eq:transition}의 매달린 점 규칙에 따라, $D$에 있는 사람은 언제나 고르게 뽑은 점으로 뛰어가요.}
+% HTML로 그린 그림. 원본은 Figures/html/random-surfer.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/random-surfer.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/random-surfer.pdf}
+\caption[{\ref{sec:pagerank-worked-example}절의 점 네 개짜리 그래프에서, 무작위로 돌아다니는 사람의 눈으로 페이지랭크를 풀어 본 그림이에요.}]{\ref{sec:pagerank-worked-example}절의 점 네 개짜리 그래프에서, 무작위로 돌아다니는 사람의 눈으로 페이지랭크를 풀어 본 그림이에요. 화살표에 붙은 수는 허락의 무게이고, 괄호 안은 각 화살표가 한 걸음에서 가져가는 몫이에요. 실선 화살표는 그래프를 따라 옮겨 가는 길이에요. 모두 합쳐 확률 $d$로 이 길들을 따라가고, 어느 길을 고를지는 무게에 비례해요. 점선 화살표는 고른 순간 이동을 나타내요. 순간 이동은 확률 $(1-d)/|V|$로 모든 점에 닿아요. 점선 부채꼴은 $D$에서만 그렸지만, 사실은 모든 점에 하나씩 있어요. $D$에는 나가는 화살표가 없어요. 그래서 식~\eqref{eq:transition}의 매달린 점 규칙에 따라, $D$에 있는 사람은 언제나 고르게 뽑은 점으로 뛰어가요. 막대는 풀어 본 예의 정상 벡터, 곧 오래 걸었을 때 점마다 들르는 비율이에요.}
 \label{fig:random-surfer}
 \end{figure}
 
@@ -152,11 +105,31 @@ $\|\mathbf{r}^{(t+1)}-\mathbf{r}^{(t)}\|_1 < \varepsilon$이 될 때까지, 또�
 
 \textcite{najork2001breadth}에서는 3억 2,800만(328 million) 쪽을 너비 우선 순서로 크롤했어요. 그리고 페이지랭크가 높은 페이지들이 일찍 내려받아졌다는 것을 찾았어요. 이 연구는 이런 크롤 도중에 페이지랭크를 다시 계산하는 것은 너무 비싸서, 이 순서가 더 나은 맞바꿈이라고 주장해요. 다른 순서 규칙은 돌려 보지 않았어요. \textcite{baezayates2005crawling}에서는 칠레 웹과 그리스 웹의 크롤을 흉내 내 보았어요(모의실험). 각 웹은 200만에서 400만 쪽이었고, 중요도는 페이지랭크였어요. 역링크 수로 정한 순서와, 일부만 새로 고친 페이지랭크로 정한 순서는 무작위 크롤보다 못했어요. 너비 우선 순서는 처음 20\%에서 30\%의 페이지에서만 가장 좋은 순서들에 가까웠어요. 그리고 저자들은, 지금까지 본 페이지들로 묶음마다 다시 계산한 페이지랭크를 가장 좋은 순서 가운데 하나로 꼽아요. 저자들이 권하는 더 싼 전략 두 가지와 함께예요. 이렇게 순서 규칙을 견준 두 연구 모두에서, 역링크 수는 지금까지 본 페이지들로 온전히 다시 계산한 페이지랭크에 뒤져요.
 
-이 논문의 발견 순서 검증은 \textcite{cho1998crawling}의 실험을 계약 그래프(점이 모두 계약인 그래프) 위에서 되풀이해요(\ref{sec:discovery-protocol}절). 페이지는 계약이 되고, 링크는 두 계약 사이의 허락 화살표나 송금 화살표가 돼요. 방문 한 번은 계약 하나의 화살표를 읽는 일이에요. 그리고 다음 계약은 지금까지 읽은 것으로 계산한 순서 규칙으로 골라요. 순서 규칙은 너비 우선 순서, 계약 역링크(그 계약으로 들어오는 화살표) 수, 또는 \mbox{C-PR} 같은 걷기예요. 중요도는 그래프 바깥에서 가져와요. 중요도는 사용자 계정의 수요예요. 곧, 사용자 계정이 한 계약에 보낸 달러(USD)와, 잔액 상한을 적용해 그 계약에 쓰도록 허락한 달러예요. 어떤 순서 규칙도 이것을 읽지 않아요. 그 실험에서처럼 역링크 수와 페이지랭크로 정한 중요도는 의도한 구성개념 점검이고, 둘째로 보고해요.
+이 논문의 발견 순서 검증은 \textcite{cho1998crawling}의 실험을 계약 그래프(점이 모두 계약인 그래프) 위에서 되풀이해요(\ref{sec:discovery-protocol}절). 페이지는 계약이 되고, 링크는 두 계약 사이의 허락 화살표나 송금 화살표가 돼요. 방문 한 번은 계약 하나의 화살표를 읽는 일이에요. 그리고 다음 계약은 지금까지 읽은 것으로 계산한 순서 규칙으로 골라요. 순서 규칙은 너비 우선 순서, 계약 역링크(그 계약으로 들어오는 화살표) 수, 또는 \mbox{C-PR} 같은 걷기예요. 중요도는 그래프 바깥에서 가져와요. 중요도는 사용자 계정의 수요예요. 곧, 사용자 계정이 한 계약에 보낸 달러(USD)와, 잔액 상한을 적용해 그 계약에 쓰도록 허락한 달러예요. 어떤 순서 규칙도 이것을 읽지 않아요. 그 실험에서처럼 역링크 수와 페이지랭크로 정한 중요도는 의도한 구성개념 점검이고, 둘째로 보고해요. 그림~\ref{fig:crawl-ordering}에서는 그 실험과, 계약 그래프 위에서 그 실험의 짝을 보여 줘요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/crawl-ordering.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/crawl-ordering.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/crawl-ordering.pdf}
+\caption[{크롤 순서 실험과, 발견 순서 검증에서의 그 짝이에요(개념도).}]{\textcite{cho1998crawling}의 크롤 순서 실험을 자료 없이 개념도로 그렸어요. 출발 페이지에서 시작한 크롤이 페이지 몇 개를 읽었어요(색을 채우고, 읽은 차례대로 번호를 붙였어요). 프런티어(찾았지만 아직 방문하지 않은 페이지들)에는 읽은 페이지들이 링크로 가리키는 페이지들이 있고, 지금까지 읽은 페이지들로 계산한 순서 규칙이 다음 페이지를 골라요. 순서 규칙은, 무작위 순서와 이상적인 순서 사이에서, 뜨거운 페이지(중요도가 문턱을 넘는 페이지)를 얼마나 빨리 방문하는지로 평가해요. 아래 줄은 이 논문의 발견 순서 검증에서의 짝을 보여 줘요(\ref{sec:discovery-protocol}절).}
+\label{fig:crawl-ordering}
+\end{figure}
 
 \dissertationSubheading[sec:reputation-systems]{평판 시스템이 이어져 온 흐름}
 
 페이지랭크는 스펙트럼 방법(행렬의 고유벡터로 점수를 구하는 방법)과 퍼뜨림에 바탕을 둔 방법으로 평판을 매기는, 더 넓은 방법 가족에 속해요. Kleinberg의 HITS(Hyperlink-Induced Topic Search) 알고리즘은 페이지마다 허브(좋은 페이지를 많이 가리키는 페이지) 점수와 권위(좋은 페이지들이 많이 가리키는 페이지) 점수를 줘요 \parencite{kleinberg1999hits}. EigenTrust는 이 생각을 P2P(peer-to-peer, 컴퓨터끼리 직접 주고받는) 네트워크로 넓혀요. 이 방법은 각 참여자가 이웃에게 주는 믿음 값을 정규화(합이 1이 되게 맞추기)해요. 그래서 나쁜 뜻을 가진 참여자가 자기와 한패인 참여자들에게 마음대로 높은 믿음을 줄 수 없어요 \parencite{kamvar2003eigentrust}. TrustRank는 웹 스팸(검색 순위를 속이려는 가짜 페이지)을 누르려고, 믿을 수 있는 점들로 이루어진 씨앗 집합(출발점으로 골라 둔 점들)에서 출발해 그 믿음을 바깥으로 퍼뜨려요 \parencite{gyongyi2004trustrank}. 꼼꼼히 골라 둔 씨앗 집합에서만 믿음이 흘러나오면, 새로 온 점은 이미 평판을 가진 점들의 보증(믿고 맡김) 없이는 점수를 올릴 수 없어요. 엔도스랭크는 고르게 다시 출발하고, 씨앗 집합을 쓰지 않아요(\ref{sub:endorserank-graph}절).
+
+그림~\ref{fig:reputation-lineage}에서는 이 장에서 살펴본 순위 매기기 방법들을 가족과 연도에 따라 놓고, 이 논문의 걷기가 각 가족에서 가져오는 것도 함께 보여 줘요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/reputation-lineage.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/reputation-lineage.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/reputation-lineage.pdf}
+\caption[{이 장에서 살펴본 순위 매기기 방법들을 가족별로 나눈 그림이에요.}]{이 장에서 살펴본 순위 매기기 방법들이에요. 가족별로 나누고 한 가족 안에서는 연도 순으로 놓았으며, 이 논문의 걷기가 각 가족에서 가져오는 것을 함께 적었어요(화살표). 장부 순위 매기기는 자료에 나오는 모든 주소를 점으로 삼아요. 이 논문의 걷기는 계약만 점으로 삼아요(\ref{sec:graph-reputation}절).}
+\label{fig:reputation-lineage}
+\end{figure}
 
 \dissertationSubheading[sec:allowance-endorsement]{보증으로 보는 ERC-20 허락}
 
@@ -189,6 +162,17 @@ Victor의 자기 허락 어림 방법(휴리스틱)은 ERC-20 허락을 주소 �
 \label{eq:kendall}
 \end{equation}
 그리고 동점 보정을 빼면 이 식은 $\tau_a=(n_c-n_d)/n_0$ 꼴이 돼요. 이 논문에서 보고하는 $\tau$는 모두 $\tau_b$이고, 손대지 않은 점수와 대리 지표로 계산했어요. 이 차이는 동점이 아주 많은 점수에서 중요해요. 원시 차수(화살표를 그냥 센 수)는 정수로 센 값이에요. 그리고 걷기는 자기 그래프에 화살표가 없는 계약 모두에 같은 값 하나를 줘요. 엔도스랭크에서는 매칭 코호트(모든 점수가 똑같이 점수를 매기는 계약 묶음)의 대부분이 그런 계약이에요(\ref{sec:rank-divergence}절). 둘씩 짝지은 순서를 볼 때는, 보통 켄달의 $\tau$가 더 해석하기 쉬운 계수예요. 그래서 \ref{ch:results}장은 이 계수를 지표 가족(비슷한 지표 묶음) 수준의 주된 요약으로 써요. 그 값은 같은 코호트에서 다른 방법들의 값과 견주어요. 출처를 밝히지 않은 절대 기준값은 쓰지 않아요.
+
+그림~\ref{fig:kendall-pairs}에서는 지어낸 값을 가진 계약 네 개로 이 개수들을 하나하나 세어 봐요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/kendall-pairs.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/kendall-pairs.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/kendall-pairs.pdf}
+\caption[{계약 네 개에서 본 순서가 맞는 쌍, 어긋나는 쌍, 켄달의 $\tau_b$예요.}]{지어낸 값을 가진 계약 네 개에서 본 순서가 맞는 쌍과 어긋나는 쌍, 그리고 켄달의 $\tau_b$(식~\eqref{eq:kendall})예요. $Q$와 $R$의 선이 엇갈려서, 그 쌍은 어긋나는 쌍이에요. $R$과 $S$는 점수에서 동점이에요. 그래서 그 쌍은 순서가 맞는 쌍도 어긋나는 쌍도 아니고, $n_1$에 들어가요.}
+\label{fig:kendall-pairs}
+\end{figure}
 
 \dissertationSubheading[sec:theoretical-framework]{이론의 틀}
 
@@ -248,7 +232,16 @@ A\to B\ (2),\quad A\to C\ (1),\quad B\to D\ (3),\quad C\to D\ (1),
 
 \dissertationSubheading[sec:defi-risk-taxonomy]{디파이 위험의 분류와 평판이 들어갈 자리}
 
-\textcite{werner2022sok}에서는 디파이 서비스의 기술적 보안과 경제적 보안을 나누었어요. 그리고 \textcite{zhou2023sok}에서는 실제로 일어난 공격과 사고를 하나의 기준 틀 안에 정리했어요. 계약 코드의 버그(프로그램 오류)는 스마트 계약 위험이에요 \parencite{li2022defisecurity}. 조작된 가격이나, 누군가가 마음대로 다루는 가격 피드(블록체인에 올라오는 가격 정보)는 오라클 위험이에요 \parencite{angeris2020oracles}. 가격이 크게 출렁이는 것(변동성)과 청산은 시장 위험이에요 \parencite{perez2021liquidations}. 그리고 적은 수의 주소가 쥔 투표권은 거버넌스 위험(서비스의 규칙을 정하는 방식에서 오는 위험)이에요 \parencite{fritsch2024voting}. 이 위험 층들은 저마다 정해진 서비스 하나에서 출발해, 그 서비스에서 무엇이 잘못될 수 있는지 물어요. 이 논문은 그보다 먼저 오는 질문을 해요. 아주 많은 계약 가운데 사용자가 기대는 계약은 어느 것인가예요. 계약 사이의 관계로 매긴 계약 순위는 감사나 오라클 설계를 대신하지 못해요. 이 순위는 그런 방법들을 어디에 먼저 써야 할지 말해 주려는 것이지, 악용 공격이나 거버넌스 공격을 예측하려는 것이 아니에요.
+\textcite{werner2022sok}에서는 디파이 서비스의 기술적 보안과 경제적 보안을 나누었어요. 그리고 \textcite{zhou2023sok}에서는 실제로 일어난 공격과 사고를 하나의 기준 틀 안에 정리했어요. 계약 코드의 버그(프로그램 오류)는 스마트 계약 위험이에요 \parencite{li2022defisecurity}. 조작된 가격이나, 누군가가 마음대로 다루는 가격 피드(블록체인에 올라오는 가격 정보)는 오라클 위험이에요 \parencite{angeris2020oracles}. 가격이 크게 출렁이는 것(변동성)과 청산은 시장 위험이에요 \parencite{perez2021liquidations}. 그리고 적은 수의 주소가 쥔 투표권은 거버넌스 위험(서비스의 규칙을 정하는 방식에서 오는 위험)이에요 \parencite{fritsch2024voting}. 이 위험 층들은 저마다 정해진 서비스 하나에서 출발해, 그 서비스에서 무엇이 잘못될 수 있는지 물어요. 이 논문은 그보다 먼저 오는 질문을 해요. 아주 많은 계약 가운데 사용자가 기대는 계약은 어느 것인가예요. 계약 사이의 관계로 매긴 계약 순위는 감사나 오라클 설계를 대신하지 못해요. 이 순위는 그런 방법들을 어디에 먼저 써야 할지 말해 주려는 것이지, 악용 공격이나 거버넌스 공격을 예측하려는 것이 아니에요. 그림~\ref{fig:defi-risk}에서는 이 질문을 위험 층들 앞에 놓아요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/defi-risk.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/defi-risk.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/defi-risk.pdf}
+\caption[{디파이 위험 층들 옆에서 계약 순위가 들어갈 자리예요.}]{디파이 위험 층들 옆에서 계약 순위가 들어갈 자리예요. 위험 층은 저마다 정해진 서비스 하나에서 출발해, 그 서비스에서 무엇이 잘못될 수 있는지 물어요. 계약 순위는 그보다 먼저, 아주 많은 계약 가운데 사용자가 기대는 계약이 어느 것인지 물어요. 그 방법들을 어디에 먼저 써야 할지 말해 주려는 것이에요. 계약 순위는 그 어느 것도 대신하지 않고, 악용 공격을 예측하지도 않아요.}
+\label{fig:defi-risk}
+\end{figure}
 
 가짜 활동이 있으면, 장부 자료로 만든 어떤 순위든 믿기가 더 어려워져요. 자전 거래는 탈중앙 거래소(중간 관리자 없이 계약으로 움직이는 거래소)의 거래량을 부풀려요 \parencite{victor2021washtrading}. 규제를 받지 않는 중앙 거래소에서는 더 크게 부풀려요 \parencite{cong2023washtrading}. 추출 가능한 가치(거래 순서를 이용해 빼내는 이익)는, 관계가 아니라 순서 전략을 따르는 송금을 만들어요 \parencite{daian2020flashboys}. 그리고 사기 토큰은 오래가는 관계 없이 거래를 늘려요 \parencite{xia2021scamtokens}. 송금 층은 이런 거래량에 약하고, 이 연구는 그 양을 재지 않아요. 허락 층은 점수를 올리려고만 준 허락에 약하고, 이 연구는 그런 허락도 재지 않아요. \ref{sec:dataset}절에서는 그래프에 닫힌 계약 무리가 있는지 점검해요. 그런 무리는 걷기의 몫을 그 안에 가둬 둘 거예요.
 
@@ -261,6 +254,17 @@ A\to B\ (2),\quad A\to C\ (1),\quad B\to D\ (3),\quad C\to D\ (1),
 \dissertationSubheading[sec:account-model]{계정, 가스, 그리고 로그로 재는 까닭}
 
 이더리움에는 두 종류의 계정이 있어요. 외부 소유 계정(EOA)과 계약 계정이에요. EOA는 개인 키(주인만 아는 비밀 열쇠)가 다루고, 계약 계정은 자기가 저장한 코드가 다스려요 \parencite{antonopoulos2018mastering}. 사용자의 계정과 계약 사이의 경계는 이 나눔을 꼭 그대로 따르지는 않아요. EOA는 EIP-7702로 코드에 일을 맡길 수 있어요 \parencite{buterin2024eip7702}. 그리고 Safe \parencite{safenddocs}나 ERC-4337 계정 \parencite{buterin2021erc4337} 같은 스마트 계정(계약 코드로 된 사용자 계정)은 사용자를 위해 움직이는 계약 계정이에요. 그래서 이 논문은 \emph{사용자 계정}(EOA, EIP-7702 계정, 스마트 계정)과 \emph{계약}(그 밖의 모든 계약 계정; \ref{sub:account-types}절)을 나누고, 계약에만 점수를 매겨요(\ref{sec:data-sources}절). 상태를 바꾸는 거래는 모두 가스를 써요. 로그는 계약의 \texttt{LOG} 명령에서 나와요. 이 명령은 계약의 코드가 이벤트를 내보낼 때 실행돼요(솔리디티(Solidity, 계약을 짜는 프로그래밍 언어)의 \texttt{emit} 문장이에요). 저장 공간에 값을 써넣는 일은 로그를 남기지 않아요. 누구나 검사할 수 있는 평판 시스템이 되려면, 블록체인 밖의 데이터베이스보다 로그를 골라 써야 해요. 로그는 블록체인 역사에서 영원히 남는 부분이고, 어떤 전체 노드(블록체인 기록을 모두 가진 컴퓨터)나 색인 제공자(블록체인 기록을 찾기 쉽게 정리해 주는 곳)도 다시 계산해 볼 수 있기 때문이에요 \parencite{wood2025yellowpaper}.
+
+그림~\ref{fig:accounts-logs}에서는 두 종류의 계정과, 이 연구가 읽는 로그를 보여 줘요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/accounts-logs.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/accounts-logs.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/accounts-logs.pdf}
+\caption[{계정, 트랜잭션, 그리고 이 연구가 읽는 로그예요.}]{계정, 트랜잭션(블록체인에 보내는 거래 요청), 그리고 이 연구가 읽는 로그예요. 사용자 계정(점선)은 트랜잭션을 보내고, 트랜잭션은 가스를 내요. 계약은 트랜잭션이 부르는 코드를 실행해요. 토큰 계약은 \texttt{Approval} 이벤트와 \texttt{Transfer} 이벤트를 로그로 기록하고, 저장 공간에 쓰는 일은 로그를 남기지 않아요. 두 끝이 모두 계약인 이벤트는 계약 그래프의 화살표가 돼요. 한 끝이 사용자 계정인 이벤트는 화살표가 아니고, 코호트 규칙에서, 중요도로서, 그리고 라벨에서만 세어요.}
+\label{fig:accounts-logs}
+\end{figure}
 
 \dissertationSubheading[sec:approval-security]{보안과 관련된 이벤트인 허락}
 

@@ -1,0 +1,137 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:practical-uses(5장, 「실제에 주는 뜻과 쓰는 장면」)의 원본이며, Figures/practical-uses.pdf를 만든다.
+  이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/practical-uses.html
+  영어 원본은 ../overleaf-github/Figures/html/practical-uses.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용(그 절이 말하는 그대로이고, 새 주장은 없다): 계약 순위를 쓰는 네 종류의 쪽(한 줄에 하나), 그 절이 저마다에
+  맞다고 보는 신호, 그리고 그 절이 밝힌 한계. 신호 옆의 막대는 그 신호가 읽는 층을 표시한다(금색 = 허락, 파랑 = 송금).
+  1. 지갑 화면과 보안 도구: 잔액이 있는 계약 몇 개가 한 스펜더를 허락했는지(계약 사이의 받은 허락 수, 풀이 프로그램이
+     필요 없음) 또는 그 스펜더의 EndorseRank를 보여 주는 표시. 허락은 하나하나 그 뒤의 잔액까지만 센다. 한계: 그래프 점의
+     자리일 뿐, 보안 감사도 나쁜 계약을 막아 준다는 보증도 아니다. 잔액이 있는 어떤 계약도 허락하지 않는 대부분의
+     스펜더에게는 비어 있다.
+  2. 블록 탐색기, 감사인, 통합하는 쪽: 일의 순서. 판정을 내리는 발견 순서 실행에서, 풀이 프로그램이 필요 없는 계약 역링크
+     수가 사용자 계정의 수요가 가장 큰 계약들에 C-PR'보다 빨리 닿았다. 한계: 기껏해야 첫 거름망이다. 어떤 순서 규칙에서든
+     초기 방문의 대부분은 그런 수요가 없는 계약으로 갔다. 계약 코드의 질에 대해서는 아무것도 말하지 않는다.
+  3. 흐름 지켜보기: 지금의 흐름을 송금 입차수와 받은 양의 합에서 바로 읽는다. 걷기 가운데 AWP의 기록이 가장 좋지만, 그냥
+     세어도 잃는 것이 별로 없다.
+  4. 대출 서비스: 순위는 나중에 계약에 대한 신용 결정의 한 입력으로 쓰일 수 있다. 시험하지 않았고, 어떤 점수도 채무
+     불이행, 상환, 손실 결과와 견주지 않았다.
+  아래: 마음대로 고를 수 있는 운영자는 신호를 따로 둔다(권한 주기가 중요한 곳에는 허락, 흐름이 중요한 곳에는 송금). 이
+  자료에서는 두 화살표 종류를 걷기 하나로 접어 넣어도 AWP보다 나은 값을 하지 못했고, 규칙 B는 충족하지 못했다.
+
+  모양: 머리 줄은 자간을 둔 작은 글씨다. 시험한 세 쓰임은 저마다 옅은 판 왼쪽에 그 신호 색의 꽉 찬 막대가 서고(모래빛
+  금색: 허락, 회색: 그냥 센 수, 군청색: 송금), 그 그림 문자는 그 색의 고리를 두른 원 안에 흰색으로 있으며, 신호는 납작한
+  꼬리표다. 시험하지 않은 대출 줄은 열린 모양이다: 가는 테두리 안의 흰 줄, 빈 막대, 빈 원. 맺는 말은 꽉 찬 보라 막대(결합
+  걷기의 색) 오른쪽의 판 위에 있다. 본문의 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans
+  KR(보통 400, 굵게 700)이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>실제 쓰임</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong, .card .t, .card .rq, .chip b { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+@page { size: 180mm 130mm; margin: 0; }
+.rowp { grid-template-columns:41mm minmax(0, 1.3fr) minmax(0, 1fr); column-gap:3mm; padding:1.2mm 2.2mm 1.2mm 2mm; margin-bottom:1.3mm; }
+.rowp.head { padding-top:0; padding-bottom:0.2mm; margin-bottom:0.8mm; line-height:1.18; }
+.rowp.head > * { letter-spacing:0.1em; }
+/* 줄 간격은 온 픽셀(12 px): 기준선은 온 픽셀에 찍힌다 */
+.who { display:flex; align-items:center; gap:1.6mm; font-weight:700; font-size:7.9pt; line-height:12px; color:var(--ink); }
+.who > span { text-wrap:balance; }   /* 두 줄 이름은 고르게 나눈다(낱말 하나만 둘째 줄에 남지 않게) */
+.sig { font-size:7.1pt; line-height:12px; text-wrap:pretty; }
+.sig .pr { line-height:0; }   /* Palatino 프라임은 제 줄 높이를 갖지 않는다: 그 줄은 다른 줄의 간격을 지킨다 */
+.sig .chip { margin:0 0.6mm 0.7mm 0; vertical-align:top; }   /* 한 줄의 꼬리표는 층 막대가 있든 없든 한 줄에 선다 */
+/* 세 줄짜리 두 줄은 높이가 같다 */
+.r-allow, .r-count { height:56px; }
+.lim { font-size:7.1pt; line-height:12px; color:var(--text); }
+.r-allow { --c:var(--allow-band); }
+.r-count { --c:var(--count); }
+.r-transfer { --c:var(--transfer); }
+/* 시험하지 않음: 줄이 열려 있고(가는 테두리 안의 흰색) 그 막대도 그렇다. 줄과 막대는 다른 줄, 다른 막대와 같은 자리에
+   가장자리가 있다. */
+.r-lend { background:var(--paper); border-left:0; padding-left:calc(2mm + 4px); box-shadow:inset 0 0 0 0.25mm var(--hair); position:relative; }
+.r-lend::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--paper);
+  box-shadow:inset 0 0 0 0.3mm var(--user); }
+.band { margin-top:2mm; display:grid; grid-template-columns:auto 1fr; column-gap:1.6mm; align-items:center;
+  background:var(--plate); border-left:4px solid var(--coupled); padding:1.3mm 2.4mm 1.3mm 2mm; font-size:7.3pt; line-height:1.25; }
+.band b { color:var(--coupled-ink); }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="rowp head"><span>계약을 골라야 하는 쪽</span><span>맞는 신호</span><span>밝힌 한계</span></div>
+  <div class="rowp r-allow">
+    <div class="who"><span data-medal="lock" data-color="allow" data-size="4.8"></span>지갑 화면과 보안 도구</div>
+    <div class="sig"><span class="chip allow"><span class="lay"><i class="a on"></i><i class="t"></i></span><b>받은 허락 수</b></span><span class="chip er"><b>EndorseRank</b></span><br>
+      스펜더를 허락한, 잔액이 있는 계약들; 허락은 하나하나 그&nbsp;뒤의 잔액까지만 셈</div>
+    <div class="lim">그래프 점의 자리일 뿐, 보안 감사도 보증도 아님; 대부분의 스펜더에게는 비어 있음.</div>
+  </div>
+  <div class="rowp r-count">
+    <div class="who"><span data-medal="search" data-color="count" data-size="4.8"></span>블록 탐색기, 감사인, 통합하는 쪽</div>
+    <div class="sig"><span class="chip cnt"><span class="lay"><i class="a on"></i><i class="t on"></i></span><b>계약 역링크 수</b></span><br>
+      풀이 프로그램이 필요 없는 일의 순서; 판정을 내리는 실행에서 <span class="nb">C-PR<span class="pr">′</span></span>보다 빠름</div>
+    <div class="lim">기껏해야 첫 거름망; 계약 코드의 질에 대해서는 아무것도 말하지 않음.</div>
+  </div>
+  <div class="rowp r-transfer">
+    <div class="who"><span data-medal="bars" data-color="transfer" data-size="4.8"></span>흐름 지켜보기</div>
+    <div class="sig"><span class="chip transfer"><span class="lay"><i class="a"></i><i class="t on"></i></span><b>송금 입차수</b></span><span class="chip awp"><b>AWP</b></span><br>
+      지금의 흐름을 입차수와 받은 양의 합에서 바로 읽음</div>
+    <div class="lim">걷기 가운데 AWP의 기록이 가장 좋지만, 그냥 세어도 잃는 것이 별로 없음.</div>
+  </div>
+  <div class="rowp r-lend">
+    <div class="who"><span id="open-coin"></span>대출 서비스</div>
+    <div class="sig">사용자가 기대는 계약들의 순위, 나중에 계약에 대한 신용 결정의 한 입력으로.</div>
+    <div class="lim"><b>시험하지 않음:</b> 어떤 점수도 채무 불이행, 상환, 손실 결과와 견주지 않음.</div>
+  </div>
+  <div class="band"><span data-medal="scale" data-color="coupled" data-size="4.8"></span>
+    <span><b>신호를 따로 두기:</b> 권한 주기가 중요한 곳에는 허락, 흐름이 중요한 곳에는 송금. 이 자료에서는 두 화살표 종류를
+    걷기 하나로 접어 넣어도 AWP보다 나은 값을 하지 못했고, 규칙 B는 충족하지 못함.</span></div>
+</div>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">로 감싸 자간을 0으로 둔다. fig.js가 DOMContentLoaded에서 줄 높이를
+// 재기 전에, 문서를 읽는 동안 돈다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const w = document.createTreeWalker(document.querySelector(".fig"), NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (!n.parentElement.closest("svg") && any.test(n.textContent)) nodes.push(n);
+  for (const n of nodes) {
+    const s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = document.createElement("span"); k.className = "ko"; k.textContent = m; frag.appendChild(k);
+      last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    // 플렉스 상자 안에서는 조각마다 따로 항목이 되어 끝의 빈칸을 잃고 상자의 틈이 끼므로, 조각을 한 span에 모은다
+    if (/flex/.test(getComputedStyle(n.parentElement).display)) { const one = document.createElement("span"); one.appendChild(frag); n.replaceWith(one); }
+    else n.replaceWith(frag);
+  }
+})();
+
+// 시험하지 않은 쓰임의 그림 문자는 원의 열린 모양이다(가는 고리 둘 안의 흰 원)
+(function () {
+  const c = Fig.C.user, s = document.getElementById("open-coin");
+  s.outerHTML = `<svg width="4.8mm" height="4.8mm" viewBox="0 0 16 16" style="flex:none">` +
+    `<circle cx="8" cy="8" r="7.55" fill="none" stroke="${c}" stroke-width="0.5"/>` +
+    `<circle cx="8" cy="8" r="6.1" fill="#fff" stroke="${c}" stroke-width="0.5"/>` +
+    `<g transform="translate(3.74 3.74) scale(0.71)">${Fig.ICONS.coin(c)}</g></svg>`;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:web-to-ledger(1장, 「배경: 롤업 위의 계약과 그 계약에 대한 믿음이 생기는 방식」)의 원본이며,
+  Figures/web-to-ledger.pdf를 만든다. LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/web-to-ledger.html
+  영어 원본은 ../overleaf-github/Figures/html/web-to-ledger.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 왼쪽에서 오른쪽으로 세 부분이 있고, 화살표가 한 부분에서 다음 부분으로 이어진다.
+  1. 웹: 점은 페이지이고 화살표는 하이퍼링크다. PageRank는 한 페이지를 그 페이지로 링크하는 페이지들로 순위를 매긴다.
+     Cho, Garcia-Molina, Page(1998)의 크롤 순서 실험에서, 지금까지 읽은 페이지로 계산한 PageRank로 순서를 정한 크롤은
+     역링크 수로 순서를 정한 크롤보다 뜨거운 페이지에 빨리 닿았다. 많은 페이지가 링크하는 페이지 하나를 더 크게 그렸다.
+  2. 송금 위의 장부 걷기(이더리움 거래 위의 PageRank와 HodgeRank, AWP): 점은 사용자 계정(회색 사람 모양)을 포함한 모든
+     주소이고, 화살표는 송금(파랑)이다. 허락은 읽지 않는다.
+  3. 이 논문: 점은 계약만이고(얇은 실선 틀 안의 청록 네모, 계약 그래프), 화살표는 두 종류, 송금(파랑)과 허락(금색)이다.
+     허락은 하나하나 주인의 잔액까지만 센다. 사용자 계정은 모든 그래프 밖에 있다. C-PR은 두 화살표 종류를 모두 걷고,
+     EndorseRank는 허락을, AWP는 송금을 걷는다.
+
+  모양: 세 부분은 너비와 높이가 같은 카드이고, 카드마다 가는 테두리 안에 회색 줄 위의 명조 제목(라틴 글자는 Palatino,
+  한글은 Noto Serif KR; 앞에 고리를 두른 원 안의 흰 그림 문자: 웹은 그 청록빛 하늘색, 장부 걷기는 송금의 파랑, 이 논문은
+  계약의 청록), 그림 하나, 목록 하나가 있다. 세 그림은 한 줄에 서고 세 목록도 한 줄에 선다. 가는 회색 화살표가 그림
+  높이의 가운데에서 한 카드를 다음 카드로 잇는다. 페이지는 가는 줄 셋이 있는 흰 세로 네모이고, 많은 페이지가 링크하는
+  페이지는 더 크고 옅게 칠했다. 계약은 흰 테두리를 두른 청록 네모이고, 사용자 계정은 회색 사람 모양이다. 송금은 가는 파란
+  화살표, 허락은 조금 더 굵은 가는 금색 화살표다. 계약 그래프는 얇은 청록 실선 안의 옅은 판 위에 있다(점선 틀은 사용자
+  계정의 것이고, 여기서 사용자 계정은 그 틀 밖에 있다). 목록에서 줄 이름은 굵고, "송금"과 "허락"이라는 말은 그 층의 짙은
+  색을 띤다. 본문의 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans KR(보통 400, 굵게 700)이고,
+  한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>웹 링크에서 계약 사이의 기록으로</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong, .card .t, .card .rq, .chip b { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+@page { size: 180mm 120mm; margin: 0; }
+/* 196 px 카드 셋과 그 사이 18 px: 624 px, 165.1 mm(카드가 같게 나오도록 온 픽셀). 카드는 격자의 세 줄(제목, 그림,
+   목록)을 함께 써서, 그림과 목록이 한 줄에 서고 화살표(18 px 틈 안의 14 px)가 그림 높이의 가운데에 선다. */
+.fig { width:624px; }
+.row { display:grid; grid-template-columns:196px 18px 196px 18px 196px; grid-template-rows:auto auto auto; }
+.row > .part { grid-row:1 / span 3; display:grid; grid-template-rows:subgrid; padding:5px 7px 6px; }   /* 안쪽 182 px */
+.c1 { grid-column:1; } .c2 { grid-column:2; } .c3 { grid-column:3; } .c4 { grid-column:4; } .c5 { grid-column:5; }
+.row > .arr { grid-row:2; align-self:center; justify-self:center; }
+.part > .h { margin-bottom:1.2mm; }
+.part > .h svg { margin:0.2mm 1.6mm 0.2mm 0.2mm; }
+.part > svg.draw { display:block; width:182px; height:26.5mm; }
+.facts { margin:1.7mm 0 0; padding:0; list-style:none; font-size:7.1pt; line-height:1.22; color:var(--muted); }
+.facts li { display:flex; gap:1mm; margin-top:0.65mm; }
+.facts li:first-child { margin-top:0; }
+.facts li b { flex:none; width:9.4mm; }
+.tw { color:var(--transfer-ink); font-weight:700; }
+.aw { color:var(--allow-ink); font-weight:700; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="row">
+
+    <!-- 1. 웹 -->
+    <div class="part panel c1">
+      <div class="h s"><span data-medal="web" data-color="web" data-size="4.6"></span>웹</div>
+      <svg id="web" class="draw" viewBox="0 0 48.154 26.5"></svg>
+      <ul class="facts">
+        <li><b>점</b><span>페이지</span></li>
+        <li><b>화살표</b><span>하이퍼링크</span></li>
+        <li><b>순위</b><span>PageRank: 그 페이지로 링크하는 페이지들로 매김</span></li>
+        <li><b>크롤</b><span>PageRank로 순서를 정하면 역링크 수로 정할 때보다 뜨거운 페이지에 빨리 닿음(Cho et al., 1998)</span></li>
+      </ul>
+    </div>
+
+    <span class="arr c2" data-arrow="right" data-color="count" data-len="3.704"></span>
+
+    <!-- 2. 송금 위의 장부 걷기 -->
+    <div class="part panel c3">
+      <div class="h s"><span data-medal="coin" data-color="transfer" data-size="4.6"></span>송금 위의 장부 걷기</div>
+      <svg id="ledger" class="draw" viewBox="0 0 48.154 26.5"></svg>
+      <ul class="facts">
+        <li><b>점</b><span>사용자 계정을 포함한 모든 주소</span></li>
+        <li><b>화살표</b><span>송금</span></li>
+        <li><b>순위</b><span>거래 위의 PageRank와 HodgeRank; AWP는 송금마다 금액과 나이로 무게를 닮</span></li>
+        <li><b>안 읽음</b><span>허락</span></li>
+      </ul>
+    </div>
+
+    <span class="arr c4" data-arrow="right" data-color="count" data-len="3.704"></span>
+
+    <!-- 3. 이 논문 -->
+    <div class="part panel c5">
+      <div class="h s"><span data-medal="contract" data-color="contract" data-size="4.6"></span>이 논문</div>
+      <svg id="thesis" class="draw" viewBox="0 0 48.154 26.5"></svg>
+      <ul class="facts">
+        <li><b>점</b><span>계약만; 사용자 계정은 어느 그래프에도 없음</span></li>
+        <li><b>화살표</b><span><span class="tw">송금</span>과 <span class="aw">허락</span>, 허락은 하나하나 주인의 잔액까지만 셈</span></li>
+        <li><b>순위</b><span><span class="nb">C-PR</span>은 둘 다 걸음; EndorseRank는 허락, AWP는 송금을 걸음</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">로 감싸 자간을 0으로 둔다. fig.js가 DOMContentLoaded에서 줄 높이를
+// 재기 전에, 문서를 읽는 동안 돈다. SVG 안의 글자는 Fig.text에 spacing: 0을 주어 따로 다룬다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const w = document.createTreeWalker(document.querySelector(".fig"), NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (!n.parentElement.closest("svg") && any.test(n.textContent)) nodes.push(n);
+  for (const n of nodes) {
+    const s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = document.createElement("span"); k.className = "ko"; k.textContent = m; frag.appendChild(k);
+      last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    n.replaceWith(frag);
+  }
+})();
+
+(function () {
+  const C = Fig.C, KO = "Bahnschrift, Noto Sans KR, sans-serif";
+  // 세 그림은 크기가 같고(48.15 x 26.5 mm), 표시의 축척도 같다: 둘째와 셋째 그림의 계약은 같은 네모, 사용자 계정은
+  // 같은 사람 모양이다.
+
+  // 1. 페이지와 하이퍼링크; 페이지 h로 가장 많은 페이지가 링크한다
+  const web = document.getElementById("web");
+  const P = { a: [5.4, 5.2], b: [18.4, 4], c: [32.5, 5.8], d: [44.3, 5.2], e: [8.7, 22.4], h: [24.9, 18.4], f: [41.1, 22.4] };
+  const L = [["a", "h", 0], ["b", "h", 0], ["c", "h", 0], ["e", "h", 0], ["f", "h", 0], ["d", "c", -1.5], ["b", "a", 1.5], ["h", "f", -2.5], ["c", "d", -1.5]];
+  for (const [p, q, bend] of L)
+    Fig.edge(web, P[p], P[q], { color: C.web, width: 0.4, bend, halfFrom: p === "h" ? 3.7 : 2.7, halfTo: q === "h" ? 3.7 : 2.7 });
+  // 페이지: 가는 줄 셋이 있는 흰 세로 네모; 많은 페이지가 링크하는 페이지는 더 크고 옅게 칠한다
+  const page = (x, y, s, hot) => {
+    Fig.el(web, "rect", { x: x - s * 0.8, y: y - s, width: s * 1.6, height: s * 2, rx: 0.35, style: hot ? "fill:var(--web-bg)" : "fill:#fff",
+      stroke: C.web, "stroke-width": hot ? 0.55 : 0.35 });
+    for (let i = 0; i < 3; i++)
+      Fig.el(web, "path", { d: `M${x - s * 0.5},${y - s * 0.45 + i * s * 0.45} H${x + s * 0.5}`, stroke: C.web, "stroke-width": hot ? 0.3 : 0.22 });
+  };
+  for (const [id, [x, y]] of Object.entries(P)) page(x, y, id === "h" ? 3.4 : 2.4, id === "h");
+
+  // 2. 모든 주소: 사용자 계정(사람 모양)과 계약을 송금이 잇는다
+  const led = document.getElementById("ledger");
+  const K = { c1: [20.6, 5.9], c2: [35.7, 4.7], c3: [27.1, 20.7], c4: [43.3, 18.9] };
+  const Us = { u1: [5.4, 5.9], u2: [6.5, 21.4], u3: [44.9, 5.3] };
+  const pos = Object.assign({}, K, Us);
+  const TR = [["u1", "c1", 1.5], ["u2", "c3", -1], ["u2", "c1", 1.5], ["c1", "c2", -1.5], ["c3", "c4", -1], ["c2", "c4", 1.5], ["c4", "u3", -1.5], ["c1", "c3", 1.2]];
+  const HC = 2.4, KEY = 0.28;                        // 계약의 반 크기, 흰 테두리의 너비
+  for (const [p, q, bend] of TR)
+    Fig.edge(led, pos[p], pos[q], { color: C.transfer, width: 0.42, bend, halfFrom: p[0] === "u" ? 2.9 : HC + KEY, halfTo: q[0] === "u" ? 2.9 : HC + KEY,
+      shapeFrom: p[0] === "u" ? "circle" : "square", shapeTo: q[0] === "u" ? "circle" : "square" });
+  for (const [x, y] of Object.values(K)) Fig.contract(led, x, y, HC);
+  for (const [x, y] of Object.values(Us)) Fig.person(led, x, y, 5.6, C.user);
+
+  // 3. 계약만, 송금과 허락; 사용자 계정은 계약 그래프의 틀 밖에 있다
+  const th = document.getElementById("thesis");
+  // 틀은 실선이다: 이 그림들에서 점선 틀은 사용자 계정을 담고, 여기서 사용자 계정은 그 밖에 있다
+  Fig.el(th, "rect", { x: 0.15, y: 0.15, width: 36.25, height: 26.2, rx: 0.6, fill: C.plate, stroke: C.contract, "stroke-width": 0.3 });
+  Fig.text(th, 1.8, 25.1, "계약 그래프", { size: 2.55, fill: C.contractInk, weight: 700, spacing: 0, family: KO });
+  const N = { k1: [6.2, 9], k2: [17.5, 8], k3: [29.3, 9.4], k4: [8.1, 19.2], k5: [20.8, 18.8], k6: [31.2, 20] };
+  // 두 화살표가 한 변의 같은 점을 쓰게 될 곳에서는, 화살표가 점의 가운데에서 dy만큼 비켜 나가거나 들어온다
+  const edge = (p, q, kind, bend, dyFrom = 0, dyTo = 0) =>
+    Fig.edge(th, [N[p][0], N[p][1] + dyFrom], [N[q][0], N[q][1] + dyTo], kind === "allow"
+      ? { color: C.allow, width: 0.58, bend, half: HC, gap: 0.75 } : { color: C.transfer, width: 0.42, bend, half: HC, gap: 0.75 });
+  edge("k1", "k3", "allow", -9, -0.8, -0.8);         // 긴 허락은 두 끝 사이의 계약 위로 둥글게 지난다
+  edge("k4", "k5", "allow", -1.5);
+  edge("k6", "k3", "allow", 1.5);
+  edge("k1", "k2", "transfer", 1.2, 0.8, 0.6);
+  edge("k5", "k3", "transfer", 1.2);
+  edge("k4", "k1", "transfer", 1.2);
+  edge("k2", "k5", "transfer", 1.2);
+  edge("k5", "k6", "transfer", -1);
+  for (const [x, y] of Object.values(N)) Fig.contract(th, x, y, HC);
+  Fig.person(th, 42.4, 6, 5.6, C.user);
+  Fig.person(th, 42.4, 14.8, 5.6, C.user);
+  Fig.text(th, 42.4, 21.9, "사용자", { size: 2.55, fill: C.muted, anchor: "middle", spacing: 0, family: KO });
+  Fig.text(th, 42.4, 24.8, "계정", { size: 2.55, fill: C.muted, anchor: "middle", spacing: 0, family: KO });
+})();
+</script>
+</body>
+</html>

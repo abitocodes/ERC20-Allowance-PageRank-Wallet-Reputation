@@ -1,0 +1,144 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:answers-glance(6장, 「연구 질문에 대한 답」)의 원본이며, Figures/answers-glance.pdf를 만든다.
+  이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/answers-glance.html
+  영어 원본은 ../overleaf-github/Figures/html/answers-glance.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 6장의 말로 쓴 RQ1-RQ5의 답, 한 줄에 하나(질문, 답, 증거가 보여 주는 것). 숫자는 없다.
+  RQ1(EndorseRank와 AWP가 계약을 다르게 줄 세우는지, 저마다 자기 화살표와 맞는지, 각 걷기에 얼마나 드는지):
+    H1과 H3은 뒷받침되지만 대부분 만든 방식 때문에 저절로 그렇다. H2는 좁은 뜻으로만 뒷받침된다. 대리 지표가 그래프와 같은
+    이벤트에서 나오기 때문이다. 비용은 걷는 층의 크기를 따라가고, EndorseRank가 가장 싸며 C-PR은 AWP보다 조금 더 걸린다.
+  RQ2(발견 순서): 아니요. 두 중요도 모두에서 판정 V2. 판정 문장의 끝부분을 줄임표로 시작해 따온다: "…너비 우선 크롤보다
+    빨리 닿았지만, 계약 역링크 수로 순서를 정한 크롤보다 빨리 닿지는 못했어요." 사용자 허락 금액에서 너비 우선 순서보다
+    앞선 정도는 작고, 모든 민감도 분석에서 버티지는 않는다. 두 중요도 모두에서 자기 센 수보다 빨랐던 한 층 걷기는 AWP'
+    하나다. 모든 크롤은 이상적인 순서와 거리가 멀었다. 이 검증은 어떤 규칙도 정하지 않는다.
+  RQ3(기간 밖): 동결한 점수는 나중의 허락 쌍과 송금자를 미리 내다보고, 어느 라벨인지는 화살표 종류가 정한다. 각 걷기가
+    다듬는 원시 센 수와 견주면 대부분 센 수가 이긴다(EndorseRank는 받은 허락 수보다 아래; AWP는 코호트 전체에서 송금
+    입차수보다 조금 위지만, 다른 계약에게서 송금을 받은 적이 있는 W0 스펜더들 사이에서는 아래; C-PR은 허락 쌍에서 합집합
+    입차수보다 위, 송금자에서 아래이고, 받은 허락 수와 송금 입차수보다는 그 두 수의 라벨에서 아래).
+  RQ4(규칙 A): 아니요. 규칙 A는 두 부분 모두 충족하지 못했다.
+  RQ5(규칙 B의 적용한 두 기준): 아니요. F1은 서고 F2는 서지 못해서, 규칙 B는 충족하지 못했다.
+  아래: 주된 질문. 규칙 A와 B는 계약 그래프의 점수에 재분석으로 적용하고, 등록 분석도 같은 읽기를 내놓았다.
+
+  모양: 머리 줄은 자간을 둔 작은 글씨다. 답 하나는 옅은 판 왼쪽에 그 연구 질문 색의 꽉 찬 막대가 서고(RQ4와 RQ5는 C-PR
+  규칙의 보라를 함께 쓴다), 질문의 꼬리표는 같은 색의 꽉 찬 이름표다. 판정은 납작한 꼬리표다(초록: 뒷받침 또는 예, 빨강:
+  아니요, 황토: 좁은 뜻으로만, 회색 테두리의 흰색: 규칙을 정하지 않음). 주된 질문은 검은빛 막대 오른쪽의 판 위에 있고, 그
+  그림 문자는 고리를 두른 원 안에 흰색으로 있다. 본문의 라틴 글자와
+  숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans KR(보통 400, 굵게 700)이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>한눈에 보는 답</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong, .card .t, .card .rq, .chip b { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+@page { size: 180mm 140mm; margin: 0; }
+.rowp { grid-template-columns:9.6mm 32mm 28.2mm minmax(0, 1fr); column-gap:2mm; padding:0.8mm 2mm 0.8mm 1.8mm; margin-bottom:0.85mm; }
+.rowp.head { padding-top:0; padding-bottom:0; margin-bottom:0.6mm; line-height:1.18; }
+.rowp.head > * { letter-spacing:0.1em; }
+/* 다섯 꼬리표는 크기가 같고, 그 글자는 꼬리표마다 같은 높이에 선다(높이, 줄 높이, 안쪽 여백이 온 픽셀) */
+.rowp .tag { display:block; text-align:center; height:15px; line-height:14px; padding:1px 0 0; }
+/* 질문과 증거의 줄은 11 px 간격: 기준선은 온 픽셀에 찍힌다 */
+.q { font-size:7.1pt; font-weight:600; line-height:11px; color:var(--ink); }
+.ans { display:flex; flex-direction:column; align-items:flex-start; gap:0.6mm; }
+/* 판정은 높이가 같다(14 px, 기준선은 위에서 10 px); 흰 판정의 회색 줄은 그 높이 안에 있다(테두리가 아닌 안쪽 그림자) */
+.ans .pill { height:14px; line-height:14px; padding-top:0; padding-bottom:0; }
+.ans .pill.no { border:0; box-shadow:inset 0 0 0 0.3mm var(--rule); }
+.ev { font-size:7.1pt; color:var(--text); line-height:11px; }
+.ev .pr { line-height:0; }    /* Palatino 프라임은 제 줄 높이를 갖지 않는다: 그 줄은 다른 줄의 간격을 지킨다 */
+.r1 { --c:var(--rq1); } .r2 { --c:var(--rq2); } .r3 { --c:var(--rq3); } .r4 { --c:var(--rq45); }
+.rowp.r4 { height:40px; }     /* RQ4와 RQ5의 줄은 줄 수가 같다: 높이 하나, 온 픽셀 */
+.main { margin-top:1.6mm; background:var(--plate); border-left:4px solid var(--ink); padding:1.1mm 2.2mm 1.1mm 1.8mm;
+  font-size:7.3pt; line-height:1.25; display:grid; grid-template-columns:auto 1fr; column-gap:2mm; align-items:center; }
+.main .re { color:var(--muted); font-size:7.1pt; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="rowp head"><span></span><span>질문</span><span>답</span><span>증거가 보여 주는 것</span></div>
+
+  <div class="rowp r1">
+    <span class="tag r1">RQ1</span>
+    <span class="q">EndorseRank와 AWP는 다른가, 자기 화살표와 맞는가, 걷기에 얼마나 드는가?</span>
+    <span class="ans"><span class="pill good">H1, H3 뒷받침</span><span class="pill mixed">H2는 좁은 뜻으로만</span></span>
+    <span class="ev">대부분 만든 방식 때문에 저절로: 코호트 계약 대부분이 EndorseRank에서 0점; 대리 지표가 그래프와 같은 이벤트에서
+      나옴; 비용은 걷는 층을 따라감(EndorseRank가 가장 쌈, <span class="nb">C-PR</span>은 AWP보다 조금 느림).</span>
+  </div>
+
+  <div class="rowp r2">
+    <span class="tag r2">RQ2</span>
+    <span class="q"><span class="nb">C-PR</span>로 순서를 정한 크롤이 사용자 계정의 수요가 가장 큰 계약들에 더 빨리 닿는가?</span>
+    <span class="ans"><span class="pill bad">아니요 · 판정 V2</span><span class="pill no">규칙을 정하지 않음</span></span>
+    <span class="ev">“…&nbsp;너비 우선 크롤보다 빨리 닿았지만, 계약 역링크 수로 순서를 정한 크롤보다 빨리 닿지는 못했어요.”
+      사용자 허락 금액에서 너비 우선 순서보다 앞선 정도는 작고, 모든 민감도 분석에서 버티지는 않음. 두 중요도 모두에서
+      자기 센 수보다 빨랐던 한 층 걷기는 AWP<span class="pr">′</span> 하나; 모든 크롤은 이상적인 순서와 거리가 멀었음.</span>
+  </div>
+
+  <div class="rowp r3">
+    <span class="tag r3">RQ3</span>
+    <span class="q">동결한 점수가 나중의 라벨을 예측하는가, 걷기가 자기가 다듬는 센 수를 이기는가?</span>
+    <span class="ans"><span class="pill good">예측: 예</span><span class="pill bad">대부분 센 수가 이김</span></span>
+    <span class="ev">점수가 어느 라벨을 내다보는지는 화살표 종류가 정함. 자기 센 수와 견주면: EndorseRank는 아래; AWP는 코호트 전체에서
+      조금 위, 다른 계약에게서 송금을 받은 적이 있는 W0 스펜더들 사이에서는 아래; <span class="nb">C-PR</span>은 허락 쌍에서 합집합
+      입차수보다 위, 송금자에서 아래이고, 받은 허락 수와 송금 입차수보다는 그 두 수의 라벨에서 아래.</span>
+  </div>
+
+  <div class="rowp r4">
+    <span class="tag r45">RQ4</span>
+    <span class="q"><span class="nb">C-PR</span>은 혼자 걸은 자기 층 하나하나를 이기는가?</span>
+    <span class="ans"><span class="pill bad">아니요 · 규칙 A 충족 못 함</span></span>
+    <span class="ev">W0에서 새 허락 쌍은 허락 층보다, 새 송금자는 송금 층보다 아래; 같은 기간에서는 앞선 층의 구간 밖이고,
+      안정성 가족에서 두 층을 모두 넘지 못함.</span>
+  </div>
+
+  <div class="rowp r4">
+    <span class="tag r45">RQ5</span>
+    <span class="q">허락이 새 자료에서 송금 걷기를 낫게 하는가?</span>
+    <span class="ans"><span class="pill bad">아니요 · 규칙 B 충족 못 함</span></span>
+    <span class="ev">W1에서 적용한 규칙 B의 두 기준: <b>F1은 섬</b>, <span class="nb">C-PR</span>이 새 허락 쌍을 송금 층보다 위에 줄 세움;
+      <b>F2는 서지 못함</b>, 새 송금자에서의 손실이 허용 폭을 넘음.</span>
+  </div>
+
+  <div class="main"><span data-medal="scale" data-color="ink" data-size="4.8"></span>
+    <span><b>주된 질문:</b> 이 자료에서 두 화살표 종류를 모두 걷는 걷기 하나는 사용자가 기대는 계약을 더 빨리 찾지도, 그 계약들이
+      나중에 쓰일 것을 더 잘 예측하지도 못함. <span class="re">규칙 A와 B는 계약 그래프의 점수에 재분석으로 적용함; 등록 분석도
+      같은 읽기를 내놓았음.</span></span></div>
+</div>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">로 감싸 자간을 0으로 둔다. fig.js가 DOMContentLoaded에서 줄 높이를
+// 재기 전에, 문서를 읽는 동안 돈다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const w = document.createTreeWalker(document.querySelector(".fig"), NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (!n.parentElement.closest("svg") && any.test(n.textContent)) nodes.push(n);
+  for (const n of nodes) {
+    const s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = document.createElement("span"); k.className = "ko"; k.textContent = m; frag.appendChild(k);
+      last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    // 플렉스 상자 안에서는 조각마다 따로 항목이 되어 끝의 빈칸을 잃고 상자의 틈이 끼므로, 조각을 한 span에 모은다
+    if (/flex/.test(getComputedStyle(n.parentElement).display)) { const one = document.createElement("span"); one.appendChild(frag); n.replaceWith(one); }
+    else n.replaceWith(frag);
+  }
+})();
+</script>
+</body>
+</html>

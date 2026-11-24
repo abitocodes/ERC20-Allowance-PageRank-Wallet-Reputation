@@ -1,0 +1,236 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:discovery-protocol(3장, 발견 순서 검증)의 원본이며, Figures/discovery-protocol.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/discovery-protocol.html
+  영어 원본은 ../overleaf-github/Figures/html/discovery-protocol.html이고, 내용과 배치와 크기가 같다. 모양은 영어
+  그림의 style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: RQ2의 질문을 네 부분으로 나눈 것(그림은 도식이고, 자료가 아니다). 위에는 RQ2의 초록 막대 뒤 옅은 판에
+  1장이 적은 그대로의 질문이 있고, 네 부분에 아래 네 카드의 색으로 밑줄을 긋고 번호를 붙였다. 한국어 어순에서는 번호가
+  2, 1, 3, 4의 차례로 나온다: (2) 지금까지 읽은 계약들로 계산한 C-PR로 순서를 정한, (1) 크롤은, (3) 사용자 계정의
+  수요가 가장 큰 계약들에, (4) 너비 우선 크롤보다, 그리고 계약 역링크 수로 순서를 정한 크롤보다 빨리. 아래에는 부분마다
+  카드가 하나씩 있다.
+  1. 크롤: 크롤 중간의 작은 계약 그래프. 출발 계약(초록 깃발)은 거대 강연결 성분의 계약 20개 가운데 하나다. 방문하면
+     그 계약의 들어오고 나가는 화살표가 드러난다. 방문한 계약은 꽉 찬 네모, 프런티어(찾았지만 아직 방문하지 않은 계약)는
+     청록 선을 두른 흰 네모로 a, b, c라는 글자가 있고, 아직 못 찾은 계약은 점선이다. 지금까지 읽은 화살표는 허락(금색)과
+     송금(파랑)이고, 아직 읽지 않은 화살표는 회색 점선이다.
+  2. C-PR′로 순서 정하기: 카드 1의 프런티어 a, b, c마다 지금까지 읽은 부분으로 계산한 C-PR을 보라 막대로 그렸다. 가장
+     높은 b가 다음 방문의 보라 테두리 안에 선다. K번 방문한 뒤 프런티어의 점수를 다시 매기고, 위의 max(1, ⌈ρK⌉)개를
+     다음에 방문한다. 견주는 두 크롤: 찾은 차례로 순서를 정하는 BFS와, 역링크로 순서를 정하는 IB′_U.
+  3. 사용자 계정의 수요: 사용자 계정들(회색, 점선 테두리 안)이 세 계약에 송금(파랑, 점선)과 허락(금색, 점선)을 보낸다.
+     그 가운데 가장 많이 쓰이는 계약이 뜨겁다(장미색 별). 뜨거운 계약: I_T(보낸 달러)나 I_A(상한을 씌운 허락)로 본
+     우주의 상위 1%. 어떤 순서 규칙도 사용자 계정을 읽지 않는다.
+  4. 더 빨리?: AUC_10%, 우주의 처음 10% 동안 방문한 뜨거운 집합의 몫 아래 넓이. 판정은 T_obs에서 뜨거운 집합마다
+     D1 = C-PR′ − BFS와 D2 = C-PR′ − IB′_U(AUC_10%의 차이)로 읽는다: V1 두 95% 구간이 모두 0보다 위; V2 D1의 구간은
+     0보다 위이고 D2의 구간은 아님; V3 D1의 구간이 0보다 위가 아님.
+
+  모양: 판 위의 질문은 8.2 pt의 짙은 글이고, 부분마다 그 카드의 색으로 밑줄을 그은 뒤 그 색의 작은 번호 원을 붙였다.
+  네 카드는 너비와 높이가 같고(147 px, 12 px 간격), 카드마다 가는 테두리 안에 회색 선 위의 Palatino 제목(한글은
+  Noto Serif KR)이 있으며, 번호는 고리를 두른 원 안에 있다(크롤은 청록, C-PR은 보라, 뜨거운 계약은 장미색, 검증의 읽기는
+  RQ2의 초록). 계약은 네모이고, crawl-ordering.html의 페이지처럼 상태를 나타낸다. 카드 1의 프런티어 글자는 카드 2에서
+  같은 크기로 다시 나온다. 사용자 계정은 점선 테두리 안의 회색 그림 문자이고, 그 화살표는 점선이다. 점수의 프라임,
+  빼기 기호, 변수는 Palatino로 적었다. 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans
+  KR(보통 400, 굵게 700)이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>발견 순서 검증</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+/* SVG 글자: fig.js가 적는 글꼴 속성보다 CSS가 앞서므로, 여기서 Noto 글꼴을 뒤에 더한다 */
+svg text.sans { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+svg text.serif, svg tspan.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+@page { size: 180mm 110mm; margin: 0; }
+.fig { width:624px; }
+/* 질문 */
+.q { background:var(--plate); border-left:4px solid var(--rq2); padding:5px 9px 6px 8px; display:flex; gap:2.2mm; align-items:flex-start; }
+.q .tag { flex:none; margin-top:2px; }
+.q p { margin:0; font-size:8.2pt; line-height:17px; color:var(--ink); }
+.q u { text-decoration-line:underline; text-decoration-thickness:0.45mm; text-underline-offset:0.9mm; text-decoration-skip-ink:none; }
+.q u.c1 { text-decoration-color:var(--contract); } .q u.c2 { text-decoration-color:var(--coupled); }
+.q u.c3 { text-decoration-color:var(--rq3); } .q u.c4 { text-decoration-color:var(--rq2); }
+.q svg.qn { display:inline-block; vertical-align:0.75mm; margin:0 0.2mm 0 0.7mm; }
+/* 147 px 카드 넷과 12 px 간격: 624 px, 165.1 mm(온 픽셀이어서 카드들이 같게 나온다) */
+.cols { margin-top:2.2mm; display:grid; grid-template-columns:repeat(4, 147px); column-gap:12px; align-items:stretch; }
+.cols > .part.panel { padding:6px 7px 6px; }             /* 안쪽 133 px: 35.190 mm */
+.cols .h.s { font-size:8pt; }
+.h .badge { margin:0.5mm 1.3mm 0.5mm 0.3mm; }
+.part svg.draw { display:block; width:133px; }
+.txt { font-size:7.1pt; line-height:12px; color:var(--muted); }
+.txt i.v, .txt .m, .txt .pr, .txt sub, .fm i.v, .fm .pr, .vr i.v { line-height:0; }
+.leg { display:grid; grid-template-columns:max-content max-content; justify-content:space-between; row-gap:1px; font-size:7.1pt; line-height:12px; color:var(--muted); margin:0.6mm 0 1.2mm; }
+.leg span { display:inline-flex; align-items:center; gap:0.9mm; white-space:nowrap; }
+.leg svg { flex:none; }
+.bottom { margin-top:auto; }
+.fm { font-size:7.3pt; line-height:14px; color:var(--text); white-space:nowrap; }
+.vrows { display:flex; flex-direction:column; gap:2px; margin:1.4mm 0 0; }
+.vr { display:flex; align-items:center; gap:1.6mm; font-size:7.1pt; line-height:14px; color:var(--text); white-space:nowrap; }
+.vr .pill { width:22px; justify-content:center; padding:0; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="q">
+    <span class="tag r2">RQ2</span>
+    <p><u class="c2">지금까지 읽은 계약들로 계산한 <span class="nb">C-PR</span>로 순서를 </u><span class="nb"><u class="c2">정한</u><span class="qn" data-n="2" data-c="coupled"></span></span> <span class="nb"><u class="c1">크롤은</u><span class="qn" data-n="1" data-c="contract"></span>,</span> <u class="c3">사용자 계정의 수요가 가장 큰 </u><span class="nb"><u class="c3">계약들에</u><span class="qn" data-n="3" data-c="rq3"></span></span> <u class="c4">너비 우선 크롤보다, 그리고 계약 역링크 수로 순서를 정한 크롤보다 </u><span class="nb"><u class="c4">빨리</u><span class="qn" data-n="4" data-c="rq2"></span> 닿나요?</span></p>
+  </div>
+  <div class="cols">
+    <!-- 1. 크롤 -->
+    <div class="part panel">
+      <div class="h s"><span class="badge contract">1</span><span>크롤</span></div>
+      <svg id="crawl" class="draw" viewBox="0 0 35.19 17.4" style="height:17.4mm"></svg>
+      <div class="leg">
+        <span><svg width="2.6mm" height="2.6mm" viewBox="0 0 2.6 2.6"><rect x="0.2" y="0.2" width="2.2" height="2.2" rx="0.4" style="fill:var(--contract)"/></svg>방문함</span>
+        <span><svg width="2.6mm" height="2.6mm" viewBox="0 0 2.6 2.6"><rect x="0.22" y="0.22" width="2.16" height="2.16" rx="0.4" fill="#fff" style="stroke:var(--contract)" stroke-width="0.4"/></svg>프런티어</span>
+        <span><svg width="2.6mm" height="2.6mm" viewBox="0 0 2.6 2.6"><rect x="0.2" y="0.2" width="2.2" height="2.2" rx="0.4" fill="#fff" style="stroke:var(--user)" stroke-width="0.32" stroke-dasharray="0.75 0.5"/></svg>아직 못 찾음</span>
+      </div>
+      <div class="txt bottom">출발 계약에서 시작: 거대 SCC의 계약 20개 가운데 하나. 방문하면 들어오고 나가는 화살표가 드러남.</div>
+    </div>
+    <!-- 2. C-PR'로 순서 정하기 -->
+    <div class="part panel">
+      <div class="h s"><span class="badge coupled">2</span><span><span class="nb">C-PR</span><span class="pr">′</span>로 순서 정하기</span></div>
+      <svg id="order" class="draw" viewBox="0 0 35.19 17.4" style="height:17.4mm"></svg>
+      <div class="txt bottom"><span class="nb">C-PR</span><span class="pr">′</span>: 지금까지 읽은 부분으로 계산한 <span class="nb">C-PR</span>. <i class="v">K</i>번 방문한 뒤 프런티어의 점수를 다시 매기고, 위의 <span class="m">max(1,&nbsp;⌈<i>ρK</i>⌉)</span>개를 다음에 방문. BFS는 찾은 차례로, IB<span class="pr">′</span><sub>U</sub>는 역링크로 순서를 정함.</div>
+    </div>
+    <!-- 3. 사용자 계정의 수요 -->
+    <div class="part panel">
+      <div class="h s"><span class="badge" style="--c:var(--rq3)">3</span><span>사용자 계정의 수요</span></div>
+      <svg id="demand" class="draw" viewBox="0 0 35.19 17.4" style="height:17.4mm"></svg>
+      <div class="txt bottom">뜨거운 계약: 보낸 달러(<i class="v">I</i><sub>T</sub>)나 상한을 씌운 허락(<i class="v">I</i><sub>A</sub>)으로 본 상위 1%. 어떤 순서 규칙도 사용자 계정을 읽지 않음.</div>
+    </div>
+    <!-- 4. 더 빨리 -->
+    <div class="part panel">
+      <div class="h s"><span class="badge" style="--c:var(--rq2)">4</span><span>더 빨리?</span></div>
+      <div class="txt">AUC<sub>10%</sub>: 우주의 처음 10% 동안 방문한 뜨거운 집합의 몫 아래 넓이. <i class="v">T</i><sub>obs</sub>에서, 뜨거운 집합마다:</div>
+      <div class="fm" style="margin-top:1.2mm"><i class="v">D</i><sub>1</sub> = <span class="nb">C-PR</span><span class="pr">′</span><span class="pr"> − </span>BFS</div>
+      <div class="fm"><i class="v">D</i><sub>2</sub> = <span class="nb">C-PR</span><span class="pr">′</span><span class="pr"> − </span>IB<span class="pr">′</span><sub>U</sub></div>
+      <div class="vrows">
+        <div class="vr"><span class="pill good">V1</span><span>둘 다 0보다 위</span></div>
+        <div class="vr"><span class="pill mixed">V2</span><span><i class="v">D</i><sub>1</sub>은 0보다 위, <i class="v">D</i><sub>2</sub>는 아님</span></div>
+        <div class="vr"><span class="pill bad">V3</span><span><i class="v">D</i><sub>1</sub>이 0보다 위가 아님</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 class="ko"로 감싸 자간을 0으로 둔다. HTML에서는 <span>, SVG 글자 안에서는 <tspan>이다.
+// HTML은 fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에, 문서를 읽는 동안 감싼다. SVG 글자는 Fig.text와 Fig.rich가
+// 만들 때 바로 감싼다. 가운데나 오른쪽에 맞춘 글자가 한글로 끝나면 끝 자간이 없으니, fig.js가 그만큼 옮겨 둔 x를 되돌린다.
+const KO = (function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`), last = new RegExp(`[${H}]\\s*$`);
+  const NS = "http://www.w3.org/2000/svg";
+  function wrap(root) {
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [];
+    for (let n; (n = w.nextNode());) {
+      const p = n.parentElement;
+      if (p && !(p.classList && p.classList.contains("ko")) && p.tagName !== "STYLE" && p.tagName !== "SCRIPT" && any.test(n.textContent)) nodes.push(n);
+    }
+    for (const n of nodes) {
+      const svg = n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+      let at0 = 0;
+      s.replace(run, (m, at) => {
+        if (at > at0) frag.appendChild(document.createTextNode(s.slice(at0, at)));
+        const k = svg ? document.createElementNS(NS, "tspan") : document.createElement("span");
+        k.setAttribute("class", "ko"); k.textContent = m;
+        if (svg) k.style.letterSpacing = "0px";
+        frag.appendChild(k);
+        at0 = at + m.length;
+      });
+      if (at0 < s.length) frag.appendChild(document.createTextNode(s.slice(at0)));
+      n.replaceWith(frag);
+    }
+  }
+  function svgText(t) {
+    if (!t || !any.test(t.textContent)) return t;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && last.test(t.textContent) && (a === "middle" || a === "end"))
+      t.setAttribute("x", (parseFloat(t.getAttribute("x")) - (a === "middle" ? sp / 2 : sp)).toFixed(3));
+    wrap(t);
+    return t;
+  }
+  for (const k of ["text", "rich"]) { const f = Fig[k]; Fig[k] = (...args) => svgText(f(...args)); }
+  return { wrap };
+})();
+KO.wrap(document.querySelector(".fig"));
+
+const C = Fig.C;
+// 세 상태 가운데 하나의 계약, crawl-ordering.html의 페이지처럼: 방문함은 꽉 참, 프런티어는 청록 선을 두른 흰 네모,
+// 아직 못 찾음은 점선
+function square(svg, x, y, h, st) {
+  if (st === "v") return Fig.node(svg, x, y, { half: h, fill: C.contract, keyline: 0 });
+  Fig.el(svg, "rect", Object.assign({ x: x - h, y: y - h, width: 2 * h, height: 2 * h, rx: h * 0.2, fill: C.paper },
+    st === "f" ? { stroke: C.contract, "stroke-width": 0.45 } : { stroke: C.user, "stroke-width": 0.35, "stroke-dasharray": "1.1 0.8" }));
+}
+// 프런티어 계약의 글자: 카드 1과 2에서 같다
+const H = 1.9;   // 계약 한 변의 반(mm)
+const letter = (svg, x, y, l) => Fig.text(svg, x, y + 0.88, l, { size: 2.5, weight: 700, fill: C.contractInk, anchor: "middle" });
+// 질문의 부분 뒤에 붙는 번호 원
+for (const s of document.querySelectorAll("span.qn")) {
+  const R = 1.6, svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");   // 번호는 2.5 mm, 7.1 pt
+  svg.setAttribute("class", "qn"); svg.setAttribute("viewBox", `0 0 ${2 * R} ${2 * R}`);
+  svg.setAttribute("width", `${2 * R}mm`); svg.setAttribute("height", `${2 * R}mm`);
+  Fig.el(svg, "circle", { cx: R, cy: R, r: R, fill: C[s.dataset.c] });
+  Fig.text(svg, R, R + 0.88, s.dataset.n, { size: 2.5, weight: 700, fill: "#fff", anchor: "middle", spacing: 0 });
+  s.replaceWith(svg);
+}
+// 1. 크롤: 출발 계약과 방문한 계약 둘, 프런티어 a, b, c, 아직 못 찾은 계약 둘
+(function () {
+  const svg = document.getElementById("crawl");
+  const N = { s: [3.2, 10.2], v1: [11.8, 4.0], v2: [11.8, 15.0], a: [21.4, 2.4], b: [21.4, 9.2], c: [21.4, 15.2], u1: [31.0, 5.4], u2: [31.0, 12.8] };
+  const state = { s: "v", v1: "v", v2: "v", a: "f", b: "f", c: "f", u1: "u", u2: "u" };
+  // 아직 읽지 않은 화살표: 회색 점선, 머리 없음
+  for (const [p, q] of [["a", "u1"], ["b", "u1"], ["b", "u2"], ["c", "u2"]])
+    Fig.edge(svg, N[p], N[q], { color: C.user, width: 0.32, dash: "1.1 0.8", halfFrom: H, halfTo: H, gap: 0.55, head: false });
+  // 지금까지 읽은 화살표: 허락은 금색, 송금은 파랑
+  for (const [p, q, k] of [["s", "v1", "A"], ["s", "v2", "T"], ["v1", "a", "T"], ["v1", "b", "A"], ["v2", "b", "T"], ["v2", "c", "A"]])
+    Fig.edge(svg, N[p], N[q], Object.assign({ halfFrom: H, halfTo: H, gap: 0.55 }, k === "A" ? { color: C.allow, width: 0.55 } : { color: C.transfer, width: 0.45 }));
+  for (const [id, [x, y]] of Object.entries(N)) square(svg, x, y, H, state[id]);
+  for (const id of ["a", "b", "c"]) letter(svg, N[id][0], N[id][1], id);
+  // 출발 계약: 초록 깃발
+  const [x, y] = N.s;
+  Fig.el(svg, "path", { d: `M${x - H + 0.6},${y - H} V${y - H - 4.4} l3,1.1 l-3,1.1`, fill: C.rq2, stroke: C.rq2, "stroke-width": 0.3, "stroke-linejoin": "round" });
+  Fig.text(svg, x + 0.3, y + 5.1, "출발", { size: 2.5, fill: C.rq2, weight: 700, anchor: "middle" });
+})();
+// 2. 읽은 부분 위의 C-PR′: 카드 1의 프런티어 계약마다 막대 하나. 가장 높은 것을 다음에 방문한다
+(function () {
+  const svg = document.getElementById("order"), X = 3.4, B0 = 7.6;
+  for (const [l, y, len] of [["a", 2.9, 10.0], ["b", 8.7, 19.0], ["c", 14.5, 6.0]]) {
+    square(svg, X, y, H, "f");
+    letter(svg, X, y, l);
+    Fig.el(svg, "rect", { x: B0, y: y - 1.0, width: len, height: 2.0, fill: l === "b" ? C.coupled : C.coupledFill });
+  }
+  const g = H + 0.75;   // 다음 방문의 보라 테두리
+  Fig.el(svg, "rect", { x: X - g, y: 8.7 - g, width: 2 * g, height: 2 * g, rx: 0.5, fill: "none", stroke: C.coupled, "stroke-width": 0.45 });
+  Fig.text(svg, B0 + 19.0 + 1.2, 8.7 + 0.88, "다음", { size: 2.5, weight: 700, fill: C.coupled });
+})();
+// 3. 사용자 계정과 그들이 쓰는 계약. 가장 많이 쓰이는 계약이 뜨겁다. 이름표 "뜨거움"은 가운데 계약의 위에, 별은 그
+// 바로 오른쪽에 선다(별 오른쪽에서는 이름표가 오른쪽 계약에 닿는다). 계약 셋은 그 자리만큼 아래(y = 5.2)에 있다.
+(function () {
+  const svg = document.getElementById("demand");
+  const K = { l: [5.6, 5.2], m: [17.6, 5.2], r: [29.6, 5.2] };
+  Fig.el(svg, "rect", { x: 0.2, y: 9.6, width: 34.79, height: 7.6, rx: 0.5, fill: C.paper, stroke: C.user, "stroke-width": 0.35, "stroke-dasharray": "1.1 0.8" });
+  const P = [3.6, 9.0, 14.4, 20.8, 26.2, 31.6], PY = 13.6;
+  for (const [i, k, t] of [[0, "l", "T"], [1, "m", "A"], [2, "m", "T"], [3, "m", "A"], [4, "m", "T"], [5, "r", "A"]])
+    Fig.edge(svg, [P[i], 11.3], K[k], { color: t === "A" ? C.allow : C.transfer, width: 0.4, dash: "0.9 0.6", halfFrom: 0, halfTo: H, gap: 0.45 });
+  for (const x of P) Fig.person(svg, x, PY, 3.8, C.user);
+  for (const [x, y] of Object.values(K)) Fig.node(svg, x, y, { half: H, fill: C.contract, keyline: 0 });
+  Fig.text(svg, 16.6, 2.3, "뜨거움", { size: 2.5, weight: 700, fill: C.rq3, anchor: "middle" });
+  Fig.star(svg, 21.9, 1.45, 1.4, C.rq3);
+})();
+</script>
+</body>
+</html>

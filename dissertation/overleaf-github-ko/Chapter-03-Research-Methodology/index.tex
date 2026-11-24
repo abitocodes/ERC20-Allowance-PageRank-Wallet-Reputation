@@ -81,9 +81,9 @@ w(u,v)/o(u) & \text{만약 }o(u)>0\text{이면},\\
 
 \begin{figure}[htbp]
 \centering
-\begin{adjustbox}{max width=\linewidth}
-\input{Figures/data-overview.tex}
-\end{adjustbox}
+% HTML로 그린 그림. 원본은 Figures/html/data-overview.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/data-overview.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/data-overview.pdf}
 \caption[{이 논문에서 쓴 블록체인 자료: 출처, 다루는 달, 떼어 둔 라벨, 쓰임.}]{이 논문에서 쓴 블록체인 자료예요. 모두 아비트럼 원에서 나왔어요. 가로줄 하나는 분석 하나예요. 막대 하나는 온체인 기록 한 종류이고, 그 기록이 다루는 달 위에 놓여 있어요. 2025년 4월 전의 18개월은 줄여서 그렸어요. 색이 꽉 찬 막대는 점수, 코호트, 같은 기간 점검에 들어가는 입력이에요. 빗금 친 막대는 점수에 넣지 않는 기록이에요. 동결일 뒤에 센 라벨, 그리고 발견 순서 검증에서 계약의 중요도를 주는 사용자 계정의 이벤트가 여기에 들어요. 7월부터 9월까지의 로그는 W1의 등록 문서를 커밋한 뒤에야 뽑았어요. 각 동결일 전 12개월 동안의 다섯 토큰 허락 로그로 그 동결일의 코호트를 골라요. 주 분석의 그래프에는 그 달들에 두 계약 사이에서 일어난 그 토큰들의 이벤트가 들어 있고, 이 이벤트는 체인 전체에서 읽어요. 등록 분석은 스캔~A의 모든 이벤트로 점수를 매겨요.}
 \label{fig:data-overview}
 \end{figure}
@@ -131,50 +131,9 @@ w(u,v)/o(u) & \text{만약 }o(u)>0\text{이면},\\
 
 \begin{figure}[htbp]
 \centering
-\begin{adjustbox}{max width=\linewidth}
-\begin{tikzpicture}[
-  font=\small,
-  node distance=1.0cm and 1.0cm,
-  box/.style={draw, rounded corners=2pt, align=center, minimum height=0.95cm, minimum width=2.2cm, inner sep=3pt},
-  wide/.style={draw, rounded corners=2pt, align=center, minimum height=0.95cm, minimum width=2.6cm, inner sep=3pt},
-  arrow/.style={-{Stealth[length=2.5mm]}, thick}
-]
-% Top row: remote acquisition (left to right)
-\node[wide] (bq) at (0,0) {BigQuery\\공개 로그};
-\node[wide] (extract) at (3.5,0) {로그 뽑기\\(스캔 A와 B;\\토픽으로 거르기)};
-\node[wide] (types) at (7.5,0) {끝 점 종류 판별\\(트랜잭션 보낸 주소;\\RPC로 코드 읽기)};
-\node[wide] (pairs) at (11.7,0) {잔액; 계약 사이의\\쌍 표;\\코호트와 라벨};
-
-% Local evaluation. Row 1: tables -> edge lists -> scores -> evaluation -> export.
-% Row 2: proxy metrics. Row 3: temporal holdouts. Row 4: discovery-order test.
-\node[box] (decode) at (0,-2.7) {표\\불러오기};
-\node[box] (prep) at (3.0,-2.7) {화살표 목록\\만들기};
-\node[wide] (ranks) at (6.2,-2.7) {페이지랭크 점수\\(엔도스랭크, AWP,\\C-PR, \mbox{S-PR})};
-\node[wide] (align) at (9.5,-2.7) {일치도와\\벤치마크};
-\node[wide] (tabexp) at (12.7,-2.7) {표와 그림\\내보내기};
-\node[box] (proxy) at (3.0,-4.3) {대리\\지표};
-\node[wide] (hold) at (6.2,-5.6) {시간 홀드아웃\\(W0과 W1)};
-\node[wide] (disc) at (6.2,-7.2) {발견 순서 검증\\(두 동결일의 크롤)};
-
-\draw[arrow] (bq) -- (extract);
-\draw[arrow] (extract) -- (types);
-\draw[arrow] (types) -- (pairs);
-\draw[arrow] (pairs.south) -- ++(0,-0.45) -| (decode.north);
-\draw[arrow] (decode) -- (prep);
-\draw[arrow] (prep) -- (ranks);
-\draw[arrow] (ranks) -- (align);
-\draw[arrow] (align) -- (tabexp);
-\draw[arrow] ([xshift=8pt]decode.south) |- (proxy.west);
-\draw[arrow] (decode.south) |- (hold.west);
-\draw[arrow] ([xshift=-8pt]decode.south) |- (disc.west);
-\draw[arrow] (proxy.east) -| (align.south);
-\draw[arrow] (hold.east) -| ([xshift=-6pt]tabexp.south);
-\draw[arrow] (disc.east) -| ([xshift=6pt]tabexp.south);
-
-\node[draw, dashed, rounded corners, fit=(bq)(extract)(types)(pairs), inner sep=8pt, label=above:{\footnotesize 원격 / 자료 얻기}] {};
-\node[draw, dashed, rounded corners, fit=(decode)(prep)(ranks)(align)(tabexp)(proxy)(hold)(disc), inner sep=8pt, label=below:{\footnotesize 로컬 / 재현 가능}] {};
-\end{tikzpicture}
-\end{adjustbox}
+% HTML로 그린 그림. 원본은 Figures/html/pipeline-architecture.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/pipeline-architecture.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/pipeline-architecture.pdf}
 \caption[{처리 과정 한눈에 보기: 공개 로그에서 점수, 점검, 표까지.}]{처리 과정을 한눈에 본 그림이에요. 허락 로그와 송금 로그는 원격에서 두 번의 스캔으로 복사해요. 다섯 토큰 이벤트의 끝 점은 종류를 판별하고, 주인들의 잔액을 계산하고, 계약 사이의 이벤트를 쌍 표로 모아요. 로컬에서는 쌍 표를 화살표 목록으로 바꾸고, 이 목록으로 점수를 계산해요. 그 뒤에 일치도 계산과 벤치마크 계산, 시간 홀드아웃, 발견 순서 검증의 크롤이 이어져요. 표와 그림은 맨 마지막에 내보내요.}
 \label{fig:pipeline-architecture}
 \end{figure}
@@ -307,7 +266,16 @@ w_A(u,v)
 \sigma\bigl(\Delta t^{\star}(u,v,\mathrm{token})\bigr)\,
 V\bigl(\hat a(u,v,\mathrm{token})\bigr),
 \end{equation}
-여기서 $\sigma$, $V$, $k$, $t_0$은 AWP와 같고, $b=b_A=\ln 3/m_A$예요. 방향이 있는 화살표 $u\to v$는 주인 계약 $u$가 스펜더 계약 $v$를 보증한다는 뜻이에요. 허락이 무엇이라고 적혀 있든, 스펜더는 주인의 잔액까지만 옮길 수 있어요. 그래서 상한을 씌운 금액이 그 보증이 걸어 둔 몫이에요. 동결 시점에 그 토큰을 하나도 갖고 있지 않은 주인은, 기간 동안 아무리 많은 토큰이 그 주인을 거쳐 갔더라도 화살표를 만들지 않아요. 상한을 씌운 금액은 대부분 허락이 아니라 잔액이 정해요(표~\ref{tab:allowance-cap}). 그래서 $m_A$가 작아요. 1달러 이상인 상한을 씌운 허락은 소수 넷째 자리까지 시간 무게 전체로 들어가고, $V$는 그보다 작은 허락들만 구별해요.
+여기서 $\sigma$, $V$, $k$, $t_0$은 AWP와 같고, $b=b_A=\ln 3/m_A$예요. 방향이 있는 화살표 $u\to v$는 주인 계약 $u$가 스펜더 계약 $v$를 보증한다는 뜻이에요. 허락이 무엇이라고 적혀 있든, 스펜더는 주인의 잔액까지만 옮길 수 있어요. 그래서 상한을 씌운 금액이 그 보증이 걸어 둔 몫이에요. 동결 시점에 그 토큰을 하나도 갖고 있지 않은 주인은, 기간 동안 아무리 많은 토큰이 그 주인을 거쳐 갔더라도 화살표를 만들지 않아요. 상한을 씌운 금액은 대부분 허락이 아니라 잔액이 정해요(표~\ref{tab:allowance-cap}). 그래서 $m_A$가 작아요. 1달러 이상인 상한을 씌운 허락은 소수 넷째 자리까지 시간 무게 전체로 들어가고, $V$는 그보다 작은 허락들만 구별해요. 그림~\ref{fig:balance-cap}는 네 가지 허락에 상한이 어떻게 씌워지는지 보여 줘요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/balance-cap.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/balance-cap.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/balance-cap.pdf}
+\caption[{두 계약 사이의 허락에 씌우는 잔액 상한.}]{주인--스펜더 쌍 하나와 토큰 하나에 씌우는 잔액 상한이에요. 점수 기간의 마지막 허락 $a^{\star}$와 동결 시점 주인의 잔액은 둘 다 동결일의 가격으로 바꾼 달러예요. 이 둘로 상한을 씌운 허락 $\hat a=\min(a^{\star},\mathrm{bal})$(꽉 찬 부분)을 구해요. 잔액보다 작은 허락은 다 세고, 무제한 허락은 잔액만큼 세요. 주인이 그 토큰을 하나도 갖고 있지 않거나 마지막 허락이 0이면 화살표가 생기지 않아요. \mbox{C-PR}의 허락 층은 상한을 씌운 허락마다 $U$로도 묶어요(식~\eqref{eq:raw-layers}). 막대 길이는 보기일 뿐이에요.}
+\label{fig:balance-cap}
+\end{figure}
 
 걷기는 그래프의 계약들 위에서 고르게 다시 출발해요. AWP의 다시 출발 규칙을 허락에 옮기면, 걷기는 주인 $u$에서 $X^A_u=\sum_{v\neq u}\max_{\mathrm{token}}\sigma\bigl(\Delta t^{\star}(u,v,\mathrm{token})\bigr)$에 비례해서 다시 출발해요. 이 합은 $u$의 양수인 상한을 씌운 허락을 받은 스펜더 $v$들에 걸쳐 더해요. 그러면 보증을 해 주는 쪽이 상을 받게 돼요. 그런데 엔도스랭크는 보증을 받는 계약에 순위를 매기려는 방법이에요. 분석 계획은 고르게 다시 출발하기로 정했어요. 그리고 이 변형, 곧 활동 재시작을 쓰는 엔도스랭크를 엔도스랭크 옆에 함께 보고할 것으로 정해 두었어요(표~\ref{tab:endorserank-restarts}).
 
@@ -368,23 +336,10 @@ P^{(\lambda)}_{u,\cdot}
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-  font=\small,
-  vertex/.style={draw, circle, minimum size=0.9cm},
-  allow/.style={-{Stealth[length=2.5mm]}, thick},
-  xfer/.style={-{Stealth[length=2.5mm]}, thick, dashed}
-]
-\node[vertex] (x) at (0,1.5) {$x$};
-\node[vertex] (u) at (0,0) {$u$};
-\node[vertex] (y) at (0,-1.5) {$y$};
-\node[vertex] (v) at (5.2,0.85) {$v$};
-\node[vertex] (w) at (5.2,-0.85) {$w$};
-\draw[allow] (x) -- node[above, font=\footnotesize] {$1$} (v);
-\draw[allow] (u) -- node[above, font=\footnotesize, pos=0.42] {$\lambda$} (v);
-\draw[xfer] (u) -- node[below, font=\footnotesize, pos=0.42] {$1-\lambda$} (w);
-\draw[xfer] (y) -- node[below, font=\footnotesize] {$1$} (w);
-\end{tikzpicture}
-\caption[{결합 걷기 \mbox{C-PR}의 한 걸음.}]{결합 걷기 \mbox{C-PR}의 한 걸음이에요(식~\eqref{eq:coupled-transition}). 실선 화살표는 허락 화살표이고, 점선 화살표는 송금 화살표예요. 화살표에 붙은 값은 감쇠 계수를 곱하기 전의 이동 확률이에요. 계약 $u$는 두 층 모두에 나가는 화살표가 있어서, 두 층을 $\lambda$와 $1-\lambda$의 무게로 섞어요. $x$와 $y$는 한 층에만 나가는 화살표가 있어서, $\lambda$가 얼마이든 그 층을 따라가요. 걷기는 $1-d$의 확률로, 고르게 고른 계약에서 다시 출발해요.}
+% HTML로 그린 그림. 원본은 Figures/html/cpr-schematic.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/cpr-schematic.html`로 PDF를 다시 만듦.
+\includegraphics[width=0.960\textwidth]{Figures/cpr-schematic.pdf}
+\caption[{결합 걷기 \mbox{C-PR}의 한 걸음.}]{결합 걷기 \mbox{C-PR}의 한 걸음이에요(식~\eqref{eq:coupled-transition}). 금색 실선 화살표는 허락 화살표이고, 파란 점선 화살표는 송금 화살표예요. 화살표에 붙은 값은 감쇠 계수를 곱하기 전의 이동 확률이에요. 계약 $u$는 두 층 모두에 나가는 화살표가 있어서, 두 층을 $\lambda$와 $1-\lambda$의 무게로 섞어요. $x$와 $y$는 한 층에만 나가는 화살표가 있어서, $\lambda$가 얼마이든 그 층을 따라가요. 걷기는 $1-d$의 확률로, 고르게 고른 계약에서 다시 출발해요.}
 \label{fig:cpr-schematic}
 \end{figure}
 
@@ -420,11 +375,20 @@ $V_T$의 어떤 점도 $V_A$에 없으면 분모가 0이에요. 그때 $\boldsym
 
 \dissertationSubheading[sec:discovery-protocol]{발견 순서 검증}
 
-발견 순서 검증은 \textcite{cho1998crawling}의 크롤 순서 실험을 계약 그래프에서 다시 해 봐요(\ref{sec:crawl-ordering}절). 이 검증의 질문은 RQ2의 질문이에요. 지금까지 읽은 계약들로 계산한 \mbox{C-PR}로 순서를 정하면, 거대 강연결 성분(서로 오갈 수 있는 가장 큰 계약 묶음, SCC)의 무작위 계약에서 출발한 크롤이 사용자 계정의 수요가 가장 큰 계약들에 너비 우선 크롤보다 빨리 닿을까요? 그리고 계약 역링크(그 계약으로 들어오는 화살표) 수로 순서를 정한 크롤보다 빨리 닿을까요? 발견 순서 검증은 등록 분석의 결과를 안 뒤에 정했고, 계획과 등록 문서의 어떤 규칙도 정하지 않아요. 그 프로토콜은 저장소의 \texttt{experiments/docs/discovery\_protocol.md}예요.
+발견 순서 검증은 \textcite{cho1998crawling}의 크롤 순서 실험을 계약 그래프에서 다시 해 봐요(\ref{sec:crawl-ordering}절). 이 검증의 질문은 RQ2의 질문이에요. 지금까지 읽은 계약들로 계산한 \mbox{C-PR}로 순서를 정하면, 거대 강연결 성분(서로 오갈 수 있는 가장 큰 계약 묶음, SCC)의 무작위 계약에서 출발한 크롤이 사용자 계정의 수요가 가장 큰 계약들에 너비 우선 크롤보다 빨리 닿을까요? 그리고 계약 역링크(그 계약으로 들어오는 화살표) 수로 순서를 정한 크롤보다 빨리 닿을까요? 발견 순서 검증은 등록 분석의 결과를 안 뒤에 정했고, 계획과 등록 문서의 어떤 규칙도 정하지 않아요. 그 프로토콜은 저장소의 \texttt{experiments/docs/discovery\_protocol.md}예요. 그림~\ref{fig:discovery-protocol}은 이 질문을 나누어 보여 줘요. 크롤, 그 순서 규칙, 뜨거운 계약을 정하는 사용자 계정의 수요, 그리고 판정이에요.
 
 페이지는 계약이고, 링크는 한 동결일의 그래프 $G$의 화살표예요. 어느 층의 화살표든 상관없어요. $T_{\mathrm{obs}}$가 주된 동결일이고, $t_1$이 두 번째 동결일이에요. 크롤은 출발 계약에서 시작해서 한 번에 계약 하나씩 방문해요. 크롤은 자기 방문으로 드러난 화살표만 알고, 다음 방문을 프런티어(찾았지만 아직 방문하지 않은 계약들)에서 골라요. 합집합 그래프(두 층 가운데 어느 쪽에든 화살표가 있는 계약 쌍)에는, 어느 한 층에라도 화살표가 있는 서로 다른 두 계약의 순서쌍이 하나씩 들어 있어요. \texttt{out} 공개 방식(방문할 때 어떤 화살표가 드러나는지)에서는, 방문하면 그 계약의 나가는 화살표, 곧 그 계약이 해 준 허락과 보낸 송금이 드러나요. 이때 우주 $\mathcal{U}$(크롤이 다닐 수 있는 계약 전체)는 합집합 그래프의 거대 강연결 성분과, 거기서 닿을 수 있는 모든 계약이에요. \textcite{broder2000graph}의 나비넥타이 분해로 말하면 $\mathrm{SCC}\cup\mathrm{OUT}$이에요. \texttt{both} 방식에서는 방문하면 들어오는 화살표도 드러나요. 이때 $\mathcal{U}$는 거대 SCC를 담은 약연결 성분(방향을 무시하면 이어지는 묶음, WCC)이에요. 프로토콜에 따르면, 아래의 구조 파일럿에서 $\mathrm{SCC}\cup\mathrm{OUT}$이 WCC 계약의 절반보다 적게 담으면 \texttt{both}가 주된 방식이 돼요. 실제로 그랬어요. 그래서 \texttt{out}은 민감도 분석이에요(표~\ref{tab:discovery-sizes}).
 
 출발 계약은 거대 SCC의 계약 가운데, 정해 둔 문자열과 주소를 이은 것의 SHA-256 해시가 가장 작은 $20$개예요. 무작위가 아닌 순서 규칙은 프런티어의 계약마다 점수를 매겨요. $K$번 방문한 뒤에 점수를 다시 계산하고, 다음 다시 계산 전까지 점수가 가장 높은 프런티어 계약 $\max(1,\lceil\rho K\rceil)$개를 방문해요. 동점이면 먼저 찾은 계약을, 그다음에는 주소가 작은 계약을 먼저 방문해요(너비 우선 순서에서는, 같은 방문에서 찾은 계약들의 차례를 출발 계약의 주소와 계약의 주소로 만든 해시로 정해요). 프라임 표시는 지금까지 읽은 계약들로 계산한 값이라는 뜻이에요. 순서 규칙은 다음과 같아요. 너비 우선(BFS, 찾은 차례대로 방문하기)은 찾은 차례를 따라요. 무작위 순서도 있어요. 세 가지 수는 프런티어 계약으로 화살표를 보낸, 방문한 계약의 수예요. 이 수들은 걷기가 매끄럽게 다듬는 원시 차수예요. 허락 화살표로 센 $\mathrm{IB}'_A$, 송금 화살표로 센 $\mathrm{IB}'_T$, 어느 쪽이든 센 $\mathrm{IB}'_U$, 곧 계약 역링크예요. 그리고 지금까지 본 그래프 위에서 계산한 \ref{sec:graph-construction}절의 걷기들이 있어요(엔도스랭크$'$, 활동 재시작 엔도스랭크$'$, AWP$'$, $\lambda=0.5$, $0.25$, $0.75$의 \mbox{C-PR}$'$, 그 두 층, \mbox{S-PR}$'$). 걷기는 다시 계산할 때마다 앞 벡터에서 시작해요. 이 이어 시작하기는 방법의 일부예요. 이상적인 순서와, 전체 그래프의 \mbox{C-PR}과 합집합 입차수로 정한 순서는 크롤이 아닌 참고 값이에요. 정규화한 들어오는 무게 $\delta'$는 걷기를 한 단계까지만 따라간 닫힌 꼴이고, 모든 비교 밖에 두는 진단 값이에요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/discovery-protocol.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/discovery-protocol.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/discovery-protocol.pdf}
+\caption[{발견 순서 검증: RQ2의 질문을 네 부분으로 나눈 것.}]{발견 순서 검증이에요. RQ2의 질문을 네 부분으로 나누고, 부분마다 카드를 하나씩 두었어요. 크롤은 거대 강연결 성분의 출발 계약에서 시작하고, 방문한 계약의 화살표, 곧 허락(금색)과 송금(파랑)을 드러내요. $K$번 방문한 뒤에는 지금까지 읽은 부분으로 프런티어의 점수를 매기고, 점수가 가장 높은 계약 $\max(1,\lceil\rho K\rceil)$개를 다음에 방문해요. 그래서 무작위 순서 말고는, 순서 규칙들이 그 점수에서만 서로 달라요. \mbox{C-PR}$'$는 찾은 차례로 순서를 정하는 BFS, 그리고 계약 역링크로 순서를 정하는 $\mathrm{IB}'_U$와 견줘요. 계약의 중요도는 사용자 계정에서 오고, 어떤 순서 규칙도 이것을 읽지 않아요. 이 중요도가 뜨거운 집합을 정해요. $\mathrm{AUC}_{10\%}$는 우주의 처음 10\% 동안 방문한 뜨거운 집합의 몫 아래 넓이를 정규화한 값이에요. 판정은 $D_1$과 $D_2$로 읽어요. 각 값은 그 95\% 구간이 $0$보다 위에 있을 때 위에 있다고 봐요. 점수는 보기로 그린 것이에요. 발견 순서 검증은 등록 분석의 결과를 안 뒤에 정했고, 계획과 등록 문서의 어떤 규칙도 정하지 않아요.}
+\label{fig:discovery-protocol}
+\end{figure}
 
 중요도는 사용자 계정의 수요이고, 어떤 순서 규칙도 이것을 읽지 않아요. $\mathcal{U}$의 계약 $c$와 그 동결일의 점수 기간에 대해 $I_T(c)=\sum_j\min(x_{j\to c},U_{\mathrm{user}})$이고 $I_A(c)=\sum_j\min\bigl(\hat a(j,c),U_{\mathrm{user}}\bigr)$이며, $\hat a(j,c)=\sum_{\mathrm{token}}\hat a(j,c,\mathrm{token})$이에요. 앞의 것은 사용자 계정 유입이고, 뒤의 것은 사용자 허락 금액이에요. 여기서 $j$는 사용자 계정들을 돌고, $x_{j\to c}$는 $j$가 $c$에 송금한 달러예요. $\hat a(j,c,\mathrm{token})$은 한 토큰에서 $j$가 $c$에게 준 마지막 허락에 $j$의 잔액으로 상한을 씌운 값이에요. 식~\eqref{eq:approve-weight}과 같은 방식이에요. 1달러 이상인 계정의 수 $N_T$와 $N_A$는 부차적인 값이에요. \textcite{cho1998crawling}의 방식으로 정한 중요도, 여기서는 전체 그래프의 합집합 입차수 $\mathrm{IB}_U$와 \mbox{C-PR}($\mathrm{IR}$)은 순서 규칙들이 읽는 화살표 위에서 재요. 그래서 이 중요도와의 일치는 의도한 구성개념 점검이고, 두 번째로 보고해요.
 
@@ -444,7 +408,16 @@ $t_1$ 그래프 위의 구조 파일럿(무게 없이 그래프 모양만 본 �
 
 \dissertationSubheading[sec:holdout-protocol]{시간 홀드아웃 절차}
 
-홀드아웃 W0에서 점수는 W0 점수 기간, 곧 2025년 4월 1일부터 $t_1=$ 2026년 3월 31일 23:59:59~UTC까지의 계약 사이 이벤트를 써요. 라벨은 2026년 4월 1일 00:00:00~UTC부터 $t_2=$ 2026년 6월 30일 23:59:59~UTC까지의 이벤트로 세요. 코호트는 $n=7{,}864$개 계약이에요. 이 계약들은, W0에 꼽힌 주소들 둘레의 이벤트에서(\ref{sec:data-sources}절) $t_1$에 다섯 토큰 가운데 하나의 양수인 마지막 허락을 하나 이상 가진 스펜더예요. 그 허락은 기간 안에서 정해진 것이어야 해요. 이 주소들은 같은 기간의 허락으로 꼽으므로, $t_1$ 뒤의 어떤 이벤트도 스펜더를 고르지 않아요. 계약 그래프 화살표의 끝이 하나도 되지 않는 스펜더도 코호트에 남고, 모든 점수와 기준선에서 0점이에요. 홀드아웃 표의 모든 점수(엔도스랭크, AWP, 세 $\lambda$ 값과 두 끝 점의 \mbox{C-PR}, \mbox{S-PR}, 그리고 그냥 센 수 네 가지)는 이 기간의 계약 그래프만으로 계산하고, 로지스틱 감쇠는 $t_1$을 기준으로 해요. 활동 재시작을 쓰는 엔도스랭크도 마찬가지예요(표~\ref{tab:endorserank-restarts}).
+홀드아웃 W0에서 점수는 W0 점수 기간, 곧 2025년 4월 1일부터 $t_1=$ 2026년 3월 31일 23:59:59~UTC까지의 계약 사이 이벤트를 써요. 라벨은 2026년 4월 1일 00:00:00~UTC부터 $t_2=$ 2026년 6월 30일 23:59:59~UTC까지의 이벤트로 세요. 코호트는 $n=7{,}864$개 계약이에요. 이 계약들은, W0에 꼽힌 주소들 둘레의 이벤트에서(\ref{sec:data-sources}절) $t_1$에 다섯 토큰 가운데 하나의 양수인 마지막 허락을 하나 이상 가진 스펜더예요. 그 허락은 기간 안에서 정해진 것이어야 해요. 이 주소들은 같은 기간의 허락으로 꼽으므로, $t_1$ 뒤의 어떤 이벤트도 스펜더를 고르지 않아요. 계약 그래프 화살표의 끝이 하나도 되지 않는 스펜더도 코호트에 남고, 모든 점수와 기준선에서 0점이에요. 홀드아웃 표의 모든 점수(엔도스랭크, AWP, 세 $\lambda$ 값과 두 끝 점의 \mbox{C-PR}, \mbox{S-PR}, 그리고 그냥 센 수 네 가지)는 이 기간의 계약 그래프만으로 계산하고, 로지스틱 감쇠는 $t_1$을 기준으로 해요. 활동 재시작을 쓰는 엔도스랭크도 마찬가지예요(표~\ref{tab:endorserank-restarts}). 그림~\ref{fig:holdout-design}은 W0과 W1을 나란히 놓아요.
+
+\begin{figure}[htbp]
+\centering
+% HTML로 그린 그림. 원본은 Figures/html/holdout-design.html이고, 그림의 내용도 글로 적혀 있음.
+% 그 파일을 고친 뒤 `python ../overleaf-github/Figures/html/render.py Figures/html/holdout-design.html`로 PDF를 다시 만듦.
+\includegraphics[width=\textwidth]{Figures/holdout-design.pdf}
+\caption[{기간 밖 평가 두 가지, W0과 W1.}]{기간 밖 평가 두 가지예요. 점수는 $t_1$(W0)과 $T_{\mathrm{obs}}$(W1)에 동결하고, 그 직전 열두 달의 계약 사이 이벤트로 만들어요. 스펜더마다 라벨은 그 뒤 석 달 동안의 새 허락 쌍과 새 송금자를 모든 계정에서 세요. 규칙~A의 주된 부분은 W0에서 읽고, 규칙~B의 등록된 기준 가운데 두 가지인 F1과 F2는 W1에서 읽어요. 두 규칙 모두 계약 그래프의 점수에 재분석으로 적용해요.}
+\label{fig:holdout-design}
+\end{figure}
 
 스펜더마다 라벨 두 개를 세요. 구성개념마다 하나씩이에요. 그래서 한 층 방법은 저마다 자기 구성개념에서 시험받고, \mbox{C-PR}과 \mbox{S-PR}은 두 구성개념 모두에서 시험받아요.
 \begin{enumerate}

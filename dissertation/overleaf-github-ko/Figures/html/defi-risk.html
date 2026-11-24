@@ -1,0 +1,141 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:defi-risk(2장 「디파이 위험의 분류와 평판이 들어갈 자리」 절)의 원본이며, Figures/defi-risk.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/defi-risk.html
+  영어 원본은 ../overleaf-github/Figures/html/defi-risk.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용(왼쪽에서 오른쪽으로):
+  1. 롤업에는 아주 많은 계약이 있다(작은 네모들의 밭; 어떤 것은 색을 채우고 어떤 것은 옅다). 주소만 봐서는 그 뒤의 코드를 알
+     수 없다.
+  2. 먼저 오는 질문, 곧 이 논문이 묻는 것: 사용자가 기대는 계약은 어느 것인가. 계약 사이의 관계로 계약에 순위를 매겨 답한다.
+     이 순위는 오른쪽 방법들을 어디에 먼저 쓸지 알려 준다. 그 방법들을 대신하지 않고, 악용 공격이나 거버넌스 공격을 예측하지도
+     않는다.
+  3. 위험 층들. 저마다 정해진 서비스 하나에서 출발해, 그 서비스에서 무엇이 잘못될 수 있는지 묻는다: 스마트 계약 위험(코드의
+     버그), 오라클 위험(조작된 가격이나 누군가가 다루는 피드), 시장 위험(변동성과 청산), 거버넌스 위험(적은 수의 주소가
+     쥔 투표권).
+  화살표가 각 부분에서 다음 부분으로 간다.
+
+  모양: 첫째와 셋째 부분은 회색 줄 위의 명조 제목 아래의 열이다. 계약은 납작한 청록 네모이고, 옅은 것은 같은 색의 옅은 빛이다.
+  이 논문의 질문은 그림이 따로 떼어 보이는 부분이라, 색을 채운 보라 막대 뒤의 옅은 판 위에 있고, 그 그림 문자는 고리를 두른
+  보라 원 안에 흰색으로 있다. 위험 층마다 가는 선을 두른 흰 상자이고, 그 그림 문자는 고리를 두른 회색 원 위에 있다. 부분
+  사이의 화살표는 가는 회색이고 머리에 홈이 있다. 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans
+  KR(보통 400, 굵게 700)과 제목의 Noto Serif KR이고, 한글에는 자간을 두지 않는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>디파이 위험 층</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+/* SVG 글자: CSS가 fig.js의 font-family 속성보다 앞서므로, 한글 글꼴을 여기서 더한다 */
+svg text.sans { font-family:Bahnschrift, "Noto Sans KR", sans-serif; }
+svg text.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+@page { size: 180mm 120mm; margin: 0; }
+.row { display:grid; grid-template-columns:30.5mm 6mm 54mm 6mm minmax(0, 1fr); align-items:stretch; }
+.arr { display:flex; align-items:center; justify-content:center; }
+.cap { font-size:7.1pt; color:var(--muted); line-height:1.24; text-wrap:balance; }
+
+/* 1. 아주 많은 계약: 네모들은 SVG 하나에 그린다. 3.3 mm의 CSS 상자로는 자리에 따라 12 px이나 13 px로 찍혔다
+   (온 픽셀: style.css 참고). */
+.many { display:block; margin:0.7mm 0 2mm; }
+
+/* 2. 이 논문의 질문: 색을 채운 막대 뒤의 판 */
+.q { background:var(--plate); border-left:4px solid var(--coupled); padding:1.6mm 2mm 1.7mm 2.2mm;
+  display:flex; flex-direction:column; justify-content:center; }
+.q .h { margin-bottom:1.1mm; }
+.q .h .ico { margin-right:1.6mm; }
+.q .txt { font-size:7.4pt; line-height:1.26; }
+.q .cap { margin-top:1.1mm; }
+
+/* 3. 위험 층: 같은 것 넷, 저마다 가는 선을 두른 흰 상자, 모두 너비와 높이가 같다. 열은 68.5 mm, 259 px: 127 px 상자 둘과
+   그 사이 5 px, 높이는 각 50 px(같게 나오도록 온 픽셀). 가는 선은 .panel처럼 안쪽 그림자다: 그림 가장자리의 둥근 테두리는
+   자르기를 넓힌다. */
+.risks { display:grid; grid-template-columns:127px 127px; grid-auto-rows:50px; gap:5px; }
+.rk { border-radius:0.4mm; background:var(--paper); box-shadow:inset 0 0 0 0.25mm var(--hair); padding:1.15mm 1.55mm 1.25mm; line-height:1.2; }
+.rk .t { display:flex; align-items:center; gap:1.3mm; font-weight:700; font-size:7.6pt; color:var(--ink); white-space:nowrap; }
+.rk .d { display:block; font-size:7.1pt; color:var(--muted); margin-top:0.5mm; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="row">
+    <!-- 1. 아주 많은 계약 -->
+    <div class="part">
+      <div class="h s">아주 많은 계약</div>
+      <svg id="many" class="many" viewBox="0 0 25.05 12" width="25.05mm" height="12mm"></svg>
+      <div class="cap">주소만 봐서는 그 뒤의 코드를 알 수 없음</div>
+    </div>
+    <div class="arr"><span data-arrow="right" data-len="5.2"></span></div>
+
+    <!-- 2. 먼저 오는 질문 -->
+    <div class="q">
+      <div class="h s bare"><span class="ico" data-medal="search" data-color="coupled" data-size="4.6"></span>먼저 오는 질문</div>
+      <div class="txt">사용자가 기대는 계약은 어느 것인가? <span class="nb"><b>이 논문</b>은</span> 계약 사이의 관계로 계약에 순위를 매김.</div>
+      <div class="cap">오른쪽 방법들을 어디에 먼저 쓸지 알려 줌. 그 어느 것도 대신하지 않고, 악용 공격을 예측하지도 않음.</div>
+    </div>
+    <div class="arr"><span data-arrow="right" data-len="5.2"></span></div>
+
+    <!-- 3. 위험 층 -->
+    <div class="part">
+      <div class="h s">위험 층<span class="sub">저마다 정해진 서비스 하나에서 출발</span></div>
+      <div class="risks">
+        <div class="rk"><span class="t"><span data-medal="doc" data-color="count" data-size="4.3"></span>스마트 계약 위험</span><span class="d">코드의 버그</span></div>
+        <div class="rk"><span class="t"><span data-medal="coin" data-color="count" data-size="4.3"></span>오라클 위험</span><span class="d">조작된 가격이나 누군가가 다루는 피드</span></div>
+        <div class="rk"><span class="t"><span data-medal="bars" data-color="count" data-size="4.3"></span>시장 위험</span><span class="d">변동성, 청산</span></div>
+        <div class="rk"><span class="t"><span data-medal="people" data-color="count" data-size="4.3"></span>거버넌스 위험</span><span class="d">적은 수의 주소가 쥔 투표권</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// 아주 많은 계약: 3.3 mm 네모 여섯 개씩 세 줄, 1.05 mm 간격; d는 계약의 색, l은 그보다 옅은 색
+(function () {
+  const svg = document.getElementById("many"), S = 3.3, G = 1.05;
+  ["dldlld", "ldldll", "dlldld"].forEach((row, r) => [...row].forEach((k, c) =>
+    Fig.el(svg, "rect", { x: c * (S + G), y: r * (S + G), width: S, height: S, rx: 0.45,
+      style: k === "d" ? "fill:var(--contract)" : "fill:var(--contract-fill)" })));
+})();
+</script>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">(SVG 안에서는 <tspan>)로 감싸 자간을 0으로 둔다. 그림을 그린 뒤,
+// fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에 돈다. 한글만 있는 SVG 글자는 Fig.text가 자간 때문에 옮긴 x도 되돌린다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const only = new RegExp(`^[${H}\\s]+$`), fig = document.querySelector(".fig"), SVG = "http://www.w3.org/2000/svg";
+  for (const t of fig.querySelectorAll("svg text")) {
+    if (!only.test(t.textContent) || t.querySelector("tspan")) continue;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && a === "middle") t.setAttribute("x", (+t.getAttribute("x") - sp / 2).toFixed(3));
+    if (sp && a === "end") t.setAttribute("x", (+t.getAttribute("x") - sp).toFixed(3));
+    t.style.letterSpacing = "0px";
+  }
+  const w = document.createTreeWalker(fig, NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (any.test(n.textContent) && n.parentElement.style.letterSpacing !== "0px") nodes.push(n);
+  for (const n of nodes) {
+    const inSvg = !!n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = inSvg ? document.createElementNS(SVG, "tspan") : document.createElement("span");
+      k.setAttribute("class", "ko"); if (inSvg) k.style.letterSpacing = "0px";
+      k.textContent = m; frag.appendChild(k); last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    n.replaceWith(frag);
+  }
+})();
+</script>
+</body>
+</html>

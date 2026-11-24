@@ -1,0 +1,193 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:crawl-ordering(2장 「크롤 순서」 절)의 원본이며, Figures/crawl-ordering.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/crawl-ordering.html
+  영어 원본은 ../overleaf-github/Figures/html/crawl-ordering.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용(개념도이고, 자료는 없다):
+  1. 진행 중인 크롤(Cho, Garcia-Molina, Page의 1998년 실험): 크롤은 출발 페이지에서 시작했다. 이미 읽은 페이지는 색을 채우고
+     읽은 차례대로 번호를 붙였다. 프런티어에는 읽은 페이지가 링크로 가리키지만 아직 읽지 않은 페이지들이 있고, 그 밖의
+     페이지는 아직 보지 못했다. 크롤러는 순서 규칙이 맨 앞에 두는 프런티어 페이지(보라 테 안의 페이지, "다음")를 다음에
+     읽는다.
+  2. 순서 규칙은 지금까지 읽은 페이지만 쓴다: 너비 우선 순서(가장 먼저 찾은 페이지부터), 역링크 수(읽은 페이지에서 오는
+     링크가 가장 많은 것부터), 읽은 페이지들로 계산한 PageRank.
+  3. 순서 규칙은 발견 곡선으로 평가한다: 정해진 수의 페이지를 방문한 뒤, 뜨거운 페이지(중요도가 문턱을 넘는 페이지; 중요도는
+     모음 전체에서 센 역링크 수나 PageRank) 가운데 방문한 몫. 더 빨리 오르는 곡선이 더 좋다. 이상적인 순서와 무작위 순서가
+     곡선들의 위아래를 막는다. 세 곡선은 모두 오른쪽 위 모서리에서 끝난다(모든 페이지를 방문하면 뜨거운 페이지도 모두
+     방문한다). "이상적"은 점선 위에, "순서 규칙"은 그 곡선과 무작위 점선 사이에, "무작위"는 그 선 아래에 있다.
+  4. 아래 줄: 이 논문의 발견 순서 검증은 이 실험을 계약 그래프 위에서 되풀이한다. 페이지는 계약이, 링크는 두 계약 사이의
+     허락 화살표나 송금 화살표가, 뜨거운 페이지는 사용자 계정의 수요가 가장 큰 계약(어떤 순서 규칙도 읽지 않음)이, 순서
+     규칙은 너비 우선 순서, 계약 역링크 수, C-PR 같은 걷기가 된다.
+
+  모양: 세 부분은 너비와 높이가 같은 카드이고, 카드마다 가는 테 안에 회색 줄 위의 명조 제목(번호는 고리를 두른 원 안에 있고
+  색은 웹의 시안, 순서 규칙의 보라, 회색)과 그 내용이 있다. 페이지는 웹의 시안으로 그린 세로 네모다. 읽은 페이지는 색을
+  채우고 흰 번호를 달았고, 프런티어는 흰 바탕에 시안 선, 아직 못 본 페이지는 흰 바탕에 회색 점선이다. 다음에 읽을 페이지는
+  보라 테 안에 있다. 읽은 페이지와 프런티어 사이의 링크는 가는 시안 화살표, 아직 못 본 페이지로 가는 링크는 회색 점선이다.
+  곡선에서 이상적인 순서는 거의 검은 둥근 점의 선, 무작위 순서는 회색 점선, 순서 규칙은 보라 선이다. 아래 줄은 이름이
+  짙은 보라이고, 너비와 높이가 같은 카드 넷이 있다. 카드마다 웹의 말이 짙은 시안으로, 그린 화살표, 그 짝이 짙은 보라로 있다.
+  ../discovery-protocol.html의 크롤도 같은 상태와 같은 곡선을 쓴다. 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의
+  자간), 한글은 Noto Sans KR(보통 400, 굵게 700)과 제목의 Noto Serif KR이고, 한글에는 자간을 두지 않는다. 영어 그림에서
+  이탤릭인 "sooner is better"는, 한글에 이탤릭이 없어서 바로 선 글자로 쓴다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>크롤 순서</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+/* SVG 글자: CSS가 fig.js의 font-family 속성보다 앞서므로, 한글 글꼴을 여기서 더한다 */
+svg text.sans { font-family:Bahnschrift, "Noto Sans KR", sans-serif; }
+svg text.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+  @page { size: 180mm 110mm; margin: 0; }
+  /* 카드가 같게 나오도록 온 픽셀로 잰다(style.css 참고): 200 px 카드 셋과 그 사이 12 px, 그 아래에 76 px 이름과
+     8 px씩 떨어진 129 px 카드 넷; 두 줄 모두 624 px, 165.1 mm */
+  .fig { width:624px; }
+  .top { display:grid; grid-template-columns:200px 200px 200px; column-gap:12px; align-items:stretch; }
+  .top > .part.panel { padding:5px 8px 6px; }          /* 안쪽 184 px */
+  /* 그림은 카드 안쪽 184 px(48.683 mm, viewBox의 너비)를 채운다 */
+  .part svg.draw { display:block; width:184px; }
+  .h .badge { margin-left:0.3mm; }
+  .lead { font-size:7.1pt; color:var(--muted); margin:-0.1mm 0 2.2mm; }
+  /* 세 순서 규칙이 카드의 높이를 채운다 */
+  .ords { flex:1; display:flex; flex-direction:column; justify-content:space-between; padding-bottom:0.6mm; }
+  .ord { display:flex; align-items:flex-start; gap:1.7mm; font-size:7.1pt; line-height:1.22; color:var(--muted); text-wrap:balance; }   /* 마지막 줄에 낱말 하나만 남지 않게 */
+  .ord b { display:block; font-size:7.7pt; }
+  /* 15 px 글자 원과 15 px 줄: 셋 모두 기준선이 10 px 아래에 온다 */
+  .num { flex:none; width:15px; height:15px; border-radius:50%; background:var(--web); color:#fff; font-weight:700; font-size:7.3pt;
+    display:inline-flex; align-items:center; justify-content:center; margin-top:1px; line-height:15px; }
+  .legend { margin-top:0.7mm; gap:0.6mm 4mm; }
+  .legend svg { flex:none; }
+  /* 이 논문에서의 짝: 줄의 이름, 그리고 카드 넷 */
+  .map { margin-top:2.2mm; display:grid; grid-template-columns:76px repeat(4, 129px); column-gap:8px; align-items:stretch; }
+  .map .lbl { font-weight:700; font-size:7.6pt; color:var(--coupled-ink); display:flex; align-items:center; line-height:1.22;
+    padding-left:2px; }        /* 자르기는 글자를 왼쪽으로 0.4 mm 더 넓게 잰다 */
+  .map .mp { font-size:7.1pt; line-height:1.22; color:var(--muted); padding:4px 6px; display:flex; align-items:center; }
+  .map .w { color:var(--web-ink); font-weight:700; }
+  .map .c { color:var(--coupled-ink); font-weight:700; }
+  .map svg.ar { display:inline-block !important; vertical-align:-0.62mm; margin:0 0.1mm; }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="top">
+    <div class="part panel">
+      <div class="h s"><span class="badge" style="--c:var(--web)">1</span>진행 중인 크롤</div>
+      <svg id="g" class="draw" viewBox="-0.04 0 48.683 28.2" style="height:28.2mm"></svg>
+      <div class="legend">
+        <span><svg width="2.5mm" height="3.1mm" viewBox="0 0 2.5 3.1"><rect x="0.2" y="0.2" width="2.1" height="2.7" rx="0.3" style="fill:var(--web)"/></svg>읽음</span>
+        <span><svg width="2.5mm" height="3.1mm" viewBox="0 0 2.5 3.1"><rect x="0.22" y="0.22" width="2.06" height="2.66" rx="0.3" fill="#fff" style="stroke:var(--web)" stroke-width="0.4"/></svg>프런티어</span>
+        <span><svg width="2.5mm" height="3.1mm" viewBox="0 0 2.5 3.1"><rect x="0.2" y="0.2" width="2.1" height="2.7" rx="0.3" fill="#fff" style="stroke:var(--user)" stroke-width="0.32" stroke-dasharray="0.75 0.5"/></svg>아직 못 봄</span>
+      </div>
+    </div>
+    <div class="part panel">
+      <div class="h s"><span class="badge coupled">2</span>프런티어의 순서 규칙</div>
+      <div class="lead">모두 지금까지 읽은 페이지만 씀</div>
+      <div class="ords">
+        <div class="ord"><span class="num">a</span><span><b>너비 우선 순서</b>가장 먼저 찾은 페이지부터</span></div>
+        <div class="ord"><span class="num">b</span><span><b>역링크 수</b>읽은 페이지에서 오는 링크가 가장 많은 것부터</span></div>
+        <div class="ord"><span class="num">c</span><span><b>PageRank</b>읽은 페이지들로 계산</span></div>
+      </div>
+    </div>
+    <div class="part panel">
+      <div class="h s"><span class="badge" style="--c:var(--count)">3</span>발견 곡선<span class="sub">개념도</span></div>
+      <svg id="c" class="draw" viewBox="-0.04 0 48.683 31.8" style="height:31.8mm"></svg>
+    </div>
+  </div>
+  <div class="map">
+    <div class="lbl">이 논문의 발견 순서 검증에서</div>
+    <div class="mp panel"><span><span class="w">페이지</span> <span class="ar" data-arrow="right" data-color="count" data-len="3.2"></span> <span class="c">계약</span></span></div>
+    <div class="mp panel"><span><span class="w">링크</span> <span class="ar" data-arrow="right" data-color="count" data-len="3.2"></span> <span class="c">두 계약 사이의 허락 화살표나 송금 화살표</span></span></div>
+    <div class="mp panel"><span><span class="w">뜨거운 페이지</span> <span class="ar" data-arrow="right" data-color="count" data-len="3.2"></span> <span class="c">사용자 계정의 수요가 가장 큰 계약</span>, 어떤 순서 규칙도 읽지 않음</span></div>
+    <div class="mp panel"><span><span class="w">순서 규칙</span> <span class="ar" data-arrow="right" data-color="count" data-len="3.2"></span> <span class="c">너비 우선, 계약 역링크 수, <span class="nb">C-PR</span> 같은 걷기</span></span></div>
+  </div>
+</div>
+<script>
+(function () {
+  const C = Fig.C;
+
+  // 1. 크롤. 페이지는 세로 네모다: 읽었으면 색을 채우고, 프런티어는 흰 바탕에 선, 아직 못 봤으면 흰 바탕에 회색 점선.
+  const g = document.getElementById("g"), HW = 2.3, HH = 2.9, FR = 1.0;   // 페이지의 반 너비와 반 높이; 다음에 읽을 페이지의 테는 FR만큼 떨어진다
+  const P = { s: [4.8, 14.3, "read", "1"], b: [16.6, 6.2, "read", "2"], c: [16.6, 22.4, "read", "3"],
+              f1: [29.4, 3.7, "front"], f2: [29.4, 14.3, "front"], f3: [29.4, 24.9, "front"],
+              u1: [43.4, 6.2, "unseen"], u2: [44, 16.6, "unseen"], u3: [43.4, 24.9, "unseen"] };
+  // 링크는 한 페이지의 테두리에서 다른 페이지의 테두리까지 간다(다음에 읽을 페이지는 그 테까지)
+  const rim = (ux, uy, extra) => Math.min((HW + extra) / Math.abs(ux || 1e-9), (HH + extra) / Math.abs(uy || 1e-9));
+  const link = (a, b, o) => {
+    const [x1, y1] = P[a], [x2, y2] = P[b], L = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / L, uy = (y2 - y1) / L;
+    const ra = rim(ux, uy, a === "f2" ? FR : 0), rb = rim(ux, uy, b === "f2" ? FR : 0);
+    Fig.edge(g, [x1 + ux * ra, y1 + uy * ra], [x2 - ux * rb, y2 - uy * rb], Object.assign({ half: 0, gap: 0.65 }, o));
+  };
+  [["s", "b"], ["s", "c"], ["b", "f1"], ["b", "f2"], ["c", "f2"], ["c", "f3"]].forEach(([a, b]) => link(a, b, { color: C.web, width: 0.42 }));
+  [["f1", "u1"], ["f2", "u1"], ["f2", "u2"], ["f3", "u3"]].forEach(([a, b]) => link(a, b, { color: C.user, width: 0.32, dash: "1.1 0.8" }));
+  for (const [x, y, kind, n] of Object.values(P)) {
+    const attrs = kind === "read" ? { fill: C.web } : kind === "front" ? { fill: C.paper, stroke: C.web, "stroke-width": 0.45 }
+      : { fill: C.paper, stroke: C.user, "stroke-width": 0.35, "stroke-dasharray": "1.1 0.8" };
+    Fig.el(g, "rect", Object.assign({ x: x - HW, y: y - HH, width: 2 * HW, height: 2 * HH, rx: 0.4 }, attrs));
+    if (n) Fig.text(g, x, y + 0.95, n, { size: 2.6, weight: 700, fill: "#fff", anchor: "middle" });
+  }
+  // 다음에 읽을 페이지: 순서 규칙이 맨 앞에 두는 프런티어 페이지
+  Fig.el(g, "rect", { x: P.f2[0] - HW - FR, y: P.f2[1] - HH - FR, width: 2 * (HW + FR), height: 2 * (HH + FR), rx: 0.6, fill: "none", stroke: C.coupled, "stroke-width": 0.5 });
+  Fig.text(g, P.f2[0], P.f2[1] - HH - FR - 1.15, "다음", { size: 2.5, weight: 700, fill: C.coupled, anchor: "middle" });
+  Fig.text(g, P.s[0], P.s[1] - HH - 1.2, "출발", { size: 2.5, anchor: "middle" }).style.fill = "var(--web-ink)";
+
+  // 3. 발견 곡선(개념도). 세 곡선은 모두 원점에서 시작해 오른쪽 위 모서리(X1, TOP)에서 끝난다. 이상적인 순서(둥근 점)는
+  // 가파르게 올라 맨 위에 머물고, 무작위 순서(점선)는 대각선이며, 순서 규칙(보라)은 그 사이에 있고 어디서나 이상적인 선 아래다.
+  const c = document.getElementById("c");
+  const X0 = 6.6, Y0 = 26.4, X1 = 48, Y1 = 3.2, TOP = Y1 + 0.6, FS = 2.5;      // FS: 2.5 mm = 7.1 pt
+  Fig.el(c, "path", { d: `M${X0},${Y0} L${X1},${TOP}`, stroke: C.user, "stroke-width": 0.4, "stroke-dasharray": "1.1 0.8", "stroke-linejoin": "round", fill: "none" });
+  Fig.dots(c, `M${X0},${Y0} L${X0 + 9},${TOP} H${X1}`, C.ink, 0.42, 1.0).setAttribute("stroke-linejoin", "round");
+  Fig.el(c, "path", { d: `M${X0},${Y0} C${X0 + 7},${Y0 - 16} ${X0 + 9.5},${Y1 + 0.8} ${X1},${TOP}`, stroke: C.coupled, "stroke-width": 0.6, "stroke-linejoin": "round", fill: "none" });
+  Fig.el(c, "path", { d: `M${X0},${Y1 - 0.5} V${Y0} H${X1}`, stroke: C.count, "stroke-width": 0.3, "stroke-linejoin": "round", fill: "none" });
+  // 이름표는 모두 선에서 떨어져 있다: "이상적"은 점선 위, "순서 규칙"은 그 곡선과 무작위 선 사이의 틈, "무작위"는 무작위 선 아래
+  Fig.text(c, X0 + 10, Y1 - 0.95, "이상적", { size: FS, fill: C.ink });
+  Fig.text(c, X0 + 14.6, Y1 + 8, "순서 규칙", { size: FS, weight: 700, fill: C.coupled });
+  Fig.text(c, X0 + 27.4, Y0 - 10.6, "무작위", { size: FS, fill: C.muted });
+  Fig.text(c, (X0 + X1) / 2, Y0 + 3.6, "방문한 페이지", { size: FS, fill: C.muted, anchor: "middle" });
+  const yl = Fig.text(c, 2.3, (Y0 + Y1) / 2, "방문한 뜨거운 페이지", { size: FS, fill: C.muted, anchor: "middle" });
+  yl.setAttribute("transform", `rotate(-90 2.3 ${(Y0 + Y1) / 2})`);
+  Fig.text(c, X1, Y0 - 1.4, "빠를수록 좋음", { size: FS, fill: C.muted, anchor: "end" });
+})();
+</script>
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 <span class="ko">(SVG 안에서는 <tspan>)로 감싸 자간을 0으로 둔다. 그림을 그린 뒤,
+// fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에 돈다. 한글만 있는 SVG 글자는 Fig.text가 자간 때문에 옮긴 x도 되돌린다.
+(function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`);
+  const only = new RegExp(`^[${H}\\s]+$`), fig = document.querySelector(".fig"), SVG = "http://www.w3.org/2000/svg";
+  for (const t of fig.querySelectorAll("svg text")) {
+    if (!only.test(t.textContent) || t.querySelector("tspan")) continue;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && a === "middle") t.setAttribute("x", (+t.getAttribute("x") - sp / 2).toFixed(3));
+    if (sp && a === "end") t.setAttribute("x", (+t.getAttribute("x") - sp).toFixed(3));
+    t.style.letterSpacing = "0px";
+  }
+  const w = document.createTreeWalker(fig, NodeFilter.SHOW_TEXT), nodes = [];
+  for (let n; (n = w.nextNode());) if (any.test(n.textContent) && n.parentElement.style.letterSpacing !== "0px") nodes.push(n);
+  for (const n of nodes) {
+    const inSvg = !!n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+    let last = 0;
+    s.replace(run, (m, at) => {
+      if (at > last) frag.appendChild(document.createTextNode(s.slice(last, at)));
+      const k = inSvg ? document.createElementNS(SVG, "tspan") : document.createElement("span");
+      k.setAttribute("class", "ko"); if (inSvg) k.style.letterSpacing = "0px";
+      k.textContent = m; frag.appendChild(k); last = at + m.length;
+    });
+    if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+    n.replaceWith(frag);
+  }
+})();
+</script>
+</body>
+</html>

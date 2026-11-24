@@ -23,15 +23,15 @@
 | `01-Intro/` | 표지, 장 표지, 선언문, 초록, 차례, 줄임말과 기호 |
 | `Chapter-01-…` ~ `Chapter-08-Appendix/` | 1~6장, 참고문헌, 부록 |
 | `results/tables/` | 결과 표 39개(원문 표를 번역한 것, 숫자는 그대로) |
-| `Figures/` | TikZ 그림 하나(번역), HTML로 그린 개념 모형(원본 `Figures/html/conceptual-model.html`, 결과 `Figures/conceptual-model.pdf`; 영어 원고의 `Figures/html/render.py`로 만듦)과 `generated/`의 그래프 일곱 개(발견 순서 검증의 곡선 두 개 포함, 같은 자료와 같은 계산으로 한국어 글자를 넣어 다시 그림) |
+| `Figures/` | HTML로 그린 도식 21개(원본 `Figures/html/<이름>.html`, 결과 `Figures/<이름>.pdf`; 영어 원고의 `Figures/html/style.css`와 `fig.js`를 링크하고 영어 원고의 `render.py`로 만듦. 원본 첫머리 주석에 그림의 내용을 글로 적었어요), `generated/`의 그래프 일곱 개(발견 순서 검증의 곡선 두 개 포함, 같은 자료와 같은 계산으로 한국어 글자를 넣어 다시 그림), 윤리 승인 증명서. 색과 글꼴은 영어 그림과 같고, 한글만 Noto Sans KR(본문)과 Noto Serif KR(제목)로 쓰며 자간을 더하지 않아요 |
 | `scripts/check_ko.py` | 원문과 번역을 파일마다 대조(레이블, 참조, 인용 키, 수식, 숫자, 표 구조, 문단 수, 남은 영어 문장) |
 | `scripts/check_particles.py` | 빌드 뒤 `\ref` 뒤의 조사를 실제 번호에 맞춰 검사(표 4.3과, 표 4.2와) |
 | `scripts/make_toc.py` | 번역한 절 제목으로 `01-Intro/03-TOC.tex`를 다시 만듦 |
-| `scripts/make_ko_figures.py` | `../../experiments/scripts/export_latex.py`와 `export_latex_c12.py`의 그림 함수를 그대로 불러 한국어 그래프 일곱 개를 다시 그림 |
+| `scripts/make_ko_figures.py` | `../../experiments/scripts/export_latex.py`와 `export_latex_c12.py`의 그림 함수를 그대로 불러 한국어 그래프 일곱 개를 다시 그림. 한글 글꼴은 설치된 Noto 가변 글꼴에서 굵기 400의 고정 글꼴을 잘라 `experiments/data/_work/fonts/`(git이 무시함, 커밋하지 않음)에 두고 씀 |
 
 ## 빌드
 
-XeLaTeX, biber와 `kotex`(TeX Live의 `collection-langkorean`, MiKTeX는 자동 설치)가 필요해요. 글꼴은 나눔명조·나눔고딕이 있으면 쓰고, 없으면 Windows의 바탕·맑은 고딕을 써요.
+XeLaTeX, biber와 `kotex`(TeX Live의 `collection-langkorean`, MiKTeX는 자동 설치)가 필요해요. 글꼴은 나눔명조·나눔고딕이 있으면 쓰고, 없으면 Windows의 바탕·맑은 고딕을 써요. 그림과 그래프를 다시 만들 때는 Bahnschrift, Palatino Linotype, Noto Sans KR, Noto Serif KR이 필요해요(Bahnschrift나 Noto Sans KR이 없으면 그래프는 한국어 본문 글꼴 하나로 그려져요).
 
 ```powershell
 cd 1-Dissertation-Works\ERC20-Allowance-PageRank-Wallet-Reputation\dissertation\overleaf-github-ko
@@ -45,4 +45,4 @@ cd 1-Dissertation-Works\ERC20-Allowance-PageRank-Wallet-Reputation\dissertation\
 1. 바뀐 원문 문단만 같은 기준으로 다시 번역해요.
 2. `python scripts/check_ko.py ../overleaf-github/<파일> <파일>`로 대조해요. 원문 저장소를 다른 곳에 두었으면 `OVERLEAF_EN` 환경 변수로 그 경로를 알려 줘요(`make_toc.py`).
 3. 빌드한 뒤 `python scripts/check_particles.py --fix`로 참조 번호 뒤의 조사를 맞추고 다시 빌드해요.
-4. 절 제목이 바뀌었으면 `python scripts/make_toc.py`, 그래프 자료가 바뀌었으면 `CONTRACT_REP_VARIANT=contract12m python scripts/make_ko_figures.py`를 실행해요.
+4. 절 제목이 바뀌었으면 `python scripts/make_toc.py`, 그래프 자료나 영어 그래프의 모양이 바뀌었으면 `CONTRACT_REP_VARIANT=contract12m python scripts/make_ko_figures.py`를 실행해요. 영어 도식이나 그 모양(`style.css`, `fig.js`)이 바뀌었으면 같은 한국어 도식을 고치고 `python ../overleaf-github/Figures/html/render.py Figures/html/<이름>.html`로 다시 만들어요.

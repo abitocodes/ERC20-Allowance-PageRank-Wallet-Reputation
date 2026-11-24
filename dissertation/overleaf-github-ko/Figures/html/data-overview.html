@@ -1,0 +1,321 @@
+<!doctype html>
+<!--
+  한국어 원고 그림 fig:data-overview(3장, 자료 출처와 표본 뽑기)의 원본이며, Figures/data-overview.pdf를 만든다.
+  LaTeX는 HTML을 읽지 못한다. 이 파일을 고친 뒤 overleaf-github-ko/에서 다음을 실행한다.
+      python -B -X utf8 ../overleaf-github/Figures/html/render.py Figures/html/data-overview.html
+  영어 원본은 ../overleaf-github/Figures/html/data-overview.html이고, 내용과 배치와 크기가 같다. 모양은 영어 그림의
+  style.css와 fig.js를 그대로 링크해서 가져오고, 이 파일에는 한글 글꼴과 줄바꿈, 한글 자간만 더한다.
+
+  그림의 내용: 이 논문에서 쓴 온체인 기록을 종류마다, 모두 아비트럼 원에서 나온 것을, 2023년 10월 1일부터 2026년 9월
+  30일까지의 달력 하나 위에 놓았다. 2023년 10월부터 2025년 3월까지의 18개월은 줄인 눈금으로(회색 띠), 2025년 4월부터
+  2026년 9월까지의 18개월은 제 눈금으로 그렸다. 꺾쇠는 스캔 A(2023년 10월 1일부터 2026년 6월 30일까지; 등록 분석은 이
+  전체로 점수를 매김)와 스캔 B(2026년 7월부터 9월까지: W1 라벨)를 표시한다. 점선은 동결이다: 2026년 3월 31일(t1, W0의
+  동결)과 2026년 6월 30일(T_obs, W1의 동결). 가로줄 하나는 분석 하나이고, 막대 하나는 기록 한 종류(금색 = ERC-20
+  Approval 로그, 군청색 = ERC-20 Transfer 로그, 회색 = 모든 로그, 트랜잭션을 보낸 주소, RPC로 읽은 코드)를 그 기록이
+  다루는 달 위에 놓은 것이다. 칠한 막대는 점수, 코호트, 같은 기간 점검에 넣는 입력이고, 빗금 막대는 점수에 넣지 않는
+  기록이다(동결 뒤에 센 라벨, 사용자 계정에서 온 중요도). 스크립트의 LANES 목록에 같은 내용이 자료로 있다. 가로줄을
+  위에서 아래로(막대, 그다음 오른쪽 설명. 설명은 짧게 두고, 나머지는 캡션과 그 절의 본문이 말한다):
+  1. 추출: 스캔 A의 허락 로그와 송금 로그(2023년 10월부터 2026년 6월까지, 입력)와 스캔 B(2026년 7월부터 9월까지,
+     떼어 둠). 설명: 체인의 모든 허락 로그와 송금 로그. 주 분석은 그 가운데 다섯 토큰의 로그를 읽음.
+  2. 매칭 코호트 고르기: 2025년 7월부터 2026년 6월까지의 허락, 다섯 토큰, 주인 셋. 설명: T_obs 전 한 해 동안 주인 셋
+     이상이 허락한 계약.
+  3. 같은 기간 분석, 매칭 코호트(n = 6,443): 허락(EndorseRank; 허락 점검)과 송금(AWP; 송금 점검과 안정성 점검),
+     2025년 7월부터 2026년 6월까지. 설명: 계약 사이의 이벤트. 두 종류의 화살표로 C-PR과 S-PR을 만듦. RQ1과 RQ4의
+     같은 기간 부분.
+  4. T_obs와 t1에서의 발견 순서 검증: 계약 사이의 허락 화살표와 송금 화살표(입력)와, 떼어 둔 I_A(사용자 계정이 한
+     허락)와 I_T(사용자 계정이 보낸 송금), 2025년 7월부터 2026년 6월까지. t1에서는 2025년 4월부터 2026년 3월까지의 달.
+     설명: 크롤은 계약 사이의 화살표를 읽음. 어떤 순서 규칙도 읽지 않는 사용자 계정의 이벤트가 계약의 중요도를 주고
+     뜨거운 계약을 정함. RQ2.
+  5. 홀드아웃 W0, 스펜더 계약(n = 7,864): 2025년 4월부터 2026년 3월까지의 허락과 송금이 점수 입력(과 W0 코호트).
+     2026년 4월부터 6월까지는 떼어 둠: 새 허락 쌍과 새 송금자. 설명: t1 전 한 해 안에 정한 다섯 토큰 허락을 가진 스펜더
+     계약. 라벨은 모든 계정을 셈. RQ3, RQ4.
+  6. 등록 기간 W1, 스펜더 계약(n = 7,915): 점수 입력 2025년 7월부터 2026년 6월까지. 떼어 둠 2026년 7월부터 9월까지:
+     쌍과 송금자. 설명: 계약 그래프의 점수로 본 규칙 B의 F1과 F2. W1 로그는 등록 뒤에 뽑음. RQ3, RQ5.
+  7. 계정 종류와 잔액: 보낸 주소(2026년 10월 1일 전 어느 블록에서든 트랜잭션을 보낸 주소는 사용자 계정), 코드(라벨
+     기간 뒤의 고정한 블록 하나에서 eth_getCode와 스마트 계정 호출), 각 동결까지의 다섯 토큰 송금(주인의 잔액).
+     설명: 트랜잭션을 보낸 주소, 코드가 없는 주소, EIP-7702 계정, 스마트 계정은 사용자 계정. 다른 코드는 계약. 잔액에는
+     2023년 10월 전의 송금도 들어감.
+  글자: 막대 글, 설명, 범례는 7.5 pt, 줄 이름과 달 번호는 7.4 pt, 첨자는 0.8em.
+
+  모양(STYLE.md, "Calendars and periods"): study-timeline의 달력(가는 선 위의 회색 달 번호, 굵은 해, 발치에 날짜를
+  굵게 적은 짙은 점선 동결). 칠한 막대는 끝이 네모난 납작한 막대다: Approval 로그는 허락 층의 금색에 짙은 글자,
+  Transfer 로그는 꽉 찬 군청색에 흰 글자(그래서 흑백 인쇄에서도 둘이 갈린다), 나머지 기록은 회색 선을 두른 옅은 회색이다.
+  빗금 막대는 흰 바탕에 제 색의 가는 사선을 긋고 선을 두른 것이고, 그 이름은 흰 상자 위에 있다. 가로줄은 가는 선으로
+  나뉘고, 줄인 달들은 옅은 판 위에 있다. 설명은 분석의 이름이 굵은 짙은 글자이고 나머지는 회색이며, 변수는 Palatino
+  이탤릭이다. 라틴 글자와 숫자는 Bahnschrift(반축소, 영어 그림의 자간), 한글은 Noto Sans KR(보통 400, 굵게 700)이고,
+  한글에는 자간을 두지 않는다. 달은 영어의 머리글자 대신 번호로 적는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>자료 한눈에 보기</title>
+<link rel="stylesheet" href="../../../overleaf-github/Figures/html/style.css">
+<script src="../../../overleaf-github/Figures/html/fig.js"></script>
+<style>
+/* 한글: 라틴 글꼴 뒤에 Noto 글꼴을 둔다. 두 글꼴은 가변 글꼴(기본 굵기 100)이라 굵기를 늘 적는다. */
+:root {
+  --serif:"Palatino Linotype", "Book Antiqua", Palatino, "TeX Gyre Pagella", "Cambria Math", "Noto Serif KR", serif;
+  --sans:Bahnschrift, "DIN Alternate", "D-DIN", Barlow, "Segoe UI", Arial, "Noto Sans KR", sans-serif;
+}
+body { font-weight:400; word-break:keep-all; }
+b, strong { font-weight:700; }
+.h { font-weight:400; }
+svg text:not([font-family]) { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+/* SVG 글자: fig.js가 적는 글꼴 속성보다 CSS가 앞서므로, 여기서 Noto 글꼴을 뒤에 더한다 */
+svg text.sans { font-family:Bahnschrift, "Segoe UI", Arial, "Noto Sans KR", sans-serif; }
+svg text.serif, svg tspan.serif { font-family:"Palatino Linotype", "Book Antiqua", Palatino, "Cambria Math", "Noto Serif KR", serif; }
+.ko { letter-spacing:0; }                    /* 한글에는 자간을 두지 않는다(라틴 글자는 영어 그림의 자간) */
+
+.wrap { position:relative; width:165mm; }
+#chart { display:block; }
+.note { position:absolute; left:95.7mm; width:69.3mm; font-size:7.5pt; line-height:1.17; color:var(--muted); }
+.note i.v { line-height:0; }               /* 변수는 제 줄 높이를 갖지 않는다: 가로줄의 높이는 설명에서 잰다 */
+.legend2 { display:grid; grid-template-columns:12mm 1fr; row-gap:0.5mm; margin-top:0.6mm; font-size:7.5pt; line-height:1.2; color:var(--muted); }
+.legend2 .k { font-weight:700; color:var(--ink); }
+.legend2 .items { display:flex; flex-wrap:wrap; gap:0.5mm 2.8mm; align-items:center; }
+.legend2 .items span { display:inline-flex; align-items:center; gap:1.1mm; }
+/* 견본 뒤의 글은 <span> 하나에 두고 그 안은 한 줄의 글로 흐르게 한다: 한글을 감싼 span이 따로 flex 항목이 되어
+   gap만큼 벌어지지 않게 */
+.legend2 .items span span { display:inline; }
+.legend2 svg { flex:none; display:block; }
+.sw { display:inline-block; width:5mm; height:2.6mm; }
+.sw.allow { background:var(--allow-fill); }
+.sw.transfer { background:var(--transfer); }
+.sw.other { background:var(--count-bg); border:0.25mm solid var(--count); }
+</style>
+</head>
+<body>
+<div class="fig">
+  <div class="wrap" id="wrap">
+    <svg id="chart" width="165mm" height="100mm" viewBox="0 0 165 100"></svg>
+  </div>
+  <div class="legend2">
+    <div class="k">기록</div>
+    <div class="items">
+      <span><i class="sw allow"></i><span>ERC-20 허락 로그</span></span>
+      <span><i class="sw transfer"></i><span>ERC-20 송금 로그</span></span>
+      <span><i class="sw other"></i><span>모든 로그, 트랜잭션을 보낸 주소, 또는 RPC로 읽은 코드</span></span>
+    </div>
+    <div class="k">막대</div>
+    <div class="items">
+      <span><svg id="sw-solid" width="5mm" height="2.6mm" viewBox="0 0 5 2.6"></svg><span>칠한 막대: 점수, 코호트, 같은 기간 점검에 넣는 입력</span></span>
+      <span><svg id="sw-held" width="5mm" height="2.6mm" viewBox="0 0 5 2.6"></svg><span>빗금 막대: 점수에 넣지 않음(동결 뒤의 라벨, 사용자 계정에서 온 중요도)</span></span>
+      <span><svg width="2mm" height="3mm" viewBox="0 0 2 3"><path d="M1,0 V3" style="stroke:var(--ink)" stroke-width="0.4" stroke-dasharray="0.9 0.6"/></svg><span>점선: 동결</span></span>
+    </div>
+  </div>
+</div>
+
+<script>
+// 한글 글자(와 그 사이의 빈칸)를 class="ko"로 감싸 자간을 0으로 둔다. HTML에서는 <span>, SVG 글자 안에서는 <tspan>이다.
+// HTML은 fig.js가 DOMContentLoaded에서 줄 높이를 재기 전에 감싸고, 스크립트가 만드는 설명은 높이를 재기 전에 감싼다.
+// SVG 글자는 Fig.text와 Fig.rich가 만들 때 바로 감싸므로, 흰 상자의 너비는 감싼 뒤의 글자에서 잰다. 가운데나 오른쪽에
+// 맞춘 글자가 한글로 끝나면 끝 자간이 없으니, fig.js가 그만큼 옮겨 둔 x를 되돌린다.
+const KO = (function () {
+  const H = "ᄀ-ᇿ㄰-㆏가-힣", run = new RegExp(`[${H}]+(?:\\s+[${H}]+)*`, "g"), any = new RegExp(`[${H}]`), last = new RegExp(`[${H}]\\s*$`);
+  const NS = "http://www.w3.org/2000/svg";
+  function wrap(root) {
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [];
+    for (let n; (n = w.nextNode());) {
+      const p = n.parentElement;
+      if (p && !(p.classList && p.classList.contains("ko")) && p.tagName !== "STYLE" && p.tagName !== "SCRIPT" && any.test(n.textContent)) nodes.push(n);
+    }
+    for (const n of nodes) {
+      const svg = n.parentElement.closest("svg"), s = n.textContent, frag = document.createDocumentFragment();
+      let at0 = 0;
+      s.replace(run, (m, at) => {
+        if (at > at0) frag.appendChild(document.createTextNode(s.slice(at0, at)));
+        const k = svg ? document.createElementNS(NS, "tspan") : document.createElement("span");
+        k.setAttribute("class", "ko"); k.textContent = m;
+        if (svg) k.style.letterSpacing = "0px";
+        frag.appendChild(k);
+        at0 = at + m.length;
+      });
+      if (at0 < s.length) frag.appendChild(document.createTextNode(s.slice(at0)));
+      n.replaceWith(frag);
+    }
+  }
+  function svgText(t) {
+    if (!t || !any.test(t.textContent)) return t;
+    const sp = parseFloat(t.style.letterSpacing) || 0, a = t.getAttribute("text-anchor");
+    if (sp && last.test(t.textContent) && (a === "middle" || a === "end"))
+      t.setAttribute("x", (parseFloat(t.getAttribute("x")) - (a === "middle" ? sp / 2 : sp)).toFixed(3));
+    wrap(t);
+    return t;
+  }
+  for (const k of ["text", "rich"]) { const f = Fig[k]; Fig[k] = (...args) => svgText(f(...args)); }
+  return { wrap };
+})();
+KO.wrap(document.querySelector(".legend2"));
+
+// ---- 내용: 분석마다 가로줄 하나. 막대는 [from, to], [해, 달](그 달의 첫날). kind = allow | transfer | other
+// 글 안에서: $x$ 변수, _{i} 첨자, `code` 체인의 식별자(Fig.rich).
+const LANES = [
+  { title: "추출.",
+    note: "체인의 모든 허락 로그와 송금 로그. 주 분석은 그 가운데 다섯 토큰의 로그를 읽음.",
+    rows: [{ label: "로그", kind: "other", bars: [
+      { from: [2023, 10], to: [2026, 7], text: "허락 로그와 송금 로그(스캔 A)" },
+      { from: [2026, 7], to: [2026, 10], text: "스캔 B", held: true }] }] },
+  { title: "매칭 코호트 고르기.",
+    note: "<i class=\"v\">T</i><sub>obs</sub> 전 한 해 동안 주인 셋 이상이 허락한 계약.",
+    rows: [{ label: "허락", kind: "allow", bars: [{ from: [2025, 7], to: [2026, 7], text: "다섯 토큰, 주인 셋" }] }] },
+  { title: "같은 기간 분석, 매칭 코호트(<i class=\"v\">n</i>&nbsp;=&nbsp;6,443).",
+    note: "계약 사이의 이벤트. 두 종류의 화살표로 <span class=\"nb\">C-PR</span>과 <span class=\"nb\">S-PR</span>을 만듦. RQ1과 RQ4의 같은 기간 부분.",
+    rows: [
+      { label: "허락", kind: "allow", bars: [{ from: [2025, 7], to: [2026, 7], text: "EndorseRank; 허락 점검" }] },
+      { label: "송금", kind: "transfer", bars: [{ from: [2025, 7], to: [2026, 7], text: "AWP; 송금 점검과 안정성 점검" }] }] },
+  { title: "<i class=\"v\">T</i><sub>obs</sub>와 <i class=\"v\">t</i><sub>1</sub>에서의 발견 순서 검증.",
+    note: "크롤은 계약 사이의 화살표를 읽음. 어떤 순서 규칙도 읽지 않는 사용자 계정의 이벤트가 계약의 중요도를 주고 뜨거운 계약을 정함. RQ2.",
+    rows: [
+      { label: "허락", kind: "allow", bars: [{ from: [2025, 7], to: [2026, 7], text: "계약 사이의 허락 화살표" }] },
+      { label: "송금", kind: "transfer", bars: [{ from: [2025, 7], to: [2026, 7], text: "계약 사이의 송금 화살표" }] },
+      { label: "허락", kind: "allow", bars: [{ from: [2025, 7], to: [2026, 7], text: "$I$_{A}: 사용자 계정이 한 허락", held: true }] },
+      { label: "송금", kind: "transfer", bars: [{ from: [2025, 7], to: [2026, 7], text: "$I$_{T}: 사용자 계정이 보낸 송금", held: true }] }],
+    span: { from: [2025, 4], to: [2026, 4], text: "$t$_{1}에서는 이 달들" } },
+  { title: "홀드아웃 W0, 스펜더 계약(<i class=\"v\">n</i>&nbsp;=&nbsp;7,864).",
+    note: "<i class=\"v\">t</i><sub>1</sub> 전 한 해 안에 정한 다섯 토큰 허락을 가진 스펜더 계약. 라벨은 모든 계정을 셈. RQ3, RQ4.",
+    rows: [
+      { label: "허락", kind: "allow", bars: [{ from: [2025, 4], to: [2026, 4], text: "점수 입력; W0 코호트" }, { from: [2026, 4], to: [2026, 7], text: "쌍", held: true }] },
+      { label: "송금", kind: "transfer", bars: [{ from: [2025, 4], to: [2026, 4], text: "점수 입력" }, { from: [2026, 4], to: [2026, 7], text: "송금자", held: true }] }] },
+  { title: "등록 기간 W1, 스펜더 계약(<i class=\"v\">n</i>&nbsp;=&nbsp;7,915).",
+    note: "계약 그래프의 점수로 본 규칙 B의 F1과 F2. W1 로그는 등록 뒤에 뽑음. RQ3, RQ5.",
+    rows: [
+      { label: "허락", kind: "allow", bars: [{ from: [2025, 7], to: [2026, 7], text: "점수 입력" }, { from: [2026, 7], to: [2026, 10], text: "쌍", held: true }] },
+      { label: "송금", kind: "transfer", bars: [{ from: [2025, 7], to: [2026, 7], text: "점수 입력" }, { from: [2026, 7], to: [2026, 10], text: "송금자", held: true }] }] },
+  { title: "계정 종류와 잔액.",
+    note: "트랜잭션을 보낸 주소, 코드가 없는 주소, EIP-7702 계정, 스마트 계정은 사용자 계정. 다른 코드는 계약. 잔액에는 2023년 10월 전의 송금도 들어감.",
+    rows: [
+      { label: "보낸 주소", kind: "other", bars: [{ from: [2023, 10], to: [2026, 10], text: "2026년 10월 1일 전 어느 블록에서든 트랜잭션을 보냄: 사용자 계정" }] },
+      { label: "코드", kind: "other", pinned: "고정한 블록 하나에서 `eth_getCode`와 스마트 계정 호출" },
+      { label: "송금", kind: "transfer", bars: [{ from: [2023, 10], to: [2026, 7], text: "각 동결까지의 다섯 토큰 송금: 주인의 잔액" }] }] },
+];
+
+// ---- 크기와 자리(mm)
+const X0 = 12.8, COMP = 0.58, FULL = 3.82;                 // 달력의 시작; 줄인 달과 제 달 하나의 mm
+const mx = ([y, m]) => { const i = (y - 2023) * 12 + (m - 10); return i <= 18 ? X0 + i * COMP : X0 + 18 * COMP + (i - 18) * FULL; };
+const xa = mx([2023, 10]), xq = mx([2025, 4]), xj = mx([2026, 1]), xw = mx([2026, 4]), xt = mx([2026, 7]), xe = mx([2026, 10]);
+const HEAD = 11.2, PITCH = 4.0, BAR = 3.4, PAD = 0.75, SPAN = 3.5;
+const FS = 2.65, FL = 2.6;                                 // 글 2.65 mm = 7.5 pt; 줄 이름과 달 번호 7.4 pt
+const CAP = 0.36;                                          // 대문자 높이의 반(em): 한 줄의 글을 막대의 가운데에 둔다
+const C = Fig.C;
+// 칠한 막대는 납작하다: Approval 로그는 금색에 짙은 글자, Transfer 로그는 군청색에 흰 글자, 나머지는 회색 선을 두른
+// 옅은 회색. 빗금 막대는 제 종류의 선 색을 쓴다
+const COL = { allow: { fill: C.allowFill, line: C.allow, ink: C.allowInk, on: C.allowInk },
+              transfer: { fill: C.transfer, line: C.transfer, ink: C.transferInk, on: "#fff" },
+              other: { fill: C.countBg, line: C.count, ink: C.countInk, on: C.countInk, edge: true } };
+const svg = document.getElementById("chart"), wrap = document.getElementById("wrap");
+const E = (tag, a, txt, parent) => Fig.el(parent || svg, tag, a, txt);
+const rich = (x, y, s, o, parent) => Fig.rich(parent || svg, x, y, s, Object.assign({ size: FS, anchor: "middle", fill: C.text }, o));
+
+// 글자 뒤의 흰 상자(글자 바로 아래에 그린다)
+function halo(t, padX = 0.6, h = 2.9, yc) {
+  const bb = t.getBBox();
+  const r = E("rect", { x: bb.x - padX, y: (yc ?? bb.y + bb.height / 2) - h / 2, width: bb.width + 2 * padX, height: h, fill: "#fff" });
+  t.parentNode.insertBefore(r, t);
+}
+// 빗금 친 네모: 잘라 낸 벡터 선(SVG 패턴은 쓰지 않는다: Chrome은 패턴을 쪽 크기의 이미지로 인쇄한다)
+let clipN = 0;
+function hatch(parent, x, y, w, h, color) {
+  const id = "clip" + (clipN++);
+  const cp = E("clipPath", { id }, undefined, Fig.defs(svg));
+  E("rect", { x, y, width: w, height: h }, undefined, cp);
+  E("rect", { x, y, width: w, height: h, fill: "#fff" }, undefined, parent);
+  const g = E("g", { "clip-path": `url(#${id})` }, undefined, parent);
+  let d = ""; for (let s = x - h; s < x + w; s += 1.2) d += `M${s},${y + h} L${s + h},${y} `;
+  E("path", { d, stroke: color, "stroke-width": 0.26 }, undefined, g);
+  E("rect", { x, y, width: w, height: h, fill: "none", stroke: color, "stroke-width": 0.35, "stroke-linejoin": "round" }, undefined, parent);
+}
+
+// ---- 설명을 먼저: 그 높이를 잰다
+const PX = 96 / 25.4;
+const notes = LANES.map(l => { const d = document.createElement("div"); d.className = "note"; d.innerHTML = `<b>${l.title}</b> ${l.note}`; wrap.appendChild(d); KO.wrap(d); return d; });
+const laneTop = [];
+let y = HEAD;
+LANES.forEach((lane, i) => {
+  const rowsH = lane.rows.length * PITCH + (lane.span ? SPAN : 0);
+  const noteH = notes[i].offsetHeight / PX;
+  const h = Math.max(rowsH, noteH) + 2 * PAD;
+  laneTop.push(y);
+  notes[i].style.top = (y + PAD - 0.2) + "mm";
+  y += h;
+});
+const BOTTOM = y;
+
+// ---- 층: 바탕, 눈금, 동결, 그 위에 막대와 이름
+const gBack = E("g", {}), gBars = E("g", {}), gText = E("g", {});
+E("rect", { x: xa, y: HEAD - 0.5, width: xq - xa, height: BOTTOM - HEAD + 0.5, fill: C.plate }, undefined, gBack);     // 줄인 달들
+for (let i = 0; i <= 18; i++) { const x = xq + i * FULL; E("path", { d: `M${x},${HEAD - 0.5} V${BOTTOM}`, stroke: C.plate2, "stroke-width": 0.2 }, undefined, gBack); }
+for (const x of [mx([2024, 1]), mx([2025, 1])]) E("path", { d: `M${x},${HEAD - 0.5} V${BOTTOM}`, stroke: C.hair, "stroke-width": 0.2 }, undefined, gBack);
+laneTop.forEach((top, i) => { if (i) E("path", { d: `M0,${top} H165`, stroke: C.hair, "stroke-width": 0.25 }, undefined, gBack); });
+E("path", { d: `M0,${BOTTOM} H165`, stroke: C.hair, "stroke-width": 0.25 }, undefined, gBack);
+for (const x of [xw, xt]) E("path", { d: `M${x},${HEAD - 0.5} V${BOTTOM + 0.7}`, stroke: C.ink, "stroke-width": 0.4, "stroke-dasharray": "0.9 0.6" }, undefined, gBack);
+
+// 머리: 두 스캔 위의 꺾쇠, 해, 달
+function bracket(x1, x2, yb, label) {
+  const m = (x1 + x2) / 2;
+  E("path", { d: `M${x1},${yb + 1} V${yb} H${x2} V${yb + 1} M${m},${yb} V${yb - 0.8}`, fill: "none", stroke: C.count, "stroke-width": 0.3 });
+  rich(m, yb - 1.6, label, { fill: C.text });
+}
+bracket(xa + 0.2, xt - 0.2, 3.1, "스캔 A(등록 분석은 이 전체로 점수를 매김)");
+bracket(xt + 0.2, xe - 0.2, 3.1, "스캔 B: W1 라벨");
+rich((xa + xq) / 2, 7.1, "2023년 10월 – 2025년 3월", { size: 2.5, weight: 700, fill: C.ink });
+rich((xq + xj) / 2, 7.1, "2025년", { weight: 700, fill: C.ink });
+rich((xj + xe) / 2, 7.1, "2026년", { weight: 700, fill: C.ink });
+rich(xq - 1.5, 10.1, "줄인 눈금", { size: 2.5, fill: C.muted, anchor: "end" });
+[4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach((c, i) => rich(xq + (i + 0.5) * FULL, 10.1, String(c), { size: FL, fill: C.muted }));
+E("path", { d: `M${xq - 0.9},10.8 l0.55,-1.5 M${xq - 0.25},10.8 l0.55,-1.5`, stroke: C.count, "stroke-width": 0.3 });
+
+// 막대, 줄 이름, t1의 구간, 고정한 블록
+function bar(x1, x2, yc, kind, text, held) {
+  const c = COL[kind], x = x1 + 0.12, w = x2 - x1 - 0.24, yb = yc - BAR / 2;
+  if (held) hatch(gBars, x, yb, w, BAR, c.line);
+  else E("rect", { x, y: yb, width: w, height: BAR, fill: c.fill, stroke: c.edge ? c.line : null, "stroke-width": c.edge ? 0.25 : null }, undefined, gBars);
+  const t = rich((x1 + x2) / 2, yc + FS * CAP, text, { fill: held ? c.ink : c.on, weight: 600 }, gText);
+  if (held) halo(t, 0.4, BAR - 0.3, yc);                 // 선 안쪽 막대의 높이. 좁게 두어서 석 달 막대의 빗금도 보인다
+}
+LANES.forEach((lane, i) => {
+  const top = laneTop[i];
+  lane.rows.forEach((row, r) => {
+    const yc = top + PAD + r * PITCH + PITCH / 2;
+    rich(X0 - 0.8, yc + FL * CAP, row.label, { size: FL, anchor: "end", fill: COL[row.kind].ink, weight: 700 }, gText);
+    for (const b of row.bars || []) bar(mx(b.from), mx(b.to), yc, row.kind, b.text, b.held);
+    if (row.pinned) {
+      const xd = xe + 1.3;
+      E("path", { d: `M${xd},${yc - 1.25} l1.25,1.25 l-1.25,1.25 l-1.25,-1.25 z`, fill: C.count }, undefined, gBars);
+      const t = rich(xd - 1.8, yc + FS * CAP, row.pinned, { anchor: "end", fill: C.countInk }, gText);   // 홀로 선 글: 보통 굵기
+      halo(t, 0.5, 2.9, yc);
+    }
+  });
+  if (lane.span) {
+    const ys = top + PAD + lane.rows.length * PITCH + SPAN / 2, x1 = mx(lane.span.from), x2 = mx(lane.span.to);
+    E("path", { d: `M${x1 + 0.4},${ys} H${x2 - 0.4}`, stroke: C.count, "stroke-width": 0.3, "marker-end": Fig.marker(svg, C.count) }, undefined, gBars);
+    E("path", { d: `M${x2 - 0.4},${ys} H${x1 + 0.4}`, stroke: C.count, "stroke-width": 0.3, "marker-end": Fig.marker(svg, C.count) }, undefined, gBars);
+    const t = rich((x1 + x2) / 2, ys + FS * CAP - 0.05, lane.span.text, { fill: C.muted }, gText);
+    halo(t, 0.8, 2.9, ys);
+  }
+});
+
+// 동결의 이름: 날짜는 굵게, 그 아래에 거기서 무엇이 동결되는지
+rich(xw + 0.6, BOTTOM + 3.4, "2026년 3월 31일", { anchor: "end", weight: 700, fill: C.ink });
+rich(xw + 0.6, BOTTOM + 6.3, "W0 동결 $t$_{1}", { anchor: "end", fill: C.muted });
+rich(xt - 0.6, BOTTOM + 3.4, "2026년 6월 30일", { anchor: "start", weight: 700, fill: C.ink });
+rich(xt - 0.6, BOTTOM + 6.3, "$T$_{obs}, W1 동결", { anchor: "start", fill: C.muted });
+
+const H = BOTTOM + 7.45;
+svg.setAttribute("viewBox", `0 0 165 ${H}`);
+svg.setAttribute("height", H + "mm");
+wrap.style.height = H + "mm";
+
+// 범례의 견본(벡터, 그러데이션도 패턴도 없음)
+(function () {
+  const s = document.getElementById("sw-solid");
+  Fig.el(s, "rect", { x: 0, y: 0.15, width: 2.5, height: 2.3, fill: C.allowFill });
+  Fig.el(s, "rect", { x: 2.5, y: 0.15, width: 2.5, height: 2.3, fill: C.transfer });
+  const h = document.getElementById("sw-held");
+  Fig.el(h, "rect", { x: 0.15, y: 0.15, width: 4.7, height: 2.3, fill: "#fff" });
+  let d = ""; for (let x = -2.3; x < 5; x += 1.05) d += `M${Math.max(0.15, x)},${x < 0.15 ? 2.45 - (0.15 - x) : 2.45} L${Math.min(4.85, x + 2.3)},${x + 2.3 > 4.85 ? 0.15 + (x + 2.3 - 4.85) : 0.15} `;
+  Fig.el(h, "path", { d, stroke: C.count, "stroke-width": 0.26 });
+  Fig.el(h, "rect", { x: 0.15, y: 0.15, width: 4.7, height: 2.3, fill: "none", stroke: C.count, "stroke-width": 0.3 });
+})();
+</script>
+</body>
+</html>
