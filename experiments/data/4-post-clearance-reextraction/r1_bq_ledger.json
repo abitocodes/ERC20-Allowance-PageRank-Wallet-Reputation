@@ -1,0 +1,1068 @@
+{
+  "usd_per_tib": 6.25,
+  "jobs": [
+    {
+      "at": "2026-11-21T17:48:03+00:00",
+      "job_id": "4c19c470-f06e-40a7-b847-c8f8ecfd3914",
+      "sql": "sql/01_materialize_logs.sql",
+      "dest": "contract_rep_r1.logs_obs",
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 1: scan A: observation window",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 3616538759374,
+      "bytes_billed": 3615783649280,
+      "usd": 20.5534,
+      "bytes_expected": 3797039378640
+    },
+    {
+      "at": "2026-11-21T17:48:23+00:00",
+      "job_id": "a8594487-5d63-4b9f-b466-1942d39ebed0",
+      "sql": "sql/01_materialize_logs.sql",
+      "dest": "contract_rep_r1.logs_w1",
+      "params": {
+        "start_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 12: scan B: W1 window",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 290017677896,
+      "bytes_billed": 289263321088,
+      "usd": 1.6443,
+      "bytes_expected": 303726487142
+    },
+    {
+      "at": "2026-11-21T17:50:24+00:00",
+      "job_id": "f9fbe86c-8c1b-49da-95e2-473661e8a8d1",
+      "sql": "D:/Github/phd_reextract/experiments/data/_r1_partitions.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: compare: monthly partitions of the scans (metadata)",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 20971520,
+      "bytes_billed": 20971520,
+      "usd": 0.0001,
+      "bytes_expected": 20971520
+    },
+    {
+      "at": "2026-11-21T17:51:04+00:00",
+      "job_id": "0df462dc-e9a2-4dc8-931d-3e219b071f13",
+      "sql": "sql/02_spender_candidates.sql",
+      "dest": "contract_rep_r1.spender_candidates",
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 2: cohort candidates",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 276374076067,
+      "bytes_billed": 45901414400,
+      "usd": 0.2609,
+      "bytes_expected": 290192779870
+    },
+    {
+      "at": "2026-11-21T17:51:13+00:00",
+      "job_id": "5228426e-2d89-40ce-b859-af69cdd2dc40",
+      "sql": "sql/07_gmx_accounts.sql",
+      "dest": "contract_rep_r1.gmx_accounts",
+      "params": {},
+      "subs": [
+        "SRC=logs_obs"
+      ],
+      "label": "r1: job 3: gmx accounts",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 61344566029,
+      "bytes_billed": 25929187328,
+      "usd": 0.1474,
+      "bytes_expected": 27225646694
+    },
+    {
+      "at": "2026-11-21T17:59:54+00:00",
+      "job_id": "4c4747d3-71c6-40c7-bee7-a8cb10b482c8",
+      "sql": "sql/09_gmx_contract_closes.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=obs",
+        "SRC=logs_obs"
+      ],
+      "label": "r1: job 4: gmx closes of contract accounts, observation window",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 25964793984,
+      "bytes_billed": 25964838912,
+      "usd": 0.1476,
+      "bytes_expected": 27263080857
+    },
+    {
+      "at": "2026-11-21T18:04:05+00:00",
+      "job_id": "16018b2e-a251-4a0d-9e23-1658ec2d3d07",
+      "sql": "D:/Github/phd_reextract/experiments/data/_r1_sql/cohort_from_hex.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: local: cohort to BYTES (the bq query of build_cohort.py)",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 1225136,
+      "bytes_billed": 10485760,
+      "usd": 0.0001,
+      "bytes_expected": 20971520
+    },
+    {
+      "at": "2026-11-21T18:05:40+00:00",
+      "job_id": "7722a43b-36bb-4c0b-a382-36209eccaeb4",
+      "sql": "sql/03_ego_events.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC"
+      },
+      "subs": [
+        "SUFFIX=ego",
+        "SRC=logs_obs"
+      ],
+      "label": "r1: job 5: ego approvals and transfers, observation window",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 65499645146,
+      "bytes_billed": 394405085184,
+      "usd": 2.2419,
+      "bytes_expected": 414116531404
+    },
+    {
+      "at": "2026-11-21T18:06:30+00:00",
+      "job_id": "9a3c6319-fe56-452c-bd67-c8f202e21757",
+      "sql": "sql/04_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59.999999 UTC"
+      },
+      "subs": [
+        "TAG=tobs"
+      ],
+      "label": "r1: job 6: pairs at T_obs",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 38206954436,
+      "bytes_billed": 132421517312,
+      "usd": 0.7527,
+      "bytes_expected": 139042593177
+    },
+    {
+      "at": "2026-11-21T18:07:31+00:00",
+      "job_id": "38bb7fe4-fd63-42f6-8cad-beb972f0682c",
+      "sql": "sql/04_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-03-31 23:59:59.999999 UTC"
+      },
+      "subs": [
+        "TAG=t1"
+      ],
+      "label": "r1: job 7: pairs at t1",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 36120124208,
+      "bytes_billed": 124839264256,
+      "usd": 0.7096,
+      "bytes_expected": 131081227468
+    },
+    {
+      "at": "2026-11-21T18:07:45+00:00",
+      "job_id": "ae4259a4-c0ab-45b4-aba9-6525b93fdc07",
+      "sql": "sql/05_proxies_same_window.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59.999999 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 8: same-window proxies",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 92304856588,
+      "bytes_billed": 92305096704,
+      "usd": 0.5247,
+      "bytes_expected": 96920351539
+    },
+    {
+      "at": "2026-11-21T18:08:46+00:00",
+      "job_id": "ae168d52-7afc-4585-9b82-7f64d682de88",
+      "sql": "sql/06_holdout_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59.999999 UTC",
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59.999999 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=approvals_ego",
+        "TRANSFERS=transfers_ego",
+        "LOGS=logs_obs"
+      ],
+      "label": "r1: job 9: W0 holdout labels",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 100148567964,
+      "bytes_billed": 100149493760,
+      "usd": 0.5693,
+      "bytes_expected": 105154766438
+    },
+    {
+      "at": "2026-11-21T18:09:50+00:00",
+      "job_id": "7eec161a-f84a-44b4-8e84-fdb20d59798c",
+      "sql": "sql/08_export_ids.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: job 10: node ids and export tables",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 7114341696,
+      "bytes_billed": 22439526400,
+      "usd": 0.1276,
+      "bytes_expected": 23561502720
+    },
+    {
+      "at": "2026-11-21T18:10:02+00:00",
+      "job_id": "2aff5190-72ae-4451-9893-7c9cc3875aab",
+      "sql": "sql/10_describe.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: job 11: descriptive statistics",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 15810257056,
+      "bytes_billed": 28960620544,
+      "usd": 0.1646,
+      "bytes_expected": 30371217408
+    },
+    {
+      "at": "2026-11-21T18:10:41+00:00",
+      "job_id": "5ab9237b-19bb-42ce-a623-b250fd061d26",
+      "sql": "sql/03_ego_events.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [
+        "SUFFIX=w1ego",
+        "SRC=logs_w1"
+      ],
+      "label": "r1: job 13: ego events, W1",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 3852174461,
+      "bytes_billed": 28955377664,
+      "usd": 0.1646,
+      "bytes_expected": 30410104944
+    },
+    {
+      "at": "2026-11-21T18:10:49+00:00",
+      "job_id": "afb8e278-f9ce-4395-8ae9-eec974bdbee5",
+      "sql": "sql/07_gmx_accounts.sql",
+      "dest": "contract_rep_r1.gmx_accounts_w1",
+      "params": {},
+      "subs": [
+        "SRC=logs_w1"
+      ],
+      "label": "r1: job 14: gmx accounts, W1",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 1631059332,
+      "bytes_billed": 1631584256,
+      "usd": 0.0093,
+      "bytes_expected": 4404075218
+    },
+    {
+      "at": "2026-11-21T18:11:50+00:00",
+      "job_id": "8d68e6be-05ba-4c5f-8fe5-fdef90bf7f18",
+      "sql": "sql/06_holdout_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "t1": "2026-06-30 23:59:59.999999 UTC",
+        "out_start": "2026-07-01 00:00:00 UTC",
+        "out_end": "2026-09-30 23:59:59.999999 UTC"
+      },
+      "subs": [
+        "TAG=w1",
+        "FREEZE=tobs",
+        "APPROVALS=approvals_w1ego",
+        "TRANSFERS=transfers_w1ego",
+        "LOGS=logs_w1"
+      ],
+      "label": "r1: job 15: W1 labels",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 104410592424,
+      "bytes_billed": 104410906624,
+      "usd": 0.5935,
+      "bytes_expected": 112471155882
+    },
+    {
+      "at": "2026-11-21T18:12:05+00:00",
+      "job_id": "e64ceeb9-23c4-492f-9f08-fb9c1b7c4d9d",
+      "sql": "sql/09_gmx_contract_closes.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=w1",
+        "SRC=logs_w1"
+      ],
+      "label": "r1: job 16: gmx closes of contract accounts, W1",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 1633536560,
+      "bytes_billed": 1633681408,
+      "usd": 0.0093,
+      "bytes_expected": 8239775421
+    },
+    {
+      "at": "2026-11-21T18:12:44+00:00",
+      "job_id": "c517b139-d0e1-4b16-99f3-83190f14fbe7",
+      "sql": "sql/11_top_tokens.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59.999999 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 17: top-token subgraphs",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 59301437086,
+      "bytes_billed": 191909330944,
+      "usd": 1.0909,
+      "bytes_expected": 201504797491
+    },
+    {
+      "at": "2026-11-21T18:13:20+00:00",
+      "job_id": "fa186ae3-896d-4527-a37d-608bfea8e784",
+      "sql": "sql/19_usd_load.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: job 19: revised: token list and prices to BYTES",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 349,
+      "bytes_billed": 20971520,
+      "usd": 0.0001,
+      "bytes_expected": 22020096
+    },
+    {
+      "at": "2026-11-21T18:15:27+00:00",
+      "job_id": "b194f2d9-9add-4990-b0ec-88c8935fc84a",
+      "sql": "sql/12_usd_ego.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2023-10-01 00:00:00 UTC",
+        "end_ts": "2026-07-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 20: revised: cohort and listed-token ego tables",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 31969697002,
+      "bytes_billed": 230027165696,
+      "usd": 1.3076,
+      "bytes_expected": 241528523980
+    },
+    {
+      "at": "2026-11-21T18:15:44+00:00",
+      "job_id": "8376fbc1-5f36-4857-815d-3518073c203e",
+      "sql": "sql/21_usd12m_cohorts.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TOBS_START=2025-07-01 00:00:00 UTC",
+        "TOBS_END=2026-07-01 00:00:00 UTC",
+        "T1_START=2025-04-01 00:00:00 UTC",
+        "T1_END=2026-04-01 00:00:00 UTC",
+        "W0_END=2026-07-01 00:00:00 UTC"
+      ],
+      "label": "r1: job 47: usd12m: cohorts of T_obs and t1 and their ego views",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 5184892094,
+      "bytes_billed": 10591666176,
+      "usd": 0.0602,
+      "bytes_expected": 11141848263
+    },
+    {
+      "at": "2026-11-21T18:16:08+00:00",
+      "job_id": "2c641fd3-044a-486a-abfe-7e7720c96a3a",
+      "sql": "sql/13_usd_constants.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "unlimited": "1.15e+77"
+      },
+      "subs": [],
+      "label": "r1: job 48: usd12m: USD scale constants on the W0 score window",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 40573727912,
+      "bytes_billed": 40574648320,
+      "usd": 0.2306,
+      "renames": [
+        "u_approvals=u12_approvals_t1",
+        "u_transfers=u12_transfers_t1",
+        "u_constants=u12_constants"
+      ],
+      "bytes_expected": 42622364820
+    },
+    {
+      "at": "2026-11-21T18:16:57+00:00",
+      "job_id": "d3648590-0e6b-4e45-926f-506faedd6e9b",
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC",
+        "b_transfer": "0.00646242522745947",
+        "b_allowance": "0.010986122886681098",
+        "cap_allowance": "19000.0"
+      },
+      "subs": [
+        "TAG=tobs"
+      ],
+      "label": "r1: job 49: usd12m: pairs at tobs",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 9161362986,
+      "bytes_billed": 36782997504,
+      "usd": 0.2091,
+      "renames": [
+        "u_approvals=u12_approvals_tobs",
+        "u_transfers=u12_transfers_tobs",
+        "u_allow_triples_tobs=u12_allow_triples_tobs",
+        "u_allow_pairs_tobs=u12_allow_pairs_tobs",
+        "u_transfer_pairs_tobs=u12_transfer_pairs_tobs"
+      ],
+      "bytes_expected": 39251712819
+    },
+    {
+      "at": "2026-11-21T18:17:45+00:00",
+      "job_id": "b9f0e888-ab3b-464e-8b1a-18791fecd690",
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "anchor_ts": "2026-03-31 23:59:59 UTC",
+        "b_transfer": "0.00646242522745947",
+        "b_allowance": "0.010986122886681098",
+        "cap_allowance": "19000.0"
+      },
+      "subs": [
+        "TAG=t1"
+      ],
+      "label": "r1: job 50: usd12m: pairs at t1",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 9552134312,
+      "bytes_billed": 40885026816,
+      "usd": 0.2324,
+      "renames": [
+        "u_approvals=u12_approvals_t1",
+        "u_transfers=u12_transfers_t1",
+        "u_allow_triples_t1=u12_allow_triples_t1",
+        "u_allow_pairs_t1=u12_allow_pairs_t1",
+        "u_transfer_pairs_t1=u12_transfer_pairs_t1"
+      ],
+      "bytes_expected": 43488915086
+    },
+    {
+      "at": "2026-11-21T18:19:00+00:00",
+      "job_id": "d5c2ef11-f20f-4fa1-be92-d76254086c98",
+      "sql": "sql/16_usd_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=u12_approvals_t1",
+        "TRANSFERS=u12_transfers_t1",
+        "LOGS=logs_obs"
+      ],
+      "label": "r1: job 52: usd12m: W0 labels",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 53868844870,
+      "bytes_billed": 53869543424,
+      "usd": 0.3062,
+      "renames": [
+        "u_transfers=u12_transfers_t1",
+        "u_allow_triples_t1=u12_allow_triples_t1",
+        "u_labels_w0=u12_labels_w0"
+      ],
+      "bytes_expected": 56978051226
+    },
+    {
+      "at": "2026-11-21T18:19:51+00:00",
+      "job_id": "1f8fbb5f-e5fc-452e-94d8-aee84d5b0691",
+      "sql": "sql/16_usd_labels.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "t1": "2026-06-30 23:59:59 UTC",
+        "out_start": "2026-07-01 00:00:00 UTC",
+        "out_end": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w1",
+        "FREEZE=tobs",
+        "APPROVALS=u12_approvals_w1",
+        "TRANSFERS=u12_transfers_w1",
+        "LOGS=logs_w1"
+      ],
+      "label": "r1: job 53: usd12m: W1 labels",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 49756146814,
+      "bytes_billed": 49757028352,
+      "usd": 0.2828,
+      "renames": [
+        "u_transfers=u12_transfers_tobs",
+        "u_allow_triples_tobs=u12_allow_triples_tobs",
+        "u_labels_w1=u12_labels_w1"
+      ],
+      "bytes_expected": 52713121003
+    },
+    {
+      "at": "2026-11-21T18:20:27+00:00",
+      "job_id": "11bf54d3-d5b0-44b7-bcb1-82602fcc8d9a",
+      "sql": "sql/24_c12_logs5.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "mid_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 57: contract12m: five-token events of the typing window",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 226208035952,
+      "bytes_billed": 226208251904,
+      "usd": 1.2858,
+      "bytes_expected": 237504351436
+    },
+    {
+      "at": "2026-11-21T18:20:46+00:00",
+      "job_id": "59fa156f-9240-457d-8c62-db026716ac29",
+      "sql": "sql/25_c12_ends.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: job 58: contract12m: pairs and ends of the five-token events",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 68215127310,
+      "bytes_billed": 72600256512,
+      "usd": 0.4127,
+      "bytes_expected": 149763211321
+    },
+    {
+      "at": "2026-11-21T18:21:17+00:00",
+      "job_id": "401179e1-a3fe-4cad-9db7-29ac574b8c5e",
+      "sql": "sql/26_c12_tx_senders.sql",
+      "dest": null,
+      "params": {
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 59: contract12m: transaction senders among the ends",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 149929760232,
+      "bytes_billed": 149914910720,
+      "usd": 0.8522,
+      "bytes_expected": 157453246141
+    },
+    {
+      "at": "2026-11-21T18:22:15+00:00",
+      "job_id": "ed3d9969-b632-4a80-9366-153ddf4f7f1d",
+      "sql": "sql/27_c12_emitters.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 60: contract12m: decoded-log emitters among the ends",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 261310741885,
+      "bytes_billed": 261233836032,
+      "usd": 1.4849,
+      "bytes_expected": 274379933533
+    },
+    {
+      "at": "2026-11-21T18:22:26+00:00",
+      "job_id": "93453a4d-b8af-4106-9ed2-2b772cba7399",
+      "sql": "sql/28_c12_creations.sql",
+      "dest": null,
+      "params": {
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 61: contract12m: contracts created by a transaction among the ends",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 23595208464,
+      "bytes_billed": 23592960000,
+      "usd": 0.1341,
+      "bytes_expected": 24789344189
+    },
+    {
+      "at": "2026-11-21T18:22:39+00:00",
+      "job_id": "13157900-31cc-4ca9-9b2c-2d99f0994a59",
+      "sql": "sql/29_c12_rpc_queue.sql",
+      "dest": null,
+      "params": {
+        "sender_salt": "audit-sender-v1:",
+        "untyped_salt": "audit-untyped-v1:"
+      },
+      "subs": [
+        "AUDIT_SENDERS=1000",
+        "AUDIT_UNTYPED=1000"
+      ],
+      "label": "r1: job 62: contract12m: RPC queue",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 4199451916,
+      "bytes_billed": 4199546880,
+      "usd": 0.0239,
+      "bytes_expected": 4462143199
+    },
+    {
+      "at": "2026-11-21T18:23:20+00:00",
+      "job_id": "eda884b0-5e80-4681-ab46-9fc1e21bade7",
+      "sql": "sql/32_c12_bal_pre.sql",
+      "dest": null,
+      "params": {
+        "obs_start": "2023-10-01 00:00:00 UTC",
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "tobs_end": "2026-07-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 64: contract12m: net flow before 2023-10-01 of the balance population",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 605497032073,
+      "bytes_billed": 605497065472,
+      "usd": 3.4419,
+      "bytes_expected": 646000920505
+    },
+    {
+      "at": "2026-11-21T18:23:47+00:00",
+      "job_id": "3d636a8b-a8fa-4681-b080-42efa38b73e9",
+      "sql": "sql/33_c12_bal.sql",
+      "dest": null,
+      "params": {
+        "obs_start": "2023-10-01 00:00:00 UTC",
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "tobs_end": "2026-07-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "end_0930": "2026-09-30 23:59:59 UTC",
+        "mid_ts": "2026-07-01 00:00:00 UTC",
+        "end_ts": "2026-10-01 00:00:00 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 65: contract12m: balances at t1, T_obs and 2026-09-30",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 245533150031,
+      "bytes_billed": 245533507584,
+      "usd": 1.3957,
+      "bytes_expected": 261905271324
+    },
+    {
+      "at": "2026-11-21T18:24:09+00:00",
+      "job_id": "173ed6ff-f9a7-466c-9342-284703e7aa22",
+      "sql": "sql/34_c12_anchor_blocks.sql",
+      "dest": null,
+      "params": {
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "end_0930": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 66: contract12m: last block at or before each anchor",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 26323680,
+      "bytes_billed": 22020096,
+      "usd": 0.0001,
+      "bytes_expected": 35683368
+    },
+    {
+      "at": "2026-11-21T18:24:38+00:00",
+      "job_id": "4904503d-d92b-4320-bb0c-896e5910e75a",
+      "sql": "sql/43_c12_bal_audit.sql",
+      "dest": null,
+      "params": {
+        "audit_salt": "bal-audit-v1:",
+        "per_cell": "150",
+        "dust_digits": "6"
+      },
+      "subs": [],
+      "label": "r1: job 67: contract12m: sample of the balance check",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 410262034,
+      "bytes_billed": 411041792,
+      "usd": 0.0023,
+      "bytes_expected": 441785026
+    },
+    {
+      "at": "2026-11-21T18:31:33+00:00",
+      "job_id": "f742cd08-5b9c-4ea4-b3f1-602d09906b7b",
+      "sql": "sql/09_gmx_contract_closes.sql",
+      "dest": null,
+      "params": {},
+      "subs": [
+        "TAG=w1",
+        "SRC=logs_w1"
+      ],
+      "label": "r1: job 16: gmx closes of contract accounts, W1 (run again after a missing local step)",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 1635116600,
+      "bytes_billed": 1635778560,
+      "usd": 0.0093,
+      "bytes_expected": 8239775421
+    },
+    {
+      "at": "2026-11-21T18:33:43+00:00",
+      "job_id": "6b017f08-cea3-4132-a5ef-6e27b971f935",
+      "sql": "D:/Github/phd_reextract/experiments/data/_r1_sql/x_nodes.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: local: x_nodes (the bq query of download_graph_tables.sh)",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 1341170247,
+      "bytes_billed": 1342177280,
+      "usd": 0.0076,
+      "bytes_expected": 2147483648
+    },
+    {
+      "at": "2026-11-21T19:10:30+00:00",
+      "job_id": "672f4aac-dd26-4099-a603-1e57d2648e27",
+      "sql": "D:/Github/phd_reextract/experiments/data/_r1_sql/x_nodes.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: local: x_nodes (the bq query of download_graph_tables.sh)",
+      "variant": "registered",
+      "budget_usd": 50.0,
+      "bytes_estimated": 1341170247,
+      "bytes_billed": 1342177280,
+      "usd": 0.0076,
+      "bytes_expected": 2147483648
+    },
+    {
+      "at": "2026-11-24T04:53:36+00:00",
+      "job_id": "8847914f-ab18-4cd9-8a0b-ea430d10e8a6",
+      "sql": "sql/31_c12_contracts.sql",
+      "dest": null,
+      "params": {
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff",
+        "ext_code_hashes": "0x0ed708f4e57d108c41999c5eaa34e38ce9e6bf0d0ebbf6dac60b6347bbe3a4a8,0x1a374b9ed6b9c65572908c91f378dc6c4842551ac3566d6178a09f1dac5f708c,0x21a481460cae2e0cbc918d3a77952717329e0cebcfd0cd8b571862bcb4d72e0f,0x224cbf029efc8dbf9c2a75dcd9547f2ba7381b87ef14e29a73b766b45e4a533a,0x253d2969bd835560989486cc876d337029326df5839ca36e672b924c1cb5bb5f,0x2da28852498b720ab99465e8071a86db5d7b140bbfe77a1f283d1e19008ede13,0x44cf1655237a86d10311b58bb7c73b84c085547fc1f2ca0458f03ce1ec556431,0x4e061efb5c32cc07b9897ff9708cb26bb1e8be8cb582b15958c493455b55429e,0x5104ae4e0326617faf888e41bd81276be1b37f077db2069ec8faadc0d85848af,0x5b50b88c3767222ffbb152eddb5aa6ce3af2b2d3d210574a31752a2f64c0b221,0x64951b55b12734bd28b1ef7d44e179920ae140a7aa15a1c7060b63164537d45a,0x7d29aab09ecd524c81f133bc42f1c02c2c33f6ac9ad4eaf7de6bdb186f6d54d5,0x808e958888f4bc9faad84e95e69acdb166b376874fe050277baf44f25e474e75,0x967c8038107958850922eab6979865c96543a7ebda23ac10a7be3046ccffedce,0xa6a4f9a88a5438ed0261f7bb650cc0c5a9dff1572ba8459d18d412d7dd8bd7c7,0xaab97b91d04ecaeb9f9feeec2d5b4b1f8efb56e2644f2c082bb77f35263af9a0,0xd377b91daca76fd9e6f2b2f18e9618ce2eb4dddf7b4c5f9e1da125ab5d40c67a,0xe152e0d0626438840037db419d2e66fa32002f1ee719b1dbe2892314bc67b6de,0xeb943ca16c0a3d8c19be2c02105552f49d4ff1d02fb80b199b613f085c8c7847,0xed06f222e28bb2ee7f9691685c021e3e6b4fd92d1593839b26ab9d3d7f2965bd",
+        "ext_pairs": "0x8559595d851a6b7f1c4291abb8685e947a442e2639d6e305c94e3a3e5a39336a:0xd6cedde84be40893d153be9d467cd6ad37875b28,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0x654f12417cb258e73d4a87aa71b24adac5490f94,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0x94f097e1ebeb4eca3aae54cabb08905b239a7d27,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xa3b9a42afded3431193bd73012d44a26ca04a0a1,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xbac849bb641841b44e965fb01a4bf5f074f84b4d,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xd6cedde84be40893d153be9d467cd6ad37875b28,0xaaa52c8cc8a0e3fd27ce756cc6b4e70c51423e9b597b11f32d3e49f8b1fc890d:0xd830d15d3dc0c269f3dbaa0f3e8626d33cfdabe1"
+      },
+      "subs": [],
+      "label": "r1: job 69: contract12m: contracts, user accounts and events between contracts",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 996236228,
+      "bytes_billed": 145715363840,
+      "usd": 0.8283,
+      "bytes_expected": 155459269119
+    },
+    {
+      "at": "2026-11-24T04:54:04+00:00",
+      "job_id": "dce81c13-d2db-4230-970b-7dc9a7b59b3b",
+      "sql": "sql/35_c12_structure.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "dust_digits": "6"
+      },
+      "subs": [],
+      "label": "r1: job 70: contract12m: structure of the contract graph at t1",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 48672114411,
+      "bytes_billed": 38458621952,
+      "usd": 0.2186,
+      "bytes_expected": 69419239734
+    },
+    {
+      "at": "2026-11-24T04:54:36+00:00",
+      "job_id": "4cd12794-42ad-4579-b331-f96a96186d02",
+      "sql": "sql/36_c12_allow_triples.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "dust_digits": "6"
+      },
+      "subs": [],
+      "label": "r1: job 71: contract12m: latest allowances between contracts at both freezes",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 53786837611,
+      "bytes_billed": 14210301952,
+      "usd": 0.0808,
+      "bytes_expected": 64400722558
+    },
+    {
+      "at": "2026-11-24T04:56:40+00:00",
+      "job_id": "bfd5cbe0-d114-499f-b9df-25b4c69ca81f",
+      "sql": "sql/36_c12_user_events.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 72: contract12m: events of user accounts toward contracts and untyped addresses",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 116347963473,
+      "bytes_billed": 116348944384,
+      "usd": 0.6614,
+      "bytes_expected": 143778596547
+    },
+    {
+      "at": "2026-11-24T04:58:06+00:00",
+      "job_id": "7b91e49b-3118-4402-a76f-cea20cd088fa",
+      "sql": "sql/36_c12_constants.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "unlimited": "1.15e+77"
+      },
+      "subs": [],
+      "label": "r1: job 73: contract12m: constants of the contract graph on the W0 score window",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 10278162445,
+      "bytes_billed": 8908701696,
+      "usd": 0.0506,
+      "bytes_expected": 15257158828
+    },
+    {
+      "at": "2026-11-24T04:58:33+00:00",
+      "job_id": "44b83607-bbca-407e-b106-f6d6e683eb54",
+      "sql": "sql/37_c12_pairs.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "b_transfer": "0.006866326804175686",
+        "b_allowance": "15.473412516452251",
+        "cap_allowance": "16000.0"
+      },
+      "subs": [],
+      "label": "r1: job 74: contract12m: pair tables of both freezes",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 32662808249,
+      "bytes_billed": 32759611392,
+      "usd": 0.1862,
+      "bytes_expected": 40020654013
+    },
+    {
+      "at": "2026-11-24T04:58:51+00:00",
+      "job_id": "c73216ef-ca33-4867-afaf-0a639f55282c",
+      "sql": "sql/38_c12_cohorts.sql",
+      "dest": null,
+      "params": {
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff"
+      },
+      "subs": [],
+      "label": "r1: job 76: contract12m: cohorts without user accounts and members of the u12 lists",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 481546492,
+      "bytes_billed": 1729101824,
+      "usd": 0.0098,
+      "bytes_expected": 2060873947
+    },
+    {
+      "at": "2026-11-24T04:59:06+00:00",
+      "job_id": "98271f51-a320-47bb-851f-8b0b1e989bd9",
+      "sql": "sql/38_c12_proxies.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "anchor_ts": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [],
+      "label": "r1: job 77: contract12m: same-window proxies from the transfers between contracts",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 22578445067,
+      "bytes_billed": 22578987008,
+      "usd": 0.1283,
+      "bytes_expected": 39930933159
+    },
+    {
+      "at": "2026-11-24T05:00:13+00:00",
+      "job_id": "8639a1ea-a3a2-453f-91a8-5923c356244c",
+      "sql": "sql/39_c12_label_parts.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "out_start": "2026-04-01 00:00:00 UTC",
+        "out_end": "2026-06-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w0",
+        "FREEZE=t1",
+        "APPROVALS=u12_approvals_t1",
+        "TRANSFERS=u12_transfers_t1",
+        "SEEN=u12_transfers_t1",
+        "LOGS=logs_obs"
+      ],
+      "label": "r1: job 78: contract12m: W0 label parts by account class",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 54391682439,
+      "bytes_billed": 54402220032,
+      "usd": 0.3092,
+      "bytes_expected": 57131571340
+    },
+    {
+      "at": "2026-11-24T05:01:20+00:00",
+      "job_id": "10dabd26-f829-47b2-a924-9bca78ee4304",
+      "sql": "sql/39_c12_label_parts.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-07-01 00:00:00 UTC",
+        "t1": "2026-06-30 23:59:59 UTC",
+        "out_start": "2026-07-01 00:00:00 UTC",
+        "out_end": "2026-09-30 23:59:59 UTC"
+      },
+      "subs": [
+        "TAG=w1",
+        "FREEZE=tobs",
+        "APPROVALS=u12_approvals_w1",
+        "TRANSFERS=u12_transfers_w1",
+        "SEEN=u12_transfers_tobs",
+        "LOGS=logs_w1"
+      ],
+      "label": "r1: job 79: contract12m: W1 label parts by account class",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 50278984383,
+      "bytes_billed": 50289704960,
+      "usd": 0.2859,
+      "bytes_expected": 52812329509
+    },
+    {
+      "at": "2026-11-24T05:02:11+00:00",
+      "job_id": "0c2782cd-4241-409f-9df6-5735a91be113",
+      "sql": "sql/40_c12_export_ids.sql",
+      "dest": null,
+      "params": {},
+      "subs": [],
+      "label": "r1: job 80: contract12m: node ids and export tables",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 286230407,
+      "bytes_billed": 1182793728,
+      "usd": 0.0067,
+      "bytes_expected": 1820835699
+    },
+    {
+      "at": "2026-11-24T05:02:55+00:00",
+      "job_id": "eb7f4e10-a2da-466c-9805-7be8515c2c0a",
+      "sql": "sql/41_c12_importance.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "dust_digits": "6",
+        "cap_user": "31000.0",
+        "min_usd": "1.0",
+        "unlimited": "1.15e+77",
+        "cap_allowance": "16000.0"
+      },
+      "subs": [],
+      "label": "r1: job 81: contract12m: importance, untyped inflow and allowance description",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 16664247688,
+      "bytes_billed": 17040408576,
+      "usd": 0.0969,
+      "bytes_expected": 18834022292
+    },
+    {
+      "at": "2026-11-24T05:03:12+00:00",
+      "job_id": "7f168d04-ab62-4b26-8a53-22804e7ef0c3",
+      "sql": "sql/42_c12_checks.sql",
+      "dest": null,
+      "params": {
+        "start_ts": "2025-04-01 00:00:00 UTC",
+        "t1": "2026-03-31 23:59:59 UTC",
+        "tobs_start": "2025-07-01 00:00:00 UTC",
+        "tobs": "2026-06-30 23:59:59 UTC",
+        "dust_digits": "6",
+        "system_first": "0x0000000000000000000000000000000000000001",
+        "system_last": "0x00000000000000000000000000000000000000ff"
+      },
+      "subs": [],
+      "label": "r1: job 82: contract12m: invariants of the gate B tables",
+      "variant": "contract12m",
+      "budget_usd": 60.0,
+      "bytes_estimated": 6976365919,
+      "bytes_billed": 6977224704,
+      "usd": 0.0397,
+      "bytes_expected": 7547070684
+    }
+  ]
+}

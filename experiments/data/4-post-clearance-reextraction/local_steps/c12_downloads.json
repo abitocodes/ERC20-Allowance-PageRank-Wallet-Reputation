@@ -1,0 +1,5 @@
+{
+  "step": "c12_downloads",
+  "done_at": "2026-11-24T05:57:53+00:00",
+  "note": "16 gate B downloads: 11 same; 5 differ (allow_pairs_tobs, allow_pairs_t1, importance_tobs, importance_t1, describe_allowances) by the FLOAT64 balance sums of c12_bal; author decision 2026-11-24: record and continue on the re-extracted tables"
+}

@@ -1,0 +1,19 @@
+{
+  "rule": "the spenders of u12_labels_w0 that are contracts (docs/revision_contract_graph.md section 8)",
+  "source": "contract_rep.c12_members (sql/38_c12_cohorts.sql)",
+  "listed": 7962,
+  "by_class": {
+    "contract": 7864,
+    "system": 1,
+    "user_account": 97
+  },
+  "user_accounts_by_source": {
+    "rpc_eoa": 5,
+    "rpc_eoa_7702": 1,
+    "rpc_smart_account": 50,
+    "tx_sender": 41
+  },
+  "cohort": 7864,
+  "contracts": 7864,
+  "contracts_in_nodes": 7864
+}

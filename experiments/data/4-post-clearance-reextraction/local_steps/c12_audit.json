@@ -1,0 +1,5 @@
+{
+  "step": "c12_audit",
+  "done_at": "2026-11-24T05:28:37+00:00",
+  "note": "bal_audit same=False, anchor_blocks same=True; balance check passed (block 479089705, 1500/1500); json same=False"
+}

@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep_r1.c12_x_transfer_pairs_t1",
+  "rows": 2269073,
+  "table_rows": 2269073,
+  "downloaded_at": "2026-11-24T05:39:16+00:00",
+  "parts": [
+    "transfer_pairs_t1.part000.parquet"
+  ],
+  "bytes": 66086616
+}

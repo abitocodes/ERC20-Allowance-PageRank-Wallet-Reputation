@@ -1,0 +1,93 @@
+# Post-clearance re-extraction (review item C-01; author decision of 2026-11-22).
+# Read by scripts/reextract.py. Nothing in the pinned configuration changes: the re-extraction runs in a replica
+# of experiments/ outside the repositories, against a new dataset, with its own ledger and cap.
+
+replica: D:/Github/phd_reextract/experiments
+# The folders of experiments/ that the replica takes from the commit (git archive, not the working tree).
+replica_folders: [scripts, sql, config, docs, tests]
+# Small input files the replica takes as they are (inputs fixed before any extraction: token list, prices, ABI).
+replica_inputs:
+  - data/0-usd-token-list-and-prices
+  - data/0-gmx-abi-for-decoding-logs
+
+old_dataset: contract_rep
+new_dataset: contract_rep_r1
+public_dataset: bigquery-public-data.goog_blockchain_arbitrum_one_us
+
+campaign: "r1:"
+cap_usd: 50.0
+# A job that bills more than this many times its earlier bill stops the run.
+bill_ratio_stop: 1.5
+
+# Ledger jobs (1-based positions in data/bq_ledger.json) whose tables the two analyses report. Every job that
+# created a table one of them reads is added (the last successful job that created it).
+# A job that was later run again on the same tables (a rerun after a fix, a failed job) is replaced by the last
+# successful job that created those tables.
+targets:
+  registered: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+  contract12m: all
+  # u12_constants gives the parameters of jobs 49 and 50; job 56 checks the twelve-month tables against the
+  # 33-month ones (invariants, every one 0)
+  extra: [48]
+
+# Tables that no replayed job creates, made by local steps in the replica before the job that first reads them.
+# 'next' stops before that job until the step is marked done (reextract.py done-local NAME).
+local_steps:
+  gmx_types:
+    before_job: 4
+    makes: [gmx_contract_accounts]
+    what: account types of the GMX accounts of scan A at the earlier block, loaded as gmx_contract_accounts
+  cohort:
+    before_job: 5
+    makes: [cohort]
+    what: download spender_candidates, read the candidates' account types at block 513216506, build_cohort.py
+  types_extra:
+    before_job: 16
+    makes: []
+    what: account types of the W0 label spenders (block 513233527) and of the W1 label spenders and GMX accounts
+      (block 513257476), then gmx_contract_accounts reloaded with the contracts of all four reads
+  reg_downloads:
+    before_job: 19
+    makes: []
+    what: the downloads of the registered analysis, each compared with the earlier one
+  u_load:
+    before_job: 19
+    makes: [u_tokens_hex, u_prices_hex]
+    what: load the selected tokens and the daily prices (the inputs of 2026-10-10, copied) as u_tokens_hex, u_prices_hex
+  c12_typing:
+    before_job: 69
+    makes: [c12_account_types]
+    what: download c12_rpc_queue, read the account types at block 513216506 (no fallback), load c12_account_types
+  u12_downloads:
+    before_job: 83   # after the last job: no job reads them; the contract-graph evaluation reads them locally
+    makes: []
+    what: the downloads of the twelve-month tables the contract-graph evaluation reads (cohorts, labels) into
+      graph-tables-usd-12m (step download of run_usd12m_pipeline.py), each compared with the earlier download
+  c12_audit:
+    before_job: 83
+    makes: []
+    what: step audit of run_contract12m_pipeline.py without its job - downloads of c12_bal_audit and
+      c12_anchor_blocks and the balanceOf check (balance_audit.py) at the T_obs block, compared with the earlier one
+  c12_structure:
+    before_job: 83
+    makes: []
+    what: step structure without its job - download of c12_struct_t1 and the structure pilot
+      (run_discovery.py --window t1 --feasibility), its report compared with the earlier one
+  c12_downloads:
+    before_job: 83
+    makes: []
+    what: step download - the gate B tables into graph-tables-contract-12m, each compared with the earlier download
+  c12_manifest:
+    before_job: 83
+    makes: []
+    what: the replica's run manifest (data/_r1_c12_manifest.py in the replica) - the earlier manifest with the
+      replica's row counts, load job, anchors, balance check and structure counts, then runs of checks (c12_checks of
+      contract_rep_r1) and download (files, SHA-256, the driver's verify_downloads and cohort_summaries); the pinned
+      pilot copied in
+
+# Parameters that later jobs take from a constants table: job -> (table, rule). Recomputed from the new table and
+# compared, as rounded, with the ledger; a difference stops the run.
+constants:
+  u_constants: {jobs: [26, 27, 32], source: run_usd_pipeline}
+  u12_constants: {jobs: [49, 50, 55], source: run_usd12m_pipeline}
+  c12_constants: {jobs: [74, 81], source: run_contract12m_pipeline}

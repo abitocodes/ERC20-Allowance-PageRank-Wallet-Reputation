@@ -1,0 +1,1094 @@
+{
+  "compared_at": "2026-11-24T05:03:42+00:00",
+  "tables": {
+    "logs_obs": {
+      "old": {
+        "rows": 3109578863,
+        "bytes": 421677271397
+      },
+      "new": {
+        "rows": 3109578863,
+        "bytes": 421677271397
+      },
+      "same_rows": true
+    },
+    "spender_candidates": {
+      "old": {
+        "rows": 29022,
+        "bytes": 2205672
+      },
+      "new": {
+        "rows": 29022,
+        "bytes": 2205672
+      },
+      "same_rows": true
+    },
+    "gmx_accounts": {
+      "old": {
+        "rows": 137621,
+        "bytes": 10459196
+      },
+      "new": {
+        "rows": 137621,
+        "bytes": 10459196
+      },
+      "same_rows": true
+    },
+    "gmx_closes_obs": {
+      "old": {
+        "rows": 133685,
+        "bytes": 1576020360
+      },
+      "new": {
+        "rows": 133685,
+        "bytes": 1576020360
+      },
+      "same_rows": true
+    },
+    "approvals_ego": {
+      "old": {
+        "rows": 389866882,
+        "bytes": 38206954436
+      },
+      "new": {
+        "rows": 389866882,
+        "bytes": 38206954436
+      },
+      "same_rows": true
+    },
+    "transfers_ego": {
+      "old": {
+        "rows": 1538404067,
+        "bytes": 150763598566
+      },
+      "new": {
+        "rows": 1538404067,
+        "bytes": 150763598566
+      },
+      "same_rows": true
+    },
+    "allow_pairs_tobs": {
+      "old": {
+        "rows": 22321470,
+        "bytes": 1875003480
+      },
+      "new": {
+        "rows": 22321470,
+        "bytes": 1875003480
+      },
+      "same_rows": true
+    },
+    "allow_triples_tobs": {
+      "old": {
+        "rows": 28069418,
+        "bytes": 2526247620
+      },
+      "new": {
+        "rows": 28069418,
+        "bytes": 2526247620
+      },
+      "same_rows": true
+    },
+    "transfer_pairs_tobs": {
+      "old": {
+        "rows": 59737617,
+        "bytes": 5973761700
+      },
+      "new": {
+        "rows": 59737617,
+        "bytes": 5973761700
+      },
+      "same_rows": true
+    },
+    "allow_pairs_t1": {
+      "old": {
+        "rows": 21550791,
+        "bytes": 1810266444
+      },
+      "new": {
+        "rows": 21550791,
+        "bytes": 1810266444
+      },
+      "same_rows": true
+    },
+    "allow_triples_t1": {
+      "old": {
+        "rows": 27068265,
+        "bytes": 2436143850
+      },
+      "new": {
+        "rows": 27068265,
+        "bytes": 2436143850
+      },
+      "same_rows": true
+    },
+    "transfer_pairs_t1": {
+      "old": {
+        "rows": 58065784,
+        "bytes": 5806578400
+      },
+      "new": {
+        "rows": 58065784,
+        "bytes": 5806578400
+      },
+      "same_rows": true
+    },
+    "proxies_tobs": {
+      "old": {
+        "rows": 27844,
+        "bytes": 2784400
+      },
+      "new": {
+        "rows": 27844,
+        "bytes": 2784400
+      },
+      "same_rows": true
+    },
+    "labels_w0": {
+      "old": {
+        "rows": 33556,
+        "bytes": 3355600
+      },
+      "new": {
+        "rows": 33556,
+        "bytes": 3355600
+      },
+      "same_rows": true
+    },
+    "nodes": {
+      "old": {
+        "rows": 25305099,
+        "bytes": 1897882425
+      },
+      "new": {
+        "rows": 25305099,
+        "bytes": 1897882425
+      },
+      "same_rows": true
+    },
+    "x_allow_pairs_t1": {
+      "old": {
+        "rows": 21550791,
+        "bytes": 1034437968
+      },
+      "new": {
+        "rows": 21550791,
+        "bytes": 1034437968
+      },
+      "same_rows": true
+    },
+    "x_allow_pairs_tobs": {
+      "old": {
+        "rows": 22321470,
+        "bytes": 1071430560
+      },
+      "new": {
+        "rows": 22321470,
+        "bytes": 1071430560
+      },
+      "same_rows": true
+    },
+    "x_transfer_pairs_t1": {
+      "old": {
+        "rows": 58065784,
+        "bytes": 2787157632
+      },
+      "new": {
+        "rows": 58065784,
+        "bytes": 2787157632
+      },
+      "same_rows": true
+    },
+    "x_transfer_pairs_tobs": {
+      "old": {
+        "rows": 59737617,
+        "bytes": 2867405616
+      },
+      "new": {
+        "rows": 59737617,
+        "bytes": 2867405616
+      },
+      "same_rows": true
+    },
+    "describe_monthly": {
+      "old": {
+        "rows": 132,
+        "bytes": 3696
+      },
+      "new": {
+        "rows": 132,
+        "bytes": 3696
+      },
+      "same_rows": true
+    },
+    "describe_values": {
+      "old": {
+        "rows": 3,
+        "bytes": 143
+      },
+      "new": {
+        "rows": 3,
+        "bytes": 143
+      },
+      "same_rows": true
+    },
+    "logs_w1": {
+      "old": {
+        "rows": 228195745,
+        "bytes": 30645596297
+      },
+      "new": {
+        "rows": 228195745,
+        "bytes": 30645596297
+      },
+      "same_rows": true
+    },
+    "approvals_w1ego": {
+      "old": {
+        "rows": 18199269,
+        "bytes": 1783528362
+      },
+      "new": {
+        "rows": 18199269,
+        "bytes": 1783528362
+      },
+      "same_rows": true
+    },
+    "transfers_w1ego": {
+      "old": {
+        "rows": 74441935,
+        "bytes": 7295309630
+      },
+      "new": {
+        "rows": 74441935,
+        "bytes": 7295309630
+      },
+      "same_rows": true
+    },
+    "gmx_accounts_w1": {
+      "old": {
+        "rows": 3781,
+        "bytes": 287356
+      },
+      "new": {
+        "rows": 3781,
+        "bytes": 287356
+      },
+      "same_rows": true
+    },
+    "labels_w1": {
+      "old": {
+        "rows": 35086,
+        "bytes": 3508600
+      },
+      "new": {
+        "rows": 35086,
+        "bytes": 3508600
+      },
+      "same_rows": true
+    },
+    "gmx_closes_w1": {
+      "old": {
+        "rows": 6805,
+        "bytes": 83021000
+      },
+      "new": {
+        "rows": 6805,
+        "bytes": 83021000
+      },
+      "same_rows": true
+    },
+    "top_token_transfer_triples": {
+      "old": {
+        "rows": 41337128,
+        "bytes": 3389644496
+      },
+      "new": {
+        "rows": 41337128,
+        "bytes": 3389644496
+      },
+      "same_rows": true
+    },
+    "top_tokens": {
+      "old": {
+        "rows": 131609,
+        "bytes": 5264360
+      },
+      "new": {
+        "rows": 131609,
+        "bytes": 5264360
+      },
+      "same_rows": true
+    },
+    "x_top_token_pairs": {
+      "old": {
+        "rows": 104330351,
+        "bytes": 5457279567
+      },
+      "new": {
+        "rows": 104330351,
+        "bytes": 5457279567
+      },
+      "same_rows": true
+    },
+    "u_prices": {
+      "old": {
+        "rows": 48197,
+        "bytes": 2265467
+      },
+      "new": {
+        "rows": 48197,
+        "bytes": 2265467
+      },
+      "same_rows": true
+    },
+    "u_tokens": {
+      "old": {
+        "rows": 5,
+        "bytes": 239
+      },
+      "new": {
+        "rows": 5,
+        "bytes": 239
+      },
+      "same_rows": true
+    },
+    "u_approvals": {
+      "old": {
+        "rows": 224954202,
+        "bytes": 23845145412
+      },
+      "new": {
+        "rows": 224954202,
+        "bytes": 23845145412
+      },
+      "same_rows": true
+    },
+    "u_approvals_w1": {
+      "old": {
+        "rows": 12209894,
+        "bytes": 1294248764
+      },
+      "new": {
+        "rows": 12209894,
+        "bytes": 1294248764
+      },
+      "same_rows": true
+    },
+    "u_cohort": {
+      "old": {
+        "rows": 15107,
+        "bytes": 574066
+      },
+      "new": {
+        "rows": 15107,
+        "bytes": 574066
+      },
+      "same_rows": true
+    },
+    "u_transfers": {
+      "old": {
+        "rows": 1149168538,
+        "bytes": 121811865028
+      },
+      "new": {
+        "rows": 1149168538,
+        "bytes": 121811865028
+      },
+      "same_rows": true
+    },
+    "u_transfers_w1": {
+      "old": {
+        "rows": 60182192,
+        "bytes": 6379312352
+      },
+      "new": {
+        "rows": 60182192,
+        "bytes": 6379312352
+      },
+      "same_rows": true
+    },
+    "u12_approvals_t1": {
+      "old": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "new": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "same_rows": true
+    },
+    "u12_approvals_tobs": {
+      "old": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "new": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "same_rows": true
+    },
+    "u12_approvals_w1": {
+      "old": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "new": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "same_rows": true
+    },
+    "u12_cohort_t1": {
+      "old": {
+        "rows": 6343,
+        "bytes": 241034
+      },
+      "new": {
+        "rows": 6343,
+        "bytes": 241034
+      },
+      "same_rows": true
+    },
+    "u12_cohort_tobs": {
+      "old": {
+        "rows": 6483,
+        "bytes": 246354
+      },
+      "new": {
+        "rows": 6483,
+        "bytes": 246354
+      },
+      "same_rows": true
+    },
+    "u12_transfers_t1": {
+      "old": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "new": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "same_rows": true
+    },
+    "u12_transfers_tobs": {
+      "old": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "new": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "same_rows": true
+    },
+    "u12_transfers_w1": {
+      "old": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "new": {
+        "rows": 0,
+        "bytes": 0
+      },
+      "same_rows": true
+    },
+    "u12_constants": {
+      "old": {
+        "rows": 1,
+        "bytes": 88
+      },
+      "new": {
+        "rows": 1,
+        "bytes": 88
+      },
+      "same_rows": true
+    },
+    "u12_allow_pairs_tobs": {
+      "old": {
+        "rows": 3810253,
+        "bytes": 381025300
+      },
+      "new": {
+        "rows": 3810253,
+        "bytes": 381025300
+      },
+      "same_rows": true
+    },
+    "u12_allow_triples_tobs": {
+      "old": {
+        "rows": 4185287,
+        "bytes": 443640422
+      },
+      "new": {
+        "rows": 4185287,
+        "bytes": 443640422
+      },
+      "same_rows": true
+    },
+    "u12_transfer_pairs_tobs": {
+      "old": {
+        "rows": 8432635,
+        "bytes": 978185660
+      },
+      "new": {
+        "rows": 8432635,
+        "bytes": 978185660
+      },
+      "same_rows": true
+    },
+    "u12_allow_pairs_t1": {
+      "old": {
+        "rows": 4117103,
+        "bytes": 411710300
+      },
+      "new": {
+        "rows": 4117103,
+        "bytes": 411710300
+      },
+      "same_rows": true
+    },
+    "u12_allow_triples_t1": {
+      "old": {
+        "rows": 4555079,
+        "bytes": 482838374
+      },
+      "new": {
+        "rows": 4555079,
+        "bytes": 482838374
+      },
+      "same_rows": true
+    },
+    "u12_transfer_pairs_t1": {
+      "old": {
+        "rows": 9198965,
+        "bytes": 1067079940
+      },
+      "new": {
+        "rows": 9198965,
+        "bytes": 1067079940
+      },
+      "same_rows": true
+    },
+    "u12_labels_w0": {
+      "old": {
+        "rows": 7962,
+        "bytes": 796200
+      },
+      "new": {
+        "rows": 7962,
+        "bytes": 796200
+      },
+      "same_rows": true
+    },
+    "u12_labels_w1": {
+      "old": {
+        "rows": 7995,
+        "bytes": 799500
+      },
+      "new": {
+        "rows": 7995,
+        "bytes": 799500
+      },
+      "same_rows": true
+    },
+    "c12_logs5": {
+      "old": {
+        "rows": 1240275042,
+        "bytes": 143679918322
+      },
+      "new": {
+        "rows": 1240275042,
+        "bytes": 143679918322
+      },
+      "same_rows": true
+    },
+    "c12_ends": {
+      "old": {
+        "rows": 25537280,
+        "bytes": 970416640
+      },
+      "new": {
+        "rows": 25537280,
+        "bytes": 970416640
+      },
+      "same_rows": true
+    },
+    "c12_pairs5": {
+      "old": {
+        "rows": 73058133,
+        "bytes": 5552418108
+      },
+      "new": {
+        "rows": 73058133,
+        "bytes": 5552418108
+      },
+      "same_rows": true
+    },
+    "c12_tx_senders": {
+      "old": {
+        "rows": 17477779,
+        "bytes": 384511138
+      },
+      "new": {
+        "rows": 17477779,
+        "bytes": 384511138
+      },
+      "same_rows": true
+    },
+    "c12_emitters": {
+      "old": {
+        "rows": 1651920,
+        "bytes": 62772960
+      },
+      "new": {
+        "rows": 1651920,
+        "bytes": 62772960
+      },
+      "same_rows": true
+    },
+    "c12_creations": {
+      "old": {
+        "rows": 56193,
+        "bytes": 1685790
+      },
+      "new": {
+        "rows": 56193,
+        "bytes": 1685790
+      },
+      "same_rows": true
+    },
+    "c12_rpc_queue": {
+      "old": {
+        "rows": 6230270,
+        "bytes": 373761847
+      },
+      "new": {
+        "rows": 6230270,
+        "bytes": 373761847
+      },
+      "same_rows": true
+    },
+    "c12_bal_pre": {
+      "old": {
+        "rows": 305642,
+        "bytes": 20783656
+      },
+      "new": {
+        "rows": 305642,
+        "bytes": 20783656
+      },
+      "same_rows": true
+    },
+    "c12_bal": {
+      "old": {
+        "rows": 6033263,
+        "bytes": 603326300
+      },
+      "new": {
+        "rows": 6033263,
+        "bytes": 603326300
+      },
+      "same_rows": true
+    },
+    "c12_anchor_blocks": {
+      "old": {
+        "rows": 3,
+        "bytes": 68
+      },
+      "new": {
+        "rows": 3,
+        "bytes": 68
+      },
+      "same_rows": true
+    },
+    "c12_bal_audit": {
+      "old": {
+        "rows": 1500,
+        "bytes": 192000
+      },
+      "new": {
+        "rows": 1500,
+        "bytes": 192000
+      },
+      "same_rows": true
+    },
+    "c12_contracts": {
+      "old": {
+        "rows": 1829719,
+        "bytes": 40253818
+      },
+      "new": {
+        "rows": 1829719,
+        "bytes": 40253818
+      },
+      "same_rows": true
+    },
+    "c12_events_cc": {
+      "old": {
+        "rows": 603475784,
+        "bytes": 69846702792
+      },
+      "new": {
+        "rows": 603475784,
+        "bytes": 69846702792
+      },
+      "same_rows": true
+    },
+    "c12_user_accounts": {
+      "old": {
+        "rows": 21877279,
+        "bytes": 722236262
+      },
+      "new": {
+        "rows": 21877279,
+        "bytes": 722236262
+      },
+      "same_rows": true
+    },
+    "c12_struct_t1": {
+      "old": {
+        "rows": 2562930,
+        "bytes": 252894402
+      },
+      "new": {
+        "rows": 2562930,
+        "bytes": 252894402
+      },
+      "same_rows": true
+    },
+    "c12_allow_triples": {
+      "old": {
+        "rows": 648204,
+        "bytes": 97909164
+      },
+      "new": {
+        "rows": 648204,
+        "bytes": 97909164
+      },
+      "same_rows": true
+    },
+    "c12_user_events": {
+      "old": {
+        "rows": 152257072,
+        "bytes": 16300420272
+      },
+      "new": {
+        "rows": 152257072,
+        "bytes": 16300420272
+      },
+      "same_rows": true
+    },
+    "c12_constants": {
+      "old": {
+        "rows": 1,
+        "bytes": 152
+      },
+      "new": {
+        "rows": 1,
+        "bytes": 152
+      },
+      "same_rows": true
+    },
+    "c12_allow_pairs": {
+      "old": {
+        "rows": 132946,
+        "bytes": 14056396
+      },
+      "new": {
+        "rows": 132946,
+        "bytes": 14056396
+      },
+      "same_rows": true
+    },
+    "c12_allow_pairs_unc": {
+      "old": {
+        "rows": 578476,
+        "bytes": 60766622
+      },
+      "new": {
+        "rows": 578476,
+        "bytes": 60766622
+      },
+      "same_rows": true
+    },
+    "c12_transfer_pairs": {
+      "old": {
+        "rows": 4849782,
+        "bytes": 587135258
+      },
+      "new": {
+        "rows": 4849782,
+        "bytes": 587135258
+      },
+      "same_rows": true
+    },
+    "c12_cohort_t1": {
+      "old": {
+        "rows": 6292,
+        "bytes": 239096
+      },
+      "new": {
+        "rows": 6292,
+        "bytes": 239096
+      },
+      "same_rows": true
+    },
+    "c12_cohort_tobs": {
+      "old": {
+        "rows": 6443,
+        "bytes": 244834
+      },
+      "new": {
+        "rows": 6443,
+        "bytes": 244834
+      },
+      "same_rows": true
+    },
+    "c12_members": {
+      "old": {
+        "rows": 28783,
+        "bytes": 2554480
+      },
+      "new": {
+        "rows": 28783,
+        "bytes": 2554480
+      },
+      "same_rows": true
+    },
+    "c12_proxies_tobs": {
+      "old": {
+        "rows": 6443,
+        "bytes": 644300
+      },
+      "new": {
+        "rows": 6443,
+        "bytes": 644300
+      },
+      "same_rows": true
+    },
+    "c12_label_parts_w0": {
+      "old": {
+        "rows": 7962,
+        "bytes": 2468606
+      },
+      "new": {
+        "rows": 7962,
+        "bytes": 2468606
+      },
+      "same_rows": true
+    },
+    "c12_x_label_split_w0": {
+      "old": {
+        "rows": 7962,
+        "bytes": 2022734
+      },
+      "new": {
+        "rows": 7962,
+        "bytes": 2022734
+      },
+      "same_rows": true
+    },
+    "c12_label_parts_w1": {
+      "old": {
+        "rows": 7995,
+        "bytes": 2478764
+      },
+      "new": {
+        "rows": 7995,
+        "bytes": 2478764
+      },
+      "same_rows": true
+    },
+    "c12_x_label_split_w1": {
+      "old": {
+        "rows": 7995,
+        "bytes": 2031044
+      },
+      "new": {
+        "rows": 7995,
+        "bytes": 2031044
+      },
+      "same_rows": true
+    },
+    "c12_nodes": {
+      "old": {
+        "rows": 1403959,
+        "bytes": 109508802
+      },
+      "new": {
+        "rows": 1403959,
+        "bytes": 109508802
+      },
+      "same_rows": true
+    },
+    "c12_x_allow_pairs_t1": {
+      "old": {
+        "rows": 17940,
+        "bytes": 861120
+      },
+      "new": {
+        "rows": 17940,
+        "bytes": 861120
+      },
+      "same_rows": true
+    },
+    "c12_x_allow_pairs_tobs": {
+      "old": {
+        "rows": 115006,
+        "bytes": 7360384
+      },
+      "new": {
+        "rows": 115006,
+        "bytes": 7360384
+      },
+      "same_rows": true
+    },
+    "c12_x_allow_pairs_unc_t1": {
+      "old": {
+        "rows": 275917,
+        "bytes": 13244016
+      },
+      "new": {
+        "rows": 275917,
+        "bytes": 13244016
+      },
+      "same_rows": true
+    },
+    "c12_x_allow_pairs_unc_tobs": {
+      "old": {
+        "rows": 302559,
+        "bytes": 14522832
+      },
+      "new": {
+        "rows": 302559,
+        "bytes": 14522832
+      },
+      "same_rows": true
+    },
+    "c12_x_members": {
+      "old": {
+        "rows": 28783,
+        "bytes": 1921254
+      },
+      "new": {
+        "rows": 28783,
+        "bytes": 1921254
+      },
+      "same_rows": true
+    },
+    "c12_x_nodes": {
+      "old": {
+        "rows": 1403959,
+        "bytes": 78621704
+      },
+      "new": {
+        "rows": 1403959,
+        "bytes": 78621704
+      },
+      "same_rows": true
+    },
+    "c12_x_transfer_pairs_t1": {
+      "old": {
+        "rows": 2269073,
+        "bytes": 108915504
+      },
+      "new": {
+        "rows": 2269073,
+        "bytes": 108915504
+      },
+      "same_rows": true
+    },
+    "c12_x_transfer_pairs_tobs": {
+      "old": {
+        "rows": 2580709,
+        "bytes": 165165376
+      },
+      "new": {
+        "rows": 2580709,
+        "bytes": 165165376
+      },
+      "same_rows": true
+    },
+    "c12_describe_allowances": {
+      "old": {
+        "rows": 10,
+        "bytes": 1290
+      },
+      "new": {
+        "rows": 10,
+        "bytes": 1290
+      },
+      "same_rows": true
+    },
+    "c12_importance_raw": {
+      "old": {
+        "rows": 1526318,
+        "bytes": 105409876
+      },
+      "new": {
+        "rows": 1526318,
+        "bytes": 105409876
+      },
+      "same_rows": true
+    },
+    "c12_importance_t1": {
+      "old": {
+        "rows": 715480,
+        "bytes": 60100320
+      },
+      "new": {
+        "rows": 715480,
+        "bytes": 60100320
+      },
+      "same_rows": true
+    },
+    "c12_importance_tobs": {
+      "old": {
+        "rows": 809296,
+        "bytes": 67980864
+      },
+      "new": {
+        "rows": 809296,
+        "bytes": 67980864
+      },
+      "same_rows": true
+    },
+    "c12_inflow_untyped_t1": {
+      "old": {
+        "rows": 1,
+        "bytes": 8
+      },
+      "new": {
+        "rows": 1,
+        "bytes": 8
+      },
+      "same_rows": true
+    },
+    "c12_inflow_untyped_tobs": {
+      "old": {
+        "rows": 1,
+        "bytes": 8
+      },
+      "new": {
+        "rows": 1,
+        "bytes": 8
+      },
+      "same_rows": true
+    },
+    "c12_checks": {
+      "old": {
+        "rows": 64,
+        "bytes": 1812
+      },
+      "new": {
+        "rows": 64,
+        "bytes": 1812
+      },
+      "same_rows": true
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "step": "reg_downloads",
+  "done_at": "2026-11-21T19:30:05+00:00",
+  "note": "registered downloads: x_nodes=True, x_allow_pairs_t1=True, x_transfer_pairs_t1=True, x_allow_pairs_tobs=True, x_transfer_pairs_tobs=True, proxies_tobs=True, labels_w0=True, labels_w1=True, x_top_token_pairs=True, gmx_closes_obs=True, gmx_closes_w1=True"
+}

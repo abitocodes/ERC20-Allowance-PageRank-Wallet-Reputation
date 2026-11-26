@@ -1,0 +1,5 @@
+{
+  "step": "types_extra",
+  "done_at": "2026-11-21T18:31:21+00:00",
+  "note": "labels and gmx_accounts_w1 same=[True, True, None]; holdout 8,224 types same=True; W1 1,153 types same=True; 43,543 contracts (same=True) loaded as gmx_contract_accounts"
+}

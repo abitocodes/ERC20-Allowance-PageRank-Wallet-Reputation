@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep_r1.c12_describe_allowances",
+  "rows": 10,
+  "table_rows": 10,
+  "downloaded_at": "2026-11-24T05:42:25+00:00",
+  "parts": [
+    "describe_allowances.part000.parquet"
+  ],
+  "bytes": 4944
+}

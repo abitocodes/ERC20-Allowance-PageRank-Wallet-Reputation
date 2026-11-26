@@ -1,0 +1,922 @@
+{
+  "rows": [
+    {
+      "job": 1,
+      "sql": "sql/01_materialize_logs.sql",
+      "label": "scan A: observation window",
+      "variant": null,
+      "usd": 20.5534,
+      "bytes_billed": 3615783649280,
+      "creates": [
+        "logs_obs"
+      ],
+      "reads": [],
+      "modified_after": []
+    },
+    {
+      "job": 2,
+      "sql": "sql/02_spender_candidates.sql",
+      "label": "cohort candidates",
+      "variant": null,
+      "usd": 0.2609,
+      "bytes_billed": 45901414400,
+      "creates": [
+        "spender_candidates"
+      ],
+      "reads": [
+        "logs_obs"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 3,
+      "sql": "sql/07_gmx_accounts.sql",
+      "label": "gmx accounts",
+      "variant": null,
+      "usd": 0.1474,
+      "bytes_billed": 25929187328,
+      "creates": [
+        "gmx_accounts"
+      ],
+      "reads": [
+        "logs_obs"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 4,
+      "sql": "sql/09_gmx_contract_closes.sql",
+      "label": "gmx closes of contract accounts, observation window",
+      "variant": null,
+      "usd": 0.1476,
+      "bytes_billed": 25964838912,
+      "creates": [
+        "gmx_closes_obs"
+      ],
+      "reads": [
+        "gmx_contract_accounts",
+        "logs_obs"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 5,
+      "sql": "sql/03_ego_events.sql",
+      "label": "ego approvals and transfers, observation window",
+      "variant": null,
+      "usd": 2.2419,
+      "bytes_billed": 394396696576,
+      "creates": [
+        "approvals_ego",
+        "transfers_ego"
+      ],
+      "reads": [
+        "cohort",
+        "logs_obs"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 6,
+      "sql": "sql/04_anchor_pairs.sql",
+      "label": "pairs at T_obs",
+      "variant": null,
+      "usd": 0.7527,
+      "bytes_billed": 132421517312,
+      "creates": [
+        "allow_pairs_tobs",
+        "allow_triples_tobs",
+        "transfer_pairs_tobs"
+      ],
+      "reads": [
+        "approvals_ego",
+        "transfers_ego"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 7,
+      "sql": "sql/04_anchor_pairs.sql",
+      "label": "pairs at t1",
+      "variant": null,
+      "usd": 0.7096,
+      "bytes_billed": 124839264256,
+      "creates": [
+        "allow_pairs_t1",
+        "allow_triples_t1",
+        "transfer_pairs_t1"
+      ],
+      "reads": [
+        "approvals_ego",
+        "transfers_ego"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 8,
+      "sql": "sql/05_proxies_same_window.sql",
+      "label": "same-window proxies",
+      "variant": null,
+      "usd": 0.5247,
+      "bytes_billed": 92305096704,
+      "creates": [
+        "proxies_tobs"
+      ],
+      "reads": [
+        "cohort",
+        "transfers_ego"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 9,
+      "sql": "sql/06_holdout_labels.sql",
+      "label": "W0 holdout labels",
+      "variant": null,
+      "usd": 0.5693,
+      "bytes_billed": 100147396608,
+      "creates": [
+        "labels_w0"
+      ],
+      "reads": [
+        "allow_triples_t1",
+        "approvals_ego",
+        "logs_obs",
+        "transfers_ego"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 10,
+      "sql": "sql/08_export_ids.sql",
+      "label": "node ids and export tables",
+      "variant": null,
+      "usd": 0.1276,
+      "bytes_billed": 22439526400,
+      "creates": [
+        "nodes",
+        "x_allow_pairs_t1",
+        "x_allow_pairs_tobs",
+        "x_transfer_pairs_t1",
+        "x_transfer_pairs_tobs"
+      ],
+      "reads": [
+        "allow_pairs_t1",
+        "allow_pairs_tobs",
+        "cohort",
+        "transfer_pairs_t1",
+        "transfer_pairs_tobs"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 11,
+      "sql": "sql/10_describe.sql",
+      "label": "descriptive statistics",
+      "variant": null,
+      "usd": 0.1644,
+      "bytes_billed": 28924968960,
+      "creates": [
+        "describe_monthly",
+        "describe_values"
+      ],
+      "reads": [
+        "allow_triples_tobs",
+        "approvals_ego",
+        "logs_obs",
+        "transfers_ego"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 12,
+      "sql": "sql/01_materialize_logs.sql",
+      "label": "scan B: W1 window",
+      "variant": null,
+      "usd": 1.6443,
+      "bytes_billed": 289263321088,
+      "creates": [
+        "logs_w1"
+      ],
+      "reads": [],
+      "modified_after": []
+    },
+    {
+      "job": 13,
+      "sql": "sql/03_ego_events.sql",
+      "label": "ego events, W1",
+      "variant": null,
+      "usd": 0.1646,
+      "bytes_billed": 28953280512,
+      "creates": [
+        "approvals_w1ego",
+        "transfers_w1ego"
+      ],
+      "reads": [
+        "cohort",
+        "logs_w1"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 14,
+      "sql": "sql/07_gmx_accounts.sql",
+      "label": "gmx accounts, W1",
+      "variant": null,
+      "usd": 0.0093,
+      "bytes_billed": 1631584256,
+      "creates": [
+        "gmx_accounts_w1"
+      ],
+      "reads": [
+        "logs_w1"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 15,
+      "sql": "sql/06_holdout_labels.sql",
+      "label": "W1 labels",
+      "variant": null,
+      "usd": 0.5935,
+      "bytes_billed": 104409858048,
+      "creates": [
+        "labels_w1"
+      ],
+      "reads": [
+        "allow_triples_tobs",
+        "approvals_w1ego",
+        "logs_w1",
+        "transfers_ego",
+        "transfers_w1ego"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 16,
+      "sql": "sql/09_gmx_contract_closes.sql",
+      "label": "gmx closes of contract accounts, W1",
+      "variant": null,
+      "usd": 0.0093,
+      "bytes_billed": 1635778560,
+      "creates": [
+        "gmx_closes_w1"
+      ],
+      "reads": [
+        "gmx_contract_accounts",
+        "logs_w1"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 17,
+      "sql": "sql/11_top_tokens.sql",
+      "label": "top-token subgraphs",
+      "variant": null,
+      "usd": 1.0909,
+      "bytes_billed": 191909330944,
+      "creates": [
+        "top_token_transfer_triples",
+        "top_tokens",
+        "x_top_token_pairs"
+      ],
+      "reads": [
+        "allow_triples_tobs",
+        "nodes",
+        "transfers_ego"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 19,
+      "sql": "sql/19_usd_load.sql",
+      "label": "revised: token list and prices to BYTES",
+      "variant": null,
+      "usd": 0.0001,
+      "bytes_billed": 20971520,
+      "creates": [
+        "u_prices",
+        "u_tokens"
+      ],
+      "reads": [
+        "u_prices_hex",
+        "u_tokens_hex"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 20,
+      "sql": "sql/12_usd_ego.sql",
+      "label": "revised: cohort and listed-token ego tables",
+      "variant": null,
+      "usd": 1.3076,
+      "bytes_billed": 230027165696,
+      "creates": [
+        "u_approvals",
+        "u_approvals_w1",
+        "u_cohort",
+        "u_transfers",
+        "u_transfers_w1"
+      ],
+      "reads": [
+        "approvals_ego",
+        "approvals_w1ego",
+        "cohort",
+        "transfers_ego",
+        "transfers_w1ego",
+        "u_prices",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 47,
+      "sql": "sql/21_usd12m_cohorts.sql",
+      "label": "usd12m: cohorts of T_obs and t1 and their ego views",
+      "variant": null,
+      "usd": 0.0602,
+      "bytes_billed": 10591666176,
+      "creates": [
+        "u12_approvals_t1",
+        "u12_approvals_tobs",
+        "u12_approvals_w1",
+        "u12_cohort_t1",
+        "u12_cohort_tobs",
+        "u12_transfers_t1",
+        "u12_transfers_tobs",
+        "u12_transfers_w1"
+      ],
+      "reads": [
+        "u_approvals",
+        "u_approvals_w1",
+        "u_cohort",
+        "u_transfers",
+        "u_transfers_w1"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 48,
+      "sql": "sql/13_usd_constants.sql",
+      "label": "usd12m: USD scale constants on the W0 score window",
+      "variant": null,
+      "usd": 0.2306,
+      "bytes_billed": 40574648320,
+      "creates": [
+        "u12_constants"
+      ],
+      "reads": [
+        "u12_approvals_t1",
+        "u12_transfers_t1",
+        "u_prices"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 49,
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "label": "usd12m: pairs at tobs",
+      "variant": null,
+      "usd": 0.2091,
+      "bytes_billed": 36782997504,
+      "creates": [
+        "u12_allow_pairs_tobs",
+        "u12_allow_triples_tobs",
+        "u12_transfer_pairs_tobs"
+      ],
+      "reads": [
+        "u12_approvals_tobs",
+        "u12_transfers_tobs",
+        "u_prices"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 50,
+      "sql": "sql/14_usd_anchor_pairs.sql",
+      "label": "usd12m: pairs at t1",
+      "variant": null,
+      "usd": 0.2324,
+      "bytes_billed": 40885026816,
+      "creates": [
+        "u12_allow_pairs_t1",
+        "u12_allow_triples_t1",
+        "u12_transfer_pairs_t1"
+      ],
+      "reads": [
+        "u12_approvals_t1",
+        "u12_transfers_t1",
+        "u_prices"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 52,
+      "sql": "sql/16_usd_labels.sql",
+      "label": "usd12m: W0 labels",
+      "variant": null,
+      "usd": 0.3062,
+      "bytes_billed": 53868494848,
+      "creates": [
+        "u12_labels_w0"
+      ],
+      "reads": [
+        "logs_obs",
+        "u12_allow_triples_t1",
+        "u12_approvals_t1",
+        "u12_transfers_t1",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 53,
+      "sql": "sql/16_usd_labels.sql",
+      "label": "usd12m: W1 labels",
+      "variant": null,
+      "usd": 0.2828,
+      "bytes_billed": 49754931200,
+      "creates": [
+        "u12_labels_w1"
+      ],
+      "reads": [
+        "logs_w1",
+        "u12_allow_triples_tobs",
+        "u12_approvals_w1",
+        "u12_transfers_tobs",
+        "u12_transfers_w1",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 57,
+      "sql": "sql/24_c12_logs5.sql",
+      "label": "contract12m: five-token events of the typing window",
+      "variant": "contract12m",
+      "usd": 1.2858,
+      "bytes_billed": 226194620416,
+      "creates": [
+        "c12_logs5"
+      ],
+      "reads": [
+        "logs_obs",
+        "logs_w1",
+        "u_prices",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 58,
+      "sql": "sql/25_c12_ends.sql",
+      "label": "contract12m: pairs and ends of the five-token events",
+      "variant": "contract12m",
+      "usd": 0.4127,
+      "bytes_billed": 72600256512,
+      "creates": [
+        "c12_ends",
+        "c12_pairs5"
+      ],
+      "reads": [
+        "c12_logs5"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 59,
+      "sql": "sql/26_c12_tx_senders.sql",
+      "label": "contract12m: transaction senders among the ends",
+      "variant": "contract12m",
+      "usd": 0.8522,
+      "bytes_billed": 149914910720,
+      "creates": [
+        "c12_tx_senders"
+      ],
+      "reads": [
+        "c12_ends"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 60,
+      "sql": "sql/27_c12_emitters.sql",
+      "label": "contract12m: decoded-log emitters among the ends",
+      "variant": "contract12m",
+      "usd": 1.4849,
+      "bytes_billed": 261233836032,
+      "creates": [
+        "c12_emitters"
+      ],
+      "reads": [
+        "c12_ends"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 61,
+      "sql": "sql/28_c12_creations.sql",
+      "label": "contract12m: contracts created by a transaction among the ends",
+      "variant": "contract12m",
+      "usd": 0.1341,
+      "bytes_billed": 23592960000,
+      "creates": [
+        "c12_creations"
+      ],
+      "reads": [
+        "c12_ends"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 62,
+      "sql": "sql/29_c12_rpc_queue.sql",
+      "label": "contract12m: RPC queue",
+      "variant": "contract12m",
+      "usd": 0.0239,
+      "bytes_billed": 4199546880,
+      "creates": [
+        "c12_rpc_queue"
+      ],
+      "reads": [
+        "c12_creations",
+        "c12_emitters",
+        "c12_ends",
+        "c12_pairs5",
+        "c12_tx_senders",
+        "u12_cohort_t1",
+        "u12_cohort_tobs",
+        "u12_labels_w0",
+        "u12_labels_w1"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 64,
+      "sql": "sql/32_c12_bal_pre.sql",
+      "label": "contract12m: net flow before 2023-10-01 of the balance population",
+      "variant": "contract12m",
+      "usd": 3.1568,
+      "bytes_billed": 555356258304,
+      "creates": [
+        "c12_bal_pre"
+      ],
+      "reads": [
+        "c12_logs5"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 65,
+      "sql": "sql/33_c12_bal.sql",
+      "label": "contract12m: balances at t1, T_obs and 2026-09-30",
+      "variant": "contract12m",
+      "usd": 1.3843,
+      "bytes_billed": 243523387392,
+      "creates": [
+        "c12_bal"
+      ],
+      "reads": [
+        "c12_bal_pre",
+        "c12_logs5",
+        "logs_obs",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 66,
+      "sql": "sql/34_c12_anchor_blocks.sql",
+      "label": "contract12m: last block at or before each anchor",
+      "variant": "contract12m",
+      "usd": 0.0001,
+      "bytes_billed": 22020096,
+      "creates": [
+        "c12_anchor_blocks"
+      ],
+      "reads": [],
+      "modified_after": []
+    },
+    {
+      "job": 67,
+      "sql": "sql/43_c12_bal_audit.sql",
+      "label": "contract12m: sample of the balance check",
+      "variant": "contract12m",
+      "usd": 0.0023,
+      "bytes_billed": 411041792,
+      "creates": [
+        "c12_bal_audit"
+      ],
+      "reads": [
+        "c12_bal",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 69,
+      "sql": "sql/31_c12_contracts.sql",
+      "label": "contract12m: contracts, user accounts and events between contracts",
+      "variant": "contract12m",
+      "usd": 0.8283,
+      "bytes_billed": 145715363840,
+      "creates": [
+        "c12_contracts",
+        "c12_events_cc",
+        "c12_user_accounts"
+      ],
+      "reads": [
+        "c12_account_types",
+        "c12_logs5",
+        "c12_tx_senders"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 70,
+      "sql": "sql/35_c12_structure.sql",
+      "label": "contract12m: structure of the contract graph at t1",
+      "variant": "contract12m",
+      "usd": 0.2186,
+      "bytes_billed": 38458621952,
+      "creates": [
+        "c12_struct_t1"
+      ],
+      "reads": [
+        "c12_bal",
+        "c12_events_cc",
+        "u_prices",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 71,
+      "sql": "sql/36_c12_allow_triples.sql",
+      "label": "contract12m: latest allowances between contracts at both freezes",
+      "variant": "contract12m",
+      "usd": 0.0495,
+      "bytes_billed": 8702132224,
+      "creates": [
+        "c12_allow_triples"
+      ],
+      "reads": [
+        "c12_bal",
+        "c12_events_cc",
+        "u_prices",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 72,
+      "sql": "sql/36_c12_user_events.sql",
+      "label": "contract12m: events of user accounts toward contracts and untyped addresses",
+      "variant": "contract12m",
+      "usd": 0.6614,
+      "bytes_billed": 116348944384,
+      "creates": [
+        "c12_user_events"
+      ],
+      "reads": [
+        "c12_contracts",
+        "c12_ends",
+        "c12_logs5",
+        "c12_rpc_queue",
+        "c12_tx_senders",
+        "c12_user_accounts"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 73,
+      "sql": "sql/36_c12_constants.sql",
+      "label": "contract12m: constants of the contract graph on the W0 score window",
+      "variant": "contract12m",
+      "usd": 0.0506,
+      "bytes_billed": 8908701696,
+      "creates": [
+        "c12_constants"
+      ],
+      "reads": [
+        "c12_allow_triples",
+        "c12_events_cc",
+        "c12_user_events"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 74,
+      "sql": "sql/37_c12_pairs.sql",
+      "label": "contract12m: pair tables of both freezes",
+      "variant": "contract12m",
+      "usd": 0.1604,
+      "bytes_billed": 28219277312,
+      "creates": [
+        "c12_allow_pairs",
+        "c12_allow_pairs_unc",
+        "c12_transfer_pairs"
+      ],
+      "reads": [
+        "c12_allow_triples",
+        "c12_events_cc"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 76,
+      "sql": "sql/38_c12_cohorts.sql",
+      "label": "contract12m: cohorts without user accounts and members of the u12 lists",
+      "variant": "contract12m",
+      "usd": 0.0098,
+      "bytes_billed": 1729101824,
+      "creates": [
+        "c12_cohort_t1",
+        "c12_cohort_tobs",
+        "c12_members"
+      ],
+      "reads": [
+        "c12_contracts",
+        "c12_user_accounts",
+        "u12_cohort_t1",
+        "u12_cohort_tobs",
+        "u12_labels_w0",
+        "u12_labels_w1"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 77,
+      "sql": "sql/38_c12_proxies.sql",
+      "label": "contract12m: same-window proxies from the transfers between contracts",
+      "variant": "contract12m",
+      "usd": 0.1283,
+      "bytes_billed": 22578987008,
+      "creates": [
+        "c12_proxies_tobs"
+      ],
+      "reads": [
+        "c12_cohort_tobs",
+        "c12_events_cc"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 78,
+      "sql": "sql/39_c12_label_parts.sql",
+      "label": "contract12m: W0 label parts by account class",
+      "variant": "contract12m",
+      "usd": 0.3092,
+      "bytes_billed": 54401171456,
+      "creates": [
+        "c12_label_parts_w0",
+        "c12_x_label_split_w0"
+      ],
+      "reads": [
+        "c12_contracts",
+        "c12_members",
+        "c12_user_accounts",
+        "logs_obs",
+        "u12_allow_triples_t1",
+        "u12_approvals_t1",
+        "u12_transfers_t1",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 79,
+      "sql": "sql/39_c12_label_parts.sql",
+      "label": "contract12m: W1 label parts by account class",
+      "variant": "contract12m",
+      "usd": 0.2859,
+      "bytes_billed": 50288656384,
+      "creates": [
+        "c12_label_parts_w1",
+        "c12_x_label_split_w1"
+      ],
+      "reads": [
+        "c12_contracts",
+        "c12_members",
+        "c12_user_accounts",
+        "logs_w1",
+        "u12_allow_triples_tobs",
+        "u12_approvals_w1",
+        "u12_transfers_tobs",
+        "u12_transfers_w1",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 80,
+      "sql": "sql/40_c12_export_ids.sql",
+      "label": "contract12m: node ids and export tables",
+      "variant": "contract12m",
+      "usd": 0.0067,
+      "bytes_billed": 1182793728,
+      "creates": [
+        "c12_nodes",
+        "c12_x_allow_pairs_t1",
+        "c12_x_allow_pairs_tobs",
+        "c12_x_allow_pairs_unc_t1",
+        "c12_x_allow_pairs_unc_tobs",
+        "c12_x_members",
+        "c12_x_nodes",
+        "c12_x_transfer_pairs_t1",
+        "c12_x_transfer_pairs_tobs"
+      ],
+      "reads": [
+        "c12_allow_pairs",
+        "c12_allow_pairs_unc",
+        "c12_contracts",
+        "c12_members",
+        "c12_transfer_pairs"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 81,
+      "sql": "sql/41_c12_importance.sql",
+      "label": "contract12m: importance, untyped inflow and allowance description",
+      "variant": "contract12m",
+      "usd": 0.0969,
+      "bytes_billed": 17040408576,
+      "creates": [
+        "c12_describe_allowances",
+        "c12_importance_raw",
+        "c12_importance_t1",
+        "c12_importance_tobs",
+        "c12_inflow_untyped_t1",
+        "c12_inflow_untyped_tobs"
+      ],
+      "reads": [
+        "c12_allow_triples",
+        "c12_bal",
+        "c12_nodes",
+        "c12_user_events",
+        "u_prices",
+        "u_tokens"
+      ],
+      "modified_after": []
+    },
+    {
+      "job": 82,
+      "sql": "sql/42_c12_checks.sql",
+      "label": "contract12m: invariants of the gate B tables",
+      "variant": "contract12m",
+      "usd": 0.0397,
+      "bytes_billed": 6977224704,
+      "creates": [
+        "c12_checks"
+      ],
+      "reads": [
+        "c12_allow_pairs",
+        "c12_allow_pairs_unc",
+        "c12_allow_triples",
+        "c12_cohort_t1",
+        "c12_cohort_tobs",
+        "c12_constants",
+        "c12_contracts",
+        "c12_describe_allowances",
+        "c12_importance_raw",
+        "c12_importance_t1",
+        "c12_importance_tobs",
+        "c12_inflow_untyped_t1",
+        "c12_inflow_untyped_tobs",
+        "c12_label_parts_w0",
+        "c12_label_parts_w1",
+        "c12_members",
+        "c12_nodes",
+        "c12_pairs5",
+        "c12_proxies_tobs",
+        "c12_struct_t1",
+        "c12_transfer_pairs",
+        "c12_user_accounts",
+        "c12_x_allow_pairs_t1",
+        "c12_x_allow_pairs_tobs",
+        "c12_x_allow_pairs_unc_t1",
+        "c12_x_allow_pairs_unc_tobs",
+        "c12_x_label_split_w0",
+        "c12_x_label_split_w1",
+        "c12_x_nodes",
+        "c12_x_transfer_pairs_t1",
+        "c12_x_transfer_pairs_tobs",
+        "u12_cohort_t1",
+        "u12_cohort_tobs",
+        "u12_labels_w0",
+        "u12_labels_w1",
+        "u_prices",
+        "u_tokens"
+      ],
+      "modified_after": []
+    }
+  ],
+  "local": {
+    "gmx_contract_accounts": 4,
+    "cohort": 5,
+    "u_prices_hex": 19,
+    "u_tokens_hex": 19,
+    "c12_account_types": 69
+  }
+}

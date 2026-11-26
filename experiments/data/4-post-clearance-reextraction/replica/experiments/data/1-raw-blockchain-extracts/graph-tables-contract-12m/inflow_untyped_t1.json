@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep_r1.c12_inflow_untyped_t1",
+  "rows": 1,
+  "table_rows": 1,
+  "downloaded_at": "2026-11-24T05:40:51+00:00",
+  "parts": [
+    "inflow_untyped_t1.part000.parquet"
+  ],
+  "bytes": 502
+}

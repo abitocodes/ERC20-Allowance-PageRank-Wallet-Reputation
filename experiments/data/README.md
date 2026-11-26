@@ -1,6 +1,6 @@
 # data
 
-실험 데이터입니다. 폴더 번호는 흐름의 순서입니다: 0 입력, 1 BigQuery에서 받은 원시 표, 2 점수와 평가, 3 논문이 인용하는 결과.
+실험 데이터입니다. 폴더 번호는 흐름의 순서입니다: 0 입력, 1 BigQuery에서 받은 원시 표, 2 점수와 평가, 3 처음 추출한 데이터의 결과, 4 다시 추출한 데이터와 그 결과.
 
 parquet은 GitHub에 없고 공개 Google Drive 폴더에만 있습니다. 받는 법은 [`../README.md`](../README.md)의 「데이터」에 있습니다. 큰 표는 90 MB 아래 조각(`<표>.part000.parquet`, ...)으로 나누고, 옆의 `<표>.json`에 원래 BigQuery 테이블, 행 수, 조각 목록을 적습니다. json·csv·md 같은 작은 파일은 GitHub와 Drive 양쪽에 있습니다.
 
@@ -10,14 +10,15 @@ parquet은 GitHub에 없고 공개 Google Drive 폴더에만 있습니다. 받�
 | [`0-usd-token-list-and-prices/`](0-usd-token-list-and-prices/) | 수정 분석의 토큰 목록, 일별 USD 가격, 상수, Chainlink 대조. `usd-12m/`은 12개월 변형, `contract-12m/`은 계약 그래프 변형의 상수 | `usd_inputs.py`, `run_usd_pipeline.py`, `chainlink_check.py`, 변형마다의 드라이버 |
 | [`1-raw-blockchain-extracts/`](1-raw-blockchain-extracts/) | BigQuery에서 받은 원시 표: 코호트, GMX, 변형마다의 그래프 표(`graph-tables*/`), 계약 그래프 변형의 계정 종류 판정(`contract-types/`) | `download_table.py` 등 |
 | [`2-processed-tables-and-evaluations/`](2-processed-tables-and-evaluations/) | 점수, 평가 요약, 해독한 GMX 종료. 변형마다 `revised-usd/`, `revised-usd-12m/`, `revised-contract-12m/`(발견 순서 검증의 곡선과 요약 포함) | `run_*.py` 등 |
-| `3-published-results-for-thesis/` | 논문이 인용하는 결과(아래) | `publish_results.py` |
+| `3-published-results-for-thesis/` | 처음 추출한 데이터의 결과(아래). 원고의 비용 문장과 B의 순서 표는 이 폴더의 기록을 읽음 | `publish_results.py` |
+| [`4-post-clearance-reextraction/`](4-post-clearance-reextraction/) | 윤리 승인 뒤 다시 추출한 데이터, 다시 계산한 결과, 처음 결과와 맞춘 기록. 학위논문과 투고 논문 A·B의 수치는 이 폴더의 `replica/experiments/data/3-published-results-for-thesis/`에서 나옴([`README.md`](4-post-clearance-reextraction/README.md)) | `scripts/reextract.py`, 복제본 |
 | `bq_ledger.json` | BigQuery 작업마다 시각, SQL, 대상, 청구 바이트, 비용(USD) | `run_bq.py` |
 
 `_work/`(검증용 임시 다운로드)는 어디에도 올리지 않습니다.
 
 ## 3-published-results-for-thesis
 
-논문이 인용하는 요약을 고정해 둔 곳입니다. `publish_results.py`만 이 폴더에 쓰고, 자기가 내보내지 않은 파일이 있으면 실행할 때마다 알립니다. 그래서 이 폴더 안에는 README를 두지 않고 여기서 설명합니다.
+처음 추출한 데이터의 요약을 고정해 둔 곳입니다. `publish_results.py`만 이 폴더에 쓰고, 자기가 내보내지 않은 파일이 있으면 실행할 때마다 알립니다. 그래서 이 폴더 안에는 README를 두지 않고 여기서 설명합니다.
 
 | 경로 | 내용 |
 |---|---|

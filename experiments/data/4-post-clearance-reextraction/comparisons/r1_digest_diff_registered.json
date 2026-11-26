@@ -1,0 +1,450 @@
+{
+  "rows_old": 967,
+  "rows_new": 962,
+  "rows_both": 960,
+  "rows_differ": 62,
+  "files_only_in_old": [
+    "registered-w1/extraction_manifest.json"
+  ],
+  "files_only_in_new": [
+    "benchmark/benchmark.json"
+  ],
+  "n_rows_only_old": 7,
+  "n_rows_only_new": 2,
+  "differ": [
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.75.awp",
+      "label": "Damping 0.75: AWP",
+      "old": "mean 38.619 s, SD 1.297 s; runs 40.597, 39.114, 37.220, 38.200, 37.962; peak 2,995.9 MB; iterations 54; \\|V\\| 23,029,298; \\|E\\| 59,737,617",
+      "new": "mean 49.885 s, SD 9.063 s; runs 39.256, 43.991, 52.316, 50.782, 63.081; peak 2,995.9 MB; iterations 54; \\|V\\| 23,029,298; \\|E\\| 59,737,617"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.75.endorserank",
+      "label": "Damping 0.75: EndorseRank",
+      "old": "mean 18.998 s, SD 0.468 s; runs 18.986, 18.938, 19.770, 18.776, 18.522; peak 1,285.0 MB; iterations 50; \\|V\\| 13,055,150; \\|E\\| 22,321,470",
+      "new": "mean 18.954 s, SD 0.989 s; runs 18.987, 19.506, 20.256, 18.266, 17.754; peak 1,285.0 MB; iterations 50; \\|V\\| 13,055,150; \\|E\\| 22,321,470"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.85.awp",
+      "label": "Damping 0.85: AWP",
+      "old": "mean 69.819 s, SD 2.302 s; runs 70.808, 69.357, 73.212, 68.491, 67.226; peak 2,995.9 MB; iterations 93; \\|V\\| 23,029,298; \\|E\\| 59,737,617",
+      "new": "mean 72.052 s, SD 3.109 s; runs 74.809, 73.018, 70.972, 67.161, 74.298; peak 2,995.9 MB; iterations 93; \\|V\\| 23,029,298; \\|E\\| 59,737,617"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.85.endorserank",
+      "label": "Damping 0.85: EndorseRank",
+      "old": "mean 29.596 s, SD 0.606 s; runs 29.644, 30.210, 29.762, 29.784, 28.582; peak 1,285.0 MB; iterations 84; \\|V\\| 13,055,150; \\|E\\| 22,321,470",
+      "new": "mean 25.616 s, SD 1.051 s; runs 25.594, 24.750, 24.454, 26.970, 26.311; peak 1,285.0 MB; iterations 84; \\|V\\| 13,055,150; \\|E\\| 22,321,470"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.95.awp",
+      "label": "Damping 0.95: AWP",
+      "old": "mean 162.587 s, SD 8.359 s; runs 165.730, 175.831, 155.496, 158.528, 157.348; peak 2,995.9 MB; iterations 276; \\|V\\| 23,029,298; \\|E\\| 59,737,617",
+      "new": "mean 170.954 s, SD 7.546 s; runs 162.220, 169.611, 166.216, 181.319, 175.404; peak 2,995.9 MB; iterations 276; \\|V\\| 23,029,298; \\|E\\| 59,737,617"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.95.endorserank",
+      "label": "Damping 0.95: EndorseRank",
+      "old": "mean 63.623 s, SD 1.093 s; runs 62.116, 64.104, 64.708, 64.337, 62.852; peak 1,285.0 MB; iterations 224; \\|V\\| 13,055,150; \\|E\\| 22,321,470",
+      "new": "mean 67.274 s, SD 2.909 s; runs 72.404, 65.164, 66.289, 66.395, 66.118; peak 1,285.0 MB; iterations 224; \\|V\\| 13,055,150; \\|E\\| 22,321,470"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.awp",
+      "label": "Full graphs: AWP",
+      "old": "mean 69.819 s, SD 2.302 s; runs 70.808, 69.357, 73.212, 68.491, 67.226; peak 2,995.9 MB; iterations 93; \\|V\\| 23,029,298; \\|E\\| 59,737,617",
+      "new": "mean 72.052 s, SD 3.109 s; runs 74.809, 73.018, 70.972, 67.161, 74.298; peak 2,995.9 MB; iterations 93; \\|V\\| 23,029,298; \\|E\\| 59,737,617"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.awp.mean_s / main.endorserank.mean_s",
+      "label": "AWP/EndorseRank runtime ratio (derived)",
+      "old": "2.36",
+      "new": "2.81"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.cpr_l50",
+      "label": "Full graphs: C-PR (λ=0.5)",
+      "old": "mean 105.507 s, SD 2.478 s; runs 102.667, 103.853, 107.489, 104.934, 108.592; peak 4,582.2 MB; iterations 92; \\|V\\| 25,304,106; \\|E\\| 71,375,442",
+      "new": "mean 95.186 s, SD 7.863 s; runs 91.171, 88.911, 95.740, 91.564, 108.542; peak 4,582.2 MB; iterations 92; \\|V\\| 25,304,106; \\|E\\| 71,375,442"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.endorserank",
+      "label": "Full graphs: EndorseRank",
+      "old": "mean 29.596 s, SD 0.606 s; runs 29.644, 30.210, 29.762, 29.784, 28.582; peak 1,285.0 MB; iterations 84; \\|V\\| 13,055,150; \\|E\\| 22,321,470",
+      "new": "mean 25.616 s, SD 1.051 s; runs 25.594, 24.750, 24.454, 26.970, 26.311; peak 1,285.0 MB; iterations 84; \\|V\\| 13,055,150; \\|E\\| 22,321,470"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.spr",
+      "label": "Full graphs: S-PR",
+      "old": "mean 100.861 s, SD 4.820 s; runs 107.139, 102.530, 94.957, 97.215, 102.465; peak 3,453.1 MB; iterations 185; \\|V\\| 23,029,298; \\|E\\| 59,737,617",
+      "new": "mean 100.724 s, SD 5.598 s; runs 105.065, 101.835, 100.312, 91.406, 105.001; peak 3,453.1 MB; iterations 185; \\|V\\| 23,029,298; \\|E\\| 59,737,617"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[0].awp",
+      "label": "Stage n=1,000: AWP",
+      "old": "mean 2.698 s, SD 0.121 s; runs 2.606, 2.688, 2.904, 2.616, 2.675; peak 126.8 MB; iterations 94; \\|V\\| 1,138,289; \\|E\\| 1,385,509",
+      "new": "mean 3.874 s, SD 1.009 s; runs 3.357, 5.674, 3.511, 3.360, 3.469; peak 126.8 MB; iterations 94; \\|V\\| 1,138,289; \\|E\\| 1,385,509"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[0].endorserank",
+      "label": "Stage n=1,000: EndorseRank",
+      "old": "mean 0.166 s, SD 0.002 s; runs 0.168, 0.166, 0.166, 0.168, 0.162; peak 17.4 MB; iterations 82; \\|V\\| 185,281; \\|E\\| 194,084",
+      "new": "mean 0.258 s, SD 0.022 s; runs 0.238, 0.243, 0.294, 0.265, 0.251; peak 17.4 MB; iterations 82; \\|V\\| 185,281; \\|E\\| 194,084"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[1].awp",
+      "label": "Stage n=2,000: AWP",
+      "old": "mean 6.922 s, SD 0.259 s; runs 7.070, 6.688, 6.782, 7.306, 6.767; peak 237.3 MB; iterations 89; \\|V\\| 1,946,268; \\|E\\| 3,145,438",
+      "new": "mean 7.743 s, SD 1.944 s; runs 9.757, 9.951, 6.727, 6.090, 6.189; peak 237.3 MB; iterations 89; \\|V\\| 1,946,268; \\|E\\| 3,145,438"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[1].endorserank",
+      "label": "Stage n=2,000: EndorseRank",
+      "old": "mean 0.957 s, SD 0.016 s; runs 0.942, 0.953, 0.966, 0.981, 0.944; peak 65.6 MB; iterations 76; \\|V\\| 687,884; \\|E\\| 761,242",
+      "new": "mean 1.379 s, SD 0.117 s; runs 1.535, 1.393, 1.313, 1.428, 1.225; peak 65.6 MB; iterations 76; \\|V\\| 687,884; \\|E\\| 761,242"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[2].awp",
+      "label": "Stage n=5,000: AWP",
+      "old": "mean 14.514 s, SD 0.264 s; runs 14.640, 14.841, 14.184, 14.594, 14.312; peak 902.6 MB; iterations 91; \\|V\\| 7,814,870; \\|E\\| 12,043,690",
+      "new": "mean 13.438 s, SD 0.235 s; runs 13.242, 13.797, 13.255, 13.547, 13.350; peak 902.6 MB; iterations 91; \\|V\\| 7,814,870; \\|E\\| 12,043,690"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[2].endorserank",
+      "label": "Stage n=5,000: EndorseRank",
+      "old": "mean 4.460 s, SD 0.199 s; runs 4.718, 4.521, 4.263, 4.254, 4.542; peak 348.4 MB; iterations 74; \\|V\\| 3,958,686; \\|E\\| 4,606,533",
+      "new": "mean 4.319 s, SD 0.082 s; runs 4.259, 4.285, 4.290, 4.298, 4.463; peak 348.4 MB; iterations 74; \\|V\\| 3,958,686; \\|E\\| 4,606,533"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[3].awp",
+      "label": "Stage n=10,000: AWP",
+      "old": "mean 21.589 s, SD 0.613 s; runs 20.986, 22.037, 21.046, 22.385, 21.492; peak 1,181.6 MB; iterations 92; \\|V\\| 9,727,925; \\|E\\| 20,054,589",
+      "new": "mean 21.170 s, SD 1.142 s; runs 23.084, 21.237, 20.137, 20.824, 20.569; peak 1,181.6 MB; iterations 92; \\|V\\| 9,727,925; \\|E\\| 20,054,589"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[3].endorserank",
+      "label": "Stage n=10,000: EndorseRank",
+      "old": "mean 7.096 s, SD 0.142 s; runs 7.064, 7.000, 6.931, 7.265, 7.218; peak 476.3 MB; iterations 76; \\|V\\| 5,198,375; \\|E\\| 7,030,772",
+      "new": "mean 6.816 s, SD 0.122 s; runs 6.816, 7.012, 6.699, 6.733, 6.820; peak 476.3 MB; iterations 76; \\|V\\| 5,198,375; \\|E\\| 7,030,772"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[4].awp",
+      "label": "Stage n=20,000: AWP",
+      "old": "mean 52.004 s, SD 0.790 s; runs 51.618, 52.408, 53.029, 52.024, 50.939; peak 2,643.0 MB; iterations 96; \\|V\\| 20,865,342; \\|E\\| 48,796,598",
+      "new": "mean 51.608 s, SD 2.748 s; runs 49.309, 49.719, 52.977, 55.800, 50.233; peak 2,643.0 MB; iterations 96; \\|V\\| 20,865,342; \\|E\\| 48,796,598"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[4].endorserank",
+      "label": "Stage n=20,000: EndorseRank",
+      "old": "mean 16.285 s, SD 0.245 s; runs 16.297, 16.098, 16.453, 16.586, 15.990; peak 984.4 MB; iterations 75; \\|V\\| 10,409,908; \\|E\\| 15,690,094",
+      "new": "mean 16.531 s, SD 0.847 s; runs 16.383, 16.193, 15.870, 16.199, 18.009; peak 984.4 MB; iterations 75; \\|V\\| 10,409,908; \\|E\\| 15,690,094"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[5].awp",
+      "label": "Stage n=27,844 (reused main measurement): AWP",
+      "old": "mean 69.819 s, SD 2.302 s; runs 70.808, 69.357, 73.212, 68.491, 67.226; peak 2,995.9 MB; iterations 93; \\|V\\| 23,029,298; \\|E\\| 59,737,617",
+      "new": "mean 72.052 s, SD 3.109 s; runs 74.809, 73.018, 70.972, 67.161, 74.298; peak 2,995.9 MB; iterations 93; \\|V\\| 23,029,298; \\|E\\| 59,737,617"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[5].endorserank",
+      "label": "Stage n=27,844 (reused main measurement): EndorseRank",
+      "old": "mean 29.596 s, SD 0.606 s; runs 29.644, 30.210, 29.762, 29.784, 28.582; peak 1,285.0 MB; iterations 84; \\|V\\| 13,055,150; \\|E\\| 22,321,470",
+      "new": "mean 25.616 s, SD 1.051 s; runs 25.594, 24.750, 24.454, 26.970, 26.311; peak 1,285.0 MB; iterations 84; \\|V\\| 13,055,150; \\|E\\| 22,321,470"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.bigquery_tib_billed",
+      "label": "bigquery tib billed",
+      "old": "4.754",
+      "new": "7.088"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.bigquery_usd_total",
+      "label": "bigquery usd total",
+      "old": "29.71",
+      "new": "44.3"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.scan_a",
+      "label": "scan a",
+      "old": "created 2026-10-09T13:41:37+00:00, ended 2026-10-09T13:43:54+00:00",
+      "new": "created 2026-11-21T17:47:26+00:00, ended 2026-11-21T17:48:03+00:00"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.scan_b",
+      "label": "scan b",
+      "old": "created 2026-10-09T16:49:40+00:00, ended 2026-10-09T16:50:11+00:00",
+      "new": "created 2026-11-21T17:48:10+00:00, ended 2026-11-21T17:48:23+00:00"
+    },
+    {
+      "file": "holdout-w0/eval_summary.json",
+      "key": "ties.awp",
+      "label": "AWP ties (W0 spenders)",
+      "old": "distinct 28,433 of 33,101; zeros 3,753; largest block 3,753 at 0.000; share of pairs tied 0.0129",
+      "new": "distinct 28,432 of 33,101; zeros 3,753; largest block 3,753 at 0.000; share of pairs tied 0.0129"
+    },
+    {
+      "file": "holdout-w0/eval_summary.json",
+      "key": "ties.endorserank",
+      "label": "EndorseRank ties (W0 spenders)",
+      "old": "distinct 31,041 of 33,101; zeros 0; largest block 212 at 6.581e-08; share of pairs tied 0.0001004",
+      "new": "distinct 31,040 of 33,101; zeros 0; largest block 212 at 6.581e-08; share of pairs tied 0.0001004"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "endorserank_results.cpr_minus_endorserank_appr",
+      "label": "cpr minus endorserank appr",
+      "old": "Δτ 0.004 [-0.0008016, 0.008]; τa 0.237, τb 0.233; P(Δτ>0) 0.925; B=400",
+      "new": "Δτ 0.004 [-0.0007998, 0.008]; τa 0.237, τb 0.233; P(Δτ>0) 0.925; B=400"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.cpr0_awp.liquidation_free_rate",
+      "label": "W1 C-PR (λ=0) minus AWP, liquidation-free close rate",
+      "old": "Δτ -0.101 [-0.273, 0.058]; τa 0.138, τb 0.240; P(Δτ>0) 0.115; B=2000",
+      "new": "Δτ -0.104 [-0.274, 0.054]; τa 0.135, τb 0.240; P(Δτ>0) 0.103; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.cpr0_awp.no_liquidation",
+      "label": "W1 C-PR (λ=0) minus AWP, no liquidation",
+      "old": "Δτ -0.102 [-0.283, 0.064]; τa 0.146, τb 0.248; P(Δτ>0) 0.120; B=2000",
+      "new": "Δτ -0.105 [-0.284, 0.060]; τa 0.142, τb 0.248; P(Δτ>0) 0.107; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.cpr0_awp.non_loss_share",
+      "label": "W1 C-PR (λ=0) minus AWP, non-loss share",
+      "old": "Δτ 0.078 [-0.065, 0.224]; τa 0.149, τb 0.071; P(Δτ>0) 0.857; B=2000",
+      "new": "Δτ 0.079 [-0.065, 0.225]; τa 0.150, τb 0.071; P(Δτ>0) 0.861; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.cpr0_awp.profitable_closes",
+      "label": "W1 C-PR (λ=0) minus AWP, profitable closes",
+      "old": "Δτ -0.051 [-0.184, 0.062]; τa 0.228, τb 0.280; P(Δτ>0) 0.203; B=2000",
+      "new": "Δτ -0.049 [-0.180, 0.066]; τa 0.231, τb 0.280; P(Δτ>0) 0.214; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.cpr0_awp.profitable_share",
+      "label": "W1 C-PR (λ=0) minus AWP, profitable share",
+      "old": "Δτ 0.103 [-0.044, 0.256]; τa 0.168, τb 0.065; P(Δτ>0) 0.920; B=2000",
+      "new": "Δτ 0.103 [-0.046, 0.259]; τa 0.169, τb 0.065; P(Δτ>0) 0.918; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.cpr0_awp.realized_gain",
+      "label": "W1 C-PR (λ=0) minus AWP, realized gain",
+      "old": "Δτ 0.042 [-0.110, 0.198]; τa 0.336, τb 0.294; P(Δτ>0) 0.716; B=2000",
+      "new": "Δτ 0.044 [-0.110, 0.198]; τa 0.339, τb 0.294; P(Δτ>0) 0.728; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.layers.liquidation_free_rate",
+      "label": "W1 C-PR (λ=1) minus C-PR (λ=0), liquidation-free close rate",
+      "old": "Δτ 0.171 [-0.083, 0.438]; τa 0.310, τb 0.138; P(Δτ>0) 0.904; B=2000",
+      "new": "Δτ 0.175 [-0.078, 0.438]; τa 0.310, τb 0.135; P(Δτ>0) 0.909; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.layers.no_liquidation",
+      "label": "W1 C-PR (λ=1) minus C-PR (λ=0), no liquidation",
+      "old": "Δτ 0.171 [-0.088, 0.450]; τa 0.316, τb 0.146; P(Δτ>0) 0.896; B=2000",
+      "new": "Δτ 0.174 [-0.084, 0.450]; τa 0.316, τb 0.142; P(Δτ>0) 0.904; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.layers.non_loss_share",
+      "label": "W1 C-PR (λ=1) minus C-PR (λ=0), non-loss share",
+      "old": "Δτ -0.436 [-0.666, -0.180]; τa -0.287, τb 0.149; P(Δτ>0) 0.000; B=2000",
+      "new": "Δτ -0.437 [-0.666, -0.179]; τa -0.287, τb 0.150; P(Δτ>0) 0.000; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.layers.profitable_closes",
+      "label": "W1 C-PR (λ=1) minus C-PR (λ=0), profitable closes",
+      "old": "Δτ -0.225 [-0.464, 0.021]; τa 0.004, τb 0.228; P(Δτ>0) 0.038; B=2000",
+      "new": "Δτ -0.227 [-0.465, 0.021]; τa 0.004, τb 0.231; P(Δτ>0) 0.036; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.layers.profitable_share",
+      "label": "W1 C-PR (λ=1) minus C-PR (λ=0), profitable share",
+      "old": "Δτ -0.375 [-0.620, -0.118]; τa -0.206, τb 0.168; P(Δτ>0) 0.002; B=2000",
+      "new": "Δτ -0.375 [-0.620, -0.118]; τa -0.206, τb 0.169; P(Δτ>0) 0.002; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.grid.layers.realized_gain",
+      "label": "W1 C-PR (λ=1) minus C-PR (λ=0), realized gain",
+      "old": "Δτ -0.414 [-0.640, -0.177]; τa -0.077, τb 0.336; P(Δτ>0) 0.002; B=2000",
+      "new": "Δτ -0.416 [-0.642, -0.179]; τa -0.077, τb 0.339; P(Δτ>0) 0.002; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.taus.cpr_l0.liquidation_free_rate",
+      "label": "W1 C-PR (λ=0), liquidation-free close rate",
+      "old": "0.138 [-0.065, 0.313]; B=2000",
+      "new": "0.135 [-0.065, 0.310]; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.taus.cpr_l0.no_liquidation",
+      "label": "W1 C-PR (λ=0), no liquidation",
+      "old": "0.146 [-0.072, 0.329]; B=2000",
+      "new": "0.142 [-0.072, 0.322]; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.taus.cpr_l0.non_loss_share",
+      "label": "W1 C-PR (λ=0), non-loss share",
+      "old": "0.149 [-0.022, 0.311]; B=2000",
+      "new": "0.150 [-0.020, 0.313]; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.taus.cpr_l0.profitable_closes",
+      "label": "W1 C-PR (λ=0), profitable closes",
+      "old": "0.228 [0.068, 0.384]; B=2000",
+      "new": "0.231 [0.073, 0.384]; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.taus.cpr_l0.profitable_share",
+      "label": "W1 C-PR (λ=0), profitable share",
+      "old": "0.168 [-0.009, 0.335]; B=2000",
+      "new": "0.169 [-0.012, 0.336]; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "neutral_w1.taus.cpr_l0.realized_gain",
+      "label": "W1 C-PR (λ=0), realized gain",
+      "old": "0.336 [0.203, 0.460]; B=2000",
+      "new": "0.339 [0.202, 0.463]; B=2000"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "rule_b.F3",
+      "label": "Rule B (comparator C-PR λ=0): F3",
+      "old": "Δτ -0.044 [-0.100, -0.002]; τa 0.095, τb 0.138; P(Δτ>0) 0.010; B=400; non_inferiority: fails",
+      "new": "Δτ -0.041 [-0.099, 0.000]; τa 0.095, τb 0.135; P(Δτ>0) 0.020; B=400; non_inferiority: fails"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "rule_b.F4",
+      "label": "Rule B (comparator C-PR λ=0): F4",
+      "old": "Δτ -0.044 [-0.100, -0.002]; τa 0.095, τb 0.138; P(Δτ>0) 0.010; B=400; superiority: fails",
+      "new": "Δτ -0.041 [-0.099, 0.000]; τa 0.095, τb 0.135; P(Δτ>0) 0.020; B=400; superiority: fails"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "sensitivity_isolated.F3",
+      "label": "Sensitivity 2 (isolated nodes): F3",
+      "old": "Δτ -0.044 [-0.100, -0.002]; τa 0.095, τb 0.138; P(Δτ>0) 0.010; B=400; non_inferiority: fails",
+      "new": "Δτ -0.041 [-0.099, 0.000]; τa 0.095, τb 0.135; P(Δτ>0) 0.020; B=400; non_inferiority: fails"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "sensitivity_isolated.F4",
+      "label": "Sensitivity 2 (isolated nodes): F4",
+      "old": "Δτ -0.044 [-0.100, -0.002]; τa 0.095, τb 0.138; P(Δτ>0) 0.010; B=400; superiority: fails",
+      "new": "Δτ -0.041 [-0.099, 0.000]; τa 0.095, τb 0.135; P(Δτ>0) 0.020; B=400; superiority: fails"
+    },
+    {
+      "file": "registered-w1/eval_summary.json",
+      "key": "trader_taus.cpr_l0",
+      "label": "Traders: C-PR (λ=0), liquidation-free close rate",
+      "old": "0.138 [-0.048, 0.310]; B=400",
+      "new": "0.135 [-0.050, 0.304]; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "inter_method.concordance.ordered_by_both",
+      "label": "Concordance: ordered by both",
+      "old": "381,636,156",
+      "new": "381,636,160"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.awp",
+      "label": "AWP ties (same window)",
+      "old": "distinct 24,545 of 27,844; zeros 3,297; largest block 3,297 at 0.000; share of pairs tied 0.0140",
+      "new": "distinct 24,546 of 27,844; zeros 3,297; largest block 3,297 at 0.000; share of pairs tied 0.0140"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l0",
+      "label": "C-PR (λ=0) ties (same window)",
+      "old": "distinct 23,734 of 27,844; zeros 3,297; largest block 3,297 at 0.000; share of pairs tied 0.0144",
+      "new": "distinct 23,732 of 27,844; zeros 3,297; largest block 3,297 at 0.000; share of pairs tied 0.0144"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l25",
+      "label": "C-PR (λ=0.25) ties (same window)",
+      "old": "distinct 26,875 of 27,844; zeros 138; largest block 247 at 1.173e-08; share of pairs tied 0.0001452",
+      "new": "distinct 26,872 of 27,844; zeros 138; largest block 247 at 1.173e-08; share of pairs tied 0.0001454"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l50",
+      "label": "C-PR (λ=0.5) ties (same window)",
+      "old": "distinct 26,850 of 27,844; zeros 138; largest block 251 at 1.232e-08; share of pairs tied 0.0001463",
+      "new": "distinct 26,861 of 27,844; zeros 138; largest block 253 at 1.232e-08; share of pairs tied 0.0001498"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l75",
+      "label": "C-PR (λ=0.75) ties (same window)",
+      "old": "distinct 26,855 of 27,844; zeros 138; largest block 247 at 1.284e-08; share of pairs tied 0.0001456",
+      "new": "distinct 26,868 of 27,844; zeros 138; largest block 247 at 1.284e-08; share of pairs tied 0.000145"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.endorserank",
+      "label": "EndorseRank ties (same window)",
+      "old": "distinct 25,650 of 27,844; zeros 962; largest block 962 at 0.000; share of pairs tied 0.0015",
+      "new": "distinct 25,649 of 27,844; zeros 962; largest block 962 at 0.000; share of pairs tied 0.0015"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.endorserank_activity",
+      "label": "EndorseRank (activity restarts) ties (same window)",
+      "old": "distinct 26,804 of 27,844; zeros 962; largest block 962 at 0.000; share of pairs tied 0.0012",
+      "new": "distinct 26,802 of 27,844; zeros 962; largest block 962 at 0.000; share of pairs tied 0.0012"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.spr",
+      "label": "S-PR ties (same window)",
+      "old": "distinct 24,275 of 27,844; zeros 3,305; largest block 3,305 at 0.000; share of pairs tied 0.0141",
+      "new": "distinct 24,274 of 27,844; zeros 3,305; largest block 3,305 at 0.000; share of pairs tied 0.0141"
+    }
+  ]
+}

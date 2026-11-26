@@ -1,0 +1,37 @@
+{
+  "n_old": 461,
+  "n_new": 461,
+  "differ": [
+    {
+      "key": "timing.bigquery_tib_billed",
+      "old": 4.754,
+      "new": 7.088
+    },
+    {
+      "key": "timing.bigquery_usd_total",
+      "old": 29.71,
+      "new": 44.3
+    },
+    {
+      "key": "timing.scan_a.created",
+      "old": "2026-10-09T13:41:37+00:00",
+      "new": "2026-11-21T17:47:26+00:00"
+    },
+    {
+      "key": "timing.scan_a.ended",
+      "old": "2026-10-09T13:43:54+00:00",
+      "new": "2026-11-21T17:48:03+00:00"
+    },
+    {
+      "key": "timing.scan_b.created",
+      "old": "2026-10-09T16:49:40+00:00",
+      "new": "2026-11-21T17:48:10+00:00"
+    },
+    {
+      "key": "timing.scan_b.ended",
+      "old": "2026-10-09T16:50:11+00:00",
+      "new": "2026-11-21T17:48:23+00:00"
+    }
+  ],
+  "soft": []
+}

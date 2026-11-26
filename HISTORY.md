@@ -28,6 +28,15 @@ This repository holds the folder `1-Dissertation-Works/ERC20-Allowance-PageRank-
 | Drive manifest of the per-contract files | `ac7d32a` | `ce4e9d8` |
 | Move of the study into this folder (merge of the two lines) | `951923a` | `f7a63de` |
 
+## Identifiers of the replica in `experiments/data/4-post-clearance-reextraction/`
+
+The data were extracted again and every result was computed again in a copy of `experiments/` that is its own Git repository, the replica. The folder `experiments/data/4-post-clearance-reextraction/` of this repository holds its records and its summaries. The records and the summaries name these commits of the replica, which are not commits of this repository:
+
+| Commit of the replica | What it holds |
+|---|---|
+| `68da670` | The folders `scripts`, `sql`, `config`, `docs` and `tests` of `experiments/` at commit `5b26585` of this repository, and the inputs `data/0-*`. The only change is the name of the BigQuery dataset, `contract_rep_r1` in place of `contract_rep` (`replica_build.json` in the folder). |
+| `a9e2bd7` | The code revision that the two digests `results_digest.md` of `replica/experiments/data/3-published-results-for-thesis/` record: `68da670` with `scripts/export_latex.py` and `scripts/export_latex_c12.py` taken from commit `9a3ad3a` of this repository (they only lay out the tables), and the records of the replica. |
+
 ## All 93 copied commits, newest first
 
 | Original | Here | Folder | Message |

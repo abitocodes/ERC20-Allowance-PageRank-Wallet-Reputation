@@ -1,0 +1,917 @@
+{
+  "n_old": 263,
+  "n_new": 260,
+  "differ": [
+    {
+      "key": "damping.0.75.awp.mean_s",
+      "old": 38.61871288000039,
+      "new": 49.885198019995
+    },
+    {
+      "key": "damping.0.75.awp.peak_mb",
+      "old": 2995.8537254333496,
+      "new": 2995.853500366211
+    },
+    {
+      "key": "damping.0.75.awp.runs_s[0]",
+      "old": 40.597467999999935,
+      "new": 39.25613349999185
+    },
+    {
+      "key": "damping.0.75.awp.runs_s[1]",
+      "old": 39.11419129999922,
+      "new": 43.99072630000592
+    },
+    {
+      "key": "damping.0.75.awp.runs_s[2]",
+      "old": 37.21966650000104,
+      "new": 52.31583709998813
+    },
+    {
+      "key": "damping.0.75.awp.runs_s[3]",
+      "old": 38.20010280000133,
+      "new": 50.78221979999216
+    },
+    {
+      "key": "damping.0.75.awp.runs_s[4]",
+      "old": 37.9621358000004,
+      "new": 63.08107339999697
+    },
+    {
+      "key": "damping.0.75.awp.sd_s",
+      "old": 1.2965945129507888,
+      "new": 9.06318915839869
+    },
+    {
+      "key": "damping.0.75.endorserank.mean_s",
+      "old": 18.99832336000036,
+      "new": 18.95358352000185
+    },
+    {
+      "key": "damping.0.75.endorserank.peak_mb",
+      "old": 1285.0236444473267,
+      "new": 1285.0237007141113
+    },
+    {
+      "key": "damping.0.75.endorserank.runs_s[0]",
+      "old": 18.98595260000002,
+      "new": 18.986686400006874
+    },
+    {
+      "key": "damping.0.75.endorserank.runs_s[1]",
+      "old": 18.938306300002296,
+      "new": 19.505894400004763
+    },
+    {
+      "key": "damping.0.75.endorserank.runs_s[2]",
+      "old": 19.769939999998314,
+      "new": 20.255516000004718
+    },
+    {
+      "key": "damping.0.75.endorserank.runs_s[3]",
+      "old": 18.775865200001135,
+      "new": 18.26587409999047
+    },
+    {
+      "key": "damping.0.75.endorserank.runs_s[4]",
+      "old": 18.52155270000003,
+      "new": 17.753946700002416
+    },
+    {
+      "key": "damping.0.75.endorserank.sd_s",
+      "old": 0.4679597251641752,
+      "new": 0.9890960567092791
+    },
+    {
+      "key": "damping.0.85.awp.mean_s",
+      "old": 69.81881917999927,
+      "new": 72.05162160000182
+    },
+    {
+      "key": "damping.0.85.awp.peak_mb",
+      "old": 2995.854383468628,
+      "new": 2995.8543272018433
+    },
+    {
+      "key": "damping.0.85.awp.runs_s[0]",
+      "old": 70.80779540000003,
+      "new": 74.80925699998625
+    },
+    {
+      "key": "damping.0.85.awp.runs_s[1]",
+      "old": 69.35743589999765,
+      "new": 73.01793950000138
+    },
+    {
+      "key": "damping.0.85.awp.runs_s[2]",
+      "old": 73.21189840000079,
+      "new": 70.97206540001207
+    },
+    {
+      "key": "damping.0.85.awp.runs_s[3]",
+      "old": 68.49132409999947,
+      "new": 67.16127710000728
+    },
+    {
+      "key": "damping.0.85.awp.runs_s[4]",
+      "old": 67.22564209999837,
+      "new": 74.29756900000211
+    },
+    {
+      "key": "damping.0.85.awp.sd_s",
+      "old": 2.3016703523562976,
+      "new": 3.108999594895359
+    },
+    {
+      "key": "damping.0.85.endorserank.mean_s",
+      "old": 29.59637635999825,
+      "new": 25.616114860001836
+    },
+    {
+      "key": "damping.0.85.endorserank.peak_mb",
+      "old": 1285.0397443771362,
+      "new": 1285.0394048690796
+    },
+    {
+      "key": "damping.0.85.endorserank.runs_s[0]",
+      "old": 29.643786999997246,
+      "new": 25.594217200006824
+    },
+    {
+      "key": "damping.0.85.endorserank.runs_s[1]",
+      "old": 30.20992699999988,
+      "new": 24.750355900003342
+    },
+    {
+      "key": "damping.0.85.endorserank.runs_s[2]",
+      "old": 29.762150899998232,
+      "new": 24.454468500000075
+    },
+    {
+      "key": "damping.0.85.endorserank.runs_s[3]",
+      "old": 29.784214699997392,
+      "new": 26.970139299999573
+    },
+    {
+      "key": "damping.0.85.endorserank.runs_s[4]",
+      "old": 28.581802199998492,
+      "new": 26.31139339999936
+    },
+    {
+      "key": "damping.0.85.endorserank.sd_s",
+      "old": 0.6063862883625786,
+      "new": 1.0507419738366488
+    },
+    {
+      "key": "damping.0.95.awp.mean_s",
+      "old": 162.58659155999993,
+      "new": 170.95383386000177
+    },
+    {
+      "key": "damping.0.95.awp.runs_s[0]",
+      "old": 165.72988189999887,
+      "new": 162.21973609999986
+    },
+    {
+      "key": "damping.0.95.awp.runs_s[1]",
+      "old": 175.83144619999803,
+      "new": 169.61068670000532
+    },
+    {
+      "key": "damping.0.95.awp.runs_s[2]",
+      "old": 155.4955207000021,
+      "new": 166.2164408999961
+    },
+    {
+      "key": "damping.0.95.awp.runs_s[3]",
+      "old": 158.52838110000084,
+      "new": 181.31872670000303
+    },
+    {
+      "key": "damping.0.95.awp.runs_s[4]",
+      "old": 157.34772789999988,
+      "new": 175.4035789000045
+    },
+    {
+      "key": "damping.0.95.awp.sd_s",
+      "old": 8.359194026989615,
+      "new": 7.545903433948888
+    },
+    {
+      "key": "damping.0.95.endorserank.mean_s",
+      "old": 63.62327946000005,
+      "new": 67.2741366399976
+    },
+    {
+      "key": "damping.0.95.endorserank.peak_mb",
+      "old": 1285.0233898162842,
+      "new": 1285.0234460830688
+    },
+    {
+      "key": "damping.0.95.endorserank.runs_s[0]",
+      "old": 62.11611719999928,
+      "new": 72.40437729998666
+    },
+    {
+      "key": "damping.0.95.endorserank.runs_s[1]",
+      "old": 64.10427160000108,
+      "new": 65.1641643000039
+    },
+    {
+      "key": "damping.0.95.endorserank.runs_s[2]",
+      "old": 64.70750039999984,
+      "new": 66.28927860000113
+    },
+    {
+      "key": "damping.0.95.endorserank.runs_s[3]",
+      "old": 64.33661909999864,
+      "new": 66.39454000000842
+    },
+    {
+      "key": "damping.0.95.endorserank.runs_s[4]",
+      "old": 62.85188900000139,
+      "new": 66.11832299998787
+    },
+    {
+      "key": "damping.0.95.endorserank.sd_s",
+      "old": 1.0934261803178236,
+      "new": 2.909076025278559
+    },
+    {
+      "key": "machine.numpy",
+      "old": "<missing>",
+      "new": "2.3.2"
+    },
+    {
+      "key": "machine.scipy",
+      "old": "<missing>",
+      "new": "1.16.1"
+    },
+    {
+      "key": "machine_details.cpu",
+      "old": "Intel(R) Core(TM) Ultra 9 185H",
+      "new": "<missing>"
+    },
+    {
+      "key": "machine_details.note",
+      "old": "Recorded after the run on the same machine; platform, processor and Python strings match the 'machine' block written by the run.",
+      "new": "<missing>"
+    },
+    {
+      "key": "machine_details.numpy",
+      "old": "2.3.2",
+      "new": "<missing>"
+    },
+    {
+      "key": "machine_details.ram_gb",
+      "old": 63.4,
+      "new": "<missing>"
+    },
+    {
+      "key": "machine_details.scipy",
+      "old": "1.16.1",
+      "new": "<missing>"
+    },
+    {
+      "key": "main.awp.mean_s",
+      "old": 69.81881917999927,
+      "new": 72.05162160000182
+    },
+    {
+      "key": "main.awp.peak_mb",
+      "old": 2995.854383468628,
+      "new": 2995.8543272018433
+    },
+    {
+      "key": "main.awp.runs_s[0]",
+      "old": 70.80779540000003,
+      "new": 74.80925699998625
+    },
+    {
+      "key": "main.awp.runs_s[1]",
+      "old": 69.35743589999765,
+      "new": 73.01793950000138
+    },
+    {
+      "key": "main.awp.runs_s[2]",
+      "old": 73.21189840000079,
+      "new": 70.97206540001207
+    },
+    {
+      "key": "main.awp.runs_s[3]",
+      "old": 68.49132409999947,
+      "new": 67.16127710000728
+    },
+    {
+      "key": "main.awp.runs_s[4]",
+      "old": 67.22564209999837,
+      "new": 74.29756900000211
+    },
+    {
+      "key": "main.awp.sd_s",
+      "old": 2.3016703523562976,
+      "new": 3.108999594895359
+    },
+    {
+      "key": "main.cpr_l50.mean_s",
+      "old": 105.50697191999934,
+      "new": 95.18560391999782
+    },
+    {
+      "key": "main.cpr_l50.peak_mb",
+      "old": 4582.1991901397705,
+      "new": 4582.199108123779
+    },
+    {
+      "key": "main.cpr_l50.runs_s[0]",
+      "old": 102.66734500000166,
+      "new": 91.1709361999965
+    },
+    {
+      "key": "main.cpr_l50.runs_s[1]",
+      "old": 103.8529653000005,
+      "new": 88.9112169
+    },
+    {
+      "key": "main.cpr_l50.runs_s[2]",
+      "old": 107.4893095999978,
+      "new": 95.73989369999617
+    },
+    {
+      "key": "main.cpr_l50.runs_s[3]",
+      "old": 104.93373249999786,
+      "new": 91.56437009999354
+    },
+    {
+      "key": "main.cpr_l50.runs_s[4]",
+      "old": 108.59150719999889,
+      "new": 108.54160270000284
+    },
+    {
+      "key": "main.cpr_l50.sd_s",
+      "old": 2.4784996947509725,
+      "new": 7.862708889587397
+    },
+    {
+      "key": "main.endorserank.mean_s",
+      "old": 29.59637635999825,
+      "new": 25.616114860001836
+    },
+    {
+      "key": "main.endorserank.peak_mb",
+      "old": 1285.0397443771362,
+      "new": 1285.0394048690796
+    },
+    {
+      "key": "main.endorserank.runs_s[0]",
+      "old": 29.643786999997246,
+      "new": 25.594217200006824
+    },
+    {
+      "key": "main.endorserank.runs_s[1]",
+      "old": 30.20992699999988,
+      "new": 24.750355900003342
+    },
+    {
+      "key": "main.endorserank.runs_s[2]",
+      "old": 29.762150899998232,
+      "new": 24.454468500000075
+    },
+    {
+      "key": "main.endorserank.runs_s[3]",
+      "old": 29.784214699997392,
+      "new": 26.970139299999573
+    },
+    {
+      "key": "main.endorserank.runs_s[4]",
+      "old": 28.581802199998492,
+      "new": 26.31139339999936
+    },
+    {
+      "key": "main.endorserank.sd_s",
+      "old": 0.6063862883625786,
+      "new": 1.0507419738366488
+    },
+    {
+      "key": "main.spr.mean_s",
+      "old": 100.86119717999972,
+      "new": 100.72391023999953
+    },
+    {
+      "key": "main.spr.peak_mb",
+      "old": 3453.0610189437866,
+      "new": 3453.061131477356
+    },
+    {
+      "key": "main.spr.runs_s[0]",
+      "old": 107.13894680000158,
+      "new": 105.06528830000025
+    },
+    {
+      "key": "main.spr.runs_s[1]",
+      "old": 102.52978119999898,
+      "new": 101.83540300000459
+    },
+    {
+      "key": "main.spr.runs_s[2]",
+      "old": 94.95650169999863,
+      "new": 100.31236619999981
+    },
+    {
+      "key": "main.spr.runs_s[3]",
+      "old": 97.21543349999774,
+      "new": 91.40592730000208
+    },
+    {
+      "key": "main.spr.runs_s[4]",
+      "old": 102.4653227000017,
+      "new": 105.00056639999093
+    },
+    {
+      "key": "main.spr.sd_s",
+      "old": 4.819869114641986,
+      "new": 5.598369005637591
+    },
+    {
+      "key": "scaling[0].awp.mean_s",
+      "old": 2.6977134000007936,
+      "new": 3.874297080002725
+    },
+    {
+      "key": "scaling[0].awp.peak_mb",
+      "old": 126.76470184326172,
+      "new": 126.76458930969238
+    },
+    {
+      "key": "scaling[0].awp.runs_s[0]",
+      "old": 2.6061227999998664,
+      "new": 3.3566293999901973
+    },
+    {
+      "key": "scaling[0].awp.runs_s[1]",
+      "old": 2.6877582000015536,
+      "new": 5.674392700006138
+    },
+    {
+      "key": "scaling[0].awp.runs_s[2]",
+      "old": 2.9041692999999213,
+      "new": 3.510802600008901
+    },
+    {
+      "key": "scaling[0].awp.runs_s[3]",
+      "old": 2.615672900003119,
+      "new": 3.360454399997252
+    },
+    {
+      "key": "scaling[0].awp.runs_s[4]",
+      "old": 2.6748437999995076,
+      "new": 3.4692063000111375
+    },
+    {
+      "key": "scaling[0].awp.sd_s",
+      "old": 0.12079491390792474,
+      "new": 1.0085367054426433
+    },
+    {
+      "key": "scaling[0].endorserank.mean_s",
+      "old": 0.16579445999959716,
+      "new": 0.25847715999989307
+    },
+    {
+      "key": "scaling[0].endorserank.peak_mb",
+      "old": 17.386205673217773,
+      "new": 17.38603687286377
+    },
+    {
+      "key": "scaling[0].endorserank.runs_s[0]",
+      "old": 0.16780480000306852,
+      "new": 0.23846370000683237
+    },
+    {
+      "key": "scaling[0].endorserank.runs_s[1]",
+      "old": 0.16576069999791798,
+      "new": 0.24334639999142382
+    },
+    {
+      "key": "scaling[0].endorserank.runs_s[2]",
+      "old": 0.16588489999776357,
+      "new": 0.2938692000025185
+    },
+    {
+      "key": "scaling[0].endorserank.runs_s[3]",
+      "old": 0.1677343999981531,
+      "new": 0.2654160999954911
+    },
+    {
+      "key": "scaling[0].endorserank.runs_s[4]",
+      "old": 0.16178750000108266,
+      "new": 0.25129040000319947
+    },
+    {
+      "key": "scaling[0].endorserank.sd_s",
+      "old": 0.0024428406460630754,
+      "new": 0.022259118257400474
+    },
+    {
+      "key": "scaling[1].awp.mean_s",
+      "old": 6.922494879998704,
+      "new": 7.742784579997533
+    },
+    {
+      "key": "scaling[1].awp.peak_mb",
+      "old": 237.28525066375732,
+      "new": 237.285138130188
+    },
+    {
+      "key": "scaling[1].awp.runs_s[0]",
+      "old": 7.069862399999693,
+      "new": 9.757144799994421
+    },
+    {
+      "key": "scaling[1].awp.runs_s[1]",
+      "old": 6.687879399996746,
+      "new": 9.951009799988242
+    },
+    {
+      "key": "scaling[1].awp.runs_s[2]",
+      "old": 6.781827599999815,
+      "new": 6.72698870000022
+    },
+    {
+      "key": "scaling[1].awp.runs_s[3]",
+      "old": 7.305877299997519,
+      "new": 6.089908699999796
+    },
+    {
+      "key": "scaling[1].awp.runs_s[4]",
+      "old": 6.767027699999744,
+      "new": 6.188870900004986
+    },
+    {
+      "key": "scaling[1].awp.sd_s",
+      "old": 0.2586991578508972,
+      "new": 1.9437330955840308
+    },
+    {
+      "key": "scaling[1].endorserank.mean_s",
+      "old": 0.9569889399994281,
+      "new": 1.3786756199988304
+    },
+    {
+      "key": "scaling[1].endorserank.peak_mb",
+      "old": 65.61747455596924,
+      "new": 65.61741828918457
+    },
+    {
+      "key": "scaling[1].endorserank.runs_s[0]",
+      "old": 0.9417262999995728,
+      "new": 1.534638700002688
+    },
+    {
+      "key": "scaling[1].endorserank.runs_s[1]",
+      "old": 0.9527611000012257,
+      "new": 1.3931551999994554
+    },
+    {
+      "key": "scaling[1].endorserank.runs_s[2]",
+      "old": 0.9655249999996158,
+      "new": 1.312881899997592
+    },
+    {
+      "key": "scaling[1].endorserank.runs_s[3]",
+      "old": 0.9807249999976193,
+      "new": 1.4277614000020549
+    },
+    {
+      "key": "scaling[1].endorserank.runs_s[4]",
+      "old": 0.9442072999991069,
+      "new": 1.2249408999923617
+    },
+    {
+      "key": "scaling[1].endorserank.sd_s",
+      "old": 0.016205384880325517,
+      "new": 0.11716092788007211
+    },
+    {
+      "key": "scaling[2].awp.mean_s",
+      "old": 14.514120740000362,
+      "new": 13.438355980001507
+    },
+    {
+      "key": "scaling[2].awp.peak_mb",
+      "old": 902.5685453414917,
+      "new": 902.568320274353
+    },
+    {
+      "key": "scaling[2].awp.runs_s[0]",
+      "old": 14.639601099999709,
+      "new": 13.241829600010533
+    },
+    {
+      "key": "scaling[2].awp.runs_s[1]",
+      "old": 14.840967600001022,
+      "new": 13.797147599994787
+    },
+    {
+      "key": "scaling[2].awp.runs_s[2]",
+      "old": 14.18416690000231,
+      "new": 13.25519379999605
+    },
+    {
+      "key": "scaling[2].awp.runs_s[3]",
+      "old": 14.593642399999226,
+      "new": 13.547305100000813
+    },
+    {
+      "key": "scaling[2].awp.runs_s[4]",
+      "old": 14.312225699999544,
+      "new": 13.35030380000535
+    },
+    {
+      "key": "scaling[2].awp.sd_s",
+      "old": 0.2638792473619437,
+      "new": 0.2348007271841429
+    },
+    {
+      "key": "scaling[2].endorserank.mean_s",
+      "old": 4.459532620001118,
+      "new": 4.3191085400030715
+    },
+    {
+      "key": "scaling[2].endorserank.peak_mb",
+      "old": 348.4075679779053,
+      "new": 348.4075117111206
+    },
+    {
+      "key": "scaling[2].endorserank.runs_s[0]",
+      "old": 4.718119100001786,
+      "new": 4.259379900002386
+    },
+    {
+      "key": "scaling[2].endorserank.runs_s[1]",
+      "old": 4.520649500002037,
+      "new": 4.285292100001243
+    },
+    {
+      "key": "scaling[2].endorserank.runs_s[2]",
+      "old": 4.262987999998586,
+      "new": 4.290024500005529
+    },
+    {
+      "key": "scaling[2].endorserank.runs_s[3]",
+      "old": 4.25364350000018,
+      "new": 4.297597800003132
+    },
+    {
+      "key": "scaling[2].endorserank.runs_s[4]",
+      "old": 4.542263000003004,
+      "new": 4.463248400003067
+    },
+    {
+      "key": "scaling[2].endorserank.sd_s",
+      "old": 0.19903936408543624,
+      "new": 0.081847349696662
+    },
+    {
+      "key": "scaling[3].awp.mean_s",
+      "old": 21.589134259999263,
+      "new": 21.170310260000406
+    },
+    {
+      "key": "scaling[3].awp.peak_mb",
+      "old": 1181.5843439102173,
+      "new": 1181.5842876434326
+    },
+    {
+      "key": "scaling[3].awp.runs_s[0]",
+      "old": 20.986157299998013,
+      "new": 23.084391800002777
+    },
+    {
+      "key": "scaling[3].awp.runs_s[1]",
+      "old": 22.03660210000089,
+      "new": 21.23735929999384
+    },
+    {
+      "key": "scaling[3].awp.runs_s[2]",
+      "old": 21.04589599999963,
+      "new": 20.137479400000302
+    },
+    {
+      "key": "scaling[3].awp.runs_s[3]",
+      "old": 22.385365300000558,
+      "new": 20.823746900001424
+    },
+    {
+      "key": "scaling[3].awp.runs_s[4]",
+      "old": 21.49165059999723,
+      "new": 20.568573900003685
+    },
+    {
+      "key": "scaling[3].awp.sd_s",
+      "old": 0.6128628358540836,
+      "new": 1.1420525502736654
+    },
+    {
+      "key": "scaling[3].endorserank.mean_s",
+      "old": 7.095548959999723,
+      "new": 6.8160554200032495
+    },
+    {
+      "key": "scaling[3].endorserank.peak_mb",
+      "old": 476.2585029602051,
+      "new": 476.25839042663574
+    },
+    {
+      "key": "scaling[3].endorserank.runs_s[0]",
+      "old": 7.063581800000975,
+      "new": 6.816359999997076
+    },
+    {
+      "key": "scaling[3].endorserank.runs_s[1]",
+      "old": 7.000192599996808,
+      "new": 7.012484699997003
+    },
+    {
+      "key": "scaling[3].endorserank.runs_s[2]",
+      "old": 6.931229900001199,
+      "new": 6.698862900011591
+    },
+    {
+      "key": "scaling[3].endorserank.runs_s[3]",
+      "old": 7.264783200000238,
+      "new": 6.732701200002339
+    },
+    {
+      "key": "scaling[3].endorserank.runs_s[4]",
+      "old": 7.217957299999398,
+      "new": 6.819868300008238
+    },
+    {
+      "key": "scaling[3].endorserank.sd_s",
+      "old": 0.1420735002386244,
+      "new": 0.12173855756879694
+    },
+    {
+      "key": "scaling[4].awp.mean_s",
+      "old": 52.00379355999903,
+      "new": 51.607509700005174
+    },
+    {
+      "key": "scaling[4].awp.peak_mb",
+      "old": 2642.965202331543,
+      "new": 2642.9650897979736
+    },
+    {
+      "key": "scaling[4].awp.runs_s[0]",
+      "old": 51.61848739999914,
+      "new": 49.30866280000191
+    },
+    {
+      "key": "scaling[4].awp.runs_s[1]",
+      "old": 52.408105099999375,
+      "new": 49.71894550000434
+    },
+    {
+      "key": "scaling[4].awp.runs_s[2]",
+      "old": 53.02941659999851,
+      "new": 52.97676140000112
+    },
+    {
+      "key": "scaling[4].awp.runs_s[3]",
+      "old": 52.024439099997835,
+      "new": 55.80049560000771
+    },
+    {
+      "key": "scaling[4].awp.runs_s[4]",
+      "old": 50.93851960000029,
+      "new": 50.2326832000108
+    },
+    {
+      "key": "scaling[4].awp.sd_s",
+      "old": 0.790421742910443,
+      "new": 2.747612631350535
+    },
+    {
+      "key": "scaling[4].endorserank.mean_s",
+      "old": 16.28497764000131,
+      "new": 16.53089981999947
+    },
+    {
+      "key": "scaling[4].endorserank.peak_mb",
+      "old": 984.4299917221069,
+      "new": 984.4300479888916
+    },
+    {
+      "key": "scaling[4].endorserank.runs_s[0]",
+      "old": 16.29673980000007,
+      "new": 16.38315490000241
+    },
+    {
+      "key": "scaling[4].endorserank.runs_s[1]",
+      "old": 16.09845640000276,
+      "new": 16.193137900001602
+    },
+    {
+      "key": "scaling[4].endorserank.runs_s[2]",
+      "old": 16.453487500002666,
+      "new": 15.870226699989871
+    },
+    {
+      "key": "scaling[4].endorserank.runs_s[3]",
+      "old": 16.585945700000593,
+      "new": 16.199279799999204
+    },
+    {
+      "key": "scaling[4].endorserank.runs_s[4]",
+      "old": 15.990258800000447,
+      "new": 18.00869980000425
+    },
+    {
+      "key": "scaling[4].endorserank.sd_s",
+      "old": 0.24533908274431934,
+      "new": 0.846502401954051
+    },
+    {
+      "key": "scaling[5].awp.mean_s",
+      "old": 69.81881917999927,
+      "new": 72.05162160000182
+    },
+    {
+      "key": "scaling[5].awp.peak_mb",
+      "old": 2995.854383468628,
+      "new": 2995.8543272018433
+    },
+    {
+      "key": "scaling[5].awp.runs_s[0]",
+      "old": 70.80779540000003,
+      "new": 74.80925699998625
+    },
+    {
+      "key": "scaling[5].awp.runs_s[1]",
+      "old": 69.35743589999765,
+      "new": 73.01793950000138
+    },
+    {
+      "key": "scaling[5].awp.runs_s[2]",
+      "old": 73.21189840000079,
+      "new": 70.97206540001207
+    },
+    {
+      "key": "scaling[5].awp.runs_s[3]",
+      "old": 68.49132409999947,
+      "new": 67.16127710000728
+    },
+    {
+      "key": "scaling[5].awp.runs_s[4]",
+      "old": 67.22564209999837,
+      "new": 74.29756900000211
+    },
+    {
+      "key": "scaling[5].awp.sd_s",
+      "old": 2.3016703523562976,
+      "new": 3.108999594895359
+    },
+    {
+      "key": "scaling[5].endorserank.mean_s",
+      "old": 29.59637635999825,
+      "new": 25.616114860001836
+    },
+    {
+      "key": "scaling[5].endorserank.peak_mb",
+      "old": 1285.0397443771362,
+      "new": 1285.0394048690796
+    },
+    {
+      "key": "scaling[5].endorserank.runs_s[0]",
+      "old": 29.643786999997246,
+      "new": 25.594217200006824
+    },
+    {
+      "key": "scaling[5].endorserank.runs_s[1]",
+      "old": 30.20992699999988,
+      "new": 24.750355900003342
+    },
+    {
+      "key": "scaling[5].endorserank.runs_s[2]",
+      "old": 29.762150899998232,
+      "new": 24.454468500000075
+    },
+    {
+      "key": "scaling[5].endorserank.runs_s[3]",
+      "old": 29.784214699997392,
+      "new": 26.970139299999573
+    },
+    {
+      "key": "scaling[5].endorserank.runs_s[4]",
+      "old": 28.581802199998492,
+      "new": 26.31139339999936
+    },
+    {
+      "key": "scaling[5].endorserank.sd_s",
+      "old": 0.6063862883625786,
+      "new": 1.0507419738366488
+    }
+  ],
+  "soft": []
+}

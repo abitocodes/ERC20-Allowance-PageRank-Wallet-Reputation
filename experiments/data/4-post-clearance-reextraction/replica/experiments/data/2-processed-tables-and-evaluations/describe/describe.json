@@ -1,0 +1,763 @@
+{
+  "monthly_counts": [
+    {
+      "month": "2023-10",
+      "stream": "approval_ego",
+      "n": 6550552
+    },
+    {
+      "month": "2023-11",
+      "stream": "approval_ego",
+      "n": 8249843
+    },
+    {
+      "month": "2023-12",
+      "stream": "approval_ego",
+      "n": 8295650
+    },
+    {
+      "month": "2024-01",
+      "stream": "approval_ego",
+      "n": 10121473
+    },
+    {
+      "month": "2024-02",
+      "stream": "approval_ego",
+      "n": 7735239
+    },
+    {
+      "month": "2024-03",
+      "stream": "approval_ego",
+      "n": 12757917
+    },
+    {
+      "month": "2024-04",
+      "stream": "approval_ego",
+      "n": 23625463
+    },
+    {
+      "month": "2024-05",
+      "stream": "approval_ego",
+      "n": 20926464
+    },
+    {
+      "month": "2024-06",
+      "stream": "approval_ego",
+      "n": 14438650
+    },
+    {
+      "month": "2024-07",
+      "stream": "approval_ego",
+      "n": 15293846
+    },
+    {
+      "month": "2024-08",
+      "stream": "approval_ego",
+      "n": 13937402
+    },
+    {
+      "month": "2024-09",
+      "stream": "approval_ego",
+      "n": 10047990
+    },
+    {
+      "month": "2024-10",
+      "stream": "approval_ego",
+      "n": 10616817
+    },
+    {
+      "month": "2024-11",
+      "stream": "approval_ego",
+      "n": 12370652
+    },
+    {
+      "month": "2024-12",
+      "stream": "approval_ego",
+      "n": 14754155
+    },
+    {
+      "month": "2025-01",
+      "stream": "approval_ego",
+      "n": 11283677
+    },
+    {
+      "month": "2025-02",
+      "stream": "approval_ego",
+      "n": 9026269
+    },
+    {
+      "month": "2025-03",
+      "stream": "approval_ego",
+      "n": 12696548
+    },
+    {
+      "month": "2025-04",
+      "stream": "approval_ego",
+      "n": 10617469
+    },
+    {
+      "month": "2025-05",
+      "stream": "approval_ego",
+      "n": 10655513
+    },
+    {
+      "month": "2025-06",
+      "stream": "approval_ego",
+      "n": 10065624
+    },
+    {
+      "month": "2025-07",
+      "stream": "approval_ego",
+      "n": 12522333
+    },
+    {
+      "month": "2025-08",
+      "stream": "approval_ego",
+      "n": 16674579
+    },
+    {
+      "month": "2025-09",
+      "stream": "approval_ego",
+      "n": 12814948
+    },
+    {
+      "month": "2025-10",
+      "stream": "approval_ego",
+      "n": 13897714
+    },
+    {
+      "month": "2025-11",
+      "stream": "approval_ego",
+      "n": 11139720
+    },
+    {
+      "month": "2025-12",
+      "stream": "approval_ego",
+      "n": 17247237
+    },
+    {
+      "month": "2026-01",
+      "stream": "approval_ego",
+      "n": 11262167
+    },
+    {
+      "month": "2026-02",
+      "stream": "approval_ego",
+      "n": 9912123
+    },
+    {
+      "month": "2026-03",
+      "stream": "approval_ego",
+      "n": 9034662
+    },
+    {
+      "month": "2026-04",
+      "stream": "approval_ego",
+      "n": 6869236
+    },
+    {
+      "month": "2026-05",
+      "stream": "approval_ego",
+      "n": 5677394
+    },
+    {
+      "month": "2026-06",
+      "stream": "approval_ego",
+      "n": 8747556
+    },
+    {
+      "month": "2023-10",
+      "stream": "logs_G",
+      "n": 49527
+    },
+    {
+      "month": "2023-11",
+      "stream": "logs_G",
+      "n": 32832
+    },
+    {
+      "month": "2023-12",
+      "stream": "logs_G",
+      "n": 38266
+    },
+    {
+      "month": "2024-01",
+      "stream": "logs_G",
+      "n": 45244
+    },
+    {
+      "month": "2024-02",
+      "stream": "logs_G",
+      "n": 36572
+    },
+    {
+      "month": "2024-03",
+      "stream": "logs_G",
+      "n": 58183
+    },
+    {
+      "month": "2024-04",
+      "stream": "logs_G",
+      "n": 62113
+    },
+    {
+      "month": "2024-05",
+      "stream": "logs_G",
+      "n": 41584
+    },
+    {
+      "month": "2024-06",
+      "stream": "logs_G",
+      "n": 37592
+    },
+    {
+      "month": "2024-07",
+      "stream": "logs_G",
+      "n": 60369
+    },
+    {
+      "month": "2024-08",
+      "stream": "logs_G",
+      "n": 59675
+    },
+    {
+      "month": "2024-09",
+      "stream": "logs_G",
+      "n": 56010
+    },
+    {
+      "month": "2024-10",
+      "stream": "logs_G",
+      "n": 60616
+    },
+    {
+      "month": "2024-11",
+      "stream": "logs_G",
+      "n": 100758
+    },
+    {
+      "month": "2024-12",
+      "stream": "logs_G",
+      "n": 89671
+    },
+    {
+      "month": "2025-01",
+      "stream": "logs_G",
+      "n": 74619
+    },
+    {
+      "month": "2025-02",
+      "stream": "logs_G",
+      "n": 74068
+    },
+    {
+      "month": "2025-03",
+      "stream": "logs_G",
+      "n": 78398
+    },
+    {
+      "month": "2025-04",
+      "stream": "logs_G",
+      "n": 81774
+    },
+    {
+      "month": "2025-05",
+      "stream": "logs_G",
+      "n": 85790
+    },
+    {
+      "month": "2025-06",
+      "stream": "logs_G",
+      "n": 71209
+    },
+    {
+      "month": "2025-07",
+      "stream": "logs_G",
+      "n": 107619
+    },
+    {
+      "month": "2025-08",
+      "stream": "logs_G",
+      "n": 110509
+    },
+    {
+      "month": "2025-09",
+      "stream": "logs_G",
+      "n": 86605
+    },
+    {
+      "month": "2025-10",
+      "stream": "logs_G",
+      "n": 107090
+    },
+    {
+      "month": "2025-11",
+      "stream": "logs_G",
+      "n": 86534
+    },
+    {
+      "month": "2025-12",
+      "stream": "logs_G",
+      "n": 57240
+    },
+    {
+      "month": "2026-01",
+      "stream": "logs_G",
+      "n": 68537
+    },
+    {
+      "month": "2026-02",
+      "stream": "logs_G",
+      "n": 66692
+    },
+    {
+      "month": "2026-03",
+      "stream": "logs_G",
+      "n": 59968
+    },
+    {
+      "month": "2026-04",
+      "stream": "logs_G",
+      "n": 53554
+    },
+    {
+      "month": "2026-05",
+      "stream": "logs_G",
+      "n": 59497
+    },
+    {
+      "month": "2026-06",
+      "stream": "logs_G",
+      "n": 59969
+    },
+    {
+      "month": "2023-10",
+      "stream": "logs_V",
+      "n": 32453
+    },
+    {
+      "month": "2023-11",
+      "stream": "logs_V",
+      "n": 33083
+    },
+    {
+      "month": "2023-12",
+      "stream": "logs_V",
+      "n": 36634
+    },
+    {
+      "month": "2024-01",
+      "stream": "logs_V",
+      "n": 40702
+    },
+    {
+      "month": "2024-02",
+      "stream": "logs_V",
+      "n": 47914
+    },
+    {
+      "month": "2024-03",
+      "stream": "logs_V",
+      "n": 71972
+    },
+    {
+      "month": "2024-04",
+      "stream": "logs_V",
+      "n": 67540
+    },
+    {
+      "month": "2024-05",
+      "stream": "logs_V",
+      "n": 67471
+    },
+    {
+      "month": "2024-06",
+      "stream": "logs_V",
+      "n": 72879
+    },
+    {
+      "month": "2024-07",
+      "stream": "logs_V",
+      "n": 100779
+    },
+    {
+      "month": "2024-08",
+      "stream": "logs_V",
+      "n": 106157
+    },
+    {
+      "month": "2024-09",
+      "stream": "logs_V",
+      "n": 64090
+    },
+    {
+      "month": "2024-10",
+      "stream": "logs_V",
+      "n": 71934
+    },
+    {
+      "month": "2024-11",
+      "stream": "logs_V",
+      "n": 126733
+    },
+    {
+      "month": "2024-12",
+      "stream": "logs_V",
+      "n": 123755
+    },
+    {
+      "month": "2025-01",
+      "stream": "logs_V",
+      "n": 93449
+    },
+    {
+      "month": "2025-02",
+      "stream": "logs_V",
+      "n": 108761
+    },
+    {
+      "month": "2025-03",
+      "stream": "logs_V",
+      "n": 107565
+    },
+    {
+      "month": "2025-04",
+      "stream": "logs_V",
+      "n": 89350
+    },
+    {
+      "month": "2025-05",
+      "stream": "logs_V",
+      "n": 95917
+    },
+    {
+      "month": "2025-06",
+      "stream": "logs_V",
+      "n": 84103
+    },
+    {
+      "month": "2025-07",
+      "stream": "logs_V",
+      "n": 134233
+    },
+    {
+      "month": "2025-08",
+      "stream": "logs_V",
+      "n": 142520
+    },
+    {
+      "month": "2025-09",
+      "stream": "logs_V",
+      "n": 95443
+    },
+    {
+      "month": "2025-10",
+      "stream": "logs_V",
+      "n": 120416
+    },
+    {
+      "month": "2025-11",
+      "stream": "logs_V",
+      "n": 106996
+    },
+    {
+      "month": "2025-12",
+      "stream": "logs_V",
+      "n": 56628
+    },
+    {
+      "month": "2026-01",
+      "stream": "logs_V",
+      "n": 64924
+    },
+    {
+      "month": "2026-02",
+      "stream": "logs_V",
+      "n": 75968
+    },
+    {
+      "month": "2026-03",
+      "stream": "logs_V",
+      "n": 55451
+    },
+    {
+      "month": "2026-04",
+      "stream": "logs_V",
+      "n": 41395
+    },
+    {
+      "month": "2026-05",
+      "stream": "logs_V",
+      "n": 37703
+    },
+    {
+      "month": "2026-06",
+      "stream": "logs_V",
+      "n": 58228
+    },
+    {
+      "month": "2023-10",
+      "stream": "transfer_ego",
+      "n": 14300580
+    },
+    {
+      "month": "2023-11",
+      "stream": "transfer_ego",
+      "n": 19268431
+    },
+    {
+      "month": "2023-12",
+      "stream": "transfer_ego",
+      "n": 20124810
+    },
+    {
+      "month": "2024-01",
+      "stream": "transfer_ego",
+      "n": 25891066
+    },
+    {
+      "month": "2024-02",
+      "stream": "transfer_ego",
+      "n": 20149012
+    },
+    {
+      "month": "2024-03",
+      "stream": "transfer_ego",
+      "n": 36580294
+    },
+    {
+      "month": "2024-04",
+      "stream": "transfer_ego",
+      "n": 61441344
+    },
+    {
+      "month": "2024-05",
+      "stream": "transfer_ego",
+      "n": 47956506
+    },
+    {
+      "month": "2024-06",
+      "stream": "transfer_ego",
+      "n": 39909928
+    },
+    {
+      "month": "2024-07",
+      "stream": "transfer_ego",
+      "n": 51109579
+    },
+    {
+      "month": "2024-08",
+      "stream": "transfer_ego",
+      "n": 56517663
+    },
+    {
+      "month": "2024-09",
+      "stream": "transfer_ego",
+      "n": 40576538
+    },
+    {
+      "month": "2024-10",
+      "stream": "transfer_ego",
+      "n": 45102719
+    },
+    {
+      "month": "2024-11",
+      "stream": "transfer_ego",
+      "n": 63978880
+    },
+    {
+      "month": "2024-12",
+      "stream": "transfer_ego",
+      "n": 63416248
+    },
+    {
+      "month": "2025-01",
+      "stream": "transfer_ego",
+      "n": 55093057
+    },
+    {
+      "month": "2025-02",
+      "stream": "transfer_ego",
+      "n": 55205950
+    },
+    {
+      "month": "2025-03",
+      "stream": "transfer_ego",
+      "n": 60153290
+    },
+    {
+      "month": "2025-04",
+      "stream": "transfer_ego",
+      "n": 55610632
+    },
+    {
+      "month": "2025-05",
+      "stream": "transfer_ego",
+      "n": 68388497
+    },
+    {
+      "month": "2025-06",
+      "stream": "transfer_ego",
+      "n": 56826671
+    },
+    {
+      "month": "2025-07",
+      "stream": "transfer_ego",
+      "n": 64444756
+    },
+    {
+      "month": "2025-08",
+      "stream": "transfer_ego",
+      "n": 67702627
+    },
+    {
+      "month": "2025-09",
+      "stream": "transfer_ego",
+      "n": 49695846
+    },
+    {
+      "month": "2025-10",
+      "stream": "transfer_ego",
+      "n": 59438422
+    },
+    {
+      "month": "2025-11",
+      "stream": "transfer_ego",
+      "n": 53361692
+    },
+    {
+      "month": "2025-12",
+      "stream": "transfer_ego",
+      "n": 57949683
+    },
+    {
+      "month": "2026-01",
+      "stream": "transfer_ego",
+      "n": 62732053
+    },
+    {
+      "month": "2026-02",
+      "stream": "transfer_ego",
+      "n": 41069636
+    },
+    {
+      "month": "2026-03",
+      "stream": "transfer_ego",
+      "n": 33959783
+    },
+    {
+      "month": "2026-04",
+      "stream": "transfer_ego",
+      "n": 28192517
+    },
+    {
+      "month": "2026-05",
+      "stream": "transfer_ego",
+      "n": 26591803
+    },
+    {
+      "month": "2026-06",
+      "stream": "transfer_ego",
+      "n": 35663554
+    }
+  ],
+  "amounts": {
+    "transfers_ego": 1538404067,
+    "transfers_ge10_share": 0.9952067482411303,
+    "latest_allowances_tobs": 28069418,
+    "allowances_ge10_share": 0.9978274932526211,
+    "unlimited_allowances": 12701544,
+    "unlimited_share": 0.4525047152741108,
+    "owners": 13029306,
+    "owners_with_unlimited": 5798712,
+    "owners_with_both_kinds": 1532301
+  },
+  "gmx_contract_traders_by_quarter": [
+    {
+      "quarter": "2023Q4",
+      "closes": 1119,
+      "accounts": 180,
+      "liquidations": 104
+    },
+    {
+      "quarter": "2024Q1",
+      "closes": 7956,
+      "accounts": 1247,
+      "liquidations": 692
+    },
+    {
+      "quarter": "2024Q2",
+      "closes": 11509,
+      "accounts": 2120,
+      "liquidations": 589
+    },
+    {
+      "quarter": "2024Q3",
+      "closes": 7947,
+      "accounts": 1807,
+      "liquidations": 456
+    },
+    {
+      "quarter": "2024Q4",
+      "closes": 7343,
+      "accounts": 1321,
+      "liquidations": 904
+    },
+    {
+      "quarter": "2025Q1",
+      "closes": 6929,
+      "accounts": 497,
+      "liquidations": 498
+    },
+    {
+      "quarter": "2025Q2",
+      "closes": 12080,
+      "accounts": 368,
+      "liquidations": 379
+    },
+    {
+      "quarter": "2025Q3",
+      "closes": 28753,
+      "accounts": 1750,
+      "liquidations": 897
+    },
+    {
+      "quarter": "2025Q4",
+      "closes": 40240,
+      "accounts": 1915,
+      "liquidations": 1596
+    },
+    {
+      "quarter": "2026Q1",
+      "closes": 6026,
+      "accounts": 269,
+      "liquidations": 233
+    },
+    {
+      "quarter": "2026Q2",
+      "closes": 3783,
+      "accounts": 169,
+      "liquidations": 125
+    },
+    {
+      "quarter": "2026Q3",
+      "closes": 6805,
+      "accounts": 165,
+      "liquidations": 182
+    }
+  ],
+  "timing": {
+    "plan_commit_43d8045_utc": "2026-10-09T13:41:27+00:00",
+    "scan_a": {
+      "created": "2026-11-21T17:47:26+00:00",
+      "ended": "2026-11-21T17:48:03+00:00"
+    },
+    "registration_commit_0d3a057_utc": "2026-10-09T16:49:32+00:00",
+    "scan_b": {
+      "created": "2026-11-21T17:48:10+00:00",
+      "ended": "2026-11-21T17:48:23+00:00"
+    },
+    "bigquery_usd_total": 44.3,
+    "bigquery_tib_billed": 7.088
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "rpc": "arbitrum-one.public.blastapi.io",
+  "block_number": 513233527,
+  "block_hex": "0x1e975277",
+  "read_at": "2026-11-21T18:28:58+00:00",
+  "pinned_requested": 513233527,
+  "pinned_served": true,
+  "served_by": [
+    "arbitrum-one.public.blastapi.io"
+  ],
+  "resume_key": {
+    "script_sha256": "0b28e563f338b29e29a7a553f4633aa492ac2394b1efe234cda30bf2ed8e0746",
+    "rules_sha256": "0bd9c8f618cd46d7315cc713616be5d1d842823068b5c0116178745635abbe24",
+    "input_sha256": "9867ad39ceb0b96dd851a3868cb5c7e470cfa7fa7b47bee2b8ab2e429ab4a8bf",
+    "input_n": 8224
+  },
+  "counts": {
+    "contract": 7792,
+    "none": 413,
+    "eip7702": 19
+  },
+  "n": 8224,
+  "counts_account_class": {
+    "contract": 7792,
+    "eoa": 413,
+    "eoa_7702": 19
+  },
+  "rpc_calls": {
+    "arbitrum-one.public.blastapi.io": 13375
+  },
+  "complete": true,
+  "updated_at": "2026-11-21T18:31:01+00:00"
+}

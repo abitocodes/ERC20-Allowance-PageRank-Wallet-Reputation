@@ -1,0 +1,1100 @@
+{
+  "window": "t1",
+  "U": 332396,
+  "E_U": 1283946,
+  "WCC": 1015867,
+  "E_WCC": 2121895,
+  "rho": 0.02,
+  "q": 0.01,
+  "primary_mode": "both",
+  "stopped": true,
+  "struct_rows": 2562930,
+  "duplicate_rows": 0,
+  "layers": {
+    "allow_capped": {
+      "edges": 17905,
+      "nodes": 12007,
+      "self_loops": 35
+    },
+    "allow_uncapped": {
+      "edges": 275762,
+      "nodes": 224785,
+      "self_loops": 155
+    },
+    "transfer": {
+      "edges": 2257643,
+      "nodes": 1110768,
+      "self_loops": 11430
+    }
+  },
+  "union": {
+    "layers": [
+      "allow_capped",
+      "transfer"
+    ],
+    "nodes": 1111554,
+    "edges": 2269421
+  },
+  "bow_tie": {
+    "scc": 222592,
+    "in": 169237,
+    "out": 109804,
+    "other": 609921
+  },
+  "sizes": {
+    "U": 332396,
+    "E_U": 1283946,
+    "WCC": 1015867,
+    "E_WCC": 2121895
+  },
+  "layer_edges_within": {
+    "U": {
+      "allow_capped": 14604,
+      "allow_uncapped": 109599,
+      "transfer": 1274302
+    },
+    "WCC": {
+      "allow_capped": 17712,
+      "allow_uncapped": 169062,
+      "transfer": 2110216
+    }
+  },
+  "capped_allowance_in_edge_share": {
+    "U": 0.005379126102600513,
+    "U_from_U": 0.005255779251254528
+  },
+  "node_types": {
+    "contract": 1125208
+  },
+  "system_addresses": 0,
+  "coverage": {
+    "w0_cohort": {
+      "members": 6343,
+      "contracts": 6292,
+      "user_accounts": 51,
+      "untyped": 0,
+      "covered": {
+        "allow_capped": {
+          "n": 1244,
+          "share": 0.19771137952956136
+        },
+        "allow_uncapped": {
+          "n": 3210,
+          "share": 0.5101716465352829
+        },
+        "transfer": {
+          "n": 3893,
+          "share": 0.618722186904005
+        },
+        "union": {
+          "n": 4108,
+          "share": 0.6528925619834711
+        },
+        "U": {
+          "n": 2735,
+          "share": 0.43467895740623014
+        },
+        "WCC": {
+          "n": 3632,
+          "share": 0.5772409408773045
+        }
+      }
+    },
+    "w0_spenders": {
+      "members": 7962,
+      "contracts": 7864,
+      "user_accounts": 98,
+      "untyped": 0,
+      "covered": {
+        "allow_capped": {
+          "n": 1897,
+          "share": 0.24122583926754831
+        },
+        "allow_uncapped": {
+          "n": 4970,
+          "share": 0.6319938962360122
+        },
+        "transfer": {
+          "n": 5443,
+          "share": 0.6921414038657172
+        },
+        "union": {
+          "n": 5700,
+          "share": 0.724821973550356
+        },
+        "U": {
+          "n": 3908,
+          "share": 0.4969481180061038
+        },
+        "WCC": {
+          "n": 5135,
+          "share": 0.6529755849440488
+        }
+      }
+    }
+  },
+  "account_types": {
+    "queue": {
+      "rows": 6230270,
+      "account_class": {
+        "contract": 1829719,
+        "eoa": 2909509,
+        "eoa_7702": 1165025,
+        "smart_account": 326017
+      },
+      "wallet_kind": {
+        "": 5904253,
+        "erc4337": 279813,
+        "safe": 46204
+      },
+      "proxy_kind": {
+        "eip1167": 503516,
+        "erc1967": 524454,
+        "none": 5156938,
+        "safe": 45362
+      }
+    },
+    "union_nodes": {
+      "nodes": 1111554,
+      "untyped": 0,
+      "account_class": {
+        "contract": 1111554
+      },
+      "wallet_kind": {
+        "": 1111554
+      },
+      "proxy_kind": {
+        "eip1167": 310786,
+        "erc1967": 126664,
+        "none": 674042,
+        "safe": 62
+      }
+    }
+  },
+  "code_families": {
+    "contracts": 1111554,
+    "groups": 488177,
+    "largest": [
+      {
+        "code_hash": "0x4f406a4f1e60d1b54a33f9a5f2bf059515a967a83974e2c427a510efbb886259",
+        "n": 86860,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x8db6c8b7a085c3839e93eb8dad45b93fb1ef5836",
+        "entry_points": {
+          "": 86860
+        }
+      },
+      {
+        "code_hash": "0xaee79c3ab727d2040018f3741cc3dbf859d92afc0c2e9927af34c1b937082e4f",
+        "n": 48318,
+        "code_size": 145,
+        "proxy_kind": "erc1967",
+        "implementation": "0x2829710ce5e7490cef38ed2b10a57129fc4a6db7",
+        "entry_points": {
+          "": 48318
+        }
+      },
+      {
+        "code_hash": "0x0b3b3056798d4da69308d3516f17f50fc924d043227a7b502e5c0906c4af1f8b",
+        "n": 43227,
+        "code_size": 145,
+        "proxy_kind": "erc1967",
+        "implementation": "0xc17276de9be596c826c112121f8489057c76f44a",
+        "entry_points": {
+          "": 43227
+        }
+      },
+      {
+        "code_hash": "0x9875a463d7403ad5407629ef74c2c0ab29952053a6a6d146d8435a0638b48115",
+        "n": 40907,
+        "code_size": 2261,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 40907
+        }
+      },
+      {
+        "code_hash": "0x1cab7e5497186cb1cd79d8593dde0497af986fa4653e77cc7a6d30a4064e7612",
+        "n": 38561,
+        "code_size": 75,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 38561
+        }
+      },
+      {
+        "code_hash": "0x6212a40e08b543eafa39894ffd0a04587565e8328e3aafc1d3136174becca36f",
+        "n": 35053,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x7237007bae5229605bd17edd117d65f347d22c59",
+        "entry_points": {
+          "": 35053
+        }
+      },
+      {
+        "code_hash": "0xeef61aa744321a731603fa90d8ac06464ea50b8593cd96e696d79530fdc0c2cc",
+        "n": 30940,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x600ed241a275af8ed9dc77b9f3254b216ff7733a",
+        "entry_points": {
+          "": 30940
+        }
+      },
+      {
+        "code_hash": "0x292ccc06bbb7619e33616ece07fffd8fc46da2e6a6090741bacb505242b1a75a",
+        "n": 24020,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0xcd70bf33cfe59759851db21c83ea47b6b83bef6a",
+        "entry_points": {
+          "": 24020
+        }
+      },
+      {
+        "code_hash": "0xce700223c0d4cea4583409accfc45adac4a093b3519998a9cbbe1504dadba6f7",
+        "n": 21614,
+        "code_size": 82,
+        "proxy_kind": "erc1967",
+        "implementation": "0x484f6a2698df265ceb72d8f4956ba58e1b1b30e7",
+        "entry_points": {
+          "": 21614
+        }
+      },
+      {
+        "code_hash": "0xc7fc08f25456445001871441971fae3c16ca2beee44e9759446cedc245741526",
+        "n": 19515,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x9c3e06659f1c34f930ce97fcbce6e04ae88e535b",
+        "entry_points": {
+          "": 19515
+        }
+      },
+      {
+        "code_hash": "0x2d559c84dfcf02fd654ee32a65572dbf0e4732833c3e9f3570e5c39767aa30c5",
+        "n": 15174,
+        "code_size": 33,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 15174
+        }
+      },
+      {
+        "code_hash": "0x69ec9d9b3ac813052f198fb4fa68f9e283d3f40444317bd73618ecb457baa7b8",
+        "n": 14578,
+        "code_size": 1345,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 14578
+        }
+      },
+      {
+        "code_hash": "0xc0ab1b0ca800183bfcde279f93a1829c223023c520d58d71fa0e2184ab1354b0",
+        "n": 12417,
+        "code_size": 1292,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 12417
+        }
+      },
+      {
+        "code_hash": "0x59db7c84f0edd01584b86026412bc43c2a703408c1f5c5417008784b56f4f037",
+        "n": 12050,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x4f35670943cc3613a0a8d06566349d46ba4d30bc",
+        "entry_points": {
+          "": 12050
+        }
+      },
+      {
+        "code_hash": "0x04d9c8711d1158d1390db4146cfc59e4f4c4d79491ed21adf20bd5804a5dc665",
+        "n": 11428,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x73e7af13ef172f13d8fefebfd90c7a6530096344",
+        "entry_points": {
+          "": 11428
+        }
+      },
+      {
+        "code_hash": "0xea1136e69b9c9b2cacf4abc8d7bf6e7b7d6e5f1aa70e640967c59d5d01f81d22",
+        "n": 10327,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x6d0e04373b201d2412b8f976539ee974419f76f6",
+        "entry_points": {
+          "": 10327
+        }
+      },
+      {
+        "code_hash": "0xbc85183d3c843701b77ea222a6f026968915eabcad53f110e8a9aadafc07d229",
+        "n": 8607,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x029d584e847373b6373b01dfad1a0c9bfb916382",
+        "entry_points": {
+          "": 8607
+        }
+      },
+      {
+        "code_hash": "0x4493dff5a6519eadaf95eef48e26742ec4b964e38e12689253bbc7324a502795",
+        "n": 8066,
+        "code_size": 3159,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 8066
+        }
+      },
+      {
+        "code_hash": "0xf2777875c96a46841a4c8a57c7ce52e865d44191b82386e16d5d79163d5ef7e5",
+        "n": 7579,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0xac27f3f86e78b14721d07c4f9ce999285f9aaa06",
+        "entry_points": {
+          "": 7579
+        }
+      },
+      {
+        "code_hash": "0x29f90e2326a533fc41242987a3a6cef44319f6772c7a690351ebb8c50f777a66",
+        "n": 7220,
+        "code_size": 242,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 7220
+        }
+      },
+      {
+        "code_hash": "0x80a1d344ace3b581fb4007b666c030c248bfe50f00c17e71dbc361262c199ff6",
+        "n": 6561,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0xf3eaf3c54f1ef887914b9c19e1ab9d3e581557eb",
+        "entry_points": {
+          "": 6561
+        }
+      },
+      {
+        "code_hash": "0x093bc0d3cc2982f823db99135b6df5f6cb023f9cd867330e85b179b18bf97d8b",
+        "n": 6402,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x2bed688dfdcb797b1623880e5d1fcfafd8b18654",
+        "entry_points": {
+          "": 6402
+        }
+      },
+      {
+        "code_hash": "0x74dd930823150e5472df3f03b494d423e01970cab9ad76bfb7d119d7a4c05c6d",
+        "n": 6236,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0xc241c3a56eb2ef1e350605bf253af8d7cbca482a",
+        "entry_points": {
+          "": 6236
+        }
+      },
+      {
+        "code_hash": "0x6ff2746406585b94333f8c8aa6aa18f889c291bee862abee33c2436a238b2670",
+        "n": 5316,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x4721aee3296f6f34a621d7645ee2fa2ae0b251a9",
+        "entry_points": {
+          "": 5316
+        }
+      },
+      {
+        "code_hash": "0x585e3222ac09dd0bbc7f005860a099a445b0c856be76ed596a5a7cb0c823af5b",
+        "n": 5306,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x8ff563e117a6e4ffdfec684d7cf3897f4e237116",
+        "entry_points": {
+          "": 5306
+        }
+      },
+      {
+        "code_hash": "0x22bcbefe2dacbb6289d731af9eabb98fdfb6480f4c59c9b2f45f574f008ef68f",
+        "n": 3907,
+        "code_size": 209,
+        "proxy_kind": "erc1967",
+        "implementation": "0xd206ac7fef53d83ed4563e770b28dba90d0d9ec8",
+        "entry_points": {
+          "": 3907
+        }
+      },
+      {
+        "code_hash": "0x5b83bdbcc56b2e630f2807bbadd2b0c21619108066b92a58de081261089e9ce5",
+        "n": 3893,
+        "code_size": 11293,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 3893
+        }
+      },
+      {
+        "code_hash": "0xabfb6f639834050d3c371a2075524b9cc0069201b83b92e46c97b61a0dac8ca9",
+        "n": 3795,
+        "code_size": 4956,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 3795
+        }
+      },
+      {
+        "code_hash": "0xc08e733b48576b1c8e55ea4db37b78fc73f4eda9f0535c51b98f8d89efacaa6d",
+        "n": 3712,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x4e70bce470cdd7fbd304411920a879242b638822",
+        "entry_points": {
+          "": 3712
+        }
+      },
+      {
+        "code_hash": "0xcd82e2d9daddbf51cbce8d5429a0996e16fc670c4056566f19cf8864ad45a746",
+        "n": 2976,
+        "code_size": 9079,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 2976
+        }
+      },
+      {
+        "code_hash": "0x15c7260df3049412df774ca5a0a870a02761e18f0096f13c864d8cadc76c7b3a",
+        "n": 2892,
+        "code_size": 1817,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 2892
+        }
+      },
+      {
+        "code_hash": "0x8a06471bb9cdd1dbce03749176587164d7ccffbe8b45e4583ebdd8b1eb1efe21",
+        "n": 2580,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x7f4b6f10c34470ebddf5e7ab049d8dffb01f8a6f",
+        "entry_points": {
+          "": 2580
+        }
+      },
+      {
+        "code_hash": "0x00a9d4cfe55ba0b98e4fed491839451623919b7c3b44b622443ffdbc630a1d0e",
+        "n": 2541,
+        "code_size": 893,
+        "proxy_kind": "erc1967",
+        "implementation": "0xa5679c4272a056bb83f039961fae7d99c48529f5",
+        "entry_points": {
+          "": 2541
+        }
+      },
+      {
+        "code_hash": "0x09e6cf18f4c7f32d982a539265a81c1cc2f85e88debb5212a4464347e32e6d9e",
+        "n": 2468,
+        "code_size": 217,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 2468
+        }
+      },
+      {
+        "code_hash": "0xe51abc6dbf4d6bdaf39a7fbda29e4ce1d4762cba116799a19a2b3ac61aad4475",
+        "n": 2423,
+        "code_size": 295,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 2423
+        }
+      },
+      {
+        "code_hash": "0x6ed0f070a58d63416b2b91431ff3e5f0acf3ece5a666b34f69771b7a78222114",
+        "n": 2241,
+        "code_size": 7327,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 2241
+        }
+      },
+      {
+        "code_hash": "0xd37d7cb1b00b1a35c54303484441c301235a1b48e7da36cf2df888ee40df1d1f",
+        "n": 2060,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0xd5fe1c1f216b775dfd30638fa7164d41321ef79b",
+        "entry_points": {
+          "": 2060
+        }
+      },
+      {
+        "code_hash": "0x3e0816061ced70cfcfa10e2babd2f899fa9930e168c790e61c6920a6ef13bd3e",
+        "n": 1945,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0xe0253d6781710c63e537586704e74a366fcaf39e",
+        "entry_points": {
+          "": 1945
+        }
+      },
+      {
+        "code_hash": "0x0438bb8461b78c96b059b7188e9699518cd33d67c7377a07e785e2f4a2cca2e1",
+        "n": 1799,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x12d07dec54565839e0c4c33f6b94e5ad5be00e23",
+        "entry_points": {
+          "": 1799
+        }
+      },
+      {
+        "code_hash": "0xc728a30399bf35f9f837269dbcda830b864d7888f4cc7a324459ac28623add0c",
+        "n": 1772,
+        "code_size": 217,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 1772
+        }
+      },
+      {
+        "code_hash": "0xdf8deab5b82c2040a09d32e171afdd206b25c5a27ccbb938a0742c3c4b62ca72",
+        "n": 1764,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x3b1d1a894420a70eb01ac21c254b65489d68aab6",
+        "entry_points": {
+          "": 1764
+        }
+      },
+      {
+        "code_hash": "0x873a2860159c1f5aeac8329666f3af60f09fc46046177932d52a52f046bf7cfc",
+        "n": 1744,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x7f3ee365e0405d41dbabb7b3b321d6d540885c61",
+        "entry_points": {
+          "": 1744
+        }
+      },
+      {
+        "code_hash": "0x2c595b2e676f77eef80d4cfab161e4dc25b6794936028dbe77d22341ab7bbdfd",
+        "n": 1726,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x8a6573e4da79cabbec07280c04b2c7df3f1b3088",
+        "entry_points": {
+          "": 1726
+        }
+      },
+      {
+        "code_hash": "0x90d8dff9bfc05a3355ed368ade1f640cc9f43e54e31d67432111d8b3e3f9ea3c",
+        "n": 1530,
+        "code_size": 1292,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 1530
+        }
+      },
+      {
+        "code_hash": "0xd76468f12f17365b438d718c43f3cc9c886e9905ad3d4110e7e1cd2df56c0741",
+        "n": 1514,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x5fbf447c301e3029b3c3f2a7743a80ae56521b82",
+        "entry_points": {
+          "": 1514
+        }
+      },
+      {
+        "code_hash": "0x3c477ff3f72736edf10170d69a0a959723d6e745ef99ab6ea31131abdce4a673",
+        "n": 1436,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x7474bb06a14d60ffa97b96a91aecbb77d4da3b32",
+        "entry_points": {
+          "": 1436
+        }
+      },
+      {
+        "code_hash": "0xe4b4952dc06d44f0578fe0313de1d8c26b888f4326786cb8fc76b1bb26a3f4e4",
+        "n": 1160,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0x562e5389ab138192d684513e57bb9b846531c482",
+        "entry_points": {
+          "": 1160
+        }
+      },
+      {
+        "code_hash": "0x14044459af17bc4f0f5aa2f658cb692add77d1302c29fe2aebab005eea9d1162",
+        "n": 1140,
+        "code_size": 82,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1140
+        }
+      },
+      {
+        "code_hash": "0x5e8ff1005307d5f9da9595343cb925437ba8c146898e89e217033e3eecdcdbf9",
+        "n": 1082,
+        "code_size": 508,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "": 1082
+        }
+      },
+      {
+        "code_hash": "0x7866731af4337d6bf6ecd2d9d638b22f4633b2a28f7138a934a7dda181ed2f88",
+        "n": 1064,
+        "code_size": 45,
+        "proxy_kind": "eip1167",
+        "implementation": "0xe113301ff8350e2db615852343243acfbf9f4759",
+        "entry_points": {
+          "": 1064
+        }
+      }
+    ],
+    "canonical_entry_point": [
+      {
+        "code_hash": "0x14044459af17bc4f0f5aa2f658cb692add77d1302c29fe2aebab005eea9d1162",
+        "n": 1140,
+        "code_size": 82,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1140
+        },
+        "n_canonical": 1140
+      },
+      {
+        "code_hash": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "n": 184,
+        "code_size": 170,
+        "proxy_kind": "erc1967",
+        "implementation": "0xfc40d8dd67cebfb92da93f5a0ca736bef7789890",
+        "entry_points": {
+          "": 181,
+          "0x072110d52389f989da3864572bec9bb7e0f24312": 2,
+          "0x4337084d9e255ff0702461cf8895ce9e3b5ff108": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x042ad2be12d4988b87458116ec9895080ed9b3f38be027271bd0a499b307e636",
+        "n": 1,
+        "code_size": 7762,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x0b60b0d3de52e84512634841f2ba1e01ccf51cc9507886e67a9a783298917705",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x0c40a6b3401b3ec2d017f7736a2ccf7d7eab195ea66eb6875a817798a7a7608d",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x0cf49e1054de7b579f41740a5c886946756efcf9f2ed6a4cabbbff75bb8be473",
+        "n": 1,
+        "code_size": 14130,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x326a7ca9b0a180fa70ebbab0c5af5c292d65e81082680e4caed53a20a94fa789",
+        "n": 1,
+        "code_size": 7934,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x38511cd01bb8477d1de0460620f9bc3a5e6d11744fc0db63850a4425db9c9094",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x3d4a3dd10ee51254ae787284f23f4754c85a68a5789a15923c7b02ac982155da",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x409e5601bed84a4a93e0f6e5ec2de219adc446095b2903304c21afed02a92004",
+        "n": 1,
+        "code_size": 17151,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x54b882f5df3e89ab44dc239b439123f453ce68383f9146bc86ae34384cc638d5",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x56a3c23c28c625177dccfd50bb02ddac581c18425d9584148804560f0c34e6c7",
+        "n": 1,
+        "code_size": 144,
+        "proxy_kind": "erc1967",
+        "implementation": "0x3e822a6f9a1fc0c900c8637d4861b4fe44e5f14b",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x5b52d885aa205f3b183154a817bffd1d118439fab60eec78e637048cbb1fd060",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x6ed62b6e72af8fab750c07bebbe4de671b2d3c31f273cd2acefc0fa568f78a6a",
+        "n": 1,
+        "code_size": 141,
+        "proxy_kind": "erc1967",
+        "implementation": "0x415b13cb2a91541f637742c6a98484f424504226",
+        "entry_points": {
+          "0x4337084d9e255ff0702461cf8895ce9e3b5ff108": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x7595210397e549f9c88e0c17ac22b395adc66b91d82c73e8f66c7f3c4bd8c222",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x7fdab1f196fc967cc7ad81863c90e9467baca4ddaae20caf16fde5285a9e0cbc",
+        "n": 1,
+        "code_size": 5772,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x82125fd225adba3dffb94445f58eac2796808810e65305b68e0a610a7ef43360",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x87ff7ba75bbd97d2d0aa28c7bd31add3ac356df5bfec9f69d12180a06cd283b6",
+        "n": 1,
+        "code_size": 13845,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x947b11249ad07e2d364b0dad903b47b502096ac1ac3180c25b4302e74e7ecb7c",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0x978ab9ba35b2f2f48b1e87bcb7cfb8a9350ba92c2a42d8e745fa5a3babb376c3",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0xb38260f227f205dd89af45137f08fbaeaffe15860a9b93717445a2ff3e20e60f",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0xbfe6e97d13a119ac38d8b5624a79a098d5b4ee6950e2c280d3137011331d4283",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0xda2b15ce56575edb979b75473a36ed7314eef0d5b3323bc64fb0d26a39e6d4a3",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0xeb26e6a353cb6bc828a51aab24c76525b6b6ae77f04834fea08b897d6df410d9",
+        "n": 1,
+        "code_size": 14006,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0xee52955994ca370f22437941e17482d546ccfc82013267c346be4356ff165f15",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0xef410b711f2048ab06a47e93360e643ead54d558414c656c148ccecc274335c0",
+        "n": 1,
+        "code_size": 173,
+        "proxy_kind": "eip1167",
+        "implementation": "0x55266d75d1a14e4572138116af39863ed6596e7f",
+        "entry_points": {
+          "0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789": 1
+        },
+        "n_canonical": 1
+      },
+      {
+        "code_hash": "0xf3a27f0b43562751d8d105c76a72210e4dbe8851738486016e6c1e82f6b3e945",
+        "n": 1,
+        "code_size": 3921,
+        "proxy_kind": "none",
+        "implementation": "",
+        "entry_points": {
+          "0x0000000071727de22e5e9d8baf0edac6f37da032": 1
+        },
+        "n_canonical": 1
+      }
+    ]
+  },
+  "rules": {
+    "primary_mode": "both",
+    "primary_universe": {
+      "name": "WCC",
+      "P": 1015867,
+      "E_P": 2121895
+    },
+    "rho": 0.02,
+    "q": 0.01,
+    "projected_hours": {
+      "0.01": 12.494736245625003,
+      "0.02": 6.751389688750001,
+      "0.05": 2.97898009375
+    },
+    "recomputes": {
+      "0.01": {
+        "U": 872,
+        "WCC": 985,
+        "P_quarter": 3371
+      },
+      "0.02": {
+        "U": 473,
+        "WCC": 530,
+        "P_quarter": 1826
+      },
+      "0.05": {
+        "U": 210,
+        "WCC": 233,
+        "P_quarter": 806
+      }
+    },
+    "stop": {
+      "no_rho_within_budget": false,
+      "few_capped_allowance_edges": false,
+      "few_capped_allowance_in_edges": true
+    },
+    "stopped": true
+  },
+  "rule_inputs": {
+    "U": 332396,
+    "E_U": 1283946,
+    "WCC": 1015867,
+    "E_WCC": 2121895,
+    "allow_capped_edges": 17905,
+    "allow_in_share": 0.005379126102600513
+  },
+  "discovery_config": {
+    "seed_salt": "crawl-seed-v1:",
+    "random_salt": "random-v1:",
+    "n_seeds": 20,
+    "rho_grid": [
+      0.01,
+      0.02,
+      0.05
+    ],
+    "runtime_budget_hours": 12,
+    "ns_per_edge_iteration": 12,
+    "warm_iterations": 30,
+    "projection_workers": 16,
+    "walk_solves": 10,
+    "q_primary": 0.01,
+    "q_small": 0.05,
+    "small_universe": 10000,
+    "q_secondary": 0.05,
+    "x_primary": 0.1,
+    "x_secondary": [
+      0.05,
+      0.2
+    ],
+    "tie_tolerance": 1e-12,
+    "lambda_primary": 0.5,
+    "lambda_grid": [
+      0.25,
+      0.75
+    ],
+    "both_mode_ratio": 0.5,
+    "stop_min_allow_edges": 5000,
+    "stop_min_allow_share": 0.05,
+    "min_hot": 30,
+    "hub_drop": {
+      "min": 10,
+      "share": 0.001
+    },
+    "rho_sensitivity": {
+      "divisor": 4,
+      "seeds": 5
+    },
+    "curve_points": 1000,
+    "min_usd_account": 1.0
+  },
+  "created_at": "2026-11-08T17:19:03+00:00",
+  "seconds": 63.5,
+  "code": {
+    "head": "caf97c356e67aa063740ecad80967f789590d3f2",
+    "sha256": {
+      "docs/discovery_protocol.md": "d40e145eb990d6104fabbed439c105fd6e4abb4dd81e031fe1f26e8a6ffaf7b8",
+      "docs/revision_contract_graph.md": "169e0518fad966b7a2fd112ca80e9f2d86ea51902fc2d0884c327d7644742344",
+      "config/overlay_contract12m.yaml": "9f24e39c1b6b2ba557f95581d748b042e0b9c5bdc86c570b0b685ff0802e3738",
+      "scripts/crawl.py": "3611540a01f3e0514e755be747c1957ca43e38b4caa38c61397344d7dee71064",
+      "scripts/run_discovery.py": "1338627c69438e9d4618dcaddcf23d0d3d5b247abedc2a3e3034bc01bfb2c39a",
+      "scripts/scoring.py": "2c233fabb5b7646b6aab1cae7963942ad3c8677b5de8c3e16a7110e8457a9a0e",
+      "scripts/stats.py": "e18e4aedf5d1c87393b184732462f0b0b7a838082cdc5cc60f01af714a01a3d1",
+      "scripts/graphs.py": "6f073e1e317849a375165d2b75a72de36ef4c9e5e29b90f89a430b4fc8ead8e7",
+      "scripts/common.py": "72fe53eeb9e4494dfc40b3f939fb736cd047610a50d92261adc68deeb4aa76de",
+      "config/contract_reputation.yaml": "d6a30adbcabcf511d6892332da73639efdbece25891b392e13e90faf09b7a833"
+    },
+    "committed": {
+      "docs/discovery_protocol.md": true,
+      "docs/revision_contract_graph.md": true,
+      "config/overlay_contract12m.yaml": true,
+      "scripts/crawl.py": true,
+      "scripts/run_discovery.py": true,
+      "scripts/scoring.py": true,
+      "scripts/stats.py": true,
+      "scripts/graphs.py": true,
+      "scripts/common.py": true,
+      "config/contract_reputation.yaml": true
+    }
+  }
+}

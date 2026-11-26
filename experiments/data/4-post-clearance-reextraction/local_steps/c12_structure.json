@@ -1,0 +1,5 @@
+{
+  "step": "c12_structure",
+  "done_at": "2026-11-24T05:37:40+00:00",
+  "note": "struct_t1 same=True; structure pilot recomputed with data/_r1_feasibility_recompute.py (run_feasibility, unfixed protocol stub, output data/_work/feasibility_t1.recomputed.json): 0 differences from the pinned feasibility_t1.json (created_at, seconds, code left out)"
+}

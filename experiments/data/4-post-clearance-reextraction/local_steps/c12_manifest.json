@@ -1,0 +1,5 @@
+{
+  "step": "c12_manifest",
+  "done_at": "2026-11-24T05:57:53+00:00",
+  "note": "replica PROC/run_manifest.json by data/_r1_c12_manifest.py: 49 values replaced by the replica's, only results.audit changed (1,493 -> 1,500 of 1,500); checks of c12_checks all 0; verify_downloads passed; cohort summaries equal to the earlier ones; pinned pilot copied"
+}

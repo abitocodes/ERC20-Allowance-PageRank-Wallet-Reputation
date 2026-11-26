@@ -1,0 +1,322 @@
+{
+  "compared_at": "2026-11-21T21:09:41+00:00",
+  "folders": [
+    "2-processed-tables-and-evaluations/same-window",
+    "2-processed-tables-and-evaluations/holdout-w0",
+    "2-processed-tables-and-evaluations/registered-w1",
+    "2-processed-tables-and-evaluations/supplementary",
+    "2-processed-tables-and-evaluations/gmx",
+    "2-processed-tables-and-evaluations/cohort"
+  ],
+  "files": {
+    "2-processed-tables-and-evaluations/same-window/cohort_scores.part000.parquet": {
+      "state": "DIFFERENT",
+      "rows_old": 27844,
+      "rows_new": 27844,
+      "first_difference": {
+        "column": "spr",
+        "sorted_row": 13297,
+        "old": "[{'id': 11932611, 'endorserank': 0.0, 'endorserank_activity': 0.0, 'awp': 3.844166150119608e-08, 'cpr_l100': 0.0, 'cpr_l0': 2.4842679890300995e-08, 'cpr_l25': 2.1584518895677013e-08, 'cpr_l50': 2.26729345988056e-08, 'cpr_l75': 2.3627671072890414e-08, 'spr': 2.3799142267335462e-23, 'in_degree': 1.0, 'in_value': 9e+28, 'in_approve_degree': 0.0, 'in_approve_value': 0.0, 'inbound_counterparty_ratio': 1.0, 'transfer_tenure_days': 48.00408564814815, 'active_months': 2.0}]",
+        "new": "[{'id': 11932611, 'endorserank': 0.0, 'endorserank_activity': 0.0, 'awp': 3.844166150119602e-08, 'cpr_l100': 0.0, 'cpr_l0': 2.4842679890301024e-08, 'cpr_l25': 2.1584518895676904e-08, 'cpr_l50': 2.2672934598805455e-08, 'cpr_l75': 2.3627671072890265e-08, 'spr': 2.3799142267366133e-23, 'in_degree': 1.0, 'in_value': 9e+28, 'in_approve_degree': 0.0, 'in_approve_value': 0.0, 'inbound_counterparty_ratio': 1.0, 'transfer_tenure_days': 48.00408564814815, 'active_months': 2.0}]"
+      }
+    },
+    "2-processed-tables-and-evaluations/same-window/eval_summary.json": {
+      "state": "DIFFERENT",
+      "equal": 347,
+      "close": 8,
+      "volatile": [],
+      "n_differ": 514,
+      "first_differences": [
+        {
+          "path": ".closed_form.tau_score_vs_delta",
+          "old": 0.9080128628161801,
+          "new": 0.9080128641084779
+        },
+        {
+          "path": ".contrasts[0].a_tau",
+          "old": 0.29617281269754564,
+          "new": 0.2961721284285044
+        },
+        {
+          "path": ".contrasts[0].b_tau",
+          "old": 0.5281425339238591,
+          "new": 0.5281392799917973
+        },
+        {
+          "path": ".contrasts[0].ci_high",
+          "old": -0.22439239995096233,
+          "new": -0.22439029211767184
+        },
+        {
+          "path": ".contrasts[0].ci_low",
+          "old": -0.2392962148987794,
+          "new": -0.23929040468919632
+        },
+        {
+          "path": ".contrasts[0].delta_tau",
+          "old": -0.23196972122631349,
+          "new": -0.23196715156329295
+        },
+        {
+          "path": ".contrasts[1].a_tau",
+          "old": 0.4178344905151521,
+          "new": 0.4178363298190859
+        },
+        {
+          "path": ".contrasts[1].b_tau",
+          "old": 0.5115639853197262,
+          "new": 0.5115662173061287
+        },
+        {
+          "path": ".contrasts[1].ci_high",
+          "old": -0.08816320510499268,
+          "new": -0.08816351448066327
+        },
+        {
+          "path": ".contrasts[1].ci_low",
+          "old": -0.09901192225605872,
+          "new": -0.09901035292593102
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/holdout-w0/eval_summary.json": {
+      "state": "DIFFERENT",
+      "equal": 436,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 171,
+      "first_differences": [
+        {
+          "path": ".closed_form.tau_score_vs_delta",
+          "old": 0.7877494501956301,
+          "new": 0.7877493469948805
+        },
+        {
+          "path": ".contrasts_after[0].a_tau",
+          "old": 0.22776191957958933,
+          "new": 0.22776179889150452
+        },
+        {
+          "path": ".contrasts_after[0].ci_high",
+          "old": -0.019491867687534213,
+          "new": -0.019492068322889893
+        },
+        {
+          "path": ".contrasts_after[0].ci_low",
+          "old": -0.030196129151542444,
+          "new": -0.03019647393351747
+        },
+        {
+          "path": ".contrasts_after[0].delta_tau",
+          "old": -0.024526698833097688,
+          "new": -0.02452681952118249
+        },
+        {
+          "path": ".contrasts_after[1].a_tau",
+          "old": 0.17660762424245602,
+          "new": 0.17660764155353584
+        },
+        {
+          "path": ".contrasts_after[1].b_tau",
+          "old": 0.22776191957958933,
+          "new": 0.22776179889150452
+        },
+        {
+          "path": ".contrasts_after[1].ci_high",
+          "old": -0.0429710955346232,
+          "new": -0.04297097655048791
+        },
+        {
+          "path": ".contrasts_after[1].ci_low",
+          "old": -0.06006415003041168,
+          "new": -0.060064076230463684
+        },
+        {
+          "path": ".contrasts_after[1].delta_tau",
+          "old": -0.05115429533713331,
+          "new": -0.051154157337968686
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/holdout-w0/spender_scores.part000.parquet": {
+      "state": "same",
+      "rows_old": 33101,
+      "rows_new": 33101
+    },
+    "2-processed-tables-and-evaluations/holdout-w0/trader_scores.part000.parquet": {
+      "state": "same",
+      "rows_old": 88,
+      "rows_new": 88
+    },
+    "2-processed-tables-and-evaluations/registered-w1/eval_summary.json": {
+      "state": "DIFFERENT",
+      "equal": 1241,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 207,
+      "first_differences": [
+        {
+          "path": ".endorserank_results.awp_minus_degree_send.ci_high",
+          "old": 0.02288609859893318,
+          "new": 0.02288609833061855
+        },
+        {
+          "path": ".endorserank_results.awp_minus_degree_send.ci_low",
+          "old": 0.01599344364523591,
+          "new": 0.015993444691140748
+        },
+        {
+          "path": ".endorserank_results.cpr_minus_endorserank_appr.a_tau",
+          "old": 0.23694872208025997,
+          "new": 0.23694987886404356
+        },
+        {
+          "path": ".endorserank_results.cpr_minus_endorserank_appr.b_tau",
+          "old": 0.23319609969563188,
+          "new": 0.23319610715642644
+        },
+        {
+          "path": ".endorserank_results.cpr_minus_endorserank_appr.ci_high",
+          "old": 0.0082124349466447,
+          "new": 0.008213186337599853
+        },
+        {
+          "path": ".endorserank_results.cpr_minus_endorserank_appr.ci_low",
+          "old": -0.0008016291161720669,
+          "new": -0.0007998233627722862
+        },
+        {
+          "path": ".endorserank_results.cpr_minus_endorserank_appr.delta_tau",
+          "old": 0.0037526223846280904,
+          "new": 0.0037537717076171206
+        },
+        {
+          "path": ".endorserank_results.endorserank_minus_degree_appr.a_tau",
+          "old": 0.23319609969563188,
+          "new": 0.23319610715642644
+        },
+        {
+          "path": ".endorserank_results.endorserank_minus_degree_appr.ci_high",
+          "old": -0.02497538826140301,
+          "new": -0.02497538803449769
+        },
+        {
+          "path": ".endorserank_results.endorserank_minus_degree_appr.ci_low",
+          "old": -0.03238708168799875,
+          "new": -0.032387081132466376
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/registered-w1/extraction_manifest.json": {
+      "state": "missing in the replica"
+    },
+    "2-processed-tables-and-evaluations/registered-w1/spender_scores.part000.parquet": {
+      "state": "same",
+      "rows_old": 34587,
+      "rows_new": 34587
+    },
+    "2-processed-tables-and-evaluations/registered-w1/trader_scores.part000.parquet": {
+      "state": "same",
+      "rows_old": 70,
+      "rows_new": 70
+    },
+    "2-processed-tables-and-evaluations/supplementary/supplementary.json": {
+      "state": "DIFFERENT",
+      "equal": 31,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 41,
+      "first_differences": [
+        {
+          "path": ".w0.er_activity_minus_degree_appr.ci_high",
+          "old": 0.04853236620865958,
+          "new": 0.048532365945510934
+        },
+        {
+          "path": ".w0.er_activity_minus_degree_appr.ci_low",
+          "old": 0.035993075619498084,
+          "new": 0.03599307569908879
+        },
+        {
+          "path": ".w0.er_activity_minus_er_appr.b_tau",
+          "old": 0.24124080108726542,
+          "new": 0.24124080130746947
+        },
+        {
+          "path": ".w0.er_activity_minus_er_appr.ci_high",
+          "old": 0.058150612539527094,
+          "new": 0.05815061254621901
+        },
+        {
+          "path": ".w0.er_activity_minus_er_appr.ci_low",
+          "old": 0.04881994539823535,
+          "new": 0.04881994618516402
+        },
+        {
+          "path": ".w0.er_activity_minus_er_appr.delta_tau",
+          "old": 0.05379857171105945,
+          "new": 0.0537985714908554
+        },
+        {
+          "path": ".w0.er_activity_minus_er_send.a_tau",
+          "old": 0.2720735430259192,
+          "new": 0.2720735473943233
+        },
+        {
+          "path": ".w0.er_activity_minus_er_send.b_tau",
+          "old": 0.22649500387425056,
+          "new": 0.22649500408099468
+        },
+        {
+          "path": ".w0.er_activity_minus_er_send.ci_high",
+          "old": 0.04973152374476268,
+          "new": 0.04973152318413384
+        },
+        {
+          "path": ".w0.er_activity_minus_er_send.ci_low",
+          "old": 0.04117662252533393,
+          "new": 0.0411766226228604
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/gmx/gmx_contract_closes_obs_decoded.json": {
+      "state": "same",
+      "equal": 4,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 0,
+      "first_differences": []
+    },
+    "2-processed-tables-and-evaluations/gmx/gmx_contract_closes_obs_decoded.part000.parquet": {
+      "state": "same",
+      "rows_old": 133685,
+      "rows_new": 133685
+    },
+    "2-processed-tables-and-evaluations/gmx/gmx_contract_closes_w1_decoded.json": {
+      "state": "same",
+      "equal": 4,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 0,
+      "first_differences": []
+    },
+    "2-processed-tables-and-evaluations/gmx/gmx_contract_closes_w1_decoded.part000.parquet": {
+      "state": "same",
+      "rows_old": 6805,
+      "rows_new": 6805
+    },
+    "2-processed-tables-and-evaluations/cohort/matched_cohort.json": {
+      "state": "same",
+      "equal": 6,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 0,
+      "first_differences": []
+    },
+    "2-processed-tables-and-evaluations/cohort/matched_cohort.part000.parquet": {
+      "state": "same",
+      "rows_old": 27844,
+      "rows_new": 27844
+    }
+  }
+}

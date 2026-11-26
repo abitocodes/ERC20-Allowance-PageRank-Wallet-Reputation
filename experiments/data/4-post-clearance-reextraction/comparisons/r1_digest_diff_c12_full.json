@@ -1,0 +1,1230 @@
+{
+  "rows_old": 2433,
+  "rows_new": 2433,
+  "rows_both": 2433,
+  "rows_differ": 174,
+  "files_only_in_old": [],
+  "files_only_in_new": [],
+  "n_rows_only_old": 0,
+  "n_rows_only_new": 0,
+  "differ": [
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.75.awp",
+      "label": "Damping 0.75: AWP",
+      "old": "mean 1.755 s, SD 0.232 s; runs 2.146, 1.687, 1.613, 1.562, 1.769; peak 228.2 MB; iterations 57; \\|V\\| 1,298,649; \\|E\\| 2,580,381",
+      "new": "mean 1.468 s, SD 0.101 s; runs 1.641, 1.430, 1.401, 1.396, 1.472; peak 228.2 MB; iterations 57; \\|V\\| 1,298,649; \\|E\\| 2,580,381"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.75.endorserank",
+      "label": "Damping 0.75: EndorseRank",
+      "old": "mean 0.086 s, SD 0.005 s; runs 0.082, 0.088, 0.093, 0.085, 0.081; peak 13.7 MB; iterations 32; \\|V\\| 109,381; \\|E\\| 114,997",
+      "new": "mean 0.062 s, SD 0.004 s; runs 0.064, 0.064, 0.063, 0.055, 0.061; peak 13.7 MB; iterations 32; \\|V\\| 109,381; \\|E\\| 114,997"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.85.awp",
+      "label": "Damping 0.85: AWP",
+      "old": "mean 2.821 s, SD 0.189 s; runs 2.964, 2.792, 2.852, 2.514, 2.984; peak 228.2 MB; iterations 98; \\|V\\| 1,298,649; \\|E\\| 2,580,381",
+      "new": "mean 2.366 s, SD 0.177 s; runs 2.524, 2.550, 2.387, 2.190, 2.178; peak 228.2 MB; iterations 98; \\|V\\| 1,298,649; \\|E\\| 2,580,381"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.85.endorserank",
+      "label": "Damping 0.85: EndorseRank",
+      "old": "mean 0.101 s, SD 0.009 s; runs 0.101, 0.112, 0.096, 0.107, 0.089; peak 13.7 MB; iterations 56; \\|V\\| 109,381; \\|E\\| 114,997",
+      "new": "mean 0.086 s, SD 0.001 s; runs 0.084, 0.085, 0.086, 0.088, 0.086; peak 13.7 MB; iterations 56; \\|V\\| 109,381; \\|E\\| 114,997"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.95.awp",
+      "label": "Damping 0.95: AWP",
+      "old": "mean 7.182 s, SD 0.348 s; runs 6.870, 6.961, 7.566, 7.555, 6.957; peak 228.2 MB; iterations 294; \\|V\\| 1,298,649; \\|E\\| 2,580,381",
+      "new": "mean 6.232 s, SD 0.230 s; runs 5.932, 6.280, 6.495, 6.384, 6.069; peak 228.2 MB; iterations 294; \\|V\\| 1,298,649; \\|E\\| 2,580,381"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "damping.0.95.endorserank",
+      "label": "Damping 0.95: EndorseRank",
+      "old": "mean 0.208 s, SD 0.028 s; runs 0.179, 0.233, 0.241, 0.204, 0.185; peak 13.7 MB; iterations 176; \\|V\\| 109,381; \\|E\\| 114,997",
+      "new": "mean 0.164 s, SD 0.016 s; runs 0.173, 0.167, 0.169, 0.174, 0.136; peak 13.7 MB; iterations 176; \\|V\\| 109,381; \\|E\\| 114,997"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.awp",
+      "label": "Full graphs: AWP",
+      "old": "mean 2.821 s, SD 0.189 s; runs 2.964, 2.792, 2.852, 2.514, 2.984; peak 228.2 MB; iterations 98; \\|V\\| 1,298,649; \\|E\\| 2,580,381",
+      "new": "mean 2.366 s, SD 0.177 s; runs 2.524, 2.550, 2.387, 2.190, 2.178; peak 228.2 MB; iterations 98; \\|V\\| 1,298,649; \\|E\\| 2,580,381"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.awp.mean_s / main.endorserank.mean_s",
+      "label": "AWP/EndorseRank runtime ratio (derived)",
+      "old": "27.90",
+      "new": "27.65"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.cpr_l50",
+      "label": "Full graphs: C-PR (λ=0.5)",
+      "old": "mean 3.080 s, SD 0.184 s; runs 2.954, 2.963, 3.394, 3.095, 2.993; peak 204.8 MB; iterations 92; \\|V\\| 1,299,479; \\|E\\| 2,591,253",
+      "new": "mean 2.652 s, SD 0.186 s; runs 2.975, 2.642, 2.541, 2.571, 2.532; peak 204.8 MB; iterations 92; \\|V\\| 1,299,479; \\|E\\| 2,591,253"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.endorserank",
+      "label": "Full graphs: EndorseRank",
+      "old": "mean 0.101 s, SD 0.009 s; runs 0.101, 0.112, 0.096, 0.107, 0.089; peak 13.7 MB; iterations 56; \\|V\\| 109,381; \\|E\\| 114,997",
+      "new": "mean 0.086 s, SD 0.001 s; runs 0.084, 0.085, 0.086, 0.088, 0.086; peak 13.7 MB; iterations 56; \\|V\\| 109,381; \\|E\\| 114,997"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "main.spr",
+      "label": "Full graphs: S-PR",
+      "old": "mean 2.657 s, SD 0.202 s; runs 2.997, 2.682, 2.512, 2.527, 2.565; peak 142.6 MB; iterations 153; \\|V\\| 1,298,724; \\|E\\| 2,580,709",
+      "new": "mean 2.223 s, SD 0.033 s; runs 2.167, 2.239, 2.231, 2.224, 2.252; peak 142.6 MB; iterations 153; \\|V\\| 1,298,724; \\|E\\| 2,580,709"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[0].awp",
+      "label": "Stage n=1,000: AWP",
+      "old": "mean 0.095 s, SD 0.0004788 s; runs 0.096, 0.096, 0.095, 0.095, 0.095; peak 12.1 MB; iterations 94; \\|V\\| 78,869; \\|E\\| 120,252",
+      "new": "mean 0.082 s, SD 0.001 s; runs 0.082, 0.080, 0.083, 0.083, 0.080; peak 12.1 MB; iterations 94; \\|V\\| 78,869; \\|E\\| 120,252"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[0].endorserank",
+      "label": "Stage n=1,000: EndorseRank",
+      "old": "mean 0.001 s, SD 3.488e-05 s; runs 0.001, 0.001, 0.001, 0.001, 0.001; peak 0.2 MB; iterations 48; \\|V\\| 1,293; \\|E\\| 1,608",
+      "new": "mean 0.001 s, SD 8.356e-05 s; runs 0.001, 0.001, 0.001, 0.001, 0.001; peak 0.2 MB; iterations 48; \\|V\\| 1,293; \\|E\\| 1,608"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[1].awp",
+      "label": "Stage n=2,000: AWP",
+      "old": "mean 0.134 s, SD 0.003 s; runs 0.135, 0.131, 0.132, 0.138, 0.132; peak 21.0 MB; iterations 90; \\|V\\| 129,533; \\|E\\| 235,864",
+      "new": "mean 0.116 s, SD 0.002 s; runs 0.117, 0.119, 0.115, 0.113, 0.115; peak 21.0 MB; iterations 90; \\|V\\| 129,533; \\|E\\| 235,864"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[1].endorserank",
+      "label": "Stage n=2,000: EndorseRank",
+      "old": "mean 0.002 s, SD 8.498e-05 s; runs 0.002, 0.002, 0.002, 0.002, 0.002; peak 0.5 MB; iterations 26; \\|V\\| 3,972; \\|E\\| 4,784",
+      "new": "mean 0.002 s, SD 0.000181 s; runs 0.002, 0.002, 0.002, 0.002, 0.002; peak 0.5 MB; iterations 26; \\|V\\| 3,972; \\|E\\| 4,784"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[2].awp",
+      "label": "Stage n=5,000: AWP",
+      "old": "mean 0.689 s, SD 0.031 s; runs 0.693, 0.735, 0.698, 0.657, 0.663; peak 75.0 MB; iterations 104; \\|V\\| 426,557; \\|E\\| 889,662",
+      "new": "mean 0.579 s, SD 0.005 s; runs 0.583, 0.575, 0.578, 0.576, 0.585; peak 75.0 MB; iterations 104; \\|V\\| 426,557; \\|E\\| 889,662"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[2].endorserank",
+      "label": "Stage n=5,000: EndorseRank",
+      "old": "mean 0.006 s, SD 0.0001205 s; runs 0.007, 0.006, 0.006, 0.006, 0.006; peak 1.1 MB; iterations 62; \\|V\\| 8,720; \\|E\\| 11,240",
+      "new": "mean 0.006 s, SD 0.0001205 s; runs 0.006, 0.006, 0.006, 0.005, 0.006; peak 1.1 MB; iterations 62; \\|V\\| 8,720; \\|E\\| 11,240"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[3].awp",
+      "label": "Stage n=6,443 (reused main measurement): AWP",
+      "old": "mean 2.821 s, SD 0.189 s; runs 2.964, 2.792, 2.852, 2.514, 2.984; peak 228.2 MB; iterations 98; \\|V\\| 1,298,649; \\|E\\| 2,580,381",
+      "new": "mean 2.366 s, SD 0.177 s; runs 2.524, 2.550, 2.387, 2.190, 2.178; peak 228.2 MB; iterations 98; \\|V\\| 1,298,649; \\|E\\| 2,580,381"
+    },
+    {
+      "file": "benchmark/benchmark.json",
+      "key": "scaling[3].endorserank",
+      "label": "Stage n=6,443 (reused main measurement): EndorseRank",
+      "old": "mean 0.101 s, SD 0.009 s; runs 0.101, 0.112, 0.096, 0.107, 0.089; peak 13.7 MB; iterations 56; \\|V\\| 109,381; \\|E\\| 114,997",
+      "new": "mean 0.086 s, SD 0.001 s; runs 0.084, 0.085, 0.086, 0.088, 0.086; peak 13.7 MB; iterations 56; \\|V\\| 109,381; \\|E\\| 114,997"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "account_types.read_from",
+      "label": "Account types: read from",
+      "old": "2026-11-07T09:47:01+00:00",
+      "new": "2026-11-23T01:05:17+00:00"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "account_types.read_until",
+      "label": "Account types: read until",
+      "old": "2026-11-08T12:49:57+00:00",
+      "new": "2026-11-24T04:29:44+00:00"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "allowances.t1.per_token[1]",
+      "label": "Latest allowances between contracts at t1, WETH",
+      "old": "positive 36,916; positive after the cap 1,442; capped to zero 35,474; capped below the allowance 1,294; unlimited 24,198; capped value at or above U 43; sum of the capped values USD 31,897,955.5",
+      "new": "positive 36,916; positive after the cap 1,442; capped to zero 35,474; capped below the allowance 1,296; unlimited 24,198; capped value at or above U 43; sum of the capped values USD 31,897,955.5"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "allowances.t1.per_token[4]",
+      "label": "Latest allowances between contracts at t1, ARB",
+      "old": "positive 4,795; positive after the cap 353; capped to zero 4,442; capped below the allowance 305; unlimited 3,760; capped value at or above U 8; sum of the capped values USD 613,268.6",
+      "new": "positive 4,795; positive after the cap 345; capped to zero 4,450; capped below the allowance 299; unlimited 3,760; capped value at or above U 8; sum of the capped values USD 613,268.6"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "allowances.t1.total.n_capped_below_allowance",
+      "label": "Latest allowances between contracts at t1, all five tokens: n capped below allowance",
+      "old": "17,480",
+      "new": "17,476"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "allowances.t1.total.n_capped_to_zero",
+      "label": "Latest allowances between contracts at t1, all five tokens: n capped to zero",
+      "old": "289,299",
+      "new": "289,307"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "allowances.t1.total.n_positive_eff",
+      "label": "Latest allowances between contracts at t1, all five tokens: n positive eff",
+      "old": "19,623",
+      "new": "19,615"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "allowances.tobs.per_token[2]",
+      "label": "Latest allowances between contracts at tobs, WETH",
+      "old": "positive 30,826; positive after the cap 1,395; capped to zero 29,431; capped below the allowance 1,270; unlimited 17,608; capped value at or above U 29; sum of the capped values USD 20,322,898.5",
+      "new": "positive 30,826; positive after the cap 1,395; capped to zero 29,431; capped below the allowance 1,273; unlimited 17,608; capped value at or above U 29; sum of the capped values USD 20,322,898.5"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "allowances.tobs.total.n_capped_below_allowance",
+      "label": "Latest allowances between contracts at tobs, all five tokens: n capped below allowance",
+      "old": "114,454",
+      "new": "114,457"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "balance_check.matched",
+      "label": "Balance check: matched",
+      "old": "1,493",
+      "new": "1,500"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "balance_check.share",
+      "label": "Balance check: share",
+      "old": "0.9953",
+      "new": "1.0000"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.bigquery_tib_billed",
+      "label": "timing.bigquery tib billed",
+      "old": "8.7800",
+      "new": "7.0880"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.bigquery_usd_total",
+      "label": "timing.bigquery usd total",
+      "old": "54.8800",
+      "new": "44.3000"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.contract12m_jobs",
+      "label": "timing.contract12m jobs",
+      "old": "26",
+      "new": "0"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.contract12m_jobs_usd",
+      "label": "timing.contract12m jobs usd",
+      "old": "12.6300",
+      "new": "0"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.protocol_commit_utc",
+      "label": "timing.protocol commit utc",
+      "old": "d39775c 2026-11-07T09:33:38+00:00",
+      "new": "68da670 2026-11-21T17:45:55+00:00"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.protocol_fixed_commit_utc",
+      "label": "timing.protocol fixed commit utc",
+      "old": "8645bca 2026-11-08T19:51:41+00:00",
+      "new": "68da670 2026-11-21T17:45:55+00:00"
+    },
+    {
+      "file": "describe/describe.json",
+      "key": "timing.revision_commit_utc",
+      "label": "timing.revision commit utc",
+      "old": "d39775c 2026-11-07T09:33:38+00:00",
+      "new": "68da670 2026-11-21T17:45:55+00:00"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "created_at",
+      "label": "t1, mode both: created at",
+      "old": "2026-11-11T00:24:05+00:00",
+      "new": "2026-11-24T13:31:52+00:00"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "invariants.max_final_diff",
+      "label": "t1, mode both: invariant max final diff",
+      "old": "8.33e-17",
+      "new": "1.19e-16"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "provenance.head",
+      "label": "t1, mode both: code revision",
+      "old": "f1079690751b7a9c8669c72a7699ca4f771af8fa",
+      "new": "68da6706c7fee78d7c40a43fa371238214f4f12e"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.awp@1/200",
+      "label": "t1, mode both: crawls of awp@1/200",
+      "old": "5 crawls, 41,580.6 s, 1,830 recomputes, 1,830 solves, 68,010.4 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 49,031.0 s, 1,830 recomputes, 1,830 solves, 68,010.4 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.awp@1/50",
+      "label": "t1, mode both: crawls of awp@1/50",
+      "old": "20 crawls, 51,465.8 s, 534.000 recomputes, 534.000 solves, 25,454.8 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 68,739.4 s, 534.000 recomputes, 534.000 solves, 25,454.8 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.bfs@1/200",
+      "label": "t1, mode both: crawls of bfs@1/200",
+      "old": "5 crawls, 184.289 s, 1,829.4 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 165.585 s, 1,829.4 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.bfs@1/50",
+      "label": "t1, mode both: crawls of bfs@1/50",
+      "old": "20 crawls, 168.071 s, 532.950 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 252.845 s, 532.950 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l0@1/200",
+      "label": "t1, mode both: crawls of cpr_l0@1/200",
+      "old": "5 crawls, 19,885.1 s, 1,829 recomputes, 1,829 solves, 55,782.4 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 18,523.6 s, 1,829 recomputes, 1,829 solves, 55,782.4 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l0@1/50",
+      "label": "t1, mode both: crawls of cpr_l0@1/50",
+      "old": "20 crawls, 20,619.2 s, 532.000 recomputes, 532.000 solves, 23,096.0 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 27,967.4 s, 532.000 recomputes, 532.000 solves, 23,096.0 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l100@1/200",
+      "label": "t1, mode both: crawls of cpr_l100@1/200",
+      "old": "5 crawls, 2,470.5 s, 1,829.6 recomputes, 1,829.6 solves, 3,346.8 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 3,001.7 s, 1,829.6 recomputes, 1,829.6 solves, 3,346.8 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l100@1/50",
+      "label": "t1, mode both: crawls of cpr_l100@1/50",
+      "old": "20 crawls, 2,081.2 s, 532.600 recomputes, 532.600 solves, 1,236.2 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 3,115.7 s, 532.600 recomputes, 532.600 solves, 1,236.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l25@1/200",
+      "label": "t1, mode both: crawls of cpr_l25@1/200",
+      "old": "5 crawls, 19,852.0 s, 1,828 recomputes, 1,828 solves, 54,181.8 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 21,560.2 s, 1,828 recomputes, 1,828 solves, 54,181.6 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l25@1/50",
+      "label": "t1, mode both: crawls of cpr_l25@1/50",
+      "old": "20 crawls, 27,149.4 s, 532.000 recomputes, 532.000 solves, 22,198.3 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 30,705.8 s, 532.000 recomputes, 532.000 solves, 22,198.3 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l50@1/200",
+      "label": "t1, mode both: crawls of cpr_l50@1/200",
+      "old": "5 crawls, 19,164.5 s, 1,828 recomputes, 1,828 solves, 52,926.8 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 21,009.6 s, 1,828 recomputes, 1,828 solves, 52,926.8 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l50@1/50",
+      "label": "t1, mode both: crawls of cpr_l50@1/50",
+      "old": "20 crawls, 26,745.2 s, 532.000 recomputes, 532.000 solves, 21,724.5 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 29,509.5 s, 532.000 recomputes, 532.000 solves, 21,724.5 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l75@1/200",
+      "label": "t1, mode both: crawls of cpr_l75@1/200",
+      "old": "5 crawls, 21,247.5 s, 1,828 recomputes, 1,828 solves, 52,334 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 19,664.6 s, 1,828 recomputes, 1,828 solves, 52,334 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.cpr_l75@1/50",
+      "label": "t1, mode both: crawls of cpr_l75@1/50",
+      "old": "20 crawls, 25,782.7 s, 532.000 recomputes, 532.000 solves, 21,471.2 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 27,470.3 s, 532.000 recomputes, 532.000 solves, 21,471.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.delta@1/200",
+      "label": "t1, mode both: crawls of delta@1/200",
+      "old": "5 crawls, 546.390 s, 1,828 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 565.738 s, 1,828 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.delta@1/50",
+      "label": "t1, mode both: crawls of delta@1/50",
+      "old": "20 crawls, 477.716 s, 532.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 702.264 s, 532.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.endorserank@1/200",
+      "label": "t1, mode both: crawls of endorserank@1/200",
+      "old": "5 crawls, 2,141.6 s, 1,829.6 recomputes, 1,829.6 solves, 3,350.4 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 2,824.1 s, 1,829.6 recomputes, 1,829.6 solves, 3,350.4 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.endorserank@1/50",
+      "label": "t1, mode both: crawls of endorserank@1/50",
+      "old": "20 crawls, 3,211.8 s, 532.600 recomputes, 532.600 solves, 1,236.9 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 3,064.5 s, 532.600 recomputes, 532.600 solves, 1,236.9 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.endorserank_activity@1/200",
+      "label": "t1, mode both: crawls of endorserank_activity@1/200",
+      "old": "5 crawls, 6,186.3 s, 1,829.6 recomputes, 1,829.6 solves, 30,353 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 7,096.2 s, 1,829.6 recomputes, 1,829.6 solves, 30,353 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.endorserank_activity@1/50",
+      "label": "t1, mode both: crawls of endorserank_activity@1/50",
+      "old": "20 crawls, 9,703.2 s, 532.600 recomputes, 532.600 solves, 12,620.4 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 9,780.0 s, 532.600 recomputes, 532.600 solves, 12,620.4 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.ib_a@1/200",
+      "label": "t1, mode both: crawls of ib_a@1/200",
+      "old": "5 crawls, 922.096 s, 1,829.6 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 1,294.9 s, 1,829.6 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.ib_a@1/50",
+      "label": "t1, mode both: crawls of ib_a@1/50",
+      "old": "20 crawls, 787.200 s, 532.600 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 1,255.5 s, 532.600 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.ib_t@1/200",
+      "label": "t1, mode both: crawls of ib_t@1/200",
+      "old": "5 crawls, 531.846 s, 1,829 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 526.551 s, 1,829 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.ib_t@1/50",
+      "label": "t1, mode both: crawls of ib_t@1/50",
+      "old": "20 crawls, 448.957 s, 532.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 633.657 s, 532.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.ib_u@1/200",
+      "label": "t1, mode both: crawls of ib_u@1/200",
+      "old": "5 crawls, 420.123 s, 1,828 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 536.025 s, 1,828 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.ib_u@1/50",
+      "label": "t1, mode both: crawls of ib_u@1/50",
+      "old": "20 crawls, 442.825 s, 532.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 631.501 s, 532.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.random@1/200",
+      "label": "t1, mode both: crawls of random@1/200",
+      "old": "5 crawls, 1,404.5 s, 1,015,866 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 1,651.5 s, 1,015,866 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.random@1/50",
+      "label": "t1, mode both: crawls of random@1/50",
+      "old": "20 crawls, 5,926.2 s, 1,015,866 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 10,548.8 s, 1,015,866 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.spr@1/200",
+      "label": "t1, mode both: crawls of spr@1/200",
+      "old": "5 crawls, 23,497.6 s, 1,828 recomputes, 3,656 solves, 60,897.6 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 25,293.8 s, 1,828 recomputes, 3,656 solves, 60,897.6 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "runs.spr@1/50",
+      "label": "t1, mode both: crawls of spr@1/50",
+      "old": "20 crawls, 26,554.6 s, 532.000 recomputes, 1,064 solves, 24,991.5 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 28,854.2 s, 532.000 recomputes, 1,064 solves, 24,991.5 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_both.json",
+      "key": "seconds",
+      "label": "t1, mode both: seconds",
+      "old": "23,333.9",
+      "new": "26,646.2"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "created_at",
+      "label": "t1, mode out: created at",
+      "old": "2026-11-11T01:46:58+00:00",
+      "new": "2026-11-25T12:39:52+00:00"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "provenance.head",
+      "label": "t1, mode out: code revision",
+      "old": "b005f903a7c30be627b923609f35ff290a8cd56d",
+      "new": "68da6706c7fee78d7c40a43fa371238214f4f12e"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.awp@1/50",
+      "label": "t1, mode out: crawls of awp@1/50",
+      "old": "20 crawls, 16,131.1 s, 476.000 recomputes, 476.000 solves, 21,777 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 9,417.5 s, 476.000 recomputes, 476.000 solves, 21,777 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.bfs@1/50",
+      "label": "t1, mode out: crawls of bfs@1/50",
+      "old": "20 crawls, 78.337 s, 481.850 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 44.027 s, 481.850 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.cpr_l0@1/50",
+      "label": "t1, mode out: crawls of cpr_l0@1/50",
+      "old": "20 crawls, 9,855.8 s, 476.000 recomputes, 476.000 solves, 24,027.9 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 5,563.2 s, 476.000 recomputes, 476.000 solves, 24,027.9 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.cpr_l100@1/50",
+      "label": "t1, mode out: crawls of cpr_l100@1/50",
+      "old": "20 crawls, 998.807 s, 482.500 recomputes, 482.500 solves, 950.550 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 512.715 s, 482.500 recomputes, 482.500 solves, 950.550 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.cpr_l25@1/50",
+      "label": "t1, mode out: crawls of cpr_l25@1/50",
+      "old": "20 crawls, 11,194.0 s, 476.000 recomputes, 476.000 solves, 22,332.8 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 6,705.2 s, 476.000 recomputes, 476.000 solves, 22,332.8 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.cpr_l50@1/50",
+      "label": "t1, mode out: crawls of cpr_l50@1/50",
+      "old": "20 crawls, 10,891.9 s, 476.000 recomputes, 476.000 solves, 21,197.9 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 6,344.5 s, 476.000 recomputes, 476.000 solves, 21,197.9 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.cpr_l75@1/50",
+      "label": "t1, mode out: crawls of cpr_l75@1/50",
+      "old": "20 crawls, 10,795.7 s, 476.000 recomputes, 476.000 solves, 20,460.7 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 6,337.9 s, 476.000 recomputes, 476.000 solves, 20,460.7 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.delta@1/50",
+      "label": "t1, mode out: crawls of delta@1/50",
+      "old": "20 crawls, 203.886 s, 477.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 117.137 s, 477.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.endorserank@1/50",
+      "label": "t1, mode out: crawls of endorserank@1/50",
+      "old": "20 crawls, 1,011.5 s, 482.500 recomputes, 482.500 solves, 955.600 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 550.640 s, 482.500 recomputes, 482.500 solves, 955.600 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.endorserank_activity@1/50",
+      "label": "t1, mode out: crawls of endorserank_activity@1/50",
+      "old": "20 crawls, 2,506.7 s, 482.500 recomputes, 482.500 solves, 12,393.4 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 1,321.0 s, 482.500 recomputes, 482.500 solves, 12,393.4 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.ib_a@1/50",
+      "label": "t1, mode out: crawls of ib_a@1/50",
+      "old": "20 crawls, 344.150 s, 482.500 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 193.381 s, 482.500 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.ib_t@1/50",
+      "label": "t1, mode out: crawls of ib_t@1/50",
+      "old": "20 crawls, 222.636 s, 483.300 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 119.879 s, 483.300 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.ib_u@1/50",
+      "label": "t1, mode out: crawls of ib_u@1/50",
+      "old": "20 crawls, 218.595 s, 483.650 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 130.320 s, 483.650 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.random@1/50",
+      "label": "t1, mode out: crawls of random@1/50",
+      "old": "20 crawls, 1,621.7 s, 332,395 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 933.816 s, 332,395 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "runs.spr@1/50",
+      "label": "t1, mode out: crawls of spr@1/50",
+      "old": "20 crawls, 10,588.8 s, 476.000 recomputes, 952.000 solves, 25,391.2 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 6,227.9 s, 476.000 recomputes, 952.000 solves, 25,391.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "seconds",
+      "label": "t1, mode out: seconds",
+      "old": "4,944.1",
+      "new": "4,551.5"
+    },
+    {
+      "file": "discovery/discovery_t1_out.json",
+      "key": "workers",
+      "label": "t1, mode out: workers",
+      "old": "16",
+      "new": "10"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "auc.i_a@q.ref_cpr.x=0.1",
+      "label": "tobs, mode both (the decision): AUC of reference: C-PR of the full graph on H_q(I_A)",
+      "old": "0.1157 [0.1105, 0.1210]; seeds 0.1157 to 0.1157",
+      "new": "0.1157 [0.1105, 0.1209]; seeds 0.1157 to 0.1157"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "created_at",
+      "label": "tobs, mode both (the decision): created at",
+      "old": "2026-11-10T15:46:54+00:00",
+      "new": "2026-11-25T11:23:29+00:00"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "invariants.max_final_diff",
+      "label": "tobs, mode both (the decision): invariant max final diff",
+      "old": "2.43e-16",
+      "new": "7.63e-17"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "provenance.head",
+      "label": "tobs, mode both (the decision): code revision",
+      "old": "b840210f82c7ed6d0bbd60bd32a6406350084d7a",
+      "new": "68da6706c7fee78d7c40a43fa371238214f4f12e"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.awp@1/200",
+      "label": "tobs, mode both (the decision): crawls of awp@1/200",
+      "old": "5 crawls, 64,002.5 s, 1,859 recomputes, 1,859 solves, 80,073 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 38,933.6 s, 1,859 recomputes, 1,859 solves, 80,073 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.awp@1/50",
+      "label": "tobs, mode both (the decision): crawls of awp@1/50",
+      "old": "20 crawls, 65,884.7 s, 542.000 recomputes, 542.000 solves, 29,042.0 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 47,218.2 s, 542.000 recomputes, 542.000 solves, 29,042.0 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.bfs@1/200",
+      "label": "tobs, mode both (the decision): crawls of bfs@1/200",
+      "old": "5 crawls, 282.164 s, 1,856.8 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 146.487 s, 1,856.8 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.bfs@1/50",
+      "label": "tobs, mode both (the decision): crawls of bfs@1/50",
+      "old": "20 crawls, 259.021 s, 539.450 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 185.266 s, 539.450 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l0@1/200",
+      "label": "tobs, mode both (the decision): crawls of cpr_l0@1/200",
+      "old": "5 crawls, 19,403.2 s, 1,857 recomputes, 1,857 solves, 59,120.6 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 13,918.9 s, 1,857 recomputes, 1,857 solves, 59,120.6 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l0@1/50",
+      "label": "tobs, mode both (the decision): crawls of cpr_l0@1/50",
+      "old": "20 crawls, 27,002.1 s, 540.000 recomputes, 540.000 solves, 24,303.0 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 20,048.9 s, 540.000 recomputes, 540.000 solves, 24,303.0 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l100@1/200",
+      "label": "tobs, mode both (the decision): crawls of cpr_l100@1/200",
+      "old": "5 crawls, 3,868.3 s, 1,857 recomputes, 1,857 solves, 3,470.4 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 2,317.1 s, 1,857 recomputes, 1,857 solves, 3,470 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l100@1/50",
+      "label": "tobs, mode both (the decision): crawls of cpr_l100@1/50",
+      "old": "20 crawls, 3,843.8 s, 540.000 recomputes, 540.000 solves, 1,316.8 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 2,678.5 s, 540.000 recomputes, 540.000 solves, 1,316.7 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l25@1/200",
+      "label": "tobs, mode both (the decision): crawls of cpr_l25@1/200",
+      "old": "5 crawls, 24,329.7 s, 1,856.8 recomputes, 1,856.8 solves, 56,432.6 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 17,007.2 s, 1,856.8 recomputes, 1,856.8 solves, 56,432 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l25@1/50",
+      "label": "tobs, mode both (the decision): crawls of cpr_l25@1/50",
+      "old": "20 crawls, 32,515.9 s, 540.000 recomputes, 540.000 solves, 23,327.5 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 22,872.2 s, 540.000 recomputes, 540.000 solves, 23,327.5 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l50@1/200",
+      "label": "tobs, mode both (the decision): crawls of cpr_l50@1/200",
+      "old": "5 crawls, 22,461.0 s, 1,856.8 recomputes, 1,856.8 solves, 54,615.4 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 16,497.9 s, 1,856.8 recomputes, 1,856.8 solves, 54,615.4 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l50@1/50",
+      "label": "tobs, mode both (the decision): crawls of cpr_l50@1/50",
+      "old": "20 crawls, 31,258.3 s, 540.000 recomputes, 540.000 solves, 22,594.3 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 21,432.1 s, 540.000 recomputes, 540.000 solves, 22,594.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l75@1/200",
+      "label": "tobs, mode both (the decision): crawls of cpr_l75@1/200",
+      "old": "5 crawls, 26,690.2 s, 1,856.8 recomputes, 1,856.8 solves, 53,477.8 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 16,066.3 s, 1,856.8 recomputes, 1,856.8 solves, 53,477.8 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.cpr_l75@1/50",
+      "label": "tobs, mode both (the decision): crawls of cpr_l75@1/50",
+      "old": "20 crawls, 34,389.6 s, 540.000 recomputes, 540.000 solves, 22,273.0 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 21,651.2 s, 540.000 recomputes, 540.000 solves, 22,273.0 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.delta@1/200",
+      "label": "tobs, mode both (the decision): crawls of delta@1/200",
+      "old": "5 crawls, 612.185 s, 1,856.8 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 428.235 s, 1,856.8 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.delta@1/50",
+      "label": "tobs, mode both (the decision): crawls of delta@1/50",
+      "old": "20 crawls, 697.562 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 692.123 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.endorserank@1/200",
+      "label": "tobs, mode both (the decision): crawls of endorserank@1/200",
+      "old": "5 crawls, 4,813.3 s, 1,857 recomputes, 1,857 solves, 3,473.4 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 2,430.3 s, 1,857 recomputes, 1,857 solves, 3,473.4 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.endorserank@1/50",
+      "label": "tobs, mode both (the decision): crawls of endorserank@1/50",
+      "old": "20 crawls, 4,969.3 s, 540.000 recomputes, 540.000 solves, 1,322.2 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 2,313.4 s, 540.000 recomputes, 540.000 solves, 1,322.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.endorserank_activity@1/200",
+      "label": "tobs, mode both (the decision): crawls of endorserank_activity@1/200",
+      "old": "5 crawls, 10,525.8 s, 1,857 recomputes, 1,857 solves, 36,315.6 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 6,058.8 s, 1,857 recomputes, 1,857 solves, 36,315.6 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.endorserank_activity@1/50",
+      "label": "tobs, mode both (the decision): crawls of endorserank_activity@1/50",
+      "old": "20 crawls, 12,360.5 s, 540.000 recomputes, 540.000 solves, 13,805.2 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 7,787.6 s, 540.000 recomputes, 540.000 solves, 13,805.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.ib_a@1/200",
+      "label": "tobs, mode both (the decision): crawls of ib_a@1/200",
+      "old": "5 crawls, 1,487.8 s, 1,857 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 1,066.5 s, 1,857 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.ib_a@1/50",
+      "label": "tobs, mode both (the decision): crawls of ib_a@1/50",
+      "old": "20 crawls, 1,356.7 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 1,233.1 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.ib_t@1/200",
+      "label": "tobs, mode both (the decision): crawls of ib_t@1/200",
+      "old": "5 crawls, 662.766 s, 1,856.8 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 480.441 s, 1,856.8 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.ib_t@1/50",
+      "label": "tobs, mode both (the decision): crawls of ib_t@1/50",
+      "old": "20 crawls, 728.758 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 543.567 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.ib_u@1/200",
+      "label": "tobs, mode both (the decision): crawls of ib_u@1/200",
+      "old": "5 crawls, 529.878 s, 1,857 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 458.577 s, 1,857 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.ib_u@1/50",
+      "label": "tobs, mode both (the decision): crawls of ib_u@1/50",
+      "old": "20 crawls, 830.363 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 553.190 s, 540.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.random@1/200",
+      "label": "tobs, mode both (the decision): crawls of random@1/200",
+      "old": "5 crawls, 1,752.3 s, 1,169,043 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 1,294.6 s, 1,169,043 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.random@1/50",
+      "label": "tobs, mode both (the decision): crawls of random@1/50",
+      "old": "20 crawls, 10,980.8 s, 1,169,043 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 7,212.5 s, 1,169,043 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.spr@1/200",
+      "label": "tobs, mode both (the decision): crawls of spr@1/200",
+      "old": "5 crawls, 23,553.2 s, 1,856.8 recomputes, 3,713.6 solves, 63,760.6 iterations (means per crawl but the seconds)",
+      "new": "5 crawls, 17,221.5 s, 1,856.8 recomputes, 3,713.6 solves, 63,760.8 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "runs.spr@1/50",
+      "label": "tobs, mode both (the decision): crawls of spr@1/50",
+      "old": "20 crawls, 29,965.9 s, 540.000 recomputes, 1,080 solves, 26,023.5 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 63,106.2 s, 540.000 recomputes, 1,080 solves, 26,024.0 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "seconds",
+      "label": "tobs, mode both (the decision): seconds",
+      "old": "29,948.3",
+      "new": "35,937.7"
+    },
+    {
+      "file": "discovery/discovery_tobs_both.json",
+      "key": "workers",
+      "label": "tobs, mode both (the decision): workers",
+      "old": "16",
+      "new": "10"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "created_at",
+      "label": "tobs, mode out: created at",
+      "old": "2026-11-10T17:54:54+00:00",
+      "new": "2026-11-25T14:32:39+00:00"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "provenance.head",
+      "label": "tobs, mode out: code revision",
+      "old": "b840210f82c7ed6d0bbd60bd32a6406350084d7a",
+      "new": "68da6706c7fee78d7c40a43fa371238214f4f12e"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.awp@1/50",
+      "label": "tobs, mode out: crawls of awp@1/50",
+      "old": "20 crawls, 28,626.5 s, 497.000 recomputes, 497.000 solves, 23,844.8 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 13,918.1 s, 497.000 recomputes, 497.000 solves, 23,844.8 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.bfs@1/50",
+      "label": "tobs, mode out: crawls of bfs@1/50",
+      "old": "20 crawls, 107.500 s, 501.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 65.996 s, 501.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.cpr_l0@1/50",
+      "label": "tobs, mode out: crawls of cpr_l0@1/50",
+      "old": "20 crawls, 18,056.4 s, 498.000 recomputes, 498.000 solves, 24,879 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 8,217.4 s, 498.000 recomputes, 498.000 solves, 24,879 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.cpr_l100@1/50",
+      "label": "tobs, mode out: crawls of cpr_l100@1/50",
+      "old": "20 crawls, 1,288.7 s, 501.450 recomputes, 501.450 solves, 943.650 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 784.874 s, 501.450 recomputes, 501.450 solves, 943.650 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.cpr_l25@1/50",
+      "label": "tobs, mode out: crawls of cpr_l25@1/50",
+      "old": "20 crawls, 16,465.6 s, 498.000 recomputes, 498.000 solves, 23,186.2 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 9,289.4 s, 498.000 recomputes, 498.000 solves, 23,186.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.cpr_l50@1/50",
+      "label": "tobs, mode out: crawls of cpr_l50@1/50",
+      "old": "20 crawls, 14,718.0 s, 498.000 recomputes, 498.000 solves, 21,894.6 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 9,743.0 s, 498.000 recomputes, 498.000 solves, 21,894.6 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.cpr_l75@1/50",
+      "label": "tobs, mode out: crawls of cpr_l75@1/50",
+      "old": "20 crawls, 13,909.1 s, 498.000 recomputes, 498.000 solves, 20,961.0 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 9,627.0 s, 498.000 recomputes, 498.000 solves, 20,961.0 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.delta@1/50",
+      "label": "tobs, mode out: crawls of delta@1/50",
+      "old": "20 crawls, 272.319 s, 498.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 175.045 s, 498.000 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.endorserank@1/50",
+      "label": "tobs, mode out: crawls of endorserank@1/50",
+      "old": "20 crawls, 1,266.2 s, 501.450 recomputes, 501.450 solves, 956.950 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 767.357 s, 501.450 recomputes, 501.450 solves, 956.950 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.endorserank_activity@1/50",
+      "label": "tobs, mode out: crawls of endorserank_activity@1/50",
+      "old": "20 crawls, 3,473.4 s, 501.450 recomputes, 501.450 solves, 13,662.1 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 2,186.3 s, 501.450 recomputes, 501.450 solves, 13,662.1 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.ib_a@1/50",
+      "label": "tobs, mode out: crawls of ib_a@1/50",
+      "old": "20 crawls, 457.072 s, 501.450 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 297.066 s, 501.450 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.ib_t@1/50",
+      "label": "tobs, mode out: crawls of ib_t@1/50",
+      "old": "20 crawls, 325.368 s, 502.200 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 213.904 s, 502.200 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.ib_u@1/50",
+      "label": "tobs, mode out: crawls of ib_u@1/50",
+      "old": "20 crawls, 338.506 s, 502.250 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 223.545 s, 502.250 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.random@1/50",
+      "label": "tobs, mode out: crawls of random@1/50",
+      "old": "20 crawls, 1,964.6 s, 508,636 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 1,780.5 s, 508,636 recomputes, 0.000 solves, 0.000 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "runs.spr@1/50",
+      "label": "tobs, mode out: crawls of spr@1/50",
+      "old": "20 crawls, 17,675.1 s, 498.000 recomputes, 996.000 solves, 26,262.2 iterations (means per crawl but the seconds)",
+      "new": "20 crawls, 8,653.6 s, 498.000 recomputes, 996.000 solves, 26,262.2 iterations (means per crawl but the seconds)"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "seconds",
+      "label": "tobs, mode out: seconds",
+      "old": "7,646.1",
+      "new": "6,750.7"
+    },
+    {
+      "file": "discovery/discovery_tobs_out.json",
+      "key": "workers",
+      "label": "tobs, mode out: workers",
+      "old": "16",
+      "new": "10"
+    },
+    {
+      "file": "holdout-w0/eval_summary.json",
+      "key": "closed_form.tau_score_vs_delta",
+      "label": "W0: tau score vs delta",
+      "old": "0.8611",
+      "new": "0.8615"
+    },
+    {
+      "file": "holdout-w0/eval_summary.json",
+      "key": "in_union_graph.contrasts_after[0]",
+      "label": "Inside the union graph [contrasts_after]: C-PR (l=1) minus t1 in-approve degree, new approval pairs",
+      "old": "Δτ -0.043 [-0.053, -0.031]; τa 0.201, τb 0.244; P(Δτ>0) 0.000; B=400",
+      "new": "Δτ -0.043 [-0.053, -0.032]; τa 0.201, τb 0.244; P(Δτ>0) 0.000; B=400"
+    },
+    {
+      "file": "holdout-w0/eval_summary.json",
+      "key": "in_union_graph.contrasts_prefixed[0]",
+      "label": "Inside the union graph [contrasts_prefixed]: C-PR minus C-PR (l=1), new approval pairs",
+      "old": "Δτ 0.020 [-0.002, 0.043]; τa 0.221, τb 0.201; P(Δτ>0) 0.960; B=400",
+      "new": "Δτ 0.020 [-0.002, 0.043]; τa 0.221, τb 0.201; P(Δτ>0) 0.963; B=400"
+    },
+    {
+      "file": "holdout-w0/eval_summary.json",
+      "key": "ties.cpr_l100",
+      "label": "C-PR (λ=1) ties (W0 spenders)",
+      "old": "distinct 684 of 7,864; zeros 5,963; largest block 5,963 at 0.000; share of pairs tied 0.5805",
+      "new": "distinct 689 of 7,864; zeros 5,963; largest block 5,963 at 0.000; share of pairs tied 0.5805"
+    },
+    {
+      "file": "holdout-w0/eval_summary.json",
+      "key": "ties.endorserank",
+      "label": "EndorseRank ties (W0 spenders)",
+      "old": "distinct 1,190 of 7,864; zeros 5,966; largest block 5,966 at 0.000; share of pairs tied 0.5803",
+      "new": "distinct 1,189 of 7,864; zeros 5,966; largest block 5,966 at 0.000; share of pairs tied 0.5803"
+    },
+    {
+      "file": "robustness/robustness.json",
+      "key": "uncapped_allowances.w0.contrasts_after[10]",
+      "label": "W0 uncapped [contrasts_after]: EndorseRank minus AWP, new transfer senders",
+      "old": "Δτ -0.145 [-0.163, -0.129]; τa 0.185, τb 0.330; P(Δτ>0) 0.000; B=400",
+      "new": "Δτ -0.145 [-0.163, -0.130]; τa 0.185, τb 0.330; P(Δτ>0) 0.000; B=400"
+    },
+    {
+      "file": "robustness/robustness.json",
+      "key": "uncapped_allowances.w0.contrasts_after[5]",
+      "label": "W0 uncapped [contrasts_after]: C-PR minus C-PR (l=0), new approval pairs",
+      "old": "Δτ 0.079 [0.065, 0.094]; τa 0.150, τb 0.070; P(Δτ>0) 1.000; B=400",
+      "new": "Δτ 0.080 [0.065, 0.094]; τa 0.150, τb 0.070; P(Δτ>0) 1.000; B=400"
+    },
+    {
+      "file": "robustness/robustness.json",
+      "key": "uncapped_allowances.w1.contrasts.cpr_minus_union_in_degree_appr",
+      "label": "W1 uncapped: cpr minus union in degree appr",
+      "old": "Δτ 8.467e-05 [-0.007, 0.008]; τa 0.118, τb 0.118; P(Δτ>0) 0.497; B=400",
+      "new": "Δτ 7.642e-05 [-0.007, 0.008]; τa 0.118, τb 0.118; P(Δτ>0) 0.497; B=400"
+    },
+    {
+      "file": "robustness/robustness.json",
+      "key": "uncapped_allowances.w1.spender_taus.cpr_l75.future_new_approvers",
+      "label": "W1 uncapped: C-PR (λ=0.75), new approval pairs",
+      "old": "0.117 [0.094, 0.139]; B=400",
+      "new": "0.117 [0.094, 0.138]; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "in_union_graph.contrasts[5]",
+      "label": "Inside the union graph: [hybrid] S-PR allowance minus C-PR (l=1) allowance",
+      "old": "Δτ -0.497 [-0.526, -0.469]; τa 0.328, τb 0.825; P(Δτ>0) 0.000; B=400",
+      "new": "Δτ -0.497 [-0.525, -0.469]; τa 0.328, τb 0.825; P(Δτ>0) 0.000; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "in_union_graph.families.cpr_l100.allowance",
+      "label": "Inside the union graph: C-PR (λ=1), allowance family",
+      "old": "0.825 [0.815, 0.834]; B=400",
+      "new": "0.825 [0.815, 0.833]; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "in_union_graph.per_proxy.cpr_l0.in_value",
+      "label": "Inside the union graph: C-PR (λ=0), in_value",
+      "old": "0.754 [0.744, 0.765]; ρ 0.898; B=400",
+      "new": "0.754 [0.743, 0.765]; ρ 0.898; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "in_union_graph.per_proxy.cpr_l100.in_approve_degree",
+      "label": "Inside the union graph: C-PR (λ=1), in_approve_degree",
+      "old": "0.838 [0.827, 0.847]; ρ 0.891; B=400",
+      "new": "0.837 [0.827, 0.847]; ρ 0.891; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "in_union_graph.per_proxy.cpr_l25.transfer_tenure_days",
+      "label": "Inside the union graph: C-PR (λ=0.25), transfer_tenure_days",
+      "old": "0.370 [0.353, 0.387]; ρ 0.509; B=400",
+      "new": "0.370 [0.353, 0.388]; ρ 0.509; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "in_union_graph.per_proxy.endorserank.in_value",
+      "label": "Inside the union graph: EndorseRank, in_value",
+      "old": "0.153 [0.127, 0.177]; ρ 0.191; B=400",
+      "new": "0.152 [0.127, 0.177]; ρ 0.191; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "inter_method.concordance.ordered_by_both",
+      "label": "Concordance: ordered by both",
+      "old": "6,704,900",
+      "new": "6,704,922"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "isolated_rule.endorserank_iso.sybil_stability",
+      "label": "endorserank_iso (missing contracts as isolated nodes), Sybil stability",
+      "old": "0.171 [0.155, 0.187]; B=400",
+      "new": "0.171 [0.155, 0.188]; B=400"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l0",
+      "label": "C-PR (λ=0) ties (same window)",
+      "old": "distinct 3,035 of 6,443; zeros 2,384; largest block 2,384 at 0.000; share of pairs tied 0.1552",
+      "new": "distinct 3,040 of 6,443; zeros 2,384; largest block 2,384 at 0.000; share of pairs tied 0.1552"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l100",
+      "label": "C-PR (λ=1) ties (same window)",
+      "old": "distinct 631 of 6,443; zeros 5,193; largest block 5,193 at 0.000; share of pairs tied 0.6523",
+      "new": "distinct 633 of 6,443; zeros 5,193; largest block 5,193 at 0.000; share of pairs tied 0.6523"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l25",
+      "label": "C-PR (λ=0.25) ties (same window)",
+      "old": "distinct 3,233 of 6,443; zeros 2,173; largest block 2,173 at 0.000; share of pairs tied 0.1317",
+      "new": "distinct 3,238 of 6,443; zeros 2,173; largest block 2,173 at 0.000; share of pairs tied 0.1317"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.cpr_l75",
+      "label": "C-PR (λ=0.75) ties (same window)",
+      "old": "distinct 3,238 of 6,443; zeros 2,173; largest block 2,173 at 0.000; share of pairs tied 0.1316",
+      "new": "distinct 3,237 of 6,443; zeros 2,173; largest block 2,173 at 0.000; share of pairs tied 0.1316"
+    },
+    {
+      "file": "same-window/eval_summary.json",
+      "key": "ties.endorserank_activity",
+      "label": "EndorseRank (activity restarts) ties (same window)",
+      "old": "distinct 1,226 of 6,443; zeros 5,200; largest block 5,200 at 0.000; share of pairs tied 0.6514",
+      "new": "distinct 1,227 of 6,443; zeros 5,200; largest block 5,200 at 0.000; share of pairs tied 0.6514"
+    },
+    {
+      "file": "supplementary/supplementary.json",
+      "key": "w0.cpr_minus_er_activity_appr",
+      "label": "W0 C-PR minus EndorseRank (activity restarts), new approval pairs",
+      "old": "Δτ -0.022 [-0.042, -0.0003759]; τa 0.142, τb 0.163; P(Δτ>0) 0.025; B=400",
+      "new": "Δτ -0.022 [-0.042, -0.0003768]; τa 0.142, τb 0.163; P(Δτ>0) 0.025; B=400"
+    },
+    {
+      "file": "supplementary/supplementary.json",
+      "key": "w0.cpr_minus_spr_send",
+      "label": "W0 C-PR minus S-PR, new transfer senders",
+      "old": "Δτ -0.011 [-0.021, -0.0004375]; τa 0.254, τb 0.264; P(Δτ>0) 0.020; B=400",
+      "new": "Δτ -0.011 [-0.021, -0.0004369]; τa 0.254, τb 0.264; P(Δτ>0) 0.020; B=400"
+    },
+    {
+      "file": "supplementary/supplementary.json",
+      "key": "w0.er_activity_minus_er_appr",
+      "label": "W0 EndorseRank (activity restarts) minus EndorseRank, new approval pairs",
+      "old": "Δτ -0.004 [-0.008, -0.0007761]; τa 0.163, τb 0.168; P(Δτ>0) 0.015; B=400",
+      "new": "Δτ -0.004 [-0.008, -0.0007724]; τa 0.163, τb 0.168; P(Δτ>0) 0.013; B=400"
+    },
+    {
+      "file": "supplementary/supplementary.json",
+      "key": "w1.er_activity_minus_er_appr",
+      "label": "W1 EndorseRank (activity restarts) minus EndorseRank, new approval pairs",
+      "old": "Δτ 0.001 [-0.002, 0.005]; τa 0.148, τb 0.147; P(Δτ>0) 0.710; B=400",
+      "new": "Δτ 0.001 [-0.002, 0.005]; τa 0.148, τb 0.147; P(Δτ>0) 0.713; B=400"
+    },
+    {
+      "file": "typing/balance_audit.json",
+      "key": "per_cell[3]",
+      "label": "Balance check cell 0x82af49447d8a07e3bd95bd0d56f35241523fbab1 zero",
+      "old": "150 pairs, 150 judged, match 0.9733",
+      "new": "150 pairs, 150 judged, match 1.0000"
+    },
+    {
+      "file": "typing/balance_audit.json",
+      "key": "per_cell[9]",
+      "label": "Balance check cell 0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9 zero",
+      "old": "150 pairs, 150 judged, match 0.9800",
+      "new": "150 pairs, 150 judged, match 1.0000"
+    },
+    {
+      "file": "window-w1/eval_summary.json",
+      "key": "in_union_graph.spender_taus.cpr_l75.future_new_transfer_senders",
+      "label": "Inside the union graph: C-PR (λ=0.75), new transfer senders",
+      "old": "0.246 [0.225, 0.267]; B=400",
+      "new": "0.247 [0.225, 0.267]; B=400"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "graph": {
+    "nodes": 13055150,
+    "edges": 22321470
+  },
+  "sigma0": 0.8581489350995123,
+  "b_common": 3.4025809962632144e-08,
+  "r_D": 0.3461318251298205,
+  "damping": {
+    "0.75": {
+      "r_D": 0.3378847185712702,
+      "farm_factor": 2.0136541557138106
+    },
+    "0.85": {
+      "r_D": 0.3461318251298205,
+      "farm_factor": 2.961413675735649
+    },
+    "0.95": {
+      "r_D": 0.2959959303951114,
+      "farm_factor": 6.623922677507111
+    }
+  },
+  "ring20_collects_times_share": 2.961404266769792,
+  "star": {
+    "m": 10,
+    "target_score": 1.1648433207190955e-06,
+    "closed_form": 1.1648475482702894e-06,
+    "highest_cohort_endorserank": 0.11258937666067025,
+    "ratio_to_highest": 1.03459434208414e-05,
+    "approvals_per_window": 20
+  },
+  "fresh_approval_share_median_owner": 0.9440550458090209,
+  "owners": 13029306,
+  "farm_size_to_reach_cohort_quantile": {
+    "p50": {
+      "score": 7.103254512054268e-08,
+      "farm_addresses": 0.0
+    },
+    "p90": {
+      "score": 1.4716041157923453e-06,
+      "farm_addresses": 12.943265631411828
+    },
+    "p99": {
+      "score": 0.00013069876008738317,
+      "farm_addresses": 1252.851020137537
+    },
+    "p100": {
+      "score": 0.11258937666067025,
+      "farm_addresses": 1080270.536908801
+    }
+  }
+}

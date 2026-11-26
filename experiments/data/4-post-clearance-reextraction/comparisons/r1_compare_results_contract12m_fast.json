@@ -1,0 +1,623 @@
+{
+  "compared_at": "2026-11-24T06:08:15+00:00",
+  "folders": [
+    "2-processed-tables-and-evaluations/revised-contract-12m/same-window",
+    "2-processed-tables-and-evaluations/revised-contract-12m/holdout-w0",
+    "2-processed-tables-and-evaluations/revised-contract-12m/window-w1",
+    "2-processed-tables-and-evaluations/revised-contract-12m/supplementary",
+    "2-processed-tables-and-evaluations/revised-contract-12m/robustness",
+    "2-processed-tables-and-evaluations/revised-contract-12m/sybil-model",
+    "2-processed-tables-and-evaluations/revised-contract-12m/describe",
+    "2-processed-tables-and-evaluations/revised-contract-12m/benchmark",
+    "2-processed-tables-and-evaluations/revised-contract-12m/cohort",
+    "2-processed-tables-and-evaluations/revised-contract-12m/typing"
+  ],
+  "files": {
+    "2-processed-tables-and-evaluations/revised-contract-12m/same-window/cohort_scores.part000.parquet": {
+      "state": "DIFFERENT",
+      "rows_old": 6443,
+      "rows_new": 6443,
+      "first_difference": {
+        "column": "endorserank",
+        "sorted_row": 3,
+        "old": "[{'id': 7, 'endorserank': 0.00026206742753942443, 'endorserank_activity': 0.0003785692691844579, 'awp': 0.0, 'cpr_l100': 0.0002589099998073608, 'cpr_l0': 0.0, 'cpr_l25': 0.0002784581944198494, 'cpr_l50': 0.0005194207794536162, 'cpr_l75': 0.0007245720812964979, 'spr': 0.0, 'in_degree': 0.0, 'in_value': 0.0, 'in_approve_degree': 89.0, 'in_approve_value': 57100.976015549364, 'inbound_counterparty_ratio': 0.0, 'transfer_tenure_days': 0.0, 'active_months': 0.0, 'in_union_graph': True}]",
+        "new": "[{'id': 7, 'endorserank': 0.00026206742805653813, 'endorserank_activity': 0.00037856926965181497, 'awp': 0.0, 'cpr_l100': 0.00025891000025741914, 'cpr_l0': 0.0, 'cpr_l25': 0.00027845819476262463, 'cpr_l50': 0.000519420780714891, 'cpr_l75': 0.0007245720836134525, 'spr': 0.0, 'in_degree': 0.0, 'in_value': 0.0, 'in_approve_degree': 89.0, 'in_approve_value': 57100.97601557273, 'inbound_counterparty_ratio': 0.0, 'transfer_tenure_days': 0.0, 'active_months': 0.0, 'in_union_graph': True}]"
+      }
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/same-window/eval_summary.json": {
+      "state": "DIFFERENT",
+      "equal": 714,
+      "close": 0,
+      "volatile": [
+        ".provenance"
+      ],
+      "n_differ": 842,
+      "first_differences": [
+        {
+          "path": ".closed_form.common_value_c",
+          "old": 8.451306341872924e-06,
+          "new": 8.451306341814916e-06
+        },
+        {
+          "path": ".closed_form.tau_score_vs_delta",
+          "old": 0.9226809715434414,
+          "new": 0.9226549851662206
+        },
+        {
+          "path": ".contrasts[0].a_tau",
+          "old": 0.737533116111666,
+          "new": 0.7375338517181629
+        },
+        {
+          "path": ".contrasts[0].b_tau",
+          "old": 0.8037763682709929,
+          "new": 0.8037769464019342
+        },
+        {
+          "path": ".contrasts[0].ci_high",
+          "old": -0.05777890818999561,
+          "new": -0.05777922688608505
+        },
+        {
+          "path": ".contrasts[0].ci_low",
+          "old": -0.07382077136596599,
+          "new": -0.07382138296352452
+        },
+        {
+          "path": ".contrasts[0].delta_tau",
+          "old": -0.0662432521593268,
+          "new": -0.06624309468377132
+        },
+        {
+          "path": ".contrasts[1].a_tau",
+          "old": 0.43295744655739643,
+          "new": 0.43295732319272706
+        },
+        {
+          "path": ".contrasts[1].b_tau",
+          "old": 0.8384890900715025,
+          "new": 0.8384655557882381
+        },
+        {
+          "path": ".contrasts[1].ci_high",
+          "old": -0.3928116741392908,
+          "new": -0.3927997660962769
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/holdout-w0/eval_summary.json": {
+      "state": "DIFFERENT",
+      "equal": 651,
+      "close": 4,
+      "volatile": [
+        ".provenance"
+      ],
+      "n_differ": 326,
+      "first_differences": [
+        {
+          "path": ".baseline_contrasts[0].a_tau",
+          "old": 0.14174022406353504,
+          "new": 0.14173888409782326
+        },
+        {
+          "path": ".baseline_contrasts[0].ci_high",
+          "old": 0.024003848652004545,
+          "new": 0.024005091930132016
+        },
+        {
+          "path": ".baseline_contrasts[0].ci_low",
+          "old": 0.007202398581513771,
+          "new": 0.007202317278897868
+        },
+        {
+          "path": ".baseline_contrasts[0].delta_tau",
+          "old": 0.01551543212688064,
+          "new": 0.015514092161168863
+        },
+        {
+          "path": ".baseline_contrasts[1].a_tau",
+          "old": 0.253738206205881,
+          "new": 0.25373599587829265
+        },
+        {
+          "path": ".baseline_contrasts[1].ci_high",
+          "old": -0.0434730667115942,
+          "new": -0.043474587152164186
+        },
+        {
+          "path": ".baseline_contrasts[1].ci_low",
+          "old": -0.061463191193488524,
+          "new": -0.06146641646914381
+        },
+        {
+          "path": ".baseline_contrasts[1].delta_tau",
+          "old": -0.05261741847816015,
+          "new": -0.0526196288057485
+        },
+        {
+          "path": ".closed_form.common_value_c",
+          "old": 4.589127123551765e-05,
+          "new": 4.5891271234330025e-05
+        },
+        {
+          "path": ".closed_form.tau_score_vs_delta",
+          "old": 0.8610982607920888,
+          "new": 0.8614729159839405
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/holdout-w0/spender_scores.part000.parquet": {
+      "state": "DIFFERENT",
+      "rows_old": 7864,
+      "rows_new": 7864,
+      "first_difference": {
+        "column": "endorserank",
+        "sorted_row": 5,
+        "old": "[{'id': 7, 'endorserank': 0.001624965732307207, 'endorserank_activity': 0.002275955346587268, 'awp': 0.0, 'cpr_l100': 0.0016203208073845836, 'cpr_l0': 0.0, 'cpr_l25': 0.0002137952516573058, 'cpr_l50': 0.00042318205602261984, 'cpr_l75': 0.0005968403182226775, 'spr': 0.0, 't1_in_approve_degree': 92.0, 't1_in_degree': 0.0, 't1_in_approve_value': 56075.535974078186, 't1_in_degree_union': 92.0, 'wallet': '0x0000000000001ff3684f28c67538d4d072c22734', 'future_new_approvers': 13173, 'future_revoke_count': 1871, 'future_revoke_rate': 0.03176300823359647, 'future_keep_rate': 0.9682369917664035, 'future_",
+        "new": "[{'id': 7, 'endorserank': 0.0016249657335147606, 'endorserank_activity': 0.0022759553459093126, 'awp': 0.0, 'cpr_l100': 0.0016203208078212762, 'cpr_l0': 0.0, 'cpr_l25': 0.00021379525832960892, 'cpr_l50': 0.0004231820804074479, 'cpr_l75': 0.0005968403612275151, 'spr': 0.0, 't1_in_approve_degree': 92.0, 't1_in_degree': 0.0, 't1_in_approve_value': 56075.53594431601, 't1_in_degree_union': 92.0, 'wallet': '0x0000000000001ff3684f28c67538d4d072c22734', 'future_new_approvers': 13173, 'future_revoke_count': 1871, 'future_revoke_rate': 0.03176300823359647, 'future_keep_rate': 0.9682369917664035, 'future"
+      }
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/window-w1/eval_summary.json": {
+      "state": "DIFFERENT",
+      "equal": 405,
+      "close": 3,
+      "volatile": [
+        ".provenance"
+      ],
+      "n_differ": 230,
+      "first_differences": [
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_appr.a_tau",
+          "old": 0.1038617661150464,
+          "new": 0.10386308031038305
+        },
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_appr.ci_high",
+          "old": 0.01908383009411851,
+          "new": 0.01908588985626386
+        },
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_appr.ci_low",
+          "old": 0.002801175629565432,
+          "new": 0.00280155773906796
+        },
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_appr.delta_tau",
+          "old": 0.010873368496296859,
+          "new": 0.010874682691633511
+        },
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_send.a_tau",
+          "old": 0.23632234063831187,
+          "new": 0.23632457951928984
+        },
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_send.ci_high",
+          "old": -0.046822237358816854,
+          "new": -0.0468188309289852
+        },
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_send.ci_low",
+          "old": -0.06461396937849845,
+          "new": -0.06461106685132241
+        },
+        {
+          "path": ".baseline_contrasts.cpr_minus_union_in_degree_send.delta_tau",
+          "old": -0.05575409255481523,
+          "new": -0.055751853673837254
+        },
+        {
+          "path": ".endorserank_results.cpr_minus_endorserank_appr.a_tau",
+          "old": 0.1038617661150464,
+          "new": 0.10386308031038305
+        },
+        {
+          "path": ".endorserank_results.cpr_minus_endorserank_appr.b_tau",
+          "old": 0.14687426542129975,
+          "new": 0.14687339784002587
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/window-w1/spender_scores.part000.parquet": {
+      "state": "DIFFERENT",
+      "rows_old": 7915,
+      "rows_new": 7915,
+      "first_difference": {
+        "column": "endorserank",
+        "sorted_row": 3,
+        "old": "[{'id': 7, 'endorserank': 0.00026206742753942443, 'endorserank_activity': 0.0003785692691844579, 'awp': 0.0, 'cpr_l100': 0.0002589099998073608, 'cpr_l0': 0.0, 'cpr_l25': 0.0002784581944198494, 'cpr_l50': 0.0005194207794536162, 'cpr_l75': 0.0007245720812964979, 'spr': 0.0, 'in_approve_degree': 89.0, 'in_degree': 0.0, 'in_approve_value': 57100.976015549364, 'in_degree_union': 89.0, 'wallet': '0x0000000000001ff3684f28c67538d4d072c22734', 'future_new_approvers': 13723, 'future_revoke_count': 1441, 'future_revoke_rate': 0.02423437210944989, 'future_keep_rate': 0.9757656278905501, 'future_revoke_val",
+        "new": "[{'id': 7, 'endorserank': 0.00026206742805653813, 'endorserank_activity': 0.00037856926965181497, 'awp': 0.0, 'cpr_l100': 0.00025891000025741914, 'cpr_l0': 0.0, 'cpr_l25': 0.00027845819476262463, 'cpr_l50': 0.000519420780714891, 'cpr_l75': 0.0007245720836134525, 'spr': 0.0, 'in_approve_degree': 89.0, 'in_degree': 0.0, 'in_approve_value': 57100.97601557273, 'in_degree_union': 89.0, 'wallet': '0x0000000000001ff3684f28c67538d4d072c22734', 'future_new_approvers': 13723, 'future_revoke_count': 1441, 'future_revoke_rate': 0.02423437210944989, 'future_keep_rate': 0.9757656278905501, 'future_revoke_va"
+      }
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/supplementary/supplementary.json": {
+      "state": "DIFFERENT",
+      "equal": 117,
+      "close": 0,
+      "volatile": [
+        ".provenance"
+      ],
+      "n_differ": 199,
+      "first_differences": [
+        {
+          "path": ".same.cpr_minus_awp_allowance.a_tau",
+          "old": 0.43295744655739643,
+          "new": 0.43295732319272706
+        },
+        {
+          "path": ".same.cpr_minus_awp_allowance.ci_high",
+          "old": 0.22371316682638331,
+          "new": 0.22371227242054453
+        },
+        {
+          "path": ".same.cpr_minus_awp_allowance.ci_low",
+          "old": 0.18773048153297228,
+          "new": 0.1877309077903803
+        },
+        {
+          "path": ".same.cpr_minus_awp_allowance.delta_tau",
+          "old": 0.206390673103922,
+          "new": 0.20639054973925264
+        },
+        {
+          "path": ".same.cpr_minus_er_transfer.a_tau",
+          "old": 0.737533116111666,
+          "new": 0.7375338517181629
+        },
+        {
+          "path": ".same.cpr_minus_er_transfer.b_tau",
+          "old": 0.2969226147262587,
+          "new": 0.2969217983773498
+        },
+        {
+          "path": ".same.cpr_minus_er_transfer.ci_high",
+          "old": 0.45729526759635264,
+          "new": 0.45729495033367507
+        },
+        {
+          "path": ".same.cpr_minus_er_transfer.ci_low",
+          "old": 0.42325620295977295,
+          "new": 0.4232567325782535
+        },
+        {
+          "path": ".same.cpr_minus_er_transfer.delta_tau",
+          "old": 0.44061050138540736,
+          "new": 0.4406120533408131
+        },
+        {
+          "path": ".w0.cpr_minus_approve_value_appr.a_tau",
+          "old": 0.14174022406353504,
+          "new": 0.14173888409782326
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/robustness/robustness.json": {
+      "state": "DIFFERENT",
+      "equal": 402,
+      "close": 0,
+      "volatile": [
+        ".provenance"
+      ],
+      "n_differ": 215,
+      "first_differences": [
+        {
+          "path": ".sample_definition[1].endorserank.allowance",
+          "old": 0.852960252086598,
+          "new": 0.8529592464395698
+        },
+        {
+          "path": ".sample_definition[1].endorserank.sybil_stability",
+          "old": 0.23745268059306487,
+          "new": 0.23745459294838453
+        },
+        {
+          "path": ".sample_definition[1].endorserank.transfer",
+          "old": 0.3240484242965263,
+          "new": 0.32405375899304983
+        },
+        {
+          "path": ".sample_definition[2].endorserank.allowance",
+          "old": 0.8389906267425276,
+          "new": 0.8389909837933915
+        },
+        {
+          "path": ".sample_definition[2].endorserank.sybil_stability",
+          "old": 0.2258144928072333,
+          "new": 0.22581499066309815
+        },
+        {
+          "path": ".sample_definition[2].endorserank.transfer",
+          "old": 0.30336252897565436,
+          "new": 0.30336302930104586
+        },
+        {
+          "path": ".sample_definition[3].awp.transfer",
+          "old": 0.7527004608515795,
+          "new": 0.7527005209456188
+        },
+        {
+          "path": ".sample_definition[3].endorserank.transfer",
+          "old": 0.29659606987659054,
+          "new": 0.29659602242520916
+        },
+        {
+          "path": ".uncapped_allowances.w0.baseline_contrasts[0].a_tau",
+          "old": 0.14999098092029878,
+          "new": 0.14999218968134762
+        },
+        {
+          "path": ".uncapped_allowances.w0.baseline_contrasts[0].ci_high",
+          "old": 0.011714470960115365,
+          "new": 0.011714039253887932
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/sybil-model/sybil_model.json": {
+      "state": "DIFFERENT",
+      "equal": 80,
+      "close": 23,
+      "volatile": [
+        ".provenance",
+        ".ring20_collects_times_share"
+      ],
+      "n_differ": 20,
+      "first_differences": [
+        {
+          "path": ".b_common",
+          "old": 8.451306341872924e-06,
+          "new": 8.451306341814916e-06
+        },
+        {
+          "path": ".balance_threshold.1.cohort_tau_with_main",
+          "old": 0.7091887951057663,
+          "new": 0.7091870668503646
+        },
+        {
+          "path": ".balance_threshold.1.farm_size_to_reach_cohort_quantile.p99.farm_addresses",
+          "old": 0.17827621551100403,
+          "new": 0.17827621538541588
+        },
+        {
+          "path": ".balance_threshold.1.farm_size_to_reach_cohort_quantile.p99.score",
+          "old": 0.0007209424319352855,
+          "new": 0.0007209424318684525
+        },
+        {
+          "path": ".balance_threshold.10.cohort_tau_with_main",
+          "old": 0.5890257402849324,
+          "new": 0.5890213305790403
+        },
+        {
+          "path": ".balance_threshold.100.cohort_tau_with_main",
+          "old": 0.4642898381478397,
+          "new": 0.46428489040982784
+        },
+        {
+          "path": ".damping.0.75.farm_factor",
+          "old": 3.734210613352646,
+          "new": 3.7342106133348647
+        },
+        {
+          "path": ".damping.0.75.r_D",
+          "old": 0.9114035377842153,
+          "new": 0.9114035377782883
+        },
+        {
+          "path": ".damping.0.85.farm_factor",
+          "old": 6.162748902612523,
+          "new": 6.162748902570224
+        },
+        {
+          "path": ".damping.0.85.r_D",
+          "old": 0.9110733357551513,
+          "new": 0.9110733357476867
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/describe/describe.json": {
+      "state": "DIFFERENT",
+      "equal": 318,
+      "close": 8,
+      "volatile": [
+        ".account_types.read_from",
+        ".account_types.read_until",
+        ".account_types.rpc_calls",
+        ".provenance",
+        ".timing"
+      ],
+      "n_differ": 22,
+      "first_differences": [
+        {
+          "path": ".account_types.probes.implementations",
+          "old": 14933,
+          "new": 5329
+        },
+        {
+          "path": ".allowances.t1.per_token[1].n_capped_below_allowance",
+          "old": 1294,
+          "new": 1296
+        },
+        {
+          "path": ".allowances.t1.per_token[1].sum_usd_eff",
+          "old": 31897955.498902194,
+          "new": 31897955.499494225
+        },
+        {
+          "path": ".allowances.t1.per_token[4].n_capped_below_allowance",
+          "old": 305,
+          "new": 299
+        },
+        {
+          "path": ".allowances.t1.per_token[4].n_capped_to_zero",
+          "old": 4442,
+          "new": 4450
+        },
+        {
+          "path": ".allowances.t1.per_token[4].n_positive_eff",
+          "old": 353,
+          "new": 345
+        },
+        {
+          "path": ".allowances.t1.per_token[4].sum_usd_eff",
+          "old": 613268.5736111102,
+          "new": 613268.5735638398
+        },
+        {
+          "path": ".allowances.t1.total.n_capped_below_allowance",
+          "old": 17480,
+          "new": 17476
+        },
+        {
+          "path": ".allowances.t1.total.n_capped_to_zero",
+          "old": 289299,
+          "new": 289307
+        },
+        {
+          "path": ".allowances.t1.total.n_positive_eff",
+          "old": 19623,
+          "new": 19615
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/benchmark/benchmark.json": {
+      "state": "DIFFERENT",
+      "equal": 66,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 143,
+      "first_differences": [
+        {
+          "path": ".damping.0.75.awp.mean_s",
+          "old": 1.755402059998596,
+          "new": 1.6071012000000338
+        },
+        {
+          "path": ".damping.0.75.awp.peak_mb",
+          "old": 228.20982551574707,
+          "new": 228.2101068496704
+        },
+        {
+          "path": ".damping.0.75.awp.runs_s[0]",
+          "old": 2.1457060999964597,
+          "new": 1.5628878999996232
+        },
+        {
+          "path": ".damping.0.75.awp.runs_s[1]",
+          "old": 1.6866841000010027,
+          "new": 1.5540342000022065
+        },
+        {
+          "path": ".damping.0.75.awp.runs_s[2]",
+          "old": 1.6131588999996893,
+          "new": 1.490945700003067
+        },
+        {
+          "path": ".damping.0.75.awp.runs_s[3]",
+          "old": 1.562171199999284,
+          "new": 1.5622107999952277
+        },
+        {
+          "path": ".damping.0.75.awp.runs_s[4]",
+          "old": 1.7692899999965448,
+          "new": 1.8654274000000441
+        },
+        {
+          "path": ".damping.0.75.awp.sd_s",
+          "old": 0.23174531190771674,
+          "new": 0.14748779287137453
+        },
+        {
+          "path": ".damping.0.75.endorserank.mean_s",
+          "old": 0.08557785999728366,
+          "new": 0.07303621999744792
+        },
+        {
+          "path": ".damping.0.75.endorserank.peak_mb",
+          "old": 13.667299270629883,
+          "new": 13.66735553741455
+        }
+      ]
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/cohort/cohort_t1.json": {
+      "state": "same",
+      "equal": 9,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 0,
+      "first_differences": []
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/cohort/matched_cohort.json": {
+      "state": "same",
+      "equal": 8,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 0,
+      "first_differences": []
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/cohort/spenders_w0.json": {
+      "state": "same",
+      "equal": 10,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 0,
+      "first_differences": []
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/cohort/spenders_w1.json": {
+      "state": "same",
+      "equal": 10,
+      "close": 0,
+      "volatile": [],
+      "n_differ": 0,
+      "first_differences": []
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/typing/balance_audit.csv": {
+      "state": "DIFFERENT bytes"
+    },
+    "2-processed-tables-and-evaluations/revised-contract-12m/typing/balance_audit.json": {
+      "state": "DIFFERENT",
+      "equal": 63,
+      "close": 0,
+      "volatile": [
+        ".calls_per_host",
+        ".computed_at"
+      ],
+      "n_differ": 7,
+      "first_differences": [
+        {
+          "path": ".archive_probe_attempts.arbitrum-one.public.blastapi.io",
+          "old": 4,
+          "new": 1
+        },
+        {
+          "path": ".errors",
+          "old": 7,
+          "new": 0
+        },
+        {
+          "path": ".matched",
+          "old": 1493,
+          "new": 1500
+        },
+        {
+          "path": ".overall_share",
+          "old": 0.995333,
+          "new": 1.0
+        },
+        {
+          "path": ".per_cell[3].match",
+          "old": 0.9733,
+          "new": 1.0
+        },
+        {
+          "path": ".per_cell[9].match",
+          "old": 0.98,
+          "new": 1.0
+        },
+        {
+          "path": ".share",
+          "old": 0.995333,
+          "new": 1.0
+        }
+      ]
+    }
+  }
+}

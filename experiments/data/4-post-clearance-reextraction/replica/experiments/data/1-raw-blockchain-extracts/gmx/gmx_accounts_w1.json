@@ -1,0 +1,10 @@
+{
+  "table": "dissertation-bq.contract_rep_r1.gmx_accounts_w1",
+  "rows": 3781,
+  "table_rows": 3781,
+  "downloaded_at": "2026-11-21T18:27:29+00:00",
+  "parts": [
+    "gmx_accounts_w1.part000.parquet"
+  ],
+  "bytes": 148534
+}

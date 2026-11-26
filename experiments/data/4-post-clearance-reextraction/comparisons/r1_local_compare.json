@@ -1,0 +1,1140 @@
+{
+  "gmx_accounts": {
+    "name": "gmx_accounts",
+    "rows_old": 137621,
+    "rows_new": 137621,
+    "columns_old": [
+      "account",
+      "closes",
+      "first_ts",
+      "last_ts",
+      "data_chars"
+    ],
+    "columns_new": [
+      "account",
+      "closes",
+      "first_ts",
+      "last_ts",
+      "data_chars"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T17:53:27+00:00"
+  },
+  "types:1-raw-blockchain-extracts/gmx/gmx_account_types": {
+    "name": "types:1-raw-blockchain-extracts/gmx/gmx_account_types",
+    "rows_old": 40307,
+    "rows_new": 40307,
+    "columns_old": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "columns_new": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T17:58:56+00:00"
+  },
+  "spender_candidates": {
+    "name": "spender_candidates",
+    "rows_old": 29022,
+    "rows_new": 29022,
+    "columns_old": [
+      "spender",
+      "owners_nonzero",
+      "approval_logs",
+      "first_ts",
+      "last_ts"
+    ],
+    "columns_new": [
+      "spender",
+      "owners_nonzero",
+      "approval_logs",
+      "first_ts",
+      "last_ts"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T18:00:11+00:00"
+  },
+  "types:1-raw-blockchain-extracts/cohort/candidate_account_types": {
+    "name": "types:1-raw-blockchain-extracts/cohort/candidate_account_types",
+    "rows_old": 29022,
+    "rows_new": 29022,
+    "columns_old": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "columns_new": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T18:03:46+00:00"
+  },
+  "matched_cohort": {
+    "name": "matched_cohort",
+    "rows_old": 27844,
+    "rows_new": 27844,
+    "columns_old": [
+      "wallet",
+      "owners_nonzero",
+      "approval_logs",
+      "first_ts",
+      "last_ts",
+      "code_kind",
+      "account_class"
+    ],
+    "columns_new": [
+      "wallet",
+      "owners_nonzero",
+      "approval_logs",
+      "first_ts",
+      "last_ts",
+      "code_kind",
+      "account_class"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T18:03:47+00:00"
+  },
+  "c12_rpc_queue": {
+    "name": "c12_rpc_queue",
+    "rows_old": 6230270,
+    "rows_new": 6230270,
+    "columns_old": [
+      "address",
+      "reason",
+      "is_emitter",
+      "is_created"
+    ],
+    "columns_new": [
+      "address",
+      "reason",
+      "is_emitter",
+      "is_created"
+    ],
+    "same": true,
+    "compared_at": "2026-11-23T01:04:54+00:00"
+  },
+  "labels_w0": {
+    "name": "labels_w0",
+    "rows_old": 33556,
+    "rows_new": 33556,
+    "columns_old": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "columns_new": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:14:28+00:00"
+  },
+  "labels_w1": {
+    "name": "labels_w1",
+    "rows_old": 35086,
+    "rows_new": 35086,
+    "columns_old": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "columns_new": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:14:28+00:00"
+  },
+  "types:1-raw-blockchain-extracts/cohort/holdout_spender_types": {
+    "name": "types:1-raw-blockchain-extracts/cohort/holdout_spender_types",
+    "rows_old": 8224,
+    "rows_new": 8224,
+    "columns_old": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "columns_new": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T18:31:01+00:00"
+  },
+  "types:1-raw-blockchain-extracts/gmx/gmx_account_types_w1": {
+    "name": "types:1-raw-blockchain-extracts/gmx/gmx_account_types_w1",
+    "rows_old": 1153,
+    "rows_new": 1153,
+    "columns_old": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "columns_new": [
+      "address",
+      "code_kind",
+      "account_class"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T18:31:12+00:00"
+  },
+  "all_contracts": {
+    "name": "all_contracts",
+    "rows_old": 43543,
+    "rows_new": 43543,
+    "same": true,
+    "compared_at": "2026-11-21T18:31:12+00:00"
+  },
+  "x_nodes": {
+    "name": "x_nodes",
+    "rows_old": 25305099,
+    "rows_new": 25305099,
+    "columns_old": [
+      "id",
+      "address",
+      "is_cohort"
+    ],
+    "columns_new": [
+      "id",
+      "address",
+      "is_cohort"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:11:05+00:00"
+  },
+  "x_allow_pairs_t1": {
+    "name": "x_allow_pairs_t1",
+    "rows_old": 21550791,
+    "rows_new": 21550791,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:11:41+00:00"
+  },
+  "x_transfer_pairs_t1": {
+    "name": "x_transfer_pairs_t1",
+    "rows_old": 58065784,
+    "rows_new": 58065784,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:12:50+00:00"
+  },
+  "x_allow_pairs_tobs": {
+    "name": "x_allow_pairs_tobs",
+    "rows_old": 22321470,
+    "rows_new": 22321470,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:13:08+00:00"
+  },
+  "x_transfer_pairs_tobs": {
+    "name": "x_transfer_pairs_tobs",
+    "rows_old": 59737617,
+    "rows_new": 59737617,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:14:28+00:00"
+  },
+  "proxies_tobs": {
+    "name": "proxies_tobs",
+    "rows_old": 27844,
+    "rows_new": 27844,
+    "columns_old": [
+      "wallet",
+      "in_degree",
+      "in_value",
+      "inbound_counterparty_ratio",
+      "transfer_tenure_days",
+      "active_months",
+      "inbound_tx",
+      "inbound_unique"
+    ],
+    "columns_new": [
+      "wallet",
+      "in_degree",
+      "in_value",
+      "inbound_counterparty_ratio",
+      "transfer_tenure_days",
+      "active_months",
+      "inbound_tx",
+      "inbound_unique"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:14:28+00:00"
+  },
+  "x_top_token_pairs": {
+    "name": "x_top_token_pairs",
+    "rows_old": 104330351,
+    "rows_new": 104330351,
+    "columns_old": [
+      "list",
+      "layer",
+      "src",
+      "dst",
+      "w",
+      "max_sig"
+    ],
+    "columns_new": [
+      "list",
+      "layer",
+      "src",
+      "dst",
+      "w",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:29:36+00:00"
+  },
+  "gmx_closes_obs": {
+    "name": "gmx_closes_obs",
+    "rows_old": 133685,
+    "rows_new": 133685,
+    "columns_old": [
+      "block_timestamp",
+      "block_number",
+      "log_index",
+      "raw_topics",
+      "raw_data"
+    ],
+    "columns_new": [
+      "block_timestamp",
+      "block_number",
+      "log_index",
+      "raw_topics",
+      "raw_data"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:29:45+00:00"
+  },
+  "gmx_closes_w1": {
+    "name": "gmx_closes_w1",
+    "rows_old": 6805,
+    "rows_new": 6805,
+    "columns_old": [
+      "block_timestamp",
+      "block_number",
+      "log_index",
+      "raw_topics",
+      "raw_data"
+    ],
+    "columns_new": [
+      "block_timestamp",
+      "block_number",
+      "log_index",
+      "raw_topics",
+      "raw_data"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T19:30:05+00:00"
+  },
+  "u12_cohort_tobs": {
+    "name": "u12_cohort_tobs",
+    "rows_old": 6483,
+    "rows_new": 6483,
+    "columns_old": [
+      "address",
+      "owners_nonzero",
+      "approval_logs"
+    ],
+    "columns_new": [
+      "address",
+      "owners_nonzero",
+      "approval_logs"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T22:52:58+00:00"
+  },
+  "u12_cohort_t1": {
+    "name": "u12_cohort_t1",
+    "rows_old": 6343,
+    "rows_new": 6343,
+    "columns_old": [
+      "address",
+      "owners_nonzero",
+      "approval_logs"
+    ],
+    "columns_new": [
+      "address",
+      "owners_nonzero",
+      "approval_logs"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T22:53:24+00:00"
+  },
+  "u12_labels_w0": {
+    "name": "u12_labels_w0",
+    "rows_old": 7962,
+    "rows_new": 7962,
+    "columns_old": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "columns_new": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T22:53:49+00:00"
+  },
+  "u12_labels_w1": {
+    "name": "u12_labels_w1",
+    "rows_old": 7995,
+    "rows_new": 7995,
+    "columns_old": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "columns_new": [
+      "wallet",
+      "future_new_approvers",
+      "future_revoke_count",
+      "future_revoke_rate",
+      "future_keep_rate",
+      "future_revoke_value",
+      "future_new_transfer_senders",
+      "future_drain_owners"
+    ],
+    "same": true,
+    "compared_at": "2026-11-21T22:54:11+00:00"
+  },
+  "types:c12_account_types": {
+    "name": "types:c12_account_types",
+    "rows_old": 6230270,
+    "rows_new": 6230270,
+    "columns_old": [
+      "address",
+      "code_kind",
+      "account_class",
+      "code_size",
+      "code_hash",
+      "proxy_kind",
+      "implementation",
+      "has_master_copy",
+      "threshold",
+      "n_owners",
+      "entry_point",
+      "has_validate_userop",
+      "has_paymaster_selector",
+      "wallet_kind"
+    ],
+    "columns_new": [
+      "address",
+      "code_kind",
+      "account_class",
+      "code_size",
+      "code_hash",
+      "proxy_kind",
+      "implementation",
+      "has_master_copy",
+      "threshold",
+      "n_owners",
+      "entry_point",
+      "has_validate_userop",
+      "has_paymaster_selector",
+      "wallet_kind"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T04:30:53+00:00"
+  },
+  "c12_bal_audit": {
+    "name": "c12_bal_audit",
+    "rows_old": 1500,
+    "rows_new": 1500,
+    "columns_old": [
+      "token",
+      "owner",
+      "bal_tobs",
+      "bal_0930",
+      "n_w1",
+      "decimals",
+      "cell"
+    ],
+    "columns_new": [
+      "token",
+      "owner",
+      "bal_tobs",
+      "bal_0930",
+      "n_w1",
+      "decimals",
+      "cell"
+    ],
+    "same": false,
+    "first_difference": {
+      "column": "bal_tobs",
+      "sorted_row": 306,
+      "old": "[{'token': '0x82af49447d8a07e3bd95bd0d56f35241523fbab1', 'owner': '0x03ffdb95d3ee7f7b796069867e55cf6fdb65472c', 'bal_tobs': 203116323774068.0, 'bal_0930': 265707405032832.0, 'n_w1': 2, 'decimals': 18, 'cell': 'positive'}]",
+      "new": "[{'token': '0x82af49447d8a07e3bd95bd0d56f35241523fbab1', 'owner': '0x03ffdb95d3ee7f7b796069867e55cf6fdb65472c', 'bal_tobs': 203116323774388.0, 'bal_0930': 265707405033146.0, 'n_w1': 2, 'decimals': 18, 'cell': 'positive'}]"
+    },
+    "compared_at": "2026-11-24T05:18:55+00:00"
+  },
+  "c12_anchor_blocks": {
+    "name": "c12_anchor_blocks",
+    "rows_old": 3,
+    "rows_new": 3,
+    "columns_old": [
+      "anchor",
+      "ts",
+      "block_number"
+    ],
+    "columns_new": [
+      "anchor",
+      "ts",
+      "block_number"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:18:55+00:00"
+  },
+  "balance_audit.json": {
+    "name": "balance_audit.json",
+    "rows_old": 1,
+    "rows_new": 1,
+    "same": false,
+    "first_difference": [
+      {
+        "path": ".archive_probe_attempts.arbitrum-one.public.blastapi.io",
+        "old": 4,
+        "new": 1
+      },
+      {
+        "path": ".errors",
+        "old": 7,
+        "new": 0
+      },
+      {
+        "path": ".matched",
+        "old": 1493,
+        "new": 1500
+      },
+      {
+        "path": ".overall_share",
+        "old": 0.995333,
+        "new": 1.0
+      },
+      {
+        "path": ".per_cell[3].match",
+        "old": 0.9733,
+        "new": 1.0
+      },
+      {
+        "path": ".per_cell[9].match",
+        "old": 0.98,
+        "new": 1.0
+      },
+      {
+        "path": ".share",
+        "old": 0.995333,
+        "new": 1.0
+      }
+    ],
+    "volatile": [
+      ".calls_per_host",
+      ".computed_at"
+    ],
+    "compared_at": "2026-11-24T05:28:37+00:00"
+  },
+  "c12_struct_t1": {
+    "name": "c12_struct_t1",
+    "rows_old": 2562930,
+    "rows_new": 2562930,
+    "columns_old": [
+      "a",
+      "b",
+      "layer"
+    ],
+    "columns_new": [
+      "a",
+      "b",
+      "layer"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:34:55+00:00"
+  },
+  "c12_x_nodes": {
+    "name": "c12_x_nodes",
+    "rows_old": 1403959,
+    "rows_new": 1403959,
+    "columns_old": [
+      "id",
+      "address",
+      "is_cohort",
+      "is_cohort_t1",
+      "is_spender_w0",
+      "is_spender_w1"
+    ],
+    "columns_new": [
+      "id",
+      "address",
+      "is_cohort",
+      "is_cohort_t1",
+      "is_spender_w0",
+      "is_spender_w1"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:38:06+00:00"
+  },
+  "c12_x_allow_pairs_tobs": {
+    "name": "c12_x_allow_pairs_tobs",
+    "rows_old": 115006,
+    "rows_new": 115006,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig",
+      "w_er_b10x",
+      "w_er_b01x"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig",
+      "w_er_b10x",
+      "w_er_b01x"
+    ],
+    "same": false,
+    "first_difference": {
+      "column": "w_er",
+      "sorted_row": 0,
+      "old": "[{'src': 29, 'dst': 93693, 'n_tokens': 2, 'w_er': 0.4580163206714212, 'w_raw': 0.07727425168599446, 'max_sig': 0.8552764265710531, 'w_er_b10x': 0.855328418449793, 'w_er_b01x': 0.05107168451830715}]",
+      "new": "[{'src': 29, 'dst': 93693, 'n_tokens': 2, 'w_er': 0.45801636013255087, 'w_raw': 0.07727426004738716, 'max_sig': 0.8552764265710531, 'w_er_b10x': 0.8553284184639909, 'w_er_b01x': 0.05107169003133179}]"
+    },
+    "compared_at": "2026-11-24T05:38:27+00:00"
+  },
+  "c12_x_transfer_pairs_tobs": {
+    "name": "c12_x_transfer_pairs_tobs",
+    "rows_old": 2580709,
+    "rows_new": 2580709,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig",
+      "w_awp_b10x",
+      "w_awp_b01x"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig",
+      "w_awp_b10x",
+      "w_awp_b01x"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:38:47+00:00"
+  },
+  "c12_x_allow_pairs_t1": {
+    "name": "c12_x_allow_pairs_t1",
+    "rows_old": 17940,
+    "rows_new": 17940,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": false,
+    "first_difference": {
+      "column": "n_tokens",
+      "sorted_row": 8882,
+      "old": "[{'src': 670142, 'dst': 92489, 'n_tokens': 3, 'w_er': 0.8438569030193794, 'w_raw': 0.3550943636975615, 'max_sig': 0.8575862477305384}]",
+      "new": "[{'src': 670142, 'dst': 92489, 'n_tokens': 2, 'w_er': 0.8438562895820585, 'w_raw': 0.35509426924902787, 'max_sig': 0.8575862477305384}]"
+    },
+    "compared_at": "2026-11-24T05:39:01+00:00"
+  },
+  "c12_x_transfer_pairs_t1": {
+    "name": "c12_x_transfer_pairs_t1",
+    "rows_old": 2269073,
+    "rows_new": 2269073,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_transfers",
+      "w_awp",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:39:18+00:00"
+  },
+  "c12_x_allow_pairs_unc_tobs": {
+    "name": "c12_x_allow_pairs_unc_tobs",
+    "rows_old": 302559,
+    "rows_new": 302559,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:39:31+00:00"
+  },
+  "c12_x_allow_pairs_unc_t1": {
+    "name": "c12_x_allow_pairs_unc_t1",
+    "rows_old": 275917,
+    "rows_new": 275917,
+    "columns_old": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "columns_new": [
+      "src",
+      "dst",
+      "n_tokens",
+      "w_er",
+      "w_raw",
+      "max_sig"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:39:46+00:00"
+  },
+  "c12_importance_tobs": {
+    "name": "c12_importance_tobs",
+    "rows_old": 809296,
+    "rows_new": 809296,
+    "columns_old": [
+      "id",
+      "address",
+      "i_t",
+      "i_a",
+      "n_t",
+      "n_a"
+    ],
+    "columns_new": [
+      "id",
+      "address",
+      "i_t",
+      "i_a",
+      "n_t",
+      "n_a"
+    ],
+    "same": false,
+    "first_difference": {
+      "column": "i_a",
+      "sorted_row": 2450,
+      "old": "[{'id': -1, 'address': '0x05a402c4fa58c708bfdef3b4e62049cf7d6bccc1', 'i_t': 0.0, 'i_a': 5384.028953925167, 'n_t': 0, 'n_a': 1}]",
+      "new": "[{'id': -1, 'address': '0x05a402c4fa58c708bfdef3b4e62049cf7d6bccc1', 'i_t': 0.0, 'i_a': 5384.028953961902, 'n_t': 0, 'n_a': 1}]"
+    },
+    "compared_at": "2026-11-24T05:40:06+00:00"
+  },
+  "c12_importance_t1": {
+    "name": "c12_importance_t1",
+    "rows_old": 715480,
+    "rows_new": 715480,
+    "columns_old": [
+      "id",
+      "address",
+      "i_t",
+      "i_a",
+      "n_t",
+      "n_a"
+    ],
+    "columns_new": [
+      "id",
+      "address",
+      "i_t",
+      "i_a",
+      "n_t",
+      "n_a"
+    ],
+    "same": false,
+    "first_difference": {
+      "column": "i_a",
+      "sorted_row": 7,
+      "old": "[{'id': -1, 'address': '0x00000e8bcf9a1d4b9ab128ce7974b42e5d600000', 'i_t': 0.0, 'i_a': 0.0003277453497823591, 'n_t': 0, 'n_a': 0}]",
+      "new": "[{'id': -1, 'address': '0x00000e8bcf9a1d4b9ab128ce7974b42e5d600000', 'i_t': 0.0, 'i_a': 0.0003277453497827393, 'n_t': 0, 'n_a': 0}]"
+    },
+    "compared_at": "2026-11-24T05:40:22+00:00"
+  },
+  "c12_inflow_untyped_tobs": {
+    "name": "c12_inflow_untyped_tobs",
+    "rows_old": 1,
+    "rows_new": 1,
+    "columns_old": [
+      "usd"
+    ],
+    "columns_new": [
+      "usd"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:40:34+00:00"
+  },
+  "c12_inflow_untyped_t1": {
+    "name": "c12_inflow_untyped_t1",
+    "rows_old": 1,
+    "rows_new": 1,
+    "columns_old": [
+      "usd"
+    ],
+    "columns_new": [
+      "usd"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:40:52+00:00"
+  },
+  "c12_proxies_tobs": {
+    "name": "c12_proxies_tobs",
+    "rows_old": 6443,
+    "rows_new": 6443,
+    "columns_old": [
+      "wallet",
+      "in_degree",
+      "in_value",
+      "inbound_counterparty_ratio",
+      "transfer_tenure_days",
+      "active_months",
+      "inbound_tx",
+      "inbound_unique"
+    ],
+    "columns_new": [
+      "wallet",
+      "in_degree",
+      "in_value",
+      "inbound_counterparty_ratio",
+      "transfer_tenure_days",
+      "active_months",
+      "inbound_tx",
+      "inbound_unique"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:41:16+00:00"
+  },
+  "c12_x_label_split_w0": {
+    "name": "c12_x_label_split_w0",
+    "rows_old": 7962,
+    "rows_new": 7962,
+    "columns_old": [
+      "wallet",
+      "spender_class",
+      "n_t1",
+      "n_t1_user",
+      "n_t1_contract",
+      "n_t1_other",
+      "future_new_approvers_user",
+      "future_new_approvers_contract",
+      "future_new_approvers_other",
+      "future_revoke_count_user",
+      "future_revoke_count_contract",
+      "future_revoke_count_other",
+      "future_revoke_rate_user",
+      "future_revoke_rate_contract",
+      "future_revoke_rate_other",
+      "future_keep_rate_user",
+      "future_keep_rate_contract",
+      "future_keep_rate_other",
+      "future_revoke_value_user",
+      "future_revoke_value_contract",
+      "future_revoke_value_other",
+      "future_new_transfer_senders_user",
+      "future_new_transfer_senders_contract",
+      "future_new_transfer_senders_other",
+      "future_drain_owners_user",
+      "future_drain_owners_contract",
+      "future_drain_owners_other"
+    ],
+    "columns_new": [
+      "wallet",
+      "spender_class",
+      "n_t1",
+      "n_t1_user",
+      "n_t1_contract",
+      "n_t1_other",
+      "future_new_approvers_user",
+      "future_new_approvers_contract",
+      "future_new_approvers_other",
+      "future_revoke_count_user",
+      "future_revoke_count_contract",
+      "future_revoke_count_other",
+      "future_revoke_rate_user",
+      "future_revoke_rate_contract",
+      "future_revoke_rate_other",
+      "future_keep_rate_user",
+      "future_keep_rate_contract",
+      "future_keep_rate_other",
+      "future_revoke_value_user",
+      "future_revoke_value_contract",
+      "future_revoke_value_other",
+      "future_new_transfer_senders_user",
+      "future_new_transfer_senders_contract",
+      "future_new_transfer_senders_other",
+      "future_drain_owners_user",
+      "future_drain_owners_contract",
+      "future_drain_owners_other"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:41:35+00:00"
+  },
+  "c12_x_label_split_w1": {
+    "name": "c12_x_label_split_w1",
+    "rows_old": 7995,
+    "rows_new": 7995,
+    "columns_old": [
+      "wallet",
+      "spender_class",
+      "n_t1",
+      "n_t1_user",
+      "n_t1_contract",
+      "n_t1_other",
+      "future_new_approvers_user",
+      "future_new_approvers_contract",
+      "future_new_approvers_other",
+      "future_revoke_count_user",
+      "future_revoke_count_contract",
+      "future_revoke_count_other",
+      "future_revoke_rate_user",
+      "future_revoke_rate_contract",
+      "future_revoke_rate_other",
+      "future_keep_rate_user",
+      "future_keep_rate_contract",
+      "future_keep_rate_other",
+      "future_revoke_value_user",
+      "future_revoke_value_contract",
+      "future_revoke_value_other",
+      "future_new_transfer_senders_user",
+      "future_new_transfer_senders_contract",
+      "future_new_transfer_senders_other",
+      "future_drain_owners_user",
+      "future_drain_owners_contract",
+      "future_drain_owners_other"
+    ],
+    "columns_new": [
+      "wallet",
+      "spender_class",
+      "n_t1",
+      "n_t1_user",
+      "n_t1_contract",
+      "n_t1_other",
+      "future_new_approvers_user",
+      "future_new_approvers_contract",
+      "future_new_approvers_other",
+      "future_revoke_count_user",
+      "future_revoke_count_contract",
+      "future_revoke_count_other",
+      "future_revoke_rate_user",
+      "future_revoke_rate_contract",
+      "future_revoke_rate_other",
+      "future_keep_rate_user",
+      "future_keep_rate_contract",
+      "future_keep_rate_other",
+      "future_revoke_value_user",
+      "future_revoke_value_contract",
+      "future_revoke_value_other",
+      "future_new_transfer_senders_user",
+      "future_new_transfer_senders_contract",
+      "future_new_transfer_senders_other",
+      "future_drain_owners_user",
+      "future_drain_owners_contract",
+      "future_drain_owners_other"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:41:53+00:00"
+  },
+  "c12_x_members": {
+    "name": "c12_x_members",
+    "rows_old": 28783,
+    "rows_new": 28783,
+    "columns_old": [
+      "list",
+      "address",
+      "class",
+      "source"
+    ],
+    "columns_new": [
+      "list",
+      "address",
+      "class",
+      "source"
+    ],
+    "same": true,
+    "compared_at": "2026-11-24T05:42:09+00:00"
+  },
+  "c12_describe_allowances": {
+    "name": "c12_describe_allowances",
+    "rows_old": 10,
+    "rows_new": 10,
+    "columns_old": [
+      "tag",
+      "token",
+      "n_latest_positive",
+      "n_positive_eff",
+      "n_capped_to_zero",
+      "n_capped_below_allowance",
+      "n_unlimited",
+      "n_finite",
+      "n_eff_at_or_above_cap",
+      "n_allow_at_or_above_cap",
+      "sum_usd_eff",
+      "sum_usd_allow_finite"
+    ],
+    "columns_new": [
+      "tag",
+      "token",
+      "n_latest_positive",
+      "n_positive_eff",
+      "n_capped_to_zero",
+      "n_capped_below_allowance",
+      "n_unlimited",
+      "n_finite",
+      "n_eff_at_or_above_cap",
+      "n_allow_at_or_above_cap",
+      "sum_usd_eff",
+      "sum_usd_allow_finite"
+    ],
+    "same": false,
+    "first_difference": {
+      "column": "n_positive_eff",
+      "sorted_row": 2,
+      "old": "[{'tag': 't1', 'token': '0x912ce59144191c1204e64559fe8253a0e49e6548', 'n_latest_positive': 4795, 'n_positive_eff': 353, 'n_capped_to_zero': 4442, 'n_capped_below_allowance': 305, 'n_unlimited': 3760, 'n_finite': 1035, 'n_eff_at_or_above_cap': 8, 'n_allow_at_or_above_cap': 3997, 'sum_usd_eff': 613268.5736111102, 'sum_usd_allow_finite': 3.8595637742808533e+58}]",
+      "new": "[{'tag': 't1', 'token': '0x912ce59144191c1204e64559fe8253a0e49e6548', 'n_latest_positive': 4795, 'n_positive_eff': 345, 'n_capped_to_zero': 4450, 'n_capped_below_allowance': 299, 'n_unlimited': 3760, 'n_finite': 1035, 'n_eff_at_or_above_cap': 8, 'n_allow_at_or_above_cap': 3997, 'sum_usd_eff': 613268.5735638398, 'sum_usd_allow_finite': 3.8595637742808533e+58}]"
+    },
+    "compared_at": "2026-11-24T05:42:26+00:00"
+  }
+}
