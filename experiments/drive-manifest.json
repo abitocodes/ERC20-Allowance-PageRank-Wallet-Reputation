@@ -3578,6 +3578,12 @@
    "md5": "71c546453ba073f61760dfb1c874f6e7"
   },
   {
+   "path": "contract-reputation/4-post-clearance-reextraction/comparisons/r1_closed_groups_diff.json",
+   "id": "1TWhEMNn5XgJCJnkS6ORAgq2LmgcY1h2W",
+   "size": 10432,
+   "md5": "b4d13744349d752f5d3d9ec0d597a396"
+  },
+  {
    "path": "contract-reputation/4-post-clearance-reextraction/comparisons/r1_compare_meta_scans.json",
    "id": "1rhumVQx2aCNdasudDGTAyI3wNIQdTNGR",
    "size": 3502,
@@ -5858,6 +5864,18 @@
    "md5": "7352992bd7ba3201e3b9feb4c021f0c6"
   },
   {
+   "path": "contract-reputation/4-post-clearance-reextraction/replica/experiments/exploratory/2026-11-11-closed-groups/results.json",
+   "id": "1u8KK1y23NniYLl3eU8ouZdsz6GZcbPd0",
+   "size": 21198,
+   "md5": "9a570220b2da9ecec06e89911f38339c"
+  },
+  {
+   "path": "contract-reputation/4-post-clearance-reextraction/replica/experiments/exploratory/2026-11-11-closed-groups/scripts/closed_groups.py",
+   "id": "1ddGhVyjqD1kilWlj14KADQSgHWooKq4E",
+   "size": 7578,
+   "md5": "ccfe9df8fae9297cf29db652b9981149"
+  },
+  {
    "path": "contract-reputation/4-post-clearance-reextraction/replica_build.json",
    "id": "1DKh-dpmAKcGx7VWIhbfjAPW1lYeLtR0O",
    "size": 2053,
@@ -6321,6 +6339,6 @@
   }
  ],
  "folder_url": "https://drive.google.com/open?id=1BDB3HOXgtX_gnn00jhOcTQE0j52qf3lO",
- "updated_at": "2026-11-26T11:45:51+00:00",
- "total_bytes": 23097722600
+ "updated_at": "2026-11-26T12:08:33+00:00",
+ "total_bytes": 23097761808
 }

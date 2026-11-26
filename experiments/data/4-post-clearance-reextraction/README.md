@@ -36,6 +36,7 @@
     - 결과 행 35행은 소수 셋째 자리에서 다릅니다. 동점의 수가 몇 개 바뀐 것이 원인입니다. 2026-11-22 저자 결정에 따라, BigQuery 실수 합 순서에서 온 동점 변화로 기록했습니다.
     - 나머지는 실행 시간 23행과 추출 기록 4행입니다.
   - 데이터 설명(`describe.json`)은 값이 모두 같고, 추출 시각과 비용 합계만 다릅니다(`comparisons/r1_reg_describe_diff.json`).
+- **닫힌 계약 무리 점검**(`../../exploratory/2026-11-11-closed-groups/`)도 같은 스크립트로 다시 추출한 데이터에서 다시 계산했습니다(`replica/experiments/exploratory/2026-11-11-closed-groups/results.json`). 정수 값 364개(무리 수, 계약 수, 코호트와 지출자 안의 수 등)는 모두 같고, 실수 92개 가운데 51개가 상대 2.3e-9 안에서 다릅니다(`comparisons/r1_closed_groups_diff.json`).
 
 **실행 시간**은 다시 쟀습니다. 두 분석 모두 반복 수와 그래프 크기는 같고, 메모리 최댓값도 0.001 MB 안에서 같습니다.
 
@@ -49,6 +50,8 @@
 - `1-raw-blockchain-extracts/`: BigQuery에서 다시 받은 원시 표입니다.
 - `2-processed-tables-and-evaluations/`: 점수와 평가입니다.
 - `3-published-results-for-thesis/`: 두 분석의 요약본, 요약 JSON, `SHA256SUMS.txt`입니다.
+
+`replica/experiments/exploratory/2026-11-11-closed-groups/`에는 닫힌 계약 무리 점검을 다시 추출한 데이터로 다시 계산한 결과와 그 스크립트가 있습니다.
 
 학위논문과 투고 논문 A·B의 수치는 이 요약본에서 나왔습니다. 파일의 줄 끝은 공개된 결과 폴더처럼 CRLF입니다. parquet은 GitHub에 없고 Google Drive에만 있습니다(`../README.md`).
 
@@ -69,5 +72,6 @@
 | `comparisons/r1_table_numdiff_c12_full.json` | 학위논문 표 39개의 숫자 비교 |
 | `comparisons/r1_*_benchmark_diff.json` | 실행 시간 측정의 비교 |
 | `comparisons/r1_reg_describe_diff.json` | 등록 분석 데이터 설명의 비교 |
+| `comparisons/r1_closed_groups_diff.json` | 닫힌 계약 무리 점검의 값별 비교 |
 
 비교에 쓴 스크립트와 기록은 복제본(`D:\Github\phd_reextract\experiments`)의 git에 있습니다.

@@ -1,0 +1,320 @@
+{
+ "what": "closed-group check (exploratory/2026-11-11-closed-groups/scripts/closed_groups.py, unchanged) on the first extraction and on the data extracted again; values under 'freezes' compared leaf by leaf",
+ "first": "experiments/exploratory/2026-11-11-closed-groups/results.json",
+ "again": "experiments/data/4-post-clearance-reextraction/replica/experiments/exploratory/2026-11-11-closed-groups/results.json",
+ "params_equal": true,
+ "integers": 364,
+ "integers_different": 0,
+ "floats": 92,
+ "floats_different": 51,
+ "other_different": 0,
+ "max_relative_float_difference": 2.245152160049104e-09,
+ "floats_different_list": [
+  {
+   "key": "/tobs/endorserank/closed_self_pair_only/share_of_mass",
+   "first": 0.0002816839503033866,
+   "again": 0.0002816839503014532,
+   "relative_difference": 6.863733350808276e-12
+  },
+  {
+   "key": "/tobs/endorserank/closed_self_pair_only/mass_over_node_share",
+   "first": 6.162174433626946,
+   "again": 6.162174433584651,
+   "relative_difference": 6.863657756151159e-12
+  },
+  {
+   "key": "/tobs/cpr_l100/closed_self_pair_only/share_of_mass",
+   "first": 0.000281673254881006,
+   "again": 0.0002816732548790924,
+   "relative_difference": 6.793554557164767e-12
+  },
+  {
+   "key": "/tobs/cpr_l100/closed_self_pair_only/mass_over_node_share",
+   "first": 6.162391135635673,
+   "again": 6.162391135593809,
+   "relative_difference": 6.7935138960060425e-12
+  },
+  {
+   "key": "/tobs/awp/closed_groups_two_or_more/share_of_mass",
+   "first": 0.04896494097109908,
+   "again": 0.04896494097109916,
+   "relative_difference": 1.5588262015475706e-15
+  },
+  {
+   "key": "/tobs/awp/closed_groups_two_or_more/mass_over_node_share",
+   "first": 2.014645997756134,
+   "again": 2.014645997756137,
+   "relative_difference": 1.5430127538102215e-15
+  },
+  {
+   "key": "/tobs/awp/closed_groups_two_or_more_isolated/share_of_mass",
+   "first": 0.004225685600002827,
+   "again": 0.004225685600002834,
+   "relative_difference": 1.6420752892507136e-15
+  },
+  {
+   "key": "/tobs/awp/closed_groups_two_or_more_isolated/mass_over_node_share",
+   "first": 1.4529209369229736,
+   "again": 1.4529209369229759,
+   "relative_difference": 1.5282635089234909e-15
+  },
+  {
+   "key": "/tobs/awp/closed_self_pair_only/share_of_mass",
+   "first": 4.783252162998567e-05,
+   "again": 4.7832521629985726e-05,
+   "relative_difference": 1.133331607386792e-15
+  },
+  {
+   "key": "/tobs/awp/closed_self_pair_only/mass_over_node_share",
+   "first": 0.9556562520347578,
+   "again": 0.9556562520347589,
+   "relative_difference": 1.1617388807547671e-15
+  },
+  {
+   "key": "/tobs/cpr_l0/score_sum",
+   "first": 0.9999999999999999,
+   "again": 1.0000000000000002,
+   "relative_difference": 3.330669073875469e-16
+  },
+  {
+   "key": "/tobs/cpr_l0/closed_groups_two_or_more/share_of_mass",
+   "first": 0.05803003294000719,
+   "again": 0.058030032940007054,
+   "relative_difference": 2.391483703302674e-15
+  },
+  {
+   "key": "/tobs/cpr_l0/closed_groups_two_or_more/mass_over_node_share",
+   "first": 2.3877640433411877,
+   "again": 2.387764043341182,
+   "relative_difference": 2.4178099775606205e-15
+  },
+  {
+   "key": "/tobs/cpr_l0/closed_groups_two_or_more_isolated/share_of_mass",
+   "first": 0.005695123391349751,
+   "again": 0.005695123391349737,
+   "relative_difference": 2.4367843950305357e-15
+  },
+  {
+   "key": "/tobs/cpr_l0/closed_groups_two_or_more_isolated/mass_over_node_share",
+   "first": 1.9582720231155186,
+   "again": 1.9582720231155137,
+   "relative_difference": 2.4945366377541938e-15
+  },
+  {
+   "key": "/tobs/cpr_l0/closed_self_pair_only/share_of_mass",
+   "first": 0.00012185519751212903,
+   "again": 0.00012185519751212867,
+   "relative_difference": 2.891675638396267e-15
+  },
+  {
+   "key": "/tobs/cpr_l0/closed_self_pair_only/mass_over_node_share",
+   "first": 2.43471183898065,
+   "again": 2.434711838980643,
+   "relative_difference": 2.918385348048358e-15
+  },
+  {
+   "key": "/tobs/cpr_l50/score_sum",
+   "first": 1.0,
+   "again": 0.9999999999999999,
+   "relative_difference": 1.1102230246251565e-16
+  },
+  {
+   "key": "/tobs/cpr_l50/closed_groups_two_or_more/share_of_mass",
+   "first": 0.060016207434137304,
+   "again": 0.0600162074667845,
+   "relative_difference": 5.43973017014012e-10
+  },
+  {
+   "key": "/tobs/cpr_l50/closed_groups_two_or_more/mass_over_node_share",
+   "first": 2.472726734949439,
+   "again": 2.4727267362945358,
+   "relative_difference": 5.439731382325001e-10
+  },
+  {
+   "key": "/tobs/cpr_l50/closed_groups_two_or_more_isolated/share_of_mass",
+   "first": 0.00584851836110502,
+   "again": 0.00584851836416572,
+   "relative_difference": 5.23329147702517e-10
+  },
+  {
+   "key": "/tobs/cpr_l50/closed_groups_two_or_more_isolated/mass_over_node_share",
+   "first": 2.024514329081084,
+   "again": 2.0245143301405712,
+   "relative_difference": 5.233290517602074e-10
+  },
+  {
+   "key": "/tobs/cpr_l50/closed_self_pair_only/share_of_mass",
+   "first": 0.00011783754947198301,
+   "again": 0.0001178375495335378,
+   "relative_difference": 5.223699282610278e-10
+  },
+  {
+   "key": "/tobs/cpr_l50/closed_self_pair_only/mass_over_node_share",
+   "first": 2.55212368250505,
+   "again": 2.552123683838203,
+   "relative_difference": 5.223699414679061e-10
+  },
+  {
+   "key": "/t1/endorserank/score_sum",
+   "first": 0.9999999999999998,
+   "again": 1.0,
+   "relative_difference": 2.220446049250313e-16
+  },
+  {
+   "key": "/t1/endorserank/closed_self_pair_only/share_of_mass",
+   "first": 0.0030593914697948977,
+   "again": 0.003059391469715724,
+   "relative_difference": 2.5878887218910657e-11
+  },
+  {
+   "key": "/t1/endorserank/closed_self_pair_only/mass_over_node_share",
+   "first": 3.6746350943706516,
+   "again": 3.674635094275556,
+   "relative_difference": 2.587889262423208e-11
+  },
+  {
+   "key": "/t1/cpr_l100/score_sum",
+   "first": 0.9999999999999998,
+   "again": 1.0,
+   "relative_difference": 2.220446049250313e-16
+  },
+  {
+   "key": "/t1/cpr_l100/closed_self_pair_only/share_of_mass",
+   "first": 0.003058281577034157,
+   "again": 0.003058281576991051,
+   "relative_difference": 1.4094890404548987e-11
+  },
+  {
+   "key": "/t1/cpr_l100/closed_self_pair_only/mass_over_node_share",
+   "first": 3.6751369711219466,
+   "again": 3.675136971070146,
+   "relative_difference": 1.4094926608176674e-11
+  },
+  {
+   "key": "/t1/awp/score_sum",
+   "first": 0.9999999999999999,
+   "again": 1.0,
+   "relative_difference": 1.1102230246251565e-16
+  },
+  {
+   "key": "/t1/awp/closed_groups_two_or_more/share_of_mass",
+   "first": 0.002584765951397622,
+   "again": 0.002584765951397626,
+   "relative_difference": 1.6778341913692544e-15
+  },
+  {
+   "key": "/t1/awp/closed_groups_two_or_more/mass_over_node_share",
+   "first": 1.0088061779593382,
+   "again": 1.0088061779593398,
+   "relative_difference": 1.540744167149486e-15
+  },
+  {
+   "key": "/t1/awp/closed_groups_two_or_more_isolated/share_of_mass",
+   "first": 0.0011232599570206042,
+   "again": 0.0011232599570206066,
+   "relative_difference": 2.123502012655074e-15
+  },
+  {
+   "key": "/t1/awp/closed_groups_two_or_more_isolated/mass_over_node_share",
+   "first": 0.6726014014232223,
+   "again": 0.6726014014232238,
+   "relative_difference": 2.1458324781344547e-15
+  },
+  {
+   "key": "/t1/awp/closed_self_pair_only/share_of_mass",
+   "first": 1.0579302271843506e-05,
+   "again": 1.057930227184352e-05,
+   "relative_difference": 1.2810416800490172e-15
+  },
+  {
+   "key": "/t1/awp/closed_self_pair_only/mass_over_node_share",
+   "first": 0.2136563187159947,
+   "again": 0.21365631871599497,
+   "relative_difference": 1.2990758140190236e-15
+  },
+  {
+   "key": "/t1/cpr_l0/score_sum",
+   "first": 0.9999999999999998,
+   "again": 1.0,
+   "relative_difference": 2.220446049250313e-16
+  },
+  {
+   "key": "/t1/cpr_l0/closed_groups_two_or_more/share_of_mass",
+   "first": 0.006414670537234456,
+   "again": 0.006414670537234426,
+   "relative_difference": 4.597320925591888e-15
+  },
+  {
+   "key": "/t1/cpr_l0/closed_groups_two_or_more/mass_over_node_share",
+   "first": 2.5036734085675536,
+   "again": 2.503673408567542,
+   "relative_difference": 4.611751443535008e-15
+  },
+  {
+   "key": "/t1/cpr_l0/closed_groups_two_or_more_isolated/share_of_mass",
+   "first": 0.00340288140133884,
+   "again": 0.003402881401338825,
+   "relative_difference": 4.46058167317411e-15
+  },
+  {
+   "key": "/t1/cpr_l0/closed_groups_two_or_more_isolated/mass_over_node_share",
+   "first": 2.0377040851189174,
+   "again": 2.0377040851189085,
+   "relative_difference": 4.358721299065818e-15
+  },
+  {
+   "key": "/t1/cpr_l0/closed_self_pair_only/share_of_mass",
+   "first": 0.0001353811986998442,
+   "again": 0.00013538119869984348,
+   "relative_difference": 5.40574668754619e-15
+  },
+  {
+   "key": "/t1/cpr_l0/closed_self_pair_only/mass_over_node_share",
+   "first": 2.7342226873268936,
+   "again": 2.734222687326879,
+   "relative_difference": 5.359820907410961e-15
+  },
+  {
+   "key": "/t1/cpr_l50/score_sum",
+   "first": 1.0,
+   "again": 1.0000000000000002,
+   "relative_difference": 2.2204460492503126e-16
+  },
+  {
+   "key": "/t1/cpr_l50/closed_groups_two_or_more/share_of_mass",
+   "first": 0.006710539420435157,
+   "again": 0.006710539435501339,
+   "relative_difference": 2.2451521153977447e-09
+  },
+  {
+   "key": "/t1/cpr_l50/closed_groups_two_or_more/mass_over_node_share",
+   "first": 2.6602622057421312,
+   "again": 2.6602622117148247,
+   "relative_difference": 2.245152160049104e-09
+  },
+  {
+   "key": "/t1/cpr_l50/closed_groups_two_or_more_isolated/share_of_mass",
+   "first": 0.0034656760910011563,
+   "again": 0.003465676097391698,
+   "relative_difference": 1.8439523954441036e-09
+  },
+  {
+   "key": "/t1/cpr_l50/closed_groups_two_or_more_isolated/mass_over_node_share",
+   "first": 2.102846261829731,
+   "again": 2.102846265707279,
+   "relative_difference": 1.8439522297231077e-09
+  },
+  {
+   "key": "/t1/cpr_l50/closed_self_pair_only/share_of_mass",
+   "first": 0.000135739617040497,
+   "again": 0.00013573961729090525,
+   "relative_difference": 1.8447691272949863e-09
+  },
+  {
+   "key": "/t1/cpr_l50/closed_self_pair_only/mass_over_node_share",
+   "first": 2.8469233329370396,
+   "again": 2.846923338188956,
+   "relative_difference": 1.844769110846237e-09
+  }
+ ]
+}

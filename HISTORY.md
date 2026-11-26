@@ -36,6 +36,7 @@ The data were extracted again and every result was computed again in a copy of `
 |---|---|
 | `68da670` | The folders `scripts`, `sql`, `config`, `docs` and `tests` of `experiments/` at commit `5b26585` of this repository, and the inputs `data/0-*`. The only change is the name of the BigQuery dataset, `contract_rep_r1` in place of `contract_rep` (`replica_build.json` in the folder). |
 | `a9e2bd7` | The code revision that the two digests `results_digest.md` of `replica/experiments/data/3-published-results-for-thesis/` record: `68da670` with `scripts/export_latex.py` and `scripts/export_latex_c12.py` taken from commit `9a3ad3a` of this repository (they only lay out the tables), and the records of the replica. |
+| `11b4b82` | `a9e2bd7` with the two digests written again. The closed-group check in `replica/experiments/exploratory/2026-11-11-closed-groups/` records this revision; its script is that of `experiments/exploratory/2026-11-11-closed-groups/scripts/` of this repository. |
 
 ## All 93 copied commits, newest first
 
