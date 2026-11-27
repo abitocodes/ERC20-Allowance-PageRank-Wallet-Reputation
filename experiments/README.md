@@ -32,7 +32,7 @@
 
 1. `python scripts/run_usd_pipeline.py load ego constants pairs rest download`: BigQuery 단계. 쿼리마다 `run_bq.py`가 먼저 dry run으로 비용을 보고, 실행한 뒤 `data/bq_ledger.json`에 적습니다. 비용이 듭니다(아래 「데이터 정책」).
 2. `scripts/run_usd_local.ps1`: 로컬 평가. run_same_window, run_holdout, run_registered, run_supplementary, run_robustness, sybil_model, describe_data, run_benchmark 순서로 돌립니다.
-3. `CONTRACT_REP_VARIANT=usd python scripts/publish_results.py`: 논문이 인용하는 요약을 `data/3-published-results-for-thesis/revised-usd/`에 복사하고 `results_digest.md`와 `SHA256SUMS.txt`를 씁니다.
+3. `CONTRACT_REP_VARIANT=usd python scripts/publish_results.py`: 요약을 `data/3-published-results-for-thesis/revised-usd/`에 복사하고 `results_digest.md`와 `SHA256SUMS.txt`를 씁니다.
 4. `CONTRACT_REP_VARIANT=usd python scripts/export_latex.py`: 원고의 표와 그림을 씁니다(아래 「표와 그림 다시 만들기」).
 
 ### 12개월 변형
@@ -47,23 +47,26 @@
 
 ### 계약 그래프 변형(논문의 주 분석)
 
-`CONTRACT_REP_VARIANT=contract12m`은 노드가 컨트랙트뿐인 그래프에서 같은 점수를 계산하고 발견 순서 검증을 더합니다(`docs/revision_contract_graph.md`, `docs/discovery_protocol.md`; 2026-11-07 저자 결정). 원고의 표와 그림은 이 변형에서 나옵니다. 입력은 `data/1-raw-blockchain-extracts/graph-tables-contract-12m/`과 `contract-types/`, 결과는 `revised-contract-12m/` 아래와 `data/0-usd-token-list-and-prices/contract-12m/`입니다.
+`CONTRACT_REP_VARIANT=contract12m`은 노드가 컨트랙트뿐인 그래프에서 같은 점수를 계산하고 발견 순서 검증을 더합니다(`docs/revision_contract_graph.md`, `docs/discovery_protocol.md`; 2026-11-07 저자 결정). 원고의 표와 그림은 이 변형에서 나옵니다. 입력은 `data/1-raw-blockchain-extracts/graph-tables-contract-12m/`과 `contract-types/`, 결과는 `revised-contract-12m/` 아래와 `data/0-usd-token-list-and-prices/contract-12m/`입니다. 이 폴더의 결과는 처음 추출한 데이터의 것입니다. 원고의 수치는 윤리 승인 뒤에 같은 SQL과 코드로 데이터를 다시 추출해 모든 결과를 다시 계산한 것이고, 그 데이터와 요약본, 처음 결과와 맞춘 기록은 [`data/4-post-clearance-reextraction/`](data/4-post-clearance-reextraction/README.md)에 있습니다.
 
 1. `python scripts/run_contract12m_pipeline.py check`: 무료 점검과 작업별 비용 추정. 게이트 A(`subset ends activity queue typing load contracts balances anchors audit structure`)는 다섯 토큰의 사건을 체인 전체에서 모으고, 주소의 계정 종류를 판별하고(`eth_getCode`, 공개 RPC), 잔액을 다시 만들어 `balanceOf`와 대조하고, 구조 파일럿을 돌립니다.
 2. 게이트 B(`constants pairs rest checks download`): 발견 순서 프로토콜에 'Protocol fixed'가 적히고 커밋된 뒤에만 돕니다. 상수, 두 동결의 쌍, 코호트와 구성원, 지표, 라벨 나눔, 중요도, 불변식 64개, 내려받기. 이 변형의 BigQuery 작업은 26개, USD 12.63이었습니다(캠페인 상한 USD 15).
 3. 로컬 평가: `scripts/run_usd_local.ps1 -Variant contract12m`(run_same_window, run_discovery, run_holdout, run_registered, run_supplementary, run_robustness, sybil_model, describe_data, run_benchmark 순서). 평가 스크립트는 명세·오버레이·코드가 로컬 변경 없이 커밋되어 있어야 돌아갑니다. 발견 순서 검증의 본 실행 넷은 16개 프로세스로 모두 약 18시간이 걸렸습니다(65,872초).
 4. `CONTRACT_REP_VARIANT=contract12m python scripts/publish_results.py`: `data/3-published-results-for-thesis/revised-contract-12m/`에 요약과 13개 절의 다이제스트를 냅니다.
-5. `CONTRACT_REP_VARIANT=contract12m python scripts/export_latex.py`: 표 40개와 그림 7개를 `data/_work/latex-contract12m/`에 씁니다. 원고에는 `--into-manuscript`를 붙일 때만 씁니다.
+5. `CONTRACT_REP_VARIANT=contract12m python scripts/export_latex.py`: 표 40개와 그림 7개를 `data/_work/latex-contract12m/`에 씁니다. `--into-manuscript`를 붙이면 원고에 바로 쓰는데, 이 폴더의 결과는 처음 추출한 데이터의 것이라 원고에는 쓰지 않습니다(아래 「표와 그림 다시 만들기」).
 
 등록 분석은 같은 스크립트를 `CONTRACT_REP_VARIANT` 없이 돌립니다. 7~9월 로그는 `scripts/extract_w1.py`만 추출하고, 이 스크립트는 W1 등록 파일과 설정이 커밋되어 있어야 돌아갑니다. 테스트는 `python -m pytest tests`로 돌립니다.
 
 ## 표와 그림 다시 만들기
 
-논문의 결과 표(`results/tables/*.tex`)와 그래프(`Figures/generated/*.pdf`)는 손으로 고치지 않고 이 폴더에서 다시 만듭니다. `scripts/export_latex.py`는 서브모듈 `../dissertation/overleaf-github/`에 씁니다.
+논문의 결과 표(`results/tables/*.tex`)와 그래프(`Figures/generated/*.pdf`)는 손으로 고치지 않고 다시 추출한 데이터에서 다시 만듭니다. 그 데이터로 계산한 곳은 복제본입니다. 복제본은 이 폴더의 코드를 저장소 밖(`D:\Github\phd_reextract\experiments`)에 복사해 BigQuery 데이터셋 이름만 바꾼 git 저장소입니다(만든 방법과 커밋은 [`../HISTORY.md`](../HISTORY.md)와 `data/4-post-clearance-reextraction/replica_build.json`). 그 평가와 요약본은 `data/4-post-clearance-reextraction/replica/experiments/data/`에도 있습니다. 표와 그림은 복제본에서 원고 밖의 폴더로 내보낸 뒤, 원고의 것과 비교해 바뀐 파일만 원고에 옮깁니다.
 
 ```bash
-CONTRACT_REP_VARIANT=contract12m python scripts/export_latex.py --into-manuscript
+# 복제본의 experiments 폴더에서
+CONTRACT_REP_VARIANT=contract12m python -B -X utf8 scripts/export_latex.py --tables-dir <폴더>/tables --figures-dir <폴더>/figures
 ```
+
+한국어판의 그래프는 `../dissertation/overleaf-github-ko/scripts/make_ko_figures.py --variant contract12m --experiments <복제본의 experiments 폴더> --figures-dir <폴더>`로 만듭니다. 이 폴더의 평가는 처음 추출한 데이터의 것이라, 여기서 `export_latex.py --into-manuscript`를 돌리면 원고의 표와 그림을 처음 추출의 값으로 다시 씁니다. 그러니 이 폴더에서는 돌리지 않습니다. 투고 논문 A·B와 `../dissertation/overleaf-github/analysis/`의 생성 스크립트는 `--repo <이 저장소>`로 `data/4-post-clearance-reextraction/replica/experiments/`의 요약본을 읽습니다.
 
 서브모듈이 비어 있으면 저장소 최상위에서 `git submodule update --init`을 먼저 실행합니다.
 
@@ -81,7 +84,8 @@ parquet 데이터는 GitHub에 올리지 않고 공개 Google Drive 폴더 `phd_
 | `data/1-raw-blockchain-extracts/graph-tables-contract-12m/` | 계약 그래프 변형(주 분석)의 표(`c12_*`): 노드 번호, 두 동결의 허락 쌍(잔액 상한 뒤와 앞)과 송금 쌍, 구성원, 지표, 라벨 나눔, 중요도, 구조 파일럿 입력 | `.json` 기록만 | 전부 |
 | `data/0-usd-token-list-and-prices` | 토큰 후보·목록, 일별 USD 가격, 상수, Chainlink 대조 | 올림 | 전부 |
 | `data/2-processed-tables-and-evaluations` | 점수, 평가 요약 JSON, 해독한 GMX 청산 | 작은 파일만 | 전부 |
-| `data/3-published-results-for-thesis` | 논문 표의 근거 요약과 SHA-256 목록 | 올림 | 전부 |
+| `data/3-published-results-for-thesis` | 처음 추출한 데이터의 요약과 SHA-256 목록. 원고의 비용 문장과 B의 순서 표는 이 폴더의 기록을 읽음 | 올림 | 전부 |
+| `data/4-post-clearance-reextraction` | 윤리 승인 뒤 다시 추출한 데이터와 다시 계산한 결과(`replica/experiments/data/`; 논문 수치의 근거 요약은 그 안의 `3-published-results-for-thesis/`), 처음 결과와 맞춘 기록, 재추출 원장 (7.6 GB) | 작은 파일만 | 전부 |
 | `../archive/wallet-reputation-experiments/data` | 지갑 평판 연구(보관) 데이터 | 작은 파일만 | 전부 |
 
 `data/_work/`(검증용 임시 다운로드)는 어디에도 올리지 않습니다.
@@ -91,13 +95,16 @@ parquet 데이터는 GitHub에 올리지 않고 공개 Google Drive 폴더 `phd_
 이 폴더에서 필요한 파일만 받습니다. 패턴은 Drive 경로(`contract-reputation/...`)나 학위논문 폴더 기준 경로에 맞춘 glob입니다. 받은 파일은 MD5를 확인합니다.
 
 ```bash
-python scripts/drive_sync.py pull "*graph-tables-contract-12m/*"   # 계약 그래프 분석(주 결과)의 그래프 표
-python scripts/drive_sync.py pull "*revised-contract-12m/*"        # 그 점수와 평가 출력(발견 순서 검증의 곡선 포함)
-python scripts/drive_sync.py pull "*graph-tables-usd-12m/*"   # 12개월 수정 분석의 그래프 표(라벨은 여기 것을 그대로 씀)
-python scripts/drive_sync.py pull "experiments/*"         # 이 논문의 데이터 전부
-python scripts/drive_sync.py pull --all                   # 보관 데이터까지 전부(약 10 GB)
+python scripts/drive_sync.py pull "experiments/data/4-post-clearance-reextraction/*"   # 다시 추출한 데이터와 결과 전부(논문 수치의 근거, 약 7.6 GB)
+python scripts/drive_sync.py pull "*reextraction/*/graph-tables-contract-12m/*"   # 그 가운데 계약 그래프 분석(주 분석)의 그래프 표
+python scripts/drive_sync.py pull "*reextraction/*/revised-contract-12m/*"        # 그 점수와 평가 출력(발견 순서 검증의 곡선 포함)
+python scripts/drive_sync.py pull "*reextraction/*/graph-tables-usd-12m/*"        # 주 분석이 라벨을 그대로 읽는 12개월 수정 분석의 표
+python scripts/drive_sync.py pull "experiments/*"         # 이 논문의 데이터 전부(처음 추출한 것 포함)
+python scripts/drive_sync.py pull --all                   # 보관 데이터까지 전부(약 22 GB)
 python scripts/drive_sync.py status                       # 로컬과 Drive의 차이
 ```
+
+처음 추출한 데이터는 `data/` 바로 아래의 경로로 받습니다(예: `"experiments/data/1-raw-blockchain-extracts/graph-tables-contract-12m/*"`). 폴더 이름만 쓴 패턴(예: `"*revised-contract-12m/*"`)은 처음 추출과 다시 추출한 것을 함께 받습니다.
 
 rclone 리모트가 있으면 rclone으로, 없으면 HTTPS로 받습니다(파이썬 표준 라이브러리만 씀). HTTPS는 환경 변수 `GDRIVE_API_KEY`가 있으면 `www.googleapis.com`을, 없으면 `drive.usercontent.google.com`을 씁니다. Claude Code 클라우드 환경 `Default`는 네트워크를 '사용자 지정'(기본 목록 포함)으로 두고 `drive.usercontent.google.com`을 더해 두었으므로(2026-10-12), 클라우드 세션에서도 키 없이 받습니다. 새 환경을 만들면 같은 도메인을 더합니다.
 
@@ -121,7 +128,7 @@ python scripts/drive_sync.py push             # 올리고 drive-manifest.json �
 | parquet | 공개 Google Drive 폴더에만 둡니다. json·csv·md 같은 작은 파일은 GitHub에도 올립니다. `data/` 아래 파일은 모두 90 MB 아래로 나눠 저장합니다. |
 | 보관한 지갑 평판 데이터 | `../archive/wallet-reputation-experiments/data/`도 같은 규칙입니다. parquet은 Drive에만 둡니다. |
 | Drive 폴더 | UNISA 학위논문에 쓴 데이터는 심사가 끝난 뒤에도 몇 달 동안 누구나 볼 수 있어야 합니다. Drive 폴더 `phd_works-blockchain-data`와 그 공유 설정(링크가 있는 모든 사용자 읽기)을 지우거나 바꾸지 않습니다. |
-| 결과 표와 그림 | `scripts/export_latex.py`로 만듭니다. 손으로 고치지 않습니다. |
-| BigQuery 비용 | `data/bq_ledger.json`에 쌓입니다. 전체 상한은 USD 50이고, 계약 그래프 변형은 그 오버레이에서 USD 60입니다. 2026-11-09까지 작업 82개에 USD 54.88을 썼습니다(계약 그래프 변형 전까지 42.24, 계약 그래프 변형 12.63). 로컬 평가와 표 만들기는 BigQuery를 쓰지 않습니다. |
+| 결과 표와 그림 | 다시 추출한 데이터에서 `scripts/export_latex.py`로 만듭니다(「표와 그림 다시 만들기」). 손으로 고치지 않습니다. |
+| BigQuery 비용 | `data/bq_ledger.json`에 쌓입니다. 전체 상한은 USD 50이고, 계약 그래프 변형은 그 오버레이에서 USD 60입니다. 2026-11-09까지 작업 82개에 USD 54.88을 썼습니다(계약 그래프 변형 전까지 42.24, 계약 그래프 변형 12.63). 윤리 승인 뒤의 재추출은 따로 `data/4-post-clearance-reextraction/r1_bq_ledger.json`에 적었습니다(53건, USD 44.30, 상한 USD 50). 로컬 평가와 표 만들기는 BigQuery를 쓰지 않습니다. |
 | 고정한 파일 | `docs/analysis_plan.md`의 1~6절, `config/contract_reputation.yaml`, W1 등록 파일은 고치지 않습니다. 계약 그래프 변형의 명세와 프로토콜, `tests/test_contract12m.py`가 해시로 지키는 코드와 SQL(`sql/24`–`43`)도 고치지 않습니다. |
 | 커밋 | 스크립트, export한 표, 작은 데이터 파일을 커밋합니다. `.venv/`, parquet, 100 MB가 넘는 파일은 커밋하지 않습니다. |

@@ -21,7 +21,7 @@
 4. `overleaf-github/`에서 `.\build.ps1`로 통합본과 장별 PDF를 빌드합니다(xelatex → biber → xelatex 두 번). 오류 0, 정의되지 않은 참조 0을 확인합니다. MiKTeX에서는 PATH를 `/c/Program Files/MiKTeX/miktex/bin/x64:/c/Windows/System32:/c/Windows:/usr/bin`으로 줄여야 biber와 xelatex가 돕니다.
 5. 서브모듈에서 커밋·푸시한 뒤, 이 저장소에서 서브모듈 포인터를 커밋합니다.
 
-결과 표(`results/tables/*.tex`)와 그림(`Figures/generated/*.pdf`)은 손으로 고치지 않습니다. `../experiments/`에서 `CONTRACT_REP_VARIANT=contract12m python scripts/export_latex.py --into-manuscript`로 다시 만듭니다. 원고의 수치는 주 분석인 계약 그래프 분석의 `../experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`에서 가져옵니다.
+결과 표(`results/tables/*.tex`)와 그림(`Figures/generated/*.pdf`)은 손으로 고치지 않습니다. 다시 추출한 데이터를 가진 복제본에서 `CONTRACT_REP_VARIANT=contract12m python -B -X utf8 scripts/export_latex.py --tables-dir <폴더>/tables --figures-dir <폴더>/figures`로 내보낸 뒤, 바뀐 파일만 원고에 옮깁니다([`../experiments/README.md`](../experiments/README.md)의 「표와 그림 다시 만들기」). `../experiments/`의 평가는 처음 추출한 데이터의 것이라, 거기서 `--into-manuscript`를 붙여 돌리면 원고를 처음 추출의 값으로 다시 씁니다. 원고의 수치는 주 분석인 계약 그래프 분석의 `../experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`에서 가져옵니다.
 
 ## 투고 원고 2편
 

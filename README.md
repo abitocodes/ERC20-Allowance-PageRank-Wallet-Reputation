@@ -55,14 +55,14 @@ DeFi 신용은 이런 점수의 나중 쓰임으로만 적고 시험하지 않�
 | C-PR 허락 층 | 원시 합 | min(잔액 상한 뒤 USD, $16,000) 합 |
 | 평가 | 같은 기간 점검, W0, W1, 규칙 A와 B | 발견 순서 검증, 같은 기간 점검, W0, W1, 규칙 A와 규칙 B의 두 기준(재분석) |
 | 고정 시점 | 계획 d060f3a, W1 등록 1747e64 (모두 결과 전) | 모두 등록 결과를 본 뒤: USD 수정 1d4b9d6·d4796eb·52aa40b (2026-10-10), 12개월 점수 기간 69c7d12 (2026-10-28), 계약 그래프 명세와 발견 순서 프로토콜 d39775c (2026-11-07), 스마트 계정 규칙의 확장 caf97c3과 프로토콜 확정 8645bca (2026-11-09) |
-| 결과 | `experiments/data/3-published-results-for-thesis/` | `.../3-published-results-for-thesis/revised-contract-12m/` |
+| 결과 | `experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/` | 그 아래 `revised-contract-12m/` |
 | 실행 | `CONTRACT_REP_VARIANT` 없이 | `CONTRACT_REP_VARIANT=contract12m` (`scripts/run_contract12m_pipeline.py`, 그다음 평가 스크립트들; [`experiments/README.md`](experiments/README.md)) |
 
 분석 계획 `d060f3a`는 2026-10-09 13:41 UTC(이 연구의 첫 추출 10초 전)에, W1 등록 `1747e64`는 같은 날 16:49 UTC(7~9월 로그 추출 8초 전)에 커밋했습니다. 주 분석은 등록 이후의 이탈(deviation)이라 그 결과를 '등록된 결과'라고 부르지 않습니다. 이유와 규칙은 `experiments/docs/`의 네 문서에 있습니다: `revision_price_weighting.md`(금액과 토큰), `revision_one_year_window.md`(점수 기간), `revision_contract_graph.md`(계약만의 그래프, 계정 종류, 잔액 상한, 상수), `discovery_protocol.md`(발견 순서 검증). 원고는 주 분석을 하나의 설계로 서술하고, 그 정의를 등록 결과를 본 뒤 정했다고 밝힙니다. 사용자 계정이 그래프에 들어 있던 12개월 USD 결과(`revised-usd-12m/`)와 33개월 USD 결과(`revised-usd/`)는 기록으로만 남기고 원고에 넣지 않습니다. 토큰 목록과 가격은 `experiments/data/0-usd-token-list-and-prices/`에 있습니다. 지도교수가 이 분석을 주 분석으로 할지는 아직 확인하지 않았습니다.
 
 ## 결과 (주 분석)
 
-모든 수치와 그 출처(JSON 파일과 키)는 [`experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`](experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md)에, 등록 분석의 수치는 그 위 폴더의 `results_digest.md`에 있습니다. 공개한 파일의 SHA-256은 같은 폴더의 `SHA256SUMS.txt`에 있습니다. 괄호는 95% 부트스트랩 구간입니다. 아래 결과는 모두 등록 결과를 본 뒤 정한 분석의 것이라 '등록된 결과'가 아닙니다.
+모든 수치와 그 출처(JSON 파일과 키)는 [`experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`](experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md)에, 등록 분석의 수치는 그 위 폴더의 `results_digest.md`에 있습니다. 공개한 파일의 SHA-256은 같은 폴더의 `SHA256SUMS.txt`에 있습니다. 이 수치는 윤리 승인 뒤에 같은 SQL과 코드로 데이터를 다시 추출해 모든 결과를 다시 계산한 것이고, 학위논문과 투고 논문 A·B가 이 수치를 씁니다. 처음 추출한 데이터의 결과는 `experiments/data/3-published-results-for-thesis/`에 그대로 두었습니다. 두 결과를 맞춘 기록은 [`experiments/data/4-post-clearance-reextraction/README.md`](experiments/data/4-post-clearance-reextraction/README.md)에 있고, 두 분석 모두 판정이 같습니다. 괄호는 95% 부트스트랩 구간입니다. 아래 결과는 모두 등록 결과를 본 뒤 정한 분석의 것이라 '등록된 결과'가 아닙니다.
 
 - **자료.** 다섯 토큰의 사건 1,240,275,042행에서 주소를 판별해 사용자 계정 21,877,279개와 컨트랙트 1,829,719개를 얻었습니다. T_obs의 계약 그래프에는 잔액 상한 뒤의 허락 쌍 115,006개(그 가운데 98,073개를 한 주인 컨트랙트가 가짐)와 송금 쌍 2,580,709개가 있습니다. 컨트랙트 사이의 허락 층은 얇습니다.
 - **발견 순서 검증**(판정은 T_obs, 방문이 들어오는 간선과 나가는 간선을 모두 드러내는 방식). 읽은 부분 위의 C-PR로 순서를 정한 크롤은 너비 우선 크롤보다 중요한 컨트랙트에 먼저 닿았지만(AUC 차이: 사용자 계정의 송금 유입 +0.0520 [+0.0485, +0.0558], 사용자가 허락한 금액 +0.0061 [+0.0014, +0.0111]), 컨트랙트 백링크 수로 순서를 정한 크롤보다 먼저 닿지는 못했습니다(−0.0051 [−0.0087, −0.0010], −0.0571 [−0.0621, −0.0519]). 프로토콜의 판정은 V2입니다. 크롤 가운데 AUC가 가장 높은 것은 송금 층의 AWP였습니다. 나가는 간선만 드러내는 방식에서는 네 대비가 두 동결 모두 0보다 위였지만, 이 방식은 판정에 쓰이지 않는 민감도입니다.
