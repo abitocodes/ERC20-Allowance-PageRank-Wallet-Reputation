@@ -6,7 +6,7 @@
 - **듣는 사람**: 학위 심사 위원과 일반 청중. 모든 수식은 **중학생도 따라올 수 있게** 그림 → 작은 예 → 기호 → 식 순서로 끌어낸다.
 - **분량**: 12개 섹션, 슬라이드 63장, 발표 약 45분 30초(섹션별 시간은 §1.10). 발견 순서 검증은 논문의 첫 평가라서 결과보다 앞의 섹션 `s08-discovery`에 둔다.
 - **출력 위치**: 이 폴더(`dissertation/presentation/`)의 `index.html` 한 장짜리 덱. `file://`로 두 번 눌러 열어도, http로 열어도 돌아가야 한다(ES 모듈·fetch 금지, `data/*.js`가 `window.DECK_DATA`에 넣음, 라이브러리는 `lib/`에 UMD로).
-- **근거**: 영어 원고 `dissertation/overleaf-github/`(1–6장, 초록, 부록), 주 분석(계약 그래프 분석) digest `experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`, 등록 분석 digest `experiments/data/3-published-results-for-thesis/results_digest.md`, 그 밖의 `experiments/data/` JSON·parquet. 화면 숫자는 `tools/build_data.py`가 이 파일들에서 만든 `data/*.js`(`window.DECK_DATA`)에서 읽는다.
+- **근거**: 영어 원고 `dissertation/overleaf-github/`(1–6장, 초록, 부록), 주 분석(계약 그래프 분석) digest `experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`, 등록 분석 digest `experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/results_digest.md`(둘 다 윤리 승인 뒤 다시 추출한 데이터의 것; 시간표의 추출 시각과 비용만 처음 추출의 기록 `experiments/data/3-published-results-for-thesis/`에서 읽음), 그 밖의 `experiments/data/` JSON·parquet. 화면 숫자는 `tools/build_data.py`가 이 파일들에서 만든 `data/*.js`(`window.DECK_DATA`)에서 읽는다.
 
 ---
 
@@ -1966,7 +1966,7 @@
   - "감사합니다" (display)
   - "질문을 받을게요"
   - 작게: "지도교수 Prof. Ernest Mnkandla · 공동 지도교수 Prof. Donatien Koulla Moulla, Dr. David Sena Attipoe · University of South Africa"
-  - 작게(mono): "코드·결과: github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation · 결과 digest: experiments/data/3-published-results-for-thesis/revised-usd-12m/"
+  - 작게(mono, 두 줄): "코드·결과: github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation" / "결과 digest: experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/revised-contract-12m/"
 - **그림**: 작은 세계(G7)의 네 점이 별자리처럼 화면 위쪽에 떠 있고, s01-01에서 제목 밑줄이 되었던 G1 화살표가 "감사합니다" 밑에 다시 그려진다. 데이터 키 없음.
 - **움직임**: 진입: 별자리 네 점이 하나씩 켜지고 화살표 넷이 그려진다(0.12s 엇갈림). 클릭 1: "감사합니다"가 낱말 단위로 떠오르고 밑줄 화살표. 클릭 2: 작은 글. 그 뒤 모든 움직임 멈춤(질의응답 동안 화면이 조용하게).
 - **수식·유도**: 없음.

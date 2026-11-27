@@ -20,18 +20,27 @@ to this script.
 
 Sources (all under ``<REPO>/``)
 -------------------------------
-- ``experiments/data/3-published-results-for-thesis/revised-contract-12m/``: summaries of the
-  contract-graph analysis (the thesis's main analysis; "revised" in the data keys) and its
+The results are those of the data extracted again after the ethics approval, which the thesis and
+the two manuscripts report. ``R`` below is their record folder
+``experiments/data/4-post-clearance-reextraction/replica/experiments/data/`` (``SUMMARIES``).
+
+- ``R/3-published-results-for-thesis/revised-contract-12m/``: summaries of the contract-graph
+  analysis (the thesis's main analysis; "revised" in the data keys) and its
   ``results_digest.md``: same window, W0, W1, the four runs of the discovery-order test and the
   structure pilot, Sybil model, robustness, benchmark, supplementary contrasts, data description,
   cohorts, account types, and the copies of the token list, the token-selection inputs and the
   constants (``usd/``);
-- ``experiments/data/3-published-results-for-thesis/``: summaries of the registered analysis and
-  its ``results_digest.md``;
-- ``experiments/data/2-processed-tables-and-evaluations/revised-contract-12m/``: per-contract scores
+- ``R/3-published-results-for-thesis/``: summaries of the registered analysis and its
+  ``results_digest.md``;
+- ``R/2-processed-tables-and-evaluations/revised-contract-12m/``: per-contract scores
   (``same-window/cohort_scores.part*.parquet``, ``holdout-w0`` and ``window-w1``
   ``spender_scores``) and the registered cohort scores;
-- ``experiments/data/0-usd-token-list-and-prices/daily_prices_usd.csv``: daily USD closes;
+- ``experiments/data/0-usd-token-list-and-prices/daily_prices_usd.csv``: daily USD closes (an input
+  that both extractions read);
+- ``experiments/data/3-published-results-for-thesis/``: the records of the first extraction that the
+  timeline reads, as the manuscripts do: the scan times, anchor blocks and BigQuery costs of the two
+  ``describe/describe.json`` files, ``registered-w1/extraction_manifest.json`` and the time in the
+  header of the registered ``results_digest.md``;
 - ``experiments/data/bq_ledger.json`` and ``experiments/config/contract_reputation.yaml``;
 - ``git -C <REPO> show`` for the commit times of d060f3a and 1747e64, the plan and the W1
   registration in the public repository (43d8045 and 0d3a057 in the authors' repository; the
@@ -76,6 +85,9 @@ import pandas as pd
 # The public repository as a submodule of the authors' private repository.
 PROJECT_REL = Path("1-Dissertation-Works/ERC20-Allowance-PageRank-Wallet-Reputation")
 VARIANT = "revised-contract-12m"
+# Record folder of the data extracted again after the ethics approval (an experiments/data layout);
+# its summaries and per-contract scores are the results the manuscripts report.
+SUMMARIES = Path("experiments/data/4-post-clearance-reextraction/replica/experiments/data")
 # Commits of the public repository; ORIGINAL gives the identifiers of the authors' repository,
 # which the extraction manifest and describe.json record.
 COMMITS = {
@@ -397,17 +409,24 @@ class Ctx:
         self.proj = phd
         self.exp = self.proj / "experiments"
         self.data = self.exp / "data"
-        self.pub = self.data / "3-published-results-for-thesis"
+        # results: the record folder of the data extracted again
+        self.res = self.proj / SUMMARIES
+        self.pub = self.res / "3-published-results-for-thesis"
         self.pub_rev = self.pub / VARIANT
-        self.proc = self.data / "2-processed-tables-and-evaluations"
+        self.proc = self.res / "2-processed-tables-and-evaluations"
         self.proc_rev = self.proc / VARIANT
         self.usd = self.data / "0-usd-token-list-and-prices"
         self.usd_rev = self.pub_rev / "usd"
+        # records of the first extraction (scan times, W1 extraction manifest, costs) for the timeline
+        self.rec = self.data / "3-published-results-for-thesis"
+        self.rec_rev = self.rec / VARIANT
         self.out = out
         self.sources: dict[str, Path] = {}
         self.current: set[str] = set()
         needed = [self.pub_rev / "results_digest.md", self.pub / "results_digest.md", self.proc_rev,
-                  self.usd / "daily_prices_usd.csv"]
+                  self.usd / "daily_prices_usd.csv", self.rec / "results_digest.md",
+                  self.rec / "describe/describe.json", self.rec_rev / "describe/describe.json",
+                  self.rec / "registered-w1/extraction_manifest.json", self.data / "bq_ledger.json"]
         needed += [self.pub_rev / f for f in (
             "same-window/eval_summary.json", "holdout-w0/eval_summary.json", "window-w1/eval_summary.json",
             "supplementary/supplementary.json", "robustness/robustness.json", "sybil-model/sybil_model.json",
@@ -592,9 +611,10 @@ def build_prices(c: Ctx):
 
 
 def build_timeline(c: Ctx, digests):
-    reg_desc = c.j(c.pub / "describe/describe.json")
-    rev_desc = c.j(c.pub_rev / "describe/describe.json")
-    manifest = c.j(c.pub / "registered-w1/extraction_manifest.json")
+    """``digests``: the digests of the first extraction (records), whose header times the timeline shows."""
+    reg_desc = c.j(c.rec / "describe/describe.json")
+    rev_desc = c.j(c.rec_rev / "describe/describe.json")
+    manifest = c.j(c.rec / "registered-w1/extraction_manifest.json")
     ledger = c.j(c.data / "bq_ledger.json")
     cfg_path = c.exp / "config/contract_reputation.yaml"
     commits = []
@@ -659,8 +679,8 @@ def build_timeline(c: Ctx, digests):
             "monthly_counts": ("registered only: ego approvals and transfers per month of scan A (all tokens). The "
                                "contract-graph analysis reads the whole chain over its windows and publishes no "
                                "monthly series."),
-            "sources": [c.rel(c.pub / "describe/describe.json"), c.rel(c.pub_rev / "describe/describe.json"),
-                        c.rel(c.pub / "registered-w1/extraction_manifest.json"), c.rel(c.data / "bq_ledger.json"),
+            "sources": [c.rel(c.rec / "describe/describe.json"), c.rel(c.rec_rev / "describe/describe.json"),
+                        c.rel(c.rec / "registered-w1/extraction_manifest.json"), c.rel(c.data / "bq_ledger.json"),
                         c.rel(cfg_path), "git log of the public repository"],
         },
         "periods": [
@@ -1597,6 +1617,7 @@ def main(argv=None) -> int:
     cfg = yaml.safe_load(c.use(cfg_path).read_text(encoding="utf-8"))
     digests = {"revised": parse_digest(c.use(c.pub_rev / "results_digest.md")),
                "registered": parse_digest(c.use(c.pub / "results_digest.md"))}
+    records = {"registered": parse_digest(c.use(c.rec / "results_digest.md"))}
 
     built = {}
 
@@ -1609,7 +1630,7 @@ def main(argv=None) -> int:
 
     run("contracts", build_contracts, c)
     run("prices", build_prices, c)
-    run("timeline", build_timeline, c, digests)
+    run("timeline", build_timeline, c, records)
     run("scale", build_scale, c)
     run("results", build_results, c)
     run("discovery", build_discovery, c)

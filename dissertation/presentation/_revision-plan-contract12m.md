@@ -5,7 +5,7 @@
 근거 문서(작업자가 먼저 읽을 것):
 
 - 주장과 숫자: `ERC20-private/dissertation/notes/_claims.md`(C1–C6, 데이터 사실, 모든 글이 지킬 점), `_writing-brief.md`의 "Aim and framing", `_revision-context.md`의 "What changed in the analysis", "Status words", "Words", "Notation of the discovery-order test".
-- 숫자의 원천: `experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`(이하 `C§n`)와 그 JSON. 등록 분석은 `experiments/data/3-published-results-for-thesis/results_digest.md`(`G§n`).
+- 숫자의 원천: `experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`(이하 `C§n`)와 그 JSON. 등록 분석은 같은 기록 폴더의 `3-published-results-for-thesis/results_digest.md`(`G§n`). 윤리 승인 뒤 다시 추출한 데이터의 요약본이고, 원고도 이 값을 써요. 2026-11-27부터 `tools/build_data.py`도 여기서 읽어요(처음 추출의 `experiments/data/3-published-results-for-thesis/`에서는 시간표의 추출 시각과 비용만 읽어요).
 - 한국어 용어: `dissertation/overleaf-github-ko/TRANSLATION-GUIDE.md` §5, §5b, §5c(계약 그래프와 발견 순서 검증의 말, 정해 둔 문장 넷), §5d(모든 한국어 글의 규칙).
 
 ---
@@ -36,7 +36,7 @@
 | `scale.revised.account_types` | 사용자 계정 21,877,279 · 계약 1,829,719 · 읽은 주소 6,230,270 · 블록 513,216,506 · `typed`, `after_extension`, `wallet_kind_*`(Safe 46,204, ERC-4337 279,813) | `C§1 account_types.*` |
 | `scale.revised.nodes`, `pairs`, `union_graph_tobs`, `union_graph_t1` | 계약 그래프의 점 1,403,959, 층마다 쌍 수(상한 씌운 허락 115,006 · 상한 없는 302,559 · 송금 2,580,709; 가장 큰 주인 98,073쌍), 합집합 그래프 | `C§1` |
 | `scale.revised.amounts` (+ `amounts_t1`, `amounts_per_token`) | 잔액 상한: 계약 사이 양수 마지막 허락 339,282 · 무제한 223,892(66.0%) · 0으로 잘림 222,559(65.6%) · 상한 뒤 양수 116,723 · … | `C§12 allowances.*` |
-| `scale.revised.balance_check`, `importance`, `constants`, `chainlink_check` | 잔액 점검 1,493/1,500 · I_T 166.1억 달러, I_A 3.095억 달러 · 상수 · 체인링크 점검 | `C§12` |
+| `scale.revised.balance_check`, `importance`, `constants`, `chainlink_check` | 잔액 점검 1,500/1,500 · I_T 166.1억 달러, I_A 3.095억 달러 · 상수 · 체인링크 점검 | `C§12` |
 | `scale.revised.cohort_coverage` | 매칭 코호트·W0 코호트·W0/W1 스펜더가 계약 그래프 어디에 있는지(합집합 그래프 4,270 = 66.3% 등) | `C§3`, `C§6`, `C§7` |
 | `scale.revised.members`, `by_class`, `user_accounts_by_source`, `listed` | 코호트 목록에서 사용자 계정을 뺀 수(6,483 → 6,443, 40개 스마트 계정) | `cohort/*.json` |
 | `scale.revised.label_split` | 라벨을 센 계정의 종류(W0 새 허락 쌍 748,258, 사용자 계정 90.4% …) | `C§6`, `C§7` |
@@ -169,7 +169,7 @@ meta의 말(`NOTES`): `scope`는 "모든 그래프의 점은 계약, 사용자 �
 | s05-03 | 금액 무게 V(z) | 고침 | `scale.registered.amounts.*`, `params.value.b_A` | 등록 분석 대조(99.52%·99.78%)는 `등록 분석` 태그 그대로. 그림의 b = ln 3/100 → 새 b(데이터) |
 | s05-04 | b = ln 3 / m | 교체(55 → 40초) | `params.value.{m_T, m_A, m_*_raw}` | m_T = 160달러(164.05, 계약 사이 송금 377,876,886건), m_A = 0.071달러(0.0707, t₁의 상한 씌운 양수 허락의 중앙값, 무제한 포함). 동전 줄 예시를 다시. 허락 쪽은 1달러에서 V ≈ 1.000(s11 농장에서 다시 씀). 옛 "492,666,999건 · 2,324,723건"은 지움 |
 | s05-05 | 두 그래프의 무게와 다시 출발 | 고침 | 예시, `params.value` | "활발한 송신자" → "활발하게 보내는 계약", "허락을 많이 해 준 주인" → "주인 계약" |
-| s05-06 | 달러로 바꾸기와 상한 U (C-PR용) | 교체 | `params.cap.{U_usd, p99_transfer_usd_raw, p99_finite_allowance_usd_raw(없어짐)}`, `scale.revised.amounts.{unlimited_share, allowances_at_or_above_cap_share, owners_with_both_kinds(없어짐)}` → `params.cap.{U_usd, U_user_usd, p99_*_raw, balance_cap}`, `scale.revised.amounts.*` | 제목 "달러로, 잔액까지만, 상한 U까지". 새 단계: 잔액 상한 usd_eff = min(허락, 동결 시점 주인의 잔액)(339,282 → 0으로 잘림 222,559, 상한 뒤 양수 116,723; 잔액 점검 1,493/1,500). U = 16,000달러(계약 사이 송금 한 건의 99번째 백분위 16,412 → 두 자리). U_user = 31,000달러는 08의 중요도에서 씀. s05-06 → s06-03 공유 요소(상한 막대 → 허락 줄)는 묶음 3과 맞출 것 |
+| s05-06 | 달러로 바꾸기와 상한 U (C-PR용) | 교체 | `params.cap.{U_usd, p99_transfer_usd_raw, p99_finite_allowance_usd_raw(없어짐)}`, `scale.revised.amounts.{unlimited_share, allowances_at_or_above_cap_share, owners_with_both_kinds(없어짐)}` → `params.cap.{U_usd, U_user_usd, p99_*_raw, balance_cap}`, `scale.revised.amounts.*` | 제목 "달러로, 잔액까지만, 상한 U까지". 새 단계: 잔액 상한 usd_eff = min(허락, 동결 시점 주인의 잔액)(339,282 → 0으로 잘림 222,559, 상한 뒤 양수 116,723; 잔액 점검 1,500/1,500). U = 16,000달러(계약 사이 송금 한 건의 99번째 백분위 16,412 → 두 자리). U_user = 31,000달러는 08의 중요도에서 씀. s05-06 → s06-03 공유 요소(상한 막대 → 허락 줄)는 묶음 3과 맞출 것 |
 
 ### s06-methods (묶음 3)
 

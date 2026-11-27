@@ -150,10 +150,11 @@ node build_print.mjs --keep DIR              # 쪽 그림과 print.html을 DIR�
 
 | 출처 (공개 저장소의 맨 위 기준) | 뜻 |
 |---|---|
-| `experiments/data/3-published-results-for-thesis/revised-usd-12m/results_digest.md`와 그 폴더의 JSON | **수정 분석** — 논문의 주 분석(달러 금액, 다섯 토큰, 동결 전 12개월의 점수 기간) |
-| `experiments/data/3-published-results-for-thesis/results_digest.md`와 그 폴더의 JSON | **등록 분석** — 화면에서 늘 '등록 분석'이라고 밝혀요 |
-| `experiments/data/2-processed-tables-and-evaluations/revised-usd-12m/…/*.parquet` | 계약별 점수(같은 기간 코호트, 홀드아웃 W0, 기간 W1의 스펜더·트레이더) |
-| `experiments/data/0-usd-token-list-and-prices/` | 토큰 목록, 하루 달러 가격, `usd-12m/`의 상수 m_T·m_A·U와 점수 기간의 토큰별 행 수 |
+| `experiments/data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/revised-contract-12m/results_digest.md`와 그 폴더의 JSON(토큰 목록과 상수는 `usd/`) | **주 분석(계약 그래프 분석, 데이터 키에서는 'revised')** — 윤리 승인 뒤 다시 추출한 데이터의 결과예요. 학위논문과 투고 논문 A·B도 이 값을 써요 |
+| 같은 기록 폴더의 `3-published-results-for-thesis/results_digest.md`와 그 폴더의 JSON | **등록 분석** — 화면에서 늘 '등록 분석'이라고 밝혀요 |
+| 같은 기록 폴더의 `2-processed-tables-and-evaluations/revised-contract-12m/…/*.parquet` | 계약별 점수(같은 기간 코호트, 홀드아웃 W0, 기간 W1의 스펜더) |
+| `experiments/data/0-usd-token-list-and-prices/daily_prices_usd.csv` | 하루 달러 가격(두 추출이 함께 읽는 입력) |
+| `experiments/data/3-published-results-for-thesis/`의 두 `describe/describe.json`, `registered-w1/extraction_manifest.json`, 등록 분석 digest의 머리 시각 | 처음 추출의 기록: 시간표의 추출 시각, 앵커 블록, 빅쿼리 비용(원고도 이 기록을 읽어요) |
 | `experiments/config/contract_reputation.yaml`, `experiments/data/bq_ledger.json` | 설정값, 빅쿼리 비용 장부 |
 | `git show <커밋>`(공개 저장소) | d060f3a(분석 계획)와 1747e64(W1 등록)의 커밋 시각. 공개 저장소는 저자들의 비공개 저장소(`phd_works`)에서 이 폴더의 기록을 시각과 내용 그대로 옮겨 실은 것이고, 원래 번호 43d8045와 0d3a057은 매니페스트와 describe.json에 적혀 있어요(그 저장소의 `HISTORY.md`가 대응시켜요). 수정 분석의 정의에는 시각을 붙이지 않아요(논문처럼 '등록 결과를 본 뒤'라고만 해요) |
 
@@ -184,7 +185,7 @@ python3 tools/build_data.py /path/to/ERC20-Allowance-PageRank-Wallet-Reputation 
 python3 tools/build_data.py --no-verify     # 검사 건너뛰기
 ```
 
-다 쓰고 나면 파일을 다시 읽어 두 digest와 parquet에서 다시 센 켄달 계수와 35개 값을 견줘 보고, 하나라도 틀리면 종료 코드 1로 끝나요. 지금 `data/`의 파일은 이 검사에서 35/35가 맞았어요.
+다 쓰고 나면 파일을 다시 읽어 두 digest의 값, parquet에서 다시 센 켄달 계수와 견줘 보고(72개), 하나라도 틀리면 종료 코드 1로 끝나요. 지금 `data/`의 파일은 다시 추출한 데이터의 두 digest와 견준 이 검사에서 72/72가 맞았어요.
 
 ---
 
