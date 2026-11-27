@@ -7,14 +7,14 @@ PLOS ONE 양식이 요구하는 윤리 진술, 자료 공개, 생성형 AI 사�
 
 \subsection{윤리 진술}
 
-이 연구는 공개된 블록체인 자료와 공개된 토큰 가격만 썼고, 사람 참여자는 없어요. 점수를 매긴 주소는 계약이에요. 사용자 계정은 하나도 점수를 매기거나 보고하지 않았고, 중요도 척도와 라벨에 계정들에 걸친 합으로만 들어가요. 어떤 주소도 실제 신원과 이으려 하지 않았고, 집계 통계만 보고해요. 이 연구는 남아프리카 대학교(Unisa) 과학·공학·기술 대학(CSET) 컴퓨팅 학부의 연구 윤리 심사 위원회에서 위험이 낮은 연구로 승인을 받았어요(참조 번호 18316, 2026년 11월 9일).
+이 연구는 공개된 블록체인 자료와 공개된 토큰 가격만 썼고, 사람 참여자는 없어요. 점수를 매긴 주소는 계약이고, 사용자 계정은 하나도 점수를 매기거나 보고하지 않았어요. 주 분석에서 사용자 계정은 코호트 규칙을 거쳐서, 그리고 중요도 척도와 라벨에 계정들에 걸친 합으로만 들어가요. 등록 분석의 그래프에는 코호트 사건의 모든 계정이 들어 있어요. 공개한 파일의 모든 주소는 로그 자체에서처럼 체인의 공개된 가명이에요. 어떤 주소도 실제 신원과 이으려 하지 않았고, 이 글은 집계 통계만 보고해요. 이 연구는 남아프리카 대학교(Unisa) 과학·공학·기술 대학(CSET) 컴퓨팅 학부의 연구 윤리 심사 위원회에서 위험이 낮은 연구로 승인을 받았어요(참조 번호 18316, 2026년 11월 9일).
 
 \subsection{자료 공개}
 
 \begin{itemize}
 \item \textbf{저장소의 내용:} 평가 코드, 판을 매긴 설정 파일, SQL 질의, 분석 계획, W1 등록, 계약 그래프 분석을 정의하는 문서와 발견 순서 검증의 프로토콜, 실행 목록(manifest), 모든 표 뒤에 있는 기계가 읽는 요약과 그 체크섬이에요. 이것들은 Git 저장소 \nolinkurl{https://github.com/abitocodes/ERC20-Allowance-PageRank-Wallet-Reputation}의 폴더 \nolinkurl{experiments}에서 누구나 받을 수 있어요.
 \item \textbf{커밋 식별자:} 저장소의 파일 \nolinkurl{HISTORY.md}에는 추출 목록과 등록 분석의 결과 요약(digest)이 적은 커밋 식별자의 대응표가 있어요.
-\item \textbf{요약의 위치:} 이 원고가 기대는 요약은 커밋 \texttt{6b389df}의 것이에요. \nolinkurl{data/3-published-results-for-thesis/}(등록 분석)과 그 아래 폴더 \nolinkurl{revised-contract-12m/}(주 분석)에 있어요. 결과 요약(digest)과 요약 하나하나는 자기를 계산한 코드 리비전을 기록해요.
+\item \textbf{요약의 위치:} 이 원고가 기대는 요약은 커밋 \texttt{5248472}의 것이에요. \nolinkurl{data/4-post-clearance-reextraction/replica/experiments/data/3-published-results-for-thesis/}(등록 분석)과 그 아래 폴더 \nolinkurl{revised-contract-12m/}(주 분석)에 있어요. 결과 요약(digest)과 요약 하나하나는 자기를 계산한 코드 리비전을 기록해요.
 \item \textbf{계약별 파일:} 계정 종류, 그래프 표, 계약별 점수와 라벨, 그리고 모든 출발 계약과 순서 규칙에서 뜨거운 계약 하나하나에 닿은 방문은 공개 Google Drive 폴더에 parquet 파일로 두었어요. 그 링크와 체크섬은 폴더의 파일 \nolinkurl{drive-manifest.json}에 있어요.
 \item \textbf{대조 스크립트:} 닫힌 식의 값을 그 파일들과 대조하는 스크립트는 \nolinkurl{https://github.com/abitocodes/phd-dissertation-draft-en}의 폴더 \nolinkurl{analysis/}에, 이 원고의 표와 그림 1을 만드는 스크립트는 그 저장소의 폴더 \nolinkurl{manuscripts/A-plos-one/}에 있어요.
 \item \textbf{보조 자료:} 계획과 등록의 발췌는 S1 File에, 질의는 S1 Text에 있어요.
